@@ -74,6 +74,7 @@ var Mine=React.createClass({
 		}
 		hashHistory.push(path);
 	},
+	
 	render:function(){
 		var that=this;
         return (

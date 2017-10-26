@@ -18,6 +18,7 @@ import List from './list';
 import ListDetail from './listDetail';
 import Problem from './problem';
 import Order from './order';
+import Ask from './ask';
 //<Route path='/detail/:id' component={Detail} />
 
 ReactDom.render((
@@ -35,5 +36,6 @@ ReactDom.render((
    		<Route path='/ListDetail' component={ListDetail}/>
    		<Route path='/Problem' component={Problem}/>
    		<Route path='/Order' component={Order}/>
+   		<Route path='/Ask' component={Ask}/>
    </Router>
 ), document.getElementById('app'));

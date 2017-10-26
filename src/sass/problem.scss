@@ -55,3 +55,57 @@
     }
 
 }
+.problem{
+    position: relative;
+  .askBtn{
+      width: 1.6rem;
+      height: 0.82rem;
+      background: $blue;
+      color: #ffffff;
+      font-size: 0.3rem;
+      text-align: center;
+      line-height: 0.82rem;
+      position: absolute;
+      bottom: 0.7rem;
+      right: 0.5rem;
+      box-shadow: 0 3px 10px rgba(83,166,255,0.5);
+    }  
+}
+.ask{
+   .askCon{
+       background: #ffffff;
+       padding:0 0.45rem;
+       p{
+           height: 1rem;
+           line-height: 1rem;
+           font-size: 0.28rem;
+           color: #333333;
+       }
+       textarea{
+           width:100% ;
+           height: 3.3rem;
+           background: $grey;
+           color:#333333 ;
+           border: 1px solid #dddddd;
+           border-radius: 5px;
+           padding: 0.1rem;
+           line-height: 0.5rem;
+           resize:none;
+       }
+       textarea:-ms-input-placeholder{
+            color: #AAAAAA;opacity:1;
+        }
+        
+        textarea::-webkit-input-placeholder{
+            color: #AAAAAA;opacity:1;
+        }
+   } 
+   .askSubmit{
+       height: 1rem;
+       line-height: 1rem;
+       background: $blue;
+       color: #ffffff;
+       font-size: 0.28rem;
+       text-align: center;
+   }
+}

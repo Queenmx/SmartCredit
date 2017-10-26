@@ -28,7 +28,14 @@ var Problem=React.createClass({
 		hashHistory.push(path);
 	},
 	
-	
+	toAsk:function(){
+		var data = {id:3,name:"qin",age:18};
+		var path = {
+		  pathname:'/Ask',
+		  query:data,
+		}
+		hashHistory.push(path);
+	},
 	render:function(){
 		var that=this;
 		//console.log("cityId",cityId);
@@ -60,7 +67,8 @@ var Problem=React.createClass({
         						<p><span>王昭君</span><span>2017-09-28</span></p>
         						<p>首先你查一下自己的逾期情况有多严重，有没有超过九十天，有几次，是不是连续的，不同成都有不同的处理办法，如果只有几次逾期，超过几天，关系影响不大。</p>
         					</div>
-        				</div>
+        			</div>
+        			<div className="askBtn" onClick={this.toAsk}>提问</div>
 	        	</div>
 	        	
         	</div>

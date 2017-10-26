@@ -41,6 +41,7 @@ var ListDetail=React.createClass({
 	  },
 	  toMoneyDetail:function(){
 	  	//参照我的收藏
+	  	
 	  },
 	  toProblem:function(){
 	  	//var data = {};
