@@ -1,2 +1,1 @@
-## install dependencies
-npm install
+# znd

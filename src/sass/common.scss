@@ -1,0 +1,213 @@
+$grey:#f3f3f3;
+$blue:#53a6ff;
+$red:#f94b4b;
+.ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ellipsis-2 {
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal !important;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+
+@mixin clear_float{
+    &:after{
+        content: "";
+        display: block;
+        height: 0;
+        clear: both;
+    }
+}
+@mixin border_Top($size:1px,$color:$grey){
+    position: relative;
+    &:before{
+        pointer-events: none;
+        width:200%;
+        position:absolute;
+        top:0;
+        left:0;
+        z-index:1;
+        content:"";
+        -webkit-transform:scale(0.5);
+        -webkit-transform-origin:0 0;
+        transform:scale(0.5);
+        transform-origin:0 0;
+        border-top:$size solid $color;
+    }
+    
+}
+@mixin border_Bot($size:1px,$color:$grey){
+    position: relative;
+    &:after {
+        pointer-events: none;
+        width:200%;
+        height:200%;
+        position:absolute;
+        top:0;
+        left:0;
+        z-index:1;
+        content:"";
+        -webkit-transform:scale(0.5);
+        -webkit-transform-origin:0 0;
+        transform:scale(0.5);
+        transform-origin:0 0;
+        border-bottom:$size solid $color;
+    }
+}
+@mixin border_left($size:1px,$color:$grey){
+    position: relative;
+    &:before{
+        pointer-events: none;
+        width:200%;
+        height: 200%;
+        position:absolute;
+        top:0;
+        left:0;
+        z-index:1;
+        content:"";
+        -webkit-transform:scale(0.5);
+        -webkit-transform-origin:0 0;
+        transform:scale(0.5);
+        transform-origin:0 0;
+        border-left:$size solid $color;
+    }
+    
+}
+@mixin border_Right($size:1px,$color:#ddd){
+    position: relative;
+    &:after {
+        pointer-events: none;
+        width:200%;
+        height:200%;
+        position:absolute;
+        top:0;
+        left:0;
+        z-index:1;
+        content:"";
+        -webkit-transform:scale(0.5);
+        -webkit-transform-origin:0 0;
+        transform:scale(0.5);
+        transform-origin:0 0;
+        border-right:$size solid $color;
+    }
+}
+
+@mixin border_1px($size1:1px,$size2:1px,$color:#ddd){
+    position: relative;
+    &:before{
+        pointer-events: none;
+        width:200%;
+        height:200%;
+        position:absolute;
+        top:0;
+        left:0;
+        z-index:1;
+        content:"";
+        -webkit-transform:scale(0.5);
+        -webkit-transform-origin:0 0;
+        transform:scale(0.5);
+        transform-origin:0 0;
+        border-top:$size1 solid $color;
+    }
+    &:after {
+        pointer-events: none;
+        width:200%;
+        height:200%;
+        position:absolute;
+        top:0;
+        left:0;
+        z-index:1;
+        content:"";
+        -webkit-transform:scale(0.5);
+        -webkit-transform-origin:0 0;
+        transform:scale(0.5);
+        transform-origin:0 0;
+        border-top:$size2 solid $color;
+    }
+}
+@mixin flex_column {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+}
+@mixin only_display {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+@mixin flex_1 {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+@mixin flex_x($x) {
+    -webkit-box-flex: $x;
+    -moz-box-flex: $x;
+    -webkit-flex: $x;
+    -ms-flex: $x;
+    flex: $x;
+}
+
+@mixin only_justify {
+    -webkit-box-pack: center;
+    -moz-justify-content: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+@mixin only_align {
+    -webkit-box-align: center;
+    -moz-align-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+//radius
+@mixin border-radius($radius) {
+  border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -o-border-radius: $radius;
+  -ms-border-radius: $radius;
+}
+
+@mixin border_four_radius($radius1,$radius2,$radius3,$radius4) {
+  border-top-left-radius: $radius1;
+  -webkit-border-top-left-radius: $radius1;
+ // -moz-border-top-left-radius:$radius1;
+  
+  border-top-right-radius: $radius2;
+  -webkit-border-top-right-radius: $radius2;
+  //-moz-border-top-right-radius:$radius2;
+  
+  border-bottom-right-radius: $radius3;
+  -webkit-bottom-top-right-radius: $radius3;
+ // -moz-border-bottom-right-radius:$radius3;
+  
+  border-bottom-left-radius: $radius4;
+  -webkit-bottom-left-radius: $radius4;
+ // -moz-border-bottom-left-radius:$radius4;
+}
+@mixin box_Shadow($val1,$val2,$val3,$color){
+        box-shadow: $val1 $val2 $val3 $color;
+         -webkit-box-shadow: $val1 $val2 $val3 $color;
+         -moz-box-shadow: $val1 $val2 $val3 $color;
+}
+

@@ -1,0 +1,240 @@
+@charset "utf-8";
+@import "common" ;
+.listDetail{
+  background: $grey;  
+  .rangeInfo{
+      background: #ffffff;
+      @include only_display;
+      
+      li{
+          margin: 0.35rem 0;
+         @include flex_1; 
+         @include border_Right;
+         .numBox{
+             width: 2.4rem;
+             height: 1rem;
+             line-height: 1rem;
+             margin: 0 auto;
+             color: #333333;
+             font-size: 0.28rem;
+             div{
+                 margin-top:0.22rem ;
+                 float: right;
+                 position: relative;
+                 width: 1.6rem;
+                 height: 0.55rem;
+                 line-height: 0.55rem;
+                 border: 1px solid #c5c5c5;
+                 border-radius: 0.26rem;
+                 input{
+                     border: 0;
+                     background: transparent;
+                     text-indent: 0.2rem;
+                     width: 1rem;
+                     color: $blue;
+                     text-align: center;
+                 }
+                 span{
+                     position: absolute;
+                     right: 0.2rem;
+                 }
+             }
+             
+         }
+         p{
+             text-align: center;
+             color: #aaaaaa;
+             font-size: 0.22rem;
+         }
+      }
+  }
+  .circle{
+      background: #ffffff;
+      padding: 0.35rem 0;
+      @include clear_float;
+      .circlePic{
+          width: 50%;
+          float: left;
+          .rings{
+              width:2.14rem ;
+              height: 2.14rem;
+             position: relative;
+               margin-left:1.2rem ;
+               p{
+                   position: absolute;
+                   left: 0;
+                   right: 0;
+                   top: 0;
+                   bottom: 0;
+                   margin: auto;
+                   color: #333333;
+                   font-size: 0.28rem;
+                   span{
+                       color: #666666;
+                       font-size: 0.24rem;
+                   }
+               } 
+          }
+          
+          
+      }
+      .circleInfo{
+          width: 50%;
+          float: left;
+         padding-left:0.3rem ;
+          li{
+              line-height: 0.5rem;
+              color: #666666;
+                font-size: 0.22rem;
+              i{
+                width:0.22rem;
+                height: 0.22rem;
+                border-radius: 50%;
+                margin-right: 0.2rem;
+                background: aqua;
+              }
+          }
+      }
+  }
+  .moneyDetailBox{
+      background: #ffffff;
+      text-align: center;
+      p{
+          height: 0.7rem;
+          line-height: 0.7rem;
+          text-align: center;
+          color: #666666;
+          font-size: 0.22rem;
+          img{
+              //width: ;
+          }
+      }
+  }
+  
+  .flowBox{
+      .flowPic{
+          background: #ffffff;
+          height:1.8rem;
+          line-height: 1.8rem;
+          img{
+             // width: ;
+          }
+      }
+      .application{
+          background: #ffffff;
+          color: #666666;
+          font-size: 0.22rem;
+          padding: 0.3rem 0.5rem;
+          li{
+             line-height: 0.44rem; 
+          }
+      }
+  }
+  h2{
+     height: 0.8rem;
+     line-height: 0.8rem;
+     color: #333333;
+     font-size: 0.28rem;
+      text-indent: 0.5rem;
+      @include border_Bot;
+      margin-top: 0.12rem;
+      background: #ffffff;
+      font-weight: 500;
+      span{
+          font-size: 0.2rem;
+          float: right;
+          margin-right: 0.5rem;
+          img{
+              width: 0.1rem;
+              height: 0.2rem;
+              margin-left: 0.2rem;
+          }
+      }
+  }
+      .applyBtnBox{
+        height: 0.95rem;
+        @include only_display;
+        .applySaveBtn{
+            width:2rem;
+            background: #ffffff;
+            img{
+                width:0.45rem ;
+                height: 0.45rem;
+                display: block;
+                margin:0.12rem auto 0;
+            }
+            p{
+             text-align: center;
+             color: #aaaaaa;   
+             font-size: 0.24rem;
+            }
+        }
+        .applyBtn{
+            @include flex_1;
+            background: $blue;
+            color: #ffffff;
+            line-height: 0.95rem;
+            font-size: 0.28rem;
+            text-align: center;
+        }
+    }
+}
+.problemList{
+    background: #ffffff;
+    padding: 0 0.5rem;
+    position: relative;
+    
+    .problem{
+        img{
+        position: absolute;
+        width:0.44rem;
+        height: 0.44rem;
+        top: 0.2rem;
+        left: 0;
+    }
+        @include border_Bot;
+        padding-left:  0.7rem;
+        padding-top: 0.2rem;
+       p{
+         color:#333333; ;
+         font-size: 0.24rem;
+           line-height: 0.5rem;
+       } 
+       span{
+           color: #aaaaaa;
+           font-size: 0.2rem;
+           line-height: 0.6rem;
+       }
+       
+    }
+    .answer{
+        img{
+        position: absolute;
+        width:0.44rem;
+        height: 0.44rem;
+        top: 0;
+        left: 0;
+    }
+        position: relative;
+        padding-left: 0.7rem;
+         p:nth-of-type(1){
+            height: 0.7rem;
+            line-height: 0.7rem;
+            span:nth-child(1){
+                float: left;
+                color: #666666;
+                font-size: 0.24rem;
+            } 
+            span:nth-child(2){
+                float: right;
+                color: #aaaaaa;
+                font-size: 0.2rem;
+            }
+        }
+        p:nth-of-type(2){
+            line-height: 0.5rem;
+            color: #333333;
+        }
+    }
+
+}

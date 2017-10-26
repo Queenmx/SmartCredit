@@ -1,0 +1,23 @@
+
+module.exports=(url,data,cb)=>{
+    $.ajax({
+        url:url,
+        data:data,
+        type:"POST",
+        dataType:"json",
+        success:function(res){
+            cb(res)
+        }
+    })
+};
+module.exports.get=(url,data,cb)=>{
+    $.ajax({
+        url:url,
+        data:JSON.stringify(data),
+        type:"GET",
+        dataType:"json",
+        success:function(res){
+            cb(res)
+        }
+    })
+};

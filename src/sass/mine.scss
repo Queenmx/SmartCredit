@@ -1,0 +1,128 @@
+@charset "utf-8";
+@import "common" ;
+
+.mine{
+    background: $grey;
+   .userHeader{
+       height: 2rem;
+       background: $blue;
+       .userImg{
+           float: left;
+           margin-top: 0.4rem;
+           margin-left: 0.54rem;
+           width: 1.4rem;
+           height: 1.4rem;
+           border-radius: 50%;
+       }
+       .userInfo{
+           float: left;
+           margin-left: 0.5rem;
+           margin-top:0.66rem;
+           p{
+               height: 0.5rem;
+               line-height: 0.5rem;
+               color: #ffffff;
+               font-size: 0.28rem;
+           }
+           span{
+               background: #ffffff;
+               padding:0 0.1rem ;
+               border-radius: 3px;
+               color: $blue;
+           }
+           
+       }
+       .goLogin{
+           margin-top: 0.8rem;
+           margin-right: 0.3rem;
+           width: 0.5rem;
+           height: 0.5rem;
+           float: right;
+       }
+   } 
+   .creditLevel{
+       background: #ffffff;
+       height: 0.68rem;
+       line-height: 0.68rem;
+       font-size: 0.28rem;
+       p{
+           margin-left: 0.54rem;
+           float: left;
+         color: #333333;
+         b{
+             color: $blue;
+         }  
+       }
+       span{
+           margin-right: 0.4rem;
+           float: right;
+           color: #aaaaaa;
+           img{
+               margin-left: 0.1rem;
+               width: 0.1rem;
+            height: 0.2rem;
+           }
+       }
+       
+   }
+   .userOrder{
+       margin-top: 0.12rem;
+       h2{
+           background: #ffffff;
+           height: 0.88rem;
+           line-height: 0.88rem;
+           font-size: 0.3rem;
+           font-weight: 500;
+           text-indent: 0.54rem;
+           @include border_Bot;
+       }
+//     .orderNav{
+//         @include only_display;
+//         li{
+//              @include flex_1;
+//              box-sizing: border-box;
+//             @include border-Right;
+//             height: 2.05rem;
+//             img{
+//                 display: block;
+//                 width:0.6rem;
+//                 height:0.6rem;
+//                 margin: 0.66rem auto 0.26rem;
+//             }
+//         p{
+//             text-align: center;
+//             font-size: 0.28rem;
+//             color: #666666;
+//         }
+//         }
+//         
+//     }
+       ul{
+           
+            @include only_display;
+            flex-wrap:wrap;
+           li{
+                flex: 0 1 33.33%;
+                box-sizing: border-box;
+               @include border_left;
+               @include border_Bot;
+               height: 2.05rem;
+               background: #ffffff;
+               img{
+                   display: block;
+                   width:0.6rem;
+                   height:0.6rem;
+                   margin: 0.66rem auto 0.26rem;
+               }
+           p{
+               text-align: center;
+               font-size: 0.28rem;
+               color: #666666;
+           }
+           }
+       }
+        .identBox{
+            margin-top: 0.12rem;
+        }
+    }
+}
