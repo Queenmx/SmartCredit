@@ -1,1 +1,2 @@
- SmartCredit
+# install dependencies
+npm install
