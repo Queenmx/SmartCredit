@@ -16,6 +16,8 @@ import NewsDetail from './newsDetail';
 import Save from './save';
 import List from './list';
 import ListDetail from './listDetail';
+import Problem from './problem';
+import Order from './order';
 //<Route path='/detail/:id' component={Detail} />
 
 ReactDom.render((
@@ -31,5 +33,7 @@ ReactDom.render((
    		<Route path='/Save' component={Save}/>
    		<Route path='/List' component={List}/>
    		<Route path='/ListDetail' component={ListDetail}/>
+   		<Route path='/Problem' component={Problem}/>
+   		<Route path='/Order' component={Order}/>
    </Router>
 ), document.getElementById('app'));

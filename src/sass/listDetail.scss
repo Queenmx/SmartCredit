@@ -106,7 +106,9 @@
           color: #666666;
           font-size: 0.22rem;
           img{
-              //width: ;
+              width: 0.37rem;
+              height:0.15rem;
+              margin-left: 0.5rem;
           }
       }
   }
@@ -178,63 +180,4 @@
             text-align: center;
         }
     }
-}
-.problemList{
-    background: #ffffff;
-    padding: 0 0.5rem;
-    position: relative;
-    
-    .problem{
-        img{
-        position: absolute;
-        width:0.44rem;
-        height: 0.44rem;
-        top: 0.2rem;
-        left: 0;
-    }
-        @include border_Bot;
-        padding-left:  0.7rem;
-        padding-top: 0.2rem;
-       p{
-         color:#333333; ;
-         font-size: 0.24rem;
-           line-height: 0.5rem;
-       } 
-       span{
-           color: #aaaaaa;
-           font-size: 0.2rem;
-           line-height: 0.6rem;
-       }
-       
-    }
-    .answer{
-        img{
-        position: absolute;
-        width:0.44rem;
-        height: 0.44rem;
-        top: 0;
-        left: 0;
-    }
-        position: relative;
-        padding-left: 0.7rem;
-         p:nth-of-type(1){
-            height: 0.7rem;
-            line-height: 0.7rem;
-            span:nth-child(1){
-                float: left;
-                color: #666666;
-                font-size: 0.24rem;
-            } 
-            span:nth-child(2){
-                float: right;
-                color: #aaaaaa;
-                font-size: 0.2rem;
-            }
-        }
-        p:nth-of-type(2){
-            line-height: 0.5rem;
-            color: #333333;
-        }
-    }
-
 }

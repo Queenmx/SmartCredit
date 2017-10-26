@@ -14628,6 +14628,14 @@ var _listDetail = __webpack_require__(254);
 
 var _listDetail2 = _interopRequireDefault(_listDetail);
 
+var _problem = __webpack_require__(277);
+
+var _problem2 = _interopRequireDefault(_problem);
+
+var _order = __webpack_require__(280);
+
+var _order2 = _interopRequireDefault(_order);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //<Route path='/detail/:id' component={Detail} />
@@ -14645,7 +14653,9 @@ _reactDom2.default.render(_react2.default.createElement(
     _react2.default.createElement(_reactRouter.Route, { path: '/NewsDetail', component: _newsDetail2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: '/Save', component: _save2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: '/List', component: _list2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/ListDetail', component: _listDetail2.default })
+    _react2.default.createElement(_reactRouter.Route, { path: '/ListDetail', component: _listDetail2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: '/Problem', component: _problem2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: '/Order', component: _order2.default })
 ), document.getElementById('app'));
 //import {globalData} from './global.js';
 
@@ -29059,6 +29069,14 @@ var ListDetail = _react2.default.createClass({
 	toMoneyDetail: function toMoneyDetail() {
 		//参照我的收藏
 	},
+	toProblem: function toProblem() {
+		//var data = {};
+		var path = {
+			pathname: '/Problem'
+			//query:data,
+		};
+		_reactRouter.hashHistory.push(path);
+	},
 	render: function render() {
 		var that = this;
 		//console.log("cityId",cityId);
@@ -29185,7 +29203,7 @@ var ListDetail = _react2.default.createClass({
 						'p',
 						{ onClick: that.toMoneyDetail },
 						'\u67E5\u770B\u8BE6\u60C5',
-						_react2.default.createElement('img', { src: '' })
+						_react2.default.createElement('img', { src: 'src/img/icon/down.png' })
 					)
 				),
 				_react2.default.createElement(
@@ -29199,7 +29217,7 @@ var ListDetail = _react2.default.createClass({
 					_react2.default.createElement(
 						'div',
 						{ className: 'flowPic' },
-						_react2.default.createElement('img', { src: '' })
+						_react2.default.createElement('img', { src: 'src/img/icon/tell.png' })
 					),
 					_react2.default.createElement(
 						'h2',
@@ -29251,7 +29269,7 @@ var ListDetail = _react2.default.createClass({
 					),
 					_react2.default.createElement(
 						'h2',
-						null,
+						{ onClick: this.toProblem },
 						'\u5E38\u89C1\u95EE\u9898',
 						_react2.default.createElement(
 							'span',
@@ -29265,8 +29283,8 @@ var ListDetail = _react2.default.createClass({
 						{ className: 'problemList' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'problem' },
-							_react2.default.createElement('img', { src: 'src/img/icon/right.png' }),
+							{ className: 'problemBlock' },
+							_react2.default.createElement('img', { src: 'src/img/icon/problem.png' }),
 							_react2.default.createElement(
 								'p',
 								null,
@@ -29280,8 +29298,8 @@ var ListDetail = _react2.default.createClass({
 						),
 						_react2.default.createElement(
 							'div',
-							{ className: 'answer' },
-							_react2.default.createElement('img', { src: 'src/img/icon/right.png' }),
+							{ className: 'answerBlock' },
+							_react2.default.createElement('img', { src: 'src/img/icon/answer.png' }),
 							_react2.default.createElement(
 								'p',
 								null,
@@ -29311,7 +29329,7 @@ var ListDetail = _react2.default.createClass({
 				_react2.default.createElement(
 					'div',
 					{ className: 'applySaveBtn' },
-					_react2.default.createElement('img', { src: '' }),
+					_react2.default.createElement('img', { src: 'src/img/icon/sc1.png' }),
 					_react2.default.createElement(
 						'p',
 						null,
@@ -29430,6 +29448,12 @@ var Mine = _react2.default.createClass({
 		};
 		_reactRouter.hashHistory.push(path);
 	},
+	toOrder: function toOrder() {
+		var path = {
+			pathname: '/Order'
+		};
+		_reactRouter.hashHistory.push(path);
+	},
 	render: function render() {
 		var that = this;
 		return _react2.default.createElement(
@@ -29519,7 +29543,7 @@ var Mine = _react2.default.createClass({
 						),
 						_react2.default.createElement(
 							'li',
-							null,
+							{ onClick: that.toOrder },
 							_react2.default.createElement('img', { src: 'src/img/icon/dd3.png' }),
 							_react2.default.createElement(
 								'p',
@@ -30555,6 +30579,188 @@ __webpack_require__(123);
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(8);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _api = __webpack_require__(15);
+
+var _api2 = _interopRequireDefault(_api);
+
+var _global = __webpack_require__(14);
+
+var _header = __webpack_require__(27);
+
+var _header2 = _interopRequireDefault(_header);
+
+var _reactRouter = __webpack_require__(10);
+
+__webpack_require__(278);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var appBasePath = _global.globalData.appBasePath;
+var Problem = _react2.default.createClass({
+  displayName: 'Problem',
+
+  getInitialState: function getInitialState() {
+    return {};
+  },
+
+  componentWillMount: function componentWillMount() {},
+
+  toNewsDetail: function toNewsDetail() {
+    var data = { id: 3, name: "qin", age: 18 };
+    var path = {
+      pathname: '/NewsDetail',
+      query: data
+    };
+    _reactRouter.hashHistory.push(path);
+  },
+
+  render: function render() {
+    var that = this;
+    //console.log("cityId",cityId);
+
+    return _react2.default.createElement(
+      'div',
+      { className: 'app_Box problem' },
+      _react2.default.createElement(_header2.default, { title: '\u5E38\u89C1\u95EE\u9898' }),
+      _react2.default.createElement(
+        'div',
+        { className: 'problemCon content' },
+        _react2.default.createElement(
+          'div',
+          { className: 'problemList' },
+          _react2.default.createElement(
+            'div',
+            { className: 'problemBlock' },
+            _react2.default.createElement('img', { src: 'src/img/icon/problem.png' }),
+            _react2.default.createElement(
+              'p',
+              null,
+              '\u6211\u662F\u56FD\u4F01\u5458\u5DE5,\u5DE5\u8D44\u6253\u53614000\u5143\u4EE5\u4E0A,\u5DE5\u4F5C5\u5E74\u4E86,\u4FE1\u7528\u5361\u6709\u8FC7\u903E\u671F\uFF0C\u80FD\u8D37\u6B3E\u5417\uFF1F'
+            ),
+            _react2.default.createElement(
+              'span',
+              null,
+              '\u63D0\u95EE\u65F6\u95F4:2017-09-28'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'answerBlock' },
+            _react2.default.createElement('img', { src: 'src/img/icon/answer.png' }),
+            _react2.default.createElement(
+              'p',
+              null,
+              _react2.default.createElement(
+                'span',
+                null,
+                '\u738B\u662D\u541B'
+              ),
+              _react2.default.createElement(
+                'span',
+                null,
+                '2017-09-28'
+              )
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              '\u9996\u5148\u4F60\u67E5\u4E00\u4E0B\u81EA\u5DF1\u7684\u903E\u671F\u60C5\u51B5\u6709\u591A\u4E25\u91CD\uFF0C\u6709\u6CA1\u6709\u8D85\u8FC7\u4E5D\u5341\u5929\uFF0C\u6709\u51E0\u6B21\uFF0C\u662F\u4E0D\u662F\u8FDE\u7EED\u7684\uFF0C\u4E0D\u540C\u6210\u90FD\u6709\u4E0D\u540C\u7684\u5904\u7406\u529E\u6CD5\uFF0C\u5982\u679C\u53EA\u6709\u51E0\u6B21\u903E\u671F\uFF0C\u8D85\u8FC7\u51E0\u5929\uFF0C\u5173\u7CFB\u5F71\u54CD\u4E0D\u5927\u3002'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'problemList' },
+          _react2.default.createElement(
+            'div',
+            { className: 'problemBlock' },
+            _react2.default.createElement('img', { src: 'src/img/icon/problem.png' }),
+            _react2.default.createElement(
+              'p',
+              null,
+              '\u6211\u662F\u56FD\u4F01\u5458\u5DE5,\u5DE5\u8D44\u6253\u53614000\u5143\u4EE5\u4E0A,\u5DE5\u4F5C5\u5E74\u4E86,\u4FE1\u7528\u5361\u6709\u8FC7\u903E\u671F\uFF0C\u80FD\u8D37\u6B3E\u5417\uFF1F'
+            ),
+            _react2.default.createElement(
+              'span',
+              null,
+              '\u63D0\u95EE\u65F6\u95F4:2017-09-28'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'answerBlock' },
+            _react2.default.createElement('img', { src: 'src/img/icon/answer.png' }),
+            _react2.default.createElement(
+              'p',
+              null,
+              _react2.default.createElement(
+                'span',
+                null,
+                '\u738B\u662D\u541B'
+              ),
+              _react2.default.createElement(
+                'span',
+                null,
+                '2017-09-28'
+              )
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              '\u9996\u5148\u4F60\u67E5\u4E00\u4E0B\u81EA\u5DF1\u7684\u903E\u671F\u60C5\u51B5\u6709\u591A\u4E25\u91CD\uFF0C\u6709\u6CA1\u6709\u8D85\u8FC7\u4E5D\u5341\u5929\uFF0C\u6709\u51E0\u6B21\uFF0C\u662F\u4E0D\u662F\u8FDE\u7EED\u7684\uFF0C\u4E0D\u540C\u6210\u90FD\u6709\u4E0D\u540C\u7684\u5904\u7406\u529E\u6CD5\uFF0C\u5982\u679C\u53EA\u6709\u51E0\u6B21\u903E\u671F\uFF0C\u8D85\u8FC7\u51E0\u5929\uFF0C\u5173\u7CFB\u5F71\u54CD\u4E0D\u5927\u3002'
+            )
+          )
+        )
+      )
+    );
+  }
+});
+
+exports.default = Problem;
+
+/***/ }),
+/* 278 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 279 */,
+/* 280 */
+/***/ (function(module, exports) {
+
+"use strict";
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open 'E:\\dai\\SmartCredit\\src\\components\\order.js'");
 
 /***/ })
 /******/ ]);

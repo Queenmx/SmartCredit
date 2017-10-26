@@ -42,6 +42,14 @@ var ListDetail=React.createClass({
 	  toMoneyDetail:function(){
 	  	//参照我的收藏
 	  },
+	  toProblem:function(){
+	  	//var data = {};
+		var path = {
+		  pathname:'/Problem',
+		  //query:data,
+		}
+		hashHistory.push(path);
+	  },
 	render:function(){
 		var that=this;
 		//console.log("cityId",cityId);
@@ -93,12 +101,12 @@ var ListDetail=React.createClass({
 	        		</div>
 	        		<div className="moneyDetailBox">
 	        			<div className="moneyDetail">利率说明利率说明利率说明利率说明利率说明利率说明利率说明</div>
-	        			<p onClick={that.toMoneyDetail}>查看详情<img src=""/></p>
+	        			<p onClick={that.toMoneyDetail}>查看详情<img src="src/img/icon/down.png"/></p>
 	        		</div>
 	        		<div className="flowBox">
 	        			<h2>办理流程(门店办理)</h2>
 	        			<div className="flowPic">
-	        				<img src=""/>
+	        				<img src="src/img/icon/tell.png"/>
 	        			</div>
         				<h2>申请条件</h2>
         				<ul className="application">
@@ -113,17 +121,17 @@ var ListDetail=React.createClass({
 	        				<li>收入要求:工资月收入2000元以上收入要求工资月工资月收入2000元以上收入要求工资月收入2000元以上收入2000元以上</li>
         				</ul>
 	        		
-	        			<h2>常见问题<span>更多回复<img src="src/img/icon/right.png"/></span></h2>
+	        			<h2 onClick={this.toProblem}>常见问题<span>更多回复<img src="src/img/icon/right.png"/></span></h2>
         				
         				
         				<div className="problemList">
-        					<div className="problem">
-        						<img src="src/img/icon/right.png"/>
+        					<div className="problemBlock">
+        						<img src="src/img/icon/problem.png"/>
         						<p>我是国企员工,工资打卡4000元以上,工作5年了,信用卡有过逾期，能贷款吗？</p>
         						<span>提问时间:2017-09-28</span>
         					</div>
-        					<div className="answer">
-        						<img src="src/img/icon/right.png"/>
+        					<div className="answerBlock">
+        						<img src="src/img/icon/answer.png"/>
         						<p><span>王昭君</span><span>2017-09-28</span></p>
         						<p>首先你查一下自己的逾期情况有多严重，有没有超过九十天，有几次，是不是连续的，不同成都有不同的处理办法，如果只有几次逾期，超过几天，关系影响不大。</p>
         					</div>
@@ -132,7 +140,7 @@ var ListDetail=React.createClass({
 	        	</div>
 	        	
 	        	<div className="applyBtnBox">
-	        		<div className="applySaveBtn"><img src=""/><p>收藏</p></div>
+	        		<div className="applySaveBtn"><img src="src/img/icon/sc1.png"/><p>收藏</p></div>
 	        		<div className="applyBtn">申请借款</div>
 	        	</div>
         	</div>

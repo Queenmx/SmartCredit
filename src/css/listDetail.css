@@ -124,6 +124,10 @@
       text-align: center;
       color: #666666;
       font-size: 0.22rem; }
+      .listDetail .moneyDetailBox p img {
+        width: 0.37rem;
+        height: 0.15rem;
+        margin-left: 0.5rem; }
   .listDetail .flowBox .flowPic {
     background: #ffffff;
     height: 1.8rem;
@@ -202,17 +206,17 @@
   background: #ffffff;
   padding: 0 0.5rem;
   position: relative; }
-  .problemList .problem {
+  .problemList img {
+    position: absolute;
+    width: 0.44rem;
+    height: 0.44rem;
+    top: 0.2rem;
+    left: 0; }
+  .problemList .problemBlock {
     position: relative;
     padding-left: 0.7rem;
     padding-top: 0.2rem; }
-    .problemList .problem img {
-      position: absolute;
-      width: 0.44rem;
-      height: 0.44rem;
-      top: 0.2rem;
-      left: 0; }
-    .problemList .problem:after {
+    .problemList .problemBlock:after {
       pointer-events: none;
       width: 200%;
       height: 200%;
@@ -226,35 +230,29 @@
       transform: scale(0.5);
       transform-origin: 0 0;
       border-bottom: 1px solid #f3f3f3; }
-    .problemList .problem p {
+    .problemList .problemBlock p {
       color: #333333;
       font-size: 0.24rem;
       line-height: 0.5rem; }
-    .problemList .problem span {
+    .problemList .problemBlock span {
       color: #aaaaaa;
       font-size: 0.2rem;
       line-height: 0.6rem; }
-  .problemList .answer {
+  .problemList .answerBlock {
     position: relative;
     padding-left: 0.7rem; }
-    .problemList .answer img {
-      position: absolute;
-      width: 0.44rem;
-      height: 0.44rem;
-      top: 0;
-      left: 0; }
-    .problemList .answer p:nth-of-type(1) {
+    .problemList .answerBlock p:nth-of-type(1) {
       height: 0.7rem;
       line-height: 0.7rem; }
-      .problemList .answer p:nth-of-type(1) span:nth-child(1) {
+      .problemList .answerBlock p:nth-of-type(1) span:nth-child(1) {
         float: left;
         color: #666666;
         font-size: 0.24rem; }
-      .problemList .answer p:nth-of-type(1) span:nth-child(2) {
+      .problemList .answerBlock p:nth-of-type(1) span:nth-child(2) {
         float: right;
         color: #aaaaaa;
         font-size: 0.2rem; }
-    .problemList .answer p:nth-of-type(2) {
+    .problemList .answerBlock p:nth-of-type(2) {
       line-height: 0.5rem;
       color: #333333; }
 

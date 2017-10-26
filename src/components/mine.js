@@ -68,6 +68,12 @@ var Mine=React.createClass({
 		}
 		hashHistory.push(path);
 	},
+	toOrder:function(){
+		var path = {
+		  pathname:'/Order',
+		}
+		hashHistory.push(path);
+	},
 	render:function(){
 		var that=this;
         return (
@@ -84,7 +90,7 @@ var Mine=React.createClass({
 		        		<ul className="orderNav">
 		        			<li><img src="src/img/icon/dd1.png"/><p>待完成订单</p></li>
 		        			<li><img src="src/img/icon/dd2.png"/><p>待还款订单</p></li>
-		        			<li><img src="src/img/icon/dd3.png"/><p>全部订单</p></li>
+		        			<li onClick={that.toOrder}><img src="src/img/icon/dd3.png"/><p>全部订单</p></li>
 		        		</ul>
 		        		<ul className="identBox">
 		        			<li><img src="src/img/icon/yhk.png"/><p>银行卡</p></li>
