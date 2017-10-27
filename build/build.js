@@ -30728,7 +30728,7 @@ exports.default = NewsDetail;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 var _react = __webpack_require__(4);
@@ -30751,26 +30751,174 @@ var _header2 = _interopRequireDefault(_header);
 
 var _reactRouter = __webpack_require__(8);
 
+__webpack_require__(275);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var appBasePath = _global.globalData.appBasePath;
+
 var Order = _react2.default.createClass({
-	displayName: 'Order',
+    displayName: 'Order',
 
-	getInitialState: function getInitialState() {
-		return {};
-	},
-
-	componentWillMount: function componentWillMount() {},
-
-	render: function render() {
-		var that = this;
-		//console.log("cityId",cityId);
-
-		return _react2.default.createElement('div', { className: 'app_Box' });
-	}
+    getInitialState: function getInitialState() {
+        return { checked: false };
+    },
+    handleClick: function handleClick() {
+        this.setState({
+            checked: !this.state.checked
+        });
+    },
+    render: function render() {
+        var self = this;
+        var backRouter = this.props.params.backRouter;
+        var btnStyle = {
+            backgroundColor: self.state.checked ? '#ddd' : '#53a6ff'
+        };
+        return _react2.default.createElement(
+            'div',
+            { className: 'app_Box orderList' },
+            _react2.default.createElement(_header2.default, { title: '\u6211\u7684\u8BA2\u5355', backRouter: backRouter }),
+            _react2.default.createElement(
+                'ul',
+                null,
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'orderNum' },
+                        '\u8BA2\u5355\u53F7\uFF1A201705092356412',
+                        _react2.default.createElement(
+                            'span',
+                            null,
+                            '\u5DF2\u7533\u8BF7'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'h3',
+                        { className: 'list_title' },
+                        _react2.default.createElement('img', { src: 'src/img/icon/order.png' }),
+                        _react2.default.createElement(
+                            'span',
+                            null,
+                            '\u73B0\u91D1\u501F\u6B3E\uFF08\u591A\u671F\uFF09'
+                        ),
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'p_name' },
+                            '\u4FE1\u7528\u8D37'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'ul',
+                        { className: 'container' },
+                        _react2.default.createElement(
+                            'li',
+                            null,
+                            '\u501F\u6B3E\u91D1\u989D \xA55000'
+                        ),
+                        _react2.default.createElement(
+                            'li',
+                            null,
+                            '\u671F\u965012\u6708'
+                        ),
+                        _react2.default.createElement(
+                            'li',
+                            null,
+                            '\u5229\u606F480\u5143'
+                        ),
+                        _react2.default.createElement(
+                            'li',
+                            null,
+                            '\u6708\u8D39\u75283.17%'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'listFoot' },
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'status' },
+                            '\u60A8\u7684\u8D37\u6B3E\u7533\u8BF7\u5DF2\u63D0\u4EA4\uFF0C3\u4E2A\u5DE5\u4F5C\u65E5\u5185\u5B8C\u6210'
+                        ),
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'statusBtn', onClick: this.handleClick, style: btnStyle },
+                            '\u53D6\u6D88\u5BA1\u6838'
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'orderNum' },
+                        '\u8BA2\u5355\u53F7\uFF1A201705092356412',
+                        _react2.default.createElement(
+                            'span',
+                            null,
+                            '\u5BA1\u6838\u4E2D'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'h3',
+                        { className: 'list_title' },
+                        _react2.default.createElement('img', { src: 'src/img/icon/order.png' }),
+                        _react2.default.createElement(
+                            'span',
+                            null,
+                            '\u73B0\u91D1\u501F\u6B3E\uFF08\u591A\u671F\uFF09'
+                        ),
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'p_name' },
+                            '\u4FE1\u7528\u8D37'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'ul',
+                        { className: 'container' },
+                        _react2.default.createElement(
+                            'li',
+                            null,
+                            '\u501F\u6B3E\u91D1\u989D \xA55000'
+                        ),
+                        _react2.default.createElement(
+                            'li',
+                            null,
+                            '\u671F\u965012\u6708'
+                        ),
+                        _react2.default.createElement(
+                            'li',
+                            null,
+                            '\u5229\u606F480\u5143'
+                        ),
+                        _react2.default.createElement(
+                            'li',
+                            null,
+                            '\u6708\u8D39\u75283.17%'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'listFoot' },
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'status' },
+                            '\u60A8\u7684\u8D37\u6B3E\u7533\u8BF7\u6B63\u5728\u5BA1\u6838\u4E2D\uFF0C3\u4E2A\u5DE5\u4F5C\u65E5\u5185\u5B8C\u6210'
+                        ),
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'statusBtn', onClick: this.handleClick, style: btnStyle },
+                            '\u53D6\u6D88\u5BA1\u6838'
+                        )
+                    )
+                )
+            )
+        );
+    }
 });
-
 exports.default = Order;
 
 /***/ }),
@@ -31394,6 +31542,12 @@ __webpack_require__(124);
 
 /***/ }),
 /* 274 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 275 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
