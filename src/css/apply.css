@@ -1,0 +1,84 @@
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+
+.ellipsis-2 {
+  display: -webkit-box;
+  overflow: hidden;
+  white-space: normal !important;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; }
+
+.applyFlow .header {
+  background: #53a6ff;
+  color: #ffffff; }
+.applyFlow .stepBox {
+  height: 2rem;
+  background: #53a6ff;
+  padding: 0 0.55rem; }
+  .applyFlow .stepBox li {
+    width: 1.46rem;
+    float: left; }
+    .applyFlow .stepBox li h1 {
+      background: #a9d3ff;
+      width: 0.9rem;
+      height: 0.9rem;
+      margin: 0.3rem;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 0.9rem;
+      color: #53a6ff;
+      font-size: 0.6rem;
+      font-weight: 500; }
+      .applyFlow .stepBox li h1.stepActive {
+        background: #ffffff; }
+    .applyFlow .stepBox li p {
+      text-align: center;
+      font-size: 0.24rem;
+      color: #FFFFFF; }
+  .applyFlow .stepBox span {
+    float: left;
+    width: 1rem;
+    height: 0.05rem;
+    background: #a9d3ff;
+    margin-top: 0.76rem; }
+
+.applyInfoCon .applyInfo {
+  margin-top: 0.12rem; }
+  .applyInfoCon .applyInfo div {
+    padding: 0 0.55rem;
+    height: 1rem;
+    line-height: 1rem;
+    background: #ffffff;
+    color: #333333;
+    font-size: 0.28rem;
+    position: relative; }
+    .applyInfoCon .applyInfo div:after {
+      pointer-events: none;
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      content: "";
+      -webkit-transform: scale(0.5);
+      -webkit-transform-origin: 0 0;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+      border-bottom: 1px solid #f3f3f3; }
+    .applyInfoCon .applyInfo div span {
+      width: 1.5rem;
+      float: left; }
+    .applyInfoCon .applyInfo div input {
+      width: 4.5rem;
+      height: 0.8rem;
+      margin-top: 0.1rem;
+      float: right;
+      text-align: right;
+      border: 0; }
+
+/*# sourceMappingURL=apply.css.map */

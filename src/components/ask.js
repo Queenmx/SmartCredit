@@ -40,7 +40,7 @@ var Ask=React.createClass({
 					<p>向用钱宝提问</p>	
 					<textarea placeholder="问题描述(200个字以内)"></textarea>
 	        	</div>	
-	        	<div className="askSubmit">提交</div>
+	        	<div className="botBtn">提交</div>
         	</div>
         )
 	}

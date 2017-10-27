@@ -107,12 +107,5 @@
   .ask .askCon textarea::-webkit-input-placeholder {
     color: #AAAAAA;
     opacity: 1; }
-.ask .askSubmit {
-  height: 1rem;
-  line-height: 1rem;
-  background: #53a6ff;
-  color: #ffffff;
-  font-size: 0.28rem;
-  text-align: center; }
 
 /*# sourceMappingURL=problem.css.map */

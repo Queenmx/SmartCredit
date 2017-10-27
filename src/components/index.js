@@ -19,6 +19,9 @@ import ListDetail from './listDetail';
 import Problem from './problem';
 import Order from './order';
 import Ask from './ask';
+import ApplyInfo from './applyInfo';
+import ApplyLevel from './applyLevel';
+import ApplyResult from './applyResult';
 //<Route path='/detail/:id' component={Detail} />
 
 ReactDom.render((
@@ -37,5 +40,8 @@ ReactDom.render((
    		<Route path='/Problem' component={Problem}/>
    		<Route path='/Order' component={Order}/>
    		<Route path='/Ask' component={Ask}/>
+   		<Route path='/ApplyInfo' component={ApplyInfo}/>
+   		<Route path='/ApplyLevel' component={ApplyLevel}/>
+   		<Route path='/ApplyResult' component={ApplyResult}/>
    </Router>
 ), document.getElementById('app'));

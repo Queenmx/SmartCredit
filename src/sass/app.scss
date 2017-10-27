@@ -272,14 +272,7 @@ body {
         font-size: 0.28rem;
         text-align: justify;
     }
-    .saveBtn{
-            height: 1rem;
-            line-height: 1rem;
-            background: $blue;
-            color: #ffffff;
-            font-size: 0.3rem;
-            text-align: center;
-        }
+   
 }
 
 .save{
@@ -306,3 +299,11 @@ body {
         margin-bottom: 0.12rem;
     }
 }
+ .botBtn{
+       height: 1rem;
+       line-height: 1rem;
+       background: $blue;
+       color: #ffffff;
+       font-size: 0.3rem;
+       text-align: center;
+   }

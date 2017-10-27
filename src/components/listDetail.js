@@ -35,22 +35,30 @@ var ListDetail=React.createClass({
 	
 	handleChange1: function(event) {
 	    this.setState({value1: event.target.value});
-	  },
-	 handleChange2: function(event) {
+	},
+	handleChange2: function(event) {
 	    this.setState({value2: event.target.value});
-	  },
-	  toMoneyDetail:function(){
+	},
+	toMoneyDetail:function(){
 	  	//参照我的收藏
 	  	
-	  },
-	  toProblem:function(){
+	},
+	toProblem:function(){
 	  	//var data = {};
 		var path = {
 		  pathname:'/Problem',
 		  //query:data,
 		}
 		hashHistory.push(path);
-	  },
+	},
+	toApplyInfo:function(){
+	  	var data = {};
+		var path = {
+		  pathname:'/ApplyInfo',
+		  state:data,
+		}
+		hashHistory.push(path);
+	},
 	render:function(){
 		var that=this;
 		//console.log("cityId",cityId);
@@ -142,7 +150,7 @@ var ListDetail=React.createClass({
 	        	
 	        	<div className="applyBtnBox">
 	        		<div className="applySaveBtn"><img src="src/img/icon/sc1.png"/><p>收藏</p></div>
-	        		<div className="applyBtn">申请借款</div>
+	        		<div className="applyBtn" onClick={that.toApplyInfo}>申请借款</div>
 	        	</div>
         	</div>
         )
