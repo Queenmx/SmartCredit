@@ -87,19 +87,16 @@ var Mine=React.createClass({
 		        	</div>
 		        	<div className="creditLevel"><p>我的信用等级:<b>E</b></p><span>去提升,5000轻松拿<img src="src/img/icon/right.png"/></span></div>
 		        	<div className="userOrder">
-		        		<h2>贷款订单</h2>
-		        		<ul className="orderNav">
-		        			<li><img src="src/img/icon/dd1.png"/><p>待完成订单</p></li>
-		        			<li><img src="src/img/icon/dd2.png"/><p>待还款订单</p></li>
-		        			<li onClick={that.toOrder}><img src="src/img/icon/dd3.png"/><p>全部订单</p></li>
+		        		<ul>
+		        			<li onClick={that.toOrder}><img src="src/img/icon/order.png"/><p>全部订单</p></li>
+		        			<li><img src="src/img/icon/personLevel.png"/><p>个人资质</p></li>
+		        			<li><img src="src/img/icon/id.png"/><p>身份证认证</p></li>
 		        		</ul>
-		        		<ul className="identBox">
-		        			<li><img src="src/img/icon/yhk.png"/><p>银行卡</p></li>
-		        			<li><img src="src/img/icon/zmxy.png"/><p>芝麻认证</p></li>
-		        			<li><img src="src/img/icon/yysrz.png"/><p>运营商认证</p></li>
+		        		<ul>
 		        			<li onClick={that.toSave}><img src="src/img/icon/sc.png"/><p>我的收藏</p></li>
 		        			<li><img src="src/img/icon/bz.png"/><p>帮助与反馈</p></li>
 		        		</ul>
+		        		<div className="toSet">设置</div>
 		        	</div>
 				</div>
 	        	<Footer activeIndex="2"/>

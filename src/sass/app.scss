@@ -106,7 +106,7 @@ body {
         overflow: auto;
         overflow-x:hidden ;
         @include flex_column;
-         background: #f5f5f5;
+         background: $grey;
      }
      .swiper-container {
         width: 100%;

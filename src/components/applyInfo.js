@@ -7,7 +7,7 @@ import Header from './header';
 import { hashHistory, Link } from 'react-router';
 import '../css/apply.css';
 
-
+var toast = new Toast();
 var appBasePath=globalData.appBasePath;
 var ApplyInfo=React.createClass({
 	getInitialState:function(){
@@ -19,7 +19,38 @@ var ApplyInfo=React.createClass({
 	componentWillMount:function(){
 		
 	},
-	
+	toApplyLevel:function(){
+		var applyName=$("#applyName").val().trim();
+		var applyNumber=$("#applyNumber").val().trim();
+		if(applyName.length>0){
+			if(!(/^1[34578]\d{9}$/.test(applyNumber))){
+/*			this.setState({
+				selecthint:1,
+				hint:"请输入正确格式的手机号码"
+			})
+			setTimeout(() => {
+                this.setState({
+					selecthint:0				
+				})
+            }, 2000);*/
+	           toast.show("请输入正确格式的手机号码",2000);
+			}else{
+				var data = {applyNumber:applyNumber,applyName:applyName};
+				var path = {
+				  pathname:'/ApplyLevel',
+				  state:data,
+				}
+				hashHistory.push(path);
+			
+			}
+		}else{
+			toast.show("请输入姓名",2000);
+		}
+		
+		
+		
+
+	},
 	
 	
 	toBack:function(){
@@ -30,14 +61,6 @@ var ApplyInfo=React.createClass({
             window.history.back()
         }
 	},
-	toApplyLevel:function(){
-        var data = {id:3,name:"qin",age:18};
-		var path = {
-		  pathname:'/ApplyLevel',
-		  state:data,
-		}
-		hashHistory.push(path);
-	},
 	render:function(){
 		var that=this;
 		//console.log("cityId",cityId);
@@ -45,7 +68,7 @@ var ApplyInfo=React.createClass({
         return (
         	<div className="app_Box applyFlow">
       			<div className="header">
-	        		<div className="toBack" onClick={that.toBack}><img src="src/img/icon/back.png"/></div>
+	        		<div className="toBack" onClick={that.toBack}><img src="src/img/icon/backWhite.png"/></div>
 		        	<p className="title">申请人信息</p>
 		        	<div className="headerLinkBtn"></div>
 	        	</div>
@@ -69,11 +92,11 @@ var ApplyInfo=React.createClass({
 					<form className="applyInfo">
 						<div>
 							<span>姓名</span>
-							<input type="text" placeholder="请输入姓名"/>
+							<input type="text" id="applyName" placeholder="请输入姓名"/>
 						</div>
 						<div>
 							<span>手机号</span>
-							<input type="text"  placeholder="请输入手机号"/>
+							<input type="text" id="applyNumber" placeholder="请输入手机号"/>
 						</div>
 					</form>
 	        	</div>	

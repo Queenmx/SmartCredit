@@ -67,15 +67,7 @@
    }
    .userOrder{
        margin-top: 0.12rem;
-       h2{
-           background: #ffffff;
-           height: 0.88rem;
-           line-height: 0.88rem;
-           font-size: 0.3rem;
-           font-weight: 500;
-           text-indent: 0.54rem;
-           @include border_Bot;
-       }
+       
 //     .orderNav{
 //         @include only_display;
 //         li{
@@ -98,20 +90,18 @@
 //         
 //     }
        ul{
-           
+           margin-top: 0.28rem;
             @include only_display;
-            flex-wrap:wrap;
            li{
                 flex: 0 1 33.33%;
+                -webkit-flex:0 1 33.33% ;
                 box-sizing: border-box;
                @include border_left;
-               @include border_Bot;
                height: 2.05rem;
                background: #ffffff;
                img{
                    display: block;
-                   width:0.6rem;
-                   height:0.6rem;
+                   max-height:0.5rem;
                    margin: 0.66rem auto 0.26rem;
                }
            p{
@@ -121,8 +111,14 @@
            }
            }
        }
-        .identBox{
-            margin-top: 0.12rem;
-        }
+       .toSet{
+           background: #FFFFFF;
+           height: 0.86rem;
+           line-height: 0.86rem;
+           text-indent: 0.52rem;
+           font-size: 0.28rem;
+           color: #333333;
+           margin-top: 0.28rem;
+       }
     }
 }
