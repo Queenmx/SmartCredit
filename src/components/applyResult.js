@@ -33,19 +33,19 @@ var ApplyResult=React.createClass({
         return (
         	<div className="app_Box applyFlow">
       			<div className="header">
-	        		<div className="toBack" onClick={that.toBack}><img src="src/img/icon/back.png"/></div>
+	        		<div className="toBack" onClick={that.toBack}><img src="src/img/icon/backWhite.png"/></div>
 		        	<p className="title">申请结果</p>
 		        	<div className="headerLinkBtn"></div>
 	        	</div>
 	        	<div className="applyResultCon content">
 					<ul className="stepBox">
 						<li>
-							<h1 >1</h1>
+							<h1 className="stepActive">1</h1>
 							<p>申请人信息</p>
 						</li>
 						<span></span>
 						<li>
-							<h1>2</h1>
+							<h1 className="stepActive">2</h1>
 							<p>申请人资质</p>
 						</li>
 						<span></span>

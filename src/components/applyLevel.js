@@ -6,11 +6,12 @@ import {globalData} from './global.js';
 import Header from './header';
 import { hashHistory, Link } from 'react-router';
 
-
+var toast = new Toast();
 var appBasePath=globalData.appBasePath;
 var ApplyLevel=React.createClass({
 	getInitialState:function(){
 		return {
+			checked:true
 		}
 	},
 	
@@ -26,14 +27,23 @@ var ApplyLevel=React.createClass({
         }
 	},
 	toApplyResult:function(){
-		var data = {id:3,name:"qin",age:18};
-		var path = {
-		  pathname:'/ApplyResult',
-		  state:data,
+		if(!this.state.checked){
+			toast.show("请同意智能贷服务协议",2000);
+		}else{
+			var data = {id:3,name:"qin",age:18};
+			var path = {
+			  pathname:'/ApplyResult',
+			  state:data,
+			}
+			hashHistory.push(path);
 		}
-		hashHistory.push(path);
 	},
-	
+	agreeRule:function(event){
+		console.log(event.target.checked);
+		this.setState({
+			checked:event.target.checked
+		})
+	},
 	
 	render:function(){
 		var that=this;
@@ -41,14 +51,14 @@ var ApplyLevel=React.createClass({
         return (
         	<div className="app_Box applyFlow">
       			<div className="header">
-	        		<div className="toBack" onClick={that.toBack}><img src="src/img/icon/back.png"/></div>
+	        		<div className="toBack" onClick={that.toBack}><img src="src/img/icon/backWhite.png"/></div>
 		        	<p className="title">申请人资质</p>
 		        	<div className="headerLinkBtn"></div>
 	        	</div>
 	        	<div className="applyLevelCon content">
 					<ul className="stepBox">
 						<li>
-							<h1 >1</h1>
+							<h1 className="stepActive">1</h1>
 							<p>申请人信息</p>
 						</li>
 						<span></span>
@@ -63,15 +73,55 @@ var ApplyLevel=React.createClass({
 						</li>
 					</ul>
 					<form className="applyLevel">
-						<div>
-							<span>姓名</span>
-							<input type="text" placeholder="请输入姓名"/>
-						</div>
-						<div>
-							<span>手机号</span>
-							<input type="text" value="" placeholder="请输入手机号"/>
-						</div>
+						<ul>
+							<li className="levelInfo">
+								<i>1</i>
+								<label htmlFor="job">职业身份</label>
+								<input type="text" id="job" placeholder="请选择"/>
+								<ul>
+									
+								</ul>
+							</li>
+							<li className="levelInfo">
+								<i>2</i>
+								<label htmlFor="publicMoney">是否有本地公积金</label>
+								<input type="text" id="publicMoney" placeholder="请选择"/>
+								<ul>
+								</ul>
+							</li>
+							<li className="levelInfo">
+								<i>2</i>
+								<label htmlFor="publicMoney">是否有本地社保</label>
+								<input type="text" id="publicMoney" placeholder="请选择"/>
+								<ul>
+									
+								</ul>
+							</li>
+							<li className="levelInfo">
+								<i>2</i>
+								<label htmlFor="publicMoney">名下房产类型</label>
+								<input type="text" id="publicMoney" placeholder="请选择"/>
+								<ul>
+								</ul>
+							</li>
+						</ul>
+						
 					</form>
+					
+					<div className="rule">
+						<input className="magic-checkbox" type="checkbox"  id="ruleCheck" checked={that.state.checked}  onChange={that.agreeRule}/>
+						<label htmlFor="ruleCheck">我已同意</label>
+						<Link to={   
+						         {   
+						             pathname:"/txt",   
+						             //hash:'#ahash',    
+						             state:{title: '智能贷服务条款',backRouter:'/Login'}    
+						         }   
+						    } >
+    					《智能贷服务条款》
+						</Link>   
+						
+					</div>
 	        	</div>	
 	        	<div className="botBtn" onClick={that.toApplyResult}>下一步</div>
         	</div>

@@ -16,8 +16,8 @@ var Txt=React.createClass({
 	
 	render:function(){
 		var txtData=this.props.location;
-		var title=txtData.query.title;
-		var backRouter=txtData.query.backRouter;
+		var title=txtData.state.title;
+		var backRouter=txtData.state.backRouter;
 		console.log(title+"哈哈哈哈哈"+backRouter);
         return (
         	<div className="txt">

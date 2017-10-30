@@ -10,8 +10,6 @@ import '../css/home.css';
 
 var appBasePath=globalData.appBasePath;
 var Home=React.createClass({
-	
-	
 	getInitialState:function(){
 		return {
 			activeTab: 1,
@@ -60,19 +58,19 @@ var Home=React.createClass({
 	        	<div className="content">
 	        		<ul className="homeTab">
 	        			<li onClick={that.toList}>
-	        				<img src="src/img/icon/daikuan.png"/>
+	        				<img src="src/img/icon/group.png"/>
 	        				<p>上班族</p>
 	        			</li>
 	        			<li onClick={that.toList}>
-	        				<img src="src/img/icon/progress.png"/>
+	        				<img src="src/img/icon/personal.png"/>
 	        				<p>个体户</p>
 	        			</li>
 	        			<li onClick={that.toList}>
-	        				<img src="src/img/icon/progress.png"/>
+	        				<img src="src/img/icon/qiye.png"/>
 	        				<p>企业主</p>
 	        			</li>
 	        			<li onClick={that.toList}>
-	        				<img src="src/img/icon/progress.png"/>
+	        				<img src="src/img/icon/ziyou.png"/>
 	        				<p>自由职业</p>
 	        			</li>
 	        		</ul>

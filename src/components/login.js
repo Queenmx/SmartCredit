@@ -163,7 +163,7 @@ var Login=React.createClass({
 							         {   
 							             pathname:"/txt",   
 							             //hash:'#ahash',    
-							             query:{title: '智能贷协议',backRouter:'/Login'}    
+							             state:{title: '智能贷协议',backRouter:'/Login'}    
 							             //state:{data:'hello'}     
 							         }   
 							    } >
