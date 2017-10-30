@@ -22,6 +22,10 @@ import Ask from './ask';
 import ApplyInfo from './applyInfo';
 import ApplyLevel from './applyLevel';
 import ApplyResult from './applyResult';
+import Help from './help';
+import HelpDetail from './helpDetail';
+import IdCard from './idCard';
+import UserInfo from './userInfo';
 //<Route path='/detail/:id' component={Detail} />
 
 ReactDom.render((
@@ -43,5 +47,9 @@ ReactDom.render((
    		<Route path='/ApplyInfo' component={ApplyInfo}/>
    		<Route path='/ApplyLevel' component={ApplyLevel}/>
    		<Route path='/ApplyResult' component={ApplyResult}/>
+   		<Route path='/Help' component={Help}/>
+   		<Route path='/HelpDetail' component={HelpDetail}/>
+   		<Route path='/IdCard' component={IdCard}/>
+   		<Route path='/UserInfo' component={UserInfo}/>
    </Router>
 ), document.getElementById('app'));

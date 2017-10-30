@@ -122,3 +122,82 @@
        }
     }
 }
+.idCard{
+   .idCardCon{
+       h4{
+           font-weight: 500;
+         height:1rem ;
+         line-height: 1rem;
+         font-size: 0.22rem;
+          color: #AAAAAA;
+          text-align: center;
+       }
+       .photoBox{
+           margin-bottom: 1rem;
+           position: relative;
+           input{
+               width: 5.4rem;
+               height: 3.4rem;
+               opacity: 0;
+               position: absolute;
+               top: 0;
+               left: 1rem;
+               z-index: 1;
+               border: 0;
+           }
+           img{
+               max-width: 5.4rem;
+               max-height: 3.4rem;
+               display: block;
+               margin:0 auto;
+           }
+           p{
+               color: #666666;
+               text-align: center;
+               margin-top: 0.24rem;
+           }
+       }
+   } 
+}
+.userInfo{
+   .userInfoCon{
+       li{
+           height: 1rem;
+           line-height: 1rem;
+           @include border_Bot;
+           background: #FFFFFF;
+           padding: 0 0.45rem;
+           span{
+               font-size: 0.26rem;
+               color: #333333;
+           }
+          .infoRight{
+              float: right;
+              font-size: 0.22rem;
+              color: #AAAAAA;
+              b{
+                  margin-right: 0.2rem;
+                  font-weight: 500;
+              }
+              img{
+                  width: 0.2rem;
+                  height: 0.4rem;
+              }
+          }
+         &:last-of-type{
+             margin-top: 0.12rem;
+         }  
+       }
+   } 
+   .quit{
+       width: 6.5rem;
+       height: 1rem;
+       line-height: 1rem;
+       text-align: center;
+       margin: 1.3rem auto 0;
+       color: #FFFFFF;
+       font-size: 0.28rem;
+       background: $blue;
+       border-radius: 3px;
+   }
+}

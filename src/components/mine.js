@@ -56,10 +56,15 @@ var Mine=React.createClass({
 	
 	goLogin:function(){
 		var path = {
-		  pathname:'/Login/Mine',
+		  pathname:'/UserInfo',
 		  //query:data,
 		}
 		hashHistory.push(path);
+		/*var path = {
+		  pathname:'/Login/Mine',
+		  //query:data,
+		}
+		hashHistory.push(path);*/
 	},
 	toSave:function(){
 		var path = {
@@ -74,7 +79,18 @@ var Mine=React.createClass({
 		}
 		hashHistory.push(path);
 	},
-	
+	toHelp:function(){
+		var path = {
+		  pathname:'/Help',
+		}
+		hashHistory.push(path);
+	},
+	toIdCard:function(){
+		var path = {
+		  pathname:'/IdCard',
+		}
+		hashHistory.push(path);
+	},
 	render:function(){
 		var that=this;
         return (
@@ -90,11 +106,11 @@ var Mine=React.createClass({
 		        		<ul>
 		        			<li onClick={that.toOrder}><img src="src/img/icon/order.png"/><p>全部订单</p></li>
 		        			<li><img src="src/img/icon/personLevel.png"/><p>个人资质</p></li>
-		        			<li><img src="src/img/icon/id.png"/><p>身份证认证</p></li>
+		        			<li onClick={that.toIdCard}><img src="src/img/icon/id.png"/><p>身份证认证</p></li>
 		        		</ul>
 		        		<ul>
 		        			<li onClick={that.toSave}><img src="src/img/icon/sc.png"/><p>我的收藏</p></li>
-		        			<li><img src="src/img/icon/bz.png"/><p>帮助与反馈</p></li>
+		        			<li onClick={that.toHelp}><img src="src/img/icon/bz.png"/><p>帮助与反馈</p></li>
 		        		</ul>
 		        		<div className="toSet">设置</div>
 		        	</div>

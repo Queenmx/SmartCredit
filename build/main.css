@@ -400,6 +400,68 @@ body {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical; }
 
+.help {
+  background: #f3f3f3; }
+
+.helpList li {
+  margin-top: 0.12rem;
+  height: 1rem;
+  line-height: 1rem;
+  background: #FFFFFF;
+  padding: 0 0.5rem;
+  color: #53a6ff;
+  font-size: 0.28rem; }
+  .helpList li img {
+    width: 0.2rem;
+    height: 0.4rem;
+    margin-top: 0.3rem;
+    float: right; }
+
+.helpDetail .helpDetailTxt {
+  margin: 0.5rem; }
+  .helpDetail .helpDetailTxt h4 {
+    font-size: 0.28rem;
+    color: #333333;
+    height: 1rem;
+    line-height: 1rem;
+    text-align: center; }
+  .helpDetail .helpDetailTxt p {
+    color: #666666;
+    font-size: 0.26rem;
+    line-height: 0.5rem;
+    text-align: justify; }
+  .helpDetail .helpDetailTxt .solve {
+    height: 2rem; }
+    .helpDetail .helpDetailTxt .solve span {
+      margin-top: 0.8rem;
+      float: left;
+      color: #53a6ff;
+      font-size: 0.28rem; }
+      .helpDetail .helpDetailTxt .solve span img {
+        width: 0.64rem;
+        height: 0.64rem;
+        margin-right: 0.2rem;
+        vertical-align: middle; }
+      .helpDetail .helpDetailTxt .solve span:nth-child(1) {
+        margin-left: 1.4rem; }
+      .helpDetail .helpDetailTxt .solve span:nth-child(2) {
+        margin-left: 1rem; }
+
+/*# sourceMappingURL=help.css.map */
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+
+.ellipsis-2 {
+  display: -webkit-box;
+  overflow: hidden;
+  white-space: normal !important;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; }
+
 .applyFlow .header {
   background: #53a6ff;
   color: #ffffff; }
@@ -1322,6 +1384,81 @@ body {
       font-size: 0.28rem;
       color: #333333;
       margin-top: 0.28rem; }
+
+.idCard .idCardCon h4 {
+  font-weight: 500;
+  height: 1rem;
+  line-height: 1rem;
+  font-size: 0.22rem;
+  color: #AAAAAA;
+  text-align: center; }
+.idCard .idCardCon .photoBox {
+  margin-bottom: 1rem;
+  position: relative; }
+  .idCard .idCardCon .photoBox input {
+    width: 5.4rem;
+    height: 3.4rem;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    z-index: 1;
+    border: 0; }
+  .idCard .idCardCon .photoBox img {
+    max-width: 5.4rem;
+    max-height: 3.4rem;
+    display: block;
+    margin: 0 auto; }
+  .idCard .idCardCon .photoBox p {
+    color: #666666;
+    text-align: center;
+    margin-top: 0.24rem; }
+
+.userInfo .userInfoCon li {
+  height: 1rem;
+  line-height: 1rem;
+  position: relative;
+  background: #FFFFFF;
+  padding: 0 0.45rem; }
+  .userInfo .userInfoCon li:after {
+    pointer-events: none;
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    content: "";
+    -webkit-transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+    border-bottom: 1px solid #f3f3f3; }
+  .userInfo .userInfoCon li span {
+    font-size: 0.26rem;
+    color: #333333; }
+  .userInfo .userInfoCon li .infoRight {
+    float: right;
+    font-size: 0.22rem;
+    color: #AAAAAA; }
+    .userInfo .userInfoCon li .infoRight b {
+      margin-right: 0.2rem;
+      font-weight: 500; }
+    .userInfo .userInfoCon li .infoRight img {
+      width: 0.2rem;
+      height: 0.4rem; }
+  .userInfo .userInfoCon li:last-of-type {
+    margin-top: 0.12rem; }
+.userInfo .quit {
+  width: 6.5rem;
+  height: 1rem;
+  line-height: 1rem;
+  text-align: center;
+  margin: 1.3rem auto 0;
+  color: #FFFFFF;
+  font-size: 0.28rem;
+  background: #53a6ff;
+  border-radius: 3px; }
 
 /*# sourceMappingURL=mine.css.map */
 .ellipsis {

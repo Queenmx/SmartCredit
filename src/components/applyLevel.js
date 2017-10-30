@@ -6,12 +6,12 @@ import {globalData} from './global.js';
 import Header from './header';
 import { hashHistory, Link } from 'react-router';
 
-
+var toast = new Toast();
 var appBasePath=globalData.appBasePath;
 var ApplyLevel=React.createClass({
 	getInitialState:function(){
 		return {
-			ruleCheck:"on"
+			checked:true
 		}
 	},
 	
@@ -27,17 +27,22 @@ var ApplyLevel=React.createClass({
         }
 	},
 	toApplyResult:function(){
-		var data = {id:3,name:"qin",age:18};
-		var path = {
-		  pathname:'/ApplyResult',
-		  state:data,
+		if(!this.state.checked){
+			toast.show("请同意智能贷服务协议",2000);
+		}else{
+			var data = {id:3,name:"qin",age:18};
+			var path = {
+			  pathname:'/ApplyResult',
+			  state:data,
+			}
+			hashHistory.push(path);
 		}
-		hashHistory.push(path);
 	},
 	agreeRule:function(event){
+		console.log(event.target.checked);
 		this.setState({
-			ruleCheck: event.target.value
-		});
+			checked:event.target.checked
+		})
 	},
 	
 	render:function(){
@@ -104,7 +109,7 @@ var ApplyLevel=React.createClass({
 					</form>
 					
 					<div className="rule">
-						<input className="magic-checkbox" type="checkbox"  id="ruleCheck" checked="checked" value={that.state.ruleCheck} onChange={that.agreeRule}/>
+						<input className="magic-checkbox" type="checkbox"  id="ruleCheck" checked={that.state.checked}  onChange={that.agreeRule}/>
 						<label htmlFor="ruleCheck">我已同意</label>
 						<Link to={   
 						         {   
