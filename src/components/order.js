@@ -12,18 +12,25 @@ var appBasePath = globalData.appBasePath;
 
 var Order=React.createClass({
     getInitialState:function(){
-        return {checked: false}
+        return {
+            num:1,
+            checked: false
+        }
     },
-    handleClick:function(){
+    handleClick:function(e){
+        // var num = e.target.num;
         this.setState({
+            num:2,
             checked: !this.state.checked
-        })
+        });
+        // id == 1 ?  !this.state.checked : !this.state.checked;
     },
     render:function(){
         var self = this;
         var backRouter=this.props.params.backRouter;
+        var num = this.state.num;
         var btnStyle = {
-            backgroundColor: self.state.checked ? '#ddd' : '#53a6ff'
+            backgroundColor: this.state.checked ? '#ddd' : '#53a6ff'
         }
         return (
             <div className="app_Box orderList">
@@ -47,7 +54,7 @@ var Order=React.createClass({
                         </ul>
                         <div className="listFoot">
                             <span className="status">您的贷款申请已提交，3个工作日内完成</span>
-                            <span className="statusBtn" onClick={this.handleClick} style={btnStyle}>取消审核</span>
+                            <span className={this.state.num == 1 ? "statusBtn ":'grayBtn'} onClick={this.handleClick} style={btnStyle}>取消审核</span>
                         </div>
                     </li>
                     <li>
@@ -68,7 +75,7 @@ var Order=React.createClass({
                         </ul>
                         <div className="listFoot">
                             <span className="status">您的贷款申请正在审核中，3个工作日内完成</span>
-                            <span className="statusBtn" onClick={this.handleClick} style={btnStyle}>取消审核</span>
+                            <span className={this.state.num == 2 ? "statusBtn ":'grayBtn'} onClick={this.handleClick} style={btnStyle}>取消审核</span>
                         </div>
                     </li>
                 </ul>

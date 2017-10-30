@@ -30761,18 +30761,25 @@ var Order = _react2.default.createClass({
     displayName: 'Order',
 
     getInitialState: function getInitialState() {
-        return { checked: false };
+        return {
+            num: 1,
+            checked: false
+        };
     },
-    handleClick: function handleClick() {
+    handleClick: function handleClick(e) {
+        // var num = e.target.num;
         this.setState({
+            num: 2,
             checked: !this.state.checked
         });
+        // id == 1 ?  !this.state.checked : !this.state.checked;
     },
     render: function render() {
         var self = this;
         var backRouter = this.props.params.backRouter;
+        var num = this.state.num;
         var btnStyle = {
-            backgroundColor: self.state.checked ? '#ddd' : '#53a6ff'
+            backgroundColor: this.state.checked ? '#ddd' : '#53a6ff'
         };
         return _react2.default.createElement(
             'div',
@@ -30843,7 +30850,7 @@ var Order = _react2.default.createClass({
                         ),
                         _react2.default.createElement(
                             'span',
-                            { className: 'statusBtn', onClick: this.handleClick, style: btnStyle },
+                            { className: this.state.num == 1 ? "statusBtn " : 'grayBtn', onClick: this.handleClick, style: btnStyle },
                             '\u53D6\u6D88\u5BA1\u6838'
                         )
                     )
@@ -30910,7 +30917,7 @@ var Order = _react2.default.createClass({
                         ),
                         _react2.default.createElement(
                             'span',
-                            { className: 'statusBtn', onClick: this.handleClick, style: btnStyle },
+                            { className: this.state.num == 2 ? "statusBtn " : 'grayBtn', onClick: this.handleClick, style: btnStyle },
                             '\u53D6\u6D88\u5BA1\u6838'
                         )
                     )
