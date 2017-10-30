@@ -811,15 +811,18 @@ body {
     font-size: 0.22rem;
     line-height: 0.38rem;
 }
-.statusBtn{
+.statusBtn,
+.grayBtn{
     width: 1.52rem;
     height: 0.56rem;
     line-height: 0.56rem;
-    background: #53a6ff;
     border-radius: 0.1rem;
     text-align: center;
     color: #fff;
-}.ellipsis {
+}
+/* .statusBtn{
+    background: #53a6ff;
+} */.ellipsis {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis; }
