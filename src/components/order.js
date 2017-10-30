@@ -18,12 +18,10 @@ var Order=React.createClass({
         }
     },
     handleClick:function(e){
-        // var num = e.target.num;
         this.setState({
             num:2,
             checked: !this.state.checked
         });
-        // id == 1 ?  !this.state.checked : !this.state.checked;
     },
     render:function(){
         var self = this;
@@ -36,7 +34,7 @@ var Order=React.createClass({
             <div className="app_Box orderList">
                 <Header title="我的订单" backRouter={backRouter}/>
                 <ul>
-                    <li>
+                    <li key={index}>
                         <div className="orderNum">
                             订单号：201705092356412
                             <span>已申请</span>
@@ -75,7 +73,7 @@ var Order=React.createClass({
                         </ul>
                         <div className="listFoot">
                             <span className="status">您的贷款申请正在审核中，3个工作日内完成</span>
-                            <span className={this.state.num == 2 ? "statusBtn ":'grayBtn'} onClick={this.handleClick} style={btnStyle}>取消审核</span>
+                            <span className={this.state.num == 1 ? "statusBtn ":'grayBtn'} onClick={this.handleClick} style={btnStyle}>取消审核</span>
                         </div>
                     </li>
                 </ul>
