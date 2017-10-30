@@ -91,6 +91,9 @@
       .loginCon .infoBox .inputLine .getMsg {
         display: inline-block;
         flex: 0 0 1.8rem;
+        -webkit-flex: 0 0 1.8rem;
+        -webkit-box-flex: 0 0 1.8rem;
+        border: 0;
         border-radius: 3px;
         font-size: 0.22rem;
         height: 0.58rem;
@@ -127,5 +130,46 @@
     text-align: center; }
     .loginCon .note span {
       margin-right: 0.2rem; }
+
+.setPsd .inputPsd {
+  height: 1rem;
+  line-height: 1rem;
+  position: relative;
+  font-size: 0.28rem;
+  background: #FFFFFF;
+  padding: 0 0.65rem; }
+  .setPsd .inputPsd:after {
+    pointer-events: none;
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    content: "";
+    -webkit-transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+    border-bottom: 1px solid #f3f3f3; }
+  .setPsd .inputPsd label {
+    width: 1.6rem; }
+  .setPsd .inputPsd input {
+    border: 0;
+    background: transparent;
+    width: 3.4rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    margin-top: 0.2rem;
+    margin-left: 0.8rem; }
+.setPsd .psdLogin {
+  height: 0.88rem;
+  line-height: 0.88rem;
+  background: #53a6ff;
+  width: 6rem;
+  border-radius: 3px;
+  margin: 1.1rem auto 0;
+  color: #FFFFFF;
+  text-align: center; }
 
 /*# sourceMappingURL=login.css.map */

@@ -72,6 +72,9 @@
             .getMsg{
                 display: inline-block;
                 flex: 0 0 1.8rem;
+                -webkit-flex:0 0 1.8rem;
+                -webkit-box-flex:0 0 1.8rem;
+                border: 0;
                 border-radius: 3px;
                 font-size: 0.22rem;
                 height: 0.58rem;
@@ -121,4 +124,37 @@
               margin-right: 0.2rem;
           }
       }
+}
+.setPsd{
+    .inputPsd{
+        height: 1rem;
+        line-height: 1rem;
+        @include border_Bot;
+        font-size: 0.28rem;
+        background: #FFFFFF;
+        padding: 0 0.65rem;
+        label{
+            width: 1.6rem;
+        }
+        input{
+            border: 0;
+            background: transparent;
+            width:3.4rem;
+            height: 0.6rem;
+           line-height: 0.6rem;
+           margin-top: 0.2rem;
+           margin-left: 0.8rem;
+        }
+        
+    }
+    .psdLogin{
+            height: 0.88rem;
+            line-height: 0.88rem;
+            background: $blue;
+            width:6rem ;
+            border-radius: 3px;
+            margin: 1.1rem auto 0;
+            color: #FFFFFF;
+            text-align: center;
+        }
 }

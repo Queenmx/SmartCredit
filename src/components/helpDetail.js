@@ -56,10 +56,6 @@ var HelpDetail=React.createClass({
         					<span onClick={that.anp}><img src="src/img/icon/no.png"/>未解决</span>
         				</div>
         			</div>
-        			<ul className="helpList">
-	        			<li onClick={that.helpDetail}>申请贷款<img src="src/img/icon/right.png"/></li>
-	        			<li onClick={that.helpDetail}>付款异常<img src="src/img/icon/right.png"/></li>
-	        		</ul>
         		</div>
         		
         	</div>

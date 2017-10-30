@@ -95,24 +95,18 @@
   -ms-flex-direction: column;
   -o-flex-direction: column;
   flex-direction: column; }
-  .applyLevelCon .applyLevel {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1; }
   .applyLevelCon .rule {
     height: 1rem;
+    line-height: 1rem;
+    margin-left: 0.5rem;
     font-size: 0.2rem;
-    padding-top: 0.2rem;
     position: relative; }
     .applyLevelCon .rule .magic-checkbox {
       position: absolute;
       display: none; }
     .applyLevelCon .rule .magic-checkbox + label {
       position: relative;
-      display: block;
-      padding-left: 30px;
+      padding-left: 0.6rem;
       cursor: pointer;
       vertical-align: middle; }
       .applyLevelCon .rule .magic-checkbox + label:after {
@@ -122,8 +116,8 @@
         top: 2px;
         left: 7px;
         box-sizing: border-box;
-        width: 6px;
-        height: 12px;
+        width: 0.12rem;
+        height: 0.24rem;
         transform: rotate(45deg);
         border-width: 2px;
         border-style: solid;
@@ -135,10 +129,10 @@
         top: 0;
         left: 0;
         display: inline-block;
-        width: 20px;
-        height: 20px;
+        width: 0.4rem;
+        height: 0.4rem;
         content: '';
-        border: 1px solid #3e97eb;
+        border: 1px solid #53a6ff;
         border-radius: 50%; }
     .applyLevelCon .rule .magic-checkbox:checked + label:after {
       display: block; }
@@ -149,5 +143,50 @@
       background: #3e97eb; }
     .applyLevelCon .rule a {
       margin-left: 0.3rem; }
+
+.applyLevel {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1; }
+  .applyLevel .levelInfo {
+    height: 1rem;
+    position: relative;
+    padding: 0 0.5rem;
+    background: #FFFFFF; }
+    .applyLevel .levelInfo:after {
+      pointer-events: none;
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      content: "";
+      -webkit-transform: scale(0.5);
+      -webkit-transform-origin: 0 0;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+      border-bottom: 1px solid #f3f3f3; }
+    .applyLevel .levelInfo label {
+      line-height: 1rem;
+      color: #333333;
+      font-size: 0.28rem; }
+    .applyLevel .levelInfo input {
+      height: 0.6rem;
+      line-height: 0.6rem;
+      margin-top: 0.2rem;
+      text-align: right;
+      float: right;
+      border: 0;
+      background: transparent;
+      font-size: 0.24rem; }
+    .applyLevel .levelInfo span {
+      float: right;
+      color: #53a6ff;
+      line-height: 1rem;
+      margin-left: 0.1rem;
+      font-size: 0.24rem; }
 
 /*# sourceMappingURL=apply.css.map */

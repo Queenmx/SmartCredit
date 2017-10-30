@@ -15,7 +15,19 @@ var Login=React.createClass({
 		return {
 			wayNum:1,
 			eyeImg:eyeImg,
-			inputType:"password"
+			inputType:"password",
+			changePhoneTxt:"",
+			getMsg:{
+				style:{
+						backgroundColor:"#ffa81e",
+						color:"#ffffff"
+					},
+				getMsgTxt:"获取验证码",
+				disabled:false
+			},
+			display:{
+				display:"none"
+			}
 		}
 	},
 	checkWay:function(e){
@@ -39,8 +51,9 @@ var Login=React.createClass({
 		
 	},
 	submitHandler:function(){
+		var that=this;
 		var wayNum=this.state.wayNum;
-		var phoneNum=$("#phoneNum").val().trim();
+		var phoneNum=that.state.phoneNum;
 		if(!(/^1[34578]\d{9}$/.test(phoneNum))){
 /*			this.setState({
 				selecthint:1,
@@ -55,7 +68,7 @@ var Login=React.createClass({
 		}else{
 			switch (wayNum){
 				case 1:
-					var psd=$("#psd").val();
+					var psd=that.state.password;
 					if(psd==""||psd==null){
 						 toast.show("请输入密码",2000);
 					}else{
@@ -63,12 +76,12 @@ var Login=React.createClass({
 					}
 					break;
 				case 2:
-					var yzCode=$("#yzCode").val();
+					var yzCode=that.state.yzCode;
 					if(yzCode==""||yzCode==null){
 						 toast.show("请输入验证码",2000);
 					}else{
 						console.log("请求验证码login");
-						var data = {phoneNum:phoneNum,title:"设置密码"};
+						var data = {phoneNum:phoneNum};
 						var path = {
 						  pathname:'/setPsd',
 						  state:data,
@@ -121,41 +134,96 @@ var Login=React.createClass({
 			})
 		}
 	},
+	
+	changeMsgTxt:function(e){
+		this.setState({
+			getMsg: {
+				getMsgTxt: e.target.value
+			}
+		})
+	},
+	
+	changeInputTxt:function(e){
+		this.setState({
+			[e.target.name]:e.target.value
+		})
+	},
+	getMsg:function(){
+		
+		var that=this;
+		//input在disable且readonly之后，onClick会在iOS上触发不起来，onTouchEnd又会在Android上把键盘弹出来，这边笔者做了个Hack，ios下用onTouchEnd，android下用onClick，就正常了。
+		let phoneNum=that.state.phoneNum;
+		if(!(/^1[34578]\d{9}$/.test(phoneNum))){
+			toast.show("请输入正确格式的手机号码",2000);
+		}else{
+			setTimeout(function(){
+				var time=11;
+				var timeevt=setInterval(function(){
+						time--;
+						that.setState({
+							getMsg:{
+								style:{
+										backgroundColor:"#aaaaaa",
+										color:"#ffffff"
+									},
+								getMsgTxt:time+"s后重新获取",
+								disabled:true
+							}
+						})
+						
+						if(time==0){
+							clearInterval(timeevt);
+							that.setState({
+								getMsg:{
+									style:{
+											backgroundColor:"#ffa81e",
+											color:"#ffffff"
+										},
+								getMsgTxt:"获取验证码",
+								disabled:false
+								}
+							})
+						}
+					},1000)
+			},1000);
+		}
+	},
 	render:function(){
 		var that=this;
-		var backRouter=this.props.params.backRouter;
-		var display={
-			display:"none"
-		}
-		
+		let backRouter=that.props.params.backRouter;
+		let getMsgStyle=that.state.getMsg.style;
+		let display=that.state.display;
+		let getMsgTxt=that.state.getMsg.getMsgTxt;
+		let disabled=that.state.getMsg.disabled;
+		let changeMsgTxt=that.state.changeMsgTxt;
         return (
         	<div className="login">
         		<Header title="登录" backRouter={backRouter}/>
         		<div className="loginCon">
         			<div className="loginWay">
-        				<span className={this.state.wayNum==1?"wayActive":''} onClick={this.checkWay} id="1">密码登录</span>
-        				<span className={this.state.wayNum==2?"wayActive":''} onClick={this.checkWay} id="2">验证码登录</span>
+        				<span className={that.state.wayNum==1?"wayActive":''} onClick={that.checkWay} id="1">密码登录</span>
+        				<span className={that.state.wayNum==2?"wayActive":''} onClick={that.checkWay} id="2">验证码登录</span>
         			</div>
         			<div className="infoBox">
         				<form>
 	        				<div className="inputLine">
 	        					<label htmlFor="phoneNum">手机号</label>
-	        					<input id="phoneNum"  type="number"  className="flex1" name="phoneNum" placeholder="请输入手机号"/>
+	        					<input id="phoneNum"  type="text" onChange={that.changeInputTxt} className="flex1" name="phoneNum" placeholder="请输入手机号"/>
 	        				</div>
 	        				<div className="inputLine" id="psdBox">
 	        					<label htmlFor="psd">密码</label>
-	        					<span className="flex1 psdInput"><input id="psd" type={this.state.inputType} name="password" size="80" placeholder="请输入密码" /></span>
-	      						<span className="eyes" id="eyes" onClick={this.eyesHandle}>
-	      							{this.state.eyeImg}
+	        					<span className="flex1 psdInput"><input id="psd" type={that.state.inputType} onChange={that.changeInputTxt} name="password" placeholder="请输入密码" /></span>
+	      						<span className="eyes" id="eyes" onClick={that.eyesHandle}>
+	      							{that.state.eyeImg}
 	      						</span>
 	        				</div>
 	        				<div  className="inputLine" id="yzBox" style={display}>
 	        					<label htmlFor="yzCode">验证码</label>
-	        					<input className="flex1" id="yzCode" type="text" name="yzCode" placeholder="请输入验证码" />
-	      						<span className="getMsg" id="getMsg" size="6">获取验证码</span>
+	        					<input className="flex1" id="yzCode" type="text" name="yzCode" placeholder="请输入验证码"  onChange={that.changeInputTxt} />
+	      						<input type="text" onClick={that.getMsg} placeholder="获取验证码" readOnly="readOnly" disabled={disabled} style={getMsgStyle} className="getMsg" id="getMsg"  value={getMsgTxt} onChange={that.changeMsgTxt}/>
 	        				</div>
 	        			
-	        				<a className="loginBtn" onClick={this.submitHandler}>登录</a>
+	        				<a className="loginBtn" onClick={that.submitHandler}>登录</a>
         				</form>
         				<p className="note">
         					<span>登录即表示您同意</span>

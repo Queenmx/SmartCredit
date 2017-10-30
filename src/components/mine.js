@@ -55,16 +55,16 @@ var Mine=React.createClass({
 	},
 	
 	goLogin:function(){
-		var path = {
+		/*var path = {
 		  pathname:'/UserInfo',
 		  //query:data,
 		}
-		hashHistory.push(path);
-		/*var path = {
+		hashHistory.push(path);*/
+		var path = {
 		  pathname:'/Login/Mine',
 		  //query:data,
 		}
-		hashHistory.push(path);*/
+		hashHistory.push(path);
 	},
 	toSave:function(){
 		var path = {
@@ -91,6 +91,12 @@ var Mine=React.createClass({
 		}
 		hashHistory.push(path);
 	},
+	toPersonalLevel:function(){
+		var path = {
+		  pathname:'/PersonalLevel',
+		}
+		hashHistory.push(path);
+	},
 	render:function(){
 		var that=this;
         return (
@@ -105,7 +111,7 @@ var Mine=React.createClass({
 		        	<div className="userOrder">
 		        		<ul>
 		        			<li onClick={that.toOrder}><img src="src/img/icon/order.png"/><p>全部订单</p></li>
-		        			<li><img src="src/img/icon/personLevel.png"/><p>个人资质</p></li>
+		        			<li onClick={that.toPersonalLevel}><img src="src/img/icon/personLevel.png"/><p>个人资质</p></li>
 		        			<li onClick={that.toIdCard}><img src="src/img/icon/id.png"/><p>身份证认证</p></li>
 		        		</ul>
 		        		<ul>

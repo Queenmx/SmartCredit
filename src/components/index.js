@@ -26,6 +26,7 @@ import Help from './help';
 import HelpDetail from './helpDetail';
 import IdCard from './idCard';
 import UserInfo from './userInfo';
+import PersonalLevel from './personalLevel';
 //<Route path='/detail/:id' component={Detail} />
 
 ReactDom.render((
@@ -51,5 +52,6 @@ ReactDom.render((
    		<Route path='/HelpDetail' component={HelpDetail}/>
    		<Route path='/IdCard' component={IdCard}/>
    		<Route path='/UserInfo' component={UserInfo}/>
+   		<Route path='/PersonalLevel' component={PersonalLevel}/>
    </Router>
 ), document.getElementById('app'));

@@ -41,13 +41,13 @@ var IdCard=React.createClass({
         		<div className="idCardCon content">
     				<h4>智能贷依法保护你的个人信息</h4>
 					<div className="photoBox">
-						<input id="face"  type="file" onChange={that.upload.bind(this,"#face","#faceImg")} accept="image/*" capture="camera"/>
-						<img id="faceImg" src="src/img/face.jpg" />
+						<input id="face"  type="file" onChange={that.upload.bind(this,"#face","#faceImg")} accept="image/*"  />
+						<img id="faceImg" src="src/img/face.png" />
 						<p>身份证人头像,图片清晰,边缘完整</p>
 					</div>
 					<div className="photoBox">
-						<input id="back" type="file" onChange={that.upload.bind(this,"#back","#backImg")} accept="image/*" capture="camera"/>
-						<img id="backImg" src="src/img/face.jpg"/>
+						<input id="back" type="file" onChange={that.upload.bind(this,"#back","#backImg")} accept="image/*" />
+						<img id="backImg" src="src/img/back.png"/>
 						<p>身份证反面照,图片清晰,边缘完整</p>
 					</div>
         		</div>
