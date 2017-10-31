@@ -72,7 +72,7 @@ var ListDetail=React.createClass({
 	        				<div className="numBox">
 	        					金额
 	        					<div>
-	        						<input type="number" autoFocus="autoFocus" value={that.state.value1}  onChange = {this.handleChange1}/>
+	        						<input type="number"  value={that.state.value1}  onChange = {this.handleChange1}/>
 	        						<span>元</span>
 	        					</div>
 	        				</div>
@@ -148,7 +148,7 @@ var ListDetail=React.createClass({
         			</div>
 	        	</div>
 	        	
-	        	<div className="applyBtnBox">
+	        	<div className="applyBtnBox footer">
 	        		<div className="applySaveBtn"><img src="src/img/icon/sc1.png"/><p>收藏</p></div>
 	        		<div className="applyBtn" onClick={that.toApplyInfo}>申请借款</div>
 	        	</div>

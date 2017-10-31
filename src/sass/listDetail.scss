@@ -154,10 +154,12 @@
       }
   }
       .applyBtnBox{
+          width: 100%;
         height: 0.95rem;
-        @include only_display;
+        //@include only_display;
         .applySaveBtn{
             width:2rem;
+            float: left;
             background: #ffffff;
             img{
                 width:0.45rem ;
@@ -172,7 +174,8 @@
             }
         }
         .applyBtn{
-            @include flex_1;
+            width: 5.5rem;
+            float: right;
             background: $blue;
             color: #ffffff;
             line-height: 0.95rem;

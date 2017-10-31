@@ -72,81 +72,83 @@ var ApplyLevel=React.createClass({
 							<p>申请结果</p>
 						</li>
 					</ul>
-					<form className="applyLevel">
-						<ul>
-							<li className="levelInfo">
-								<label htmlFor="job">职业身份</label>
-								<input type="text" id="job" readOnly="readonly"  placeholder="请选择"/>
-								<ul>
+					<div className="applyLevel">
+						<form className="applyLevelForm">
+							<ul>
+								<li className="levelInfo">
+									<label htmlFor="job">职业身份</label>
+									<input type="text" id="job" readOnly="readonly"  placeholder="请选择"/>
+									<ul>
+										
+									</ul>
+								</li>
+								<li className="levelInfo">
+									<label htmlFor="publicMoney">是否有本地公积金</label>
+									<input type="text" id="publicMoney" readOnly="readonly" placeholder="请选择"/>
+									<ul>
+									</ul>
+								</li>
+								<li className="levelInfo">
+									<label htmlFor="social">是否有本地社保</label>
+									<input type="text" id="social" readOnly="readonly"  placeholder="请选择"/>
+									<ul>
+										
+									</ul>
+								</li>
+								<li className="levelInfo">
+									<label htmlFor="house">名下房产类型</label>
+									<input type="text" id="house" readOnly="readonly"  placeholder="请选择"/>
+									<ul>
+									</ul>
+								</li>
+								<li className="levelInfo">
+									<label htmlFor="car">名下是否有车</label>
+									<input type="text" id="car" readOnly="readonly"  placeholder="请选择"/>
+									<ul>
+									</ul>
+								</li>
+								<li className="levelInfo">
+									<label htmlFor="credit">你的信用情况</label>
+									<input type="text" id="credit" readOnly="readonly"  placeholder="请选择"/>
+									<ul>
+									</ul>
+								</li>
+								<li className="levelInfo">
+									<label htmlFor="age">年龄</label>
+									<span>岁</span>
+									<input type="text" id="age"   placeholder="请输入内容"/>
 									
-								</ul>
-							</li>
-							<li className="levelInfo">
-								<label htmlFor="publicMoney">是否有本地公积金</label>
-								<input type="text" id="publicMoney" readOnly="readonly" placeholder="请选择"/>
-								<ul>
-								</ul>
-							</li>
-							<li className="levelInfo">
-								<label htmlFor="social">是否有本地社保</label>
-								<input type="text" id="social" readOnly="readonly"  placeholder="请选择"/>
-								<ul>
-									
-								</ul>
-							</li>
-							<li className="levelInfo">
-								<label htmlFor="house">名下房产类型</label>
-								<input type="text" id="house" readOnly="readonly"  placeholder="请选择"/>
-								<ul>
-								</ul>
-							</li>
-							<li className="levelInfo">
-								<label htmlFor="car">名下是否有车</label>
-								<input type="text" id="car" readOnly="readonly"  placeholder="请选择"/>
-								<ul>
-								</ul>
-							</li>
-							<li className="levelInfo">
-								<label htmlFor="credit">你的信用情况</label>
-								<input type="text" id="credit" readOnly="readonly"  placeholder="请选择"/>
-								<ul>
-								</ul>
-							</li>
-							<li className="levelInfo">
-								<label htmlFor="age">年龄</label>
-								<span>岁</span>
-								<input type="text" id="age"   placeholder="请输入内容"/>
-								
-								<ul>
-								</ul>
-							</li>
-							<li className="levelInfo">
-								<label htmlFor="history">是否申请过捷信分期付款</label>
-								<input type="text" id="history" readOnly="readonly"  placeholder="请选择"/>
-								<ul>
-								</ul>
-							</li>
-						</ul>
-						
-						
-					</form>
+									<ul>
+									</ul>
+								</li>
+								<li className="levelInfo">
+									<label htmlFor="history">是否申请过捷信分期付款</label>
+									<input type="text" id="history" readOnly="readonly"  placeholder="请选择"/>
+									<ul>
+									</ul>
+								</li>
+							</ul>
+							
+							
+						</form>
 					
-					<div className="rule">
-						<input className="magic-checkbox" type="checkbox"  id="ruleCheck" checked={that.state.checked}  onChange={that.agreeRule}/>
-						<label htmlFor="ruleCheck">我已同意</label>
-						<Link to={   
-						         {   
-						             pathname:"/txt",   
-						             //hash:'#ahash',    
-						             state:{title: '智能贷服务条款',backRouter:'/Login'}    
-						         }   
-						    } >
-    					《智能贷服务条款》
-						</Link>   
-						
+						<div className="rule">
+							<input className="magic-checkbox" type="checkbox"  id="ruleCheck" checked={that.state.checked}  onChange={that.agreeRule}/>
+							<label htmlFor="ruleCheck">我已同意</label>
+							<Link to={   
+							         {   
+							             pathname:"/txt",   
+							             //hash:'#ahash',    
+							             state:{title: '智能贷服务条款',backRouter:'/Login'}    
+							         }   
+							    } >
+	    					《智能贷服务条款》
+							</Link>   
+							
+						</div>
 					</div>
 	        	</div>	
-	        	<div className="botBtn" onClick={that.toApplyResult}>下一步</div>
+	        	<div className="botBtn footer" onClick={that.toApplyResult}>下一步</div>
         	</div>
         )
 	}

@@ -100,13 +100,22 @@ var ApplyInfo=React.createClass({
 						</div>
 					</form>
 	        	</div>	
-	        	<div className="botBtn" onClick={that.toApplyLevel}>下一步</div>
+	        	<div className="botBtn footer" onClick={that.toApplyLevel}>下一步</div>
         	</div>
         )
+        
+        
 	}
 });
 
-
+var oHeight = $(document).height(); //屏幕当前的高度
+			$(window).resize(function(){
+			        if($(document).height() < oHeight){
+			        $(".footer").css("display","none");
+		    }else{
+		         $(".footer").css("display","block");
+		    } 
+		});
 export default ApplyInfo;
 
 

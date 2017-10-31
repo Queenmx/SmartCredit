@@ -142,6 +142,8 @@
 }
 .applyLevel{
         @include flex_1;
+        overflow-x:hidden ;
+        overflow-y:scroll ;
         .levelInfo{
             height: 1rem;
             @include border_Bot;

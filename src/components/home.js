@@ -5,6 +5,7 @@ import api from './api';
 import {globalData} from './global.js';
 import HomeHeader from './homeHeader';
 import Footer from './footer';
+import Loading from './Loading';
 import { hashHistory, Link } from 'react-router';
 import '../css/home.css';
 
@@ -13,7 +14,7 @@ var Home=React.createClass({
 	getInitialState:function(){
 		return {
 			activeTab: 1,
-			isShow: false,
+			isLoading: false,
 			activeIndex:0
 		}
 	},
@@ -44,7 +45,7 @@ var Home=React.createClass({
 		const data = {listId:listId,title:"title"};
 		const path = {
 		  pathname:'/List',
-		  state:data,
+		  state:data
 		}
 		hashHistory.push(path);
 	},
@@ -148,7 +149,7 @@ var Home=React.createClass({
 	        				</div>
         					<Link to="/news" className="linkNews">全部热门资讯<img src=""/></Link>
 	        		</div>
-	        		
+	        		<Loading flag={that.state.isLoading}/>
 	        	</div>
 				<Footer activeIndex="0"/>
         	</div>
