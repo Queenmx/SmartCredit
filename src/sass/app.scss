@@ -5,9 +5,11 @@ html {
     width:100%;
     height: 100%;
     font-size: 100px;
+    -webkit-tap-hightlight-color:transparent;
 }
 body {
     width: 7.5rem;
+    height: 100%;
     //max-width: 7.5rem;
     margin:0 auto;
     height: 100%;
@@ -103,8 +105,6 @@ body {
      .app_Box{
         width: 100%;
         height: 100%;
-        overflow: auto;
-        overflow-x:hidden ;
         @include flex_column;
          background: $grey;
      }
@@ -166,13 +166,15 @@ body {
         }
         
         .content {
-            width: 100% !important;
-            display: block !important;
+            //width: 100% !important;
+           // display: block ;
             //height: 100%;
             @include flex_1;
             overflow: auto;
-            overflow-x: hidden; 
+//          overflow-x: hidden; 
+//          overflow-y: scroll;
             -webkit-overflow-scrolling : touch;
+            position: relative;
       }
         #tabBar {
             width: 100%;
@@ -248,6 +250,7 @@ body {
             color: #aaaaaa;
             font-size: 0.22rem;
              @include only_display;
+             -webkit-justify-content: space-between;
             justify-content:space-between;
             span{
                @include flex_1; 
@@ -300,6 +303,7 @@ body {
     }
 }
  .botBtn{
+     width: 100%;
        height: 1rem;
        line-height: 1rem;
        background: $blue;

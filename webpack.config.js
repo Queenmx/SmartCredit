@@ -10,6 +10,9 @@ module.exports = {
         filename: 'build.js' //打包后输出文件的文件名
     },
     devtool:"source-map",//调试工具
+    externals:{
+	    'BMap':'BMap'
+	  },
     module: {
         loaders: [
 //      {    

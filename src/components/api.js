@@ -12,12 +12,23 @@ var toast = new Toast();
  * @para:参数描述
  * ACTION
  */
+
+module.exports.queryMap=function(cb){ 
+    var data=globalData.requestData;
+    //data.ACTION="main_v2";
+    var param=JSON.stringify(data);
+    var queryData = base64encode(des(key,utf16to8(param),1,0, iv, 1));
+  	http(`${globalData.path}/loan/detail`,queryData,cb);
+}
+
+
+
 module.exports.queryBanner=function(cb){ 
     var data=globalData.requestData;
     data.ACTION="main_v2";
     var param=JSON.stringify(data);
     var queryData = base64encode(des(key,utf16to8(param),1,0, iv, 1));
-  	http(`${globalData.path}`,queryData,cb);
+  	http(`${globalData.path1}`,queryData,cb);
 }
 
 /**

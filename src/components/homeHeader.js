@@ -5,6 +5,7 @@ import api from './api';
 import {globalData} from './global.js';
 import { Router, Route, Link } from 'react-router';
 import MyMap from './myMap';
+import BMap from 'BMap';
 
 var appBasePath=globalData.appBasePath;
 var HomeHeader=React.createClass({
@@ -14,7 +15,7 @@ var HomeHeader=React.createClass({
 		}
 	},
 	
-	componentWillMount:function(){
+	componentDidMount:function(){
 		var that=this;
 		var dingwei=localStorage.getItem("dingwei");
 		//var curCity=localStorage.getItem("curCity");
@@ -62,10 +63,7 @@ var HomeHeader=React.createClass({
 		//}
 		
      },
-     componentDidMount:function(){
-     	var that=this;
-     },
-     
+   
     /* toAddress:function(){
      	hashHistory.push({  
 		        pathname: '/myMap',  
