@@ -107,8 +107,10 @@
       line-height: 0.86rem;
       text-indent: 0.52rem;
       font-size: 0.28rem;
-      color: #333333;
       margin-top: 0.28rem; }
+      .mine .userOrder .toSet a {
+        display: block;
+        color: #666666; }
 
 .idCard .idCardCon h4 {
   font-weight: 500;
@@ -162,22 +164,26 @@
   .userInfo .userInfoCon li span {
     font-size: 0.26rem;
     color: #333333; }
+  .userInfo .userInfoCon li > img {
+    margin-top: 0.2rem;
+    width: 0.6rem;
+    height: 0.6rem; }
   .userInfo .userInfoCon li .infoRight {
     float: right;
     font-size: 0.22rem;
     color: #AAAAAA; }
     .userInfo .userInfoCon li .infoRight b {
-      margin-right: 0.2rem;
       font-weight: 500; }
     .userInfo .userInfoCon li .infoRight img {
+      margin-left: 0.2rem;
       width: 0.2rem;
       height: 0.4rem; }
-  .userInfo .userInfoCon li:last-of-type {
+  .userInfo .userInfoCon li.userInfoLi {
     margin-top: 0.12rem; }
 .userInfo .quit {
-  width: 6.5rem;
-  height: 1rem;
-  line-height: 1rem;
+  width: 5.5rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
   text-align: center;
   margin: 1.3rem auto 0;
   color: #FFFFFF;

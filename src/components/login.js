@@ -225,7 +225,15 @@ var Login=React.createClass({
 	        			
 	        				<a className="loginBtn" onClick={that.submitHandler}>登录</a>
         				</form>
-        				<p className="note">
+        				<p className="forgotPsd">
+        					<Link to="/ForgotPsd" >
+        					忘记密码
+							</Link>   
+        				</p>
+        				
+        			</div>
+        		</div>
+        		<p className="note">
         					<span>登录即表示您同意</span>
         					<Link to={   
 							         {   
@@ -238,8 +246,6 @@ var Login=React.createClass({
         					智能贷协议
 							</Link>   
         				</p>
-        			</div>
-        		</div>
         	</div>
         )
 	}

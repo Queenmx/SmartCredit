@@ -14,6 +14,7 @@ body {
     margin:0 auto;
     height: 100%;
     font-size: 12px;
+    font-family: "microsoft yahei";
 //  position: absolute;
 //  left: 50%;
 //  top: 50%;
@@ -172,7 +173,6 @@ body {
             @include flex_1;
             overflow: auto;
           overflow-x: hidden; 
-          overflow-y: scroll;
             -webkit-overflow-scrolling : touch;
             position: relative;
       }

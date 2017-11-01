@@ -4,11 +4,27 @@
     width: 100%;
     height: 100%;
     background: #f3f3f3;
+     position: relative;
     .header{
         background: #f3f3f3;
     }
+  .note{
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      font-size: 0.2rem;
+      height: 0.8rem;
+      text-align: center;
+      span{
+          margin-right: 0.2rem;
+      }
+      a{
+          color: $blue;
+      }
+  }
 }
 .loginCon{
+   
     border-radius: 5px;
     box-shadow: 0 12px 15px rgba(0,0,0,0.1);;
        -webkit-box-shadow: 0 12px 15px rgba(0,0,0,0.1);; 
@@ -53,6 +69,8 @@
             label{
                 font-size:0.24rem;
                 flex: 0 0 1.2rem;
+                -webkit-flex:0 0 1.2rem;
+                -webkit-box-flex:0 0 1.2rem;
                 display: inline-block;
                // width: 1.2rem;
             }
@@ -68,7 +86,6 @@
                 @include flex_1;
                 margin-right: 0.2rem;
             }
-            
             .getMsg{
                 display: inline-block;
                 flex: 0 0 1.8rem;
@@ -84,6 +101,7 @@
                 //align-items:flex-end;
                 color: #ffffff;
             }
+            
             .eyes{
                 flex: 0 0 0.4rem;
                 height: 0.24rem;
@@ -97,7 +115,14 @@
                display: none;
            } 
         }
-        
+        .forgotPsd{
+            text-align: right;
+            height: 0.8rem;
+            font-size: 0.2rem;
+            a{
+                color: $blue;
+            }
+        }
         
     }
     .loginBtn{
@@ -116,25 +141,20 @@
        -webkit-box-shadow: 0 5px 20px rgba(83,166,255,0.5); 
        -moz-box-shadow: 0 5px 20px rgba(83,166,255,0.5);
       }
-      .note{
-          font-size: 0.2rem;
-          height: 0.8rem;
-          text-align: center;
-          span{
-              margin-right: 0.2rem;
-          }
-      }
+    
 }
-.setPsd{
-    .inputPsd{
+
+.setPsd,.forgotPsd{
+    .inputPsd,.realName{
         height: 1rem;
         line-height: 1rem;
         @include border_Bot;
         font-size: 0.28rem;
         background: #FFFFFF;
-        padding: 0 0.65rem;
+        padding: 0 0.5rem;
         label{
             width: 1.6rem;
+            margin-right: 0.8rem;
         }
         input{
             border: 0;
@@ -143,13 +163,33 @@
             height: 0.6rem;
            line-height: 0.6rem;
            margin-top: 0.2rem;
-           margin-left: 0.8rem;
+           &.shortInput{
+                width: 2.5rem;
+            }
+            &.getMsg{
+                margin-left: 0.2rem;
+                width: 2rem;
+                 border: 0;
+                border-radius: 3px;
+                font-size: 0.22rem;
+                height: 0.6rem;
+                background: #ffa81e;
+                text-align: center;
+                line-height: 0.6rem;
+                color: #ffffff;
+            }
         }
         
+        
+        
+    }
+  
+    .realName{
+        margin-top: 0.2rem;
     }
     .psdLogin{
-            height: 0.88rem;
-            line-height: 0.88rem;
+            height: 0.8rem;
+            line-height: 0.8rem;
             background: $blue;
             width:6rem ;
             border-radius: 3px;
@@ -158,3 +198,6 @@
             text-align: center;
         }
 }
+    .forgotPsdCon,.setPsdCon{
+        margin-top: 0.8rem;
+    }

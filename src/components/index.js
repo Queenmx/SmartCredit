@@ -26,6 +26,10 @@ import Help from './help';
 import HelpDetail from './helpDetail';
 import IdCard from './idCard';
 import UserInfo from './userInfo';
+import Set from './set';
+import RePsd from './rePsd';
+import ForgotPsd from './forgotPsd';
+import RealName from './realName';
 import PersonalLevel from './personalLevel';
 //<Route path='/detail/:id' component={Detail} />
 
@@ -53,5 +57,9 @@ ReactDom.render((
    		<Route path='/IdCard' component={IdCard}/>
    		<Route path='/UserInfo' component={UserInfo}/>
    		<Route path='/PersonalLevel' component={PersonalLevel}/>
+ 		<Route path='/Set' component={Set}/>
+ 		<Route path='/RePsd' component={RePsd}/>
+ 		<Route path='/ForgotPsd' component={ForgotPsd}/>
+ 		<Route path='/RealName' component={RealName}/>
    </Router>
 ), document.getElementById('app'));

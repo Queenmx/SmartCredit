@@ -117,8 +117,11 @@
            line-height: 0.86rem;
            text-indent: 0.52rem;
            font-size: 0.28rem;
-           color: #333333;
            margin-top: 0.28rem;
+           a{
+               display: block;
+               color: #666666;
+           }
        }
     }
 }
@@ -171,28 +174,34 @@
                font-size: 0.26rem;
                color: #333333;
            }
+           &>img{
+               margin-top: 0.2rem;
+               width: 0.6rem;
+               height: 0.6rem;
+           }
           .infoRight{
               float: right;
               font-size: 0.22rem;
               color: #AAAAAA;
               b{
-                  margin-right: 0.2rem;
+                 
                   font-weight: 500;
               }
               img{
+                   margin-left: 0.2rem;
                   width: 0.2rem;
                   height: 0.4rem;
               }
           }
-         &:last-of-type{
+         &.userInfoLi{
              margin-top: 0.12rem;
          }  
        }
    } 
    .quit{
-       width: 6.5rem;
-       height: 1rem;
-       line-height: 1rem;
+       width: 5.5rem;
+       height: 0.8rem;
+       line-height: 0.8rem;
        text-align: center;
        margin: 1.3rem auto 0;
        color: #FFFFFF;

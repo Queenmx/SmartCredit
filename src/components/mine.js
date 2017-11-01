@@ -3,8 +3,9 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import api from './api';
 import {globalData} from './global.js';
-import {hashHistory} from 'react-router';
+import {hashHistory,Link} from 'react-router';
 import Footer from './footer';
+import Set from './set';
 import Login from './login';
 import '../css/mine.css';
 
@@ -118,7 +119,7 @@ var Mine=React.createClass({
 		        			<li onClick={that.toSave}><img src="src/img/icon/sc.png"/><p>我的收藏</p></li>
 		        			<li onClick={that.toHelp}><img src="src/img/icon/bz.png"/><p>帮助与反馈</p></li>
 		        		</ul>
-		        		<div className="toSet">设置</div>
+		        		<div className="toSet"><Link to="/Set">设置</Link></div>
 		        	</div>
 				</div>
 	        	<Footer activeIndex="2"/>

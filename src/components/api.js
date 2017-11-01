@@ -1,24 +1,21 @@
 var http=require("./http");
 import {globalData} from './global.js';
 
-var key = globalData.key;
+var key1 = globalData.key;
 var appBasePath = globalData.appBasePath;
 var iv = new String(0);
 var toast = new Toast();
 
-/**
- * 功能描述：首页
- * 函数名：queryBanner
- * @para:参数描述
- * ACTION
- */
 
-module.exports.queryMap=function(cb){ 
+//获取城市列表
+module.exports.getCityList=function(cb){ 
     var data=globalData.requestData;
     //data.ACTION="main_v2";
+    
     var param=JSON.stringify(data);
-    var queryData = base64encode(des(key,utf16to8(param),1,0, iv, 1));
-  	http(`${globalData.path}/loan/detail`,queryData,cb);
+    var str = strEnc(param,key1);
+    console.log(str);
+  	http(`${globalData.path}/zndai/city/list`,{params:str},cb);
 }
 
 

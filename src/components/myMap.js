@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-//import Home from './Home';
+import api from './api';
+import {globalData} from './global.js';
 import Header from './header';
 import { hashHistory } from 'react-router';
 import '../css/map.css';
 
-
+var key1 = globalData.key;
 var MyMap=React.createClass({
 	getInitialState:function(){
 		return{
@@ -18,12 +19,13 @@ var MyMap=React.createClass({
 	componentWillMount:function(){
 		var that = this;
 		var url_interface = that.state.url_interface;
+		
 		$.ajax({
 			type:"get",
 			url:"http://"+url_interface+"/sopa/shop/index",
 			data:{tcggsc:'c2726d9cbd6f600f12d60352729060c3'},
 			success:function(data){
-				console.log(data.result);
+				//console.log(data.result);
 				if(data.state == 1){
 					var li_arr = [];//循环的li
 					var loutiarr= [];//右侧楼梯字母的数据
@@ -92,6 +94,13 @@ var MyMap=React.createClass({
 	componentDidMount:function(){
 		var that = this;
 
+			api.getCityList(function (res) {
+				console.log(res.data);
+				var deResult = strDec(res.data,key1,"","");
+            	console.log(deResult);
+			});
+
+
 //============滑动屏幕使对应的值相对定位
 //			
 //			function getTopDistance() {
@@ -137,7 +146,7 @@ var MyMap=React.createClass({
 		
 		$("#mapCon").on("click",".sendCityId",function(){
 			var cityId=$(this).attr("data-shop_id");
-			console.log(cityId);
+			//console.log(cityId);
 			
 			hashHistory.push({  
 		        pathname: '/',  

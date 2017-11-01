@@ -1,3 +1,12 @@
+const request = {
+	    QueryString : function(val) {
+	     var uri = window.location.search;
+	     var re = new RegExp("" +val+ "=([^&?]*)", "ig");
+	     return ((uri.match(re))?(uri.match(re)[0].substr(val.length+1)):null);
+	    }
+	   }
+   var platform =  request.QueryString ("platform");
+   var deviceno = request.QueryString("deviceno");
 const globalData = {
     APP_USER_ID:'',
     selectedCityName:'',
@@ -8,9 +17,9 @@ const globalData = {
     //path:"http://test.91ymfq.com/api/h5Service.do",
     path:"http://192.168.1.17:8088",
     requestData:{
-        "APP_VERSION" : "v1.0",
-		"DEVICE_ID" : "999kkkk",
-		"TOKEN_ID" : ""
+        "platform" : platform,
+		"deviceno" : deviceno,
+		//"TOKEN_ID" : ""
     }
 }
 export {globalData};
