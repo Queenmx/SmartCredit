@@ -5,8 +5,8 @@ const request = {
 	     return ((uri.match(re))?(uri.match(re)[0].substr(val.length+1)):null);
 	    }
 	   }
-   var platform =  request.QueryString ("platform");
-   var deviceno = request.QueryString("deviceno");
+   const platform =  request.QueryString ("platform");
+   const deviceno = request.QueryString("deviceno");
 const globalData = {
     APP_USER_ID:'',
     selectedCityName:'',
