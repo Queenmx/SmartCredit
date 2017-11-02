@@ -4,6 +4,7 @@ import ReactDom from 'react-dom';
 import api from './api';
 import {globalData} from './global.js';
 import Header from './header';
+import TimeCount from './timeCount';
 import { hashHistory, Link } from 'react-router';
 import '../css/login.css';
 var toast = new Toast();
@@ -17,13 +18,13 @@ var Login=React.createClass({
 			eyeImg:eyeImg,
 			inputType:"password",
 			changePhoneTxt:"",
+			count: 60,
+          	liked: true,
 			getMsg:{
 				style:{
 						backgroundColor:"#ffa81e",
 						color:"#ffffff"
-					},
-				getMsgTxt:"获取验证码",
-				disabled:false
+					}
 			},
 			display:{
 				display:"none"
@@ -66,7 +67,6 @@ var Login=React.createClass({
             }, 2000);*/
            toast.show("请输入正确格式的手机号码",2000);
 		}else{
-			
 			switch (wayNum){
 				case 1:
 					var psd=that.state.password;
@@ -80,7 +80,13 @@ var Login=React.createClass({
 						localStorage.setItem("isLogin",true);
 						localStorage.setItem("userId","userId");
 						localStorage.setItem("firstFlag",true);
+						localStorage.setItem("phoneNumb",phoneNum);
 						toast.show("请求密码login",2000);
+						var path = {
+						  pathname:'/',
+							}
+						hashHistory.push(path);
+						
 					}
 					break;
 				case 2:
@@ -92,6 +98,7 @@ var Login=React.createClass({
 						//验证码登录
 						console.log("请求验证码login");
 						var reg=that.state.reg;
+						console.log(reg+"mmmmm"+that.state.verifyCode)
 						if(reg){
 							//已注册，调登录接口
 						/*api.login("CODE",phoneNum,"",yzCode,function(res){
@@ -107,18 +114,12 @@ var Login=React.createClass({
 						  state:data,
 						}
 						hashHistory.push(path);
-							
-							
-							
 						}
-						
-						
-
 						
 					}else{
 						toast.show("验证码不正确",2000);
 					}
-					break
+					break;
 				default:
 					break;
 			}
@@ -126,26 +127,6 @@ var Login=React.createClass({
 		}
 	},
 	
-	
-	componentDidMount:function(){
-		var that=this;
-		/*api.queryBanner(function(data){
-				console.log(data);
-				if(data.result=="000000"){
-					that.setState({
-						isShow: true,
-		                
-		               // dataStatus: 0
-		            },()=>{
-		               
-		            });
-				}else{
-					
-				}
-				
-			});*/
-		    
-	},
 	eyesHandle:function(){
 		var type=$("#psd")[0].type;
 		var eyeImg=[];
@@ -185,34 +166,42 @@ var Login=React.createClass({
 		if(!(/^1[34578]\d{9}$/.test(phoneNum))){
 			toast.show("请输入正确格式的手机号码",2000);
 		}else{
-			var time=11;
-			var timeevt=setInterval(function(){
-					time--;
-					that.setState({
+			if(this.state.liked){
+	          this.timer = setInterval(function () {
+	            var count = this.state.count;
+	            	that.setState({
+	            		liked:false,
 						getMsg:{
 							style:{
 									backgroundColor:"#aaaaaa",
 									color:"#ffffff"
 								},
-							getMsgTxt:time+"s后重新获取",
-							disabled:true
 						}
 					})
-					
-					if(time==0){
-						clearInterval(timeevt);
-						that.setState({
-							getMsg:{
-								style:{
-										backgroundColor:"#ffa81e",
-										color:"#ffffff"
-									},
-							getMsgTxt:"获取验证码",
-							disabled:false
-							}
-						})
+	            count -= 1;
+	            if (count < 1) {
+	              this.setState({
+	                liked: true,
+	                getMsg:{
+						style:{
+								backgroundColor:"#ffa81e",
+								color:"#ffffff"
+							},
 					}
-				},1000)
+	              });
+	              count = 60;
+	　　　　　　　　clearInterval(this.timer);
+	            }
+	            this.setState({
+	              count: count
+	            });
+	          }.bind(this), 1000);
+	        }
+		
+				that.setState({
+						reg:false,
+						verifyCode:"1234"
+					})
 			//发送短信验证码
 			/*api.verifyCode(phoneNum,"REG",function(res){
 				if(res.code=="0000"){
@@ -229,6 +218,9 @@ var Login=React.createClass({
 			
 		}
 	},
+	componentWillUnmount() {
+	    clearInterval(this.timer);
+	 },
 	render:function(){
 		var that=this;
 		let backRouter=that.props.params.backRouter;
@@ -237,6 +229,7 @@ var Login=React.createClass({
 		let getMsgTxt=that.state.getMsg.getMsgTxt;
 		let disabled=that.state.getMsg.disabled;
 		let changeMsgTxt=that.state.changeMsgTxt;
+		 var text = this.state.liked ? '获取验证码' : this.state.count + '秒后重发';
         return (
         	<div className="login">
         		<Header title="登录" backRouter={backRouter}/>
@@ -261,7 +254,8 @@ var Login=React.createClass({
 	        				<div  className="inputLine" id="yzBox" style={display}>
 	        					<label htmlFor="yzCode">验证码</label>
 	        					<input className="flex1" id="yzCode" type="text" name="yzCode" placeholder="请输入验证码"  onChange={that.changeInputTxt} />
-	      						<input type="text" onClick={that.getMsg} placeholder="获取验证码" readOnly="readOnly" disabled={disabled} style={getMsgStyle} className="getMsg" id="getMsg"  value={getMsgTxt} onChange={that.changeMsgTxt}/>
+	      						<span onClick={that.getMsg} style={getMsgStyle} className="getMsg">{text}</span>
+	      					{/*<input type="text" onClick={that.getMsg} placeholder="获取验证码" readOnly="readOnly" disabled={disabled} style={getMsgStyle} className="getMsg" id="getMsg"  value={getMsgTxt} onChange={that.changeMsgTxt}/>*/}
 	        				</div>
 	        			
 	        				<a className="loginBtn" onClick={that.submitHandler}>登录</a>

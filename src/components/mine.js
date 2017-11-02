@@ -56,16 +56,20 @@ var Mine=React.createClass({
 	},
 	
 	goLogin:function(){
-		/*var path = {
-		  pathname:'/UserInfo',
-		  //query:data,
+		var isLogin=localStorage.getItem("isLogin");
+		if(isLogin){
+			var path = {
+			  pathname:'/UserInfo',
+			  //query:data,
+			}
+			hashHistory.push(path);
+		}else{
+			var path = {
+			  pathname:'/Login/Mine',
+			  //query:data,
+			}
+			hashHistory.push(path);
 		}
-		hashHistory.push(path);*/
-		var path = {
-		  pathname:'/Login/Mine',
-		  //query:data,
-		}
-		hashHistory.push(path);
 	},
 	toSave:function(){
 		var path = {

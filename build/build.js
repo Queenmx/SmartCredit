@@ -14635,6 +14635,10 @@ var _header = __webpack_require__(10);
 
 var _header2 = _interopRequireDefault(_header);
 
+var _timeCount = __webpack_require__(302);
+
+var _timeCount2 = _interopRequireDefault(_timeCount);
+
 var _reactRouter = __webpack_require__(6);
 
 __webpack_require__(262);
@@ -14656,13 +14660,13 @@ var Login = _react2.default.createClass({
 			eyeImg: eyeImg,
 			inputType: "password",
 			changePhoneTxt: "",
+			count: 60,
+			liked: true,
 			getMsg: {
 				style: {
 					backgroundColor: "#ffa81e",
 					color: "#ffffff"
-				},
-				getMsgTxt: "获取验证码",
-				disabled: false
+				}
 			},
 			display: {
 				display: "none"
@@ -14704,7 +14708,6 @@ var Login = _react2.default.createClass({
                }, 2000);*/
 			toast.show("请输入正确格式的手机号码", 2000);
 		} else {
-
 			switch (wayNum) {
 				case 1:
 					var psd = that.state.password;
@@ -14718,7 +14721,12 @@ var Login = _react2.default.createClass({
 						localStorage.setItem("isLogin", true);
 						localStorage.setItem("userId", "userId");
 						localStorage.setItem("firstFlag", true);
+						localStorage.setItem("phoneNumb", phoneNum);
 						toast.show("请求密码login", 2000);
+						var path = {
+							pathname: '/'
+						};
+						_reactRouter.hashHistory.push(path);
 					}
 					break;
 				case 2:
@@ -14730,6 +14738,7 @@ var Login = _react2.default.createClass({
 						//验证码登录
 						console.log("请求验证码login");
 						var reg = that.state.reg;
+						console.log(reg + "mmmmm" + that.state.verifyCode);
 						if (reg) {
 							//已注册，调登录接口
 							/*api.login("CODE",phoneNum,"",yzCode,function(res){
@@ -14756,24 +14765,6 @@ var Login = _react2.default.createClass({
 		}
 	},
 
-	componentDidMount: function componentDidMount() {
-		var that = this;
-		/*api.queryBanner(function(data){
-  		console.log(data);
-  		if(data.result=="000000"){
-  			that.setState({
-  				isShow: true,
-                  
-                 // dataStatus: 0
-              },()=>{
-                 
-              });
-  		}else{
-  			
-  		}
-  		
-  	});*/
-	},
 	eyesHandle: function eyesHandle() {
 		var type = $("#psd")[0].type;
 		var eyeImg = [];
@@ -14810,34 +14801,42 @@ var Login = _react2.default.createClass({
 		if (!/^1[34578]\d{9}$/.test(phoneNum)) {
 			toast.show("请输入正确格式的手机号码", 2000);
 		} else {
-			var time = 11;
-			var timeevt = setInterval(function () {
-				time--;
-				that.setState({
-					getMsg: {
-						style: {
-							backgroundColor: "#aaaaaa",
-							color: "#ffffff"
-						},
-						getMsgTxt: time + "s后重新获取",
-						disabled: true
-					}
-				});
-
-				if (time == 0) {
-					clearInterval(timeevt);
+			if (this.state.liked) {
+				this.timer = setInterval(function () {
+					var count = this.state.count;
 					that.setState({
+						liked: false,
 						getMsg: {
 							style: {
-								backgroundColor: "#ffa81e",
+								backgroundColor: "#aaaaaa",
 								color: "#ffffff"
-							},
-							getMsgTxt: "获取验证码",
-							disabled: false
+							}
 						}
 					});
-				}
-			}, 1000);
+					count -= 1;
+					if (count < 1) {
+						this.setState({
+							liked: true,
+							getMsg: {
+								style: {
+									backgroundColor: "#ffa81e",
+									color: "#ffffff"
+								}
+							}
+						});
+						count = 60;
+						clearInterval(this.timer);
+					}
+					this.setState({
+						count: count
+					});
+				}.bind(this), 1000);
+			}
+
+			that.setState({
+				reg: false,
+				verifyCode: "1234"
+			});
 			//发送短信验证码
 			/*api.verifyCode(phoneNum,"REG",function(res){
    	if(res.code=="0000"){
@@ -14853,6 +14852,10 @@ var Login = _react2.default.createClass({
    })*/
 		}
 	},
+	componentWillUnmount: function componentWillUnmount() {
+		clearInterval(this.timer);
+	},
+
 	render: function render() {
 		var that = this;
 		var backRouter = that.props.params.backRouter;
@@ -14861,6 +14864,7 @@ var Login = _react2.default.createClass({
 		var getMsgTxt = that.state.getMsg.getMsgTxt;
 		var disabled = that.state.getMsg.disabled;
 		var changeMsgTxt = that.state.changeMsgTxt;
+		var text = this.state.liked ? '获取验证码' : this.state.count + '秒后重发';
 		return _react2.default.createElement(
 			'div',
 			{ className: 'login' },
@@ -14926,7 +14930,11 @@ var Login = _react2.default.createClass({
 								'\u9A8C\u8BC1\u7801'
 							),
 							_react2.default.createElement('input', { className: 'flex1', id: 'yzCode', type: 'text', name: 'yzCode', placeholder: '\u8BF7\u8F93\u5165\u9A8C\u8BC1\u7801', onChange: that.changeInputTxt }),
-							_react2.default.createElement('input', { type: 'text', onClick: that.getMsg, placeholder: '\u83B7\u53D6\u9A8C\u8BC1\u7801', readOnly: 'readOnly', disabled: disabled, style: getMsgStyle, className: 'getMsg', id: 'getMsg', value: getMsgTxt, onChange: that.changeMsgTxt })
+							_react2.default.createElement(
+								'span',
+								{ onClick: that.getMsg, style: getMsgStyle, className: 'getMsg' },
+								text
+							)
 						),
 						_react2.default.createElement(
 							'a',
@@ -29856,16 +29864,20 @@ var Mine = _react2.default.createClass({
 	},
 
 	goLogin: function goLogin() {
-		/*var path = {
-    pathname:'/UserInfo',
-    //query:data,
-  }
-  hashHistory.push(path);*/
-		var path = {
-			pathname: '/Login/Mine'
-			//query:data,
-		};
-		_reactRouter.hashHistory.push(path);
+		var isLogin = localStorage.getItem("isLogin");
+		if (isLogin) {
+			var path = {
+				pathname: '/UserInfo'
+				//query:data,
+			};
+			_reactRouter.hashHistory.push(path);
+		} else {
+			var path = {
+				pathname: '/Login/Mine'
+				//query:data,
+			};
+			_reactRouter.hashHistory.push(path);
+		}
 	},
 	toSave: function toSave() {
 		var path = {
@@ -30168,6 +30180,11 @@ var SetPsd = _react2.default.createClass({
    					localStorage.setItem("isLogin",true);
    					localStorage.setItem("userId","userId");
    					localStorage.setItem("firstFlag",true);
+   					let path = {
+   					  pathname:'/'
+   					}
+   					hashHistory.push(path);
+   					localStorage.setItem("phoneNumb",phoneNum);
    				}
    			})	
    	}
@@ -30177,7 +30194,10 @@ var SetPsd = _react2.default.createClass({
 				pathname: '/'
 			};
 			_reactRouter.hashHistory.push(path);
-			var firstFlag = localStorage.setItem("firstFlag", true);
+			localStorage.setItem("isLogin", true);
+			localStorage.setItem("firstFlag", true);
+			localStorage.setItem("userId", "userId");
+			localStorage.setItem("phoneNumb", phoneNum);
 		}
 	},
 	render: function render() {
@@ -33285,6 +33305,26 @@ var PersonalLevel = _react2.default.createClass({
 });
 
 exports.default = PersonalLevel;
+
+/***/ }),
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open 'E:\\workspace\\dai\\SmartCredit\\src\\components\\timeCount.js'");
 
 /***/ })
 /******/ ]);

@@ -39,6 +39,11 @@ var SetPsd=React.createClass({
 								localStorage.setItem("isLogin",true);
 								localStorage.setItem("userId","userId");
 								localStorage.setItem("firstFlag",true);
+								let path = {
+								  pathname:'/'
+								}
+								hashHistory.push(path);
+								localStorage.setItem("phoneNumb",phoneNum);
 							}
 						})	
 				}
@@ -49,7 +54,10 @@ var SetPsd=React.createClass({
 			  pathname:'/'
 			}
 			hashHistory.push(path);
-			var firstFlag=localStorage.setItem("firstFlag",true);
+			localStorage.setItem("isLogin",true);
+			localStorage.setItem("firstFlag",true);
+			localStorage.setItem("userId","userId");
+			localStorage.setItem("phoneNumb",phoneNum);
 		}
 		
 	},
