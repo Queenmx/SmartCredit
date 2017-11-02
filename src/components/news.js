@@ -32,7 +32,7 @@ var News=React.createClass({
 		var that=this;
 		var banner=[];
 		var mPost=[];
-		api.queryBanner(function(data){
+/*		api.queryBanner(function(data){
 				//console.log(data);
 				if(data.result=="000000"){
 					//console.log("ok1");
@@ -50,7 +50,7 @@ var News=React.createClass({
 			            	banner:banner
 			            })
 					
-					/*that.setState({
+					that.setState({
 						isShow: true,
 		                bannerList: data.data.bannerList,//轮播图片
 		                mPost: data.data.mPost,//妈妈会议室-取置顶为INDEX的1篇文章
@@ -68,12 +68,12 @@ var News=React.createClass({
 			            };
 			            that.setState({
 			            	banner:banner
-			            })*/
+			            })
 				}else{
 					
 				}
 				
-			});
+			});*/
 		
 		
 		/*for (var i = 0; i < that.state.bannerList.length; i++) {
@@ -91,21 +91,7 @@ var News=React.createClass({
               	 	<img src={appBasePath+that.state.bannerList[i].img_URL}/>
               	 </div>
             )*/
-		/*api.queryBanner(function(data){
-				console.log(data);
-				if(data.result=="000000"){
-					that.setState({
-						isShow: true,
-		               
-		               // dataStatus: 0
-		            },()=>{
-		               
-		            });
-				}else{
-					
-				}
-				
-			});*/
+		
 		    
 	},
 	toNewsDetail:function(){

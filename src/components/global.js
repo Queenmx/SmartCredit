@@ -19,7 +19,7 @@ const globalData = {
     requestData:{
         "platform" : platform,
 		"deviceno" : deviceno,
-		//"TOKEN_ID" : ""
+		"token" : ""
     }
 }
 export {globalData};

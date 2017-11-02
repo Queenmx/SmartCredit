@@ -26,10 +26,30 @@ var SetPsd=React.createClass({
 		if(psd!==surePsd){
 			toast.show("两次密码不一致");
 		}else{
+			var phoneNum=that.props.location.state.phoneNum;
+			var verifyCode=that.props.location.state.verifyCode;
+			//调注册接口
+			/*api.register(phoneNum,psd,verifyCode,function(res){
+				if(res.code=="0000"){
+					console.log(res.data);
+					//自动登录
+					api.login("PWD",phoneNum,"",psd,function(res){
+							if(res.code=="0000"){
+								console.log(res.data);
+								localStorage.setItem("isLogin",true);
+								localStorage.setItem("userId","userId");
+								localStorage.setItem("firstFlag",true);
+							}
+						})	
+				}
+			})*/
+			
+			
 			let path = {
 			  pathname:'/'
 			}
 			hashHistory.push(path);
+			var firstFlag=localStorage.setItem("firstFlag",true);
 		}
 		
 	},

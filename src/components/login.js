@@ -66,27 +66,57 @@ var Login=React.createClass({
             }, 2000);*/
            toast.show("请输入正确格式的手机号码",2000);
 		}else{
+			
 			switch (wayNum){
 				case 1:
 					var psd=that.state.password;
 					if(psd==""||psd==null){
 						 toast.show("请输入密码",2000);
 					}else{
+//						api.login("PWD",phoneNum,psd,"",function(res){
+//							
+//						})
+						//成功后
+						localStorage.setItem("isLogin",true);
+						localStorage.setItem("userId","userId");
+						localStorage.setItem("firstFlag",true);
 						toast.show("请求密码login",2000);
 					}
 					break;
 				case 2:
-					var yzCode=that.state.yzCode;
+					var yzCode=that.state.yzCode;//输入验证码
+					var verifyCode=that.state.verifyCode;//后台验证码
 					if(yzCode==""||yzCode==null){
 						 toast.show("请输入验证码",2000);
-					}else{
+					}else if(yzCode==verifyCode){
+						//验证码登录
 						console.log("请求验证码login");
-						var data = {phoneNum:phoneNum};
+						var reg=that.state.reg;
+						if(reg){
+							//已注册，调登录接口
+						/*api.login("CODE",phoneNum,"",yzCode,function(res){
+							
+						})	*/	
+							
+						}else{
+							//注册,去设置密码
+							
+						var data = {phoneNum:phoneNum,verifyCode:yzCode};
 						var path = {
 						  pathname:'/setPsd',
 						  state:data,
 						}
 						hashHistory.push(path);
+							
+							
+							
+						}
+						
+						
+
+						
+					}else{
+						toast.show("验证码不正确",2000);
 					}
 					break
 				default:
@@ -149,43 +179,54 @@ var Login=React.createClass({
 		})
 	},
 	getMsg:function(){
-		
 		var that=this;
 		//input在disable且readonly之后，onClick会在iOS上触发不起来，onTouchEnd又会在Android上把键盘弹出来，这边笔者做了个Hack，ios下用onTouchEnd，android下用onClick，就正常了。
 		let phoneNum=that.state.phoneNum;
 		if(!(/^1[34578]\d{9}$/.test(phoneNum))){
 			toast.show("请输入正确格式的手机号码",2000);
 		}else{
-			setTimeout(function(){
-				var time=11;
-				var timeevt=setInterval(function(){
-						time--;
+			var time=11;
+			var timeevt=setInterval(function(){
+					time--;
+					that.setState({
+						getMsg:{
+							style:{
+									backgroundColor:"#aaaaaa",
+									color:"#ffffff"
+								},
+							getMsgTxt:time+"s后重新获取",
+							disabled:true
+						}
+					})
+					
+					if(time==0){
+						clearInterval(timeevt);
 						that.setState({
 							getMsg:{
 								style:{
-										backgroundColor:"#aaaaaa",
+										backgroundColor:"#ffa81e",
 										color:"#ffffff"
 									},
-								getMsgTxt:time+"s后重新获取",
-								disabled:true
+							getMsgTxt:"获取验证码",
+							disabled:false
 							}
 						})
-						
-						if(time==0){
-							clearInterval(timeevt);
-							that.setState({
-								getMsg:{
-									style:{
-											backgroundColor:"#ffa81e",
-											color:"#ffffff"
-										},
-								getMsgTxt:"获取验证码",
-								disabled:false
-								}
-							})
-						}
-					},1000)
-			},1000);
+					}
+				},1000)
+			//发送短信验证码
+			/*api.verifyCode(phoneNum,"REG",function(res){
+				if(res.code=="0000"){
+					var reg=res.data.reg;
+					var verifyCode=res.data.verifyCode;
+					that.setState({
+						reg:false,
+						verifyCode:"1234"
+					})
+				}else{
+					toast.show(res.msg,2000);
+				}
+			})*/
+			
 		}
 	},
 	render:function(){

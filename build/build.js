@@ -608,8 +608,8 @@ var globalData = {
   path: "http://192.168.1.17:8088",
   requestData: {
     "platform": platform,
-    "deviceno": deviceno
-    //"TOKEN_ID" : ""
+    "deviceno": deviceno,
+    "token": ""
   }
 };
 exports.globalData = globalData;
@@ -630,35 +630,239 @@ var key1 = _global.globalData.key;
 var appBasePath = _global.globalData.appBasePath;
 var iv = new String(0);
 var toast = new Toast();
+var id = localStorage.getItem("id");
 
 //获取城市列表
 module.exports.getCityList = function (cb) {
-  var data = _global.globalData.requestData;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  console.log(str);
-  http(_global.globalData.path + "/zndai/city/list", { params: str }, cb);
+    var data = _global.globalData.requestData;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/city/list", { params: str }, cb);
 };
 
 //热门城市
 module.exports.getHotCity = function (cb) {
-  var data = _global.globalData.requestData;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  console.log(str);
-  http(_global.globalData.path + "/zndai/city/hot", { params: str }, cb);
+    var data = _global.globalData.requestData;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/city/hot", { params: str }, cb);
 };
 
 //登录
-module.exports.login = function (pwd, type, userName, cb) {
-  var data = _global.globalData.requestData;
-  data.type = "C";
-  data.userName = userName;
-  data.pwd = pwd;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  console.log(str);
-  http(_global.globalData.path + "/zndai/capital/login", { params: str }, cb);
+module.exports.login = function (loginType, phone, pwd, verifyCode, cb) {
+    var data = _global.globalData.requestData;
+    data.loginType = loginType;
+    data.phone = phone;
+    data.pwd = pwd; //login_type为PWD时必填
+    data.type = "C";
+    data.verifyCode = verifyCode; //	login_type为CODE时必填
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/capital/login", { params: str }, cb);
+};
+
+//注册
+module.exports.register = function (phone, pwd, verifyCode, cb) {
+    var data = _global.globalData.requestData;
+    data.phone = phone;
+    data.pwd = pwd;
+    data.type = "C";
+    data.verifyCode = verifyCode;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/add", { params: str }, cb);
+};
+
+//忘记密码，重置密码
+module.exports.forgot = function (phone, pwd, verifyCode, cb) {
+    var data = _global.globalData.requestData;
+    data.phone = phone;
+    data.pwd = pwd;
+    data.verifyCode = verifyCode;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/pwd/forgot", { params: str }, cb);
+};
+
+//发送手机验证码
+module.exports.verifyCode = function (phone, type, cb) {
+    var data = _global.globalData.requestData;
+    data.phone = phone;
+    data.type = pwd; //REG 注册 ，FPWD忘记密码
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/verifyCode", { params: str }, cb);
+};
+//退出
+module.exports.exit = function (userId, cb) {
+    var data = _global.globalData.requestData;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/exit", { params: str }, cb);
+};
+
+//----------------个人中心
+
+//个人信息修改
+module.exports.edit = function (idCard, located, realName, userId, cb) {
+    var data = _global.globalData.requestData;
+    data.idCard = idCard;
+    data.located = located;
+    data.realName = realName;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/edit", { params: str }, cb);
+};
+
+//个人信息查询
+module.exports.userInfo = function (userId, cb) {
+    var data = _global.globalData.requestData;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/userInfo", { params: str }, cb);
+};
+
+//修改密码
+module.exports.userInfo = function (newPwd, oldPwd, userId, cb) {
+    var data = _global.globalData.requestData;
+    data.newPwd = newPwd;
+    data.oldPwd = oldPwd;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/pwd/edit", { params: str }, cb);
+};
+
+//用户个人资质保存
+
+module.exports.qualifyListAdd = function (parentId, qualifyName, qualifyNo, selectName, userId, cb) {
+    var data = _global.globalData.requestData;
+    data.qualifyList = {
+        parentId: parentId,
+        qualifyName: qualifyName,
+        qualifyNo: qualifyNo,
+        selectName: selectName
+    };
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/qualify/add", { params: str }, cb);
+};
+
+//用户个人资质查询
+module.exports.qualifyList = function (parentId, cb) {
+    var data = _global.globalData.requestData;
+    data.parentId = parentId;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/qualify/list", { params: str }, cb);
+};
+
+//用户头像上传
+module.exports.userHead = function (headPic, userId, cb) {
+    var data = _global.globalData.requestData;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/userHead", { params: str, headPic: headPic }, cb);
+};
+
+//身份认证
+module.exports.identityUserCert = function (backPic, frontPic, userId, cb) {
+    var data = _global.globalData.requestData;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/identityUserCert", { params: str, backPic: backPic, frontPic: frontPic }, cb);
+};
+
+//-------------------资讯
+
+//banner
+module.exports.banner = function (cb) {
+    var data = _global.globalData.requestData;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/banner/list", { params: str }, cb);
+};
+
+//资讯列表
+module.exports.articleList = function (pageNum, pageSize, cb) {
+    var data = _global.globalData.requestData;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/article/list", { params: str }, cb);
+};
+
+//资讯详情
+module.exports.articleDetail = function (articleId, cb) {
+    var data = _global.globalData.requestData;
+    data.articleId = articleId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/article/detail", { params: str }, cb);
+};
+
+//---------------------贷款产品
+//精准贷
+//列表
+module.exports.proList = function (pageNum, pageSize, tag, cb) {
+    var data = _global.globalData.requestData;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    data.tag = tag;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/loan/list", { params: str }, cb);
+};
+//详情
+module.exports.proDetail = function (loanId, cb) {
+    var data = _global.globalData.requestData;
+    data.loanId = loanId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/loan/detail", { params: str }, cb);
+};
+
+//------------------------问题
+
+//提交反馈
+module.exports.feedBackAdd = function (content, userId, cb) {
+    var data = _global.globalData.requestData;
+    data.content = content;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/feedBack/add", { params: str }, cb);
+};
+
+//我要提问
+module.exports.questionAdd = function (content, objId, objType, userId, cb) {
+    var data = _global.globalData.requestData;
+    data.content = content;
+    data.objId = objId;
+    data.objType = objType;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/question/add", { params: str }, cb);
+};
+
+//问题列表
+module.exports.questionList = function (objId, pageNum, pageSize, cb) {
+    var data = _global.globalData.requestData;
+    data.objId = objId;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/question/list", { params: str }, cb);
 };
 
 /*module.exports.queryBanner=function(cb){ 
@@ -14139,82 +14343,21 @@ var MyMap = _react2.default.createClass({
 		return {
 			address: localStorage.getItem('dingwei') || "无法定位到当前城市",
 			user: JSON.parse(localStorage.getItem('users')),
-			shop_id: 40,
-			url_interface: "tc.ggrsc.com"
+			shop_id: 40
 		};
 	},
-	componentWillMount: function componentWillMount() {
-		var that = this;
-		var url_interface = that.state.url_interface;
-
-		$.ajax({
-			type: "get",
-			url: "http://" + url_interface + "/sopa/shop/index",
-			data: { tcggsc: 'c2726d9cbd6f600f12d60352729060c3' },
-			success: function success(data) {
-				//console.log(data.result);
-				if (data.state == 1) {
-					var li_arr = []; //循环的li
-					var loutiarr = []; //右侧楼梯字母的数据
-					for (var i in data.result) {
-						var div_arr = []; //循环的站点名称
-						var div_zim = []; //字母
-
-						div_zim.push(_react2.default.createElement(
-							'div',
-							{ className: 'greyTitle', id: i, key: Math.random() },
-							data.result[i].pinying
-						));
-						for (var j = 0; j < data.result[i].res.length; j++) {
-							div_arr.push(_react2.default.createElement(
-								'div',
-								{ className: 'each_main_1 sendCityId', key: 'main_1' + j, 'data-shop_id': data.result[i].res[j].shop_id },
-								data.result[i].res[j].name
-							));
-						}
-						li_arr.push(_react2.default.createElement(
-							'li',
-							{ key: i },
-							div_zim,
-							_react2.default.createElement(
-								'div',
-								{ className: 'each_main sendCityId' },
-								div_arr
-							)
-						));
-						loutiarr.push(_react2.default.createElement(
-							'li',
-							{ key: Math.random() },
-							_react2.default.createElement(
-								'a',
-								{ href: '#' + i },
-								data.result[i].pinying
-							)
-						));
-					}
-				}
-
-				var hotCity = ["上海", "深圳", "上海", "深圳", "上海", "深圳", "上海", "深圳", "上海", "深圳"];
-				var hotCityHtml = [];
-				$.each(hotCity, function (index, value) {
-					hotCityHtml.push(_react2.default.createElement(
-						'li',
-						{ className: 'hotCityLi sendCityId' },
-						value
-					));
-				});
-				/*hotCity.forEach(function(i){
-    	
-    })*/
-				that.setState({
-					li_arr: li_arr,
-					loutiarr: loutiarr,
-					hotCity: hotCity,
-					hotCityHtml: hotCityHtml
-				});
+	scrollToAnchor: function scrollToAnchor(anchorName) {
+		if (anchorName) {
+			// 找到锚点
+			var anchorElement = document.getElementById(anchorName);
+			// 如果对应id的锚点存在，就跳转到锚点
+			if (anchorElement) {
+				anchorElement.scrollIntoView();
 			}
-		});
+		}
 	},
+	componentWillMount: function componentWillMount() {},
+
 	render: function render() {
 		return _react2.default.createElement(
 			'div',
@@ -14262,91 +14405,91 @@ var MyMap = _react2.default.createClass({
 					_react2.default.createElement(
 						'ul',
 						{ className: 'louti' },
-						this.state.loutiarr
+						this.state.ziMuArr
 					)
 				)
 			)
 		);
 	},
+	selectCity: function selectCity(e) {
+		var cityId = e.target.innerHTML;
+		_reactRouter.hashHistory.push({
+			pathname: '/',
+			query: {
+				cityId: cityId
+			}
+		});
+	},
 	componentDidMount: function componentDidMount() {
 		var that = this;
-
+		var li_arr = []; //循环的li
+		var ziMuArr = [];
+		var hotCityHtml = [];
 		_api2.default.getCityList(function (res) {
-			console.log(res.data);
-			var deResult = strDec(res.data, key1, "", "");
-			console.log(deResult);
-		});
-
-		//============滑动屏幕使对应的值相对定位
-		//			
-		//			function getTopDistance() {
-		//				return document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-		//			}
-		//			document.addEventListener("touchmove",function(){
-		//				var scrollTop = $("#content").scrollTop();
-		//				var qian=$(".zhandian_search").height()+$(".dangqian").height()+$(".dingwei_city").height();
-		//				if(scrollTop==qian){
-		//					$(".all_address li").eq(0).find(".each_word").css({
-		//						"position":"fixed",
-		//						"left":0,
-		//						"top":"0.88rem"
-		//						})
-		//				}
-		//				var sum=0;
-		//				for(var i=0;i<index;i++){
-		//					sum+=$(".all_address li").eq(i).height();
-		//				}
-		//				$("#content").scrollTop(sum+qian);
-
-		//				var aheight=$(".all_address li").height();
-		//				for(var i=0;i<$(".all_address li").length;i++){
-		//					var aheight=$(".all_address li").eq(i).height();
-		////					alert(aheight);
-		////					return false;
-		////					if(scrollTop==aheight+100){
-		////								alert("sss")		
-		////					}
-		////					return false;
-		//				}
-		//				alert(aheight);
-		//			})
-	},
-	componentDidUpdate: function componentDidUpdate() {
-		var that = this;
-		/*$(".each_main_1").click(function(){
-  	var shop_id = $(this).attr('data-shop_id');
-  	//此操根据shop_id重新加载首页内容，
-  	JSON.stringify(localStorage.setItem('shop_id',shop_id));
-  });*/
-
-		$("#mapCon").on("click", ".sendCityId", function () {
-			var cityId = $(this).attr("data-shop_id");
-			//console.log(cityId);
-
-			_reactRouter.hashHistory.push({
-				pathname: '/',
-				query: {
-					cityId: cityId,
-					price: '100'
+			//var deResult = strDec(res.data,key1,"","");
+			if (res.code == "0000") {
+				var list = res.data.list;
+				for (var i in list) {
+					var div_arr = []; //循环的站点名称
+					var div_zim = list[i].ziMu; //字母
+					var nameList = list[i].name.split(",");
+					for (var j in nameList) {
+						div_arr.push(_react2.default.createElement(
+							'div',
+							{ className: 'each_main_1 sendCityId', key: 'main_1' + j, onClick: that.selectCity },
+							nameList[j]
+						));
+					}
+					li_arr.push(_react2.default.createElement(
+						'li',
+						{ key: i },
+						_react2.default.createElement(
+							'div',
+							{ className: 'greyTitle', id: i, key: i },
+							div_zim
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'each_main sendCityId' },
+							div_arr
+						)
+					));
+					//ziMuArr.push(<li key={i}><a onClick={()=>that.scrollToAnchor({i})}>{div_zim}</a></li>)	;
+					ziMuArr.push(_react2.default.createElement(
+						'li',
+						{ key: i },
+						_react2.default.createElement(
+							'a',
+							{ onClick: that.scrollToAnchor.bind(that, i) },
+							div_zim
+						)
+					));
 				}
-			});
+				that.setState({
+					li_arr: li_arr,
+					ziMuArr: ziMuArr
+				});
+			} else {
+				toast.show(res.msg, 2000);
+			}
 		});
-
-		//============点击右边楼梯的字母进行切换地区
-		/*$(".louti li").click(function(){
-  	var index=$(this).index();
-  	console.log(index);
-  	var qian=$(".zhandian_search").height()+$(".dangqian").height()+$(".dingwei_city").height();
-  	if(index==0){
-  		$("#content").scrollTop(qian)
-  	}else{
-  		var sum=0;
-  		for(var i=0;i<index;i++){
-  			sum+=$(".all_address li").eq(i).height();
-  		}
-  		$("#content").scrollTop(sum+qian)
-  	}
-  })*/
+		_api2.default.getHotCity(function (res) {
+			if (res.code == "0000") {
+				var hotCity = res.data.list;
+				for (var i in hotCity) {
+					hotCityHtml.push(_react2.default.createElement(
+						'li',
+						{ className: 'hotCityLi sendCityId', key: i },
+						hotCity[i].name
+					));
+				}
+				that.setState({
+					hotCityHtml: hotCityHtml
+				});
+			} else {
+				toast.show(res.msg, 2000);
+			}
+		});
 	}
 });
 exports.default = MyMap;
@@ -14561,27 +14704,50 @@ var Login = _react2.default.createClass({
                }, 2000);*/
 			toast.show("请输入正确格式的手机号码", 2000);
 		} else {
+
 			switch (wayNum) {
 				case 1:
 					var psd = that.state.password;
 					if (psd == "" || psd == null) {
 						toast.show("请输入密码", 2000);
 					} else {
+						//						api.login("PWD",phoneNum,psd,"",function(res){
+						//							
+						//						})
+						//成功后
+						localStorage.setItem("isLogin", true);
+						localStorage.setItem("userId", "userId");
+						localStorage.setItem("firstFlag", true);
 						toast.show("请求密码login", 2000);
 					}
 					break;
 				case 2:
-					var yzCode = that.state.yzCode;
+					var yzCode = that.state.yzCode; //输入验证码
+					var verifyCode = that.state.verifyCode; //后台验证码
 					if (yzCode == "" || yzCode == null) {
 						toast.show("请输入验证码", 2000);
-					} else {
+					} else if (yzCode == verifyCode) {
+						//验证码登录
 						console.log("请求验证码login");
-						var data = { phoneNum: phoneNum };
-						var path = {
-							pathname: '/setPsd',
-							state: data
-						};
-						_reactRouter.hashHistory.push(path);
+						var reg = that.state.reg;
+						if (reg) {
+							//已注册，调登录接口
+							/*api.login("CODE",phoneNum,"",yzCode,function(res){
+       	
+       })	*/
+
+						} else {
+							//注册,去设置密码
+
+							var data = { phoneNum: phoneNum, verifyCode: yzCode };
+							var path = {
+								pathname: '/setPsd',
+								state: data
+							};
+							_reactRouter.hashHistory.push(path);
+						}
+					} else {
+						toast.show("验证码不正确", 2000);
 					}
 					break;
 				default:
@@ -14638,43 +14804,53 @@ var Login = _react2.default.createClass({
 		this.setState(_defineProperty({}, e.target.name, e.target.value));
 	},
 	getMsg: function getMsg() {
-
 		var that = this;
 		//input在disable且readonly之后，onClick会在iOS上触发不起来，onTouchEnd又会在Android上把键盘弹出来，这边笔者做了个Hack，ios下用onTouchEnd，android下用onClick，就正常了。
 		var phoneNum = that.state.phoneNum;
 		if (!/^1[34578]\d{9}$/.test(phoneNum)) {
 			toast.show("请输入正确格式的手机号码", 2000);
 		} else {
-			setTimeout(function () {
-				var time = 11;
-				var timeevt = setInterval(function () {
-					time--;
+			var time = 11;
+			var timeevt = setInterval(function () {
+				time--;
+				that.setState({
+					getMsg: {
+						style: {
+							backgroundColor: "#aaaaaa",
+							color: "#ffffff"
+						},
+						getMsgTxt: time + "s后重新获取",
+						disabled: true
+					}
+				});
+
+				if (time == 0) {
+					clearInterval(timeevt);
 					that.setState({
 						getMsg: {
 							style: {
-								backgroundColor: "#aaaaaa",
+								backgroundColor: "#ffa81e",
 								color: "#ffffff"
 							},
-							getMsgTxt: time + "s后重新获取",
-							disabled: true
+							getMsgTxt: "获取验证码",
+							disabled: false
 						}
 					});
-
-					if (time == 0) {
-						clearInterval(timeevt);
-						that.setState({
-							getMsg: {
-								style: {
-									backgroundColor: "#ffa81e",
-									color: "#ffffff"
-								},
-								getMsgTxt: "获取验证码",
-								disabled: false
-							}
-						});
-					}
-				}, 1000);
+				}
 			}, 1000);
+			//发送短信验证码
+			/*api.verifyCode(phoneNum,"REG",function(res){
+   	if(res.code=="0000"){
+   		var reg=res.data.reg;
+   		var verifyCode=res.data.verifyCode;
+   		that.setState({
+   			reg:false,
+   			verifyCode:"1234"
+   		})
+   	}else{
+   		toast.show(res.msg,2000);
+   	}
+   })*/
 		}
 	},
 	render: function render() {
@@ -28622,7 +28798,15 @@ var Home = _react2.default.createClass({
 		};
 	},
 
-	componentWillMount: function componentWillMount() {},
+	componentWillMount: function componentWillMount() {
+		var firstFlag = localStorage.getItem("firstFlag");
+		if (!firstFlag) {
+			var path = {
+				pathname: '/Login'
+			};
+			_reactRouter.hashHistory.push(path);
+		}
+	},
 
 	toNewsDetail: function toNewsDetail() {
 		var data = { id: 3, name: "qin", age: 18 };
@@ -29247,45 +29431,48 @@ var News = _react2.default.createClass({
 		var that = this;
 		var banner = [];
 		var mPost = [];
-		_api2.default.queryBanner(function (data) {
-			//console.log(data);
-			if (data.result == "000000") {
-				//console.log("ok1");
-				var bannerList = data.data.bannerList;
-
-				for (var i = 0; i < bannerList.length; i++) {
-					banner.push(_react2.default.createElement(
-						'div',
-						{ className: 'swiper-slide', key: 'banner' + i },
-						_react2.default.createElement('img', { src: appBasePath + bannerList[i].img_URL })
-					));
-				};
-				that.setState({
-					length: bannerList.length,
-					banner: banner
-				});
-
-				/*that.setState({
-    	isShow: true,
-                 bannerList: data.data.bannerList,//轮播图片
-                 mPost: data.data.mPost,//妈妈会议室-取置顶为INDEX的1篇文章
-                 classList: data.data.classList,//专题分类列表
-                 rPost: data.data.rPost,//推荐文章，取置顶为INDEX的6篇
-                 actList: data.data.actList//人气推荐，取置顶为INDEX的6个活动
-                // dataStatus: 0
-             },()=>{
-                for (var i = 0; i < that.state.bannerList.length; i++) {
-              	banner.push(
-                	 <div className="swiper-slide" key={'banner'+i}>
-                	 	<img src={appBasePath+that.state.bannerList[i].img_URL}/>
-                	 </div>
-                	 )
-              };
-              that.setState({
-              	banner:banner
-              })*/
-			} else {}
-		});
+		/*		api.queryBanner(function(data){
+  				//console.log(data);
+  				if(data.result=="000000"){
+  					//console.log("ok1");
+  					const  bannerList=data.data.bannerList;
+  					
+  					for (var i = 0; i < bannerList.length; i++) {
+  			            	banner.push(
+  			              	 <div className="swiper-slide" key={'banner'+i}>
+  			              	 	<img src={appBasePath+bannerList[i].img_URL} />
+  			              	 </div>
+  			              	 )
+  			            };
+  			            that.setState({
+  			            	length:bannerList.length,
+  			            	banner:banner
+  			            })
+  					
+  					that.setState({
+  						isShow: true,
+  		                bannerList: data.data.bannerList,//轮播图片
+  		                mPost: data.data.mPost,//妈妈会议室-取置顶为INDEX的1篇文章
+  		                classList: data.data.classList,//专题分类列表
+  		                rPost: data.data.rPost,//推荐文章，取置顶为INDEX的6篇
+  		                actList: data.data.actList//人气推荐，取置顶为INDEX的6个活动
+  		               // dataStatus: 0
+  		            },()=>{
+  		               for (var i = 0; i < that.state.bannerList.length; i++) {
+  			            	banner.push(
+  			              	 <div className="swiper-slide" key={'banner'+i}>
+  			              	 	<img src={appBasePath+that.state.bannerList[i].img_URL}/>
+  			              	 </div>
+  			              	 )
+  			            };
+  			            that.setState({
+  			            	banner:banner
+  			            })
+  				}else{
+  					
+  				}
+  				
+  			});*/
 
 		/*for (var i = 0; i < that.state.bannerList.length; i++) {
             	banner.push(
@@ -29302,21 +29489,6 @@ var News = _react2.default.createClass({
     	 	<img src={appBasePath+that.state.bannerList[i].img_URL}/>
     	 </div>
   )*/
-		/*api.queryBanner(function(data){
-  		console.log(data);
-  		if(data.result=="000000"){
-  			that.setState({
-  				isShow: true,
-                 
-                 // dataStatus: 0
-              },()=>{
-                 
-              });
-  		}else{
-  			
-  		}
-  		
-  	});*/
 	},
 	toNewsDetail: function toNewsDetail() {
 		var data = { id: 3, name: "qin", age: 18 };
@@ -29983,10 +30155,29 @@ var SetPsd = _react2.default.createClass({
 		if (psd !== surePsd) {
 			toast.show("两次密码不一致");
 		} else {
+			var phoneNum = that.props.location.state.phoneNum;
+			var verifyCode = that.props.location.state.verifyCode;
+			//调注册接口
+			/*api.register(phoneNum,psd,verifyCode,function(res){
+   	if(res.code=="0000"){
+   		console.log(res.data);
+   		//自动登录
+   		api.login("PWD",phoneNum,"",psd,function(res){
+   				if(res.code=="0000"){
+   					console.log(res.data);
+   					localStorage.setItem("isLogin",true);
+   					localStorage.setItem("userId","userId");
+   					localStorage.setItem("firstFlag",true);
+   				}
+   			})	
+   	}
+   })*/
+
 			var path = {
 				pathname: '/'
 			};
 			_reactRouter.hashHistory.push(path);
+			var firstFlag = localStorage.setItem("firstFlag", true);
 		}
 	},
 	render: function render() {

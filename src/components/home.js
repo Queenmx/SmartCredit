@@ -20,7 +20,13 @@ var Home=React.createClass({
 	},
 	
 	componentWillMount:function(){
-		
+		var firstFlag=localStorage.getItem("firstFlag");
+		if(!firstFlag){
+			var path = {
+			  pathname:'/Login',
+			}
+			hashHistory.push(path);
+		}
 	},
 	
 	toNewsDetail:function(){
