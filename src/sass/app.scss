@@ -314,10 +314,16 @@ body {
    
 
 .spinner {
-    margin: 2.5rem auto;
+   // margin: 2.5rem auto;
     width: 0.8rem;
     height: 0.8rem;
-    position: relative;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 5;
 }
 
 .container1 > div, .container2 > div, .container3 > div {

@@ -68,9 +68,9 @@ var MyMap=React.createClass({
 		var ziMuArr=[];
 		var hotCityHtml=[];
 			api.getCityList(function (res) {
-				//var deResult = strDec(res.data,key1,"","");
             	if(res.code=="0000"){
-            		var list=res.data.list;
+            		var data = JSON.parse(strDec(res.data,key1,"",""));
+            		var list=data.list;
             		for(var i in list){
 						var div_arr = [];//循环的站点名称
 						var div_zim = list[i].ziMu;//字母
@@ -97,7 +97,8 @@ var MyMap=React.createClass({
 			});
 			api.getHotCity(function(res){
 				if(res.code=="0000"){
-					var hotCity=res.data.list;
+					var data = JSON.parse(strDec(res.data,key1,"",""));
+            		var hotCity=data.list;
 					for(var i in hotCity){
 						hotCityHtml.push(<li className="hotCityLi sendCityId" key={i}>{hotCity[i].name}</li>)
 					}

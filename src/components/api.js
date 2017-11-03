@@ -34,7 +34,8 @@ module.exports.login=function(loginType,phone,pwd,verifyCode,cb){
     data.verifyCode=verifyCode;//	login_type为CODE时必填
     var param=JSON.stringify(data);
     var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/capital/login`,{params:str},cb);
+   // console.log(data);
+  	http(`${globalData.path}/zndai/user/login`,{params:str},cb);
 }
 
 //注册
@@ -44,6 +45,7 @@ module.exports.register=function(phone,pwd,verifyCode,cb){
     data.pwd=pwd;
     data.type="C";
     data.verifyCode=verifyCode;
+    console.log(data);
     var param=JSON.stringify(data);
     var str = strEnc(param,key1);
   	http(`${globalData.path}/zndai/user/add`,{params:str},cb);
@@ -64,9 +66,10 @@ module.exports.forgot=function(phone,pwd,verifyCode,cb){
 module.exports.verifyCode=function(phone,type,cb){ 
     var data=globalData.requestData;
     data.phone=phone;
-    data.type=pwd;//REG 注册 ，FPWD忘记密码
+    data.type="REG";//REG 注册 ，FPWD忘记密码
     var param=JSON.stringify(data);
     var str = strEnc(param,key1);
+    console.log(data);
   	http(`${globalData.path}/zndai/user/verifyCode`,{params:str},cb);
 }
 //退出
@@ -190,7 +193,7 @@ module.exports.articleDetail=function(articleId,cb){
 //---------------------贷款产品
 //精准贷
 //列表
-module.exports.proList=function(pageNum,pageSize,tag,cb){ 
+module.exports.loanList=function(pageNum,pageSize,tag,cb){ 
     var data=globalData.requestData;
     data.pageNum=pageNum;
     data.pageSize=pageSize;
@@ -200,7 +203,7 @@ module.exports.proList=function(pageNum,pageSize,tag,cb){
   	http(`${globalData.path}/zndai/loan/list`,{params:str},cb);
 }
 //详情
-module.exports.proDetail=function(loanId,cb){ 
+module.exports.loanDetail=function(loanId,cb){ 
     var data=globalData.requestData;
     data.loanId=loanId;
     var param=JSON.stringify(data);

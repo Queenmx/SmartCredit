@@ -6,17 +6,13 @@ import {globalData} from './global.js';
 import HomeHeader from './homeHeader';
 import Footer from './footer';
 import Loading from './Loading';
-import ProList from './proList';
 import { hashHistory, Link } from 'react-router';
-import '../css/home.css';
 
 var appBasePath=globalData.appBasePath;
-var Home=React.createClass({
+var ProList=React.createClass({
 	getInitialState:function(){
 		return {
-			activeTab: 1,
 			isLoading: false,
-			activeIndex:0,
 			pageNum:1,
 			pageSize:10
 		}
@@ -24,7 +20,7 @@ var Home=React.createClass({
 	
 	componentWillMount:function(){
 	},
-	/*
+	
 	toNewsDetail:function(){
 		var data = {id:3,name:"qin",age:18};
 		var path = {
@@ -62,7 +58,7 @@ var Home=React.createClass({
 		var that=this;
 		var pageNum=that.state.pageNum;
 		var pageSize=that.state.pageSize;
-		api.loanList(pageNum,pageSize,"GTH",function(res){
+		api.loanList(pageNum,pageSize,"SBZ",function(res){
 			//console.log(res);
 			if(res.code=="0000"){
 				//var data =strDec(res.data,key1,"","");
@@ -100,68 +96,19 @@ var Home=React.createClass({
 		})
 		
 	},
-	*/
+	
 	
 	render:function(){
 		var that=this;
-		var curCity=that.props.location.query.cityId;
-		
         return (
-        	<div className="app_Box home">
-      		<HomeHeader curCity={curCity}/>
-	        	<div className="content">
-	        		<ul className="homeTab">
-	        			<li onClick={that.toList}>
-	        				<img src="src/img/icon/group.png"/>
-	        				<p>上班族</p>
-	        			</li>
-	        			<li onClick={that.toList}>
-	        				<img src="src/img/icon/personal.png"/>
-	        				<p>个体户</p>
-	        			</li>
-	        			<li onClick={that.toList}>
-	        				<img src="src/img/icon/qiye.png"/>
-	        				<p>企业主</p>
-	        			</li>
-	        			<li onClick={that.toList}>
-	        				<img src="src/img/icon/ziyou.png"/>
-	        				<p>自由职业</p>
-	        			</li>
-	        		</ul>
-	        		<ProList pageNum="3"/>
-	        		<div className="newsBox">
-	        				<h3>你关心的资讯</h3>
-	        				<div>
-	        					<dl className="newsList" onClick={that.toNewsDetail}>
-	        							<dd>
-	        								<h4>小呆还不起遇到暴力催收,我该怎么办?</h4>
-	        								<p><span>2017-10-20</span> <span>355阅读</span></p>
-	        							</dd>
-	        							<dt>
-	        								<img src=""/>
-	        							</dt>
-	        					</dl>
-		        				<dl className="newsList" onClick={that.toNewsDetail}>
-	        							<dd>
-	        								<h4>小呆还不起遇到暴力催收,我该怎么办?</h4>
-	        								<p><span>2017-10-20</span> <span>355阅读</span></p>
-	        							</dd>
-	        							<dt>
-	        								<img src=""/>
-	        							</dt>
-	        					</dl>
-	        				</div>
-        					<Link to="/news" className="linkNews">全部热门资讯<img src=""/></Link>
-	        		</div>
-	        		<Loading flag={that.state.isLoading}/>
-	        	</div>
-				<Footer activeIndex="0"/>
+        	<div className="capitalBox">
+        			{that.state.list}
         	</div>
         )
 	}
 });
 
 
-export default Home;
+export default ProList;
 
 

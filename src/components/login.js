@@ -4,11 +4,12 @@ import ReactDom from 'react-dom';
 import api from './api';
 import {globalData} from './global.js';
 import Header from './header';
-import TimeCount from './timeCount';
+import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../css/login.css';
 var toast = new Toast();
 var appBasePath=globalData.appBasePath;
+var key1 = globalData.key;
 var Login=React.createClass({
 	getInitialState:function(){
 		var eyeImg=[<img src="src/img/icon/by.png" key={"by"}/>];
@@ -20,6 +21,7 @@ var Login=React.createClass({
 			changePhoneTxt:"",
 			count: 60,
           	liked: true,
+          	flag:false,
 			getMsg:{
 				style:{
 						backgroundColor:"#ffa81e",
@@ -52,6 +54,7 @@ var Login=React.createClass({
 		
 	},
 	submitHandler:function(){
+		
 		var that=this;
 		var wayNum=this.state.wayNum;
 		var phoneNum=that.state.phoneNum;
@@ -69,23 +72,37 @@ var Login=React.createClass({
 		}else{
 			switch (wayNum){
 				case 1:
+					
 					var psd=that.state.password;
 					if(psd==""||psd==null){
 						 toast.show("请输入密码",2000);
 					}else{
-//						api.login("PWD",phoneNum,psd,"",function(res){
-//							
-//						})
-						//成功后
-						localStorage.setItem("isLogin",true);
-						localStorage.setItem("userId","userId");
-						localStorage.setItem("firstFlag",true);
-						localStorage.setItem("phoneNumb",phoneNum);
-						toast.show("请求密码login",2000);
-						var path = {
-						  pathname:'/',
+						that.setState({
+							flag:true
+						})
+						api.login("PWD",phoneNum,psd,"",function(res){
+							//console.log(res);
+							that.setState({
+								flag:false
+							})
+							if(res.code=="0000"){
+								var data =strDec(res.data,key1,"","");
+								//console.log(data);
+								//成功后
+								localStorage.setItem("user",data);
+								localStorage.setItem("isLogin",true);
+								localStorage.setItem("phoneNum",phoneNum);
+								toast.show("登录成功",2000);
+								var path = {
+								  pathname:'/',
+									}
+								hashHistory.push(path);
+							}else{
+								toast.show(res.msg,2000);
 							}
-						hashHistory.push(path);
+							
+						})
+						
 						
 					}
 					break;
@@ -96,18 +113,31 @@ var Login=React.createClass({
 						 toast.show("请输入验证码",2000);
 					}else if(yzCode==verifyCode){
 						//验证码登录
-						console.log("请求验证码login");
 						var reg=that.state.reg;
-						console.log(reg+"mmmmm"+that.state.verifyCode)
+						console.log(reg+"mmmmm"+that.state.yzCode)
 						if(reg){
 							//已注册，调登录接口
-						/*api.login("CODE",phoneNum,"",yzCode,function(res){
-							
-						})	*/	
+							api.login("CODE",phoneNum,"",yzCode,function(res){
+								console.log(res);
+								if(res.code=="0000"){
+									var data =strDec(res.data,key1,"","");
+									//console.log(data);
+									//成功后
+									localStorage.setItem("user",data);
+									localStorage.setItem("isLogin",true);
+									localStorage.setItem("phoneNum",phoneNum);
+									toast.show("登录成功",2000);
+									var path = {
+									  pathname:'/',
+										}
+									hashHistory.push(path);
+								}else{
+									toast.show(res.msg,2000);
+								}
+							})		
 							
 						}else{
 							//注册,去设置密码
-							
 						var data = {phoneNum:phoneNum,verifyCode:yzCode};
 						var path = {
 						  pathname:'/setPsd',
@@ -161,14 +191,18 @@ var Login=React.createClass({
 	},
 	getMsg:function(){
 		var that=this;
+		
 		//input在disable且readonly之后，onClick会在iOS上触发不起来，onTouchEnd又会在Android上把键盘弹出来，这边笔者做了个Hack，ios下用onTouchEnd，android下用onClick，就正常了。
-		let phoneNum=that.state.phoneNum;
+		var phoneNum=that.state.phoneNum;
+		
 		if(!(/^1[34578]\d{9}$/.test(phoneNum))){
+			console.log(phoneNum);
 			toast.show("请输入正确格式的手机号码",2000);
 		}else{
-			if(this.state.liked){
-	          this.timer = setInterval(function () {
-	            var count = this.state.count;
+			console.log(phoneNum);
+			if(that.state.liked){
+	          that.timer = setInterval(function () {
+	            var count = that.state.count;
 	            	that.setState({
 	            		liked:false,
 						getMsg:{
@@ -180,7 +214,7 @@ var Login=React.createClass({
 					})
 	            count -= 1;
 	            if (count < 1) {
-	              this.setState({
+	              that.setState({
 	                liked: true,
 	                getMsg:{
 						style:{
@@ -190,32 +224,31 @@ var Login=React.createClass({
 					}
 	              });
 	              count = 60;
-	　　　　　　　　clearInterval(this.timer);
+	　　　　　　　　clearInterval(that.timer);
 	            }
-	            this.setState({
+	            that.setState({
 	              count: count
 	            });
-	          }.bind(this), 1000);
-	        }
-		
-				that.setState({
-						reg:false,
-						verifyCode:"1234"
-					})
-			//发送短信验证码
-			/*api.verifyCode(phoneNum,"REG",function(res){
+	          }.bind(that), 1000);
+	          	
+	          //发送短信验证码
+			api.verifyCode(phoneNum,"REG",function(res){
+				console.log(res);
 				if(res.code=="0000"){
-					var reg=res.data.reg;
-					var verifyCode=res.data.verifyCode;
+					var data = JSON.parse(strDec(res.data,key1,"",""));
+					console.log(data);
+					var reg=data.reg;
+					var verifyCode=data.verify;
 					that.setState({
-						reg:false,
-						verifyCode:"1234"
+						reg:reg,
+						verifyCode:verifyCode
 					})
 				}else{
 					toast.show(res.msg,2000);
 				}
-			})*/
-			
+			})
+	          
+	        }
 		}
 	},
 	componentWillUnmount() {
@@ -239,10 +272,11 @@ var Login=React.createClass({
         				<span className={that.state.wayNum==2?"wayActive":''} onClick={that.checkWay} id="2">验证码登录</span>
         			</div>
         			<div className="infoBox">
+        				
         				<form>
 	        				<div className="inputLine">
 	        					<label htmlFor="phoneNum">手机号</label>
-	        					<input id="phoneNum"  type="text" onChange={that.changeInputTxt} className="flex1" name="phoneNum" placeholder="请输入手机号"/>
+	        					<input id="phoneNum"  type="number" onChange={that.changeInputTxt} className="flex1" name="phoneNum" placeholder="请输入手机号"/>
 	        				</div>
 	        				<div className="inputLine" id="psdBox">
 	        					<label htmlFor="psd">密码</label>
@@ -257,9 +291,9 @@ var Login=React.createClass({
 	      						<span onClick={that.getMsg} style={getMsgStyle} className="getMsg">{text}</span>
 	      					{/*<input type="text" onClick={that.getMsg} placeholder="获取验证码" readOnly="readOnly" disabled={disabled} style={getMsgStyle} className="getMsg" id="getMsg"  value={getMsgTxt} onChange={that.changeMsgTxt}/>*/}
 	        				</div>
-	        			
 	        				<a className="loginBtn" onClick={that.submitHandler}>登录</a>
         				</form>
+        				
         				<p className="forgotPsd">
         					<Link to="/ForgotPsd" >
         					忘记密码
@@ -268,6 +302,7 @@ var Login=React.createClass({
         				
         			</div>
         		</div>
+        		<Loading flag={that.state.flag}/>
         		<p className="note">
         					<span>登录即表示您同意</span>
         					<Link to={   

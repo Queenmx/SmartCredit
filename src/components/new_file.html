@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="../libs/des.js" type="text/javascript" charset="utf-8"></script>
+	
+	</head>
+	<body>
+	</body>
+</html>
+<script type="text/javascript">
+	//用法
+        function getResult(){
+            //待加密字符串
+            var str = '123456789';
+            //第一个参数必须；第二个、第三个参数可选
+            var key1 = 'ZND171030APIMM';  
+            var key2 = ''; 
+            var key3 = ''; 
+            //加密方法        
+            var  enResult = strEnc(str,key1,key2,key3);            
+            //解密方法
+            var deResult = strDec(enResult,key1,key2,key3);
+            
+        }
+	
+	
+	
+	
+	
+	//demo
+	var key1="ZND171030APIMM";
+	var res="0831F2EDC3DFA1A2732A666A784C5A53A9231AD8BFCE659CEF1742B144B1CF7290CE76E5F15525F68D2D30AEE61C206A1DC91E55385DE7137FBCD64581E3315C"
+	var res2="0831F2EDC3DFA1A2732A666A784C5A53A9231AD8BFCE659CEF1742B144B1CF7290CE76E5F15525F6A21765B957551DD89FC42750BA3255647FBCD64581E3315C"
+	var res3="274568843B349F7CD490020DDF66677C92C23028D5D0C09BB57DB212149E9B90227AA085FDEE3DDCC333DFF9162221DB07801D4DCFEE6FB5B57DB212149E9B9026E2BB95D28530930CFD4555960DA67270982C5AE0955E4BDA132FAE0DFA98EC0A38A3FC9B8F4E545F8EB11988969BB23F4ECE3E9930B42BE57834F59B08340901612E08C031ED253FAFA13B57CBA81CD1DBC0E67BB4243E3D22BE50441E70DC49C32F6C687F2BEA719986295234D6470F4DA16DC011283325C42FD4F4B534495BAB78161BD5578760F5ADC99207AF2DA5621762BD23F4C67FBCD64581E3315C"
+	
+	var data = JSON.parse(strDec(res,key1,"",""));
+	var data2 = JSON.parse(strDec(res2,key1,"",""));
+	var data3 = JSON.parse(strDec(res3,key1,"",""));
+	//console.log(data);
+	//console.log(data2);
+	console.log(data3);
+	var path="/zndai/user/add";
+	var data={
+		 platform : "ios",
+		deviceno : "111",
+		token: "",
+		 phone:"17612156268",
+    	type:"REG"//REG 注册 ，FPWD忘记密码
+	}
+	
+	var data4={phone:"18539576580",pwd:"111111",type:"C",verifyCode:"472627"};
+	var param=JSON.stringify(data4);
+    var str = strEnc(param,key1);
+    console.log(str);
+	$.ajax({
+		type:"post",
+		url:"http://122.144.133.20:8088"+path,
+		//url:"http://192.168.1.17:8088"+path,
+		async:true,
+		data:{params:str},
+		success:function(res){
+			console.log(res);
+			//var data = JSON.parse(strDec(res.data,key1));
+			//console.log(data);
+		}
+	});
+	
+	
+	
+	
+	
+	
+</script>

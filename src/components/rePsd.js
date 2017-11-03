@@ -23,6 +23,7 @@ var Repsd=React.createClass({
 		let oldPsd=that.state.oldPsd;
 		let newPsd=that.state.newPsd;
 		let surePsd=that.state.surePsd;
+		var userId=localStorage.getItem("userId");
 		var toast = new Toast();
 		if(oldPsd&&newPsd&&surePsd){
 			if(newPsd!==surePsd){
@@ -32,8 +33,12 @@ var Repsd=React.createClass({
 				  pathname:'/UserInfo'
 				}
 				hashHistory.push(path);*/
-				window.history.back()
-				toast.show("修改成功",2000);
+				/*api.userInfo(newPsd,oldPsd,userId,function(res){
+					console.log(res);
+					//window.history.back();
+					//toast.show("修改成功",2000);
+				})*/
+				
 			}
 		}else{
 			toast.show("输入不能为空",2000);
@@ -47,10 +52,10 @@ var Repsd=React.createClass({
         	<div className="setPsd app_Box">
         		<Header title="修改密码" />
         		<div className="setPsdCon">
-        			{/*<div className="inputPsd">
-    					<label htmlFor="psd">请输入旧密码</label>
-    					<input id="psd"  type="password"  name="oldPsd" placeholder="" onChange={that.vauleChange}/>
-    			</div>*/}
+        			<div className="inputPsd">
+    					<label htmlFor="oldPsd">请输入旧密码</label>
+    					<input id="oldPsd"  type="password"  name="oldPsd" placeholder="" onChange={that.vauleChange}/>
+    				</div>
     				<div className="inputPsd">
     					<label htmlFor="psd">请输入新密码</label>
     					<input id="psd"  type="password"  name="newPsd" placeholder="" onChange={that.vauleChange}/>

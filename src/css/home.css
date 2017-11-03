@@ -108,10 +108,9 @@
       margin-top: 0.35rem; }
       .capitalBox .capitalList .capitalInfo .special li {
         line-height: 0.4rem;
-        height: 0.4rem;
         color: #999999;
         font-size: 0.24rem;
-        text-indent: 0.36rem; }
+        padding-left: 0.36rem; }
     .capitalBox .capitalList .capitalInfo .apply {
       float: left;
       margin-top: 0.7rem; }

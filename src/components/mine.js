@@ -19,40 +19,35 @@ var Mine=React.createClass({
 			//dataStatus: 0
 		}
 	},
-	getTabId:function(e){
-		var that=this;
-		var id=e.target.getAttribute('data-id');
-		that.setState({
-			activeTab:id,
-			isShow: false
-			//dataStatus: 0
-		},()=>{
-			/*api.queryBanner(function(data){
-				console.log(data);
-			})*/
-		})
-	},
-	componentWillMount:function(){  
+	
+	componentDidMount:function(){  
 	    //console.log(this.props.location.query.price);
 	},
-	componentDidMount:function(){
+	componentWillMount:function(){
 		var that=this;
-		/*api.queryBanner(function(data){
-				console.log(data);
-				if(data.result=="000000"){
-					that.setState({
-						isShow: true,
-		                
-		               // dataStatus: 0
-		            },()=>{
-		               
-		            });
-				}else{
-					
+		var user=localStorage.getItem("user");
+		if(user){//已登陆
+			var userObj=JSON.parse(user);
+			that.setState({
+				user:userObj
+			})
+			
+		}else{
+			that.setState({
+				user:{
+					certLevel:"",
+					headPic:"",
+					idCard:"",
+					located:userObj.located,
+					phone:"",
+					realName:"",
+					token:"",
+					userId:"",
+					userName:"未登录",
 				}
-				
-			});*/
-		    
+			})
+		}
+	
 	},
 	
 	goLogin:function(){
@@ -102,18 +97,23 @@ var Mine=React.createClass({
 		}
 		hashHistory.push(path);
 	},
+	imgError:function(e){
+		e.target.src="src/img/icon/header.png"; 
+		e.target.onerror=null; //控制不要一直跳动 
+	},
 	render:function(){
 		var that=this;
+		var userObj=that.state.user;
         return (
         	<div className="app_Box mine">
 	        	<div className="mineContent content">
 		        	<div className="userHeader" onClick={that.goLogin}>
-		        		<div className="userImg"><img src="src/img/icon/header.png"/></div>
-		        		<div className="userInfo"><p>135****9763</p><span>已认证</span></div>
+		        		<div className="userImg"><img src={userObj.headPic} onError={that.imgError}/></div>
+		        		<div className="userInfo"><p>{userObj.userName}</p><span>{userObj.idCard==""?"未认证":"已认证"}</span></div>
 		        		<div className="goLogin"><img src="src/img/icon/go.png"/></div>
 		        	</div>
-		        	<div className="creditLevel"><p>我的信用等级:<b>E</b></p><span>去提升,5000轻松拿<img src="src/img/icon/right.png"/></span></div>
-		        	<div className="userOrder">
+		        	<div className="creditLevel"><p>我的信用等级:<b>{userObj.certLevel}</b></p><span>去提升,5000轻松拿<img src="src/img/icon/right.png"/></span></div>
+		        <div className="userOrder">
 		        		<ul>
 		        			<li onClick={that.toOrder}><img src="src/img/icon/order.png"/><p>全部订单</p></li>
 		        			<li onClick={that.toPersonalLevel}><img src="src/img/icon/personLevel.png"/><p>个人资质</p></li>

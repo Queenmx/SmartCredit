@@ -5,7 +5,7 @@ import api from './api';
 import {globalData} from './global.js';
 import Header from './header';
 import { hashHistory} from 'react-router';
-
+var key1 = globalData.key;
 var appBasePath=globalData.appBasePath;
 var SetPsd=React.createClass({
 	getInitialState:function(){
@@ -29,35 +29,42 @@ var SetPsd=React.createClass({
 			var phoneNum=that.props.location.state.phoneNum;
 			var verifyCode=that.props.location.state.verifyCode;
 			//调注册接口
-			/*api.register(phoneNum,psd,verifyCode,function(res){
+			api.register(phoneNum,psd,verifyCode,function(res){
+				console.log(res);
+				
 				if(res.code=="0000"){
-					console.log(res.data);
+					var data = JSON.parse(strDec(res.data,key1,"",""));
+					console.log(data);
 					//自动登录
 					api.login("PWD",phoneNum,"",psd,function(res){
+						console.log(res);
 							if(res.code=="0000"){
-								console.log(res.data);
+								var data =strDec(res.data,key1,"","");
+								//console.log(data);
+								//成功后
+								localStorage.setItem("user",data);
 								localStorage.setItem("isLogin",true);
-								localStorage.setItem("userId","userId");
-								localStorage.setItem("firstFlag",true);
-								let path = {
-								  pathname:'/'
-								}
+								localStorage.setItem("phoneNum",phoneNum);
+								toast.show("登录成功",2000);
+								var path = {
+								  pathname:'/',
+									}
 								hashHistory.push(path);
-								localStorage.setItem("phoneNumb",phoneNum);
+							}else{
+								toast.show(res.msg,2000);
 							}
 						})	
 				}
-			})*/
+			})
 			
 			
-			let path = {
+			/*let path = {
 			  pathname:'/'
 			}
 			hashHistory.push(path);
 			localStorage.setItem("isLogin",true);
-			localStorage.setItem("firstFlag",true);
 			localStorage.setItem("userId","userId");
-			localStorage.setItem("phoneNumb",phoneNum);
+			localStorage.setItem("phoneNum",phoneNum);*/
 		}
 		
 	},

@@ -388,10 +388,15 @@ body {
   text-align: center; }
 
 .spinner {
-  margin: 2.5rem auto;
   width: 0.8rem;
   height: 0.8rem;
-  position: relative; }
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 5; }
 
 .container1 > div, .container2 > div, .container3 > div {
   width: 0.18rem;
@@ -1782,10 +1787,9 @@ body {
       margin-top: 0.35rem; }
       .capitalBox .capitalList .capitalInfo .special li {
         line-height: 0.4rem;
-        height: 0.4rem;
         color: #999999;
         font-size: 0.24rem;
-        text-indent: 0.36rem; }
+        padding-left: 0.36rem; }
     .capitalBox .capitalList .capitalInfo .apply {
       float: left;
       margin-top: 0.7rem; }

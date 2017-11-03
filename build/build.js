@@ -605,6 +605,8 @@ var globalData = {
   // appBasePath:"http://122.144.133.20/XR/",
   path1: "http://admin.91ymfq.com/api/h5Service.do",
   //path:"http://test.91ymfq.com/api/h5Service.do",
+  // path:"http://122.144.133.20:8088",
+  //path:"http://tdx.free.ngrok.cc",
   path: "http://192.168.1.17:8088",
   requestData: {
     "platform": platform,
@@ -658,7 +660,8 @@ module.exports.login = function (loginType, phone, pwd, verifyCode, cb) {
     data.verifyCode = verifyCode; //	login_type为CODE时必填
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(_global.globalData.path + "/zndai/capital/login", { params: str }, cb);
+    // console.log(data);
+    http(_global.globalData.path + "/zndai/user/login", { params: str }, cb);
 };
 
 //注册
@@ -668,6 +671,7 @@ module.exports.register = function (phone, pwd, verifyCode, cb) {
     data.pwd = pwd;
     data.type = "C";
     data.verifyCode = verifyCode;
+    console.log(data);
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(_global.globalData.path + "/zndai/user/add", { params: str }, cb);
@@ -688,9 +692,10 @@ module.exports.forgot = function (phone, pwd, verifyCode, cb) {
 module.exports.verifyCode = function (phone, type, cb) {
     var data = _global.globalData.requestData;
     data.phone = phone;
-    data.type = pwd; //REG 注册 ，FPWD忘记密码
+    data.type = "REG"; //REG 注册 ，FPWD忘记密码
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
+    console.log(data);
     http(_global.globalData.path + "/zndai/user/verifyCode", { params: str }, cb);
 };
 //退出
@@ -812,7 +817,7 @@ module.exports.articleDetail = function (articleId, cb) {
 //---------------------贷款产品
 //精准贷
 //列表
-module.exports.proList = function (pageNum, pageSize, tag, cb) {
+module.exports.loanList = function (pageNum, pageSize, tag, cb) {
     var data = _global.globalData.requestData;
     data.pageNum = pageNum;
     data.pageSize = pageSize;
@@ -822,7 +827,7 @@ module.exports.proList = function (pageNum, pageSize, tag, cb) {
     http(_global.globalData.path + "/zndai/loan/list", { params: str }, cb);
 };
 //详情
-module.exports.proDetail = function (loanId, cb) {
+module.exports.loanDetail = function (loanId, cb) {
     var data = _global.globalData.requestData;
     data.loanId = loanId;
     var param = JSON.stringify(data);
@@ -14426,9 +14431,9 @@ var MyMap = _react2.default.createClass({
 		var ziMuArr = [];
 		var hotCityHtml = [];
 		_api2.default.getCityList(function (res) {
-			//var deResult = strDec(res.data,key1,"","");
 			if (res.code == "0000") {
-				var list = res.data.list;
+				var data = JSON.parse(strDec(res.data, key1, "", ""));
+				var list = data.list;
 				for (var i in list) {
 					var div_arr = []; //循环的站点名称
 					var div_zim = list[i].ziMu; //字母
@@ -14475,7 +14480,8 @@ var MyMap = _react2.default.createClass({
 		});
 		_api2.default.getHotCity(function (res) {
 			if (res.code == "0000") {
-				var hotCity = res.data.list;
+				var data = JSON.parse(strDec(res.data, key1, "", ""));
+				var hotCity = data.list;
 				for (var i in hotCity) {
 					hotCityHtml.push(_react2.default.createElement(
 						'li',
@@ -14635,9 +14641,9 @@ var _header = __webpack_require__(10);
 
 var _header2 = _interopRequireDefault(_header);
 
-var _timeCount = __webpack_require__(302);
+var _loading = __webpack_require__(302);
 
-var _timeCount2 = _interopRequireDefault(_timeCount);
+var _loading2 = _interopRequireDefault(_loading);
 
 var _reactRouter = __webpack_require__(6);
 
@@ -14649,6 +14655,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var toast = new Toast();
 var appBasePath = _global.globalData.appBasePath;
+var key1 = _global.globalData.key;
 var Login = _react2.default.createClass({
 	displayName: 'Login',
 
@@ -14662,6 +14669,7 @@ var Login = _react2.default.createClass({
 			changePhoneTxt: "",
 			count: 60,
 			liked: true,
+			flag: false,
 			getMsg: {
 				style: {
 					backgroundColor: "#ffa81e",
@@ -14693,6 +14701,7 @@ var Login = _react2.default.createClass({
 		}
 	},
 	submitHandler: function submitHandler() {
+
 		var that = this;
 		var wayNum = this.state.wayNum;
 		var phoneNum = that.state.phoneNum;
@@ -14710,23 +14719,35 @@ var Login = _react2.default.createClass({
 		} else {
 			switch (wayNum) {
 				case 1:
+
 					var psd = that.state.password;
 					if (psd == "" || psd == null) {
 						toast.show("请输入密码", 2000);
 					} else {
-						//						api.login("PWD",phoneNum,psd,"",function(res){
-						//							
-						//						})
-						//成功后
-						localStorage.setItem("isLogin", true);
-						localStorage.setItem("userId", "userId");
-						localStorage.setItem("firstFlag", true);
-						localStorage.setItem("phoneNumb", phoneNum);
-						toast.show("请求密码login", 2000);
-						var path = {
-							pathname: '/'
-						};
-						_reactRouter.hashHistory.push(path);
+						that.setState({
+							flag: true
+						});
+						_api2.default.login("PWD", phoneNum, psd, "", function (res) {
+							//console.log(res);
+							that.setState({
+								flag: false
+							});
+							if (res.code == "0000") {
+								var data = strDec(res.data, key1, "", "");
+								//console.log(data);
+								//成功后
+								localStorage.setItem("user", data);
+								localStorage.setItem("isLogin", true);
+								localStorage.setItem("phoneNum", phoneNum);
+								toast.show("登录成功", 2000);
+								var path = {
+									pathname: '/'
+								};
+								_reactRouter.hashHistory.push(path);
+							} else {
+								toast.show(res.msg, 2000);
+							}
+						});
 					}
 					break;
 				case 2:
@@ -14736,18 +14757,30 @@ var Login = _react2.default.createClass({
 						toast.show("请输入验证码", 2000);
 					} else if (yzCode == verifyCode) {
 						//验证码登录
-						console.log("请求验证码login");
 						var reg = that.state.reg;
-						console.log(reg + "mmmmm" + that.state.verifyCode);
+						console.log(reg + "mmmmm" + that.state.yzCode);
 						if (reg) {
 							//已注册，调登录接口
-							/*api.login("CODE",phoneNum,"",yzCode,function(res){
-       	
-       })	*/
-
+							_api2.default.login("CODE", phoneNum, "", yzCode, function (res) {
+								console.log(res);
+								if (res.code == "0000") {
+									var data = strDec(res.data, key1, "", "");
+									//console.log(data);
+									//成功后
+									localStorage.setItem("user", data);
+									localStorage.setItem("isLogin", true);
+									localStorage.setItem("phoneNum", phoneNum);
+									toast.show("登录成功", 2000);
+									var path = {
+										pathname: '/'
+									};
+									_reactRouter.hashHistory.push(path);
+								} else {
+									toast.show(res.msg, 2000);
+								}
+							});
 						} else {
 							//注册,去设置密码
-
 							var data = { phoneNum: phoneNum, verifyCode: yzCode };
 							var path = {
 								pathname: '/setPsd',
@@ -14796,14 +14829,18 @@ var Login = _react2.default.createClass({
 	},
 	getMsg: function getMsg() {
 		var that = this;
+
 		//input在disable且readonly之后，onClick会在iOS上触发不起来，onTouchEnd又会在Android上把键盘弹出来，这边笔者做了个Hack，ios下用onTouchEnd，android下用onClick，就正常了。
 		var phoneNum = that.state.phoneNum;
+
 		if (!/^1[34578]\d{9}$/.test(phoneNum)) {
+			console.log(phoneNum);
 			toast.show("请输入正确格式的手机号码", 2000);
 		} else {
-			if (this.state.liked) {
-				this.timer = setInterval(function () {
-					var count = this.state.count;
+			console.log(phoneNum);
+			if (that.state.liked) {
+				that.timer = setInterval(function () {
+					var count = that.state.count;
 					that.setState({
 						liked: false,
 						getMsg: {
@@ -14815,7 +14852,7 @@ var Login = _react2.default.createClass({
 					});
 					count -= 1;
 					if (count < 1) {
-						this.setState({
+						that.setState({
 							liked: true,
 							getMsg: {
 								style: {
@@ -14825,31 +14862,30 @@ var Login = _react2.default.createClass({
 							}
 						});
 						count = 60;
-						clearInterval(this.timer);
+						clearInterval(that.timer);
 					}
-					this.setState({
+					that.setState({
 						count: count
 					});
-				}.bind(this), 1000);
-			}
+				}.bind(that), 1000);
 
-			that.setState({
-				reg: false,
-				verifyCode: "1234"
-			});
-			//发送短信验证码
-			/*api.verifyCode(phoneNum,"REG",function(res){
-   	if(res.code=="0000"){
-   		var reg=res.data.reg;
-   		var verifyCode=res.data.verifyCode;
-   		that.setState({
-   			reg:false,
-   			verifyCode:"1234"
-   		})
-   	}else{
-   		toast.show(res.msg,2000);
-   	}
-   })*/
+				//发送短信验证码
+				_api2.default.verifyCode(phoneNum, "REG", function (res) {
+					console.log(res);
+					if (res.code == "0000") {
+						var data = JSON.parse(strDec(res.data, key1, "", ""));
+						console.log(data);
+						var reg = data.reg;
+						var verifyCode = data.verify;
+						that.setState({
+							reg: reg,
+							verifyCode: verifyCode
+						});
+					} else {
+						toast.show(res.msg, 2000);
+					}
+				});
+			}
 		}
 	},
 	componentWillUnmount: function componentWillUnmount() {
@@ -14900,7 +14936,7 @@ var Login = _react2.default.createClass({
 								{ htmlFor: 'phoneNum' },
 								'\u624B\u673A\u53F7'
 							),
-							_react2.default.createElement('input', { id: 'phoneNum', type: 'text', onChange: that.changeInputTxt, className: 'flex1', name: 'phoneNum', placeholder: '\u8BF7\u8F93\u5165\u624B\u673A\u53F7' })
+							_react2.default.createElement('input', { id: 'phoneNum', type: 'number', onChange: that.changeInputTxt, className: 'flex1', name: 'phoneNum', placeholder: '\u8BF7\u8F93\u5165\u624B\u673A\u53F7' })
 						),
 						_react2.default.createElement(
 							'div',
@@ -14953,6 +14989,7 @@ var Login = _react2.default.createClass({
 					)
 				)
 			),
+			_react2.default.createElement(_loading2.default, { flag: that.state.flag }),
 			_react2.default.createElement(
 				'p',
 				{ className: 'note' },
@@ -28788,6 +28825,10 @@ var _Loading = __webpack_require__(258);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
+var _proList = __webpack_require__(303);
+
+var _proList2 = _interopRequireDefault(_proList);
+
 var _reactRouter = __webpack_require__(6);
 
 __webpack_require__(259);
@@ -28802,46 +28843,91 @@ var Home = _react2.default.createClass({
 		return {
 			activeTab: 1,
 			isLoading: false,
-			activeIndex: 0
+			activeIndex: 0,
+			pageNum: 1,
+			pageSize: 10
 		};
 	},
 
-	componentWillMount: function componentWillMount() {
-		var firstFlag = localStorage.getItem("firstFlag");
-		if (!firstFlag) {
-			var path = {
-				pathname: '/Login'
-			};
-			_reactRouter.hashHistory.push(path);
-		}
-	},
+	componentWillMount: function componentWillMount() {},
+	/*
+ toNewsDetail:function(){
+ 	var data = {id:3,name:"qin",age:18};
+ 	var path = {
+ 	  pathname:'/NewsDetail',
+ 	  query:data,
+ 	}
+ 	hashHistory.push(path);
+ },
+ toListDetail:function(e){
+ 	var loanId=e.target.loanId;
+ 	var data = {loanId:loanId};
+ 	var path = {
+ 	  pathname:'/ListDetail',
+ 	  query:data,
+ 	}
+ 	hashHistory.push(path);
+ },
+ toList:function(e){
+ 	const listId=e.target.index;
+ 	//const title=e.target.find("p").html();
+ 	const data = {listId:listId,title:"title"};
+ 	const path = {
+ 	  pathname:'/List',
+ 	  state:data
+ 	}
+ 	hashHistory.push(path);
+ },
+ logoError:function(e){
+ 	e.target.src="src/img/icon/capitalLogo.jpg";
+ 	e.target.onerror=null; //控制不要一直跳动 
+ 	console.log(e.target.src);
+ },
+ 
+ componentDidMount:function(){
+ 	var that=this;
+ 	var pageNum=that.state.pageNum;
+ 	var pageSize=that.state.pageSize;
+ 	api.loanList(pageNum,pageSize,"GTH",function(res){
+ 		//console.log(res);
+ 		if(res.code=="0000"){
+ 			//var data =strDec(res.data,key1,"","");
+ 			//console.log(data);
+ 			var data=res.data.list;
+ 			var list=[];
+ 			for(var i in data){
+ 				list.push(<div className="capitalList" key={i}>
+         				<h3>
+         					<img src={data[i].logo} onError={that.logoError} />
+         					<span>用钱宝</span>
+         				</h3>
+         				<div className="capitalInfo">
+         					<div className="limit">
+         						<h2>{data[i].moneyMin}~{data[i].moneyMax}</h2>
+         						<p>额度范围(元)</p>
+         					</div>
+         					<ul className="special">
+         						<li>{data[i].loanTime}小时放款</li>
+         						<li>日费率{data[i].rate}%</li>
+         						<li>贷款期限{data[i].limitMin}-{data[i].limitMax}天</li>
+         					</ul>
+         					<div className="apply">
+         						<a href="javascript:;" data-loanId={data[i].loanId} onClick={that.toListDetail}>申请贷款</a>
+         					</div>
+         				</div>
+         				
+         			</div>)
+ 			}
+ 			that.setState({
+ 				total:res.total,
+ 				list:list
+ 			})
+ 		}
+ 	})
+ 	
+ },
+ */
 
-	toNewsDetail: function toNewsDetail() {
-		var data = { id: 3, name: "qin", age: 18 };
-		var path = {
-			pathname: '/NewsDetail',
-			query: data
-		};
-		_reactRouter.hashHistory.push(path);
-	},
-	toListDetail: function toListDetail() {
-		var data = { id: 3, name: "qin", age: 18 };
-		var path = {
-			pathname: '/ListDetail',
-			query: data
-		};
-		_reactRouter.hashHistory.push(path);
-	},
-	toList: function toList(e) {
-		var listId = e.target.index;
-		//const title=e.target.find("p").html();
-		var data = { listId: listId, title: "title" };
-		var path = {
-			pathname: '/List',
-			state: data
-		};
-		_reactRouter.hashHistory.push(path);
-	},
 	render: function render() {
 		var that = this;
 		var curCity = that.props.location.query.cityId;
@@ -28897,150 +28983,7 @@ var Home = _react2.default.createClass({
 						)
 					)
 				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'capitalBox' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'capitalList' },
-						_react2.default.createElement(
-							'h3',
-							null,
-							_react2.default.createElement('img', { src: 'src/img/icon/capitalLogo.jpg' }),
-							_react2.default.createElement(
-								'span',
-								null,
-								'\u7528\u94B1\u5B9D'
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'capitalInfo' },
-							_react2.default.createElement(
-								'div',
-								{ className: 'limit' },
-								_react2.default.createElement(
-									'h2',
-									null,
-									'500~1000'
-								),
-								_react2.default.createElement(
-									'p',
-									null,
-									'\u989D\u5EA6\u8303\u56F4(\u5143)'
-								)
-							),
-							_react2.default.createElement(
-								'ul',
-								{ className: 'special' },
-								_react2.default.createElement(
-									'li',
-									null,
-									'1\u5C0F\u65F6\u653E\u6B3E'
-								),
-								_react2.default.createElement(
-									'li',
-									null,
-									'\u65E5\u8D39\u73870.3%'
-								),
-								_react2.default.createElement(
-									'li',
-									null,
-									'\u8D37\u6B3E\u671F\u96507-30\u5929'
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'apply' },
-								_react2.default.createElement(
-									'a',
-									{ href: 'javascript:;', onClick: that.toListDetail },
-									'\u7533\u8BF7\u8D37\u6B3E'
-								)
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'care' },
-							_react2.default.createElement(
-								'span',
-								null,
-								'\u8001\u7528\u6237\u63D0\u989D'
-							),
-							'\u8BE5\u4EA7\u54C1\u91CD\u590D\u8D37\u6B3E\u6682\u4E0D\u652F\u6301\u63D0\u989D'
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'capitalList' },
-						_react2.default.createElement(
-							'h3',
-							null,
-							_react2.default.createElement('img', { src: 'src/img/icon/capitalLogo.jpg' }),
-							_react2.default.createElement(
-								'span',
-								null,
-								'\u7528\u94B1\u5B9D'
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'capitalInfo' },
-							_react2.default.createElement(
-								'div',
-								{ className: 'limit' },
-								_react2.default.createElement(
-									'h2',
-									null,
-									'500~1000'
-								),
-								_react2.default.createElement(
-									'p',
-									null,
-									'\u989D\u5EA6\u8303\u56F4(\u5143)'
-								)
-							),
-							_react2.default.createElement(
-								'ul',
-								{ className: 'special' },
-								_react2.default.createElement(
-									'li',
-									null,
-									'1\u5C0F\u65F6\u653E\u6B3E'
-								),
-								_react2.default.createElement(
-									'li',
-									null,
-									'\u65E5\u8D39\u73870.3%'
-								),
-								_react2.default.createElement(
-									'li',
-									null,
-									'\u8D37\u6B3E\u671F\u96507-30\u5929'
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'apply' },
-								_react2.default.createElement(
-									'a',
-									{ href: 'javascript:;', onClick: that.toListDetail },
-									'\u7533\u8BF7\u8D37\u6B3E'
-								)
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'care' },
-							_react2.default.createElement(
-								'span',
-								null,
-								'\u8001\u7528\u6237\u63D0\u989D'
-							),
-							'\u8BE5\u4EA7\u54C1\u91CD\u590D\u8D37\u6B3E\u6682\u4E0D\u652F\u6301\u63D0\u989D'
-						)
-					)
-				),
+				_react2.default.createElement(_proList2.default, { pageNum: '3' }),
 				_react2.default.createElement(
 					'div',
 					{ className: 'newsBox' },
@@ -29828,39 +29771,34 @@ var Mine = _react2.default.createClass({
 			//dataStatus: 0
 		};
 	},
-	getTabId: function getTabId(e) {
-		var that = this;
-		var id = e.target.getAttribute('data-id');
-		that.setState({
-			activeTab: id,
-			isShow: false
-			//dataStatus: 0
-		}, function () {
-			/*api.queryBanner(function(data){
-   	console.log(data);
-   })*/
-		});
-	},
-	componentWillMount: function componentWillMount() {
+
+	componentDidMount: function componentDidMount() {
 		//console.log(this.props.location.query.price);
 	},
-	componentDidMount: function componentDidMount() {
+	componentWillMount: function componentWillMount() {
 		var that = this;
-		/*api.queryBanner(function(data){
-  		console.log(data);
-  		if(data.result=="000000"){
-  			that.setState({
-  				isShow: true,
-                  
-                 // dataStatus: 0
-              },()=>{
-                 
-              });
-  		}else{
-  			
-  		}
-  		
-  	});*/
+		var user = localStorage.getItem("user");
+		if (user) {
+			//已登陆
+			var userObj = JSON.parse(user);
+			that.setState({
+				user: userObj
+			});
+		} else {
+			that.setState({
+				user: {
+					certLevel: "",
+					headPic: "",
+					idCard: "",
+					located: userObj.located,
+					phone: "",
+					realName: "",
+					token: "",
+					userId: "",
+					userName: "未登录"
+				}
+			});
+		}
 	},
 
 	goLogin: function goLogin() {
@@ -29910,8 +29848,13 @@ var Mine = _react2.default.createClass({
 		};
 		_reactRouter.hashHistory.push(path);
 	},
+	imgError: function imgError(e) {
+		e.target.src = "src/img/icon/header.png";
+		e.target.onerror = null; //控制不要一直跳动 
+	},
 	render: function render() {
 		var that = this;
+		var userObj = that.state.user;
 		return _react2.default.createElement(
 			'div',
 			{ className: 'app_Box mine' },
@@ -29924,7 +29867,7 @@ var Mine = _react2.default.createClass({
 					_react2.default.createElement(
 						'div',
 						{ className: 'userImg' },
-						_react2.default.createElement('img', { src: 'src/img/icon/header.png' })
+						_react2.default.createElement('img', { src: userObj.headPic, onError: that.imgError })
 					),
 					_react2.default.createElement(
 						'div',
@@ -29932,12 +29875,12 @@ var Mine = _react2.default.createClass({
 						_react2.default.createElement(
 							'p',
 							null,
-							'135****9763'
+							userObj.userName
 						),
 						_react2.default.createElement(
 							'span',
 							null,
-							'\u5DF2\u8BA4\u8BC1'
+							userObj.idCard == "" ? "未认证" : "已认证"
 						)
 					),
 					_react2.default.createElement(
@@ -29956,7 +29899,7 @@ var Mine = _react2.default.createClass({
 						_react2.default.createElement(
 							'b',
 							null,
-							'E'
+							userObj.certLevel
 						)
 					),
 					_react2.default.createElement(
@@ -30149,6 +30092,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var key1 = _global.globalData.key;
 var appBasePath = _global.globalData.appBasePath;
 var SetPsd = _react2.default.createClass({
 	displayName: 'SetPsd',
@@ -30170,34 +30114,41 @@ var SetPsd = _react2.default.createClass({
 			var phoneNum = that.props.location.state.phoneNum;
 			var verifyCode = that.props.location.state.verifyCode;
 			//调注册接口
-			/*api.register(phoneNum,psd,verifyCode,function(res){
-   	if(res.code=="0000"){
-   		console.log(res.data);
-   		//自动登录
-   		api.login("PWD",phoneNum,"",psd,function(res){
-   				if(res.code=="0000"){
-   					console.log(res.data);
-   					localStorage.setItem("isLogin",true);
-   					localStorage.setItem("userId","userId");
-   					localStorage.setItem("firstFlag",true);
-   					let path = {
-   					  pathname:'/'
-   					}
-   					hashHistory.push(path);
-   					localStorage.setItem("phoneNumb",phoneNum);
-   				}
-   			})	
-   	}
-   })*/
+			_api2.default.register(phoneNum, psd, verifyCode, function (res) {
+				console.log(res);
 
-			var path = {
-				pathname: '/'
-			};
-			_reactRouter.hashHistory.push(path);
-			localStorage.setItem("isLogin", true);
-			localStorage.setItem("firstFlag", true);
-			localStorage.setItem("userId", "userId");
-			localStorage.setItem("phoneNumb", phoneNum);
+				if (res.code == "0000") {
+					var data = JSON.parse(strDec(res.data, key1, "", ""));
+					console.log(data);
+					//自动登录
+					_api2.default.login("PWD", phoneNum, "", psd, function (res) {
+						console.log(res);
+						if (res.code == "0000") {
+							var data = strDec(res.data, key1, "", "");
+							//console.log(data);
+							//成功后
+							localStorage.setItem("user", data);
+							localStorage.setItem("isLogin", true);
+							localStorage.setItem("phoneNum", phoneNum);
+							toast.show("登录成功", 2000);
+							var path = {
+								pathname: '/'
+							};
+							_reactRouter.hashHistory.push(path);
+						} else {
+							toast.show(res.msg, 2000);
+						}
+					});
+				}
+			});
+
+			/*let path = {
+     pathname:'/'
+   }
+   hashHistory.push(path);
+   localStorage.setItem("isLogin",true);
+   localStorage.setItem("userId","userId");
+   localStorage.setItem("phoneNum",phoneNum);*/
 		}
 	},
 	render: function render() {
@@ -32820,6 +32771,7 @@ var Repsd = _react2.default.createClass({
 		var oldPsd = that.state.oldPsd;
 		var newPsd = that.state.newPsd;
 		var surePsd = that.state.surePsd;
+		var userId = localStorage.getItem("userId");
 		var toast = new Toast();
 		if (oldPsd && newPsd && surePsd) {
 			if (newPsd !== surePsd) {
@@ -32829,8 +32781,12 @@ var Repsd = _react2.default.createClass({
       pathname:'/UserInfo'
     }
     hashHistory.push(path);*/
-				window.history.back();
-				toast.show("修改成功", 2000);
+				/*api.userInfo(newPsd,oldPsd,userId,function(res){
+    	console.log(res);
+    	//window.history.back();
+    	//toast.show("修改成功",2000);
+    })*/
+
 			}
 		} else {
 			toast.show("输入不能为空", 2000);
@@ -32845,6 +32801,16 @@ var Repsd = _react2.default.createClass({
 			_react2.default.createElement(
 				'div',
 				{ className: 'setPsdCon' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'inputPsd' },
+					_react2.default.createElement(
+						'label',
+						{ htmlFor: 'oldPsd' },
+						'\u8BF7\u8F93\u5165\u65E7\u5BC6\u7801'
+					),
+					_react2.default.createElement('input', { id: 'oldPsd', type: 'password', name: 'oldPsd', placeholder: '', onChange: that.vauleChange })
+				),
 				_react2.default.createElement(
 					'div',
 					{ className: 'inputPsd' },
@@ -33322,9 +33288,259 @@ exports.default = PersonalLevel;
 /* 300 */,
 /* 301 */,
 /* 302 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open 'E:\\workspace\\dai\\SmartCredit\\src\\components\\timeCount.js'");
+"use strict";
+
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(4);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Loading = _react2.default.createClass({
+	displayName: 'Loading',
+
+	getInitialState: function getInitialState() {
+		return {};
+	},
+
+	render: function render() {
+		var that = this;
+		var flag = this.props.flag;
+		return _react2.default.createElement(
+			'div',
+			{ className: 'spinner', style: { display: '' + (flag ? 'block' : 'none') } },
+			_react2.default.createElement(
+				'div',
+				{ className: 'spinner-container container1' },
+				_react2.default.createElement('div', { className: 'circle1' }),
+				_react2.default.createElement('div', { className: 'circle2' }),
+				_react2.default.createElement('div', { className: 'circle3' }),
+				_react2.default.createElement('div', { className: 'circle4' })
+			),
+			_react2.default.createElement(
+				'div',
+				{ className: 'spinner-container container2' },
+				_react2.default.createElement('div', { className: 'circle1' }),
+				_react2.default.createElement('div', { className: 'circle2' }),
+				_react2.default.createElement('div', { className: 'circle3' }),
+				_react2.default.createElement('div', { className: 'circle4' })
+			),
+			_react2.default.createElement(
+				'div',
+				{ className: 'spinner-container container3' },
+				_react2.default.createElement('div', { className: 'circle1' }),
+				_react2.default.createElement('div', { className: 'circle2' }),
+				_react2.default.createElement('div', { className: 'circle3' }),
+				_react2.default.createElement('div', { className: 'circle4' })
+			)
+		);
+	}
+
+});
+
+exports.default = Loading;
+
+/***/ }),
+/* 303 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(4);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _api = __webpack_require__(8);
+
+var _api2 = _interopRequireDefault(_api);
+
+var _global = __webpack_require__(7);
+
+var _homeHeader = __webpack_require__(255);
+
+var _homeHeader2 = _interopRequireDefault(_homeHeader);
+
+var _footer = __webpack_require__(76);
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _Loading = __webpack_require__(258);
+
+var _Loading2 = _interopRequireDefault(_Loading);
+
+var _reactRouter = __webpack_require__(6);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var appBasePath = _global.globalData.appBasePath;
+var ProList = _react2.default.createClass({
+	displayName: 'ProList',
+
+	getInitialState: function getInitialState() {
+		return {
+			isLoading: false,
+			pageNum: 1,
+			pageSize: 10
+		};
+	},
+
+	componentWillMount: function componentWillMount() {},
+
+	toNewsDetail: function toNewsDetail() {
+		var data = { id: 3, name: "qin", age: 18 };
+		var path = {
+			pathname: '/NewsDetail',
+			query: data
+		};
+		_reactRouter.hashHistory.push(path);
+	},
+	toListDetail: function toListDetail(e) {
+		var loanId = e.target.loanId;
+		var data = { loanId: loanId };
+		var path = {
+			pathname: '/ListDetail',
+			query: data
+		};
+		_reactRouter.hashHistory.push(path);
+	},
+	toList: function toList(e) {
+		var listId = e.target.index;
+		//const title=e.target.find("p").html();
+		var data = { listId: listId, title: "title" };
+		var path = {
+			pathname: '/List',
+			state: data
+		};
+		_reactRouter.hashHistory.push(path);
+	},
+	logoError: function logoError(e) {
+		e.target.src = "src/img/icon/capitalLogo.jpg";
+		e.target.onerror = null; //控制不要一直跳动 
+		console.log(e.target.src);
+	},
+
+	componentDidMount: function componentDidMount() {
+		var that = this;
+		var pageNum = that.state.pageNum;
+		var pageSize = that.state.pageSize;
+		_api2.default.loanList(pageNum, pageSize, "SBZ", function (res) {
+			//console.log(res);
+			if (res.code == "0000") {
+				//var data =strDec(res.data,key1,"","");
+				//console.log(data);
+				var data = res.data.list;
+				var list = [];
+				for (var i in data) {
+					list.push(_react2.default.createElement(
+						'div',
+						{ className: 'capitalList', key: i },
+						_react2.default.createElement(
+							'h3',
+							null,
+							_react2.default.createElement('img', { src: data[i].logo, onError: that.logoError }),
+							_react2.default.createElement(
+								'span',
+								null,
+								'\u7528\u94B1\u5B9D'
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'capitalInfo' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'limit' },
+								_react2.default.createElement(
+									'h2',
+									null,
+									data[i].moneyMin,
+									'~',
+									data[i].moneyMax
+								),
+								_react2.default.createElement(
+									'p',
+									null,
+									'\u989D\u5EA6\u8303\u56F4(\u5143)'
+								)
+							),
+							_react2.default.createElement(
+								'ul',
+								{ className: 'special' },
+								_react2.default.createElement(
+									'li',
+									null,
+									data[i].loanTime,
+									'\u5C0F\u65F6\u653E\u6B3E'
+								),
+								_react2.default.createElement(
+									'li',
+									null,
+									'\u65E5\u8D39\u7387',
+									data[i].rate,
+									'%'
+								),
+								_react2.default.createElement(
+									'li',
+									null,
+									'\u8D37\u6B3E\u671F\u9650',
+									data[i].limitMin,
+									'-',
+									data[i].limitMax,
+									'\u5929'
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'apply' },
+								_react2.default.createElement(
+									'a',
+									{ href: 'javascript:;', 'data-loanId': data[i].loanId, onClick: that.toListDetail },
+									'\u7533\u8BF7\u8D37\u6B3E'
+								)
+							)
+						)
+					));
+				}
+				that.setState({
+					total: res.total,
+					list: list
+				});
+			}
+		});
+	},
+
+	render: function render() {
+		var that = this;
+		return _react2.default.createElement(
+			'div',
+			{ className: 'capitalBox' },
+			that.state.list
+		);
+	}
+});
+
+exports.default = ProList;
 
 /***/ })
 /******/ ]);
