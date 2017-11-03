@@ -1,9 +1,9 @@
 {
-	"name": "webpack",
+  "name": "webpack",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-   "scripts": {
+  "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --devtool --progress",
     "start": "http-server ./ -p 8989 -e \"\" -c -1",
@@ -17,7 +17,7 @@
   "author": "qinShuangShuang",
   "license": "MIT",
   "devDependencies": {
-  	"autoprefixer": "^6.4.0",
+    "autoprefixer": "^6.4.0",
     "babel": "^6.23.0",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
@@ -40,6 +40,8 @@
     "url-loader": "^0.5.8",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.4.5"
+  },
+  "dependencies": {
+    "reactjs-iscroll": "^0.3.2"
   }
-  
 }

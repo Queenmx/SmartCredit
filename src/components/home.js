@@ -7,6 +7,7 @@ import HomeHeader from './homeHeader';
 import Footer from './footer';
 import Loading from './loading';
 import ProList from './proList';
+import Simple from './iscoll';
 import { hashHistory, Link } from 'react-router';
 import '../css/home.css';
 
@@ -128,6 +129,7 @@ var Home=React.createClass({
 	        				<p>自由职业</p>
 	        			</li>
 	        		</ul>
+	        		<Simple/>
 	        		<ProList pageNum="3"/>
 	        		<div className="newsBox">
 	        				<h3>你关心的资讯</h3>
