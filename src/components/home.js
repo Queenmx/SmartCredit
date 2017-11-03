@@ -5,7 +5,7 @@ import api from './api';
 import {globalData} from './global.js';
 import HomeHeader from './homeHeader';
 import Footer from './footer';
-import Loading from './Loading';
+import Loading from './loading';
 import ProList from './proList';
 import { hashHistory, Link } from 'react-router';
 import '../css/home.css';
