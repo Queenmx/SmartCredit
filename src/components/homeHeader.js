@@ -5,7 +5,7 @@ import api from './api';
 import {globalData} from './global.js';
 import { Router, Route, Link } from 'react-router';
 import MyMap from './myMap';
-import BMap from 'BMap';
+//import BMap from 'BMap';
 
 var appBasePath=globalData.appBasePath;
 var HomeHeader=React.createClass({

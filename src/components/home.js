@@ -130,7 +130,7 @@ var Home=React.createClass({
 	        			</li>
 	        		</ul>
 	        		<Simple/>
-	        		<ProList pageNum="3"/>
+	        		{/*<ProList pageNum="3"/>*/}
 	        		<div className="newsBox">
 	        				<h3>你关心的资讯</h3>
 	        				<div>

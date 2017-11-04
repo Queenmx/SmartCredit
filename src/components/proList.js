@@ -2,13 +2,9 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import api from './api';
-import {globalData} from './global.js';
-import HomeHeader from './homeHeader';
-import Footer from './footer';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 
-var appBasePath=globalData.appBasePath;
 var ProList=React.createClass({
 	getInitialState:function(){
 		return {
@@ -18,8 +14,6 @@ var ProList=React.createClass({
 		}
 	},
 	
-	componentWillMount:function(){
-	},
 	
 	toNewsDetail:function(){
 		var data = {id:3,name:"qin",age:18};

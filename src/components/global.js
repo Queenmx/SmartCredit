@@ -15,9 +15,10 @@ const globalData = {
    // appBasePath:"http://122.144.133.20/XR/",
     path1:"http://admin.91ymfq.com/api/h5Service.do",
     //path:"http://test.91ymfq.com/api/h5Service.do",
-   // path:"http://122.144.133.20:8088",
+    path:"http://122.144.133.20:8088",
     //path:"http://tdx.free.ngrok.cc",
-    path:"http://192.168.1.17:8088",
+   // path:"http://192.168.1.17:8088",
+   pathCai:"http://apis.juhe.cn/cook/query.php",
     requestData:{
         "platform" : platform,
 		"deviceno" : deviceno,

@@ -7,6 +7,26 @@ var iv = new String(0);
 var toast = new Toast();
 var id=localStorage.getItem("id");
 
+
+//ex
+/*module.exports.getHospital=function(pn,cb){
+	var data=globalData.requestData;
+	data.APP_VERSION="v1.0";
+	data.ACTION="getHospital";
+	data.TOKEN_ID="";
+	data.DEVICE_ID="999kkkk";
+	data.KEYWORDS="";
+    data.PAGE_INDEX=pn;
+    var key="YMFQ2016";
+     var iv = new String(0);
+    var param=JSON.stringify(data);
+    var requestData = base64encode(des(key,utf16to8(param),1,0, iv, 1));
+	http("http://test.91ymfq.com/api/h5Service.do",requestData,cb);
+}
+*/
+
+
+
 //获取城市列表
 module.exports.getCityList=function(cb){ 
     var data=globalData.requestData;
