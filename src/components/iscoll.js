@@ -48,7 +48,8 @@ class Simple extends Component {
 	 	var that=this;
 	 	const {currentPage} = that.state;
 	 	var appBasePath="http://www.91ymfq.com/XR/";
-	 	var url="http://admin.91ymfq.com/api/h5Service.do";
+	 	//var url="http://admin.91ymfq.com/api/h5Service.do";
+	 	var url="http://test.91ymfq.com/api/h5Service.do";
         var key="YMFQ2016";
      	var iv = new String(0);
 	    var param = "{\"APP_VERSION\":\"v1.0\",\"ACTION\":\"getHospital\",\"TOKEN_ID\":\"\",\"DEVICE_ID\":\"999kkkk\",\"KEYWORDS\":\"\",\"DEPARTMENT_ID\":\"\",\"PAGE_INDEX\":\""+currentPage+"\"}";
@@ -135,12 +136,10 @@ class Simple extends Component {
 	
   render() {
     return (
-      <div>
-        <ReactIScroll iScroll={iScroll} handleRefresh={this.handleRefresh.bind(this)} className="example">
-          <div className="capitalBox">
+      <div className="capitalBox">
+        <ReactIScroll iScroll={iScroll} handleRefresh={this.handleRefresh.bind(this)} >
           数据数据数据
         			{this.state.list}
-        	</div>
         </ReactIScroll>
       </div>
     );

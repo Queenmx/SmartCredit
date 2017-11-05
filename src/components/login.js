@@ -7,8 +7,8 @@ import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../css/login.css';
-var toast = new Toast();
-var appBasePath=globalData.appBasePath;
+
+var toast=globalData.toast;
 var key1 = globalData.key;
 var Login=React.createClass({
 	getInitialState:function(){

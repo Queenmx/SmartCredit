@@ -29,8 +29,22 @@
     }
    } 
     .capitalBox{
+        
         .capitalList{
-           
+            
+//         .magic-checkbox + label:before {
+//              border: 1px solid #666666;
+//         }
+//         .magic-checkbox:checked + label:before {
+//             border:  #666666;
+//             background: #FFFFFF;
+//         }
+//         .magic-checkbox + label:after {
+//             border-color: #666666 ;
+//         }
+//         .magic-checkbox:checked + label:before {
+//             border-color:#FFFFFF ;
+//         }
             background: #FFFFFF;
             margin-top: 0.15rem;
             padding-bottom: 0.3rem;
@@ -116,11 +130,12 @@
         }
         
     }
-
+    .listWrap{
+        position: relative;
+    }
     .newsBox{
         margin-top: 0.15rem;
        // margin-bottom: 0.15rem;
-        
         h3{
             height: .8rem;
             padding-left: .35rem;

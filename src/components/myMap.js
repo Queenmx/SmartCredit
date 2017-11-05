@@ -6,7 +6,6 @@ import Header from './header';
 import { hashHistory } from 'react-router';
 import '../css/map.css';
 
-var key1 = globalData.key;
 var MyMap=React.createClass({
 	getInitialState:function(){
 		return{
@@ -63,6 +62,8 @@ var MyMap=React.createClass({
 		    })
 	},
 	componentDidMount:function(){
+		var key1 = globalData.key;
+		var toast=globalData.toast;
 		var that = this;
 		var li_arr = [];//循环的li
 		var ziMuArr=[];

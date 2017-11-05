@@ -136,6 +136,9 @@
       margin-right: 0.3rem;
       margin-left: 0.35rem; }
 
+.listWrap {
+  position: relative; }
+
 .newsBox {
   margin-top: 0.15rem; }
   .newsBox h3 {

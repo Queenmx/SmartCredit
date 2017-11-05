@@ -9,7 +9,7 @@ import Header from './header';
 var NewsDetail=React.createClass({
 	getInitialState:function(){
 		return {
-			
+			articleDetail:""
 		}
 	},
 	getTabId:function(e){
@@ -26,28 +26,51 @@ var NewsDetail=React.createClass({
 		})
 	},
 	componentWillMount:function(){
-		var that=this;
-//		var id=this.props.location.query.id;
-//		console.log(id);
+		let that=this;
+		let key1 = globalData.key;
+		let toast = globalData.toast;
+		let articleId=this.props.location.query.articleId;
+//		console.log(articleId);
+		api.articleDetail(articleId,function(res){
+			if(res.code=="0000"){
+				let data =strDec(res.data,key1,"","");
+				let articleDetail=JSON.parse(data);
+				that.setState({
+					articleDetail:articleDetail
+				})
+			}else{
+				toast.show(res.msg,2000);
+			}
+			
+		})
 		
 	},
-	saveHandle:function(){
-		
+	saveHandle:function(e){
+		e.target.innerHTML="取消收藏"
+		/*let articleId=this.props.location.query.articleId;
+		api.save(articleId,"ARTICLE",function(res){
+			if(res.code=="0000"){
+				e.target.innerHTML="取消收藏"
+			}else{
+				toast.show(res.msg,2000);
+			}
+		})*/
 	},
 	render:function(){
-		var that=this;
+		let that=this;
+		let articleDetail=that.state.articleDetail;
         return (
         	<div className="app_Box newsDetail">
-        		<Header title="" headerLink="2"/>
+        		<Header title=""/>
         		<div className="content newsDetailCon">
-        			<h1>有多少人像我一样陷入网贷的坑,爬不出来?</h1>
+        			<h1>{articleDetail.articleTitle}</h1>
         			<div className="newsDetailInfo">
-        				<span>媒体来源:智能贷整理</span>
-        				<span>2017-10-21</span>
-        				<span>454545阅读</span>
+        				<span>媒体来源:{articleDetail.mediaSource}</span>
+        				<span>{articleDetail.addTime}</span>
+        				<span>{articleDetail.readerNum}阅读</span>
         			</div>
         			<div className="newsArticleCon">
-        				有多少人像我一样陷入网贷的坑,爬不出来?有多少人像我一样陷入网贷的坑,爬不出来有多少人像我一样陷入网贷的坑,爬不出来有多少人像我一样陷入网贷的坑,爬不出来有多少人像我一样陷入网贷的坑,爬不出来有多少人像我一样陷入网贷的坑,爬不出来有多少人像我一样陷入网贷的坑,爬不出来有多少人像我一样陷入网贷的坑,爬不出来有多少人像我一样陷入网贷的坑,爬不出来有多少人像我一样陷入网贷的坑,爬不出来有多少人像我一样陷入网贷的坑,爬不出来有多少人像我一样陷入网贷的坑,爬不出来
+        				{articleDetail.content}
         			</div>
         		</div>
         		<div className="botBtn" onClick={that.saveHandle}>收藏</div>

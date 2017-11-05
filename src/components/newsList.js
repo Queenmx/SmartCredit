@@ -5,8 +5,8 @@ import ReactIScroll from 'reactjs-iscroll';
 import api from './api';
 import {globalData} from './global.js';
 import { hashHistory, Link } from 'react-router';
-
-class ProList extends Component {
+var toast=new Toast();
+class News extends Component {
 	constructor() {
 	    super();
 	    this.state = {
@@ -15,16 +15,15 @@ class ProList extends Component {
 	      	lastPage: false,
 			pageSize:10
 	    };
-	    
-	    this.toListDetail=()=>{
-	    	var loanId=e.target.loanId;
-			var data = {loanId:loanId};
+	    this.toNewsDetail = () => {
+	    	var data = {id:3,name:"qin",age:18};
 			var path = {
-			  pathname:'/ListDetail',
+			  pathname:'/NewsDetail',
 			  query:data,
 			}
 			hashHistory.push(path);
-	    }
+		}
+	
 	  
 	    this.logoError=(event)=>{
 	    	event.target.src="src/img/icon/capitalLogo.jpg";
@@ -58,9 +57,6 @@ class ProList extends Component {
   }
   loadData(downOrUp,callback) {
   		var that=this;
-  		var key1 = globalData.key;
-		var toast=globalData.toast;
-
 	 	const {currentPage} = that.state;
 	 	var appBasePath="http://www.91ymfq.com/XR/";
 	 	var url="http://admin.91ymfq.com/api/h5Service.do";
@@ -73,7 +69,7 @@ class ProList extends Component {
 	    var requestData = base64encode(des(key,utf16to8(param),1,0, iv, 1));
 	    var arr=[];
 	    const {list} = that.state;
-		$.ajax({
+	/*	$.ajax({
 	            type:"post",
 	            data:requestData,
 	            url:url,
@@ -100,75 +96,94 @@ class ProList extends Component {
 	            error:function(XMLHttpRequest, textStatus, errorThrown){
 	                alert("网络异常，请联系管理员！");
 	            }
-	         });
+	         });*/
         }
 	componentDidMount(){
 		var that=this;
-		var key1 = globalData.key;
-		var toast=globalData.toast;
 		var currentPage=that.state.currentPage;
 		var pageSize=that.state.pageSize;
 		this.loadData();
-		/*api.loanList(pageNum,pageSize,"SBZ",function(res){
-			//console.log(res);
-			if(res.code=="0000"){
-				//var data =strDec(res.data,key1,"","");
-				//console.log(data);
-				var data=res.data.list;
-				var list=[];
-				for(var i in data){
-					list.push(<div className="capitalList" key={i}>
-	        				<h3>
-	        					<img src={data[i].logo} onError={that.logoError} />
-	        					<span>用钱宝</span>
-	        				</h3>
-	        				<div className="capitalInfo">
-	        					<div className="limit">
-	        						<h2>{data[i].moneyMin}~{data[i].moneyMax}</h2>
-	        						<p>额度范围(元)</p>
-	        					</div>
-	        					<ul className="special">
-	        						<li>{data[i].loanTime}小时放款</li>
-	        						<li>日费率{data[i].rate}%</li>
-	        						<li>贷款期限{data[i].limitMin}-{data[i].limitMax}天</li>
-	        					</ul>
-	        					<div className="apply">
-	        						<a href="javascript:;" data-loanId={data[i].loanId} onClick={that.toListDetail}>申请贷款</a>
-	        					</div>
-	        				</div>
-	        				
-	        			</div>)
+		var banner=[];
+		var mPost=[];
+		/*		api.banner(function(res){
+				//console.log(res);
+				if(res.code=="0000"){
+					var data =strDec(res.data,key1,"","");
+					//console.log(data);
+					const  bannerList=data.list;
+					
+					that.setState({
+		                bannerList: bannerList//轮播图片
+		            },()=>{
+		            	var bannerList=that.state.bannerList;
+		               for (var i in bannerList) {
+			            	banner.push(
+			              	 <div className="swiper-slide" key={i}>
+			              	 	<img src={appBasePath+bannerList[i].img_URL}/>
+			              	 </div>
+			              	 )
+			            };
+			            that.setState({
+			            	banner:banner
+			            })
+				}else{
+					toast.show(res.msg,2000);
 				}
-				that.setState({
-					total:res.total,
-					list:list
-				})
-			}
-		})*/
+				
+			});*/
+		
+
+	
 		
 	}
 	
 	
 	render(){
 		var that=this;
-		var scollFlag=that.props.scollFlag;
-		//console.log(scollFlag);
-		let box=[];
-		if(scollFlag==='true'){//不iscoll
-			 box.push(<ReactIScroll key={1} iScroll={iScroll} handleRefresh={this.handleRefresh.bind(this)} >
-		        		{this.state.list}
-		        </ReactIScroll>)
-		}else{
-			box=that.state.list;
-		}
         return (
-        	 <div className="capitalBox">
-		        {box}
-		      </div>
+        	<div className="app_Box news">
+        		<header>资讯中心</header>
+	        	<div className="newsCon content">
+		        	<div className="swiper-container" id="bannerList">
+					    <div className="swiper-wrapper">
+					      	{that.state.banner}
+					    </div>
+					    <div className="swiper-pagination">{that.state.paginationCustomRender}</div>
+					</div>
+					<div className="newsBox">
+			        	<h3>你关心的资讯</h3>
+				        <div className="listWrap">
+						 	<ReactIScroll iScroll={iScroll} handleRefresh={this.handleRefresh.bind(this)} >
+					        	{that.state.list}你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>
+					        </ReactIScroll>
+		        		</div>
+				    </div>
+				</div>
+	        	<Footer activeIndex="1"/>
+        	</div>
         )
+	}
+	componentDidUpdate(){
+		var current=$(".swiper-slide swiper-slide-active").index();
+		var length=this.state.length;
+		var swiper = new Swiper("#bannerList",{
+			loop:true,
+			autoplay : 3000,
+			speed:500,
+			pagination: '.swiper-pagination',
+			autoplayDisableOnInteraction:false
+			//paginationType : 'custom',
+			 // paginationCustomRender: function (swiper, current, length) {
+			     //this.setState({
+			    // 	paginationCustomRender:{current + ' of ' + length}
+			    // }) 
+			    //console.log( {current + ' of ' + length});
+			    //console.log(current); 
+			 // }
+		});     
 	}
 };
 
-export default ProList;
+export default News;
 
 

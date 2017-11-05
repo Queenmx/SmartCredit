@@ -38,7 +38,7 @@ var Mine=React.createClass({
 					certLevel:"",
 					headPic:"",
 					idCard:"",
-					located:userObj.located,
+					located:"",
 					phone:"",
 					realName:"",
 					token:"",

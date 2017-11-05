@@ -82,7 +82,14 @@
         margin-left: 0.5rem;
         font-size: 0.2rem;
         position: relative;
-        .magic-checkbox {
+        
+        a{
+            
+            margin-left: 0.3rem;
+        }
+    }
+}
+    .magic-checkbox {
           position: absolute;
           display: none; 
           }
@@ -136,12 +143,6 @@
           background: #3e97eb; }
           
 
-        a{
-            
-            margin-left: 0.3rem;
-        }
-    }
-}
 .applyLevel{
         @include flex_1;
         overflow-x:hidden ;

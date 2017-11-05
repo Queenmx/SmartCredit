@@ -2,10 +2,9 @@ var http=require("./http");
 import {globalData} from './global.js';
 
 var key1 = globalData.key;
-var appBasePath = globalData.appBasePath;
 var iv = new String(0);
-var toast = new Toast();
-var id=localStorage.getItem("id");
+//var toast = new Toast();
+var userId=localStorage.getItem("userId");
 
 
 //ex
@@ -267,6 +266,16 @@ module.exports.questionList=function(objId,pageNum,pageSize,cb){
   	http(`${globalData.path}/zndai/question/list`,{params:str},cb);
 }
 
+//收藏——————————————————————————
+module.exports.save=function(objId,objType,cb){ 
+    var data=globalData.requestData;
+    data.objId=objId;
+    data.objType=objType;//ARTICLE   LOAN 
+    data.userId=userId;
+    var param=JSON.stringify(data);
+    var str = strEnc(param,key1);
+  	http(`${globalData.path}/zndai/mark/add`,{params:str},cb);
+}
 
 
 

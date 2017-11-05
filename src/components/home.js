@@ -7,7 +7,6 @@ import HomeHeader from './homeHeader';
 import Footer from './footer';
 import Loading from './loading';
 import ProList from './proList';
-import Simple from './iscoll';
 import { hashHistory, Link } from 'react-router';
 import '../css/home.css';
 
@@ -25,24 +24,6 @@ var Home=React.createClass({
 	
 	componentWillMount:function(){
 	},
-	/*
-	toNewsDetail:function(){
-		var data = {id:3,name:"qin",age:18};
-		var path = {
-		  pathname:'/NewsDetail',
-		  query:data,
-		}
-		hashHistory.push(path);
-	},
-	toListDetail:function(e){
-		var loanId=e.target.loanId;
-		var data = {loanId:loanId};
-		var path = {
-		  pathname:'/ListDetail',
-		  query:data,
-		}
-		hashHistory.push(path);
-	},
 	toList:function(e){
 		const listId=e.target.index;
 		//const title=e.target.find("p").html();
@@ -53,6 +34,16 @@ var Home=React.createClass({
 		}
 		hashHistory.push(path);
 	},
+	
+	toNewsDetail:function(articleId){
+		var data = {articleId:articleId};
+		var path = {
+		  pathname:'/NewsDetail',
+		  query:data,
+		}
+		hashHistory.push(path);
+	},
+	
 	logoError:function(e){
 		e.target.src="src/img/icon/capitalLogo.jpg";
 		e.target.onerror=null; //控制不要一直跳动 
@@ -60,6 +51,7 @@ var Home=React.createClass({
 	},
 	
 	componentDidMount:function(){
+		var key1 = globalData.key;
 		var that=this;
 		var pageNum=that.state.pageNum;
 		var pageSize=that.state.pageSize;
@@ -97,11 +89,41 @@ var Home=React.createClass({
 					total:res.total,
 					list:list
 				})
+			}else{
+				
+			}
+		})
+		
+		api.articleList(1,3,function(res){
+			//console.log(res);
+			var that=this;
+			if(res.code=="0000"){
+				var data =strDec(res.data,key1,"","");
+				console.log(data);
+				var articleList=data.list;
+				var articleArr=[];
+				for(var i in articleList){
+					articleArr.push(<dl className="newsList" onClick={that.toNewsDetail.bind(that,articleList[i].articleId)}>
+    							<dd>
+    								<h4>{articleList[i].articleTitle}</h4>
+    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
+    							</dd>
+    							<dt>
+    								<img src={articleList[i].imgUrl}/>
+    							</dt>
+    					</dl>)
+				}
+				that.setState({
+					articleArr:articleArr
+				})
+				
+			}else{
+				
 			}
 		})
 		
 	},
-	*/
+	
 	
 	render:function(){
 		var that=this;
@@ -129,12 +151,11 @@ var Home=React.createClass({
 	        				<p>自由职业</p>
 	        			</li>
 	        		</ul>
-	        		<Simple/>
-	        		{/*<ProList pageNum="3"/>*/}
+	        		<ProList scollFlag="false" />
 	        		<div className="newsBox">
 	        				<h3>你关心的资讯</h3>
 	        				<div>
-	        					<dl className="newsList" onClick={that.toNewsDetail}>
+	        					<dl className="newsList" data-articleId="" onClick={that.toNewsDetail}>
 	        							<dd>
 	        								<h4>小呆还不起遇到暴力催收,我该怎么办?</h4>
 	        								<p><span>2017-10-20</span> <span>355阅读</span></p>
@@ -143,7 +164,7 @@ var Home=React.createClass({
 	        								<img src=""/>
 	        							</dt>
 	        					</dl>
-		        				<dl className="newsList" onClick={that.toNewsDetail}>
+		        				{/*<dl className="newsList" onClick={that.toNewsDetail}>
 	        							<dd>
 	        								<h4>小呆还不起遇到暴力催收,我该怎么办?</h4>
 	        								<p><span>2017-10-20</span> <span>355阅读</span></p>
@@ -151,10 +172,11 @@ var Home=React.createClass({
 	        							<dt>
 	        								<img src=""/>
 	        							</dt>
-	        					</dl>
+	        					</dl>*/}
+	        					{that.state.articleArr}
 	        				</div>
         					<Link to="/news" className="linkNews">全部热门资讯<img src=""/></Link>
-	        		</div>
+	        	</div>
 	        		<Loading flag={that.state.isLoading}/>
 	        	</div>
 				<Footer activeIndex="0"/>

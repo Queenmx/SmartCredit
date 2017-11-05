@@ -11,6 +11,12 @@ button,article, aside, canvas, details, embed, figure,
 figcaption, footer, header, hgroup, menu, nav,
 output, ruby, section, summary, time, mark,
 audio, video {
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
      margin: 0;
     padding: 0;
     border: 0;
@@ -355,6 +361,85 @@ body {
   font-size: 0.28rem;
   text-align: justify; }
 
+.save .mask {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 5; }
+.save .cancelSaveBox {
+  background: #FFFFFF;
+  border-radius: 5px;
+  width: 5rem;
+  height: 5rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto; }
+  .save .cancelSaveBox .note {
+    padding-top: 1.8rem;
+    position: relative;
+    height: 4rem;
+    text-align: center;
+    font-size: 0.28rem;
+    color: #53a6ff; }
+    .save .cancelSaveBox .note:after {
+      pointer-events: none;
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      content: "";
+      -webkit-transform: scale(0.5);
+      -webkit-transform-origin: 0 0;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+      border-bottom: 1px solid #f3f3f3; }
+    .save .cancelSaveBox .note p {
+      margin-top: 0.6rem;
+      font-size: 0.24rem;
+      color: #333333; }
+  .save .cancelSaveBox .cancelSaveDiv {
+    line-height: 1rem; }
+    .save .cancelSaveBox .cancelSaveDiv span {
+      float: left;
+      width: 50%;
+      text-align: center;
+      position: relative;
+      box-sizing: border-box;
+      font-size: 0.24rem;
+      color: #333333; }
+      .save .cancelSaveBox .cancelSaveDiv span:after {
+        pointer-events: none;
+        width: 200%;
+        height: 200%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        content: "";
+        -webkit-transform: scale(0.5);
+        -webkit-transform-origin: 0 0;
+        transform: scale(0.5);
+        transform-origin: 0 0;
+        border-right: 1px solid #ddd; }
+.save .capitalBox .capitalList .capitalInfo {
+  margin-left: 0.7rem;
+  position: relative; }
+  .save .capitalBox .capitalList .capitalInfo .checkInput {
+    position: absolute;
+    left: -0.5rem;
+    top: 0.6rem; }
+  .save .capitalBox .capitalList .capitalInfo .limit {
+    width: 2.1rem; }
+  .save .capitalBox .capitalList .capitalInfo .special {
+    width: 2.6rem; }
 .save .saveTab {
   height: 1rem;
   padding: 0 0.4rem;
@@ -377,6 +462,21 @@ body {
       border-bottom: 0.12rem solid #ffa507; }
 .save .newsList {
   margin-bottom: 0.12rem; }
+.save .saveBot {
+  height: 0.8rem; }
+  .save .saveBot .checkInput {
+    margin-left: 0.35rem;
+    float: left; }
+    .save .saveBot .checkInput label {
+      font-size: 0.24rem;
+      line-height: 0.8rem; }
+  .save .saveBot p {
+    width: 50%;
+    line-height: 0.8rem;
+    float: right;
+    background: #53a6ff;
+    color: #FFFFFF;
+    text-align: center; }
 
 .botBtn {
   width: 100%;
@@ -750,48 +850,52 @@ body {
     margin-left: 0.5rem;
     font-size: 0.2rem;
     position: relative; }
-    .applyLevelCon .rule .magic-checkbox {
-      position: absolute;
-      display: none; }
-    .applyLevelCon .rule .magic-checkbox + label {
-      position: relative;
-      padding-left: 0.6rem;
-      cursor: pointer;
-      vertical-align: middle; }
-      .applyLevelCon .rule .magic-checkbox + label:after {
-        position: absolute;
-        display: none;
-        content: '';
-        top: 2px;
-        left: 7px;
-        box-sizing: border-box;
-        width: 0.12rem;
-        height: 0.24rem;
-        transform: rotate(45deg);
-        border-width: 2px;
-        border-style: solid;
-        border-color: #fff;
-        border-top: 0;
-        border-left: 0; }
-      .applyLevelCon .rule .magic-checkbox + label:before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: inline-block;
-        width: 0.4rem;
-        height: 0.4rem;
-        content: '';
-        border: 1px solid #53a6ff;
-        border-radius: 50%; }
-    .applyLevelCon .rule .magic-checkbox:checked + label:after {
-      display: block; }
-    .applyLevelCon .rule .magic-checkbox:checked + label:before {
-      border-radius: 50%;
-      animation-name: none;
-      border: #3e97eb;
-      background: #3e97eb; }
     .applyLevelCon .rule a {
       margin-left: 0.3rem; }
+
+.magic-checkbox {
+  position: absolute;
+  display: none; }
+
+.magic-checkbox + label {
+  position: relative;
+  padding-left: 0.6rem;
+  cursor: pointer;
+  vertical-align: middle; }
+  .magic-checkbox + label:after {
+    position: absolute;
+    display: none;
+    content: '';
+    top: 2px;
+    left: 7px;
+    box-sizing: border-box;
+    width: 0.12rem;
+    height: 0.24rem;
+    transform: rotate(45deg);
+    border-width: 2px;
+    border-style: solid;
+    border-color: #fff;
+    border-top: 0;
+    border-left: 0; }
+  .magic-checkbox + label:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 0.4rem;
+    height: 0.4rem;
+    content: '';
+    border: 1px solid #53a6ff;
+    border-radius: 50%; }
+
+.magic-checkbox:checked + label:after {
+  display: block; }
+
+.magic-checkbox:checked + label:before {
+  border-radius: 50%;
+  animation-name: none;
+  border: #3e97eb;
+  background: #3e97eb; }
 
 .applyLevel {
   -webkit-box-flex: 1;
@@ -1886,6 +1990,9 @@ body {
       padding: 0 0.1rem;
       margin-right: 0.3rem;
       margin-left: 0.35rem; }
+
+.listWrap {
+  position: relative; }
 
 .newsBox {
   margin-top: 0.15rem; }

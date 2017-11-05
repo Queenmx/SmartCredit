@@ -7,7 +7,9 @@ const request = {
 	   }
    const platform =  request.QueryString ("platform");
    const deviceno = request.QueryString("deviceno");
+   const toast=new Toast();
 const globalData = {
+	toast:toast,
     APP_USER_ID:'',
     selectedCityName:'',
     key:"ZND171030APIMM",

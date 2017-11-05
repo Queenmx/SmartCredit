@@ -279,6 +279,74 @@ body {
 }
 
 .save{
+    .mask{
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4);
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 5;
+    }
+    .cancelSaveBox{
+        background: #FFFFFF;
+        border-radius: 5px;
+        width: 5rem;
+        height: 5rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        .note{
+            padding-top: 1.8rem;
+            @include border_Bot;
+            height: 4rem;
+            text-align: center;
+            font-size: 0.28rem;
+            color: $blue;
+            p{
+                margin-top: 0.6rem;
+                 font-size: 0.24rem;
+                color: #333333;
+            }
+        }
+        .cancelSaveDiv{
+            line-height: 1rem;
+            span{
+                float: left;
+                width: 50%;
+                text-align: center;
+                @include border_Right;
+                box-sizing: border-box;
+                 font-size: 0.24rem;
+                color: #333333;
+            }
+        }
+    }
+
+    
+    
+    .capitalBox .capitalList .capitalInfo{
+        margin-left: 0.7rem;
+        position: relative;
+         .checkInput{
+             position: absolute;
+             left: -0.5rem;
+            top: 0.6rem;
+           }
+        .limit {
+            width: 2.1rem;
+            }
+        .special {
+            width: 2.6rem;
+        }
+//      .apply a{
+//         width: 1.5rem;
+//      }
+    }
+   
     .saveTab{
         height: 1rem;
         padding: 0 0.4rem;
@@ -300,6 +368,25 @@ body {
     }
     .newsList{
         margin-bottom: 0.12rem;
+    }
+    .saveBot{
+        height: 0.8rem;
+       .checkInput{
+           margin-left: 0.35rem;
+           float: left;
+           label{
+               font-size: 0.24rem;
+               line-height: 0.8rem;
+           }
+       }
+       p{
+           width: 50%;
+           line-height: 0.8rem;
+           float: right;
+           background: $blue;
+           color: #FFFFFF;
+           text-align: center;
+       } 
     }
 }
  .botBtn{
