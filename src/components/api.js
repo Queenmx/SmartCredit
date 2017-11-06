@@ -2,9 +2,8 @@ var http=require("./http");
 import {globalData} from './global.js';
 
 var key1 = globalData.key;
-var iv = new String(0);
+var userId=globalData.userId;
 //var toast = new Toast();
-var userId=localStorage.getItem("userId");
 
 
 //ex
@@ -23,7 +22,17 @@ var userId=localStorage.getItem("userId");
 	http("http://test.91ymfq.com/api/h5Service.do",requestData,cb);
 }
 */
-
+//标签
+module.exports.tag=function(type,cb){ 
+    var data=globalData.requestData;
+    data.tagType="LOAN";
+    data.type=type;//BQ 标签 FL 分类
+    var param=JSON.stringify(data);
+    console.log(param);
+    var str = strEnc(param,key1);
+    // console.log(str);
+  	http(`${globalData.path}/zndai/tag/list`,{params:str},cb);
+}
 
 
 //获取城市列表
@@ -160,6 +169,17 @@ module.exports.qualifyList=function(parentId,cb){
   	http(`${globalData.path}/zndai/user/qualify/list`,{params:str},cb);
 }
 
+module.exports.dictionary=function(parentId,typeCode,cb){ 
+    var data=globalData.requestData;
+    data.parentId=parentId;
+    data.userId=userId;
+    data.typeCode=typeCode;
+    var param=JSON.stringify(data);
+    var str = strEnc(param,key1);
+  	http(`${globalData.path}/zndai/dictionary/list`,{params:str},cb);
+}
+
+
 //用户头像上传
 module.exports.userHead=function(headPic,userId,cb){ 
     var data=globalData.requestData;
@@ -219,13 +239,16 @@ module.exports.loanList=function(pageNum,pageSize,tag,cb){
     data.tag=tag;
     var param=JSON.stringify(data);
     var str = strEnc(param,key1);
+    //console.log(param);
   	http(`${globalData.path}/zndai/loan/list`,{params:str},cb);
 }
 //详情
 module.exports.loanDetail=function(loanId,cb){ 
     var data=globalData.requestData;
     data.loanId=loanId;
+    data.userId=globalData.userId;
     var param=JSON.stringify(data);
+    console.log(param)
     var str = strEnc(param,key1);
   	http(`${globalData.path}/zndai/loan/detail`,{params:str},cb);
 }
@@ -273,6 +296,7 @@ module.exports.save=function(objId,objType,cb){
     data.objType=objType;//ARTICLE   LOAN 
     data.userId=userId;
     var param=JSON.stringify(data);
+    console.log(param);
     var str = strEnc(param,key1);
   	http(`${globalData.path}/zndai/mark/add`,{params:str},cb);
 }

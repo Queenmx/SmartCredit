@@ -29,8 +29,8 @@ var NewsDetail=React.createClass({
 		let that=this;
 		let key1 = globalData.key;
 		let toast = globalData.toast;
-		let articleId=this.props.location.query.articleId;
-//		console.log(articleId);
+		let articleId=that.props.location.query.articleId;
+		console.log(articleId);
 		api.articleDetail(articleId,function(res){
 			if(res.code=="0000"){
 				let data =strDec(res.data,key1,"","");

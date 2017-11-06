@@ -1283,14 +1283,13 @@ body {
   .listDetail .flowBox .flowPic {
     background: #ffffff;
     height: 1.8rem;
-    line-height: 1.8rem; }
+    line-height: 1.8rem;
+    padding: 0.2rem 0.5rem 0; }
   .listDetail .flowBox .application {
     background: #ffffff;
     color: #666666;
     font-size: 0.22rem;
     padding: 0.3rem 0.5rem; }
-    .listDetail .flowBox .application li {
-      line-height: 0.44rem; }
   .listDetail h2 {
     height: 0.8rem;
     line-height: 0.8rem;
@@ -1992,9 +1991,28 @@ body {
       margin-left: 0.35rem; }
 
 .listWrap {
-  position: relative; }
+  position: relative;
+  height: 100%; }
+
+.newsCon {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column; }
 
 .newsBox {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   margin-top: 0.15rem; }
   .newsBox h3 {
     height: .8rem;
@@ -2047,7 +2065,8 @@ body {
       float: right;
       width: 2.2rem; }
       .newsBox .newsList dt img {
-        width: 2.2rem; }
+        max-width: 2.2rem;
+        max-height: 1rem; }
   .newsBox .linkNews {
     height: 0.9rem;
     line-height: 0.9rem;

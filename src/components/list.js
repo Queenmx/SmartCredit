@@ -17,28 +17,16 @@ var List=React.createClass({
 		}
 	},
 	
-	componentWillMount:function(){
-		
-	},
 	
-	toListDetail:function(){
-		var data = {id:3,name:"qin",age:18};
-		var path = {
-		  pathname:'/ListDetail',
-		  query:data,
-		}
-		hashHistory.push(path);
-	},
 	render:function(){
 		var that=this;
-		var title=that.props.location.state.title;
-		//console.log("cityId",cityId);
-		
+		var title=that.props.location.state.txt;
+		var tag=that.props.location.state.tag;
         return (
         	<div className="app_Box home">
       			<Header title={title}/>
 	        	<div className="content">
-					<ProList scollFlag="true"/>
+					<ProList scollFlag="true" tag={tag}/>
 	        	</div>
         	</div>
         )

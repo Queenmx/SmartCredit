@@ -17,8 +17,9 @@ class News extends Component {
 	      	lastPage: false,
 			pageSize:10
 	    };
-	    this.toNewsDetail = () => {
-	    	var data = {id:3,name:"qin",age:18};
+	    this.toNewsDetail = (event) => {
+	    	var articleId=event.currentTarget.getAttribute("data-articleid");
+	    	var data = {articleId:articleId};
 			var path = {
 			  pathname:'/NewsDetail',
 			  query:data,
@@ -33,97 +34,101 @@ class News extends Component {
 			//console.log(event.target.src);
 	    }
  	}
-		  //调用 IScroll refresh 后回调函数
   handleRefresh(downOrUp, callback) {
-  	
     //真实的世界中是从后端取页面和判断是否是最后一页
-    let {currentPage, lastPage} = this.state;
-    let {TOTALPAGE} = this.state;
-   // toast.show(downOrUp+"---"+currentPage+"----"+lastPage,1000);
-    if (downOrUp === 'up') { // 加载更多
-      if (currentPage == TOTALPAGE) {
-        lastPage = true;
-      } else {
-        currentPage++;
-      }
-    } else { // 刷新
-      lastPage = false;
-      currentPage = 1;
-    }
-    this.setState({
-      currentPage,
-      lastPage
-    }, () => {
-      this.loadData(downOrUp, callback);
-    });
+    var that=this;
+    let {currentPage, lastPage,pageSize,total} = that.state;
+    var totalPage=Math.ceil(total/pageSize);
+    console.log(totalPage);
+	    if (downOrUp === 'up') { // 加载更多
+	      if (currentPage == totalPage) {
+	      	console.log("zuihou")
+	        lastPage = true;
+	        	if (callback && typeof callback === 'function') {
+		            callback();
+		          }
+	      } else {
+	        currentPage++;
+	        console.log(currentPage);
+	        lastPage = false;
+	        that.setState({
+		      currentPage,
+		      lastPage
+		    }, () => {
+		      that.loadData(downOrUp, callback);
+			});
+	      }
+	    } else { // 刷新
+	      lastPage = false;
+	      currentPage = 1;
+	        that.setState({
+		      currentPage,
+		      lastPage
+		    }, () => {
+		      that.loadData(downOrUp, callback);
+			});
+	    }
+	  
   }
   loadData(downOrUp,callback) {
   		var that=this;
-	 	const {currentPage} = that.state;
-	 	var appBasePath="http://www.91ymfq.com/XR/";
-	 	var url="http://admin.91ymfq.com/api/h5Service.do";
-	 	//var url="http://test.91ymfq.com/api/h5Service.do";
-        var key="YMFQ2016";
-     	var iv = new String(0);
-	    var param = "{\"APP_VERSION\":\"v1.0\",\"ACTION\":\"getHospital\",\"TOKEN_ID\":\"\",\"DEVICE_ID\":\"999kkkk\",\"KEYWORDS\":\"\",\"DEPARTMENT_ID\":\"\",\"PAGE_INDEX\":\""+currentPage+"\"}";
-	   // console.log(param)
-	    var iv = new String(0);
-	    var requestData = base64encode(des(key,utf16to8(param),1,0, iv, 1));
-	    var arr=[];
-	    const {list} = that.state;
-	/*	$.ajax({
-	            type:"post",
-	            data:requestData,
-	            url:url,
-	            contentType:"text/plain",
-	            success:function(data) {
-	            	console.log(data.data);
-	            	var BASEPATH=data.data.BASEPATH;
-	            	  var appHospitals = data.data.HOSPITALS;
-	                $(appHospitals).each(function(index){
-	                	list.push(<div className='listBox' key={Math.random()}><dl className='txt_img'><dt><img  className='pull-left' src={appBasePath+this.IMG_LOGO}/></dt><dd><p ><span>{this.NAME}</span></p></dd> </dl></div>);
-	                });
-	                 var TOTALPAGE=data.data.TOTALPAGE;
-	                 setTimeout(() => {
-				          that.setState({
-				          	TOTALPAGE:TOTALPAGE,
-				            list:list 
-				          });
-				          if (callback && typeof callback === 'function') {
-				            callback();
-				          }
-				        }, 1000);
-	               
-	            },
-	            error:function(XMLHttpRequest, textStatus, errorThrown){
-	                alert("网络异常，请联系管理员！");
-	            }
-	         });*/
+  		var key1 = globalData.key;
+		var toast=globalData.toast;
+	 	const {currentPage,pageSize,list} = that.state;
+	 	var arr=[];
+	 	api.articleList(currentPage,pageSize,function(res){
+			//console.log(res);
+			if(res.code=="0000"){
+				var data =JSON.parse(strDec(res.data,key1,"",""));
+				console.log(data);
+				var articleList=data.list;
+				var total=data.total;
+				var articleArr=[];
+				for(var i in articleList){
+					articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
+    							<dd>
+    								<h4>{articleList[i].articleTitle}</h4>
+    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
+    							</dd>
+    							<dt>
+    								<img src={articleList[i].imgUrl} onError={that.logoError} />
+    							</dt>
+    					</dl>)
+				}
+				if(downOrUp=='up'){
+					var c=list.concat(articleArr);
+				}else{
+					var c=articleArr;
+				}
+				that.setState({
+					total:total,
+					list:c
+				})
+				if (callback && typeof callback === 'function') {
+		            callback();
+		          }
+			}else{
+				
+			}
+		})
+
         }
 	componentDidMount(){
 		var that=this;
-		
-
-		var currentPage=that.state.currentPage;
-		var pageSize=that.state.pageSize;
+		var key1 = globalData.key;
+		var toast = globalData.toast;
+		const {currentPage,pageSize,list} = that.state;
 		this.loadData();
 		var banner=[];
-		var mPost=[];
-		/*		api.banner(function(res){
+		api.banner(function(res){
 				//console.log(res);
 				if(res.code=="0000"){
-					var data =strDec(res.data,key1,"","");
-					//console.log(data);
-					const  bannerList=data.list;
-					
-					that.setState({
-		                bannerList: bannerList//轮播图片
-		            },()=>{
-		            	var bannerList=that.state.bannerList;
+					var bannerList =JSON.parse(strDec(res.data,key1,"",""));
+					console.log(bannerList);
 		               for (var i in bannerList) {
 			            	banner.push(
 			              	 <div className="swiper-slide" key={i}>
-			              	 	<img src={appBasePath+bannerList[i].img_URL}/>
+			              	 	<img src={bannerList[i].img_URL}/>
 			              	 </div>
 			              	 )
 			            };
@@ -134,11 +139,8 @@ class News extends Component {
 					toast.show(res.msg,2000);
 				}
 				
-			});*/
-		
-
+			});
 	
-		
 	}
 	
 	
@@ -158,7 +160,7 @@ class News extends Component {
 			        	<h3>你关心的资讯</h3>
 				        <div className="listWrap">
 						 	<ReactIScroll iScroll={iScroll} handleRefresh={this.handleRefresh.bind(this)} >
-					        	{that.state.list}你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>
+					        	{that.state.list}
 					        </ReactIScroll>
 		        		</div>
 				    </div>

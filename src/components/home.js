@@ -18,16 +18,33 @@ var Home=React.createClass({
 			isLoading: false,
 			activeIndex:0,
 			pageNum:1,
-			pageSize:10
+			pageSize:10,
+			list:[]
 		}
 	},
 	
 	componentWillMount:function(){
 	},
-	toList:function(e){
-		const listId=e.target.index;
-		//const title=e.target.find("p").html();
-		const data = {listId:listId,title:"title"};
+	toListDetail:function(event){
+    	var loanId=event.target.getAttribute("data-loanId");
+		var data = {loanId:loanId};
+		var path = {
+		  pathname:'/ListDetail',
+		  query:data,
+		}
+		hashHistory.push(path);
+    },
+	  
+   logoError:function(event){
+    	event.target.src="src/img/icon/capitalLogo.jpg";
+		event.target.onerror=null; //控制不要一直跳动 
+		//console.log(event.target.src);
+    },
+	
+	toList:function(event){
+		const tag=event.currentTarget.getAttribute("data-tag");
+		const txt=event.currentTarget.getAttribute("data-txt");
+		const data = {tag:tag,txt:txt};
 		const path = {
 		  pathname:'/List',
 		  state:data
@@ -35,81 +52,110 @@ var Home=React.createClass({
 		hashHistory.push(path);
 	},
 	
-	toNewsDetail:function(articleId){
-		var data = {articleId:articleId};
-		var path = {
-		  pathname:'/NewsDetail',
-		  query:data,
-		}
-		hashHistory.push(path);
+	toNewsDetail:function(event){
+		var articleId=event.currentTarget.getAttribute("data-articleid");
+	    	console.log(articleId);
+	    	var data = {articleId:articleId};
+			var path = {
+			  pathname:'/NewsDetail',
+			  query:data,
+			}
+			hashHistory.push(path);
 	},
 	
-	logoError:function(e){
-		e.target.src="src/img/icon/capitalLogo.jpg";
-		e.target.onerror=null; //控制不要一直跳动 
-		console.log(e.target.src);
+	logoError:function(event){
+		event.target.src="src/img/icon/capitalLogo.jpg";
+		event.target.onerror=null; //控制不要一直跳动 
 	},
 	
 	componentDidMount:function(){
 		var key1 = globalData.key;
 		var that=this;
-		var pageNum=that.state.pageNum;
-		var pageSize=that.state.pageSize;
-		api.loanList(pageNum,pageSize,"GTH",function(res){
+	
+		api.tag("BQ",function(res){
+			console.log(res)
+			if(res.code=="0000"){
+				//var data =JSON.parse(strDec(res.data,key1,"",""));
+				//console.log(data);
+			}
+			
+		})
+		//"095c2c011ef740508bf27785e0ffe8f1"
+		/*api.qualifyListAdd(parentId,qualifyName,qualifyNo,selectName,userId,function(){
+			
+		})*/
+		/*api.qualifyList("",function(res){
 			//console.log(res);
 			if(res.code=="0000"){
-				//var data =strDec(res.data,key1,"","");
+				var data =JSON.parse(strDec(res.data,key1,"",""));
+				console.log(data);
+			}
+		})
+		api.dictionary("","",function(res){
+			//console.log(res);
+			if(res.code=="0000"){
+				var data =JSON.parse(strDec(res.data,key1,"",""));
+				console.log(data);
+			}
+		})*/
+		
+		api.loanList(1,5,"SBZ",function(res){
+			if(res.code=="0000"){
+				var data =JSON.parse(strDec(res.data,key1,"",""));
+				//var data=res.data;
+				var loanList=data.list;
 				//console.log(data);
-				var data=res.data.list;
-				var list=[];
-				for(var i in data){
-					list.push(<div className="capitalList" key={i}>
+				var arr=[];
+				for(var i in loanList){
+					arr.push(<div className="capitalList" key={i}>
 	        				<h3>
-	        					<img src={data[i].logo} onError={that.logoError} />
-	        					<span>用钱宝</span>
+	        					<img src={loanList[i].logo} onError={that.logoError} />
+	        					<span>{loanList[i].loanName}</span>
 	        				</h3>
 	        				<div className="capitalInfo">
 	        					<div className="limit">
-	        						<h2>{data[i].moneyMin}~{data[i].moneyMax}</h2>
+	        						<h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
 	        						<p>额度范围(元)</p>
 	        					</div>
 	        					<ul className="special">
-	        						<li>{data[i].loanTime}小时放款</li>
-	        						<li>日费率{data[i].rate}%</li>
-	        						<li>贷款期限{data[i].limitMin}-{data[i].limitMax}天</li>
+	        						<li>{loanList[i].loanTime}小时放款</li>
+	        						<li>日费率{loanList[i].rate}%</li>
+	        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}天</li>
 	        					</ul>
 	        					<div className="apply">
-	        						<a href="javascript:;" data-loanId={data[i].loanId} onClick={that.toListDetail}>申请贷款</a>
+	        						<a href="javascript:;" data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>
 	        					</div>
 	        				</div>
 	        				
 	        			</div>)
 				}
+				
 				that.setState({
-					total:res.total,
-					list:list
+					list:arr
 				})
-			}else{
 				
 			}
 		})
 		
+		
+		
+		
 		api.articleList(1,3,function(res){
 			//console.log(res);
-			var that=this;
 			if(res.code=="0000"){
-				var data =strDec(res.data,key1,"","");
-				console.log(data);
+				var data =JSON.parse(strDec(res.data,key1,"",""));
+				//var data =JSON.parse(res.data);
+				//console.log(data);
 				var articleList=data.list;
 				var articleArr=[];
 				for(var i in articleList){
-					articleArr.push(<dl className="newsList" onClick={that.toNewsDetail.bind(that,articleList[i].articleId)}>
+					articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
     							<dd>
     								<h4>{articleList[i].articleTitle}</h4>
     								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
     							</dd>
     							<dt>
-    								<img src={articleList[i].imgUrl}/>
+    								<img src={articleList[i].imgUrl} onError={that.logoError} />
     							</dt>
     					</dl>)
 				}
@@ -134,28 +180,30 @@ var Home=React.createClass({
       		<HomeHeader curCity={curCity}/>
 	        	<div className="content">
 	        		<ul className="homeTab">
-	        			<li onClick={that.toList}>
+	        			<li data-tag="SBZ" data-txt="上班族" onClick={that.toList}>
 	        				<img src="src/img/icon/group.png"/>
 	        				<p>上班族</p>
 	        			</li>
-	        			<li onClick={that.toList}>
+	        			<li data-tag="GTH"  data-txt="个体户" onClick={that.toList}>
 	        				<img src="src/img/icon/personal.png"/>
 	        				<p>个体户</p>
 	        			</li>
-	        			<li onClick={that.toList}>
+	        			<li data-tag="QY" data-txt="企业主" onClick={that.toList}>
 	        				<img src="src/img/icon/qiye.png"/>
 	        				<p>企业主</p>
 	        			</li>
-	        			<li onClick={that.toList}>
+	        			<li data-tag="ZYZY" data-txt="自由职业" onClick={that.toList}>
 	        				<img src="src/img/icon/ziyou.png"/>
 	        				<p>自由职业</p>
 	        			</li>
 	        		</ul>
-	        		<ProList scollFlag="false" />
+	        		 <div className="capitalBox">
+					       {that.state.list}
+					  </div>
 	        		<div className="newsBox">
 	        				<h3>你关心的资讯</h3>
 	        				<div>
-	        					<dl className="newsList" data-articleId="" onClick={that.toNewsDetail}>
+	        					{/*<dl className="newsList" data-articleId="" onClick={that.toNewsDetail}>
 	        							<dd>
 	        								<h4>小呆还不起遇到暴力催收,我该怎么办?</h4>
 	        								<p><span>2017-10-20</span> <span>355阅读</span></p>
@@ -164,7 +212,7 @@ var Home=React.createClass({
 	        								<img src=""/>
 	        							</dt>
 	        					</dl>
-		        				{/*<dl className="newsList" onClick={that.toNewsDetail}>
+		        				<dl className="newsList" onClick={that.toNewsDetail}>
 	        							<dd>
 	        								<h4>小呆还不起遇到暴力催收,我该怎么办?</h4>
 	        								<p><span>2017-10-20</span> <span>355阅读</span></p>

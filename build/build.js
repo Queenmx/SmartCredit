@@ -598,6 +598,16 @@ var request = {
 var platform = request.QueryString("platform");
 var deviceno = request.QueryString("deviceno");
 var toast = new Toast();
+var user = localStorage.getItem("user");
+if (user) {
+  var userObj = JSON.parse(user);
+  var userId = userObj.userId;
+  var token = userObj.token;
+} else {
+  var userId = "";
+  var token = "";
+}
+
 var globalData = {
   toast: toast,
   APP_USER_ID: '',
@@ -611,10 +621,11 @@ var globalData = {
   //path:"http://tdx.free.ngrok.cc",
   // path:"http://192.168.1.17:8088",
   pathCai: "http://apis.juhe.cn/cook/query.php",
+  userId: userId || "",
   requestData: {
     "platform": platform,
     "deviceno": deviceno,
-    "token": ""
+    "token": token
   }
 };
 exports.globalData = globalData;
@@ -632,9 +643,9 @@ var http = __webpack_require__(258);
 
 
 var key1 = _global.globalData.key;
-var iv = new String(0);
+var userId = _global.globalData.userId;
 //var toast = new Toast();
-var userId = localStorage.getItem("userId");
+
 
 //ex
 /*module.exports.getHospital=function(pn,cb){
@@ -652,6 +663,17 @@ var userId = localStorage.getItem("userId");
 	http("http://test.91ymfq.com/api/h5Service.do",requestData,cb);
 }
 */
+//标签
+module.exports.tag = function (type, cb) {
+    var data = _global.globalData.requestData;
+    data.tagType = "LOAN";
+    data.type = type; //BQ 标签 FL 分类
+    var param = JSON.stringify(data);
+    console.log(param);
+    var str = strEnc(param, key1);
+    // console.log(str);
+    http(_global.globalData.path + "/zndai/tag/list", { params: str }, cb);
+};
 
 //获取城市列表
 module.exports.getCityList = function (cb) {
@@ -786,6 +808,16 @@ module.exports.qualifyList = function (parentId, cb) {
     http(_global.globalData.path + "/zndai/user/qualify/list", { params: str }, cb);
 };
 
+module.exports.dictionary = function (parentId, typeCode, cb) {
+    var data = _global.globalData.requestData;
+    data.parentId = parentId;
+    data.userId = userId;
+    data.typeCode = typeCode;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/dictionary/list", { params: str }, cb);
+};
+
 //用户头像上传
 module.exports.userHead = function (headPic, userId, cb) {
     var data = _global.globalData.requestData;
@@ -843,13 +875,16 @@ module.exports.loanList = function (pageNum, pageSize, tag, cb) {
     data.tag = tag;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
+    //console.log(param);
     http(_global.globalData.path + "/zndai/loan/list", { params: str }, cb);
 };
 //详情
 module.exports.loanDetail = function (loanId, cb) {
     var data = _global.globalData.requestData;
     data.loanId = loanId;
+    data.userId = _global.globalData.userId;
     var param = JSON.stringify(data);
+    console.log(param);
     var str = strEnc(param, key1);
     http(_global.globalData.path + "/zndai/loan/detail", { params: str }, cb);
 };
@@ -896,6 +931,7 @@ module.exports.save = function (objId, objType, cb) {
     data.objType = objType; //ARTICLE   LOAN 
     data.userId = userId;
     var param = JSON.stringify(data);
+    console.log(param);
     var str = strEnc(param, key1);
     http(_global.globalData.path + "/zndai/mark/add", { params: str }, cb);
 };
@@ -14655,8 +14691,8 @@ var ProList = function (_Component) {
 			pageSize: 10
 		};
 
-		_this.toListDetail = function () {
-			var loanId = e.target.loanId;
+		_this.toListDetail = function (event) {
+			var loanId = event.target.getAttribute("data-loanId");
 			var data = { loanId: loanId };
 			var path = {
 				pathname: '/ListDetail',
@@ -14672,112 +14708,157 @@ var ProList = function (_Component) {
 		};
 		return _this;
 	}
-	//调用 IScroll refresh 后回调函数
-
 
 	_createClass(ProList, [{
 		key: 'handleRefresh',
 		value: function handleRefresh(downOrUp, callback) {
-			var _this2 = this;
-
 			//真实的世界中是从后端取页面和判断是否是最后一页
-			var _state = this.state,
-			    currentPage = _state.currentPage,
-			    lastPage = _state.lastPage;
-			var TOTALPAGE = this.state.TOTALPAGE;
-			// toast.show(downOrUp+"---"+currentPage+"----"+lastPage,1000);
+			var that = this;
+			var _that$state = that.state,
+			    currentPage = _that$state.currentPage,
+			    lastPage = _that$state.lastPage,
+			    pageSize = _that$state.pageSize,
+			    total = _that$state.total;
 
+			var totalPage = Math.ceil(total / pageSize);
+			console.log(totalPage);
 			if (downOrUp === 'up') {
 				// 加载更多
-				if (currentPage == TOTALPAGE) {
+				if (currentPage == totalPage) {
+					console.log("zuihou");
 					lastPage = true;
+					if (callback && typeof callback === 'function') {
+						callback();
+					}
 				} else {
 					currentPage++;
+					console.log(currentPage);
+					lastPage = false;
+					that.setState({
+						currentPage: currentPage,
+						lastPage: lastPage
+					}, function () {
+						that.loadData(downOrUp, callback);
+					});
 				}
 			} else {
 				// 刷新
 				lastPage = false;
 				currentPage = 1;
+				that.setState({
+					currentPage: currentPage,
+					lastPage: lastPage
+				}, function () {
+					that.loadData(downOrUp, callback);
+				});
 			}
-			this.setState({
-				currentPage: currentPage,
-				lastPage: lastPage
-			}, function () {
-				_this2.loadData(downOrUp, callback);
-			});
 		}
 	}, {
 		key: 'loadData',
 		value: function loadData(downOrUp, callback) {
+
 			var that = this;
 			var key1 = _global.globalData.key;
 			var toast = _global.globalData.toast;
+			var tag = that.props.tag;
+			var _that$state2 = that.state,
+			    currentPage = _that$state2.currentPage,
+			    pageSize = _that$state2.pageSize,
+			    list = _that$state2.list;
 
-			var currentPage = that.state.currentPage;
-
-			var appBasePath = "http://www.91ymfq.com/XR/";
-			var url = "http://admin.91ymfq.com/api/h5Service.do";
-			//var url="http://test.91ymfq.com/api/h5Service.do";
-			var key = "YMFQ2016";
-			var iv = new String(0);
-			var param = "{\"APP_VERSION\":\"v1.0\",\"ACTION\":\"getHospital\",\"TOKEN_ID\":\"\",\"DEVICE_ID\":\"999kkkk\",\"KEYWORDS\":\"\",\"DEPARTMENT_ID\":\"\",\"PAGE_INDEX\":\"" + currentPage + "\"}";
-			console.log(param);
-			var iv = new String(0);
-			var requestData = base64encode(des(key, utf16to8(param), 1, 0, iv, 1));
 			var arr = [];
-			var list = that.state.list;
+			//console.log(tag);
+			_api2.default.loanList(currentPage, pageSize, tag, function (res) {
 
-			$.ajax({
-				type: "post",
-				data: requestData,
-				url: url,
-				contentType: "text/plain",
-				success: function success(data) {
-					console.log(data.data);
-					var BASEPATH = data.data.BASEPATH;
-					var appHospitals = data.data.HOSPITALS;
-					$(appHospitals).each(function (index) {
-						list.push(_react2.default.createElement(
+				//console.log(res);
+				if (res.code == "0000") {
+					var data = JSON.parse(strDec(res.data, key1, "", ""));
+					var loanList = data.list;
+					var total = data.total;
+					//console.log(data);
+					for (var i in loanList) {
+						arr.push(_react2.default.createElement(
 							'div',
-							{ className: 'listBox', key: Math.random() },
+							{ className: 'capitalList', key: Math.random() },
 							_react2.default.createElement(
-								'dl',
-								{ className: 'txt_img' },
+								'h3',
+								null,
+								_react2.default.createElement('img', { src: loanList[i].logo, onError: that.logoError }),
 								_react2.default.createElement(
-									'dt',
+									'span',
 									null,
-									_react2.default.createElement('img', { className: 'pull-left', src: appBasePath + this.IMG_LOGO })
-								),
+									loanList[i].loanName
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'capitalInfo' },
 								_react2.default.createElement(
-									'dd',
-									null,
+									'div',
+									{ className: 'limit' },
+									_react2.default.createElement(
+										'h2',
+										null,
+										loanList[i].moneyMin,
+										'~',
+										loanList[i].moneyMax
+									),
 									_react2.default.createElement(
 										'p',
 										null,
-										_react2.default.createElement(
-											'span',
-											null,
-											this.NAME
-										)
+										'\u989D\u5EA6\u8303\u56F4(\u5143)'
 									)
 								),
-								' '
+								_react2.default.createElement(
+									'ul',
+									{ className: 'special' },
+									_react2.default.createElement(
+										'li',
+										null,
+										loanList[i].loanTime,
+										'\u5C0F\u65F6\u653E\u6B3E'
+									),
+									_react2.default.createElement(
+										'li',
+										null,
+										'\u65E5\u8D39\u7387',
+										loanList[i].rate,
+										'%'
+									),
+									_react2.default.createElement(
+										'li',
+										null,
+										'\u8D37\u6B3E\u671F\u9650',
+										loanList[i].limitMin,
+										'-',
+										loanList[i].limitMax,
+										'\u5929'
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'apply' },
+									_react2.default.createElement(
+										'a',
+										{ href: 'javascript:;', 'data-loanId': loanList[i].loanId, onClick: that.toListDetail },
+										'\u7533\u8BF7\u8D37\u6B3E'
+									)
+								)
 							)
 						));
+					}
+					if (downOrUp == 'up') {
+						var c = list.concat(arr);
+					} else {
+						var c = arr;
+					}
+					that.setState({
+						total: total,
+						list: c
 					});
-					var TOTALPAGE = data.data.TOTALPAGE;
-					setTimeout(function () {
-						that.setState({
-							TOTALPAGE: TOTALPAGE,
-							list: list
-						});
-						if (callback && typeof callback === 'function') {
-							callback();
-						}
-					}, 1000);
-				},
-				error: function error(XMLHttpRequest, textStatus, errorThrown) {
-					alert("网络异常，请联系管理员！");
+					if (callback && typeof callback === 'function') {
+						callback();
+					}
 				}
 			});
 		}
@@ -14789,65 +14870,30 @@ var ProList = function (_Component) {
 			var toast = _global.globalData.toast;
 			var currentPage = that.state.currentPage;
 			var pageSize = that.state.pageSize;
-			this.loadData();
-			/*api.loanList(pageNum,pageSize,"SBZ",function(res){
-   	//console.log(res);
-   	if(res.code=="0000"){
-   		//var data =strDec(res.data,key1,"","");
-   		//console.log(data);
-   		var data=res.data.list;
-   		var list=[];
-   		for(var i in data){
-   			list.push(<div className="capitalList" key={i}>
-          				<h3>
-          					<img src={data[i].logo} onError={that.logoError} />
-          					<span>用钱宝</span>
-          				</h3>
-          				<div className="capitalInfo">
-          					<div className="limit">
-          						<h2>{data[i].moneyMin}~{data[i].moneyMax}</h2>
-          						<p>额度范围(元)</p>
-          					</div>
-          					<ul className="special">
-          						<li>{data[i].loanTime}小时放款</li>
-          						<li>日费率{data[i].rate}%</li>
-          						<li>贷款期限{data[i].limitMin}-{data[i].limitMax}天</li>
-          					</ul>
-          					<div className="apply">
-          						<a href="javascript:;" data-loanId={data[i].loanId} onClick={that.toListDetail}>申请贷款</a>
-          					</div>
-          				</div>
-          				
-          			</div>)
-   		}
-   		that.setState({
-   			total:res.total,
-   			list:list
-   		})
-   	}
-   })*/
+			that.loadData();
 		}
 	}, {
 		key: 'render',
 		value: function render() {
 			var that = this;
-			var scollFlag = that.props.scollFlag;
-			//console.log(scollFlag);
-			var box = [];
-			if (scollFlag === 'true') {
-				//不iscoll
-				box.push(_react2.default.createElement(
-					_reactjsIscroll2.default,
-					{ key: 1, iScroll: _iscrollProbe2.default, handleRefresh: this.handleRefresh.bind(this) },
-					this.state.list
-				));
-			} else {
-				box = that.state.list;
-			}
+			/*var scollFlag=that.props.scollFlag;
+   //console.log(scollFlag);
+   let box=[];
+   if(scollFlag==='true'){//不iscoll
+   	 box.push(<ReactIScroll key={1} iScroll={iScroll} handleRefresh={this.handleRefresh.bind(this)} >
+           		{that.state.list}
+           </ReactIScroll>)
+   }else{
+   	box=that.state.list;
+   }*/
 			return _react2.default.createElement(
 				'div',
 				{ className: 'capitalBox' },
-				box
+				_react2.default.createElement(
+					_reactjsIscroll2.default,
+					{ key: 1, iScroll: _iscrollProbe2.default, handleRefresh: this.handleRefresh.bind(this) },
+					that.state.list
+				)
 			);
 		}
 	}]);
@@ -18236,13 +18282,14 @@ var Login = _react2.default.createClass({
 							flag: true
 						});
 						_api2.default.login("PWD", phoneNum, psd, "", function (res) {
-							//console.log(res);
+							console.log(res);
 							that.setState({
 								flag: false
 							});
 							if (res.code == "0000") {
+								//var data =JSON.stringify(res.data);
 								var data = strDec(res.data, key1, "", "");
-								//console.log(data);
+								console.log(data);
 								//成功后
 								localStorage.setItem("user", data);
 								localStorage.setItem("isLogin", true);
@@ -32307,6 +32354,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _React$createClass;
+
 var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
@@ -32343,8 +32392,10 @@ __webpack_require__(262);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var appBasePath = _global.globalData.appBasePath;
-var Home = _react2.default.createClass({
+var Home = _react2.default.createClass((_React$createClass = {
 	displayName: 'Home',
 
 	getInitialState: function getInitialState() {
@@ -32353,15 +32404,32 @@ var Home = _react2.default.createClass({
 			isLoading: false,
 			activeIndex: 0,
 			pageNum: 1,
-			pageSize: 10
+			pageSize: 10,
+			list: []
 		};
 	},
 
 	componentWillMount: function componentWillMount() {},
-	toList: function toList(e) {
-		var listId = e.target.index;
-		//const title=e.target.find("p").html();
-		var data = { listId: listId, title: "title" };
+	toListDetail: function toListDetail(event) {
+		var loanId = event.target.getAttribute("data-loanId");
+		var data = { loanId: loanId };
+		var path = {
+			pathname: '/ListDetail',
+			query: data
+		};
+		_reactRouter.hashHistory.push(path);
+	},
+
+	logoError: function logoError(event) {
+		event.target.src = "src/img/icon/capitalLogo.jpg";
+		event.target.onerror = null; //控制不要一直跳动 
+		//console.log(event.target.src);
+	},
+
+	toList: function toList(event) {
+		var tag = event.currentTarget.getAttribute("data-tag");
+		var txt = event.currentTarget.getAttribute("data-txt");
+		var data = { tag: tag, txt: txt };
 		var path = {
 			pathname: '/List',
 			state: data
@@ -32369,277 +32437,269 @@ var Home = _react2.default.createClass({
 		_reactRouter.hashHistory.push(path);
 	},
 
-	toNewsDetail: function toNewsDetail(articleId) {
+	toNewsDetail: function toNewsDetail(event) {
+		var articleId = event.currentTarget.getAttribute("data-articleid");
+		console.log(articleId);
 		var data = { articleId: articleId };
 		var path = {
 			pathname: '/NewsDetail',
 			query: data
 		};
 		_reactRouter.hashHistory.push(path);
-	},
+	}
 
-	logoError: function logoError(e) {
-		e.target.src = "src/img/icon/capitalLogo.jpg";
-		e.target.onerror = null; //控制不要一直跳动 
-		console.log(e.target.src);
-	},
+}, _defineProperty(_React$createClass, 'logoError', function logoError(event) {
+	event.target.src = "src/img/icon/capitalLogo.jpg";
+	event.target.onerror = null; //控制不要一直跳动 
+}), _defineProperty(_React$createClass, 'componentDidMount', function componentDidMount() {
+	var key1 = _global.globalData.key;
+	var that = this;
 
-	componentDidMount: function componentDidMount() {
-		var key1 = _global.globalData.key;
-		var that = this;
-		var pageNum = that.state.pageNum;
-		var pageSize = that.state.pageSize;
-		_api2.default.loanList(pageNum, pageSize, "GTH", function (res) {
-			//console.log(res);
-			if (res.code == "0000") {
-				//var data =strDec(res.data,key1,"","");
-				//console.log(data);
-				var data = res.data.list;
-				var list = [];
-				for (var i in data) {
-					list.push(_react2.default.createElement(
-						'div',
-						{ className: 'capitalList', key: i },
+	_api2.default.tag("BQ", function (res) {
+		console.log(res);
+		if (res.code == "0000") {
+			//var data =JSON.parse(strDec(res.data,key1,"",""));
+			//console.log(data);
+		}
+	});
+	//"095c2c011ef740508bf27785e0ffe8f1"
+	/*api.qualifyListAdd(parentId,qualifyName,qualifyNo,selectName,userId,function(){
+ 	
+ })*/
+	/*api.qualifyList("",function(res){
+ 	//console.log(res);
+ 	if(res.code=="0000"){
+ 		var data =JSON.parse(strDec(res.data,key1,"",""));
+ 		console.log(data);
+ 	}
+ })
+ api.dictionary("","",function(res){
+ 	//console.log(res);
+ 	if(res.code=="0000"){
+ 		var data =JSON.parse(strDec(res.data,key1,"",""));
+ 		console.log(data);
+ 	}
+ })*/
+
+	_api2.default.loanList(1, 5, "SBZ", function (res) {
+		if (res.code == "0000") {
+			var data = JSON.parse(strDec(res.data, key1, "", ""));
+			//var data=res.data;
+			var loanList = data.list;
+			//console.log(data);
+			var arr = [];
+			for (var i in loanList) {
+				arr.push(_react2.default.createElement(
+					'div',
+					{ className: 'capitalList', key: i },
+					_react2.default.createElement(
+						'h3',
+						null,
+						_react2.default.createElement('img', { src: loanList[i].logo, onError: that.logoError }),
 						_react2.default.createElement(
-							'h3',
+							'span',
 							null,
-							_react2.default.createElement('img', { src: data[i].logo, onError: that.logoError }),
-							_react2.default.createElement(
-								'span',
-								null,
-								'\u7528\u94B1\u5B9D'
-							)
-						),
+							loanList[i].loanName
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'capitalInfo' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'capitalInfo' },
+							{ className: 'limit' },
 							_react2.default.createElement(
-								'div',
-								{ className: 'limit' },
-								_react2.default.createElement(
-									'h2',
-									null,
-									data[i].moneyMin,
-									'~',
-									data[i].moneyMax
-								),
-								_react2.default.createElement(
-									'p',
-									null,
-									'\u989D\u5EA6\u8303\u56F4(\u5143)'
-								)
-							),
-							_react2.default.createElement(
-								'ul',
-								{ className: 'special' },
-								_react2.default.createElement(
-									'li',
-									null,
-									data[i].loanTime,
-									'\u5C0F\u65F6\u653E\u6B3E'
-								),
-								_react2.default.createElement(
-									'li',
-									null,
-									'\u65E5\u8D39\u7387',
-									data[i].rate,
-									'%'
-								),
-								_react2.default.createElement(
-									'li',
-									null,
-									'\u8D37\u6B3E\u671F\u9650',
-									data[i].limitMin,
-									'-',
-									data[i].limitMax,
-									'\u5929'
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'apply' },
-								_react2.default.createElement(
-									'a',
-									{ href: 'javascript:;', 'data-loanId': data[i].loanId, onClick: that.toListDetail },
-									'\u7533\u8BF7\u8D37\u6B3E'
-								)
-							)
-						)
-					));
-				}
-				that.setState({
-					total: res.total,
-					list: list
-				});
-			} else {}
-		});
-
-		_api2.default.articleList(1, 3, function (res) {
-			//console.log(res);
-			var that = this;
-			if (res.code == "0000") {
-				var data = strDec(res.data, key1, "", "");
-				console.log(data);
-				var articleList = data.list;
-				var articleArr = [];
-				for (var i in articleList) {
-					articleArr.push(_react2.default.createElement(
-						'dl',
-						{ className: 'newsList', onClick: that.toNewsDetail.bind(that, articleList[i].articleId) },
-						_react2.default.createElement(
-							'dd',
-							null,
-							_react2.default.createElement(
-								'h4',
+								'h2',
 								null,
-								articleList[i].articleTitle
+								loanList[i].moneyMin,
+								'~',
+								loanList[i].moneyMax
 							),
 							_react2.default.createElement(
 								'p',
 								null,
-								_react2.default.createElement(
-									'span',
-									null,
-									articleList[i].addTime
-								),
-								' ',
-								_react2.default.createElement(
-									'span',
-									null,
-									articleList[i].readerNum,
-									'\u9605\u8BFB'
-								)
+								'\u989D\u5EA6\u8303\u56F4(\u5143)'
 							)
 						),
 						_react2.default.createElement(
-							'dt',
-							null,
-							_react2.default.createElement('img', { src: articleList[i].imgUrl })
-						)
-					));
-				}
-				that.setState({
-					articleArr: articleArr
-				});
-			} else {}
-		});
-	},
-
-	render: function render() {
-		var that = this;
-		var curCity = that.props.location.query.cityId;
-
-		return _react2.default.createElement(
-			'div',
-			{ className: 'app_Box home' },
-			_react2.default.createElement(_homeHeader2.default, { curCity: curCity }),
-			_react2.default.createElement(
-				'div',
-				{ className: 'content' },
-				_react2.default.createElement(
-					'ul',
-					{ className: 'homeTab' },
-					_react2.default.createElement(
-						'li',
-						{ onClick: that.toList },
-						_react2.default.createElement('img', { src: 'src/img/icon/group.png' }),
-						_react2.default.createElement(
-							'p',
-							null,
-							'\u4E0A\u73ED\u65CF'
-						)
-					),
-					_react2.default.createElement(
-						'li',
-						{ onClick: that.toList },
-						_react2.default.createElement('img', { src: 'src/img/icon/personal.png' }),
-						_react2.default.createElement(
-							'p',
-							null,
-							'\u4E2A\u4F53\u6237'
-						)
-					),
-					_react2.default.createElement(
-						'li',
-						{ onClick: that.toList },
-						_react2.default.createElement('img', { src: 'src/img/icon/qiye.png' }),
-						_react2.default.createElement(
-							'p',
-							null,
-							'\u4F01\u4E1A\u4E3B'
-						)
-					),
-					_react2.default.createElement(
-						'li',
-						{ onClick: that.toList },
-						_react2.default.createElement('img', { src: 'src/img/icon/ziyou.png' }),
-						_react2.default.createElement(
-							'p',
-							null,
-							'\u81EA\u7531\u804C\u4E1A'
-						)
-					)
-				),
-				_react2.default.createElement(_proList2.default, { scollFlag: 'false' }),
-				_react2.default.createElement(
-					'div',
-					{ className: 'newsBox' },
-					_react2.default.createElement(
-						'h3',
-						null,
-						'\u4F60\u5173\u5FC3\u7684\u8D44\u8BAF'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement(
-							'dl',
-							{ className: 'newsList', 'data-articleId': '', onClick: that.toNewsDetail },
+							'ul',
+							{ className: 'special' },
 							_react2.default.createElement(
-								'dd',
+								'li',
 								null,
-								_react2.default.createElement(
-									'h4',
-									null,
-									'\u5C0F\u5446\u8FD8\u4E0D\u8D77\u9047\u5230\u66B4\u529B\u50AC\u6536,\u6211\u8BE5\u600E\u4E48\u529E?'
-								),
-								_react2.default.createElement(
-									'p',
-									null,
-									_react2.default.createElement(
-										'span',
-										null,
-										'2017-10-20'
-									),
-									' ',
-									_react2.default.createElement(
-										'span',
-										null,
-										'355\u9605\u8BFB'
-									)
-								)
+								loanList[i].loanTime,
+								'\u5C0F\u65F6\u653E\u6B3E'
 							),
 							_react2.default.createElement(
-								'dt',
+								'li',
 								null,
-								_react2.default.createElement('img', { src: '' })
+								'\u65E5\u8D39\u7387',
+								loanList[i].rate,
+								'%'
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'\u8D37\u6B3E\u671F\u9650',
+								loanList[i].limitMin,
+								'-',
+								loanList[i].limitMax,
+								'\u5929'
 							)
 						),
-						that.state.articleArr
+						_react2.default.createElement(
+							'div',
+							{ className: 'apply' },
+							_react2.default.createElement(
+								'a',
+								{ href: 'javascript:;', 'data-loanId': loanList[i].loanId, onClick: that.toListDetail },
+								'\u7533\u8BF7\u8D37\u6B3E'
+							)
+						)
+					)
+				));
+			}
+
+			that.setState({
+				list: arr
+			});
+		}
+	});
+
+	_api2.default.articleList(1, 3, function (res) {
+		//console.log(res);
+		if (res.code == "0000") {
+			var data = JSON.parse(strDec(res.data, key1, "", ""));
+			//var data =JSON.parse(res.data);
+			//console.log(data);
+			var articleList = data.list;
+			var articleArr = [];
+			for (var i in articleList) {
+				articleArr.push(_react2.default.createElement(
+					'dl',
+					{ className: 'newsList', 'data-articleid': articleList[i].articleId, key: Math.random(), onClick: that.toNewsDetail },
+					_react2.default.createElement(
+						'dd',
+						null,
+						_react2.default.createElement(
+							'h4',
+							null,
+							articleList[i].articleTitle
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							_react2.default.createElement(
+								'span',
+								null,
+								articleList[i].addTime
+							),
+							' ',
+							_react2.default.createElement(
+								'span',
+								null,
+								articleList[i].readerNum,
+								'\u9605\u8BFB'
+							)
+						)
 					),
 					_react2.default.createElement(
-						_reactRouter.Link,
-						{ to: '/news', className: 'linkNews' },
-						'\u5168\u90E8\u70ED\u95E8\u8D44\u8BAF',
-						_react2.default.createElement('img', { src: '' })
+						'dt',
+						null,
+						_react2.default.createElement('img', { src: articleList[i].imgUrl, onError: that.logoError })
+					)
+				));
+			}
+			that.setState({
+				articleArr: articleArr
+			});
+		} else {}
+	});
+}), _defineProperty(_React$createClass, 'render', function render() {
+	var that = this;
+	var curCity = that.props.location.query.cityId;
+
+	return _react2.default.createElement(
+		'div',
+		{ className: 'app_Box home' },
+		_react2.default.createElement(_homeHeader2.default, { curCity: curCity }),
+		_react2.default.createElement(
+			'div',
+			{ className: 'content' },
+			_react2.default.createElement(
+				'ul',
+				{ className: 'homeTab' },
+				_react2.default.createElement(
+					'li',
+					{ 'data-tag': 'SBZ', 'data-txt': '\u4E0A\u73ED\u65CF', onClick: that.toList },
+					_react2.default.createElement('img', { src: 'src/img/icon/group.png' }),
+					_react2.default.createElement(
+						'p',
+						null,
+						'\u4E0A\u73ED\u65CF'
 					)
 				),
-				_react2.default.createElement(_loading2.default, { flag: that.state.isLoading })
+				_react2.default.createElement(
+					'li',
+					{ 'data-tag': 'GTH', 'data-txt': '\u4E2A\u4F53\u6237', onClick: that.toList },
+					_react2.default.createElement('img', { src: 'src/img/icon/personal.png' }),
+					_react2.default.createElement(
+						'p',
+						null,
+						'\u4E2A\u4F53\u6237'
+					)
+				),
+				_react2.default.createElement(
+					'li',
+					{ 'data-tag': 'QY', 'data-txt': '\u4F01\u4E1A\u4E3B', onClick: that.toList },
+					_react2.default.createElement('img', { src: 'src/img/icon/qiye.png' }),
+					_react2.default.createElement(
+						'p',
+						null,
+						'\u4F01\u4E1A\u4E3B'
+					)
+				),
+				_react2.default.createElement(
+					'li',
+					{ 'data-tag': 'ZYZY', 'data-txt': '\u81EA\u7531\u804C\u4E1A', onClick: that.toList },
+					_react2.default.createElement('img', { src: 'src/img/icon/ziyou.png' }),
+					_react2.default.createElement(
+						'p',
+						null,
+						'\u81EA\u7531\u804C\u4E1A'
+					)
+				)
 			),
-			_react2.default.createElement(_footer2.default, { activeIndex: '0' })
-		);
-	}
-});
+			_react2.default.createElement(
+				'div',
+				{ className: 'capitalBox' },
+				that.state.list
+			),
+			_react2.default.createElement(
+				'div',
+				{ className: 'newsBox' },
+				_react2.default.createElement(
+					'h3',
+					null,
+					'\u4F60\u5173\u5FC3\u7684\u8D44\u8BAF'
+				),
+				_react2.default.createElement(
+					'div',
+					null,
+					that.state.articleArr
+				),
+				_react2.default.createElement(
+					_reactRouter.Link,
+					{ to: '/news', className: 'linkNews' },
+					'\u5168\u90E8\u70ED\u95E8\u8D44\u8BAF',
+					_react2.default.createElement('img', { src: '' })
+				)
+			),
+			_react2.default.createElement(_loading2.default, { flag: that.state.isLoading })
+		),
+		_react2.default.createElement(_footer2.default, { activeIndex: '0' })
+	);
+}), _React$createClass));
 
 exports.default = Home;
 
@@ -32906,8 +32966,9 @@ var News = function (_Component) {
 			lastPage: false,
 			pageSize: 10
 		};
-		_this.toNewsDetail = function () {
-			var data = { id: 3, name: "qin", age: 18 };
+		_this.toNewsDetail = function (event) {
+			var articleId = event.currentTarget.getAttribute("data-articleid");
+			var data = { articleId: articleId };
 			var path = {
 				pathname: '/NewsDetail',
 				query: data
@@ -32922,122 +32983,154 @@ var News = function (_Component) {
 		};
 		return _this;
 	}
-	//调用 IScroll refresh 后回调函数
-
 
 	_createClass(News, [{
 		key: 'handleRefresh',
 		value: function handleRefresh(downOrUp, callback) {
-			var _this2 = this;
-
 			//真实的世界中是从后端取页面和判断是否是最后一页
-			var _state = this.state,
-			    currentPage = _state.currentPage,
-			    lastPage = _state.lastPage;
-			var TOTALPAGE = this.state.TOTALPAGE;
-			// toast.show(downOrUp+"---"+currentPage+"----"+lastPage,1000);
+			var that = this;
+			var _that$state = that.state,
+			    currentPage = _that$state.currentPage,
+			    lastPage = _that$state.lastPage,
+			    pageSize = _that$state.pageSize,
+			    total = _that$state.total;
 
+			var totalPage = Math.ceil(total / pageSize);
+			console.log(totalPage);
 			if (downOrUp === 'up') {
 				// 加载更多
-				if (currentPage == TOTALPAGE) {
+				if (currentPage == totalPage) {
+					console.log("zuihou");
 					lastPage = true;
+					if (callback && typeof callback === 'function') {
+						callback();
+					}
 				} else {
 					currentPage++;
+					console.log(currentPage);
+					lastPage = false;
+					that.setState({
+						currentPage: currentPage,
+						lastPage: lastPage
+					}, function () {
+						that.loadData(downOrUp, callback);
+					});
 				}
 			} else {
 				// 刷新
 				lastPage = false;
 				currentPage = 1;
+				that.setState({
+					currentPage: currentPage,
+					lastPage: lastPage
+				}, function () {
+					that.loadData(downOrUp, callback);
+				});
 			}
-			this.setState({
-				currentPage: currentPage,
-				lastPage: lastPage
-			}, function () {
-				_this2.loadData(downOrUp, callback);
-			});
 		}
 	}, {
 		key: 'loadData',
 		value: function loadData(downOrUp, callback) {
 			var that = this;
-			var currentPage = that.state.currentPage;
+			var key1 = _global.globalData.key;
+			var toast = _global.globalData.toast;
+			var _that$state2 = that.state,
+			    currentPage = _that$state2.currentPage,
+			    pageSize = _that$state2.pageSize,
+			    list = _that$state2.list;
 
-			var appBasePath = "http://www.91ymfq.com/XR/";
-			var url = "http://admin.91ymfq.com/api/h5Service.do";
-			//var url="http://test.91ymfq.com/api/h5Service.do";
-			var key = "YMFQ2016";
-			var iv = new String(0);
-			var param = "{\"APP_VERSION\":\"v1.0\",\"ACTION\":\"getHospital\",\"TOKEN_ID\":\"\",\"DEVICE_ID\":\"999kkkk\",\"KEYWORDS\":\"\",\"DEPARTMENT_ID\":\"\",\"PAGE_INDEX\":\"" + currentPage + "\"}";
-			// console.log(param)
-			var iv = new String(0);
-			var requestData = base64encode(des(key, utf16to8(param), 1, 0, iv, 1));
 			var arr = [];
-			var list = that.state.list;
-			/*	$.ajax({
-               type:"post",
-               data:requestData,
-               url:url,
-               contentType:"text/plain",
-               success:function(data) {
-               	console.log(data.data);
-               	var BASEPATH=data.data.BASEPATH;
-               	  var appHospitals = data.data.HOSPITALS;
-                   $(appHospitals).each(function(index){
-                   	list.push(<div className='listBox' key={Math.random()}><dl className='txt_img'><dt><img  className='pull-left' src={appBasePath+this.IMG_LOGO}/></dt><dd><p ><span>{this.NAME}</span></p></dd> </dl></div>);
-                   });
-                    var TOTALPAGE=data.data.TOTALPAGE;
-                    setTimeout(() => {
-   			          that.setState({
-   			          	TOTALPAGE:TOTALPAGE,
-   			            list:list 
-   			          });
-   			          if (callback && typeof callback === 'function') {
-   			            callback();
-   			          }
-   			        }, 1000);
-                  
-               },
-               error:function(XMLHttpRequest, textStatus, errorThrown){
-                   alert("网络异常，请联系管理员！");
-               }
-            });*/
+			_api2.default.articleList(currentPage, pageSize, function (res) {
+				//console.log(res);
+				if (res.code == "0000") {
+					var data = JSON.parse(strDec(res.data, key1, "", ""));
+					console.log(data);
+					var articleList = data.list;
+					var total = data.total;
+					var articleArr = [];
+					for (var i in articleList) {
+						articleArr.push(_react2.default.createElement(
+							'dl',
+							{ className: 'newsList', 'data-articleid': articleList[i].articleId, key: Math.random(), onClick: that.toNewsDetail },
+							_react2.default.createElement(
+								'dd',
+								null,
+								_react2.default.createElement(
+									'h4',
+									null,
+									articleList[i].articleTitle
+								),
+								_react2.default.createElement(
+									'p',
+									null,
+									_react2.default.createElement(
+										'span',
+										null,
+										articleList[i].addTime
+									),
+									' ',
+									_react2.default.createElement(
+										'span',
+										null,
+										articleList[i].readerNum,
+										'\u9605\u8BFB'
+									)
+								)
+							),
+							_react2.default.createElement(
+								'dt',
+								null,
+								_react2.default.createElement('img', { src: articleList[i].imgUrl, onError: that.logoError })
+							)
+						));
+					}
+					if (downOrUp == 'up') {
+						var c = list.concat(articleArr);
+					} else {
+						var c = articleArr;
+					}
+					that.setState({
+						total: total,
+						list: c
+					});
+					if (callback && typeof callback === 'function') {
+						callback();
+					}
+				} else {}
+			});
 		}
 	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			var that = this;
+			var key1 = _global.globalData.key;
+			var toast = _global.globalData.toast;
+			var _that$state3 = that.state,
+			    currentPage = _that$state3.currentPage,
+			    pageSize = _that$state3.pageSize,
+			    list = _that$state3.list;
 
-			var currentPage = that.state.currentPage;
-			var pageSize = that.state.pageSize;
 			this.loadData();
 			var banner = [];
-			var mPost = [];
-			/*		api.banner(function(res){
-   		//console.log(res);
-   		if(res.code=="0000"){
-   			var data =strDec(res.data,key1,"","");
-   			//console.log(data);
-   			const  bannerList=data.list;
-   			
-   			that.setState({
-                   bannerList: bannerList//轮播图片
-               },()=>{
-               	var bannerList=that.state.bannerList;
-                  for (var i in bannerList) {
-   	            	banner.push(
-   	              	 <div className="swiper-slide" key={i}>
-   	              	 	<img src={appBasePath+bannerList[i].img_URL}/>
-   	              	 </div>
-   	              	 )
-   	            };
-   	            that.setState({
-   	            	banner:banner
-   	            })
-   		}else{
-   			toast.show(res.msg,2000);
-   		}
-   		
-   	});*/
+			_api2.default.banner(function (res) {
+				//console.log(res);
+				if (res.code == "0000") {
+					var bannerList = JSON.parse(strDec(res.data, key1, "", ""));
+					console.log(bannerList);
+					for (var i in bannerList) {
+						banner.push(_react2.default.createElement(
+							'div',
+							{ className: 'swiper-slide', key: i },
+							_react2.default.createElement('img', { src: bannerList[i].img_URL })
+						));
+					};
+					that.setState({
+						banner: banner
+					});
+				} else {
+					toast.show(res.msg, 2000);
+				}
+			});
 		}
 	}, {
 		key: 'render',
@@ -33082,19 +33175,7 @@ var News = function (_Component) {
 							_react2.default.createElement(
 								_reactjsIscroll2.default,
 								{ iScroll: _iscrollProbe2.default, handleRefresh: this.handleRefresh.bind(this) },
-								that.state.list,
-								'\u4F60\u597D\u5427\u4EE3\u8868\u5927\u4F1A\u7684\u9632\u706B\u9632\u76D7\u8FD8\u8FD4\u8FD8\u8BDD\u8D39\u8FD4\u8FD8',
-								_react2.default.createElement('br', null),
-								'\u4F60\u597D\u5427\u4EE3\u8868\u5927\u4F1A\u7684\u9632\u706B\u9632\u76D7\u8FD8\u8FD4\u8FD8\u8BDD\u8D39\u8FD4\u8FD8',
-								_react2.default.createElement('br', null),
-								'\u4F60\u597D\u5427\u4EE3\u8868\u5927\u4F1A\u7684\u9632\u706B\u9632\u76D7\u8FD8\u8FD4\u8FD8\u8BDD\u8D39\u8FD4\u8FD8',
-								_react2.default.createElement('br', null),
-								'\u4F60\u597D\u5427\u4EE3\u8868\u5927\u4F1A\u7684\u9632\u706B\u9632\u76D7\u8FD8\u8FD4\u8FD8\u8BDD\u8D39\u8FD4\u8FD8',
-								_react2.default.createElement('br', null),
-								'\u4F60\u597D\u5427\u4EE3\u8868\u5927\u4F1A\u7684\u9632\u706B\u9632\u76D7\u8FD8\u8FD4\u8FD8\u8BDD\u8D39\u8FD4\u8FD8',
-								_react2.default.createElement('br', null),
-								'\u4F60\u597D\u5427\u4EE3\u8868\u5927\u4F1A\u7684\u9632\u706B\u9632\u76D7\u8FD8\u8FD4\u8FD8\u8BDD\u8D39\u8FD4\u8FD8',
-								_react2.default.createElement('br', null)
+								that.state.list
 							)
 						)
 					)
@@ -33668,8 +33749,8 @@ var NewsDetail = _react2.default.createClass({
 		var that = this;
 		var key1 = _global.globalData.key;
 		var toast = _global.globalData.toast;
-		var articleId = this.props.location.query.articleId;
-		//		console.log(articleId);
+		var articleId = that.props.location.query.articleId;
+		console.log(articleId);
 		_api2.default.articleDetail(articleId, function (res) {
 			if (res.code == "0000") {
 				var data = strDec(res.data, key1, "", "");
@@ -34307,21 +34388,10 @@ var List = _react2.default.createClass({
 		};
 	},
 
-	componentWillMount: function componentWillMount() {},
-
-	toListDetail: function toListDetail() {
-		var data = { id: 3, name: "qin", age: 18 };
-		var path = {
-			pathname: '/ListDetail',
-			query: data
-		};
-		_reactRouter.hashHistory.push(path);
-	},
 	render: function render() {
 		var that = this;
-		var title = that.props.location.state.title;
-		//console.log("cityId",cityId);
-
+		var title = that.props.location.state.txt;
+		var tag = that.props.location.state.tag;
 		return _react2.default.createElement(
 			'div',
 			{ className: 'app_Box home' },
@@ -34329,7 +34399,7 @@ var List = _react2.default.createClass({
 			_react2.default.createElement(
 				'div',
 				{ className: 'content' },
-				_react2.default.createElement(_proList2.default, { scollFlag: 'true' })
+				_react2.default.createElement(_proList2.default, { scollFlag: 'true', tag: tag })
 			)
 		);
 	}
@@ -34379,14 +34449,15 @@ var ListDetail = _react2.default.createClass({
 	getInitialState: function getInitialState() {
 		return {
 			activeTab: 1,
-			isShow: false,
+			isMask: 0,
 			activeIndex: 0,
-			value1: 500,
-			value2: 12
+			isShowDetail: false,
+			loanDetail: {},
+			value1: "",
+			value2: "",
+			rateMoney: ""
 		};
 	},
-
-	componentWillMount: function componentWillMount() {},
 
 	toNewsDetail: function toNewsDetail() {
 		var data = { id: 3, name: "qin", age: 18 };
@@ -34405,7 +34476,7 @@ var ListDetail = _react2.default.createClass({
 	},
 	toMoneyDetail: function toMoneyDetail() {
 		//参照我的收藏
-
+		this.setState({ isShowDetail: !this.state.isShowDetail });
 	},
 	toProblem: function toProblem() {
 		//var data = {};
@@ -34415,22 +34486,109 @@ var ListDetail = _react2.default.createClass({
 		};
 		_reactRouter.hashHistory.push(path);
 	},
-	toApplyInfo: function toApplyInfo() {
-		var data = {};
+	toApplyInfo: function toApplyInfo(event) {
+		var loanId = event.target.getAttribute("data-loanId");
+		var data = { loanId: loanId };
 		var path = {
 			pathname: '/ApplyInfo',
-			state: data
+			query: data
 		};
 		_reactRouter.hashHistory.push(path);
+	},
+	componentDidMount: function componentDidMount() {
+		var that = this;
+		var key1 = _global.globalData.key;
+		var toast = _global.globalData.toast;
+		var loanId = that.props.location.query.loanId;
+		_api2.default.loanDetail(loanId, function (res) {
+			//console.log(res);
+			if (res.code == "0000") {
+				//var data=res.data;
+				var data = JSON.parse(strDec(res.data, key1, "", ""));
+				console.log(data);
+
+				var moneyMin = data.moneyMin;
+				var limitMin = data.limitMin;
+				var rateType = data.rateType;
+				var limitType = data.limitType;
+				var rate = data.rate;
+				var getMyRate;
+				switch (limitType) {
+					case "D":
+						//贷款按天数
+						switch (rateType) {//资方给的利率
+							case "D":
+								getMyRate = rate;
+								break;
+							case "M":
+								getMyRate = rate / 30;
+								break;
+							case "Y":
+								getMyRate = rate / 365;
+								break;
+							default:
+								break;
+						}
+						break;
+					case "M":
+						//贷款按天数
+						switch (rateType) {//资方给的利率
+							case "D":
+								getMyRate = rate * 30;
+								break;
+							case "M":
+								getMyRate = rate;
+								break;
+							case "Y":
+								getMyRate = rate / 12;
+								break;
+							default:
+								break;
+						}
+						break;
+					default:
+						break;
+				}
+
+				//var rateMoney=
+				that.setState({
+					loanDetail: data,
+					value1: moneyMin,
+					value2: limitMin,
+					myRate: getMyRate,
+					isMask: data.isMask //0没标记
+				});
+			}
+		});
+	},
+	logoError: function logoError(event) {
+		event.target.src = "src/img/icon/capitalLogo.jpg";
+		event.target.onerror = null; //控制不要一直跳动 
+		//console.log(event.target.src);
+	},
+	saveThis: function saveThis(event) {
+		var objId = event.currentTarget.getAttribute("data-objId");
+		_api2.default.save(objId, "LOAN", function (res) {
+			console.log(res);
+		});
 	},
 	render: function render() {
 		var that = this;
 		//console.log("cityId",cityId);
-
+		var loanDetail = that.state.loanDetail;
+		var value1 = that.state.value1 * 1;
+		var value2 = that.state.value2 * 1;
+		var myRate = that.state.myRate * 1;
+		var myRateMoney = value2 * myRate;
+		myRateMoney = parseFloat(myRateMoney.toFixed(2));
+		var myFeeMoney = myRateMoney + value1;
+		//var myTotalMoney=myFeeMoney;
+		var myTotalMoney = myFeeMoney + loanDetail.fee;
+		//console.log(loanDetail);
 		return _react2.default.createElement(
 			'div',
 			{ className: 'app_Box listDetail' },
-			_react2.default.createElement(_header2.default, { title: '\u6377\u4FE1\u91D1\u878D-\u6377\u4FE1\u8D37' }),
+			_react2.default.createElement(_header2.default, { title: loanDetail.loanName }),
 			_react2.default.createElement(
 				'div',
 				{ className: 'listDetailCon content' },
@@ -34458,7 +34616,10 @@ var ListDetail = _react2.default.createClass({
 						_react2.default.createElement(
 							'p',
 							null,
-							'\u989D\u5EA6\u8303\u56F4:0.5\u4E07~5.0\u4E07'
+							'\u989D\u5EA6\u8303\u56F4:',
+							loanDetail.moneyMin,
+							'~',
+							loanDetail.moneyMax
 						)
 					),
 					_react2.default.createElement(
@@ -34475,14 +34636,18 @@ var ListDetail = _react2.default.createClass({
 								_react2.default.createElement(
 									'span',
 									null,
-									'\u6708'
+									loanDetail.limitType == "D" ? "天" : "月"
 								)
 							)
 						),
 						_react2.default.createElement(
 							'p',
 							null,
-							'\u671F\u9650\u8303\u56F4:12~48\u4E2A\u6708'
+							'\u671F\u9650\u8303\u56F4:',
+							loanDetail.limitMin,
+							'~',
+							loanDetail.limitMax,
+							loanDetail.limitType == "D" ? "天" : "个月"
 						)
 					)
 				),
@@ -34499,7 +34664,8 @@ var ListDetail = _react2.default.createClass({
 							_react2.default.createElement(
 								'p',
 								null,
-								'1090\u5143',
+								myTotalMoney,
+								'\u5143',
 								_react2.default.createElement(
 									'span',
 									null,
@@ -34515,25 +34681,39 @@ var ListDetail = _react2.default.createClass({
 							'li',
 							null,
 							_react2.default.createElement('i', null),
-							'\u8D37\u6B3E 5.0\u4E07/12\u4E2A\u6708'
+							'\u8D37\u6B3E ',
+							that.state.value1,
+							'/',
+							that.state.value2,
+							'\u4E2A\u6708'
 						),
 						_react2.default.createElement(
 							'li',
 							null,
 							_react2.default.createElement('i', null),
-							'\u5229\u606F 0\u5143(0%/\u6708)'
+							'\u5229\u606F ',
+							myRateMoney,
+							'\u5143(',
+							loanDetail.rate,
+							'%/',
+							loanDetail.rateType == "D" ? "天" : "月",
+							')'
 						),
 						_react2.default.createElement(
 							'li',
 							null,
 							_react2.default.createElement('i', null),
-							'\u8D39\u7528 6960\u5143'
+							'\u8D39\u7528 ',
+							myFeeMoney,
+							'\u5143'
 						),
 						_react2.default.createElement(
 							'li',
 							null,
 							_react2.default.createElement('i', null),
-							'\u4E00\u6B21\u6027 0\u5143(0%)'
+							'\u4E00\u6B21\u6027',
+							loanDetail.fee,
+							'\u5143(0%)'
 						)
 					)
 				),
@@ -34542,8 +34722,8 @@ var ListDetail = _react2.default.createClass({
 					{ className: 'moneyDetailBox' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'moneyDetail' },
-						'\u5229\u7387\u8BF4\u660E\u5229\u7387\u8BF4\u660E\u5229\u7387\u8BF4\u660E\u5229\u7387\u8BF4\u660E\u5229\u7387\u8BF4\u660E\u5229\u7387\u8BF4\u660E\u5229\u7387\u8BF4\u660E'
+						{ className: 'moneyDetail', style: { "display": that.state.isShowDetail ? "block" : "none" } },
+						loanDetail.loanIntro
 					),
 					_react2.default.createElement(
 						'p',
@@ -34563,7 +34743,7 @@ var ListDetail = _react2.default.createClass({
 					_react2.default.createElement(
 						'div',
 						{ className: 'flowPic' },
-						_react2.default.createElement('img', { src: 'src/img/icon/tell.png' })
+						_react2.default.createElement('img', { src: loanDetail.loanFlow, onError: that.logoError })
 					),
 					_react2.default.createElement(
 						'h2',
@@ -34571,28 +34751,9 @@ var ListDetail = _react2.default.createClass({
 						'\u7533\u8BF7\u6761\u4EF6'
 					),
 					_react2.default.createElement(
-						'ul',
+						'div',
 						{ className: 'application' },
-						_react2.default.createElement(
-							'li',
-							null,
-							'\u6536\u5165\u8981\u6C42:\u5DE5\u8D44\u6708\u6536\u51652000\u5143\u4EE5\u4E0A'
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'\u6536\u5165\u8981\u6C42:\u5DE5\u8D44\u6708\u6536\u51652000\u5143\u4EE5\u4E0A'
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'\u6536\u5165\u8981\u6C42:\u5DE5\u8D44\u6708\u6536\u51652000\u5143\u4EE5\u4E0A'
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'\u6536\u5165\u8981\u6C42:\u5DE5\u8D44\u6708\u6536\u51652000\u5143\u4EE5\u4E0A'
-						)
+						loanDetail.loanCondition
 					),
 					_react2.default.createElement(
 						'h2',
@@ -34600,18 +34761,9 @@ var ListDetail = _react2.default.createClass({
 						'\u6240\u9700\u6750\u6599'
 					),
 					_react2.default.createElement(
-						'ul',
+						'div',
 						{ className: 'application' },
-						_react2.default.createElement(
-							'li',
-							null,
-							'\u6536\u5165\u8981\u6C42:\u5DE5\u8D44\u6708\u6536\u51652000\u5143\u4EE5\u4E0A'
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'\u6536\u5165\u8981\u6C42:\u5DE5\u8D44\u6708\u6536\u51652000\u5143\u4EE5\u4E0A\u6536\u5165\u8981\u6C42\u5DE5\u8D44\u6708\u5DE5\u8D44\u6708\u6536\u51652000\u5143\u4EE5\u4E0A\u6536\u5165\u8981\u6C42\u5DE5\u8D44\u6708\u6536\u51652000\u5143\u4EE5\u4E0A\u6536\u51652000\u5143\u4EE5\u4E0A'
-						)
+						loanDetail.loanDoc
 					),
 					_react2.default.createElement(
 						'h2',
@@ -34674,17 +34826,17 @@ var ListDetail = _react2.default.createClass({
 				{ className: 'applyBtnBox footer' },
 				_react2.default.createElement(
 					'div',
-					{ className: 'applySaveBtn' },
-					_react2.default.createElement('img', { src: 'src/img/icon/sc1.png' }),
+					{ className: 'applySaveBtn', 'data-objId': loanDetail.loanId, onClick: that.saveThis },
+					_react2.default.createElement('img', { src: that.state.isMask == 1 ? "src/img/icon/sc2.png" : "src/img/icon/sc1.png" }),
 					_react2.default.createElement(
 						'p',
 						null,
-						'\u6536\u85CF'
+						that.state.isMask == 1 ? "取消收藏" : "收藏"
 					)
 				),
 				_react2.default.createElement(
 					'div',
-					{ className: 'applyBtn', onClick: that.toApplyInfo },
+					{ className: 'applyBtn', 'data-loanId': loanDetail.loanId, onClick: that.toApplyInfo },
 					'\u7533\u8BF7\u501F\u6B3E'
 				)
 			)

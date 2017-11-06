@@ -8,6 +8,17 @@ const request = {
    const platform =  request.QueryString ("platform");
    const deviceno = request.QueryString("deviceno");
    const toast=new Toast();
+   const user=localStorage.getItem("user");
+   if(user){
+   	var userObj=JSON.parse(user);
+   	var userId=userObj.userId;
+   	var token=userObj.token;
+   }else{
+   	var userId="";
+   	var token="";
+   }
+	
+
 const globalData = {
 	toast:toast,
     APP_USER_ID:'',
@@ -21,10 +32,11 @@ const globalData = {
     //path:"http://tdx.free.ngrok.cc",
    // path:"http://192.168.1.17:8088",
    pathCai:"http://apis.juhe.cn/cook/query.php",
+   userId:userId||"",
     requestData:{
         "platform" : platform,
 		"deviceno" : deviceno,
-		"token" : ""
+		"token" : token
     }
 }
 export {globalData};

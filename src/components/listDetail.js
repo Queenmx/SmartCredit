@@ -13,16 +13,16 @@ var ListDetail=React.createClass({
 	getInitialState:function(){
 		return {
 			activeTab: 1,
-			isShow: false,
+			isMask: 0,
 			activeIndex:0,
-			value1:500 ,
-			value2:12
+			isShowDetail:false,
+			loanDetail:{},
+			value1:"" ,
+			value2:"",
+			rateMoney:""
 		}
 	},
 	
-	componentWillMount:function(){
-		
-	},
 	
 	toNewsDetail:function(){
 		var data = {id:3,name:"qin",age:18};
@@ -41,7 +41,7 @@ var ListDetail=React.createClass({
 	},
 	toMoneyDetail:function(){
 	  	//参照我的收藏
-	  	
+	  	this.setState({isShowDetail: !this.state.isShowDetail});
 	},
 	toProblem:function(){
 	  	//var data = {};
@@ -51,21 +51,106 @@ var ListDetail=React.createClass({
 		}
 		hashHistory.push(path);
 	},
-	toApplyInfo:function(){
-	  	var data = {};
+	toApplyInfo:function(event){
+		var loanId=event.target.getAttribute("data-loanId");
+	  	var data = {loanId:loanId};
 		var path = {
 		  pathname:'/ApplyInfo',
-		  state:data,
+		  query:data,
 		}
 		hashHistory.push(path);
 	},
+	componentDidMount:function(){
+		var that=this;
+		var key1 = globalData.key;
+		var toast=globalData.toast;
+		var loanId=that.props.location.query.loanId;
+		api.loanDetail(loanId,function(res){
+			//console.log(res);
+			if(res.code=="0000"){
+				//var data=res.data;
+				var data =JSON.parse(strDec(res.data,key1,"",""));
+				console.log(data);
+				
+				var moneyMin=data.moneyMin;
+				var limitMin=data.limitMin;
+				var rateType=data.rateType;
+				var limitType=data.limitType;
+				var rate=data.rate;
+				var getMyRate;
+					switch (limitType){
+						case "D"://贷款按天数
+							switch (rateType){//资方给的利率
+								case "D":
+									getMyRate=rate;
+									break;
+								case "M":
+									getMyRate=rate/30;
+									break;
+								case "Y":
+									getMyRate=rate/365;
+									break;
+								default:
+									break;
+							}
+							break;
+						case "M"://贷款按天数
+							switch (rateType){//资方给的利率
+								case "D":
+									getMyRate=rate*30;
+									break;
+								case "M":
+									getMyRate=rate;
+									break;
+								case "Y":
+									getMyRate=rate/12;
+									break;
+								default:
+									break;
+							}
+							break;
+						default:
+							break;
+					}
+					
+				//var rateMoney=
+				that.setState({
+					loanDetail:data,
+					value1:moneyMin,
+					value2:limitMin,
+					myRate:getMyRate,
+					isMask:data.isMask//0没标记
+				})
+			}
+		})
+	},
+	 logoError:function(event){
+    	event.target.src="src/img/icon/capitalLogo.jpg";
+		event.target.onerror=null; //控制不要一直跳动 
+		//console.log(event.target.src);
+    },
+    saveThis:function(event){
+    	var objId=event.currentTarget.getAttribute("data-objId");
+    	api.save(objId,"LOAN",function(res){
+    		console.log(res);
+    	})
+    },
 	render:function(){
 		var that=this;
 		//console.log("cityId",cityId);
-		
+		var loanDetail=that.state.loanDetail;
+		var value1=that.state.value1*1;
+		var value2=that.state.value2*1;
+		var myRate=that.state.myRate*1;
+		var myRateMoney=value2*myRate;
+		myRateMoney=parseFloat(myRateMoney.toFixed(2)); 
+		var myFeeMoney=myRateMoney+value1;
+		//var myTotalMoney=myFeeMoney;
+		var myTotalMoney=myFeeMoney+loanDetail.fee;
+		//console.log(loanDetail);
         return (
         	<div className="app_Box listDetail">
-      			<Header title="捷信金融-捷信贷"/>
+      			<Header title={loanDetail.loanName}/>
 	        	<div className="listDetailCon content">
 	        		<ul className="rangeInfo">
 	        			<li>
@@ -76,63 +161,56 @@ var ListDetail=React.createClass({
 	        						<span>元</span>
 	        					</div>
 	        				</div>
-	        				<p>额度范围:0.5万~5.0万</p>
+	        				<p>额度范围:{loanDetail.moneyMin}~{loanDetail.moneyMax}</p>
 	        			</li>
 	        			<li>
 	        				<div  className="numBox">
 	        					期限
 	        					<div>
 		        					<input type="number" value={that.state.value2}  onChange = {this.handleChange2}/>
-		        					<span>月</span>
+		        					<span>{loanDetail.limitType=="D"?"天":"月"}</span>
 	        					</div>
 	        				</div>
-	        				<p>期限范围:12~48个月</p>
+	        				<p>期限范围:{loanDetail.limitMin}~{loanDetail.limitMax}{loanDetail.limitType=="D"?"天":"个月"}</p>
 	        			</li>
 	        		</ul>
 	        		<div className="circle">
 	        			<div className="circlePic">
 	        					<div className="rings">
 	        						<div></div>
-	        					
 		        					<p>
-	        							1090元
+	        							{myTotalMoney}元
 	        							<span>还款金额</span>
 	        						</p>
 	        					</div>
         						
 	        			</div>
 	        			<ul className="circleInfo">
-	        				<li><i></i>贷款 5.0万/12个月</li>
-	        				<li><i></i>利息 0元(0%/月)</li>
-	        				<li><i></i>费用 6960元</li>
-	        				<li><i></i>一次性 0元(0%)</li>
+	        				<li><i></i>贷款 {that.state.value1}/{that.state.value2}个月</li>
+	        				<li><i></i>利息 {myRateMoney}元({loanDetail.rate}%/{loanDetail.rateType=="D"?"天":"月"})</li>
+	        				<li><i></i>费用 {myFeeMoney}元</li>
+	        				<li><i></i>一次性{loanDetail.fee}元(0%)</li>
 	        			</ul>
 	        		</div>
 	        		<div className="moneyDetailBox">
-	        			<div className="moneyDetail">利率说明利率说明利率说明利率说明利率说明利率说明利率说明</div>
+	        			<div className="moneyDetail" style={{"display":that.state.isShowDetail?"block":"none"}}>{loanDetail.loanIntro}</div>
 	        			<p onClick={that.toMoneyDetail}>查看详情<img src="src/img/icon/down.png"/></p>
 	        		</div>
 	        		<div className="flowBox">
 	        			<h2>办理流程(门店办理)</h2>
 	        			<div className="flowPic">
-	        				<img src="src/img/icon/tell.png"/>
+	        				<img src={loanDetail.loanFlow} onError={that.logoError}/>
 	        			</div>
         				<h2>申请条件</h2>
-        				<ul className="application">
-        					<li>收入要求:工资月收入2000元以上</li>
-	        				<li>收入要求:工资月收入2000元以上</li>
-	        				<li>收入要求:工资月收入2000元以上</li>
-	        				<li>收入要求:工资月收入2000元以上</li>
-        				</ul>
+        				<div className="application">
+	        				{loanDetail.loanCondition}
+                          </div>    				
         				<h2>所需材料</h2>
-        				<ul className="application">
-        					<li>收入要求:工资月收入2000元以上</li>
-	        				<li>收入要求:工资月收入2000元以上收入要求工资月工资月收入2000元以上收入要求工资月收入2000元以上收入2000元以上</li>
-        				</ul>
+        				<div className="application">
+        					{loanDetail.loanDoc}
+        				</div>
 	        		
 	        			<h2 onClick={this.toProblem}>常见问题<span>更多回复<img src="src/img/icon/right.png"/></span></h2>
-        				
-        				
         				<div className="problemList">
         					<div className="problemBlock">
         						<img src="src/img/icon/problem.png"/>
@@ -149,8 +227,8 @@ var ListDetail=React.createClass({
 	        	</div>
 	        	
 	        	<div className="applyBtnBox footer">
-	        		<div className="applySaveBtn"><img src="src/img/icon/sc1.png"/><p>收藏</p></div>
-	        		<div className="applyBtn" onClick={that.toApplyInfo}>申请借款</div>
+	        		<div className="applySaveBtn" data-objId={loanDetail.loanId} onClick={that.saveThis}><img src={that.state.isMask==1?"src/img/icon/sc2.png":"src/img/icon/sc1.png"} /><p>{that.state.isMask==1?"取消收藏":"收藏"}</p></div>
+	        		<div className="applyBtn" data-loanId={loanDetail.loanId} onClick={that.toApplyInfo}>申请借款</div>
 	        	</div>
         	</div>
         )
