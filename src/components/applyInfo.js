@@ -12,27 +12,30 @@ var appBasePath=globalData.appBasePath;
 var ApplyInfo=React.createClass({
 	getInitialState:function(){
 		return {
-			
+			applyName:"",
+			applyNumber:""
 		}
 	},
 	
 	componentWillMount:function(){
-		
+		var applyNumber=localStorage.getItem("phoneNum");
+		this.setState({applyNumber:applyNumber});
 	},
 	toApplyLevel:function(){
-		var applyName=$("#applyName").val().trim();
-		var applyNumber=$("#applyNumber").val().trim();
+		//var applyName=$("#applyName").val().trim();
+		//var applyNumber=$("#applyNumber").val().trim();
+		var applyName=this.state.applyName;
+		var applyNumber=this.state.applyNumber;
+		var loanId=this.props.location.query.loanId;
+		//console.log(loanId);
 		if(applyName.length>0){
-			if(!(/^1[34578]\d{9}$/.test(applyNumber))){
-/*			this.setState({
-				selecthint:1,
-				hint:"请输入正确格式的手机号码"
-			})
-			setTimeout(() => {
-                this.setState({
-					selecthint:0				
-				})
-            }, 2000);*/
+			var data = {applyNumber:applyNumber,applyName:applyName,loanId:loanId};
+				var path = {
+				  pathname:'/ApplyLevel',
+				  state:data,
+				}
+				hashHistory.push(path);
+			/*if(!(/^1[34578]\d{9}$/.test(applyNumber))){
 	           toast.show("请输入正确格式的手机号码",2000);
 			}else{
 				var data = {applyNumber:applyNumber,applyName:applyName};
@@ -42,7 +45,7 @@ var ApplyInfo=React.createClass({
 				}
 				hashHistory.push(path);
 			
-			}
+			}*/
 		}else{
 			toast.show("请输入姓名",2000);
 		}
@@ -60,6 +63,13 @@ var ApplyInfo=React.createClass({
         } else {
             window.history.back()
         }
+	},
+	applyNumberHandle:function(){
+	},
+	applyNameHandle:function(event){
+		this.setState({
+			applyName:event.target.value
+		})
 	},
 	render:function(){
 		var that=this;
@@ -92,11 +102,11 @@ var ApplyInfo=React.createClass({
 					<form className="applyInfo">
 						<div>
 							<span>姓名</span>
-							<input type="text" id="applyName" placeholder="请输入姓名"/>
+							<input type="text" id="applyName" onChange={that.applyNameHandle} placeholder="请输入姓名"/>
 						</div>
 						<div>
 							<span>手机号</span>
-							<input type="text" id="applyNumber" placeholder="请输入手机号"/>
+							<input type="text" id="applyNumber" onChange={that.applyNumberHandle} value={that.state.applyNumber} placeholder="请输入手机号"/>
 						</div>
 					</form>
 	        	</div>	

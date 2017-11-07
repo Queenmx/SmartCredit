@@ -63,10 +63,7 @@ var Home=React.createClass({
 			hashHistory.push(path);
 	},
 	
-	logoError:function(event){
-		event.target.src="src/img/icon/capitalLogo.jpg";
-		event.target.onerror=null; //控制不要一直跳动 
-	},
+	
 	
 	componentDidMount:function(){
 		var key1 = globalData.key;

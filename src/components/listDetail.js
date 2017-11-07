@@ -17,8 +17,8 @@ var ListDetail=React.createClass({
 			activeIndex:0,
 			isShowDetail:false,
 			loanDetail:{},
-			value1:"" ,
-			value2:"",
+			value1onChange:"" ,
+			value2onChange:"",
 			rateMoney:""
 		}
 	},
@@ -33,11 +33,37 @@ var ListDetail=React.createClass({
 		hashHistory.push(path);
 	},
 	
+	
+	handleBlur1:function(event){
+		const valueBlur1=parseInt(event.target.value||0);
+		const {moneyMin,moneyMax}=this.state.loanDetail;
+		if(valueBlur1 < moneyMin){
+			this.setState({value1: moneyMin,value1onChange:moneyMin});
+		}else if(valueBlur1 > moneyMax){
+			this.setState({value1: moneyMax,value1onChange:moneyMax});
+		}else{
+			this.setState({value1: valueBlur1,value1onChange:valueBlur1});
+		}
+	},
+	handleBlur2:function(event){
+		const valueBlur2=parseInt(event.target.value||0);
+		const {limitMin,limitMax}=this.state.loanDetail;
+		if(valueBlur2<limitMin){
+			this.setState({value2: limitMin,value2onChange:limitMin});
+		}else if(valueBlur2>limitMax){
+			this.setState({value2: limitMax,value2onChange:limitMax});
+		}else{
+			this.setState({value2: valueBlur2,value2onChange:valueBlur2});
+		}
+	},
+	
+	
+	
 	handleChange1: function(event) {
-	    this.setState({value1: parseInt(event.target.value)});
+			this.setState({value1onChange: parseInt(event.target.value)||""});
 	},
 	handleChange2: function(event) {
-	    this.setState({value2:  parseInt(event.target.value)});
+			this.setState({value2onChange: parseInt(event.target.value)||""});
 	},
 	toMoneyDetail:function(){
 	  	//参照我的收藏
@@ -56,24 +82,25 @@ var ListDetail=React.createClass({
 		var key1 = globalData.key;
 		var userId=globalData.userId;
 		if(userId){
-			//applyLoan=function(limitDay,limitType,loanId,money,cb1,cb2){
-				const {value2,limitType,loanId,value1}=that.state;
-				console.log(value2+typeof value2+limitType+loanId+typeof value1+value1);
+			const {value2,limitType,loanId,value1}=that.state;
 			api.applyLoan(value2,limitType,loanId,value1*100,function(res){
 				console.log(res);
 				if(res.code=="0000"){
 					var data=res.data;
 					var data =JSON.parse(strDec(res.data,key1,"",""));
 					console.log(data);
+					var data = {loanId:loanId};
+					var path = {
+					  pathname:'/ApplyInfo',
+					  query:data,
+					}
+					hashHistory.push(path);
 				}
-			},function(){})
+			},function(){
+			toast.show("连接错误",2000);
+		})
 			
-		  /*	var data = {loanId:loanId};
-			var path = {
-			  pathname:'/ApplyInfo',
-			  query:data,
-			}
-			hashHistory.push(path);*/
+		  
 		}else{
 			var path = {
 			  //pathname:'/Login/listDetail?loanId='+loanId,
@@ -143,6 +170,8 @@ var ListDetail=React.createClass({
 					loanId:loanId,
 					value1:moneyMin,
 					value2:limitMin,
+					value1onChange:moneyMin,
+					value2onChange:limitMin,
 					limitType:limitType,
 					myRate:getMyRate,
 					isMark:data.isMark//1已收藏
@@ -212,8 +241,8 @@ var ListDetail=React.createClass({
 	        				<div className="numBox">
 	        					金额
 	        					<div>
+	        						<input type="number"  value={that.state.value1onChange}  onChange = {this.handleChange1} onBlur={this.handleBlur1}/>
 	        						{/*<input type="number"  value={that.state.value1}  onChange = {this.handleChange1}/>*/}
-	        						<input type="number"  value={that.state.value1}  onChange = {this.handleChange1}/>
 	        						<span>元</span>
 	        					</div>
 	        				</div>
@@ -223,8 +252,8 @@ var ListDetail=React.createClass({
 	        				<div  className="numBox">
 	        					期限
 	        					<div>
-		        					{/*<input type="number" value={that.state.value2}  onChange = {this.handleChange2}/>*/}
-		        					<input type="number"  value={that.state.value2}  onChange = {this.handleChange2}/>
+		        					<input type="number" value={that.state.value2onChange}  onChange = {this.handleChange2} onBlur={this.handleBlur2}/>
+		        					{/*<input type="number"  value={that.state.value2}  onChange = {this.handleChange2}/>*/}
 		        					<span>{loanDetail.limitType=="D"?"天":"月"}</span>
 	        					</div>
 	        				</div>

@@ -130,10 +130,6 @@ class ProList extends Component {
         }
 	componentDidMount(){
 		var that=this;
-		var key1 = globalData.key;
-		var toast=globalData.toast;
-		var currentPage=that.state.currentPage;
-		var pageSize=that.state.pageSize;
 		that.loadData();
 		
 	}

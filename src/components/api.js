@@ -370,6 +370,31 @@ module.exports.delSave=function(markIds,objType,cb1,cb2){
   	http(`${globalData.path}/zndai/mark/del`,{params:str},cb1,cb2);
 }
 
+//收藏贷款列表
+module.exports.saveLoan=function(pageNum,pageSize,cb1,cb2){ 
+    var data=globalData.requestData;
+   // data.token=token;
+   data.pageNum=pageNum;
+   data.pageSize=pageSize;
+    data.userId=userId;
+    var param=JSON.stringify(data);
+    console.log(param);
+    var str = strEnc(param,key1);
+  	http(`${globalData.path}/zndai/mark/loan/list`,{params:str},cb1,cb2);
+}
+
+//收藏贷款列表
+ 
+module.exports.saveArticle=function(pageNum,pageSize,cb1,cb2){ 
+    var data=globalData.requestData;
+   // data.token=token;
+   data.pageNum=pageNum;
+   data.pageSize=pageSize;
+    data.userId=userId;
+    var param=JSON.stringify(data);
+    var str = strEnc(param,key1);
+  	http(`${globalData.path}/zndai/mark/article/list`,{params:str},cb1,cb2);
+}
 
 
 /*module.exports.queryBanner=function(cb){ 

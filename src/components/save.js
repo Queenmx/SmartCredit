@@ -4,6 +4,8 @@ import ReactDom from 'react-dom';
 import api from './api';
 import {globalData} from './global.js';
 import { hashHistory, Link } from 'react-router';
+import iScroll from 'iscroll/build/iscroll-probe';
+import ReactIScroll from 'reactjs-iscroll';
 
 var appBasePath=globalData.appBasePath;
 var Save=React.createClass({
@@ -14,18 +16,24 @@ var Save=React.createClass({
 			isShow: false,
 			activeSaveTab:0,
 			display:"none",
-			mask:"none"
+			mask:"none",
+			list: [],
+			list1: [],
+	  		currentPage: 1,
+			pageSize:10
 		}
 	},
 	
 
-	toNewsDetail:function(){
-		var data = {id:2,name:"qin",age:18};
-		var path = {
-		  pathname:'/NewsDetail',
-		  query:data,
-		}
-		hashHistory.push(path);
+	toNewsDetail:function(event){
+		var articleId=event.currentTarget.getAttribute("data-articleid");
+	    	console.log(articleId);
+	    	var data = {articleId:articleId};
+			var path = {
+			  pathname:'/NewsDetail',
+			  query:data,
+			}
+			hashHistory.push(path);
 	},
 	toBack:function(){
 		localStorage.removeItem("newsDetailTab");
@@ -46,26 +54,29 @@ var Save=React.createClass({
 		
 		
 	},
+	toListDetail:function(event){
+		alert("111")
+		 event.stopPropagation();
+    	var loanId=event.target.getAttribute("data-loanId");
+		var data = {loanId:loanId};
+		var path = {
+		  pathname:'/ListDetail',
+		  query:data,
+		}
+		hashHistory.push(path);
+    },
 	saveTab:function(e){
 		var id=e.target.id*1;
 		this.setState({
 			activeSaveTab:id,
 		})
 		localStorage.setItem("newsDetailTab",id);
-		/*switch (id){
-			case 0:
-				$("#newsBox").hide();
-				$("#capitalBox").show();
-				break;
-			case 1:
-				$("#newsBox").show();
-				$("#capitalBox").hide();
-				break;
-			default:
-				break;
-		}*/
-		
 	},
+	logoError:function(event){
+    	event.target.src="src/img/icon/capitalLogo.jpg";
+		event.target.onerror=null; //控制不要一直跳动 
+		//console.log(event.target.src);
+    },
 	/*edit:function(){
 		var that=this;
 		that.setState({
@@ -73,12 +84,12 @@ var Save=React.createClass({
 		})
 		console.log(that.state.display)
 	},*/
-	agreeRule:function(event){
+	/*agreeRule:function(event){
 		console.log(event.target.checked);
 		this.setState({
 			checked:event.target.checked
 		})
-	},
+	},*/
 	longPress:function(id){
 		this.setState({
 			id:id,
@@ -89,16 +100,6 @@ var Save=React.createClass({
 	componentWillMount:function(){
 		var that=this;
 		var timeout = undefined;
-		/*window.addEventListener('touchstart',function(event){
-			console.log("lll")
-			 timeout = setTimeout(function(){
-			 	that.longPress();
-			 	}, 800);  //长按时间超过800ms，则执行传入的方法
-		}, false);
-		window.addEventListener('touchend', function(event) {
-			console.log("222")
-            clearTimeout(timeout);  //长按时间少于800ms，不会执行传入的方法
-        }, false);*/
 	},
 	
 	cancelHandle:function(){
@@ -116,16 +117,18 @@ var Save=React.createClass({
 	render:function(){
 		var that=this;
 		var activeSaveTab=that.state.activeSaveTab;
-		/*switch (activeSaveTab){
-			case 0:
-				var saveCon=that.state.saveCapitalCon;
-				break;
-			case 1:
-				var saveCon=that.state.saveNewsCon;
-				break;
-			default:
-				break;
-		}*/
+		var saveCapitalCon=[];
+		var saveNewsCon=[];
+		saveCapitalCon.push(<ReactIScroll iScroll={iScroll} handleRefresh={that.handleRefresh} key={"capitalBox0"}>
+			<div className="capitalBox" id="capitalBox">
+							{that.state.list}
+						</div></ReactIScroll>)
+		
+		saveNewsCon.push(<ReactIScroll iScroll={iScroll} handleRefresh={that.handleRefresh} key={"newsBox0"}>
+			<div className="newsBox"  id="newsBox" >
+							{that.state.list1}
+	        		</div></ReactIScroll>)
+		
         return (
         	<div className="app_Box save">
 	      		<div className="header">
@@ -134,12 +137,15 @@ var Save=React.createClass({
 		        	<div className="headerLinkBtn"></div>
 		        	{/*<div className="headerLinkBtn">{that.state.rightBtn}</div>*/}
 	        	</div>
-	        	<div className="content">
+	        	<div className="content saveCon">
 	        		<ul className="saveTab">
 	        			<li key="li1" className={activeSaveTab==0?"activeSaveTab":""} onClick={that.saveTab}  id="0">贷款</li>
 	        			<li key="li2" className={activeSaveTab==1?"activeSaveTab":""} onClick={that.saveTab} id="1">资讯</li>
 	        		</ul>
-	        		{activeSaveTab=="0"?that.state.saveCapitalCon:that.state.saveNewsCon}
+	        		<div className="saveConBox">
+		        			{activeSaveTab=="0"?saveCapitalCon:saveNewsCon}
+	        		</div>
+	        		 
 	        	</div>
 	        	
 	        	{/*<div className="saveBot">
@@ -160,16 +166,7 @@ var Save=React.createClass({
         	</div>
         )
 	},
-	toListDetail:function(e){
-			e.preventDefault();
-	    	var loanId=e.target.loanId;
-			var data = {loanId:loanId};
-			var path = {
-			  pathname:'/ListDetail',
-			  query:data,
-			}
-			hashHistory.push(path);
-	   },
+	
 	touchStart:function(type,id){
 		
 		console.log(type+"---"+id);
@@ -180,6 +177,144 @@ var Save=React.createClass({
 	touchEnd:function(){
 		clearTimeout(this.timeout);  //长按时间少于800ms，不会执行传入的方法
 	},
+	
+	loadData:function(downOrUp,callback) {
+  		var that=this;
+  		var key1 = globalData.key;
+		var toast=globalData.toast;
+		var tag=that.props.tag;
+	 	const {currentPage,pageSize,list,list1} = that.state;
+	 	var arr=[];
+	 	var newsDetailTab= localStorage.getItem("newsDetailTab");
+	 	console.log(newsDetailTab+typeof newsDetailTab);
+	 	if(newsDetailTab=="1"){//贷款
+	 		console.log("new")
+	 		api.saveArticle(currentPage,pageSize,function(res){
+	 			if(res.code=="0000"){
+					var data =JSON.parse(strDec(res.data,key1,"",""));
+					console.log(data);
+					var articleList=data.list;
+					var total=data.total;
+					var articleArr=[];
+					for(var i in articleList){
+						articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail} onTouchStart={that.touchStart.bind(that,"type","abc")} onTouchEnd={that.touchEnd}>
+	    							<dd>
+	    								<h4>{articleList[i].articleTitle}</h4>
+	    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
+	    							</dd>
+	    							<dt>
+	    								<img src={articleList[i].imgUrl} onError={that.logoError} />
+	    							</dt>
+	    					</dl>)
+					}
+					if(downOrUp=='up'){
+						var c=list1.concat(articleArr);
+					}else{
+						var c=articleArr;
+					}
+					that.setState({
+						total:total,
+						list1:c
+					})
+					if (callback && typeof callback === 'function') {
+			            callback();
+			          }
+				}else{
+					
+				}
+	 		},function(){
+				toast.show("连接错误",2000);
+			})
+	 	}else{
+	 		console.log("dai")
+		 	api.saveLoan(currentPage,pageSize,function(res){
+				//console.log(res);
+				if(res.code=="0000"){
+					var data =JSON.parse(strDec(res.data,key1,"",""));
+					var loanList=data.list;
+					var total=data.total;
+					//console.log(data);
+					for(var i in loanList){
+						arr.push(<div className="capitalList" key={Math.random()} onTouchStart={that.touchStart.bind(that,"type","abc")} onTouchEnd={that.touchEnd}>
+		        				<h3>
+		        					<img src={loanList[i].logo} onError={that.logoError} />
+		        					<span>{loanList[i].loanName}</span>
+		        				</h3>
+		        				<div className="capitalInfo">
+		        					<div className="limit">
+		        						<h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
+		        						<p>额度范围(元)</p>
+		        					</div>
+		        					<ul className="special">
+		        						<li>{loanList[i].loanTime}小时放款</li>
+		        						<li>日费率{loanList[i].rate}%</li>
+		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}天</li>
+		        					</ul>
+		        					<div className="apply">
+		        						<a  data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>
+		        					</div>
+		        				</div>
+		        				
+		        			</div>)
+					}
+					if(downOrUp=='up'){
+						var c=list.concat(arr);
+					}else{
+						var c=arr;
+					}
+					that.setState({
+						total:total,
+						list:c
+					})
+					if (callback && typeof callback === 'function') {
+			            callback();
+			          }
+					
+				}
+			},function(){
+				toast.show("连接错误",2000);
+			})
+		 }		
+	 	
+       },
+
+       
+	handleRefresh:function(downOrUp, callback) {
+	    //真实的世界中是从后端取页面和判断是否是最后一页
+	    var that=this;
+	    let {currentPage, lastPage,pageSize,total} = that.state;
+	    var totalPage=Math.ceil(total/pageSize);
+	    //console.log(totalPage);
+		    if (downOrUp === 'up') { // 加载更多
+		      if (currentPage == totalPage) {
+		      	console.log("zuihou")
+		        lastPage = true;
+		        	if (callback && typeof callback === 'function') {
+			            callback();
+			          }
+		      } else {
+		        currentPage++;
+		        console.log(currentPage);
+		        lastPage = false;
+		        that.setState({
+			      currentPage,
+			      lastPage
+			    }, () => {
+			      that.loadData(downOrUp, callback);
+				});
+		      }
+		    } else { // 刷新
+		      lastPage = false;
+		      currentPage = 1;
+		        that.setState({
+			      currentPage,
+			      lastPage
+			    }, () => {
+			      that.loadData(downOrUp, callback);
+				});
+		    }
+	  
+  },
 	componentDidMount:function(){
 		var that=this;
 		var newsDetailTab= localStorage.getItem("newsDetailTab");
@@ -188,116 +323,9 @@ var Save=React.createClass({
 				activeSaveTab:newsDetailTab
 			})
 		}
-		var saveCapitalCon=[];
-		var saveNewsCon=[];
 		
-		saveCapitalCon.push(<div className="capitalBox" id="capitalBox" key={"capitalBox0"}>
-	        			<div className="capitalList" onTouchStart={that.touchStart.bind(this,"type","abc")} onTouchEnd={that.touchEnd}>
-	        				<h3>
-	        					<img src="src/img/icon/capitalLogo.jpg"/>
-	        					<span>用钱宝</span>
-	        				</h3>
-	        				<div className="capitalInfo">
-	        					/*<div className="checkInput" style={{"display":that.state.display}}>
-	        						<input className="magic-checkbox"  type="checkbox"  id="ruleCheck"  />
-									<label htmlFor="ruleCheck"></label>
-	        					</div>*/
-	        					<div className="limit">
-	        						<h2>500~1000</h2>
-	        						<p>额度范围(元)</p>
-	        					</div>
-	        					<ul className="special">
-	        						<li>1小时放款</li>
-	        						<li>日费率0.3%</li>
-	        						<li>贷款期限7-30天</li>
-	        					</ul>
-	        					<div className="apply">
-	        						<a href="javascript:;" onClick={that.toListDetail}>申请贷款</a>
-	        					</div>
-	        				</div>
-	        				
-	        			</div>
-	        			
-	        			<div className="capitalList"  onTouchStart={that.touchStart.bind(this,"type2","def")} onTouchEnd={that.touchEnd}>
-	        				<h3>
-	        					<img src="src/img/icon/capitalLogo.jpg"/>
-	        					<span>用钱宝</span>
-	        				</h3>
-	        				<div className="capitalInfo">
-	        					
-	        					<div className="limit">
-	        						<h2>500~1000</h2>
-	        						<p>额度范围(元)</p>
-	        					</div>
-	        					<ul className="special">
-	        						<li>1小时放款</li>
-	        						<li>日费率0.3%</li>
-	        						<li>贷款期限7-30天</li>
-	        					</ul>
-	        					<div className="apply">
-	        						<a href="javascript:;" onClick={that.toListDetail}>申请贷款</a>
-	        					</div>
-	        				</div>
-	        				
-	        			</div>
-	        			<div className="capitalList" >
-	        				<h3>
-	        					<img src="src/img/icon/capitalLogo.jpg"/>
-	        					<span>用钱宝</span>
-	        				</h3>
-	        				<div className="capitalInfo">
-	        					
-	        					<div className="limit">
-	        						<h2>500~1000</h2>
-	        						<p>额度范围(元)</p>
-	        					</div>
-	        					<ul className="special">
-	        						<li>1小时放款</li>
-	        						<li>日费率0.3%</li>
-	        						<li>贷款期限7-30天</li>
-	        					</ul>
-	        					<div className="apply">
-	        						<a href="javascript:;" onClick={that.toListDetail}>申请贷款</a>
-	        					</div>
-	        				</div>
-	        				
-	        			</div>
-	        			
-	        		</div>)
-		
-		saveNewsCon.push(
-			<div className="newsBox"  id="newsBox" onClick={this.toNewsDetail}  key={"newsBox0"}>
-	        				<div>
-	        					<dl className="newsList" >
-	        							<dd>
-	        								<h4>小呆还不起遇到暴力催收,我该怎么办?</h4>
-	        								<p><span>2017-10-20</span> <span>355阅读</span></p>
-	        							</dd>
-	        							<dt>
-	        								<img src=""/>
-	        							</dt>
-	        					</dl>
-	        					
-	        				</div>
-	        		</div>)
-		
-		/*switch (activeSaveTab){
-			case 0:
-				$("#newsBox").hide();
-				$("#capitalBox").show();
-				break;
-			case 1:
-				$("#newsBox").show();
-				$("#capitalBox").hide();
-				break;
-			default:
-				break;
-		}*/
-		//ajax请求分情况加载后台数据
-		that.setState({
-			saveNewsCon:saveNewsCon,
-			saveCapitalCon:saveCapitalCon
-		})
+		that.loadData();
+	
 	},
 	componentWillUnMount:function(){
 		window.removeEventListener('touchstart');

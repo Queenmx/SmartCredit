@@ -58,15 +58,7 @@ class News extends Component {
   loadData(downOrUp,callback) {
   		var that=this;
 	 	const {currentPage} = that.state;
-	 	var appBasePath="http://www.91ymfq.com/XR/";
-	 	var url="http://admin.91ymfq.com/api/h5Service.do";
-	 	//var url="http://test.91ymfq.com/api/h5Service.do";
-        var key="YMFQ2016";
-     	var iv = new String(0);
-	    var param = "{\"APP_VERSION\":\"v1.0\",\"ACTION\":\"getHospital\",\"TOKEN_ID\":\"\",\"DEVICE_ID\":\"999kkkk\",\"KEYWORDS\":\"\",\"DEPARTMENT_ID\":\"\",\"PAGE_INDEX\":\""+currentPage+"\"}";
-	    console.log(param)
-	    var iv = new String(0);
-	    var requestData = base64encode(des(key,utf16to8(param),1,0, iv, 1));
+	 
 	    var arr=[];
 	    const {list} = that.state;
 	/*	$.ajax({

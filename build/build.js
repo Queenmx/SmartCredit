@@ -617,9 +617,9 @@ var globalData = {
   // appBasePath:"http://122.144.133.20/XR/",
   path1: "http://admin.91ymfq.com/api/h5Service.do",
   //path:"http://test.91ymfq.com/api/h5Service.do",
-  //path:"http://122.144.133.20:8088",
+  path: "http://122.144.133.20:8088",
   //path:"http://tdx.free.ngrok.cc",
-  path: "http://192.168.1.17:8088",
+  // path:"http://192.168.1.17:8088",
   pathCai: "http://apis.juhe.cn/cook/query.php",
   userId: userId || "",
   requestData: {
@@ -1003,6 +1003,32 @@ module.exports.delSave = function (markIds, objType, cb1, cb2) {
   http(_global.globalData.path + "/zndai/mark/del", { params: str }, cb1, cb2);
 };
 
+//收藏贷款列表
+module.exports.saveLoan = function (pageNum, pageSize, cb1, cb2) {
+  var data = _global.globalData.requestData;
+  // data.token=token;
+  data.pageNum = pageNum;
+  data.pageSize = pageSize;
+  data.userId = userId;
+  var param = JSON.stringify(data);
+  console.log(param);
+  var str = strEnc(param, key1);
+  http(_global.globalData.path + "/zndai/mark/loan/list", { params: str }, cb1, cb2);
+};
+
+//收藏贷款列表
+
+module.exports.saveArticle = function (pageNum, pageSize, cb1, cb2) {
+  var data = _global.globalData.requestData;
+  // data.token=token;
+  data.pageNum = pageNum;
+  data.pageSize = pageSize;
+  data.userId = userId;
+  var param = JSON.stringify(data);
+  var str = strEnc(param, key1);
+  http(_global.globalData.path + "/zndai/mark/article/list", { params: str }, cb1, cb2);
+};
+
 /*module.exports.queryBanner=function(cb){ 
     var data=globalData.requestData;
     data.ACTION="main_v2";
@@ -1139,141 +1165,6 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 /***/ }),
 /* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(4);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _reactRouter = __webpack_require__(6);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Header = _react2.default.createClass({
-	displayName: 'Header',
-
-	getInitialState: function getInitialState() {
-		return {
-			//headerLink: 0,//0无，1我要还款；2分享；3添加银行卡；4编辑；5保存
-		};
-	},
-	toHuanKuan: function toHuanKuan() {
-		console.log("huan");
-	},
-	toShare: function toShare() {
-		console.log("share");
-	},
-	toAddBankCard: function toAddBankCard() {
-		console.log("bank");
-	},
-	toEdit: function toEdit() {
-		console.log("bianji");
-	},
-	toSave: function toSave() {
-		console.log("save");
-	},
-	toBack: function toBack() {
-		var backRouter = this.props.backRouter;
-		if (backRouter) {
-			_reactRouter.hashHistory.push(backRouter);
-			/*hashHistory.push({  
-   pathname: '/Mine',  
-   query: {  
-       name:'qin',  
-       price:'100'  
-   }  
-   })  */
-		} else {
-
-			window.history.back();
-		}
-	},
-	componentWillMount: function componentWillMount() {
-		var that = this;
-		var headerLink = that.props.headerLink || "0";
-		var headerLinkBtn = [];
-		switch (headerLink) {
-			case "0":
-				headerLinkBtn.push(_react2.default.createElement('div', { className: 'headerLinkBtn', key: '0' }));
-				break;
-			case "1":
-				headerLinkBtn.push(_react2.default.createElement(
-					'div',
-					{ className: 'headerLinkBtn', key: '1', onClick: that.toHuanKuan },
-					'\u6211\u8981\u8FD8\u6B3E'
-				));
-				break;
-			case "2":
-				headerLinkBtn.push(_react2.default.createElement(
-					'div',
-					{ className: 'headerLinkBtn', key: '2', onClick: that.toShare },
-					_react2.default.createElement('img', { src: 'src/img/icon/home2.png' })
-				));
-				break;
-			case "3":
-				headerLinkBtn.push(_react2.default.createElement(
-					'div',
-					{ className: 'headerLinkBtn', key: '3', onClick: that.toAddBankCard },
-					'\u6DFB\u52A0\u94F6\u884C\u5361'
-				));
-				break;
-			case "4":
-				headerLinkBtn.push(_react2.default.createElement(
-					'div',
-					{ className: 'headerLinkBtn', key: '4', onClick: that.toEdit },
-					'\u7F16\u8F91'
-				));
-				break;
-			case "5":
-				headerLinkBtn.push(_react2.default.createElement(
-					'div',
-					{ className: 'headerLinkBtn', key: '5', onClick: that.toSave },
-					'\u4FDD\u5B58'
-				));
-				break;
-			default:
-				break;
-		}
-		//console.log(headerLink);
-		that.setState({
-			headerLinkBtn: headerLinkBtn
-		});
-	},
-	render: function render() {
-		var title = this.props.title;
-		return _react2.default.createElement(
-			'div',
-			{ className: 'header' },
-			_react2.default.createElement(
-				'div',
-				{ className: 'toBack', onClick: this.toBack },
-				_react2.default.createElement('img', { src: 'src/img/icon/back.png' })
-			),
-			_react2.default.createElement(
-				'p',
-				{ className: 'title' },
-				title
-			),
-			this.state.headerLinkBtn
-		);
-	}
-});
-
-exports.default = Header;
-
-/***/ }),
-/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1470,6 +1361,141 @@ var ReactDOMComponentTree = {
 
 module.exports = ReactDOMComponentTree;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(4);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactRouter = __webpack_require__(6);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Header = _react2.default.createClass({
+	displayName: 'Header',
+
+	getInitialState: function getInitialState() {
+		return {
+			//headerLink: 0,//0无，1我要还款；2分享；3添加银行卡；4编辑；5保存
+		};
+	},
+	toHuanKuan: function toHuanKuan() {
+		console.log("huan");
+	},
+	toShare: function toShare() {
+		console.log("share");
+	},
+	toAddBankCard: function toAddBankCard() {
+		console.log("bank");
+	},
+	toEdit: function toEdit() {
+		console.log("bianji");
+	},
+	toSave: function toSave() {
+		console.log("save");
+	},
+	toBack: function toBack() {
+		var backRouter = this.props.backRouter;
+		if (backRouter) {
+			_reactRouter.hashHistory.push(backRouter);
+			/*hashHistory.push({  
+   pathname: '/Mine',  
+   query: {  
+       name:'qin',  
+       price:'100'  
+   }  
+   })  */
+		} else {
+
+			window.history.back();
+		}
+	},
+	componentWillMount: function componentWillMount() {
+		var that = this;
+		var headerLink = that.props.headerLink || "0";
+		var headerLinkBtn = [];
+		switch (headerLink) {
+			case "0":
+				headerLinkBtn.push(_react2.default.createElement('div', { className: 'headerLinkBtn', key: '0' }));
+				break;
+			case "1":
+				headerLinkBtn.push(_react2.default.createElement(
+					'div',
+					{ className: 'headerLinkBtn', key: '1', onClick: that.toHuanKuan },
+					'\u6211\u8981\u8FD8\u6B3E'
+				));
+				break;
+			case "2":
+				headerLinkBtn.push(_react2.default.createElement(
+					'div',
+					{ className: 'headerLinkBtn', key: '2', onClick: that.toShare },
+					_react2.default.createElement('img', { src: 'src/img/icon/home2.png' })
+				));
+				break;
+			case "3":
+				headerLinkBtn.push(_react2.default.createElement(
+					'div',
+					{ className: 'headerLinkBtn', key: '3', onClick: that.toAddBankCard },
+					'\u6DFB\u52A0\u94F6\u884C\u5361'
+				));
+				break;
+			case "4":
+				headerLinkBtn.push(_react2.default.createElement(
+					'div',
+					{ className: 'headerLinkBtn', key: '4', onClick: that.toEdit },
+					'\u7F16\u8F91'
+				));
+				break;
+			case "5":
+				headerLinkBtn.push(_react2.default.createElement(
+					'div',
+					{ className: 'headerLinkBtn', key: '5', onClick: that.toSave },
+					'\u4FDD\u5B58'
+				));
+				break;
+			default:
+				break;
+		}
+		//console.log(headerLink);
+		that.setState({
+			headerLinkBtn: headerLinkBtn
+		});
+	},
+	render: function render() {
+		var title = this.props.title;
+		return _react2.default.createElement(
+			'div',
+			{ className: 'header' },
+			_react2.default.createElement(
+				'div',
+				{ className: 'toBack', onClick: this.toBack },
+				_react2.default.createElement('img', { src: 'src/img/icon/back.png' })
+			),
+			_react2.default.createElement(
+				'p',
+				{ className: 'title' },
+				title
+			),
+			this.state.headerLinkBtn
+		);
+	}
+});
+
+exports.default = Header;
 
 /***/ }),
 /* 12 */
@@ -6852,7 +6878,7 @@ module.exports = getEventModifierState;
 
 var DOMLazyTree = __webpack_require__(31);
 var Danger = __webpack_require__(165);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var ReactInstrumentation = __webpack_require__(16);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(59);
@@ -11173,7 +11199,7 @@ module.exports = ReactFeatureFlags;
 
 
 
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 
 function isCheckable(elem) {
   var type = elem.type;
@@ -11624,7 +11650,7 @@ module.exports = CSSProperty;
 
 
 var DOMProperty = __webpack_require__(22);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var ReactInstrumentation = __webpack_require__(16);
 
 var quoteAttributeValueForBrowser = __webpack_require__(179);
@@ -11885,7 +11911,7 @@ module.exports = ReactPropTypesSecret;
 var _assign = __webpack_require__(9);
 
 var LinkedValueUtils = __webpack_require__(60);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var ReactUpdates = __webpack_require__(18);
 
 var warning = __webpack_require__(3);
@@ -12809,7 +12835,7 @@ var DOMProperty = __webpack_require__(22);
 var React = __webpack_require__(28);
 var ReactBrowserEventEmitter = __webpack_require__(47);
 var ReactCurrentOwner = __webpack_require__(17);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var ReactDOMContainerInfo = __webpack_require__(221);
 var ReactDOMFeatureFlags = __webpack_require__(222);
 var ReactFeatureFlags = __webpack_require__(90);
@@ -14463,7 +14489,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -14939,10 +14965,6 @@ var ProList = function (_Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			var that = this;
-			var key1 = _global.globalData.key;
-			var toast = _global.globalData.toast;
-			var currentPage = that.state.currentPage;
-			var pageSize = that.state.pageSize;
 			that.loadData();
 		}
 	}, {
@@ -18153,7 +18175,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -18265,7 +18287,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -18767,27 +18789,27 @@ var _applyInfo = __webpack_require__(278);
 
 var _applyInfo2 = _interopRequireDefault(_applyInfo);
 
-var _applyLevel = __webpack_require__(280);
+var _applyLevel = __webpack_require__(279);
 
 var _applyLevel2 = _interopRequireDefault(_applyLevel);
 
-var _applyResult = __webpack_require__(281);
+var _applyResult = __webpack_require__(280);
 
 var _applyResult2 = _interopRequireDefault(_applyResult);
 
-var _help = __webpack_require__(282);
+var _help = __webpack_require__(281);
 
 var _help2 = _interopRequireDefault(_help);
 
-var _helpDetail = __webpack_require__(284);
+var _helpDetail = __webpack_require__(283);
 
 var _helpDetail2 = _interopRequireDefault(_helpDetail);
 
-var _idCard = __webpack_require__(285);
+var _idCard = __webpack_require__(284);
 
 var _idCard2 = _interopRequireDefault(_idCard);
 
-var _userInfo = __webpack_require__(286);
+var _userInfo = __webpack_require__(285);
 
 var _userInfo2 = _interopRequireDefault(_userInfo);
 
@@ -18795,19 +18817,19 @@ var _set = __webpack_require__(126);
 
 var _set2 = _interopRequireDefault(_set);
 
-var _rePsd = __webpack_require__(287);
+var _rePsd = __webpack_require__(286);
 
 var _rePsd2 = _interopRequireDefault(_rePsd);
 
-var _forgotPsd = __webpack_require__(288);
+var _forgotPsd = __webpack_require__(287);
 
 var _forgotPsd2 = _interopRequireDefault(_forgotPsd);
 
-var _realName = __webpack_require__(289);
+var _realName = __webpack_require__(288);
 
 var _realName2 = _interopRequireDefault(_realName);
 
-var _personalLevel = __webpack_require__(290);
+var _personalLevel = __webpack_require__(289);
 
 var _personalLevel2 = _interopRequireDefault(_personalLevel);
 
@@ -19909,7 +19931,7 @@ module.exports = onlyChild;
 
 
 
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var ReactDefaultInjection = __webpack_require__(147);
 var ReactMount = __webpack_require__(108);
 var ReactReconciler = __webpack_require__(30);
@@ -20030,7 +20052,7 @@ var EnterLeaveEventPlugin = __webpack_require__(162);
 var HTMLDOMPropertyConfig = __webpack_require__(163);
 var ReactComponentBrowserEnvironment = __webpack_require__(164);
 var ReactDOMComponent = __webpack_require__(170);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var ReactDOMEmptyComponent = __webpack_require__(196);
 var ReactDOMTreeTraversal = __webpack_require__(197);
 var ReactDOMTextComponent = __webpack_require__(198);
@@ -20757,7 +20779,7 @@ module.exports = SyntheticInputEvent;
 var EventPluginHub = __webpack_require__(36);
 var EventPropagators = __webpack_require__(35);
 var ExecutionEnvironment = __webpack_require__(12);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var ReactUpdates = __webpack_require__(18);
 var SyntheticEvent = __webpack_require__(20);
 
@@ -21798,7 +21820,7 @@ module.exports = DefaultEventPluginOrder;
 
 
 var EventPropagators = __webpack_require__(35);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var SyntheticMouseEvent = __webpack_require__(44);
 
 var eventTypes = {
@@ -22540,7 +22562,7 @@ module.exports = getMarkupWrap;
 
 
 var DOMChildrenOperations = __webpack_require__(57);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 
 /**
  * Operations used to process updates to DOM nodes.
@@ -22592,7 +22614,7 @@ var EventPluginHub = __webpack_require__(36);
 var EventPluginRegistry = __webpack_require__(42);
 var ReactBrowserEventEmitter = __webpack_require__(47);
 var ReactDOMComponentFlags = __webpack_require__(85);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var ReactDOMInput = __webpack_require__(182);
 var ReactDOMOption = __webpack_require__(183);
 var ReactDOMSelect = __webpack_require__(99);
@@ -23595,7 +23617,7 @@ module.exports = ReactDOMComponent;
 
 
 
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 
 var focusNode = __webpack_require__(95);
 
@@ -24286,7 +24308,7 @@ var _prodInvariant = __webpack_require__(5),
 
 var DOMPropertyOperations = __webpack_require__(97);
 var LinkedValueUtils = __webpack_require__(60);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var ReactUpdates = __webpack_require__(18);
 
 var invariant = __webpack_require__(1);
@@ -24575,7 +24597,7 @@ module.exports = ReactDOMInput;
 var _assign = __webpack_require__(9);
 
 var React = __webpack_require__(28);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var ReactDOMSelect = __webpack_require__(99);
 
 var warning = __webpack_require__(3);
@@ -24702,7 +24724,7 @@ var _prodInvariant = __webpack_require__(5),
     _assign = __webpack_require__(9);
 
 var LinkedValueUtils = __webpack_require__(60);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var ReactUpdates = __webpack_require__(18);
 
 var invariant = __webpack_require__(1);
@@ -26909,7 +26931,7 @@ module.exports = ReactServerUpdateQueue;
 var _assign = __webpack_require__(9);
 
 var DOMLazyTree = __webpack_require__(31);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 
 var ReactDOMEmptyComponent = function ReactDOMEmptyComponent(instantiate) {
   // ReactCompositeComponent uses this:
@@ -27114,7 +27136,7 @@ var _prodInvariant = __webpack_require__(5),
 
 var DOMChildrenOperations = __webpack_require__(57);
 var DOMLazyTree = __webpack_require__(31);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 
 var escapeTextContentForBrowser = __webpack_require__(46);
 var invariant = __webpack_require__(1);
@@ -27351,7 +27373,7 @@ var _assign = __webpack_require__(9);
 var EventListener = __webpack_require__(105);
 var ExecutionEnvironment = __webpack_require__(12);
 var PooledClass = __webpack_require__(27);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var ReactUpdates = __webpack_require__(18);
 
 var getEventTarget = __webpack_require__(54);
@@ -28466,7 +28488,7 @@ module.exports = SVGDOMPropertyConfig;
 
 var EventPropagators = __webpack_require__(35);
 var ExecutionEnvironment = __webpack_require__(12);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var ReactInputSelection = __webpack_require__(106);
 var SyntheticEvent = __webpack_require__(20);
 
@@ -28660,7 +28682,7 @@ var _prodInvariant = __webpack_require__(5);
 
 var EventListener = __webpack_require__(105);
 var EventPropagators = __webpack_require__(35);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var SyntheticAnimationEvent = __webpack_require__(212);
 var SyntheticClipboardEvent = __webpack_require__(213);
 var SyntheticEvent = __webpack_require__(20);
@@ -29571,7 +29593,7 @@ module.exports = '15.6.2';
 var _prodInvariant = __webpack_require__(5);
 
 var ReactCurrentOwner = __webpack_require__(17);
-var ReactDOMComponentTree = __webpack_require__(11);
+var ReactDOMComponentTree = __webpack_require__(10);
 var ReactInstanceMap = __webpack_require__(38);
 
 var getHostComponentFromComposite = __webpack_require__(109);
@@ -32439,8 +32461,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _React$createClass;
-
 var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
@@ -32477,10 +32497,8 @@ __webpack_require__(262);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var appBasePath = _global.globalData.appBasePath;
-var Home = _react2.default.createClass((_React$createClass = {
+var Home = _react2.default.createClass({
 	displayName: 'Home',
 
 	getInitialState: function getInitialState() {
@@ -32531,267 +32549,267 @@ var Home = _react2.default.createClass((_React$createClass = {
 			query: data
 		};
 		_reactRouter.hashHistory.push(path);
-	}
+	},
 
-}, _defineProperty(_React$createClass, 'logoError', function logoError(event) {
-	event.target.src = "src/img/icon/capitalLogo.jpg";
-	event.target.onerror = null; //控制不要一直跳动 
-}), _defineProperty(_React$createClass, 'componentDidMount', function componentDidMount() {
-	var key1 = _global.globalData.key;
-	var toast = _global.globalData.toast;
-	var that = this;
+	componentDidMount: function componentDidMount() {
+		var key1 = _global.globalData.key;
+		var toast = _global.globalData.toast;
+		var that = this;
 
-	_api2.default.tag("BQ", function (res) {
-		console.log(res);
-		if (res.code == "0000") {
-			var data = JSON.parse(strDec(res.data, key1, "", ""));
-			console.log(data);
-		}
-	}, function () {
-		toast.show("连接错误", 2000);
-	});
-	//"095c2c011ef740508bf27785e0ffe8f1"
-	/*api.qualifyListAdd(parentId,qualifyName,qualifyNo,selectName,userId,function(){
- 	
- })*/
-	/*api.qualifyList("",function(res){
- 	//console.log(res);
- 	if(res.code=="0000"){
- 		var data =JSON.parse(strDec(res.data,key1,"",""));
- 		console.log(data);
- 	}
- })
- api.dictionary("","",function(res){
- 	//console.log(res);
- 	if(res.code=="0000"){
- 		var data =JSON.parse(strDec(res.data,key1,"",""));
- 		console.log(data);
- 	}
- })*/
+		_api2.default.tag("BQ", function (res) {
+			console.log(res);
+			if (res.code == "0000") {
+				var data = JSON.parse(strDec(res.data, key1, "", ""));
+				console.log(data);
+			}
+		}, function () {
+			toast.show("连接错误", 2000);
+		});
+		//"095c2c011ef740508bf27785e0ffe8f1"
+		/*api.qualifyListAdd(parentId,qualifyName,qualifyNo,selectName,userId,function(){
+  	
+  })*/
+		/*api.qualifyList("",function(res){
+  	//console.log(res);
+  	if(res.code=="0000"){
+  		var data =JSON.parse(strDec(res.data,key1,"",""));
+  		console.log(data);
+  	}
+  })
+  api.dictionary("","",function(res){
+  	//console.log(res);
+  	if(res.code=="0000"){
+  		var data =JSON.parse(strDec(res.data,key1,"",""));
+  		console.log(data);
+  	}
+  })*/
 
-	_api2.default.loanList(1, 5, "SBZ", function (res) {
-		if (res.code == "0000") {
-			var data = JSON.parse(strDec(res.data, key1, "", ""));
-			//var data=res.data;
-			var loanList = data.list;
-			//console.log(data);
-			var arr = [];
-			for (var i in loanList) {
-				arr.push(_react2.default.createElement(
-					'div',
-					{ className: 'capitalList', key: i },
-					_react2.default.createElement(
-						'h3',
-						null,
-						_react2.default.createElement('img', { src: loanList[i].logo, onError: that.logoError }),
-						_react2.default.createElement(
-							'span',
-							null,
-							loanList[i].loanName
-						)
-					),
-					_react2.default.createElement(
+		_api2.default.loanList(1, 5, "SBZ", function (res) {
+			if (res.code == "0000") {
+				var data = JSON.parse(strDec(res.data, key1, "", ""));
+				//var data=res.data;
+				var loanList = data.list;
+				//console.log(data);
+				var arr = [];
+				for (var i in loanList) {
+					arr.push(_react2.default.createElement(
 						'div',
-						{ className: 'capitalInfo' },
+						{ className: 'capitalList', key: i },
+						_react2.default.createElement(
+							'h3',
+							null,
+							_react2.default.createElement('img', { src: loanList[i].logo, onError: that.logoError }),
+							_react2.default.createElement(
+								'span',
+								null,
+								loanList[i].loanName
+							)
+						),
 						_react2.default.createElement(
 							'div',
-							{ className: 'limit' },
+							{ className: 'capitalInfo' },
 							_react2.default.createElement(
-								'h2',
+								'div',
+								{ className: 'limit' },
+								_react2.default.createElement(
+									'h2',
+									null,
+									loanList[i].moneyMin,
+									'~',
+									loanList[i].moneyMax
+								),
+								_react2.default.createElement(
+									'p',
+									null,
+									'\u989D\u5EA6\u8303\u56F4(\u5143)'
+								)
+							),
+							_react2.default.createElement(
+								'ul',
+								{ className: 'special' },
+								_react2.default.createElement(
+									'li',
+									null,
+									loanList[i].loanTime,
+									'\u5C0F\u65F6\u653E\u6B3E'
+								),
+								_react2.default.createElement(
+									'li',
+									null,
+									'\u65E5\u8D39\u7387',
+									loanList[i].rate,
+									'%'
+								),
+								_react2.default.createElement(
+									'li',
+									null,
+									'\u8D37\u6B3E\u671F\u9650',
+									loanList[i].limitMin,
+									'-',
+									loanList[i].limitMax,
+									'\u5929'
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'apply' },
+								_react2.default.createElement(
+									'a',
+									{ href: 'javascript:;', 'data-loanId': loanList[i].loanId, onClick: that.toListDetail },
+									'\u7533\u8BF7\u8D37\u6B3E'
+								)
+							)
+						)
+					));
+				}
+
+				that.setState({
+					list: arr
+				});
+			}
+		}, function () {
+			toast.show("连接错误", 2000);
+		});
+
+		_api2.default.articleList(1, 3, function (res) {
+			//console.log(res);
+			if (res.code == "0000") {
+				var data = JSON.parse(strDec(res.data, key1, "", ""));
+				//var data =JSON.parse(res.data);
+				//console.log(data);
+				var articleList = data.list;
+				var articleArr = [];
+				for (var i in articleList) {
+					articleArr.push(_react2.default.createElement(
+						'dl',
+						{ className: 'newsList', 'data-articleid': articleList[i].articleId, key: Math.random(), onClick: that.toNewsDetail },
+						_react2.default.createElement(
+							'dd',
+							null,
+							_react2.default.createElement(
+								'h4',
 								null,
-								loanList[i].moneyMin,
-								'~',
-								loanList[i].moneyMax
+								articleList[i].articleTitle
 							),
 							_react2.default.createElement(
 								'p',
 								null,
-								'\u989D\u5EA6\u8303\u56F4(\u5143)'
+								_react2.default.createElement(
+									'span',
+									null,
+									articleList[i].addTime
+								),
+								' ',
+								_react2.default.createElement(
+									'span',
+									null,
+									articleList[i].readerNum,
+									'\u9605\u8BFB'
+								)
 							)
 						),
 						_react2.default.createElement(
-							'ul',
-							{ className: 'special' },
-							_react2.default.createElement(
-								'li',
-								null,
-								loanList[i].loanTime,
-								'\u5C0F\u65F6\u653E\u6B3E'
-							),
-							_react2.default.createElement(
-								'li',
-								null,
-								'\u65E5\u8D39\u7387',
-								loanList[i].rate,
-								'%'
-							),
-							_react2.default.createElement(
-								'li',
-								null,
-								'\u8D37\u6B3E\u671F\u9650',
-								loanList[i].limitMin,
-								'-',
-								loanList[i].limitMax,
-								'\u5929'
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'apply' },
-							_react2.default.createElement(
-								'a',
-								{ href: 'javascript:;', 'data-loanId': loanList[i].loanId, onClick: that.toListDetail },
-								'\u7533\u8BF7\u8D37\u6B3E'
-							)
-						)
-					)
-				));
-			}
-
-			that.setState({
-				list: arr
-			});
-		}
-	}, function () {
-		toast.show("连接错误", 2000);
-	});
-
-	_api2.default.articleList(1, 3, function (res) {
-		//console.log(res);
-		if (res.code == "0000") {
-			var data = JSON.parse(strDec(res.data, key1, "", ""));
-			//var data =JSON.parse(res.data);
-			//console.log(data);
-			var articleList = data.list;
-			var articleArr = [];
-			for (var i in articleList) {
-				articleArr.push(_react2.default.createElement(
-					'dl',
-					{ className: 'newsList', 'data-articleid': articleList[i].articleId, key: Math.random(), onClick: that.toNewsDetail },
-					_react2.default.createElement(
-						'dd',
-						null,
-						_react2.default.createElement(
-							'h4',
+							'dt',
 							null,
-							articleList[i].articleTitle
-						),
+							_react2.default.createElement('img', { src: articleList[i].imgUrl, onError: that.logoError })
+						)
+					));
+				}
+				that.setState({
+					articleArr: articleArr
+				});
+			} else {}
+		}, function () {
+			toast.show("连接错误", 2000);
+		});
+	},
+
+	render: function render() {
+		var that = this;
+		var curCity = that.props.location.query.cityId;
+
+		return _react2.default.createElement(
+			'div',
+			{ className: 'app_Box home' },
+			_react2.default.createElement(_homeHeader2.default, { curCity: curCity }),
+			_react2.default.createElement(
+				'div',
+				{ className: 'content' },
+				_react2.default.createElement(
+					'ul',
+					{ className: 'homeTab' },
+					_react2.default.createElement(
+						'li',
+						{ 'data-tag': 'SBZ', 'data-txt': '\u4E0A\u73ED\u65CF', onClick: that.toList },
+						_react2.default.createElement('img', { src: 'src/img/icon/group.png' }),
 						_react2.default.createElement(
 							'p',
 							null,
-							_react2.default.createElement(
-								'span',
-								null,
-								articleList[i].addTime
-							),
-							' ',
-							_react2.default.createElement(
-								'span',
-								null,
-								articleList[i].readerNum,
-								'\u9605\u8BFB'
-							)
+							'\u4E0A\u73ED\u65CF'
 						)
 					),
 					_react2.default.createElement(
-						'dt',
-						null,
-						_react2.default.createElement('img', { src: articleList[i].imgUrl, onError: that.logoError })
-					)
-				));
-			}
-			that.setState({
-				articleArr: articleArr
-			});
-		} else {}
-	}, function () {
-		toast.show("连接错误", 2000);
-	});
-}), _defineProperty(_React$createClass, 'render', function render() {
-	var that = this;
-	var curCity = that.props.location.query.cityId;
-
-	return _react2.default.createElement(
-		'div',
-		{ className: 'app_Box home' },
-		_react2.default.createElement(_homeHeader2.default, { curCity: curCity }),
-		_react2.default.createElement(
-			'div',
-			{ className: 'content' },
-			_react2.default.createElement(
-				'ul',
-				{ className: 'homeTab' },
-				_react2.default.createElement(
-					'li',
-					{ 'data-tag': 'SBZ', 'data-txt': '\u4E0A\u73ED\u65CF', onClick: that.toList },
-					_react2.default.createElement('img', { src: 'src/img/icon/group.png' }),
+						'li',
+						{ 'data-tag': 'GTH', 'data-txt': '\u4E2A\u4F53\u6237', onClick: that.toList },
+						_react2.default.createElement('img', { src: 'src/img/icon/personal.png' }),
+						_react2.default.createElement(
+							'p',
+							null,
+							'\u4E2A\u4F53\u6237'
+						)
+					),
 					_react2.default.createElement(
-						'p',
-						null,
-						'\u4E0A\u73ED\u65CF'
-					)
-				),
-				_react2.default.createElement(
-					'li',
-					{ 'data-tag': 'GTH', 'data-txt': '\u4E2A\u4F53\u6237', onClick: that.toList },
-					_react2.default.createElement('img', { src: 'src/img/icon/personal.png' }),
+						'li',
+						{ 'data-tag': 'QY', 'data-txt': '\u4F01\u4E1A\u4E3B', onClick: that.toList },
+						_react2.default.createElement('img', { src: 'src/img/icon/qiye.png' }),
+						_react2.default.createElement(
+							'p',
+							null,
+							'\u4F01\u4E1A\u4E3B'
+						)
+					),
 					_react2.default.createElement(
-						'p',
-						null,
-						'\u4E2A\u4F53\u6237'
+						'li',
+						{ 'data-tag': 'ZYZY', 'data-txt': '\u81EA\u7531\u804C\u4E1A', onClick: that.toList },
+						_react2.default.createElement('img', { src: 'src/img/icon/ziyou.png' }),
+						_react2.default.createElement(
+							'p',
+							null,
+							'\u81EA\u7531\u804C\u4E1A'
+						)
 					)
-				),
-				_react2.default.createElement(
-					'li',
-					{ 'data-tag': 'QY', 'data-txt': '\u4F01\u4E1A\u4E3B', onClick: that.toList },
-					_react2.default.createElement('img', { src: 'src/img/icon/qiye.png' }),
-					_react2.default.createElement(
-						'p',
-						null,
-						'\u4F01\u4E1A\u4E3B'
-					)
-				),
-				_react2.default.createElement(
-					'li',
-					{ 'data-tag': 'ZYZY', 'data-txt': '\u81EA\u7531\u804C\u4E1A', onClick: that.toList },
-					_react2.default.createElement('img', { src: 'src/img/icon/ziyou.png' }),
-					_react2.default.createElement(
-						'p',
-						null,
-						'\u81EA\u7531\u804C\u4E1A'
-					)
-				)
-			),
-			_react2.default.createElement(
-				'div',
-				{ className: 'capitalBox' },
-				that.state.list
-			),
-			_react2.default.createElement(
-				'div',
-				{ className: 'newsBox' },
-				_react2.default.createElement(
-					'h3',
-					null,
-					'\u4F60\u5173\u5FC3\u7684\u8D44\u8BAF'
 				),
 				_react2.default.createElement(
 					'div',
-					null,
-					that.state.articleArr
+					{ className: 'capitalBox' },
+					that.state.list
 				),
 				_react2.default.createElement(
-					_reactRouter.Link,
-					{ to: '/news', className: 'linkNews' },
-					'\u5168\u90E8\u70ED\u95E8\u8D44\u8BAF',
-					_react2.default.createElement('img', { src: '' })
-				)
+					'div',
+					{ className: 'newsBox' },
+					_react2.default.createElement(
+						'h3',
+						null,
+						'\u4F60\u5173\u5FC3\u7684\u8D44\u8BAF'
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						that.state.articleArr
+					),
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ to: '/news', className: 'linkNews' },
+						'\u5168\u90E8\u70ED\u95E8\u8D44\u8BAF',
+						_react2.default.createElement('img', { src: '' })
+					)
+				),
+				_react2.default.createElement(_loading2.default, { flag: that.state.isLoading })
 			),
-			_react2.default.createElement(_loading2.default, { flag: that.state.isLoading })
-		),
-		_react2.default.createElement(_footer2.default, { activeIndex: '0' })
-	);
-}), _React$createClass));
+			_react2.default.createElement(_footer2.default, { activeIndex: '0' })
+		);
+	}
+});
 
 exports.default = Home;
 
@@ -33627,7 +33645,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -33683,7 +33701,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -33824,7 +33842,7 @@ var _global = __webpack_require__(7);
 
 var _reactRouter = __webpack_require__(6);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -33945,6 +33963,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
@@ -33961,6 +33981,14 @@ var _global = __webpack_require__(7);
 
 var _reactRouter = __webpack_require__(6);
 
+var _iscrollProbe = __webpack_require__(124);
+
+var _iscrollProbe2 = _interopRequireDefault(_iscrollProbe);
+
+var _reactjsIscroll = __webpack_require__(125);
+
+var _reactjsIscroll2 = _interopRequireDefault(_reactjsIscroll);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var appBasePath = _global.globalData.appBasePath;
@@ -33974,12 +34002,18 @@ var Save = _react2.default.createClass({
 			isShow: false,
 			activeSaveTab: 0,
 			display: "none",
-			mask: "none"
+			mask: "none",
+			list: [],
+			list1: [],
+			currentPage: 1,
+			pageSize: 10
 		};
 	},
 
-	toNewsDetail: function toNewsDetail() {
-		var data = { id: 2, name: "qin", age: 18 };
+	toNewsDetail: function toNewsDetail(event) {
+		var articleId = event.currentTarget.getAttribute("data-articleid");
+		console.log(articleId);
+		var data = { articleId: articleId };
 		var path = {
 			pathname: '/NewsDetail',
 			query: data
@@ -34002,24 +34036,28 @@ var Save = _react2.default.createClass({
 			window.history.back();
 		}
 	},
+	toListDetail: function toListDetail(event) {
+		alert("111");
+		event.stopPropagation();
+		var loanId = event.target.getAttribute("data-loanId");
+		var data = { loanId: loanId };
+		var path = {
+			pathname: '/ListDetail',
+			query: data
+		};
+		_reactRouter.hashHistory.push(path);
+	},
 	saveTab: function saveTab(e) {
 		var id = e.target.id * 1;
 		this.setState({
 			activeSaveTab: id
 		});
 		localStorage.setItem("newsDetailTab", id);
-		/*switch (id){
-  	case 0:
-  		$("#newsBox").hide();
-  		$("#capitalBox").show();
-  		break;
-  	case 1:
-  		$("#newsBox").show();
-  		$("#capitalBox").hide();
-  		break;
-  	default:
-  		break;
-  }*/
+	},
+	logoError: function logoError(event) {
+		event.target.src = "src/img/icon/capitalLogo.jpg";
+		event.target.onerror = null; //控制不要一直跳动 
+		//console.log(event.target.src);
 	},
 	/*edit:function(){
  	var that=this;
@@ -34028,12 +34066,12 @@ var Save = _react2.default.createClass({
  	})
  	console.log(that.state.display)
  },*/
-	agreeRule: function agreeRule(event) {
-		console.log(event.target.checked);
-		this.setState({
-			checked: event.target.checked
-		});
-	},
+	/*agreeRule:function(event){
+ 	console.log(event.target.checked);
+ 	this.setState({
+ 		checked:event.target.checked
+ 	})
+ },*/
 	longPress: function longPress(id) {
 		this.setState({
 			id: id,
@@ -34044,16 +34082,6 @@ var Save = _react2.default.createClass({
 	componentWillMount: function componentWillMount() {
 		var that = this;
 		var timeout = undefined;
-		/*window.addEventListener('touchstart',function(event){
-  	console.log("lll")
-  	 timeout = setTimeout(function(){
-  	 	that.longPress();
-  	 	}, 800);  //长按时间超过800ms，则执行传入的方法
-  }, false);
-  window.addEventListener('touchend', function(event) {
-  	console.log("222")
-            clearTimeout(timeout);  //长按时间少于800ms，不会执行传入的方法
-        }, false);*/
 	},
 
 	cancelHandle: function cancelHandle() {
@@ -34071,16 +34099,28 @@ var Save = _react2.default.createClass({
 	render: function render() {
 		var that = this;
 		var activeSaveTab = that.state.activeSaveTab;
-		/*switch (activeSaveTab){
-  	case 0:
-  		var saveCon=that.state.saveCapitalCon;
-  		break;
-  	case 1:
-  		var saveCon=that.state.saveNewsCon;
-  		break;
-  	default:
-  		break;
-  }*/
+		var saveCapitalCon = [];
+		var saveNewsCon = [];
+		saveCapitalCon.push(_react2.default.createElement(
+			_reactjsIscroll2.default,
+			{ iScroll: _iscrollProbe2.default, handleRefresh: that.handleRefresh, key: "capitalBox0" },
+			_react2.default.createElement(
+				'div',
+				{ className: 'capitalBox', id: 'capitalBox' },
+				that.state.list
+			)
+		));
+
+		saveNewsCon.push(_react2.default.createElement(
+			_reactjsIscroll2.default,
+			{ iScroll: _iscrollProbe2.default, handleRefresh: that.handleRefresh, key: "newsBox0" },
+			_react2.default.createElement(
+				'div',
+				{ className: 'newsBox', id: 'newsBox' },
+				that.state.list1
+			)
+		));
+
 		return _react2.default.createElement(
 			'div',
 			{ className: 'app_Box save' },
@@ -34101,7 +34141,7 @@ var Save = _react2.default.createClass({
 			),
 			_react2.default.createElement(
 				'div',
-				{ className: 'content' },
+				{ className: 'content saveCon' },
 				_react2.default.createElement(
 					'ul',
 					{ className: 'saveTab' },
@@ -34116,7 +34156,11 @@ var Save = _react2.default.createClass({
 						'\u8D44\u8BAF'
 					)
 				),
-				activeSaveTab == "0" ? that.state.saveCapitalCon : that.state.saveNewsCon
+				_react2.default.createElement(
+					'div',
+					{ className: 'saveConBox' },
+					activeSaveTab == "0" ? saveCapitalCon : saveNewsCon
+				)
 			),
 			_react2.default.createElement(
 				'div',
@@ -34152,16 +34196,7 @@ var Save = _react2.default.createClass({
 			)
 		);
 	},
-	toListDetail: function toListDetail(e) {
-		e.preventDefault();
-		var loanId = e.target.loanId;
-		var data = { loanId: loanId };
-		var path = {
-			pathname: '/ListDetail',
-			query: data
-		};
-		_reactRouter.hashHistory.push(path);
-	},
+
 	touchStart: function touchStart(type, id) {
 
 		console.log(type + "---" + id);
@@ -34172,6 +34207,224 @@ var Save = _react2.default.createClass({
 	touchEnd: function touchEnd() {
 		clearTimeout(this.timeout); //长按时间少于800ms，不会执行传入的方法
 	},
+
+	loadData: function loadData(downOrUp, callback) {
+		var that = this;
+		var key1 = _global.globalData.key;
+		var toast = _global.globalData.toast;
+		var tag = that.props.tag;
+		var _that$state = that.state,
+		    currentPage = _that$state.currentPage,
+		    pageSize = _that$state.pageSize,
+		    list = _that$state.list,
+		    list1 = _that$state.list1;
+
+		var arr = [];
+		var newsDetailTab = localStorage.getItem("newsDetailTab");
+		console.log(newsDetailTab + (typeof newsDetailTab === 'undefined' ? 'undefined' : _typeof(newsDetailTab)));
+		if (newsDetailTab == "1") {
+			//贷款
+			console.log("new");
+			_api2.default.saveArticle(currentPage, pageSize, function (res) {
+				if (res.code == "0000") {
+					var data = JSON.parse(strDec(res.data, key1, "", ""));
+					console.log(data);
+					var articleList = data.list;
+					var total = data.total;
+					var articleArr = [];
+					for (var i in articleList) {
+						articleArr.push(_react2.default.createElement(
+							'dl',
+							{ className: 'newsList', 'data-articleid': articleList[i].articleId, key: Math.random(), onClick: that.toNewsDetail, onTouchStart: that.touchStart.bind(that, "type", "abc"), onTouchEnd: that.touchEnd },
+							_react2.default.createElement(
+								'dd',
+								null,
+								_react2.default.createElement(
+									'h4',
+									null,
+									articleList[i].articleTitle
+								),
+								_react2.default.createElement(
+									'p',
+									null,
+									_react2.default.createElement(
+										'span',
+										null,
+										articleList[i].addTime
+									),
+									' ',
+									_react2.default.createElement(
+										'span',
+										null,
+										articleList[i].readerNum,
+										'\u9605\u8BFB'
+									)
+								)
+							),
+							_react2.default.createElement(
+								'dt',
+								null,
+								_react2.default.createElement('img', { src: articleList[i].imgUrl, onError: that.logoError })
+							)
+						));
+					}
+					if (downOrUp == 'up') {
+						var c = list1.concat(articleArr);
+					} else {
+						var c = articleArr;
+					}
+					that.setState({
+						total: total,
+						list1: c
+					});
+					if (callback && typeof callback === 'function') {
+						callback();
+					}
+				} else {}
+			}, function () {
+				toast.show("连接错误", 2000);
+			});
+		} else {
+			console.log("dai");
+			_api2.default.saveLoan(currentPage, pageSize, function (res) {
+				//console.log(res);
+				if (res.code == "0000") {
+					var data = JSON.parse(strDec(res.data, key1, "", ""));
+					var loanList = data.list;
+					var total = data.total;
+					//console.log(data);
+					for (var i in loanList) {
+						arr.push(_react2.default.createElement(
+							'div',
+							{ className: 'capitalList', key: Math.random(), onTouchStart: that.touchStart.bind(that, "type", "abc"), onTouchEnd: that.touchEnd },
+							_react2.default.createElement(
+								'h3',
+								null,
+								_react2.default.createElement('img', { src: loanList[i].logo, onError: that.logoError }),
+								_react2.default.createElement(
+									'span',
+									null,
+									loanList[i].loanName
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'capitalInfo' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'limit' },
+									_react2.default.createElement(
+										'h2',
+										null,
+										loanList[i].moneyMin,
+										'~',
+										loanList[i].moneyMax
+									),
+									_react2.default.createElement(
+										'p',
+										null,
+										'\u989D\u5EA6\u8303\u56F4(\u5143)'
+									)
+								),
+								_react2.default.createElement(
+									'ul',
+									{ className: 'special' },
+									_react2.default.createElement(
+										'li',
+										null,
+										loanList[i].loanTime,
+										'\u5C0F\u65F6\u653E\u6B3E'
+									),
+									_react2.default.createElement(
+										'li',
+										null,
+										'\u65E5\u8D39\u7387',
+										loanList[i].rate,
+										'%'
+									),
+									_react2.default.createElement(
+										'li',
+										null,
+										'\u8D37\u6B3E\u671F\u9650',
+										loanList[i].limitMin,
+										'-',
+										loanList[i].limitMax,
+										'\u5929'
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'apply' },
+									_react2.default.createElement(
+										'a',
+										{ 'data-loanId': loanList[i].loanId, onClick: that.toListDetail },
+										'\u7533\u8BF7\u8D37\u6B3E'
+									)
+								)
+							)
+						));
+					}
+					if (downOrUp == 'up') {
+						var c = list.concat(arr);
+					} else {
+						var c = arr;
+					}
+					that.setState({
+						total: total,
+						list: c
+					});
+					if (callback && typeof callback === 'function') {
+						callback();
+					}
+				}
+			}, function () {
+				toast.show("连接错误", 2000);
+			});
+		}
+	},
+
+	handleRefresh: function handleRefresh(downOrUp, callback) {
+		//真实的世界中是从后端取页面和判断是否是最后一页
+		var that = this;
+		var _that$state2 = that.state,
+		    currentPage = _that$state2.currentPage,
+		    lastPage = _that$state2.lastPage,
+		    pageSize = _that$state2.pageSize,
+		    total = _that$state2.total;
+
+		var totalPage = Math.ceil(total / pageSize);
+		//console.log(totalPage);
+		if (downOrUp === 'up') {
+			// 加载更多
+			if (currentPage == totalPage) {
+				console.log("zuihou");
+				lastPage = true;
+				if (callback && typeof callback === 'function') {
+					callback();
+				}
+			} else {
+				currentPage++;
+				console.log(currentPage);
+				lastPage = false;
+				that.setState({
+					currentPage: currentPage,
+					lastPage: lastPage
+				}, function () {
+					that.loadData(downOrUp, callback);
+				});
+			}
+		} else {
+			// 刷新
+			lastPage = false;
+			currentPage = 1;
+			that.setState({
+				currentPage: currentPage,
+				lastPage: lastPage
+			}, function () {
+				that.loadData(downOrUp, callback);
+			});
+		}
+	},
 	componentDidMount: function componentDidMount() {
 		var that = this;
 		var newsDetailTab = localStorage.getItem("newsDetailTab");
@@ -34180,261 +34433,8 @@ var Save = _react2.default.createClass({
 				activeSaveTab: newsDetailTab
 			});
 		}
-		var saveCapitalCon = [];
-		var saveNewsCon = [];
 
-		saveCapitalCon.push(_react2.default.createElement(
-			'div',
-			{ className: 'capitalBox', id: 'capitalBox', key: "capitalBox0" },
-			_react2.default.createElement(
-				'div',
-				{ className: 'capitalList', onTouchStart: that.touchStart.bind(this, "type", "abc"), onTouchEnd: that.touchEnd },
-				_react2.default.createElement(
-					'h3',
-					null,
-					_react2.default.createElement('img', { src: 'src/img/icon/capitalLogo.jpg' }),
-					_react2.default.createElement(
-						'span',
-						null,
-						'\u7528\u94B1\u5B9D'
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'capitalInfo' },
-					'/*',
-					_react2.default.createElement(
-						'div',
-						{ className: 'checkInput', style: { "display": that.state.display } },
-						_react2.default.createElement('input', { className: 'magic-checkbox', type: 'checkbox', id: 'ruleCheck' }),
-						_react2.default.createElement('label', { htmlFor: 'ruleCheck' })
-					),
-					'*/',
-					_react2.default.createElement(
-						'div',
-						{ className: 'limit' },
-						_react2.default.createElement(
-							'h2',
-							null,
-							'500~1000'
-						),
-						_react2.default.createElement(
-							'p',
-							null,
-							'\u989D\u5EA6\u8303\u56F4(\u5143)'
-						)
-					),
-					_react2.default.createElement(
-						'ul',
-						{ className: 'special' },
-						_react2.default.createElement(
-							'li',
-							null,
-							'1\u5C0F\u65F6\u653E\u6B3E'
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'\u65E5\u8D39\u73870.3%'
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'\u8D37\u6B3E\u671F\u96507-30\u5929'
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'apply' },
-						_react2.default.createElement(
-							'a',
-							{ href: 'javascript:;', onClick: that.toListDetail },
-							'\u7533\u8BF7\u8D37\u6B3E'
-						)
-					)
-				)
-			),
-			_react2.default.createElement(
-				'div',
-				{ className: 'capitalList', onTouchStart: that.touchStart.bind(this, "type2", "def"), onTouchEnd: that.touchEnd },
-				_react2.default.createElement(
-					'h3',
-					null,
-					_react2.default.createElement('img', { src: 'src/img/icon/capitalLogo.jpg' }),
-					_react2.default.createElement(
-						'span',
-						null,
-						'\u7528\u94B1\u5B9D'
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'capitalInfo' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'limit' },
-						_react2.default.createElement(
-							'h2',
-							null,
-							'500~1000'
-						),
-						_react2.default.createElement(
-							'p',
-							null,
-							'\u989D\u5EA6\u8303\u56F4(\u5143)'
-						)
-					),
-					_react2.default.createElement(
-						'ul',
-						{ className: 'special' },
-						_react2.default.createElement(
-							'li',
-							null,
-							'1\u5C0F\u65F6\u653E\u6B3E'
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'\u65E5\u8D39\u73870.3%'
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'\u8D37\u6B3E\u671F\u96507-30\u5929'
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'apply' },
-						_react2.default.createElement(
-							'a',
-							{ href: 'javascript:;', onClick: that.toListDetail },
-							'\u7533\u8BF7\u8D37\u6B3E'
-						)
-					)
-				)
-			),
-			_react2.default.createElement(
-				'div',
-				{ className: 'capitalList' },
-				_react2.default.createElement(
-					'h3',
-					null,
-					_react2.default.createElement('img', { src: 'src/img/icon/capitalLogo.jpg' }),
-					_react2.default.createElement(
-						'span',
-						null,
-						'\u7528\u94B1\u5B9D'
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'capitalInfo' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'limit' },
-						_react2.default.createElement(
-							'h2',
-							null,
-							'500~1000'
-						),
-						_react2.default.createElement(
-							'p',
-							null,
-							'\u989D\u5EA6\u8303\u56F4(\u5143)'
-						)
-					),
-					_react2.default.createElement(
-						'ul',
-						{ className: 'special' },
-						_react2.default.createElement(
-							'li',
-							null,
-							'1\u5C0F\u65F6\u653E\u6B3E'
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'\u65E5\u8D39\u73870.3%'
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'\u8D37\u6B3E\u671F\u96507-30\u5929'
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'apply' },
-						_react2.default.createElement(
-							'a',
-							{ href: 'javascript:;', onClick: that.toListDetail },
-							'\u7533\u8BF7\u8D37\u6B3E'
-						)
-					)
-				)
-			)
-		));
-
-		saveNewsCon.push(_react2.default.createElement(
-			'div',
-			{ className: 'newsBox', id: 'newsBox', onClick: this.toNewsDetail, key: "newsBox0" },
-			_react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(
-					'dl',
-					{ className: 'newsList' },
-					_react2.default.createElement(
-						'dd',
-						null,
-						_react2.default.createElement(
-							'h4',
-							null,
-							'\u5C0F\u5446\u8FD8\u4E0D\u8D77\u9047\u5230\u66B4\u529B\u50AC\u6536,\u6211\u8BE5\u600E\u4E48\u529E?'
-						),
-						_react2.default.createElement(
-							'p',
-							null,
-							_react2.default.createElement(
-								'span',
-								null,
-								'2017-10-20'
-							),
-							' ',
-							_react2.default.createElement(
-								'span',
-								null,
-								'355\u9605\u8BFB'
-							)
-						)
-					),
-					_react2.default.createElement(
-						'dt',
-						null,
-						_react2.default.createElement('img', { src: '' })
-					)
-				)
-			)
-		));
-
-		/*switch (activeSaveTab){
-  	case 0:
-  		$("#newsBox").hide();
-  		$("#capitalBox").show();
-  		break;
-  	case 1:
-  		$("#newsBox").show();
-  		$("#capitalBox").hide();
-  		break;
-  	default:
-  		break;
-  }*/
-		//ajax请求分情况加载后台数据
-		that.setState({
-			saveNewsCon: saveNewsCon,
-			saveCapitalCon: saveCapitalCon
-		});
+		that.loadData();
 	},
 	componentWillUnMount: function componentWillUnMount() {
 		window.removeEventListener('touchstart');
@@ -34470,7 +34470,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -34524,8 +34524,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
@@ -34540,7 +34538,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -34561,8 +34559,8 @@ var ListDetail = _react2.default.createClass({
 			activeIndex: 0,
 			isShowDetail: false,
 			loanDetail: {},
-			value1: "",
-			value2: "",
+			value1onChange: "",
+			value2onChange: "",
 			rateMoney: ""
 		};
 	},
@@ -34576,11 +34574,40 @@ var ListDetail = _react2.default.createClass({
 		_reactRouter.hashHistory.push(path);
 	},
 
+	handleBlur1: function handleBlur1(event) {
+		var valueBlur1 = parseInt(event.target.value || 0);
+		var _state$loanDetail = this.state.loanDetail,
+		    moneyMin = _state$loanDetail.moneyMin,
+		    moneyMax = _state$loanDetail.moneyMax;
+
+		if (valueBlur1 < moneyMin) {
+			this.setState({ value1: moneyMin, value1onChange: moneyMin });
+		} else if (valueBlur1 > moneyMax) {
+			this.setState({ value1: moneyMax, value1onChange: moneyMax });
+		} else {
+			this.setState({ value1: valueBlur1, value1onChange: valueBlur1 });
+		}
+	},
+	handleBlur2: function handleBlur2(event) {
+		var valueBlur2 = parseInt(event.target.value || 0);
+		var _state$loanDetail2 = this.state.loanDetail,
+		    limitMin = _state$loanDetail2.limitMin,
+		    limitMax = _state$loanDetail2.limitMax;
+
+		if (valueBlur2 < limitMin) {
+			this.setState({ value2: limitMin, value2onChange: limitMin });
+		} else if (valueBlur2 > limitMax) {
+			this.setState({ value2: limitMax, value2onChange: limitMax });
+		} else {
+			this.setState({ value2: valueBlur2, value2onChange: valueBlur2 });
+		}
+	},
+
 	handleChange1: function handleChange1(event) {
-		this.setState({ value1: parseInt(event.target.value) });
+		this.setState({ value1onChange: parseInt(event.target.value) || "" });
 	},
 	handleChange2: function handleChange2(event) {
-		this.setState({ value2: parseInt(event.target.value) });
+		this.setState({ value2onChange: parseInt(event.target.value) || "" });
 	},
 	toMoneyDetail: function toMoneyDetail() {
 		//参照我的收藏
@@ -34599,29 +34626,28 @@ var ListDetail = _react2.default.createClass({
 		var key1 = _global.globalData.key;
 		var userId = _global.globalData.userId;
 		if (userId) {
-			//applyLoan=function(limitDay,limitType,loanId,money,cb1,cb2){
 			var _that$state = that.state,
 			    value2 = _that$state.value2,
 			    limitType = _that$state.limitType,
 			    loanId = _that$state.loanId,
 			    value1 = _that$state.value1;
 
-			console.log(value2 + (typeof value2 === 'undefined' ? 'undefined' : _typeof(value2)) + limitType + loanId + (typeof value1 === 'undefined' ? 'undefined' : _typeof(value1)) + value1);
 			_api2.default.applyLoan(value2, limitType, loanId, value1 * 100, function (res) {
 				console.log(res);
 				if (res.code == "0000") {
 					var data = res.data;
 					var data = JSON.parse(strDec(res.data, key1, "", ""));
 					console.log(data);
+					var data = { loanId: loanId };
+					var path = {
+						pathname: '/ApplyInfo',
+						query: data
+					};
+					_reactRouter.hashHistory.push(path);
 				}
-			}, function () {});
-
-			/*	var data = {loanId:loanId};
-   var path = {
-    pathname:'/ApplyInfo',
-    query:data,
-   }
-   hashHistory.push(path);*/
+			}, function () {
+				toast.show("连接错误", 2000);
+			});
 		} else {
 			var path = {
 				//pathname:'/Login/listDetail?loanId='+loanId,
@@ -34692,6 +34718,8 @@ var ListDetail = _react2.default.createClass({
 					loanId: loanId,
 					value1: moneyMin,
 					value2: limitMin,
+					value1onChange: moneyMin,
+					value2onChange: limitMin,
 					limitType: limitType,
 					myRate: getMyRate,
 					isMark: data.isMark //1已收藏
@@ -34772,7 +34800,7 @@ var ListDetail = _react2.default.createClass({
 							_react2.default.createElement(
 								'div',
 								null,
-								_react2.default.createElement('input', { type: 'number', value: that.state.value1, onChange: this.handleChange1 }),
+								_react2.default.createElement('input', { type: 'number', value: that.state.value1onChange, onChange: this.handleChange1, onBlur: this.handleBlur1 }),
 								_react2.default.createElement(
 									'span',
 									null,
@@ -34799,7 +34827,7 @@ var ListDetail = _react2.default.createClass({
 							_react2.default.createElement(
 								'div',
 								null,
-								_react2.default.createElement('input', { type: 'number', value: that.state.value2, onChange: this.handleChange2 }),
+								_react2.default.createElement('input', { type: 'number', value: that.state.value2onChange, onChange: this.handleChange2, onBlur: this.handleBlur2 }),
 								_react2.default.createElement(
 									'span',
 									null,
@@ -35044,7 +35072,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -35215,7 +35243,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -35421,7 +35449,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -35504,13 +35532,13 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
 var _reactRouter = __webpack_require__(6);
 
-__webpack_require__(279);
+__webpack_require__(303);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35520,33 +35548,41 @@ var ApplyInfo = _react2.default.createClass({
 	displayName: 'ApplyInfo',
 
 	getInitialState: function getInitialState() {
-		return {};
+		return {
+			applyName: "",
+			applyNumber: ""
+		};
 	},
 
-	componentWillMount: function componentWillMount() {},
+	componentWillMount: function componentWillMount() {
+		var applyNumber = localStorage.getItem("phoneNum");
+		this.setState({ applyNumber: applyNumber });
+	},
 	toApplyLevel: function toApplyLevel() {
-		var applyName = $("#applyName").val().trim();
-		var applyNumber = $("#applyNumber").val().trim();
+		//var applyName=$("#applyName").val().trim();
+		//var applyNumber=$("#applyNumber").val().trim();
+		var applyName = this.state.applyName;
+		var applyNumber = this.state.applyNumber;
+		var loanId = this.props.location.query.loanId;
+		//console.log(loanId);
 		if (applyName.length > 0) {
-			if (!/^1[34578]\d{9}$/.test(applyNumber)) {
-				/*			this.setState({
-    				selecthint:1,
-    				hint:"请输入正确格式的手机号码"
-    			})
-    			setTimeout(() => {
-                    this.setState({
-    					selecthint:0				
-    				})
-                }, 2000);*/
-				toast.show("请输入正确格式的手机号码", 2000);
-			} else {
-				var data = { applyNumber: applyNumber, applyName: applyName };
-				var path = {
-					pathname: '/ApplyLevel',
-					state: data
-				};
-				_reactRouter.hashHistory.push(path);
-			}
+			var data = { applyNumber: applyNumber, applyName: applyName, loanId: loanId };
+			var path = {
+				pathname: '/ApplyLevel',
+				state: data
+			};
+			_reactRouter.hashHistory.push(path);
+			/*if(!(/^1[34578]\d{9}$/.test(applyNumber))){
+            toast.show("请输入正确格式的手机号码",2000);
+   }else{
+   	var data = {applyNumber:applyNumber,applyName:applyName};
+   	var path = {
+   	  pathname:'/ApplyLevel',
+   	  state:data,
+   	}
+   	hashHistory.push(path);
+   
+   }*/
 		} else {
 			toast.show("请输入姓名", 2000);
 		}
@@ -35559,6 +35595,12 @@ var ApplyInfo = _react2.default.createClass({
 		} else {
 			window.history.back();
 		}
+	},
+	applyNumberHandle: function applyNumberHandle() {},
+	applyNameHandle: function applyNameHandle(event) {
+		this.setState({
+			applyName: event.target.value
+		});
 	},
 	render: function render() {
 		var that = this;
@@ -35644,7 +35686,7 @@ var ApplyInfo = _react2.default.createClass({
 							null,
 							'\u59D3\u540D'
 						),
-						_react2.default.createElement('input', { type: 'text', id: 'applyName', placeholder: '\u8BF7\u8F93\u5165\u59D3\u540D' })
+						_react2.default.createElement('input', { type: 'text', id: 'applyName', onChange: that.applyNameHandle, placeholder: '\u8BF7\u8F93\u5165\u59D3\u540D' })
 					),
 					_react2.default.createElement(
 						'div',
@@ -35654,7 +35696,7 @@ var ApplyInfo = _react2.default.createClass({
 							null,
 							'\u624B\u673A\u53F7'
 						),
-						_react2.default.createElement('input', { type: 'text', id: 'applyNumber', placeholder: '\u8BF7\u8F93\u5165\u624B\u673A\u53F7' })
+						_react2.default.createElement('input', { type: 'text', id: 'applyNumber', onChange: that.applyNumberHandle, value: that.state.applyNumber, placeholder: '\u8BF7\u8F93\u5165\u624B\u673A\u53F7' })
 					)
 				)
 			),
@@ -35679,12 +35721,6 @@ exports.default = ApplyInfo;
 
 /***/ }),
 /* 279 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35708,7 +35744,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -35964,7 +36000,7 @@ var ApplyLevel = _react2.default.createClass({
 exports.default = ApplyLevel;
 
 /***/ }),
-/* 281 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35988,7 +36024,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -36096,7 +36132,7 @@ var ApplyResult = _react2.default.createClass({
 exports.default = ApplyResult;
 
 /***/ }),
-/* 282 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36120,13 +36156,13 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
 var _reactRouter = __webpack_require__(6);
 
-__webpack_require__(283);
+__webpack_require__(282);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36181,13 +36217,13 @@ var Help = _react2.default.createClass({
 exports.default = Help;
 
 /***/ }),
-/* 283 */
+/* 282 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 284 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36211,7 +36247,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -36303,7 +36339,7 @@ var HelpDetail = _react2.default.createClass({
 exports.default = HelpDetail;
 
 /***/ }),
-/* 285 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36327,7 +36363,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -36412,7 +36448,7 @@ var IdCard = _react2.default.createClass({
 exports.default = IdCard;
 
 /***/ }),
-/* 286 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36436,7 +36472,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -36565,7 +36601,7 @@ var UserInfo = _react2.default.createClass({
 exports.default = UserInfo;
 
 /***/ }),
-/* 287 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36589,7 +36625,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -36688,7 +36724,7 @@ var Repsd = _react2.default.createClass({
 exports.default = Repsd;
 
 /***/ }),
-/* 288 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36712,7 +36748,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -36852,7 +36888,7 @@ var ForgotPsd = _react2.default.createClass({
 exports.default = ForgotPsd;
 
 /***/ }),
-/* 289 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36876,7 +36912,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -36940,7 +36976,7 @@ var RealName = _react2.default.createClass({
 exports.default = RealName;
 
 /***/ }),
-/* 290 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36964,7 +37000,7 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
-var _header = __webpack_require__(10);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -37114,6 +37150,25 @@ var PersonalLevel = _react2.default.createClass({
 });
 
 exports.default = PersonalLevel;
+
+/***/ }),
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

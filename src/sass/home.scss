@@ -134,6 +134,14 @@
         position: relative;
         height: 100%;
     }
+    .saveCon{
+        @include flex_column;
+         .saveConBox{
+            height: 100%;
+            position: relative;
+        }
+    }
+   
     .newsCon{
         @include flex_column;
     }
