@@ -122,6 +122,8 @@ class ProList extends Component {
 		          }
 				
 			}
+		},function(){
+			toast.show("连接错误",2000);
 		})
 	 	
 	

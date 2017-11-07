@@ -70,15 +70,18 @@ var Home=React.createClass({
 	
 	componentDidMount:function(){
 		var key1 = globalData.key;
+		var toast=globalData.toast;
 		var that=this;
 	
 		api.tag("BQ",function(res){
 			console.log(res)
 			if(res.code=="0000"){
-				//var data =JSON.parse(strDec(res.data,key1,"",""));
-				//console.log(data);
+				var data =JSON.parse(strDec(res.data,key1,"",""));
+				console.log(data);
 			}
 			
+		},function(){
+			toast.show("连接错误",2000);
 		})
 		//"095c2c011ef740508bf27785e0ffe8f1"
 		/*api.qualifyListAdd(parentId,qualifyName,qualifyNo,selectName,userId,function(){
@@ -135,8 +138,9 @@ var Home=React.createClass({
 				})
 				
 			}
+		},function(){
+			toast.show("连接错误",2000);
 		})
-		
 		
 		
 		
@@ -166,6 +170,8 @@ var Home=React.createClass({
 			}else{
 				
 			}
+		},function(){
+			toast.show("连接错误",2000);
 		})
 		
 	},

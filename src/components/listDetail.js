@@ -13,7 +13,7 @@ var ListDetail=React.createClass({
 	getInitialState:function(){
 		return {
 			activeTab: 1,
-			isMask: 0,
+			isMark: 0,
 			activeIndex:0,
 			isShowDetail:false,
 			loanDetail:{},
@@ -34,10 +34,10 @@ var ListDetail=React.createClass({
 	},
 	
 	handleChange1: function(event) {
-	    this.setState({value1: event.target.value});
+	    this.setState({value1: parseInt(event.target.value)});
 	},
 	handleChange2: function(event) {
-	    this.setState({value2: event.target.value});
+	    this.setState({value2:  parseInt(event.target.value)});
 	},
 	toMoneyDetail:function(){
 	  	//参照我的收藏
@@ -52,13 +52,37 @@ var ListDetail=React.createClass({
 		hashHistory.push(path);
 	},
 	toApplyInfo:function(event){
-		var loanId=event.target.getAttribute("data-loanId");
-	  	var data = {loanId:loanId};
-		var path = {
-		  pathname:'/ApplyInfo',
-		  query:data,
+		var that=this;
+		var key1 = globalData.key;
+		var userId=globalData.userId;
+		if(userId){
+			//applyLoan=function(limitDay,limitType,loanId,money,cb1,cb2){
+				const {value2,limitType,loanId,value1}=that.state;
+				console.log(value2+typeof value2+limitType+loanId+typeof value1+value1);
+			api.applyLoan(value2,limitType,loanId,value1*100,function(res){
+				console.log(res);
+				if(res.code=="0000"){
+					var data=res.data;
+					var data =JSON.parse(strDec(res.data,key1,"",""));
+					console.log(data);
+				}
+			},function(){})
+			
+		  /*	var data = {loanId:loanId};
+			var path = {
+			  pathname:'/ApplyInfo',
+			  query:data,
+			}
+			hashHistory.push(path);*/
+		}else{
+			var path = {
+			  //pathname:'/Login/listDetail?loanId='+loanId,
+			  pathname:'/Login',
+			  query:data,
+			}
+			hashHistory.push(path);
 		}
-		hashHistory.push(path);
+		
 	},
 	componentDidMount:function(){
 		var that=this;
@@ -68,7 +92,7 @@ var ListDetail=React.createClass({
 		api.loanDetail(loanId,function(res){
 			//console.log(res);
 			if(res.code=="0000"){
-				//var data=res.data;
+				var data=res.data;
 				var data =JSON.parse(strDec(res.data,key1,"",""));
 				console.log(data);
 				
@@ -116,12 +140,16 @@ var ListDetail=React.createClass({
 				//var rateMoney=
 				that.setState({
 					loanDetail:data,
+					loanId:loanId,
 					value1:moneyMin,
 					value2:limitMin,
+					limitType:limitType,
 					myRate:getMyRate,
-					isMask:data.isMask//0没标记
+					isMark:data.isMark//1已收藏
 				})
 			}
+		},function(){
+			toast.show("连接错误",2000);
 		})
 	},
 	 logoError:function(event){
@@ -130,22 +158,49 @@ var ListDetail=React.createClass({
 		//console.log(event.target.src);
     },
     saveThis:function(event){
-    	var objId=event.currentTarget.getAttribute("data-objId");
-    	api.save(objId,"LOAN",function(res){
-    		console.log(res);
-    	})
+    	var that=this;
+    	var objId=that.state.loanId;
+    	//var userId=globalData.userId;
+    	var isLogin=localStorage.getItem("isLogin");
+    	//api.getNewUser;
+		if(isLogin){
+		  	if(that.state.isMark==1){//已收藏,取消
+    			api.delSave(objId,"LOAN",function(res){
+		    		console.log(res);
+		    		if(res.code=="0000"){
+		    			that.setState({isMark:0})
+		    		}
+		    	},function(){
+					toast.show("连接错误",2000);
+				})
+	    	}else{//未收藏,添加收藏
+	    		api.save(objId,"LOAN",function(res){
+		    		console.log(res);
+		    		if(res.code=="0000"){
+		    			that.setState({isMark:1})
+		    		}
+		    	},function(){
+					toast.show("连接错误",2000);
+				})
+	    	}
+		}else{
+			var path = {
+			  pathname:'/Login',
+			}
+			hashHistory.push(path);
+		}
+    	
+    	
     },
 	render:function(){
 		var that=this;
-		//console.log("cityId",cityId);
 		var loanDetail=that.state.loanDetail;
 		var value1=that.state.value1*1;
 		var value2=that.state.value2*1;
 		var myRate=that.state.myRate*1;
-		var myRateMoney=value2*myRate;
+		var myRateMoney=value2*myRate*value1*0.01;
 		myRateMoney=parseFloat(myRateMoney.toFixed(2)); 
 		var myFeeMoney=myRateMoney+value1;
-		//var myTotalMoney=myFeeMoney;
 		var myTotalMoney=myFeeMoney+loanDetail.fee;
 		//console.log(loanDetail);
         return (
@@ -157,6 +212,7 @@ var ListDetail=React.createClass({
 	        				<div className="numBox">
 	        					金额
 	        					<div>
+	        						{/*<input type="number"  value={that.state.value1}  onChange = {this.handleChange1}/>*/}
 	        						<input type="number"  value={that.state.value1}  onChange = {this.handleChange1}/>
 	        						<span>元</span>
 	        					</div>
@@ -167,7 +223,8 @@ var ListDetail=React.createClass({
 	        				<div  className="numBox">
 	        					期限
 	        					<div>
-		        					<input type="number" value={that.state.value2}  onChange = {this.handleChange2}/>
+		        					{/*<input type="number" value={that.state.value2}  onChange = {this.handleChange2}/>*/}
+		        					<input type="number"  value={that.state.value2}  onChange = {this.handleChange2}/>
 		        					<span>{loanDetail.limitType=="D"?"天":"月"}</span>
 	        					</div>
 	        				</div>
@@ -186,7 +243,7 @@ var ListDetail=React.createClass({
         						
 	        			</div>
 	        			<ul className="circleInfo">
-	        				<li><i></i>贷款 {that.state.value1}/{that.state.value2}个月</li>
+	        				<li><i></i>贷款 {that.state.value1}/{that.state.value2}{loanDetail.limitType=="D"?"天":"个月"}</li>
 	        				<li><i></i>利息 {myRateMoney}元({loanDetail.rate}%/{loanDetail.rateType=="D"?"天":"月"})</li>
 	        				<li><i></i>费用 {myFeeMoney}元</li>
 	        				<li><i></i>一次性{loanDetail.fee}元(0%)</li>
@@ -227,8 +284,8 @@ var ListDetail=React.createClass({
 	        	</div>
 	        	
 	        	<div className="applyBtnBox footer">
-	        		<div className="applySaveBtn" data-objId={loanDetail.loanId} onClick={that.saveThis}><img src={that.state.isMask==1?"src/img/icon/sc2.png":"src/img/icon/sc1.png"} /><p>{that.state.isMask==1?"取消收藏":"收藏"}</p></div>
-	        		<div className="applyBtn" data-loanId={loanDetail.loanId} onClick={that.toApplyInfo}>申请借款</div>
+	        		<div className="applySaveBtn" onClick={that.saveThis}><img src={that.state.isMark==1?"src/img/icon/sc2.png":"src/img/icon/sc1.png"} /><p>{that.state.isMark==1?"取消收藏":"收藏"}</p></div>
+	        		<div className="applyBtn" onClick={that.toApplyInfo}>申请借款</div>
 	        	</div>
         	</div>
         )

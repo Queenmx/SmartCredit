@@ -55,7 +55,9 @@ var SetPsd=React.createClass({
 							}
 						})	
 				}
-			})
+			},function(){
+			toast.show("连接错误",2000);
+		})
 			
 			
 			/*let path = {

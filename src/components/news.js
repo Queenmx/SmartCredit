@@ -110,6 +110,8 @@ class News extends Component {
 			}else{
 				
 			}
+		},function(){
+			toast.show("连接错误",2000);
 		})
 
         }
@@ -139,7 +141,9 @@ class News extends Component {
 					toast.show(res.msg,2000);
 				}
 				
-			});
+			},function(){
+			toast.show("连接错误",2000);
+		});
 	
 	}
 	

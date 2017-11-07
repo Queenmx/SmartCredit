@@ -58,6 +58,7 @@ var Login=React.createClass({
 		var that=this;
 		var wayNum=this.state.wayNum;
 		var phoneNum=that.state.phoneNum;
+		
 		if(!(/^1[34578]\d{9}$/.test(phoneNum))){
 /*			this.setState({
 				selecthint:1,
@@ -94,14 +95,20 @@ var Login=React.createClass({
 								localStorage.setItem("isLogin",true);
 								localStorage.setItem("phoneNum",phoneNum);
 								toast.show("登录成功",2000);
-								var path = {
+								window.history.back();
+								/*var path = {
 								  pathname:'/',
 									}
-								hashHistory.push(path);
+								hashHistory.push(path);*/
 							}else{
 								toast.show(res.msg,2000);
 							}
 							
+						},function(){
+							that.setState({
+								flag:false
+							})
+							toast.show("连接错误",2000);
 						})
 						
 						
@@ -128,13 +135,16 @@ var Login=React.createClass({
 									localStorage.setItem("isLogin",true);
 									localStorage.setItem("phoneNum",phoneNum);
 									toast.show("登录成功",2000);
-									var path = {
+									window.history.back();
+									/*var path = {
 									  pathname:'/',
 										}
-									hashHistory.push(path);
+									hashHistory.push(path);*/
 								}else{
 									toast.show(res.msg,2000);
 								}
+							},function(){
+								toast.show("连接错误",2000);
 							})		
 							
 						}else{
@@ -247,6 +257,8 @@ var Login=React.createClass({
 				}else{
 					toast.show(res.msg,2000);
 				}
+			},function(){
+				toast.show("连接错误",2000);
 			})
 	          
 	        }

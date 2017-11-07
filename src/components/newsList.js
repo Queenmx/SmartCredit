@@ -105,37 +105,34 @@ class News extends Component {
 		this.loadData();
 		var banner=[];
 		var mPost=[];
-		/*		api.banner(function(res){
+				api.banner(function(res){
 				//console.log(res);
 				if(res.code=="0000"){
 					var data =strDec(res.data,key1,"","");
 					//console.log(data);
 					const  bannerList=data.list;
-					
-					that.setState({
-		                bannerList: bannerList//轮播图片
-		            },()=>{
-		            	var bannerList=that.state.bannerList;
-		               for (var i in bannerList) {
-			            	banner.push(
-			              	 <div className="swiper-slide" key={i}>
-			              	 	<img src={appBasePath+bannerList[i].img_URL}/>
-			              	 </div>
-			              	 )
-			            };
-			            that.setState({
-			            	banner:banner
-			            })
-				}else{
-					toast.show(res.msg,2000);
-				}
-				
-			});*/
-		
-
-	
-		
-	}
+							that.setState({
+				                bannerList: bannerList//轮播图片
+				            },()=>{
+				            	var bannerList=that.state.bannerList;
+				               for (var i in bannerList) {
+					            	banner.push(
+					              	 <div className="swiper-slide" key={i}>
+					              	 	<img src={appBasePath+bannerList[i].img_URL}/>
+					              	 </div>
+					              	 )
+					            };
+					            that.setState({
+					            	banner:banner
+					            })
+						}else{
+							toast.show(res.msg,2000);
+						}
+						
+					});
+			},function(){
+					toast.show("连接错误",2000);
+				})
 	
 	
 	render(){

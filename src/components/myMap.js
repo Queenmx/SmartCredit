@@ -95,7 +95,9 @@ var MyMap=React.createClass({
             	}else{
             		toast.show(res.msg,2000);
             	}
-			});
+			},function(){
+			toast.show("连接错误",2000);
+		});
 			api.getHotCity(function(res){
 				if(res.code=="0000"){
 					var data = JSON.parse(strDec(res.data,key1,"",""));
@@ -109,7 +111,9 @@ var MyMap=React.createClass({
             	}else{
             		toast.show(res.msg,2000);
             	}
-			});
+			},function(){
+			toast.show("连接错误",2000);
+		});
 	}
 });
 export default MyMap;
