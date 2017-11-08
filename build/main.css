@@ -905,11 +905,15 @@ body {
   flex: 1;
   overflow-x: hidden;
   overflow-y: scroll; }
-  .applyLevel .levelInfo {
-    height: 1rem;
-    position: relative;
-    padding: 0 0.5rem;
+  .applyLevel ul {
+    padding-left: 0.5rem;
+    overflow: hidden;
     background: #FFFFFF; }
+    .applyLevel ul.applyLevelZero {
+      padding: 0 0.5rem; }
+  .applyLevel .levelInfo {
+    line-height: 1rem;
+    position: relative; }
     .applyLevel .levelInfo:after {
       pointer-events: none;
       width: 200%;
@@ -943,6 +947,16 @@ body {
       line-height: 1rem;
       margin-left: 0.1rem;
       font-size: 0.24rem; }
+    .applyLevel .levelInfo .selectValue {
+      height: 0.6rem;
+      line-height: 0.6rem;
+      margin-top: 0.2rem;
+      text-align: right;
+      float: right;
+      border: 0;
+      background: transparent;
+      font-size: 0.24rem;
+      font-style: normal; }
 
 /*# sourceMappingURL=apply.css.map */
 .ellipsis {

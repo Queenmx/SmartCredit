@@ -27,9 +27,17 @@ var IdCard=React.createClass({
         $d = document.querySelector(d),
         file = $c.files[0],
         reader = new FileReader();
-	    reader.readAsDataURL(file);
+	    reader.readAsBinaryString(file,'gb2312');
+	    //reader.readAsDataURL(file);
 	    reader.onload = function(e){
-	    	$d.setAttribute("src", e.target.result);
+	    	// 这个事件在读取结束后，无论成功或者失败都会触发
+			if (reader.error) {
+				console.log(reader.error);
+			} else {
+				$d.setAttribute("src", e.target.result);
+	    		console.log( e.target.result);
+			}
+	    	
     	}
 	},
 	

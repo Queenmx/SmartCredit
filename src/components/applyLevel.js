@@ -11,12 +11,19 @@ var appBasePath=globalData.appBasePath;
 var ApplyLevel=React.createClass({
 	getInitialState:function(){
 		return {
-			checked:true
+			checked:true,
+			activequalifyListArr:[],
+			valSelect:[],
+			activeFont:false,
+			qualifyListArr:[],
+			second:[],
+			third:[]
 		}
 	},
 	
 	componentWillMount:function(){
-		
+		var loanId=this.props.location.state.loanId;
+		this.setState({loanId:loanId});
 	},
 	toBack:function(){
 		const backRouter = this.props.backRouter;
@@ -39,7 +46,7 @@ var ApplyLevel=React.createClass({
 		}
 	},
 	agreeRule:function(event){
-		console.log(event.target.checked);
+		//console.log(event.target.checked);
 		this.setState({
 			checked:event.target.checked
 		})
@@ -47,7 +54,6 @@ var ApplyLevel=React.createClass({
 	
 	render:function(){
 		var that=this;
-		//console.log("cityId",cityId);
         return (
         	<div className="app_Box applyFlow">
       			<div className="header">
@@ -74,8 +80,9 @@ var ApplyLevel=React.createClass({
 					</ul>
 					<div className="applyLevel">
 						<form className="applyLevelForm">
-							<ul>
-								<li className="levelInfo">
+							<ul className="applyLevelZero">
+								{that.state.qualifyListArr}
+								{/*<li className="levelInfo">
 									<label htmlFor="job">职业身份</label>
 									<input type="text" id="job" readOnly="readonly"  placeholder="请选择"/>
 									<ul>
@@ -126,7 +133,7 @@ var ApplyLevel=React.createClass({
 									<input type="text" id="history" readOnly="readonly"  placeholder="请选择"/>
 									<ul>
 									</ul>
-								</li>
+								</li>*/}
 							</ul>
 							
 							
@@ -151,6 +158,88 @@ var ApplyLevel=React.createClass({
 	        	<div className="botBtn footer" onClick={that.toApplyResult}>下一步</div>
         	</div>
         )
+	},
+	selectHandleSecond:function(event){
+		var that=this;
+		var key1 = globalData.key;
+		var toast=globalData.toast;
+		var dictionaryId=event.target.getAttribute("data-dictionaryId");
+		var indexId=event.target.getAttribute("data-indexId")*1;
+		api.dictionary(that.state.loanId,dictionaryId,"",function(res){
+			console.log(res);
+			if(res.code=="0000"){
+				var qualifyList =JSON.parse(strDec(res.data,key1,"",""));
+				console.log(qualifyList);
+				for (var i in qualifyList){
+					that.state.third[indexId].push(<li className="levelInfo levelInfoThird" key={i}>
+						<label htmlFor={i}>{qualifyList[i].name}</label>
+						<i data-dictionaryId={qualifyList[i].dictionaryId} style={{'color':'#333333'}} data-indexId={i} className="selectValue" onClick={that.selectHandleThird}>请选择</i>
+						<ul className="levelInfoThird">
+						</ul>
+					</li>)
+				}
+				that.setState({third:that.state.third})
+			}
+		},function(){
+				toast.show("连接错误",2000);
+		})
+	},
+	
+	selectHandle:function(event){
+		var that=this;
+		var key1 = globalData.key;
+		var toast=globalData.toast;
+		var dictionaryId=event.target.getAttribute("data-dictionaryId");
+		var indexId=event.target.getAttribute("data-indexId")*1;
+		//console.log(dictionaryId);
+		api.dictionary(that.state.loanId,dictionaryId,"",function(res){
+			//console.log(res);
+			if(res.code=="0000"){
+				var qualifyList =JSON.parse(strDec(res.data,key1,"",""));
+				console.log(qualifyList);
+				for (var i in qualifyList){
+					that.state.third.push([]);
+					that.state.second[indexId].push(<li className="levelInfo" key={i}>
+						<label htmlFor={i}>{qualifyList[i].name}</label>
+						<i data-dictionaryId={qualifyList[i].dictionaryId} style={{'color':'#333333'}} data-indexId={i} className="selectValue" onClick={that.selectHandleSecond}>请选择</i>
+						<ul className="levelInfoSecond">
+							{that.state.third[i]}
+						</ul>
+					</li>)
+					
+				}
+				that.setState({second:that.state.second,third:that.state.third})
+			}
+		},function(){
+				toast.show("连接错误",2000);
+		})
+	},
+	componentDidMount:function(){
+		var that=this;
+		var qualifyList=that.props.location.state.qualifyList;
+		//console.log(qualifyList);
+		//var qualifyListArr=[];
+		for (var i in qualifyList){
+			var selectName=qualifyList[i].selectName;
+			if(selectName!=""&&selectName!=null){
+				that.state.activeFont=true;
+			}else{
+				that.state.activeFont=false;
+			}
+			that.state.second.push([]);
+			that.state.valSelect.push(selectName);
+			that.state.qualifyListArr.push(<li className="levelInfo" key={i}>
+				<label htmlFor={i}>{qualifyList[i].dictionaryName}</label>
+				{/*<input type="text" id={i} className="selectValue" readOnly="readonly" name={'val'+i} data-dictionaryId={qualifyList[i].dictionaryId} value={that.state.valSelect[i]} onChange={that.selectHandle} placeholder="请选择"/>*/}
+				<i data-dictionaryId={qualifyList[i].dictionaryId} style={{'color':that.state.activeFont?'#53a6ff':'#333333'}} data-indexId={i}  className="selectValue" onClick={that.selectHandle}>{that.state.valSelect[i]||'请选择'}</i>
+				<ul className="levelInfoFirst">
+					{that.state.second[i]}
+				</ul>
+			</li>)
+			
+		}
+		that.setState({qualifyListArr:that.state.qualifyListArr,valSelect:that.state.valSelect,second:that.state.second});
+		//console.log(that.state.qualifyListArr);
 	}
 });
 
