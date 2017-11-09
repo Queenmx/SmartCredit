@@ -619,7 +619,7 @@ var globalData = {
   //path:"http://test.91ymfq.com/api/h5Service.do",
   path: "http://122.144.133.20:8088",
   //path:"http://tdx.free.ngrok.cc",
-  // path:"http://192.168.1.17:8088",
+  //path:"http://192.168.1.17:8088",
   pathCai: "http://apis.juhe.cn/cook/query.php",
   userId: userId || "",
   requestData: {
@@ -646,7 +646,7 @@ var key1 = _global.globalData.key;
 var userId = _global.globalData.userId;
 //var toast = new Toast();
 console.log(userId);
-console.log(_global.globalData.userId);
+//console.log(globalData.userId);
 //var getNewUser=function(){
 /*var user=localStorage.getItem("user");
   console.log(user);
@@ -773,7 +773,7 @@ module.exports.exit = function (userId, cb1, cb2) {
 //----------------个人中心
 
 //个人信息修改
-module.exports.edit = function (idCard, located, realName, userId, cb1, cb2) {
+module.exports.edit = function (idCard, located, realName, cb1, cb2) {
   var data = _global.globalData.requestData;
   // data.token=token;
   data.idCard = idCard;
@@ -781,6 +781,7 @@ module.exports.edit = function (idCard, located, realName, userId, cb1, cb2) {
   data.realName = realName;
   data.userId = userId;
   var param = JSON.stringify(data);
+  console.log(param);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/user/edit", { params: str }, cb1, cb2);
 };
@@ -825,23 +826,26 @@ module.exports.qualifyListAdd = function (parentId, qualifyName, qualifyNo, sele
 };
 
 //用户个人资质查询
-module.exports.qualifyList = function (parentId, cb1, cb2) {
+module.exports.qualifyList = function (loanId, parentId, cb1, cb2) {
   var data = _global.globalData.requestData;
   // data.token=token;
+  data.loanId = loanId;
   data.parentId = parentId;
   data.userId = userId;
   var param = JSON.stringify(data);
+  // console.log(param);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/user/qualify/list", { params: str }, cb1, cb2);
 };
-
-module.exports.dictionary = function (parentId, typeCode, cb1, cb2) {
+//字典查询
+module.exports.dictionary = function (objId, parentId, typeCode, cb1, cb2) {
   var data = _global.globalData.requestData;
   //data.token=token;
   data.parentId = parentId;
-  data.userId = userId;
+  data.objId = objId;
   data.typeCode = typeCode;
   var param = JSON.stringify(data);
+  // console.log(param);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/dictionary/list", { params: str }, cb1, cb2);
 };
@@ -975,6 +979,19 @@ module.exports.questionList = function (objId, pageNum, pageSize, cb1, cb2) {
   var param = JSON.stringify(data);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/question/list", { params: str }, cb1, cb2);
+};
+//问题列表
+
+module.exports.questionAdd = function (content, objId, objType, cb1, cb2) {
+  var data = _global.globalData.requestData;
+  // data.token=token;
+  data.objId = objId;
+  data.content = content;
+  data.objType = objType;
+  data.userId = userId;
+  var param = JSON.stringify(data);
+  var str = strEnc(param, key1);
+  http(_global.globalData.path + "/zndai/question/add", { params: str }, cb1, cb2);
 };
 
 //收藏——————————————————————————
@@ -18390,7 +18407,12 @@ var Login = _react2.default.createClass({
 								localStorage.setItem("user", data);
 								localStorage.setItem("isLogin", true);
 								localStorage.setItem("phoneNum", phoneNum);
+								setTimeout(function () {
+									location.reload();
+								}, 1000);
+
 								toast.show("登录成功", 2000);
+								//location.reload();
 								window.history.back();
 								/*var path = {
           pathname:'/',
@@ -18428,6 +18450,8 @@ var Login = _react2.default.createClass({
 									localStorage.setItem("isLogin", true);
 									localStorage.setItem("phoneNum", phoneNum);
 									toast.show("登录成功", 2000);
+									//location.reload();
+
 									window.history.back();
 									/*var path = {
            pathname:'/',
@@ -33048,12 +33072,12 @@ var Home = _react2.default.createClass({
   	}
   })*/
 
-		_api2.default.loanList(1, 5, "SBZ", function (res) {
+		_api2.default.loanList(1, 5, "", function (res) {
 			if (res.code == "0000") {
 				var data = JSON.parse(strDec(res.data, key1, "", ""));
 				//var data=res.data;
 				var loanList = data.list;
-				//console.log(data);
+				console.log(data);
 				var arr = [];
 				for (var i in loanList) {
 					arr.push(_react2.default.createElement(
@@ -35096,22 +35120,36 @@ var ListDetail = _react2.default.createClass({
 			    loanId = _that$state.loanId,
 			    value1 = _that$state.value1;
 
-			_api2.default.applyLoan(value2, limitType, loanId, value1 * 100, function (res) {
-				console.log(res);
-				if (res.code == "0000") {
-					var data = res.data;
-					var data = JSON.parse(strDec(res.data, key1, "", ""));
-					console.log(data);
-					var data = { loanId: loanId };
-					var path = {
-						pathname: '/ApplyInfo',
-						query: data
-					};
-					_reactRouter.hashHistory.push(path);
+			var data = {
+				loanId: loanId,
+				applyQuery: {
+					limitDay: value2,
+					limitType: limitType,
+					loanId: loanId,
+					money: value1
 				}
-			}, function () {
-				toast.show("连接错误", 2000);
-			});
+			};
+			var path = {
+				pathname: '/ApplyInfo',
+				state: data
+			};
+			_reactRouter.hashHistory.push(path);
+			/*api.applyLoan(value2,limitType,loanId,value1*100,function(res){
+   	console.log(res);
+   	if(res.code=="0000"){
+   		var data=res.data;
+   		var data =JSON.parse(strDec(res.data,key1,"",""));
+   		console.log(data);
+   		var data = {loanId:loanId};
+   		var path = {
+   		  pathname:'/ApplyInfo',
+   		  query:data,
+   		}
+   		hashHistory.push(path);
+   	}
+   },function(){
+   toast.show("连接错误",2000);
+   })*/
 		} else {
 			var path = {
 				//pathname:'/Login/listDetail?loanId='+loanId,
@@ -35126,6 +35164,20 @@ var ListDetail = _react2.default.createClass({
 		var key1 = _global.globalData.key;
 		var toast = _global.globalData.toast;
 		var loanId = that.props.location.query.loanId;
+		/*var content="啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦";
+  
+  api.questionAdd(content,loanId,"LOAN",function(res){
+  	console.log(res);
+  	if(res.code=="0000"){
+  		var data=res.data;
+  		var data =JSON.parse(strDec(res.data,key1,"",""));
+  		console.log(data);
+  	}
+  },function(){
+  	toast.show("连接错误",2000);
+  })
+  */
+
 		_api2.default.loanDetail(loanId, function (res) {
 			//console.log(res);
 			if (res.code == "0000") {
@@ -36051,34 +36103,71 @@ var ApplyInfo = _react2.default.createClass({
 	},
 
 	componentWillMount: function componentWillMount() {
-		var applyNumber = localStorage.getItem("phoneNum");
-		this.setState({ applyNumber: applyNumber });
-	},
-	toApplyLevel: function toApplyLevel() {
-		//var applyName=$("#applyName").val().trim();
-		//var applyNumber=$("#applyNumber").val().trim();
-		var applyName = this.state.applyName;
-		var applyNumber = this.state.applyNumber;
-		var loanId = this.props.location.query.loanId;
-		//console.log(loanId);
-		if (applyName.length > 0) {
-			var data = { applyNumber: applyNumber, applyName: applyName, loanId: loanId };
+		var userStr = localStorage.getItem("user");
+		if (!userStr) {
 			var path = {
-				pathname: '/ApplyLevel',
-				state: data
+				pathname: '/Login'
 			};
 			_reactRouter.hashHistory.push(path);
-			/*if(!(/^1[34578]\d{9}$/.test(applyNumber))){
-            toast.show("请输入正确格式的手机号码",2000);
-   }else{
-   	var data = {applyNumber:applyNumber,applyName:applyName};
-   	var path = {
-   	  pathname:'/ApplyLevel',
-   	  state:data,
-   	}
-   	hashHistory.push(path);
-   
-   }*/
+		}
+		var user = JSON.parse(userStr); //必须登录才能看到本页面
+		var located = localStorage.getItem("dingwei") || "";
+		var realName = user.realName,
+		    phone = user.phone,
+		    idCard = user.idCard;
+
+		this.setState({ applyName: realName, applyNumber: phone, realName: realName, located: located, user: user });
+	},
+	toApplyLevel: function toApplyLevel() {
+		var key1 = _global.globalData.key;
+		var toast = _global.globalData.toast;
+		var that = this;
+		//var applyName=$("#applyName").val().trim();
+		//var applyNumber=$("#applyNumber").val().trim();
+		//console.log(this.props.location.state);
+		var loanId = that.props.location.state.loanId;
+		var applyQuery = that.props.location.state.applyQuery;
+		var _that$state = that.state,
+		    realName = _that$state.realName,
+		    applyName = _that$state.applyName,
+		    applyNumber = _that$state.applyNumber,
+		    located = _that$state.located,
+		    user = _that$state.user;
+		//console.log(loanId);
+		//console.log(user);
+
+		if (applyName.length > 0) {
+			if (!realName) {
+				//修改名字
+				_api2.default.edit(user.idCard, located, realName, function (res) {
+					console.log(res);
+					if (res.code == "0000") {
+						//修改信息成功
+						var userObj = { realName: realName, located: located, idCard: user.idCard, certLevel: user.certLevel, phone: user.phone, userName: user.userName, token: user.token, headPic: user.headPic, userId: user.userId };
+						localStorage.setItem("user", JSON.stringify(userObj));
+						//console.log(res.data);
+					}
+				}, function () {
+					toast.show("连接错误", 2000);
+				});
+			}
+			//获取资质列表
+			_api2.default.qualifyList(loanId, "095c2c011ef740508bf27785e0ffe8f1", function (res) {
+				console.log(res);
+				if (res.code == "0000") {
+					var data = JSON.parse(strDec(res.data, key1, "", ""));
+					//var qualifyList=data.qualifyList;
+					//console.log(data);
+					var queryData = { applyNumber: applyNumber, applyName: applyName, loanId: loanId, applyQuery: applyQuery, qualifyList: data };
+					var path = {
+						pathname: '/ApplyLevel',
+						state: queryData
+					};
+					_reactRouter.hashHistory.push(path);
+				}
+			}, function () {
+				toast.show("连接错误", 2000);
+			});
 		} else {
 			toast.show("请输入姓名", 2000);
 		}
@@ -36094,9 +36183,14 @@ var ApplyInfo = _react2.default.createClass({
 	},
 	applyNumberHandle: function applyNumberHandle() {},
 	applyNameHandle: function applyNameHandle(event) {
-		this.setState({
-			applyName: event.target.value
-		});
+
+		if (this.state.realName) {
+			console.log("you");
+		} else {
+			this.setState({
+				applyName: event.target.value
+			});
+		}
 	},
 	render: function render() {
 		var that = this;
@@ -36182,7 +36276,7 @@ var ApplyInfo = _react2.default.createClass({
 							null,
 							'\u59D3\u540D'
 						),
-						_react2.default.createElement('input', { type: 'text', id: 'applyName', onChange: that.applyNameHandle, placeholder: '\u8BF7\u8F93\u5165\u59D3\u540D' })
+						_react2.default.createElement('input', { type: 'text', id: 'applyName', onChange: that.applyNameHandle, value: that.state.applyName, placeholder: '\u8BF7\u8F93\u5165\u59D3\u540D' })
 					),
 					_react2.default.createElement(
 						'div',
@@ -36261,11 +36355,20 @@ var ApplyLevel = _react2.default.createClass({
 
 	getInitialState: function getInitialState() {
 		return {
-			checked: true
+			checked: true,
+			activequalifyListArr: [],
+			valSelect: [],
+			activeFont: false,
+			qualifyListArr: [],
+			second: [],
+			third: []
 		};
 	},
 
-	componentWillMount: function componentWillMount() {},
+	componentWillMount: function componentWillMount() {
+		var loanId = this.props.location.state.loanId;
+		this.setState({ loanId: loanId });
+	},
 	toBack: function toBack() {
 		var backRouter = this.props.backRouter;
 		if (backRouter) {
@@ -36287,7 +36390,7 @@ var ApplyLevel = _react2.default.createClass({
 		}
 	},
 	agreeRule: function agreeRule(event) {
-		console.log(event.target.checked);
+		//console.log(event.target.checked);
 		this.setState({
 			checked: event.target.checked
 		});
@@ -36295,7 +36398,6 @@ var ApplyLevel = _react2.default.createClass({
 
 	render: function render() {
 		var that = this;
-		//console.log("cityId",cityId);
 		return _react2.default.createElement(
 			'div',
 			{ className: 'app_Box applyFlow' },
@@ -36373,100 +36475,8 @@ var ApplyLevel = _react2.default.createClass({
 						{ className: 'applyLevelForm' },
 						_react2.default.createElement(
 							'ul',
-							null,
-							_react2.default.createElement(
-								'li',
-								{ className: 'levelInfo' },
-								_react2.default.createElement(
-									'label',
-									{ htmlFor: 'job' },
-									'\u804C\u4E1A\u8EAB\u4EFD'
-								),
-								_react2.default.createElement('input', { type: 'text', id: 'job', readOnly: 'readonly', placeholder: '\u8BF7\u9009\u62E9' }),
-								_react2.default.createElement('ul', null)
-							),
-							_react2.default.createElement(
-								'li',
-								{ className: 'levelInfo' },
-								_react2.default.createElement(
-									'label',
-									{ htmlFor: 'publicMoney' },
-									'\u662F\u5426\u6709\u672C\u5730\u516C\u79EF\u91D1'
-								),
-								_react2.default.createElement('input', { type: 'text', id: 'publicMoney', readOnly: 'readonly', placeholder: '\u8BF7\u9009\u62E9' }),
-								_react2.default.createElement('ul', null)
-							),
-							_react2.default.createElement(
-								'li',
-								{ className: 'levelInfo' },
-								_react2.default.createElement(
-									'label',
-									{ htmlFor: 'social' },
-									'\u662F\u5426\u6709\u672C\u5730\u793E\u4FDD'
-								),
-								_react2.default.createElement('input', { type: 'text', id: 'social', readOnly: 'readonly', placeholder: '\u8BF7\u9009\u62E9' }),
-								_react2.default.createElement('ul', null)
-							),
-							_react2.default.createElement(
-								'li',
-								{ className: 'levelInfo' },
-								_react2.default.createElement(
-									'label',
-									{ htmlFor: 'house' },
-									'\u540D\u4E0B\u623F\u4EA7\u7C7B\u578B'
-								),
-								_react2.default.createElement('input', { type: 'text', id: 'house', readOnly: 'readonly', placeholder: '\u8BF7\u9009\u62E9' }),
-								_react2.default.createElement('ul', null)
-							),
-							_react2.default.createElement(
-								'li',
-								{ className: 'levelInfo' },
-								_react2.default.createElement(
-									'label',
-									{ htmlFor: 'car' },
-									'\u540D\u4E0B\u662F\u5426\u6709\u8F66'
-								),
-								_react2.default.createElement('input', { type: 'text', id: 'car', readOnly: 'readonly', placeholder: '\u8BF7\u9009\u62E9' }),
-								_react2.default.createElement('ul', null)
-							),
-							_react2.default.createElement(
-								'li',
-								{ className: 'levelInfo' },
-								_react2.default.createElement(
-									'label',
-									{ htmlFor: 'credit' },
-									'\u4F60\u7684\u4FE1\u7528\u60C5\u51B5'
-								),
-								_react2.default.createElement('input', { type: 'text', id: 'credit', readOnly: 'readonly', placeholder: '\u8BF7\u9009\u62E9' }),
-								_react2.default.createElement('ul', null)
-							),
-							_react2.default.createElement(
-								'li',
-								{ className: 'levelInfo' },
-								_react2.default.createElement(
-									'label',
-									{ htmlFor: 'age' },
-									'\u5E74\u9F84'
-								),
-								_react2.default.createElement(
-									'span',
-									null,
-									'\u5C81'
-								),
-								_react2.default.createElement('input', { type: 'text', id: 'age', placeholder: '\u8BF7\u8F93\u5165\u5185\u5BB9' }),
-								_react2.default.createElement('ul', null)
-							),
-							_react2.default.createElement(
-								'li',
-								{ className: 'levelInfo' },
-								_react2.default.createElement(
-									'label',
-									{ htmlFor: 'history' },
-									'\u662F\u5426\u7533\u8BF7\u8FC7\u6377\u4FE1\u5206\u671F\u4ED8\u6B3E'
-								),
-								_react2.default.createElement('input', { type: 'text', id: 'history', readOnly: 'readonly', placeholder: '\u8BF7\u9009\u62E9' }),
-								_react2.default.createElement('ul', null)
-							)
+							{ className: 'applyLevelZero' },
+							that.state.qualifyListArr
 						)
 					),
 					_react2.default.createElement(
@@ -36496,6 +36506,118 @@ var ApplyLevel = _react2.default.createClass({
 				'\u4E0B\u4E00\u6B65'
 			)
 		);
+	},
+	selectHandleSecond: function selectHandleSecond(event) {
+		var that = this;
+		var key1 = _global.globalData.key;
+		var toast = _global.globalData.toast;
+		var dictionaryId = event.target.getAttribute("data-dictionaryId");
+		var indexId = event.target.getAttribute("data-indexId") * 1;
+		_api2.default.dictionary(that.state.loanId, dictionaryId, "", function (res) {
+			console.log(res);
+			if (res.code == "0000") {
+				var qualifyList = JSON.parse(strDec(res.data, key1, "", ""));
+				console.log(qualifyList);
+				for (var i in qualifyList) {
+					that.state.third[indexId].push(_react2.default.createElement(
+						'li',
+						{ className: 'levelInfo levelInfoThird', key: i },
+						_react2.default.createElement(
+							'label',
+							{ htmlFor: i },
+							qualifyList[i].name
+						),
+						_react2.default.createElement(
+							'i',
+							{ 'data-dictionaryId': qualifyList[i].dictionaryId, style: { 'color': '#333333' }, 'data-indexId': i, className: 'selectValue', onClick: that.selectHandleThird },
+							'\u8BF7\u9009\u62E9'
+						),
+						_react2.default.createElement('ul', { className: 'levelInfoThird' })
+					));
+				}
+				that.setState({ third: that.state.third });
+			}
+		}, function () {
+			toast.show("连接错误", 2000);
+		});
+	},
+
+	selectHandle: function selectHandle(event) {
+		var that = this;
+		var key1 = _global.globalData.key;
+		var toast = _global.globalData.toast;
+		var dictionaryId = event.target.getAttribute("data-dictionaryId");
+		var indexId = event.target.getAttribute("data-indexId") * 1;
+		//console.log(dictionaryId);
+		_api2.default.dictionary(that.state.loanId, dictionaryId, "", function (res) {
+			//console.log(res);
+			if (res.code == "0000") {
+				var qualifyList = JSON.parse(strDec(res.data, key1, "", ""));
+				console.log(qualifyList);
+				for (var i in qualifyList) {
+					that.state.third.push([]);
+					that.state.second[indexId].push(_react2.default.createElement(
+						'li',
+						{ className: 'levelInfo', key: i },
+						_react2.default.createElement(
+							'label',
+							{ htmlFor: i },
+							qualifyList[i].name
+						),
+						_react2.default.createElement(
+							'i',
+							{ 'data-dictionaryId': qualifyList[i].dictionaryId, style: { 'color': '#333333' }, 'data-indexId': i, className: 'selectValue', onClick: that.selectHandleSecond },
+							'\u8BF7\u9009\u62E9'
+						),
+						_react2.default.createElement(
+							'ul',
+							{ className: 'levelInfoSecond' },
+							that.state.third[i]
+						)
+					));
+				}
+				that.setState({ second: that.state.second, third: that.state.third });
+			}
+		}, function () {
+			toast.show("连接错误", 2000);
+		});
+	},
+	componentDidMount: function componentDidMount() {
+		var that = this;
+		var qualifyList = that.props.location.state.qualifyList;
+		//console.log(qualifyList);
+		//var qualifyListArr=[];
+		for (var i in qualifyList) {
+			var selectName = qualifyList[i].selectName;
+			if (selectName != "" && selectName != null) {
+				that.state.activeFont = true;
+			} else {
+				that.state.activeFont = false;
+			}
+			that.state.second.push([]);
+			that.state.valSelect.push(selectName);
+			that.state.qualifyListArr.push(_react2.default.createElement(
+				'li',
+				{ className: 'levelInfo', key: i },
+				_react2.default.createElement(
+					'label',
+					{ htmlFor: i },
+					qualifyList[i].dictionaryName
+				),
+				_react2.default.createElement(
+					'i',
+					{ 'data-dictionaryId': qualifyList[i].dictionaryId, style: { 'color': that.state.activeFont ? '#53a6ff' : '#333333' }, 'data-indexId': i, className: 'selectValue', onClick: that.selectHandle },
+					that.state.valSelect[i] || '请选择'
+				),
+				_react2.default.createElement(
+					'ul',
+					{ className: 'levelInfoFirst' },
+					that.state.second[i]
+				)
+			));
+		}
+		that.setState({ qualifyListArr: that.state.qualifyListArr, valSelect: that.state.valSelect, second: that.state.second });
+		//console.log(that.state.qualifyListArr);
 	}
 });
 
@@ -36894,9 +37016,16 @@ var IdCard = _react2.default.createClass({
 		    $d = document.querySelector(d),
 		    file = $c.files[0],
 		    reader = new FileReader();
-		reader.readAsDataURL(file);
+		reader.readAsBinaryString(file, 'gb2312');
+		//reader.readAsDataURL(file);
 		reader.onload = function (e) {
-			$d.setAttribute("src", e.target.result);
+			// 这个事件在读取结束后，无论成功或者失败都会触发
+			if (reader.error) {
+				console.log(reader.error);
+			} else {
+				$d.setAttribute("src", e.target.result);
+				console.log(e.target.result);
+			}
 		};
 	},
 

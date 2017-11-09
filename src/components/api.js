@@ -5,7 +5,7 @@ var key1 = globalData.key;
 var userId=globalData.userId;
 //var toast = new Toast();
 console.log(userId);
-console.log(globalData.userId);
+//console.log(globalData.userId);
 //var getNewUser=function(){
 	/*var user=localStorage.getItem("user");
    console.log(user);
@@ -134,7 +134,7 @@ module.exports.exit=function(userId,cb1,cb2){
 //----------------个人中心
 
 //个人信息修改
-module.exports.edit=function(idCard,located,realName,userId,cb1,cb2){ 
+module.exports.edit=function(idCard,located,realName,cb1,cb2){ 
     var data=globalData.requestData;
    // data.token=token;
     data.idCard=idCard;
@@ -142,6 +142,7 @@ module.exports.edit=function(idCard,located,realName,userId,cb1,cb2){
     data.realName=realName;
     data.userId=userId;
     var param=JSON.stringify(data);
+    	console.log(param);
     var str = strEnc(param,key1);
   	http(`${globalData.path}/zndai/user/edit`,{params:str},cb1,cb2);
 }
@@ -186,23 +187,26 @@ module.exports.qualifyListAdd=function(parentId,qualifyName,qualifyNo,selectName
 }
 
 //用户个人资质查询
-module.exports.qualifyList=function(parentId,cb1,cb2){ 
+module.exports.qualifyList=function(loanId,parentId,cb1,cb2){ 
     var data=globalData.requestData;
    // data.token=token;
+   data.loanId=loanId;
     data.parentId=parentId;
     data.userId=userId;
     var param=JSON.stringify(data);
+   // console.log(param);
     var str = strEnc(param,key1);
   	http(`${globalData.path}/zndai/user/qualify/list`,{params:str},cb1,cb2);
 }
-
-module.exports.dictionary=function(parentId,typeCode,cb1,cb2){ 
+//字典查询
+module.exports.dictionary=function(objId,parentId,typeCode,cb1,cb2){ 
     var data=globalData.requestData;
     //data.token=token;
     data.parentId=parentId;
-    data.userId=userId;
+    data.objId=objId;
     data.typeCode=typeCode;
     var param=JSON.stringify(data);
+   // console.log(param);
     var str = strEnc(param,key1);
   	http(`${globalData.path}/zndai/dictionary/list`,{params:str},cb1,cb2);
 }
@@ -343,6 +347,20 @@ module.exports.questionList=function(objId,pageNum,pageSize,cb1,cb2){
     var str = strEnc(param,key1);
   	http(`${globalData.path}/zndai/question/list`,{params:str},cb1,cb2);
 }
+//问题列表
+
+module.exports.questionAdd=function(content,objId,objType,cb1,cb2){ 
+    var data=globalData.requestData;
+   // data.token=token;
+    data.objId=objId;
+    data.content=content;
+    data.objType=objType;
+    data.userId=userId;
+    var param=JSON.stringify(data);
+    var str = strEnc(param,key1);
+  	http(`${globalData.path}/zndai/question/add`,{params:str},cb1,cb2);
+}
+
 
 //收藏——————————————————————————
 //添加收藏

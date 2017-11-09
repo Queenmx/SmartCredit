@@ -18,34 +18,62 @@ var ApplyInfo=React.createClass({
 	},
 	
 	componentWillMount:function(){
-		var applyNumber=localStorage.getItem("phoneNum");
-		this.setState({applyNumber:applyNumber});
+		var userStr=localStorage.getItem("user");
+		if(!userStr){
+			var path = {
+			  pathname:'/Login',
+			}
+			hashHistory.push(path);
+		}
+		var user=JSON.parse(userStr);//必须登录才能看到本页面
+		var located=localStorage.getItem("dingwei")||"";
+		var {realName,phone,idCard}=user;
+		this.setState({applyName:realName,applyNumber:phone,realName:realName,located:located,user:user});
 	},
 	toApplyLevel:function(){
+		var key1 = globalData.key;
+		var toast=globalData.toast;
+		var that=this;
 		//var applyName=$("#applyName").val().trim();
 		//var applyNumber=$("#applyNumber").val().trim();
-		var applyName=this.state.applyName;
-		var applyNumber=this.state.applyNumber;
-		var loanId=this.props.location.query.loanId;
+		//console.log(this.props.location.state);
+		var loanId=that.props.location.state.loanId;
+		var applyQuery=that.props.location.state.applyQuery;
+		var {realName,applyName,applyNumber,located,user}=that.state;
 		//console.log(loanId);
+		//console.log(user);
 		if(applyName.length>0){
-			var data = {applyNumber:applyNumber,applyName:applyName,loanId:loanId};
-				var path = {
-				  pathname:'/ApplyLevel',
-				  state:data,
+			if(!realName){//修改名字
+				api.edit(user.idCard,located,realName,function(res){
+					console.log(res);
+					if(res.code=="0000"){
+						//修改信息成功
+						var userObj={realName:realName,located:located,idCard:user.idCard,certLevel:user.certLevel,phone:user.phone,userName:user.userName,token:user.token,headPic:user.headPic,userId:user.userId}
+						localStorage.setItem("user",JSON.stringify(userObj));
+						//console.log(res.data);
+					}
+				},function(){
+					toast.show("连接错误",2000);
+				})
+			}
+			//获取资质列表
+			api.qualifyList(loanId,"095c2c011ef740508bf27785e0ffe8f1",function(res){
+				console.log(res);
+				if(res.code=="0000"){
+					var data =JSON.parse(strDec(res.data,key1,"",""));
+					//var qualifyList=data.qualifyList;
+					//console.log(data);
+					var queryData = {applyNumber:applyNumber,applyName:applyName,loanId:loanId,applyQuery:applyQuery,qualifyList:data};
+					var path = {
+					  pathname:'/ApplyLevel',
+					  state:queryData,
+					}
+					hashHistory.push(path);
 				}
-				hashHistory.push(path);
-			/*if(!(/^1[34578]\d{9}$/.test(applyNumber))){
-	           toast.show("请输入正确格式的手机号码",2000);
-			}else{
-				var data = {applyNumber:applyNumber,applyName:applyName};
-				var path = {
-				  pathname:'/ApplyLevel',
-				  state:data,
-				}
-				hashHistory.push(path);
-			
-			}*/
+				
+			},function(){
+				toast.show("连接错误",2000);
+			})
 		}else{
 			toast.show("请输入姓名",2000);
 		}
@@ -67,9 +95,15 @@ var ApplyInfo=React.createClass({
 	applyNumberHandle:function(){
 	},
 	applyNameHandle:function(event){
-		this.setState({
-			applyName:event.target.value
-		})
+		
+		if(this.state.realName){
+			console.log("you")
+		}else{
+			this.setState({
+				applyName:event.target.value
+			})
+		}
+		
 	},
 	render:function(){
 		var that=this;
@@ -102,7 +136,7 @@ var ApplyInfo=React.createClass({
 					<form className="applyInfo">
 						<div>
 							<span>姓名</span>
-							<input type="text" id="applyName" onChange={that.applyNameHandle} placeholder="请输入姓名"/>
+							<input type="text" id="applyName" onChange={that.applyNameHandle} value={that.state.applyName} placeholder="请输入姓名"/>
 						</div>
 						<div>
 							<span>手机号</span>

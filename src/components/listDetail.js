@@ -83,7 +83,21 @@ var ListDetail=React.createClass({
 		var userId=globalData.userId;
 		if(userId){
 			const {value2,limitType,loanId,value1}=that.state;
-			api.applyLoan(value2,limitType,loanId,value1*100,function(res){
+			var data = {
+					loanId:loanId,
+					applyQuery:{
+						limitDay:value2,
+						limitType:limitType,
+						loanId:loanId,
+						money:value1
+						}
+				};
+					var path = {
+					  pathname:'/ApplyInfo',
+					  state:data,
+					}
+					hashHistory.push(path);
+			/*api.applyLoan(value2,limitType,loanId,value1*100,function(res){
 				console.log(res);
 				if(res.code=="0000"){
 					var data=res.data;
@@ -98,7 +112,7 @@ var ListDetail=React.createClass({
 				}
 			},function(){
 			toast.show("连接错误",2000);
-		})
+		})*/
 			
 		  
 		}else{
@@ -116,6 +130,20 @@ var ListDetail=React.createClass({
 		var key1 = globalData.key;
 		var toast=globalData.toast;
 		var loanId=that.props.location.query.loanId;
+		/*var content="啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦";
+		
+		api.questionAdd(content,loanId,"LOAN",function(res){
+			console.log(res);
+			if(res.code=="0000"){
+				var data=res.data;
+				var data =JSON.parse(strDec(res.data,key1,"",""));
+				console.log(data);
+			}
+		},function(){
+			toast.show("连接错误",2000);
+		})
+		*/
+		
 		api.loanDetail(loanId,function(res){
 			//console.log(res);
 			if(res.code=="0000"){

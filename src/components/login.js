@@ -94,7 +94,12 @@ var Login=React.createClass({
 								localStorage.setItem("user",data);
 								localStorage.setItem("isLogin",true);
 								localStorage.setItem("phoneNum",phoneNum);
+								setTimeout(function(){
+									location.reload();
+								},1000);
+								
 								toast.show("登录成功",2000);
+								//location.reload();
 								window.history.back();
 								/*var path = {
 								  pathname:'/',
@@ -135,6 +140,8 @@ var Login=React.createClass({
 									localStorage.setItem("isLogin",true);
 									localStorage.setItem("phoneNum",phoneNum);
 									toast.show("登录成功",2000);
+									//location.reload();
+									
 									window.history.back();
 									/*var path = {
 									  pathname:'/',

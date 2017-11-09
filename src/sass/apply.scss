@@ -66,6 +66,7 @@
                text-align: right;
                border: 0;
            }
+           
        } 
     }
     
@@ -147,11 +148,17 @@
         @include flex_1;
         overflow-x:hidden ;
         overflow-y:scroll ;
-        .levelInfo{
-            height: 1rem;
-            @include border_Bot;
-            padding: 0 0.5rem;
+        ul{
+            padding-left: 0.5rem;
+            &.applyLevelZero{
+                padding: 0 0.5rem;
+            }
+            overflow: hidden;
             background: #FFFFFF;
+        }
+        .levelInfo{
+            line-height: 1rem;
+            @include border_Bot;
             label{
                  line-height: 1rem;
                 color: #333333;
@@ -174,6 +181,19 @@
                 margin-left: 0.1rem;
                 font-size: 0.24rem;
             }
+            .selectValue{
+                 height: 0.6rem;
+                line-height: 0.6rem;
+                margin-top:0.2rem ;
+                text-align: right;
+                float: right;
+                border: 0;
+                background: transparent;
+                font-size: 0.24rem;
+                //color: #333333;
+               font-style: normal;
+           }
+           
         }
         
     }

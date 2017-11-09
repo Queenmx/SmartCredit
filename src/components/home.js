@@ -99,12 +99,12 @@ var Home=React.createClass({
 			}
 		})*/
 		
-		api.loanList(1,5,"SBZ",function(res){
+		api.loanList(1,5,"",function(res){
 			if(res.code=="0000"){
 				var data =JSON.parse(strDec(res.data,key1,"",""));
 				//var data=res.data;
 				var loanList=data.list;
-				//console.log(data);
+				console.log(data);
 				var arr=[];
 				for(var i in loanList){
 					arr.push(<div className="capitalList" key={i}>
