@@ -649,15 +649,15 @@ console.log(userId);
 //console.log(globalData.userId);
 //var getNewUser=function(){
 /*var user=localStorage.getItem("user");
-  console.log(user);
-  if(user){
-  	var userObj=JSON.parse(user);
-  	var userId=userObj.userId;
-  	var token=userObj.token;
-  }else{
-  	var userId="";
-  	var token="";
-  }*/
+console.log(user);
+if(user){
+      var userObj=JSON.parse(user);
+      var userId=userObj.userId;
+      var token=userObj.token;
+}else{
+      var userId="";
+      var token="";
+}*/
 //}
 //getNewUser();
 //module.exports.getNewUser;
@@ -679,371 +679,371 @@ console.log(userId);
 */
 //标签
 module.exports.tag = function (type, cb1, cb2) {
-  //getNewUser();
-  var data = _global.globalData.requestData;
-  //data.token=token;
-  data.tagType = "LOAN";
-  data.type = type; //BQ 标签 FL 分类
-  var param = JSON.stringify(data);
-  console.log(param);
-  var str = strEnc(param, key1);
-  // console.log(str);
-  http(_global.globalData.path + "/zndai/tag/list", { params: str }, cb1, cb2);
+    //getNewUser();
+    var data = _global.globalData.requestData;
+    //data.token=token;
+    data.tagType = "LOAN";
+    data.type = type; //BQ 标签 FL 分类
+    var param = JSON.stringify(data);
+    console.log(param);
+    var str = strEnc(param, key1);
+    // console.log(str);
+    http(_global.globalData.path + "/zndai/tag/list", { params: str }, cb1, cb2);
 };
 
 //获取城市列表
 module.exports.getCityList = function (cb1, cb2) {
-  var data = _global.globalData.requestData;
-  //data.token=token;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/city/list", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    //data.token=token;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/city/list", { params: str }, cb1, cb2);
 };
 
 //热门城市
 module.exports.getHotCity = function (cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/city/hot", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/city/hot", { params: str }, cb1, cb2);
 };
 
 //登录
 module.exports.login = function (loginType, phone, pwd, verifyCode, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.loginType = loginType;
-  data.phone = phone;
-  data.pwd = pwd; //login_type为PWD时必填
-  data.type = "C";
-  data.verifyCode = verifyCode; //	login_type为CODE时必填
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/user/login", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.loginType = loginType;
+    data.phone = phone;
+    data.pwd = pwd; //login_type为PWD时必填
+    data.type = "C";
+    data.verifyCode = verifyCode; //	login_type为CODE时必填
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/login", { params: str }, cb1, cb2);
 };
 
 //注册
 module.exports.register = function (phone, pwd, verifyCode, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.phone = phone;
-  data.pwd = pwd;
-  data.type = "C";
-  data.verifyCode = verifyCode;
-  console.log(data);
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/user/add", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.phone = phone;
+    data.pwd = pwd;
+    data.type = "C";
+    data.verifyCode = verifyCode;
+    console.log(data);
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/add", { params: str }, cb1, cb2);
 };
 
 //忘记密码，重置密码
 module.exports.forgot = function (phone, pwd, verifyCode, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.phone = phone;
-  data.pwd = pwd;
-  data.verifyCode = verifyCode;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/user/pwd/forgot", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.phone = phone;
+    data.pwd = pwd;
+    data.verifyCode = verifyCode;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/pwd/forgot", { params: str }, cb1, cb2);
 };
 
 //发送手机验证码
 module.exports.verifyCode = function (phone, type, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.phone = phone;
-  data.type = "REG"; //REG 注册 ，FPWD忘记密码
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  console.log(data);
-  http(_global.globalData.path + "/zndai/user/verifyCode", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.phone = phone;
+    data.type = "REG"; //REG 注册 ，FPWD忘记密码
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    console.log(data);
+    http(_global.globalData.path + "/zndai/user/verifyCode", { params: str }, cb1, cb2);
 };
 //退出
 module.exports.exit = function (userId, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/user/exit", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/exit", { params: str }, cb1, cb2);
 };
 
 //----------------个人中心
 
 //个人信息修改
 module.exports.edit = function (idCard, located, realName, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.idCard = idCard;
-  data.located = located;
-  data.realName = realName;
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  console.log(param);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/user/edit", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.idCard = idCard;
+    data.located = located;
+    data.realName = realName;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    console.log(param);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/edit", { params: str }, cb1, cb2);
 };
 
 //个人信息查询
 module.exports.userInfo = function (userId, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  //data.token=token;
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/user/userInfo", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    //data.token=token;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/userInfo", { params: str }, cb1, cb2);
 };
 
 //修改密码
 module.exports.userInfo = function (newPwd, oldPwd, userId, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  //  data.token=token;
-  data.newPwd = newPwd;
-  data.oldPwd = oldPwd;
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/user/pwd/edit", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    //  data.token=token;
+    data.newPwd = newPwd;
+    data.oldPwd = oldPwd;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/pwd/edit", { params: str }, cb1, cb2);
 };
 
 //用户个人资质保存
 
 module.exports.qualifyListAdd = function (parentId, qualifyName, qualifyNo, selectName, userId, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.qualifyList = {
-    parentId: parentId,
-    qualifyName: qualifyName,
-    qualifyNo: qualifyNo,
-    selectName: selectName
-  };
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/user/qualify/add", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.qualifyList = {
+        parentId: parentId,
+        qualifyName: qualifyName,
+        qualifyNo: qualifyNo,
+        selectName: selectName
+    };
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/qualify/add", { params: str }, cb1, cb2);
 };
 
 //用户个人资质查询
 module.exports.qualifyList = function (loanId, parentId, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.loanId = loanId;
-  data.parentId = parentId;
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  // console.log(param);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/user/qualify/list", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.loanId = loanId;
+    data.parentId = parentId;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    // console.log(param);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/qualify/list", { params: str }, cb1, cb2);
 };
 //字典查询
 module.exports.dictionary = function (objId, parentId, typeCode, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  //data.token=token;
-  data.parentId = parentId;
-  data.objId = objId;
-  data.typeCode = typeCode;
-  var param = JSON.stringify(data);
-  // console.log(param);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/dictionary/list", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    //data.token=token;
+    data.parentId = parentId;
+    data.objId = objId;
+    data.typeCode = typeCode;
+    var param = JSON.stringify(data);
+    // console.log(param);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/dictionary/list", { params: str }, cb1, cb2);
 };
 
 //用户头像上传
 module.exports.userHead = function (headPic, userId, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/user/userHead", { params: str, headPic: headPic }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/userHead", { params: str, headPic: headPic }, cb1, cb2);
 };
 
 //身份认证
 module.exports.identityUserCert = function (backPic, frontPic, userId, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/user/identityUserCert", { params: str, backPic: backPic, frontPic: frontPic }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/user/identityUserCert", { params: str, backPic: backPic, frontPic: frontPic }, cb1, cb2);
 };
 
 //-------------------资讯
 
 //banner
 module.exports.banner = function (cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/banner/list", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/banner/list", { params: str }, cb1, cb2);
 };
 
 //资讯列表
 module.exports.articleList = function (pageNum, pageSize, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  //data.token=token;
-  data.pageNum = pageNum;
-  data.pageSize = pageSize;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/article/list", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    //data.token=token;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/article/list", { params: str }, cb1, cb2);
 };
 
 //资讯详情
 module.exports.articleDetail = function (articleId, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  //data.token=token;
-  data.articleId = articleId;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/article/detail", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    //data.token=token;
+    data.articleId = articleId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/article/detail", { params: str }, cb1, cb2);
 };
 
 //---------------------贷款产品
 //精准贷
 //列表
 module.exports.loanList = function (pageNum, pageSize, tag, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  //data.token=token;
-  data.pageNum = pageNum;
-  data.pageSize = pageSize;
-  data.tag = tag;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  //console.log(param);
-  http(_global.globalData.path + "/zndai/loan/list", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    //data.token=token;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    data.tag = tag;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    //console.log(param);
+    http(_global.globalData.path + "/zndai/loan/list", { params: str }, cb1, cb2);
 };
 //详情
 module.exports.loanDetail = function (loanId, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.loanId = loanId;
-  data.userId = _global.globalData.userId;
-  var param = JSON.stringify(data);
-  // console.log(param)
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/loan/detail", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.loanId = loanId;
+    data.userId = _global.globalData.userId;
+    var param = JSON.stringify(data);
+    // console.log(param)
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/loan/detail", { params: str }, cb1, cb2);
 };
 //申请贷款
 
 module.exports.applyLoan = function (limitDay, limitType, loanId, money, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  //data.token=token;
-  data.limitDay = limitDay;
-  data.limitType = limitType;
-  data.loanId = loanId;
-  data.money = money;
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  console.log(param);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/loan/apply/add", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    //data.token=token;
+    data.limitDay = limitDay;
+    data.limitType = limitType;
+    data.loanId = loanId;
+    data.money = money;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    console.log(param);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/loan/apply/add", { params: str }, cb1, cb2);
 };
 
 //------------------------问题
 
 //提交反馈
 module.exports.feedBackAdd = function (content, userId, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.content = content;
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/feedBack/add", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.content = content;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/feedBack/add", { params: str }, cb1, cb2);
 };
 
 //我要提问
 module.exports.questionAdd = function (content, objId, objType, userId, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.content = content;
-  data.objId = objId;
-  data.objType = objType;
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/question/add", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.content = content;
+    data.objId = objId;
+    data.objType = objType;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/question/add", { params: str }, cb1, cb2);
 };
 
 //问题列表
 module.exports.questionList = function (objId, pageNum, pageSize, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.objId = objId;
-  data.pageNum = pageNum;
-  data.pageSize = pageSize;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/question/list", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.objId = objId;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/question/list", { params: str }, cb1, cb2);
 };
 //问题列表
 
 module.exports.questionAdd = function (content, objId, objType, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.objId = objId;
-  data.content = content;
-  data.objType = objType;
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/question/add", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.objId = objId;
+    data.content = content;
+    data.objType = objType;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/question/add", { params: str }, cb1, cb2);
 };
 
 //收藏——————————————————————————
 //添加收藏
 module.exports.save = function (objId, objType, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.objId = objId;
-  data.objType = objType; //ARTICLE   LOAN 
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  console.log(param);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/mark/add", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.objId = objId;
+    data.objType = objType; //ARTICLE   LOAN 
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    console.log(param);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/mark/add", { params: str }, cb1, cb2);
 };
 //取消收藏
 module.exports.delSave = function (markIds, objType, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.markIds = markIds;
-  data.objType = objType; //ARTICLE   LOAN 
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  console.log(param);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/mark/del", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.markIds = markIds;
+    data.objType = objType; //ARTICLE   LOAN 
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    console.log(param);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/mark/del", { params: str }, cb1, cb2);
 };
 
 //收藏贷款列表
 module.exports.saveLoan = function (pageNum, pageSize, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.pageNum = pageNum;
-  data.pageSize = pageSize;
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  console.log(param);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/mark/loan/list", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    console.log(param);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/mark/loan/list", { params: str }, cb1, cb2);
 };
 
 //收藏贷款列表
 
 module.exports.saveArticle = function (pageNum, pageSize, cb1, cb2) {
-  var data = _global.globalData.requestData;
-  // data.token=token;
-  data.pageNum = pageNum;
-  data.pageSize = pageSize;
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
-  http(_global.globalData.path + "/zndai/mark/article/list", { params: str }, cb1, cb2);
+    var data = _global.globalData.requestData;
+    // data.token=token;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(_global.globalData.path + "/zndai/mark/article/list", { params: str }, cb1, cb2);
 };
 
 /*module.exports.queryBanner=function(cb){ 
@@ -1083,6 +1083,25 @@ module.exports.saveArticle = function (pageNum, pageSize, cb1, cb2) {
     var queryData = base64encode(des(key,utf16to8(param),1,0, iv, 1));
   	http(`${globalData.path}`,queryData,cb);
 }*/
+/**
+ * 功能描述：我的订单
+ * 函数名：orderList
+ * @param {String} pageNum
+ * @param {String} pageSize
+ * @param {String} tag
+ * ACTION
+ */
+module.exports.orderList = function (pageNum, pageSize, tag, cb1, cb2) {
+    var data = _global.globalData.requestData;
+    //data.token=token;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    data.tag = tag;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    //console.log(param);
+    http(_global.globalData.path + "/zndai/loan/apply/list/c", { params: str }, cb1, cb2);
+};
 
 /***/ }),
 /* 9 */
@@ -32946,7 +32965,7 @@ var replaceLocation = exports.replaceLocation = function replaceLocation(locatio
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 var _react = __webpack_require__(2);
@@ -32987,316 +33006,316 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var appBasePath = _global.globalData.appBasePath;
 var Home = _react2.default.createClass({
-	displayName: 'Home',
+    displayName: 'Home',
 
-	getInitialState: function getInitialState() {
-		return {
-			activeTab: 1,
-			isLoading: false,
-			activeIndex: 0,
-			pageNum: 1,
-			pageSize: 10,
-			list: []
-		};
-	},
+    getInitialState: function getInitialState() {
+        return {
+            activeTab: 1,
+            isLoading: false,
+            activeIndex: 0,
+            pageNum: 1,
+            pageSize: 10,
+            list: []
+        };
+    },
 
-	componentWillMount: function componentWillMount() {},
-	toListDetail: function toListDetail(event) {
-		var loanId = event.target.getAttribute("data-loanId");
-		var data = { loanId: loanId };
-		var path = {
-			pathname: '/ListDetail',
-			query: data
-		};
-		_reactRouter.hashHistory.push(path);
-	},
+    componentWillMount: function componentWillMount() {},
+    toListDetail: function toListDetail(event) {
+        var loanId = event.target.getAttribute("data-loanId");
+        var data = { loanId: loanId };
+        var path = {
+            pathname: '/ListDetail',
+            query: data
+        };
+        _reactRouter.hashHistory.push(path);
+    },
 
-	logoError: function logoError(event) {
-		event.target.src = "src/img/icon/capitalLogo.jpg";
-		event.target.onerror = null; //控制不要一直跳动 
-		//console.log(event.target.src);
-	},
+    logoError: function logoError(event) {
+        event.target.src = "src/img/icon/capitalLogo.jpg";
+        event.target.onerror = null; //控制不要一直跳动 
+        //console.log(event.target.src);
+    },
 
-	toList: function toList(event) {
-		var tag = event.currentTarget.getAttribute("data-tag");
-		var txt = event.currentTarget.getAttribute("data-txt");
-		var data = { tag: tag, txt: txt };
-		var path = {
-			pathname: '/List',
-			state: data
-		};
-		_reactRouter.hashHistory.push(path);
-	},
+    toList: function toList(event) {
+        var tag = event.currentTarget.getAttribute("data-tag");
+        var txt = event.currentTarget.getAttribute("data-txt");
+        var data = { tag: tag, txt: txt };
+        var path = {
+            pathname: '/List',
+            state: data
+        };
+        _reactRouter.hashHistory.push(path);
+    },
 
-	toNewsDetail: function toNewsDetail(event) {
-		var articleId = event.currentTarget.getAttribute("data-articleid");
-		console.log(articleId);
-		var data = { articleId: articleId };
-		var path = {
-			pathname: '/NewsDetail',
-			query: data
-		};
-		_reactRouter.hashHistory.push(path);
-	},
+    toNewsDetail: function toNewsDetail(event) {
+        var articleId = event.currentTarget.getAttribute("data-articleid");
+        console.log(articleId);
+        var data = { articleId: articleId };
+        var path = {
+            pathname: '/NewsDetail',
+            query: data
+        };
+        _reactRouter.hashHistory.push(path);
+    },
 
-	componentDidMount: function componentDidMount() {
-		var key1 = _global.globalData.key;
-		var toast = _global.globalData.toast;
-		var that = this;
+    componentDidMount: function componentDidMount() {
+        var key1 = _global.globalData.key;
+        var toast = _global.globalData.toast;
+        var that = this;
 
-		_api2.default.tag("BQ", function (res) {
-			console.log(res);
-			if (res.code == "0000") {
-				var data = JSON.parse(strDec(res.data, key1, "", ""));
-				console.log(data);
-			}
-		}, function () {
-			toast.show("连接错误", 2000);
-		});
-		//"095c2c011ef740508bf27785e0ffe8f1"
-		/*api.qualifyListAdd(parentId,qualifyName,qualifyNo,selectName,userId,function(){
-  	
-  })*/
-		/*api.qualifyList("",function(res){
-  	//console.log(res);
-  	if(res.code=="0000"){
-  		var data =JSON.parse(strDec(res.data,key1,"",""));
-  		console.log(data);
-  	}
-  })
-  api.dictionary("","",function(res){
-  	//console.log(res);
-  	if(res.code=="0000"){
-  		var data =JSON.parse(strDec(res.data,key1,"",""));
-  		console.log(data);
-  	}
-  })*/
+        _api2.default.tag("BQ", function (res) {
+            console.log(res);
+            if (res.code == "0000") {
+                var data = JSON.parse(strDec(res.data, key1, "", ""));
+                console.log(data);
+            }
+        }, function () {
+            toast.show("连接错误", 2000);
+        });
+        //"095c2c011ef740508bf27785e0ffe8f1"
+        /*api.qualifyListAdd(parentId,qualifyName,qualifyNo,selectName,userId,function(){
+        	
+        })*/
+        /*api.qualifyList("",function(res){
+        	//console.log(res);
+        	if(res.code=="0000"){
+        		var data =JSON.parse(strDec(res.data,key1,"",""));
+        		console.log(data);
+        	}
+        })
+        api.dictionary("","",function(res){
+        	//console.log(res);
+        	if(res.code=="0000"){
+        		var data =JSON.parse(strDec(res.data,key1,"",""));
+        		console.log(data);
+        	}
+        })*/
 
-		_api2.default.loanList(1, 5, "", function (res) {
-			if (res.code == "0000") {
-				var data = JSON.parse(strDec(res.data, key1, "", ""));
-				//var data=res.data;
-				var loanList = data.list;
-				console.log(data);
-				var arr = [];
-				for (var i in loanList) {
-					arr.push(_react2.default.createElement(
-						'div',
-						{ className: 'capitalList', key: i },
-						_react2.default.createElement(
-							'h3',
-							null,
-							_react2.default.createElement('img', { src: loanList[i].logo, onError: that.logoError }),
-							_react2.default.createElement(
-								'span',
-								null,
-								loanList[i].loanName
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'capitalInfo' },
-							_react2.default.createElement(
-								'div',
-								{ className: 'limit' },
-								_react2.default.createElement(
-									'h2',
-									null,
-									loanList[i].moneyMin,
-									'~',
-									loanList[i].moneyMax
-								),
-								_react2.default.createElement(
-									'p',
-									null,
-									'\u989D\u5EA6\u8303\u56F4(\u5143)'
-								)
-							),
-							_react2.default.createElement(
-								'ul',
-								{ className: 'special' },
-								_react2.default.createElement(
-									'li',
-									null,
-									loanList[i].loanTime,
-									'\u5C0F\u65F6\u653E\u6B3E'
-								),
-								_react2.default.createElement(
-									'li',
-									null,
-									'\u65E5\u8D39\u7387',
-									loanList[i].rate,
-									'%'
-								),
-								_react2.default.createElement(
-									'li',
-									null,
-									'\u8D37\u6B3E\u671F\u9650',
-									loanList[i].limitMin,
-									'-',
-									loanList[i].limitMax,
-									'\u5929'
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'apply' },
-								_react2.default.createElement(
-									'a',
-									{ href: 'javascript:;', 'data-loanId': loanList[i].loanId, onClick: that.toListDetail },
-									'\u7533\u8BF7\u8D37\u6B3E'
-								)
-							)
-						)
-					));
-				}
+        _api2.default.loanList(1, 5, "", function (res) {
+            if (res.code == "0000") {
+                var data = JSON.parse(strDec(res.data, key1, "", ""));
+                //var data=res.data;
+                var loanList = data.list;
+                console.log(data);
+                var arr = [];
+                for (var i in loanList) {
+                    arr.push(_react2.default.createElement(
+                        'div',
+                        { className: 'capitalList', key: i },
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            _react2.default.createElement('img', { src: loanList[i].logo, onError: that.logoError }),
+                            _react2.default.createElement(
+                                'span',
+                                null,
+                                loanList[i].loanName
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'capitalInfo' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'limit' },
+                                _react2.default.createElement(
+                                    'h2',
+                                    null,
+                                    loanList[i].moneyMin,
+                                    '~',
+                                    loanList[i].moneyMax
+                                ),
+                                _react2.default.createElement(
+                                    'p',
+                                    null,
+                                    '\u989D\u5EA6\u8303\u56F4(\u5143)'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'ul',
+                                { className: 'special' },
+                                _react2.default.createElement(
+                                    'li',
+                                    null,
+                                    loanList[i].loanTime,
+                                    '\u5C0F\u65F6\u653E\u6B3E'
+                                ),
+                                _react2.default.createElement(
+                                    'li',
+                                    null,
+                                    '\u65E5\u8D39\u7387',
+                                    loanList[i].rate,
+                                    '%'
+                                ),
+                                _react2.default.createElement(
+                                    'li',
+                                    null,
+                                    '\u8D37\u6B3E\u671F\u9650',
+                                    loanList[i].limitMin,
+                                    '-',
+                                    loanList[i].limitMax,
+                                    '\u5929'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'apply' },
+                                _react2.default.createElement(
+                                    'a',
+                                    { href: 'javascript:;', 'data-loanId': loanList[i].loanId, onClick: that.toListDetail },
+                                    '\u7533\u8BF7\u8D37\u6B3E'
+                                )
+                            )
+                        )
+                    ));
+                }
 
-				that.setState({
-					list: arr
-				});
-			}
-		}, function () {
-			toast.show("连接错误", 2000);
-		});
+                that.setState({
+                    list: arr
+                });
+            }
+        }, function () {
+            toast.show("连接错误", 2000);
+        });
 
-		_api2.default.articleList(1, 3, function (res) {
-			//console.log(res);
-			if (res.code == "0000") {
-				var data = JSON.parse(strDec(res.data, key1, "", ""));
-				//var data =JSON.parse(res.data);
-				//console.log(data);
-				var articleList = data.list;
-				var articleArr = [];
-				for (var i in articleList) {
-					articleArr.push(_react2.default.createElement(
-						'dl',
-						{ className: 'newsList', 'data-articleid': articleList[i].articleId, key: Math.random(), onClick: that.toNewsDetail },
-						_react2.default.createElement(
-							'dd',
-							null,
-							_react2.default.createElement(
-								'h4',
-								null,
-								articleList[i].articleTitle
-							),
-							_react2.default.createElement(
-								'p',
-								null,
-								_react2.default.createElement(
-									'span',
-									null,
-									articleList[i].addTime
-								),
-								' ',
-								_react2.default.createElement(
-									'span',
-									null,
-									articleList[i].readerNum,
-									'\u9605\u8BFB'
-								)
-							)
-						),
-						_react2.default.createElement(
-							'dt',
-							null,
-							_react2.default.createElement('img', { src: articleList[i].imgUrl, onError: that.logoError })
-						)
-					));
-				}
-				that.setState({
-					articleArr: articleArr
-				});
-			} else {}
-		}, function () {
-			toast.show("连接错误", 2000);
-		});
-	},
+        _api2.default.articleList(1, 3, function (res) {
+            //console.log(res);
+            if (res.code == "0000") {
+                var data = JSON.parse(strDec(res.data, key1, "", ""));
+                //var data =JSON.parse(res.data);
+                //console.log(data);
+                var articleList = data.list;
+                var articleArr = [];
+                for (var i in articleList) {
+                    articleArr.push(_react2.default.createElement(
+                        'dl',
+                        { className: 'newsList', 'data-articleid': articleList[i].articleId, key: Math.random(), onClick: that.toNewsDetail },
+                        _react2.default.createElement(
+                            'dd',
+                            null,
+                            _react2.default.createElement(
+                                'h4',
+                                null,
+                                articleList[i].articleTitle
+                            ),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                _react2.default.createElement(
+                                    'span',
+                                    null,
+                                    articleList[i].addTime
+                                ),
+                                ' ',
+                                _react2.default.createElement(
+                                    'span',
+                                    null,
+                                    articleList[i].readerNum,
+                                    '\u9605\u8BFB'
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'dt',
+                            null,
+                            _react2.default.createElement('img', { src: articleList[i].imgUrl, onError: that.logoError })
+                        )
+                    ));
+                }
+                that.setState({
+                    articleArr: articleArr
+                });
+            } else {}
+        }, function () {
+            toast.show("连接错误", 2000);
+        });
+    },
 
-	render: function render() {
-		var that = this;
-		var curCity = that.props.location.query.cityId;
+    render: function render() {
+        var that = this;
+        var curCity = that.props.location.query.cityId;
 
-		return _react2.default.createElement(
-			'div',
-			{ className: 'app_Box home' },
-			_react2.default.createElement(_homeHeader2.default, { curCity: curCity }),
-			_react2.default.createElement(
-				'div',
-				{ className: 'content' },
-				_react2.default.createElement(
-					'ul',
-					{ className: 'homeTab' },
-					_react2.default.createElement(
-						'li',
-						{ 'data-tag': 'SBZ', 'data-txt': '\u4E0A\u73ED\u65CF', onClick: that.toList },
-						_react2.default.createElement('img', { src: 'src/img/icon/group.png' }),
-						_react2.default.createElement(
-							'p',
-							null,
-							'\u4E0A\u73ED\u65CF'
-						)
-					),
-					_react2.default.createElement(
-						'li',
-						{ 'data-tag': 'GTH', 'data-txt': '\u4E2A\u4F53\u6237', onClick: that.toList },
-						_react2.default.createElement('img', { src: 'src/img/icon/personal.png' }),
-						_react2.default.createElement(
-							'p',
-							null,
-							'\u4E2A\u4F53\u6237'
-						)
-					),
-					_react2.default.createElement(
-						'li',
-						{ 'data-tag': 'QY', 'data-txt': '\u4F01\u4E1A\u4E3B', onClick: that.toList },
-						_react2.default.createElement('img', { src: 'src/img/icon/qiye.png' }),
-						_react2.default.createElement(
-							'p',
-							null,
-							'\u4F01\u4E1A\u4E3B'
-						)
-					),
-					_react2.default.createElement(
-						'li',
-						{ 'data-tag': 'ZYZY', 'data-txt': '\u81EA\u7531\u804C\u4E1A', onClick: that.toList },
-						_react2.default.createElement('img', { src: 'src/img/icon/ziyou.png' }),
-						_react2.default.createElement(
-							'p',
-							null,
-							'\u81EA\u7531\u804C\u4E1A'
-						)
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'capitalBox' },
-					that.state.list
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'newsBox' },
-					_react2.default.createElement(
-						'h3',
-						null,
-						'\u4F60\u5173\u5FC3\u7684\u8D44\u8BAF'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						that.state.articleArr
-					),
-					_react2.default.createElement(
-						_reactRouter.Link,
-						{ to: '/news', className: 'linkNews' },
-						'\u5168\u90E8\u70ED\u95E8\u8D44\u8BAF',
-						_react2.default.createElement('img', { src: '' })
-					)
-				),
-				_react2.default.createElement(_loading2.default, { flag: that.state.isLoading })
-			),
-			_react2.default.createElement(_footer2.default, { activeIndex: '0' })
-		);
-	}
+        return _react2.default.createElement(
+            'div',
+            { className: 'app_Box home' },
+            _react2.default.createElement(_homeHeader2.default, { curCity: curCity }),
+            _react2.default.createElement(
+                'div',
+                { className: 'content' },
+                _react2.default.createElement(
+                    'ul',
+                    { className: 'homeTab' },
+                    _react2.default.createElement(
+                        'li',
+                        { 'data-tag': 'SBZ', 'data-txt': '\u4E0A\u73ED\u65CF', onClick: that.toList },
+                        _react2.default.createElement('img', { src: 'src/img/icon/group.png' }),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            '\u4E0A\u73ED\u65CF'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        { 'data-tag': 'GTH', 'data-txt': '\u4E2A\u4F53\u6237', onClick: that.toList },
+                        _react2.default.createElement('img', { src: 'src/img/icon/personal.png' }),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            '\u4E2A\u4F53\u6237'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        { 'data-tag': 'QY', 'data-txt': '\u4F01\u4E1A\u4E3B', onClick: that.toList },
+                        _react2.default.createElement('img', { src: 'src/img/icon/qiye.png' }),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            '\u4F01\u4E1A\u4E3B'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        { 'data-tag': 'ZYZY', 'data-txt': '\u81EA\u7531\u804C\u4E1A', onClick: that.toList },
+                        _react2.default.createElement('img', { src: 'src/img/icon/ziyou.png' }),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            '\u81EA\u7531\u804C\u4E1A'
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'capitalBox' },
+                    that.state.list
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'newsBox' },
+                    _react2.default.createElement(
+                        'h3',
+                        null,
+                        '\u4F60\u5173\u5FC3\u7684\u8D44\u8BAF'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        that.state.articleArr
+                    ),
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        { to: '/news', className: 'linkNews' },
+                        '\u5168\u90E8\u70ED\u95E8\u8D44\u8BAF',
+                        _react2.default.createElement('img', { src: '' })
+                    )
+                ),
+                _react2.default.createElement(_loading2.default, { flag: that.state.isLoading })
+            ),
+            _react2.default.createElement(_footer2.default, { activeIndex: '0' })
+        );
+    }
 });
 
 exports.default = Home;
@@ -33831,7 +33850,7 @@ exports.default = News;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 var _react = __webpack_require__(2);
@@ -33868,230 +33887,241 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var appBasePath = _global.globalData.appBasePath;
 var Mine = _react2.default.createClass({
-	displayName: 'Mine',
+    displayName: 'Mine',
 
-	getInitialState: function getInitialState() {
-		return {
-			activeTab: 1,
-			isShow: false,
-			activeIndex: 2
-			//dataStatus: 0
-		};
-	},
+    getInitialState: function getInitialState() {
+        return {
+            activeTab: 1,
+            isShow: false,
+            activeIndex: 2
+            //dataStatus: 0
+        };
+    },
 
-	componentDidMount: function componentDidMount() {
-		//console.log(this.props.location.query.price);
-	},
-	componentWillMount: function componentWillMount() {
-		var that = this;
-		var user = localStorage.getItem("user");
-		if (user) {
-			//已登陆
-			var userObj = JSON.parse(user);
-			that.setState({
-				user: userObj
-			});
-		} else {
-			that.setState({
-				user: {
-					certLevel: "",
-					headPic: "",
-					idCard: "",
-					located: "",
-					phone: "",
-					realName: "",
-					token: "",
-					userId: "",
-					userName: "未登录"
-				}
-			});
-		}
-	},
-
-	goLogin: function goLogin() {
-		var isLogin = localStorage.getItem("isLogin");
-		if (isLogin) {
-			var path = {
-				pathname: '/UserInfo'
-				//query:data,
-			};
-			_reactRouter.hashHistory.push(path);
-		} else {
-			var path = {
-				pathname: '/Login/Mine'
-				//query:data,
-			};
-			_reactRouter.hashHistory.push(path);
-		}
-	},
-	toSave: function toSave() {
-		var path = {
-			pathname: '/Save'
-			//query:data,
-		};
-		_reactRouter.hashHistory.push(path);
-	},
-	toOrder: function toOrder() {
-		var path = {
-			pathname: '/Order'
-		};
-		_reactRouter.hashHistory.push(path);
-	},
-	toHelp: function toHelp() {
-		var path = {
-			pathname: '/Help'
-		};
-		_reactRouter.hashHistory.push(path);
-	},
-	toIdCard: function toIdCard() {
-		var path = {
-			pathname: '/IdCard'
-		};
-		_reactRouter.hashHistory.push(path);
-	},
-	toPersonalLevel: function toPersonalLevel() {
-		var path = {
-			pathname: '/PersonalLevel'
-		};
-		_reactRouter.hashHistory.push(path);
-	},
-	imgError: function imgError(e) {
-		e.target.src = "src/img/icon/header.png";
-		e.target.onerror = null; //控制不要一直跳动 
-	},
-	render: function render() {
-		var that = this;
-		var userObj = that.state.user;
-		return _react2.default.createElement(
-			'div',
-			{ className: 'app_Box mine' },
-			_react2.default.createElement(
-				'div',
-				{ className: 'mineContent content' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'userHeader', onClick: that.goLogin },
-					_react2.default.createElement(
-						'div',
-						{ className: 'userImg' },
-						_react2.default.createElement('img', { src: userObj.headPic, onError: that.imgError })
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'userInfo' },
-						_react2.default.createElement(
-							'p',
-							null,
-							userObj.userName
-						),
-						_react2.default.createElement(
-							'span',
-							null,
-							userObj.idCard == "" ? "未认证" : "已认证"
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'goLogin' },
-						_react2.default.createElement('img', { src: 'src/img/icon/go.png' })
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'creditLevel' },
-					_react2.default.createElement(
-						'p',
-						null,
-						'\u6211\u7684\u4FE1\u7528\u7B49\u7EA7:',
-						_react2.default.createElement(
-							'b',
-							null,
-							userObj.certLevel
-						)
-					),
-					_react2.default.createElement(
-						'span',
-						null,
-						'\u53BB\u63D0\u5347,5000\u8F7B\u677E\u62FF',
-						_react2.default.createElement('img', { src: 'src/img/icon/right.png' })
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'userOrder' },
-					_react2.default.createElement(
-						'ul',
-						null,
-						_react2.default.createElement(
-							'li',
-							{ onClick: that.toOrder },
-							_react2.default.createElement('img', { src: 'src/img/icon/order.png' }),
-							_react2.default.createElement(
-								'p',
-								null,
-								'\u5168\u90E8\u8BA2\u5355'
-							)
-						),
-						_react2.default.createElement(
-							'li',
-							{ onClick: that.toPersonalLevel },
-							_react2.default.createElement('img', { src: 'src/img/icon/personLevel.png' }),
-							_react2.default.createElement(
-								'p',
-								null,
-								'\u4E2A\u4EBA\u8D44\u8D28'
-							)
-						),
-						_react2.default.createElement(
-							'li',
-							{ onClick: that.toIdCard },
-							_react2.default.createElement('img', { src: 'src/img/icon/id.png' }),
-							_react2.default.createElement(
-								'p',
-								null,
-								'\u8EAB\u4EFD\u8BC1\u8BA4\u8BC1'
-							)
-						)
-					),
-					_react2.default.createElement(
-						'ul',
-						null,
-						_react2.default.createElement(
-							'li',
-							{ onClick: that.toSave },
-							_react2.default.createElement('img', { src: 'src/img/icon/sc.png' }),
-							_react2.default.createElement(
-								'p',
-								null,
-								'\u6211\u7684\u6536\u85CF'
-							)
-						),
-						_react2.default.createElement(
-							'li',
-							{ onClick: that.toHelp },
-							_react2.default.createElement('img', { src: 'src/img/icon/bz.png' }),
-							_react2.default.createElement(
-								'p',
-								null,
-								'\u5E2E\u52A9\u4E0E\u53CD\u9988'
-							)
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'toSet' },
-						_react2.default.createElement(
-							_reactRouter.Link,
-							{ to: '/Set' },
-							'\u8BBE\u7F6E'
-						)
-					)
-				)
-			),
-			_react2.default.createElement(_footer2.default, { activeIndex: '2' })
-		);
-	},
-	componentDidUpdate: function componentDidUpdate() {}
+    componentDidMount: function componentDidMount() {
+        //console.log(this.props.location.query.price);
+    },
+    componentWillMount: function componentWillMount() {
+        var that = this;
+        var user = localStorage.getItem("user");
+        if (user) {
+            //已登陆
+            var userObj = JSON.parse(user);
+            that.setState({
+                user: userObj
+            });
+        } else {
+            that.setState({
+                user: {
+                    certLevel: "",
+                    headPic: "",
+                    idCard: "",
+                    located: "",
+                    phone: "",
+                    realName: "",
+                    token: "",
+                    userId: "",
+                    userName: "未登录"
+                }
+            });
+        }
+    },
+    goLogin: function goLogin() {
+        var isLogin = localStorage.getItem("isLogin");
+        if (isLogin) {
+            var path = {
+                pathname: '/UserInfo'
+                //query:data,
+            };
+            _reactRouter.hashHistory.push(path);
+        } else {
+            var path = {
+                pathname: '/Login/Mine'
+                //query:data,
+            };
+            _reactRouter.hashHistory.push(path);
+        }
+    },
+    toSave: function toSave() {
+        var path = {
+            pathname: '/Save'
+            //query:data,
+        };
+        _reactRouter.hashHistory.push(path);
+    },
+    toOrder: function toOrder() {
+        // var path = {
+        //     pathname: '/Order',
+        // }
+        // hashHistory.push(path);
+        var that = this;
+        var user = localStorage.getItem("user");
+        if (user) {
+            var path = {
+                pathname: '/Order'
+            };
+        } else {
+            var path = {
+                pathname: '/Login'
+            };
+        }
+        _reactRouter.hashHistory.push(path);
+    },
+    toHelp: function toHelp() {
+        var path = {
+            pathname: '/Help'
+        };
+        _reactRouter.hashHistory.push(path);
+    },
+    toIdCard: function toIdCard() {
+        var path = {
+            pathname: '/IdCard'
+        };
+        _reactRouter.hashHistory.push(path);
+    },
+    toPersonalLevel: function toPersonalLevel() {
+        var path = {
+            pathname: '/PersonalLevel'
+        };
+        _reactRouter.hashHistory.push(path);
+    },
+    imgError: function imgError(e) {
+        e.target.src = "src/img/icon/header.png";
+        e.target.onerror = null; //控制不要一直跳动 
+    },
+    render: function render() {
+        var that = this;
+        var userObj = that.state.user;
+        return _react2.default.createElement(
+            'div',
+            { className: 'app_Box mine' },
+            _react2.default.createElement(
+                'div',
+                { className: 'mineContent content' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'userHeader', onClick: that.goLogin },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'userImg' },
+                        _react2.default.createElement('img', { src: userObj.headPic, onError: that.imgError })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'userInfo' },
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            userObj.userName
+                        ),
+                        _react2.default.createElement(
+                            'span',
+                            null,
+                            userObj.idCard == "" ? "未认证" : "已认证"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'goLogin' },
+                        _react2.default.createElement('img', { src: 'src/img/icon/go.png' })
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'creditLevel' },
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        '\u6211\u7684\u4FE1\u7528\u7B49\u7EA7:',
+                        _react2.default.createElement(
+                            'b',
+                            null,
+                            userObj.certLevel
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'span',
+                        null,
+                        '\u53BB\u63D0\u5347,5000\u8F7B\u677E\u62FF',
+                        _react2.default.createElement('img', { src: 'src/img/icon/right.png' })
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'userOrder' },
+                    _react2.default.createElement(
+                        'ul',
+                        null,
+                        _react2.default.createElement(
+                            'li',
+                            { onClick: that.toOrder },
+                            _react2.default.createElement('img', { src: 'src/img/icon/order.png' }),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                '\u5168\u90E8\u8BA2\u5355'
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'li',
+                            { onClick: that.toPersonalLevel },
+                            _react2.default.createElement('img', { src: 'src/img/icon/personLevel.png' }),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                '\u4E2A\u4EBA\u8D44\u8D28'
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'li',
+                            { onClick: that.toIdCard },
+                            _react2.default.createElement('img', { src: 'src/img/icon/id.png' }),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                '\u8EAB\u4EFD\u8BC1\u8BA4\u8BC1'
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'ul',
+                        null,
+                        _react2.default.createElement(
+                            'li',
+                            { onClick: that.toSave },
+                            _react2.default.createElement('img', { src: 'src/img/icon/sc.png' }),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                '\u6211\u7684\u6536\u85CF'
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'li',
+                            { onClick: that.toHelp },
+                            _react2.default.createElement('img', { src: 'src/img/icon/bz.png' }),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                '\u5E2E\u52A9\u4E0E\u53CD\u9988'
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'toSet' },
+                        _react2.default.createElement(
+                            _reactRouter.Link,
+                            { to: '/Set' },
+                            '\u8BBE\u7F6E'
+                        )
+                    )
+                )
+            ),
+            _react2.default.createElement(_footer2.default, { activeIndex: '2' })
+        );
+    },
+    componentDidUpdate: function componentDidUpdate() {}
 });
 
 exports.default = Mine;
@@ -34941,7 +34971,7 @@ exports.default = Save;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 var _react = __webpack_require__(2);
@@ -34972,31 +35002,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var appBasePath = _global.globalData.appBasePath;
 var List = _react2.default.createClass({
-	displayName: 'List',
+    displayName: 'List',
 
-	getInitialState: function getInitialState() {
-		return {
-			activeTab: 1,
-			isShow: false,
-			activeIndex: 0
-		};
-	},
+    getInitialState: function getInitialState() {
+        return {
+            activeTab: 1,
+            isShow: false,
+            activeIndex: 0
+        };
+    },
 
-	render: function render() {
-		var that = this;
-		var title = that.props.location.state.txt;
-		var tag = that.props.location.state.tag;
-		return _react2.default.createElement(
-			'div',
-			{ className: 'app_Box home' },
-			_react2.default.createElement(_header2.default, { title: title }),
-			_react2.default.createElement(
-				'div',
-				{ className: 'content' },
-				_react2.default.createElement(_proList2.default, { scollFlag: 'true', tag: tag })
-			)
-		);
-	}
+    render: function render() {
+        var that = this;
+        var title = that.props.location.state.txt;
+        var tag = that.props.location.state.tag;
+        return _react2.default.createElement(
+            'div',
+            { className: 'app_Box home' },
+            _react2.default.createElement(_header2.default, { title: title }),
+            _react2.default.createElement(
+                'div',
+                { className: 'content' },
+                _react2.default.createElement(_proList2.default, { scollFlag: 'true', tag: tag })
+            )
+        );
+    }
 });
 
 exports.default = List;
@@ -35763,6 +35793,10 @@ var _header = __webpack_require__(10);
 
 var _header2 = _interopRequireDefault(_header);
 
+var _loading = __webpack_require__(124);
+
+var _loading2 = _interopRequireDefault(_loading);
+
 var _reactRouter = __webpack_require__(6);
 
 __webpack_require__(279);
@@ -35774,31 +35808,38 @@ var Order = _react2.default.createClass({
 
     getInitialState: function getInitialState() {
         return {
-            //btnActive: 0 
+            //btnActive: 0,
+            isLoading: false,
+            pageNum: 1,
+            pageSize: 10,
+            list: []
         };
     },
     toCancel: function toCancel(e) {
         e.target.style.backgroundColor = e.target.style.backgroundColor === "grey" ? "#53a6ff" : "grey";
     },
-    render: function render() {
+    componentDidMount: function componentDidMount() {
+        var key1 = _global.globalData.key;
+        var toast = _global.globalData.toast;
         var that = this;
-        return _react2.default.createElement(
-            'div',
-            { className: 'app_Box orderList' },
-            _react2.default.createElement(_header2.default, { title: '\u6211\u7684\u8BA2\u5355' }),
-            _react2.default.createElement(
-                'div',
-                { className: 'orderCon content' },
-                _react2.default.createElement(
-                    'ul',
-                    null,
-                    _react2.default.createElement(
+        _api2.default.orderList(1, 5, "", function (res) {
+            if (res.code == "0000") {
+                var data = JSON.parse(strDec(res.data, key1, "", "") || []);
+                var orderList = data.list;
+                console.log(data);
+                var arr = [];
+                for (var i in orderList) {
+                    arr.push(_react2.default.createElement(
                         'li',
-                        null,
+                        { key: i },
                         _react2.default.createElement(
                             'div',
                             { className: 'orderNum' },
-                            '\u8BA2\u5355\u53F7\uFF1A201705092356412',
+                            _react2.default.createElement(
+                                'span',
+                                { className: '' },
+                                '\u8BA2\u5355\u53F7\uFF1A201705092356412'
+                            ),
                             _react2.default.createElement(
                                 'span',
                                 null,
@@ -35855,78 +35896,31 @@ var Order = _react2.default.createClass({
                             _react2.default.createElement(
                                 'span',
                                 { onClick: that.toCancel, className: 'statusBtn' },
-                                '\u53D6\u6D88\u6536\u85CF'
+                                '\u53D6\u6D88\u501F\u6B3E'
                             )
                         )
-                    ),
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'orderNum' },
-                            '\u8BA2\u5355\u53F7\uFF1A201705092356412',
-                            _react2.default.createElement(
-                                'span',
-                                null,
-                                '\u5BA1\u6838\u4E2D'
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'h3',
-                            { className: 'list_title' },
-                            _react2.default.createElement('img', { src: 'src/img/icon/order.png' }),
-                            _react2.default.createElement(
-                                'span',
-                                null,
-                                '\u73B0\u91D1\u501F\u6B3E\uFF08\u591A\u671F\uFF09'
-                            ),
-                            _react2.default.createElement(
-                                'span',
-                                { className: 'p_name' },
-                                '\u4FE1\u7528\u8D37'
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'ul',
-                            { className: 'container' },
-                            _react2.default.createElement(
-                                'li',
-                                null,
-                                '\u501F\u6B3E\u91D1\u989D \xA55000'
-                            ),
-                            _react2.default.createElement(
-                                'li',
-                                null,
-                                '\u671F\u965012\u6708'
-                            ),
-                            _react2.default.createElement(
-                                'li',
-                                null,
-                                '\u5229\u606F480\u5143'
-                            ),
-                            _react2.default.createElement(
-                                'li',
-                                null,
-                                '\u6708\u8D39\u75283.17%'
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'listFoot' },
-                            _react2.default.createElement(
-                                'span',
-                                { className: 'status' },
-                                '\u60A8\u7684\u8D37\u6B3E\u7533\u8BF7\u6B63\u5728\u5BA1\u6838\u4E2D\uFF0C3\u4E2A\u5DE5\u4F5C\u65E5\u5185\u5B8C\u6210'
-                            ),
-                            _react2.default.createElement(
-                                'span',
-                                { onClick: that.toCancel, className: 'statusBtn' },
-                                '\u53D6\u6D88\u6536\u85CF'
-                            )
-                        )
-                    )
-                )
+                    ));
+                }
+            }
+        }, function () {
+            toast.show("连接错误", 2000);
+        });
+    },
+    render: function render() {
+        var that = this;
+        return _react2.default.createElement(
+            'div',
+            { className: 'app_Box orderList' },
+            _react2.default.createElement(_header2.default, { title: '\u6211\u7684\u8BA2\u5355' }),
+            _react2.default.createElement(
+                'div',
+                { className: 'orderCon content' },
+                _react2.default.createElement(
+                    'ul',
+                    null,
+                    that.state.list
+                ),
+                _react2.default.createElement(_loading2.default, { flag: that.state.isLoading })
             )
         );
     }
