@@ -83,7 +83,7 @@ var ListDetail=React.createClass({
 		var userId=globalData.userId;
 		if(userId){
 			const {value2,limitType,loanId,value1}=that.state;
-			var data = {
+			var queryData = {
 					loanId:loanId,
 					applyQuery:{
 						limitDay:value2,
@@ -92,34 +92,33 @@ var ListDetail=React.createClass({
 						money:value1
 						}
 				};
-					var path = {
+					/*var path = {
 					  pathname:'/ApplyInfo',
-					  state:data,
+					  state:queryData,
 					}
-					hashHistory.push(path);
-			/*api.applyLoan(value2,limitType,loanId,value1*100,function(res){
+					hashHistory.push(path);*/
+			api.applyLoan(value2,limitType,loanId,value1*100,function(res){
 				console.log(res);
 				if(res.code=="0000"){
 					var data=res.data;
 					var data =JSON.parse(strDec(res.data,key1,"",""));
 					console.log(data);
-					var data = {loanId:loanId};
 					var path = {
 					  pathname:'/ApplyInfo',
-					  query:data,
+					  state:queryData,
 					}
 					hashHistory.push(path);
 				}
 			},function(){
 			toast.show("连接错误",2000);
-		})*/
+		})
 			
 		  
 		}else{
 			var path = {
 			  //pathname:'/Login/listDetail?loanId='+loanId,
 			  pathname:'/Login',
-			  query:data,
+			  //query:data,
 			}
 			hashHistory.push(path);
 		}
@@ -302,7 +301,7 @@ var ListDetail=React.createClass({
 	        			<ul className="circleInfo">
 	        				<li><i></i>贷款 {that.state.value1}/{that.state.value2}{loanDetail.limitType=="D"?"天":"个月"}</li>
 	        				<li><i></i>利息 {myRateMoney}元({loanDetail.rate}%/{loanDetail.rateType=="D"?"天":"月"})</li>
-	        				<li><i></i>费用 {myFeeMoney}元</li>
+	        				{/*<li><i></i>费用 {myFeeMoney}元</li>*/}
 	        				<li><i></i>一次性{loanDetail.fee}元(0%)</li>
 	        			</ul>
 	        		</div>

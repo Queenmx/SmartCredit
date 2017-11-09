@@ -913,6 +913,7 @@ body {
       padding: 0 0.5rem; }
   .applyLevel .levelInfo {
     line-height: 1rem;
+    box-sizing: border-box;
     position: relative; }
     .applyLevel .levelInfo:after {
       pointer-events: none;
@@ -947,16 +948,38 @@ body {
       line-height: 1rem;
       margin-left: 0.1rem;
       font-size: 0.24rem; }
-    .applyLevel .levelInfo .selectValue {
-      height: 0.6rem;
-      line-height: 0.6rem;
-      margin-top: 0.2rem;
+    .applyLevel .levelInfo i {
+      line-height: 1rem;
       text-align: right;
       float: right;
       border: 0;
       background: transparent;
       font-size: 0.24rem;
       font-style: normal; }
+  .applyLevel .second {
+    box-sizing: border-box;
+    position: relative;
+    line-height: 1rem;
+    text-align: center;
+    border: 0;
+    background: transparent;
+    font-size: 0.28rem;
+    color: #333333;
+    font-style: normal; }
+    .applyLevel .second:after {
+      pointer-events: none;
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      content: "";
+      -webkit-transform: scale(0.5);
+      -webkit-transform-origin: 0 0;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+      border-bottom: 1px solid #f3f3f3; }
 
 /*# sourceMappingURL=apply.css.map */
 .ellipsis {

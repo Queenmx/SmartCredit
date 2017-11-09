@@ -619,7 +619,7 @@ var globalData = {
   //path:"http://test.91ymfq.com/api/h5Service.do",
   path: "http://122.144.133.20:8088",
   //path:"http://tdx.free.ngrok.cc",
-  //path:"http://192.168.1.17:8088",
+  // path:"http://192.168.1.17:8088",
   pathCai: "http://apis.juhe.cn/cook/query.php",
   userId: userId || "",
   requestData: {
@@ -810,18 +810,13 @@ module.exports.userInfo = function (newPwd, oldPwd, userId, cb1, cb2) {
 
 //用户个人资质保存
 
-module.exports.qualifyListAdd = function (parentId, qualifyName, qualifyNo, selectName, userId, cb1, cb2) {
+module.exports.qualifyListAdd = function (qualifyList, cb1, cb2) {
   var data = _global.globalData.requestData;
   // data.token=token;
-  data.qualifyList = {
-    parentId: parentId,
-    qualifyName: qualifyName,
-    qualifyNo: qualifyNo,
-    selectName: selectName
-  };
-  data.userId = userId;
-  var param = JSON.stringify(data);
-  var str = strEnc(param, key1);
+  data.qualifyList = qualifyList;
+  var param1 = JSON.stringify(data);
+  console.log(param1);
+  var str = strEnc(param1, key1);
   http(_global.globalData.path + "/zndai/user/qualify/add", { params: str }, cb1, cb2);
 };
 
@@ -34656,7 +34651,7 @@ var ListDetail = _react2.default.createClass({
 			    loanId = _that$state.loanId,
 			    value1 = _that$state.value1;
 
-			var data = {
+			var queryData = {
 				loanId: loanId,
 				applyQuery: {
 					limitDay: value2,
@@ -34665,32 +34660,31 @@ var ListDetail = _react2.default.createClass({
 					money: value1
 				}
 			};
-			var path = {
-				pathname: '/ApplyInfo',
-				state: data
-			};
-			_reactRouter.hashHistory.push(path);
-			/*api.applyLoan(value2,limitType,loanId,value1*100,function(res){
-   	console.log(res);
-   	if(res.code=="0000"){
-   		var data=res.data;
-   		var data =JSON.parse(strDec(res.data,key1,"",""));
-   		console.log(data);
-   		var data = {loanId:loanId};
-   		var path = {
-   		  pathname:'/ApplyInfo',
-   		  query:data,
-   		}
-   		hashHistory.push(path);
-   	}
-   },function(){
-   toast.show("连接错误",2000);
-   })*/
+			/*var path = {
+     pathname:'/ApplyInfo',
+     state:queryData,
+   }
+   hashHistory.push(path);*/
+			_api2.default.applyLoan(value2, limitType, loanId, value1 * 100, function (res) {
+				console.log(res);
+				if (res.code == "0000") {
+					var data = res.data;
+					var data = JSON.parse(strDec(res.data, key1, "", ""));
+					console.log(data);
+					var path = {
+						pathname: '/ApplyInfo',
+						state: queryData
+					};
+					_reactRouter.hashHistory.push(path);
+				}
+			}, function () {
+				toast.show("连接错误", 2000);
+			});
 		} else {
 			var path = {
 				//pathname:'/Login/listDetail?loanId='+loanId,
-				pathname: '/Login',
-				query: data
+				pathname: '/Login'
+				//query:data,
 			};
 			_reactRouter.hashHistory.push(path);
 		}
@@ -34945,14 +34939,6 @@ var ListDetail = _react2.default.createClass({
 							'%/',
 							loanDetail.rateType == "D" ? "天" : "月",
 							')'
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							_react2.default.createElement('i', null),
-							'\u8D39\u7528 ',
-							myFeeMoney,
-							'\u5143'
 						),
 						_react2.default.createElement(
 							'li',
@@ -35862,10 +35848,8 @@ var ApplyLevel = _react2.default.createClass({
 			checked: true,
 			activequalifyListArr: [],
 			valSelect: [],
-			activeFont: false,
 			qualifyListArr: [],
-			second: [],
-			third: []
+			second: []
 		};
 	},
 
@@ -35882,15 +35866,28 @@ var ApplyLevel = _react2.default.createClass({
 		}
 	},
 	toApplyResult: function toApplyResult() {
+		var that = this;
 		if (!this.state.checked) {
 			toast.show("请同意智能贷服务协议", 2000);
 		} else {
-			var data = { id: 3, name: "qin", age: 18 };
-			var path = {
-				pathname: '/ApplyResult',
-				state: data
-			};
-			_reactRouter.hashHistory.push(path);
+			var qualifyList = that.state.valSelect;
+			//console.log(qualifyList);
+			_api2.default.qualifyListAdd(qualifyList, function (res) {
+				console.log(res);
+				if (res.code == "0000") {
+					var data = JSON.parse(strDec(res.data, key1, "", ""));
+					console.log(data);
+				}
+			}, function () {
+				toast.show("连接错误", 2000);
+			});
+
+			/*var data = {id:3,name:"qin",age:18};
+   var path = {
+     pathname:'/ApplyResult',
+     state:data,
+   }
+   hashHistory.push(path);*/
 		}
 	},
 	agreeRule: function agreeRule(event) {
@@ -35902,6 +35899,7 @@ var ApplyLevel = _react2.default.createClass({
 
 	render: function render() {
 		var that = this;
+		console.log(that.state.valSelect);
 		return _react2.default.createElement(
 			'div',
 			{ className: 'app_Box applyFlow' },
@@ -36011,39 +36009,20 @@ var ApplyLevel = _react2.default.createClass({
 			)
 		);
 	},
-	selectHandleSecond: function selectHandleSecond(event) {
+
+	checkHandle: function checkHandle(event) {
 		var that = this;
-		var key1 = _global.globalData.key;
 		var toast = _global.globalData.toast;
-		var dictionaryId = event.target.getAttribute("data-dictionaryId");
-		var indexId = event.target.getAttribute("data-indexId") * 1;
-		_api2.default.dictionary(that.state.loanId, dictionaryId, "", function (res) {
-			console.log(res);
-			if (res.code == "0000") {
-				var qualifyList = JSON.parse(strDec(res.data, key1, "", ""));
-				console.log(qualifyList);
-				for (var i in qualifyList) {
-					that.state.third[indexId].push(_react2.default.createElement(
-						'li',
-						{ className: 'levelInfo levelInfoThird', key: i },
-						_react2.default.createElement(
-							'label',
-							{ htmlFor: i },
-							qualifyList[i].name
-						),
-						_react2.default.createElement(
-							'i',
-							{ 'data-dictionaryId': qualifyList[i].dictionaryId, style: { 'color': '#333333' }, 'data-indexId': i, className: 'selectValue', onClick: that.selectHandleThird },
-							'\u8BF7\u9009\u62E9'
-						),
-						_react2.default.createElement('ul', { className: 'levelInfoThird' })
-					));
-				}
-				that.setState({ third: that.state.third });
-			}
-		}, function () {
-			toast.show("连接错误", 2000);
-		});
+		var selectId = event.target.getAttribute("data-dictionaryId");
+		var parentIndex = event.target.getAttribute("data-parentIndex") * 1;
+		var txt = event.target.innerHTML;
+		var activeIndexId = that.state.activeIndexId;
+		that.state.valSelect[parentIndex].selectName = txt;
+		that.state.valSelect[parentIndex].selectId = selectId;
+		$(".levelInfoFirst" + parentIndex).hide();
+		that.state.second[parentIndex].isShow = !that.state.second[parentIndex].isShow;
+		that.setState({ second: that.state.second, qualifyListArr: that.state.qualifyListArr });
+		$(".selectValue" + parentIndex).html(txt);
 	},
 
 	selectHandle: function selectHandle(event) {
@@ -36052,54 +36031,61 @@ var ApplyLevel = _react2.default.createClass({
 		var toast = _global.globalData.toast;
 		var dictionaryId = event.target.getAttribute("data-dictionaryId");
 		var indexId = event.target.getAttribute("data-indexId") * 1;
-		//console.log(dictionaryId);
-		_api2.default.dictionary(that.state.loanId, dictionaryId, "", function (res) {
-			//console.log(res);
-			if (res.code == "0000") {
-				var qualifyList = JSON.parse(strDec(res.data, key1, "", ""));
-				console.log(qualifyList);
-				for (var i in qualifyList) {
-					that.state.third.push([]);
-					that.state.second[indexId].push(_react2.default.createElement(
-						'li',
-						{ className: 'levelInfo', key: i },
-						_react2.default.createElement(
-							'label',
-							{ htmlFor: i },
-							qualifyList[i].name
-						),
-						_react2.default.createElement(
-							'i',
-							{ 'data-dictionaryId': qualifyList[i].dictionaryId, style: { 'color': '#333333' }, 'data-indexId': i, className: 'selectValue', onClick: that.selectHandleSecond },
-							'\u8BF7\u9009\u62E9'
-						),
-						_react2.default.createElement(
-							'ul',
-							{ className: 'levelInfoSecond' },
-							that.state.third[i]
-						)
-					));
-				}
-				that.setState({ second: that.state.second, third: that.state.third });
+		that.setState({ activeIndexId: indexId });
+		if (that.state.second[indexId].isRequest) {
+			that.state.second[indexId].isShow = !that.state.second[indexId].isShow;
+			if (that.state.second[indexId].isShow) {
+				$(".levelInfoFirst" + indexId).show();
+			} else {
+				$(".levelInfoFirst" + indexId).hide();
 			}
-		}, function () {
-			toast.show("连接错误", 2000);
-		});
+			that.setState({ second: that.state.second, qualifyListArr: that.state.qualifyListArr });
+		} else {
+			that.state.second[indexId].isRequest = true;
+			that.state.second[indexId].isShow = true;
+			that.setState({ second: that.state.second, qualifyListArr: that.state.qualifyListArr });
+			_api2.default.dictionary(that.state.loanId, dictionaryId, "", function (res) {
+				//console.log(res);
+				if (res.code == "0000") {
+					var qualifyList = JSON.parse(strDec(res.data, key1, "", ""));
+					console.log(qualifyList);
+					if (qualifyList.length > 0) {
+						//说明有下级
+						for (var i in qualifyList) {
+							that.state.second[indexId].push(_react2.default.createElement(
+								'li',
+								{ className: 'second', 'data-parentIndex': indexId, 'data-dictionaryId': qualifyList[i].dictionaryId, style: { 'color': '#333333' }, onClick: that.checkHandle, key: i },
+								qualifyList[i].name
+							));
+						}
+					} else {
+						//没有下级.点击即选
+						console.log("没有下级");
+					}
+					that.setState({ second: that.state.second, qualifyListArr: that.state.qualifyListArr, valSelect: that.state.valSelect });
+				}
+			}, function () {
+				toast.show("连接错误", 2000);
+			});
+		}
 	},
 	componentDidMount: function componentDidMount() {
 		var that = this;
 		var qualifyList = that.props.location.state.qualifyList;
-		//console.log(qualifyList);
+		console.log(qualifyList);
 		//var qualifyListArr=[];
 		for (var i in qualifyList) {
 			var selectName = qualifyList[i].selectName;
-			if (selectName != "" && selectName != null) {
-				that.state.activeFont = true;
-			} else {
-				that.state.activeFont = false;
-			}
 			that.state.second.push([]);
-			that.state.valSelect.push(selectName);
+			that.state.second[i].isShow = false;
+			that.state.second[i].isRequest = false;
+			that.state.valSelect.push([]);
+			that.state.valSelect[i].userId = _global.globalData.userId;
+			that.state.valSelect[i].dictionaryId = qualifyList[i].dictionaryId;
+			that.state.valSelect[i].dictionaryName = qualifyList[i].dictionaryName;
+			that.state.valSelect[i].dictionaryParentId = qualifyList[i].dictionaryParentId;
+			that.state.valSelect[i].selectName = qualifyList[i].selectName;
+			that.state.valSelect[i].selectId = qualifyList[i].selectId;
 			that.state.qualifyListArr.push(_react2.default.createElement(
 				'li',
 				{ className: 'levelInfo', key: i },
@@ -36110,18 +36096,17 @@ var ApplyLevel = _react2.default.createClass({
 				),
 				_react2.default.createElement(
 					'i',
-					{ 'data-dictionaryId': qualifyList[i].dictionaryId, style: { 'color': that.state.activeFont ? '#53a6ff' : '#333333' }, 'data-indexId': i, className: 'selectValue', onClick: that.selectHandle },
-					that.state.valSelect[i] || '请选择'
+					{ 'data-dictionaryId': qualifyList[i].dictionaryId, style: { 'color': '#333333' }, 'data-indexId': i, 'data-txt': qualifyList[i].name, className: "selectValue" + i, onClick: that.selectHandle },
+					that.state.valSelect[i].selectName || '请选择'
 				),
 				_react2.default.createElement(
 					'ul',
-					{ className: 'levelInfoFirst' },
+					{ className: "levelInfoFirst" + i },
 					that.state.second[i]
 				)
 			));
 		}
-		that.setState({ qualifyListArr: that.state.qualifyListArr, valSelect: that.state.valSelect, second: that.state.second });
-		//console.log(that.state.qualifyListArr);
+		that.setState({ second: that.state.second, qualifyListArr: that.state.qualifyListArr, valSelect: that.state.valSelect });
 	}
 });
 
@@ -36520,8 +36505,8 @@ var IdCard = _react2.default.createClass({
 		    $d = document.querySelector(d),
 		    file = $c.files[0],
 		    reader = new FileReader();
-		reader.readAsBinaryString(file, 'gb2312');
-		//reader.readAsDataURL(file);
+		//reader.readAsBinaryString(file,'gb2312');
+		reader.readAsDataURL(file);
 		reader.onload = function (e) {
 			// 这个事件在读取结束后，无论成功或者失败都会触发
 			if (reader.error) {

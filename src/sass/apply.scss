@@ -158,6 +158,7 @@
         }
         .levelInfo{
             line-height: 1rem;
+            box-sizing: border-box;
             @include border_Bot;
             label{
                  line-height: 1rem;
@@ -181,10 +182,8 @@
                 margin-left: 0.1rem;
                 font-size: 0.24rem;
             }
-            .selectValue{
-                 height: 0.6rem;
-                line-height: 0.6rem;
-                margin-top:0.2rem ;
+            i{
+                 line-height: 1rem;
                 text-align: right;
                 float: right;
                 border: 0;
@@ -195,5 +194,16 @@
            }
            
         }
+        .second{
+            box-sizing: border-box;
+            @include border_Bot;
+                line-height: 1rem;
+                text-align: center;
+                border: 0;
+                background: transparent;
+                font-size: 0.28rem;
+                color: #333333;
+               font-style: normal;
+           }
         
     }

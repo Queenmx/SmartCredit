@@ -171,18 +171,13 @@ module.exports.userInfo=function(newPwd,oldPwd,userId,cb1,cb2){
 
 //用户个人资质保存
 
-module.exports.qualifyListAdd=function(parentId,qualifyName,qualifyNo,selectName,userId,cb1,cb2){ 
+module.exports.qualifyListAdd=function(qualifyList,cb1,cb2){ 
     var data=globalData.requestData;
    // data.token=token;
-    data.qualifyList={
-    	parentId:parentId,
-    	qualifyName:qualifyName,
-    	qualifyNo:qualifyNo,
-    	selectName:selectName
-    };
-    data.userId=userId;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
+    data.qualifyList=qualifyList;
+    var param1=JSON.stringify(data);
+    console.log(param1);
+    var str = strEnc(param1,key1);
   	http(`${globalData.path}/zndai/user/qualify/add`,{params:str},cb1,cb2);
 }
 
