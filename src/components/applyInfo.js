@@ -26,11 +26,13 @@ var ApplyInfo=React.createClass({
 			  pathname:'/Login',
 			}
 			hashHistory.push(path);
+		}else{
+			var user=JSON.parse(userStr);//必须登录才能看到本页面
+			var located=localStorage.getItem("dingwei")||"";
+			var {realName,phone,idCard}=user;
+			this.setState({applyName:realName,applyNumber:phone,realName:realName,located:located,user:user});
 		}
-		var user=JSON.parse(userStr);//必须登录才能看到本页面
-		var located=localStorage.getItem("dingwei")||"";
-		var {realName,phone,idCard}=user;
-		this.setState({applyName:realName,applyNumber:phone,realName:realName,located:located,user:user});
+		
 	},
 	toApplyLevel:function(){
 		var key1 = globalData.key;

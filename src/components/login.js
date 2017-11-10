@@ -94,9 +94,9 @@ var Login=React.createClass({
 								localStorage.setItem("user",data);
 								localStorage.setItem("isLogin",true);
 								localStorage.setItem("phoneNum",phoneNum);
-								setTimeout(function(){
+								/*setTimeout(function(){
 									location.reload();
-								},1000);
+								},1000);*/
 								
 								toast.show("登录成功",2000);
 								//location.reload();

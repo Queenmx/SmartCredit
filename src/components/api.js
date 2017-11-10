@@ -122,6 +122,7 @@ module.exports.verifyCode=function(phone,type,cb1,cb2){
   	http(`${globalData.path}/zndai/user/verifyCode`,{params:str},cb1,cb2);
   	delete data.phone;
   	delete data.type;
+  	
 }
 //退出
 module.exports.exit=function(userId,cb1,cb2){ 
@@ -131,7 +132,7 @@ module.exports.exit=function(userId,cb1,cb2){
     var param=JSON.stringify(data);
     var str = strEnc(param,key1);
   	http(`${globalData.path}/zndai/user/exit`,{params:str},cb1,cb2);
-  	
+  	delete data.userId;
 }
 
 //----------------个人中心
@@ -151,6 +152,7 @@ module.exports.edit=function(idCard,located,realName,cb1,cb2){
   	delete data.idCard;
   	delete data.located;
   	delete data.realName;
+  	delete data.userId;
 }
 
 //个人信息查询
@@ -161,6 +163,7 @@ module.exports.userInfo=function(userId,cb1,cb2){
     var param=JSON.stringify(data);
     var str = strEnc(param,key1);
   	http(`${globalData.path}/zndai/user/userInfo`,{params:str},cb1,cb2);
+  	delete data.userId;
 }
 
 //修改密码
@@ -175,6 +178,7 @@ module.exports.userInfo=function(newPwd,oldPwd,userId,cb1,cb2){
   	http(`${globalData.path}/zndai/user/pwd/edit`,{params:str},cb1,cb2);
   	delete data.newPwd;
   	delete data.oldPwd;
+  	delete data.userId;
 }
 
 //用户个人资质保存
@@ -202,7 +206,7 @@ module.exports.qualifyList=function(loanId,parentId,cb1,cb2){
   	http(`${globalData.path}/zndai/user/qualify/list`,{params:str},cb1,cb2);
   	delete data.loanId;
   	delete data.parentId;
-  	
+  	delete data.userId;
 }
 //字典查询
 module.exports.dictionary=function(objId,parentId,typeCode,cb1,cb2){ 
@@ -218,6 +222,7 @@ module.exports.dictionary=function(objId,parentId,typeCode,cb1,cb2){
   	delete data.objId;
   	delete data.parentId;
   	delete data.typeCode;
+  	delete data.userId;
 }
 
 
@@ -231,6 +236,7 @@ module.exports.userHead=function(headPic,userId,cb1,cb2){
     var str = strEnc(param,key1);
   	http(`${globalData.path}/zndai/user/userHead`,{params:str,headPic:headPic},cb1,cb2);
   	delete data.headPic;
+  	delete data.userId;
 }
 
 //身份认证
@@ -241,7 +247,7 @@ module.exports.identityUserCert=function(backPic,frontPic,userId,cb1,cb2){
     var param=JSON.stringify(data);
     var str = strEnc(param,key1);
   	http(`${globalData.path}/zndai/user/identityUserCert`,{params:str,backPic:backPic,frontPic:frontPic},cb1,cb2);
-
+	delete data.userId;
 }
 
 
@@ -280,6 +286,7 @@ module.exports.articleDetail=function(articleId,cb1,cb2){
     var str = strEnc(param,key1);
   	http(`${globalData.path}/zndai/article/detail`,{params:str},cb1,cb2);
   	delete data.articleId;
+  	delete data.userId;
 }
 
 
@@ -311,6 +318,7 @@ module.exports.loanDetail=function(loanId,cb1,cb2){
     var str = strEnc(param,key1);
   	http(`${globalData.path}/zndai/loan/detail`,{params:str},cb1,cb2);
   	delete data.loanId;
+  	delete data.userId;
 }
 //申请贷款
 
@@ -330,6 +338,7 @@ module.exports.applyLoan=function(limitDay,limitType,loanId,money,cb1,cb2){
   	delete data.limitType;
   	delete data.loanId;
   	delete data.money;
+  	delete data.userId;
 }
 
 
@@ -463,8 +472,6 @@ module.exports.saveArticle=function(pageNum,pageSize,cb1,cb2){
   	delete data.pageSize;
   	delete data.userId;
 }
-
-
 
 
 /**

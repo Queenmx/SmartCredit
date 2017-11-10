@@ -54,7 +54,7 @@ var Home=React.createClass({
 	
 	toNewsDetail:function(event){
 		var articleId=event.currentTarget.getAttribute("data-articleid");
-	    	console.log(articleId);
+	    	//console.log(articleId);
 	    	var data = {articleId:articleId};
 			var path = {
 			  pathname:'/NewsDetail',
@@ -71,7 +71,7 @@ var Home=React.createClass({
 		var that=this;
 	
 		api.tag("BQ",function(res){
-			console.log(res)
+			//console.log(res)
 			if(res.code=="0000"){
 				var data =JSON.parse(strDec(res.data,key1,"",""));
 				console.log(data);
@@ -89,7 +89,7 @@ var Home=React.createClass({
 				var data =JSON.parse(strDec(res.data,key1,"",""));
 				//var data=res.data;
 				var loanList=data.list;
-				console.log(data);
+				//console.log(data);
 				var arr=[];
 				for(var i in loanList){
 					arr.push(<div className="capitalList" key={i}>
