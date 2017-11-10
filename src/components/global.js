@@ -27,7 +27,7 @@ const globalData = {
     appBasePath:"http://www.91ymfq.com/XR/",
    // appBasePath:"http://122.144.133.20/XR/",
     path1:"http://admin.91ymfq.com/api/h5Service.do",
-    //path:"http://test.91ymfq.com/api/h5Service.do",
+    //path:"http://xingrongjinfu.iask.in:8886",
     path:"http://122.144.133.20:8088",
     //path:"http://tdx.free.ngrok.cc",
    // path:"http://192.168.1.17:8088",
