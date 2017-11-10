@@ -219,8 +219,14 @@ var Save=React.createClass({
 					if (callback && typeof callback === 'function') {
 			            callback();
 			          }
+				}else if(res.code=="5555"){
+					toast.show("登录过时，请重新登录",2000);
+					var path = {
+					  pathname:'/Login',
+					}
+					hashHistory.push(path);
 				}else{
-					
+					toast.show(res.msg,2000);
 				}
 	 		},function(){
 				toast.show("连接错误",2000);
@@ -270,6 +276,14 @@ var Save=React.createClass({
 			            callback();
 			          }
 					
+				}else if(res.code=="5555"){
+					toast.show("登录过时，请重新登录",2000);
+					var path = {
+					  pathname:'/Login',
+					}
+					hashHistory.push(path);
+				}else{
+					toast.show(res.msg,2000);
 				}
 			},function(){
 				toast.show("连接错误",2000);

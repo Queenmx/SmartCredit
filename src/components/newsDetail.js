@@ -38,10 +38,15 @@ var NewsDetail=React.createClass({
 				that.setState({
 					articleDetail:articleDetail
 				})
+			}else if(res.code=="5555"){
+				toast.show("登录过时，请重新登录",2000);
+				var path = {
+				  pathname:'/Login',
+				}
+				hashHistory.push(path);
 			}else{
 				toast.show(res.msg,2000);
 			}
-			
 		})
 		
 	},

@@ -108,7 +108,7 @@ class News extends Component {
 		            callback();
 		          }
 			}else{
-				
+				toast.show(res.msg,2000);
 			}
 		},function(){
 			toast.show("连接错误",2000);
