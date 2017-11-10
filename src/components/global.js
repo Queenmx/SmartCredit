@@ -26,16 +26,15 @@ const globalData = {
     key:"ZND171030APIMM",
     appBasePath:"http://www.91ymfq.com/XR/",
    // appBasePath:"http://122.144.133.20/XR/",
-    path1:"http://admin.91ymfq.com/api/h5Service.do",
-    //path:"http://test.91ymfq.com/api/h5Service.do",
-    path:"http://122.144.133.20:8088",
-    //path:"http://tdx.free.ngrok.cc",
-   // path:"http://192.168.1.17:8088",
+    //path:"http://122.144.133.20:8088",
+    imgPath:"http://xrjf.oss-cn-shanghai.aliyuncs.com/",
+    path:"http://192.168.1.17:8088",
    pathCai:"http://apis.juhe.cn/cook/query.php",
    userId:userId||"",
     requestData:{
         "platform" : platform||"",
 		"deviceno" : deviceno||"",
+		"appFlag":"C",
 		"token" :token
     }
 }

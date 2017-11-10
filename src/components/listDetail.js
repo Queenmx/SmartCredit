@@ -4,6 +4,7 @@ import ReactDom from 'react-dom';
 import api from './api';
 import {globalData} from './global.js';
 import Header from './header';
+import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../css/listDetail.css';
 
@@ -14,6 +15,7 @@ var ListDetail=React.createClass({
 		return {
 			activeTab: 1,
 			isMark: 0,
+			flag:false,
 			activeIndex:0,
 			isShowDetail:false,
 			loanDetail:{},
@@ -98,11 +100,17 @@ var ListDetail=React.createClass({
 					}
 					hashHistory.push(path);*/
 			api.applyLoan(value2,limitType,loanId,value1*100,function(res){
+				that.setState({
+						flag:true
+					})
 				console.log(res);
 				if(res.code=="0000"){
 					var data=res.data;
 					var data =JSON.parse(strDec(res.data,key1,"",""));
 					console.log(data);
+					that.setState({
+						flag:false
+					})
 					var path = {
 					  pathname:'/ApplyInfo',
 					  state:queryData,
@@ -110,6 +118,9 @@ var ListDetail=React.createClass({
 					hashHistory.push(path);
 				}
 			},function(){
+				that.setState({
+						flag:false
+					})
 			toast.show("连接错误",2000);
 		})
 			
@@ -263,6 +274,7 @@ var ListDetail=React.createClass({
         	<div className="app_Box listDetail">
       			<Header title={loanDetail.loanName}/>
 	        	<div className="listDetailCon content">
+	        	<Loading flag={that.state.flag}/>
 	        		<ul className="rangeInfo">
 	        			<li>
 	        				<div className="numBox">

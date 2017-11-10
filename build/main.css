@@ -942,6 +942,8 @@ body {
       border: 0;
       background: transparent;
       font-size: 0.24rem; }
+    .applyLevel .levelInfo .insertInput {
+      width: 0; }
     .applyLevel .levelInfo span {
       float: right;
       color: #53a6ff;

@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import api from './api';
 import {globalData} from './global.js';
+import Loading from './loading';
 import Header from './header';
 import { hashHistory, Link } from 'react-router';
 import '../css/apply.css';
@@ -12,6 +13,7 @@ var appBasePath=globalData.appBasePath;
 var ApplyInfo=React.createClass({
 	getInitialState:function(){
 		return {
+			flag:false,
 			applyName:"",
 			applyNumber:""
 		}
@@ -59,19 +61,32 @@ var ApplyInfo=React.createClass({
 			//获取资质列表
 			api.qualifyList(loanId,"095c2c011ef740508bf27785e0ffe8f1",function(res){
 				console.log(res);
+				that.setState({
+						flag:true
+					})
 				if(res.code=="0000"){
 					var data =JSON.parse(strDec(res.data,key1,"",""));
 					//var qualifyList=data.qualifyList;
 					//console.log(data);
 					var queryData = {applyNumber:applyNumber,applyName:applyName,loanId:loanId,applyQuery:applyQuery,qualifyList:data};
+					that.setState({
+							flag:false
+						})
 					var path = {
 					  pathname:'/ApplyLevel',
 					  state:queryData,
 					}
 					hashHistory.push(path);
+				}else{
+					that.setState({
+							flag:false
+						})
 				}
 				
 			},function(){
+				that.setState({
+						flag:false
+					})
 				toast.show("连接错误",2000);
 			})
 		}else{
@@ -133,6 +148,7 @@ var ApplyInfo=React.createClass({
 							<p>申请结果</p>
 						</li>
 					</ul>
+					<Loading flag={that.state.flag}/>
 					<form className="applyInfo">
 						<div>
 							<span>姓名</span>

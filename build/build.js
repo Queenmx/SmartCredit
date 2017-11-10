@@ -615,16 +615,15 @@ var globalData = {
   key: "ZND171030APIMM",
   appBasePath: "http://www.91ymfq.com/XR/",
   // appBasePath:"http://122.144.133.20/XR/",
-  path1: "http://admin.91ymfq.com/api/h5Service.do",
-  //path:"http://test.91ymfq.com/api/h5Service.do",
-  path: "http://122.144.133.20:8088",
-  //path:"http://tdx.free.ngrok.cc",
-  // path:"http://192.168.1.17:8088",
+  //path:"http://122.144.133.20:8088",
+  imgPath: "http://xrjf.oss-cn-shanghai.aliyuncs.com/",
+  path: "http://192.168.1.17:8088",
   pathCai: "http://apis.juhe.cn/cook/query.php",
   userId: userId || "",
   requestData: {
     "platform": platform || "",
     "deviceno": deviceno || "",
+    "appFlag": "C",
     "token": token
   }
 };
@@ -662,21 +661,7 @@ console.log(userId);
 //getNewUser();
 //module.exports.getNewUser;
 //ex
-/*module.exports.getHospital=function(pn,cb){
-	var data=globalData.requestData;
-	data.APP_VERSION="v1.0";
-	data.ACTION="getHospital";
-	data.TOKEN_ID="";
-	data.DEVICE_ID="999kkkk";
-	data.KEYWORDS="";
-    data.PAGE_INDEX=pn;
-    var key="YMFQ2016";
-     var iv = new String(0);
-    var param=JSON.stringify(data);
-    var requestData = base64encode(des(key,utf16to8(param),1,0, iv, 1));
-	http("http://test.91ymfq.com/api/h5Service.do",requestData,cb);
-}
-*/
+
 //标签
 module.exports.tag = function (type, cb1, cb2) {
   //getNewUser();
@@ -689,6 +674,8 @@ module.exports.tag = function (type, cb1, cb2) {
   var str = strEnc(param, key1);
   // console.log(str);
   http(_global.globalData.path + "/zndai/tag/list", { params: str }, cb1, cb2);
+  delete data.tagType;
+  delete data.type;
 };
 
 //获取城市列表
@@ -721,6 +708,11 @@ module.exports.login = function (loginType, phone, pwd, verifyCode, cb1, cb2) {
   var param = JSON.stringify(data);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/user/login", { params: str }, cb1, cb2);
+  delete data.loginType;
+  delete data.phone;
+  delete data.pwd;
+  delete data.type;
+  delete data.verifyCode;
 };
 
 //注册
@@ -735,6 +727,10 @@ module.exports.register = function (phone, pwd, verifyCode, cb1, cb2) {
   var param = JSON.stringify(data);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/user/add", { params: str }, cb1, cb2);
+  delete data.phone;
+  delete data.pwd;
+  delete data.type;
+  delete data.verifyCode;
 };
 
 //忘记密码，重置密码
@@ -747,6 +743,9 @@ module.exports.forgot = function (phone, pwd, verifyCode, cb1, cb2) {
   var param = JSON.stringify(data);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/user/pwd/forgot", { params: str }, cb1, cb2);
+  delete data.phone;
+  delete data.pwd;
+  delete data.verifyCode;
 };
 
 //发送手机验证码
@@ -759,6 +758,8 @@ module.exports.verifyCode = function (phone, type, cb1, cb2) {
   var str = strEnc(param, key1);
   console.log(data);
   http(_global.globalData.path + "/zndai/user/verifyCode", { params: str }, cb1, cb2);
+  delete data.phone;
+  delete data.type;
 };
 //退出
 module.exports.exit = function (userId, cb1, cb2) {
@@ -784,6 +785,9 @@ module.exports.edit = function (idCard, located, realName, cb1, cb2) {
   console.log(param);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/user/edit", { params: str }, cb1, cb2);
+  delete data.idCard;
+  delete data.located;
+  delete data.realName;
 };
 
 //个人信息查询
@@ -806,18 +810,20 @@ module.exports.userInfo = function (newPwd, oldPwd, userId, cb1, cb2) {
   var param = JSON.stringify(data);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/user/pwd/edit", { params: str }, cb1, cb2);
+  delete data.newPwd;
+  delete data.oldPwd;
 };
 
 //用户个人资质保存
-
-module.exports.qualifyListAdd = function (qualifyList, cb1, cb2) {
+module.exports.qualifyListSave = function (qualifySelect, cb1, cb2) {
   var data = _global.globalData.requestData;
-  // data.token=token;
-  data.qualifyList = qualifyList;
+  data.qualifyList = JSON.stringify(qualifySelect);
   var param1 = JSON.stringify(data);
-  console.log(param1);
-  var str = strEnc(param1, key1);
-  http(_global.globalData.path + "/zndai/user/qualify/add", { params: str }, cb1, cb2);
+  var str1 = strEnc(param1, key1);
+  //console.log(data);
+  //console.log(param1);
+  http(_global.globalData.path + "/zndai/user/qualify/add", { params: str1 }, cb1, cb2);
+  delete data.qualifyList;
 };
 
 //用户个人资质查询
@@ -828,9 +834,11 @@ module.exports.qualifyList = function (loanId, parentId, cb1, cb2) {
   data.parentId = parentId;
   data.userId = userId;
   var param = JSON.stringify(data);
-  // console.log(param);
+  //console.log(param);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/user/qualify/list", { params: str }, cb1, cb2);
+  delete data.loanId;
+  delete data.parentId;
 };
 //字典查询
 module.exports.dictionary = function (objId, parentId, typeCode, cb1, cb2) {
@@ -843,16 +851,21 @@ module.exports.dictionary = function (objId, parentId, typeCode, cb1, cb2) {
   // console.log(param);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/dictionary/list", { params: str }, cb1, cb2);
+  delete data.objId;
+  delete data.parentId;
+  delete data.typeCode;
 };
 
 //用户头像上传
 module.exports.userHead = function (headPic, userId, cb1, cb2) {
   var data = _global.globalData.requestData;
   // data.token=token;
+  data.headPic = headPic;
   data.userId = userId;
   var param = JSON.stringify(data);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/user/userHead", { params: str, headPic: headPic }, cb1, cb2);
+  delete data.headPic;
 };
 
 //身份认证
@@ -885,6 +898,8 @@ module.exports.articleList = function (pageNum, pageSize, cb1, cb2) {
   var param = JSON.stringify(data);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/article/list", { params: str }, cb1, cb2);
+  delete data.pageNum;
+  delete data.pageSize;
 };
 
 //资讯详情
@@ -893,8 +908,10 @@ module.exports.articleDetail = function (articleId, cb1, cb2) {
   //data.token=token;
   data.articleId = articleId;
   var param = JSON.stringify(data);
+  console.log(param);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/article/detail", { params: str }, cb1, cb2);
+  delete data.articleId;
 };
 
 //---------------------贷款产品
@@ -908,8 +925,11 @@ module.exports.loanList = function (pageNum, pageSize, tag, cb1, cb2) {
   data.tag = tag;
   var param = JSON.stringify(data);
   var str = strEnc(param, key1);
-  //console.log(param);
+  console.log(param);
   http(_global.globalData.path + "/zndai/loan/list", { params: str }, cb1, cb2);
+  delete data.pageNum;
+  delete data.pageSize;
+  delete data.tag;
 };
 //详情
 module.exports.loanDetail = function (loanId, cb1, cb2) {
@@ -918,9 +938,10 @@ module.exports.loanDetail = function (loanId, cb1, cb2) {
   data.loanId = loanId;
   data.userId = _global.globalData.userId;
   var param = JSON.stringify(data);
-  // console.log(param)
+  //console.log(param)
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/loan/detail", { params: str }, cb1, cb2);
+  delete data.loanId;
 };
 //申请贷款
 
@@ -933,9 +954,13 @@ module.exports.applyLoan = function (limitDay, limitType, loanId, money, cb1, cb
   data.money = money;
   data.userId = userId;
   var param = JSON.stringify(data);
-  console.log(param);
+  // console.log(param)
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/loan/apply/add", { params: str }, cb1, cb2);
+  delete data.limitDay;
+  delete data.limitType;
+  delete data.loanId;
+  delete data.money;
 };
 
 //------------------------问题
@@ -949,6 +974,8 @@ module.exports.feedBackAdd = function (content, userId, cb1, cb2) {
   var param = JSON.stringify(data);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/feedBack/add", { params: str }, cb1, cb2);
+  delete data.content;
+  delete data.userId;
 };
 
 //我要提问
@@ -962,6 +989,10 @@ module.exports.questionAdd = function (content, objId, objType, userId, cb1, cb2
   var param = JSON.stringify(data);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/question/add", { params: str }, cb1, cb2);
+  delete data.content;
+  delete data.objId;
+  delete data.objType;
+  delete data.userId;
 };
 
 //问题列表
@@ -974,6 +1005,9 @@ module.exports.questionList = function (objId, pageNum, pageSize, cb1, cb2) {
   var param = JSON.stringify(data);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/question/list", { params: str }, cb1, cb2);
+  delete data.objId;
+  delete data.pageNum;
+  delete data.pageSize;
 };
 //问题列表
 
@@ -987,6 +1021,10 @@ module.exports.questionAdd = function (content, objId, objType, cb1, cb2) {
   var param = JSON.stringify(data);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/question/add", { params: str }, cb1, cb2);
+  delete data.objId;
+  delete data.content;
+  delete data.objType;
+  delete data.userId;
 };
 
 //收藏——————————————————————————
@@ -998,9 +1036,12 @@ module.exports.save = function (objId, objType, cb1, cb2) {
   data.objType = objType; //ARTICLE   LOAN 
   data.userId = userId;
   var param = JSON.stringify(data);
-  console.log(param);
+  //console.log(param);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/mark/add", { params: str }, cb1, cb2);
+  delete data.objId;
+  delete data.objType;
+  delete data.userId;
 };
 //取消收藏
 module.exports.delSave = function (markIds, objType, cb1, cb2) {
@@ -1010,9 +1051,12 @@ module.exports.delSave = function (markIds, objType, cb1, cb2) {
   data.objType = objType; //ARTICLE   LOAN 
   data.userId = userId;
   var param = JSON.stringify(data);
-  console.log(param);
+  // console.log(param);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/mark/del", { params: str }, cb1, cb2);
+  delete data.markIds;
+  delete data.objType;
+  delete data.userId;
 };
 
 //收藏贷款列表
@@ -1023,9 +1067,12 @@ module.exports.saveLoan = function (pageNum, pageSize, cb1, cb2) {
   data.pageSize = pageSize;
   data.userId = userId;
   var param = JSON.stringify(data);
-  console.log(param);
+  //console.log(param);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/mark/loan/list", { params: str }, cb1, cb2);
+  delete data.pageNum;
+  delete data.pageSize;
+  delete data.userId;
 };
 
 //收藏贷款列表
@@ -1039,6 +1086,9 @@ module.exports.saveArticle = function (pageNum, pageSize, cb1, cb2) {
   var param = JSON.stringify(data);
   var str = strEnc(param, key1);
   http(_global.globalData.path + "/zndai/mark/article/list", { params: str }, cb1, cb2);
+  delete data.pageNum;
+  delete data.pageSize;
+  delete data.userId;
 };
 
 /*module.exports.queryBanner=function(cb){ 
@@ -34561,6 +34611,10 @@ var _header = __webpack_require__(10);
 
 var _header2 = _interopRequireDefault(_header);
 
+var _loading = __webpack_require__(124);
+
+var _loading2 = _interopRequireDefault(_loading);
+
 var _reactRouter = __webpack_require__(6);
 
 __webpack_require__(273);
@@ -34575,6 +34629,7 @@ var ListDetail = _react2.default.createClass({
 		return {
 			activeTab: 1,
 			isMark: 0,
+			flag: false,
 			activeIndex: 0,
 			isShowDetail: false,
 			loanDetail: {},
@@ -34666,11 +34721,17 @@ var ListDetail = _react2.default.createClass({
    }
    hashHistory.push(path);*/
 			_api2.default.applyLoan(value2, limitType, loanId, value1 * 100, function (res) {
+				that.setState({
+					flag: true
+				});
 				console.log(res);
 				if (res.code == "0000") {
 					var data = res.data;
 					var data = JSON.parse(strDec(res.data, key1, "", ""));
 					console.log(data);
+					that.setState({
+						flag: false
+					});
 					var path = {
 						pathname: '/ApplyInfo',
 						state: queryData
@@ -34678,6 +34739,9 @@ var ListDetail = _react2.default.createClass({
 					_reactRouter.hashHistory.push(path);
 				}
 			}, function () {
+				that.setState({
+					flag: false
+				});
 				toast.show("连接错误", 2000);
 			});
 		} else {
@@ -34833,6 +34897,7 @@ var ListDetail = _react2.default.createClass({
 			_react2.default.createElement(
 				'div',
 				{ className: 'listDetailCon content' },
+				_react2.default.createElement(_loading2.default, { flag: that.state.flag }),
 				_react2.default.createElement(
 					'ul',
 					{ className: 'rangeInfo' },
@@ -35570,6 +35635,10 @@ var _api2 = _interopRequireDefault(_api);
 
 var _global = __webpack_require__(7);
 
+var _loading = __webpack_require__(124);
+
+var _loading2 = _interopRequireDefault(_loading);
+
 var _header = __webpack_require__(10);
 
 var _header2 = _interopRequireDefault(_header);
@@ -35587,6 +35656,7 @@ var ApplyInfo = _react2.default.createClass({
 
 	getInitialState: function getInitialState() {
 		return {
+			flag: false,
 			applyName: "",
 			applyNumber: ""
 		};
@@ -35644,18 +35714,31 @@ var ApplyInfo = _react2.default.createClass({
 			//获取资质列表
 			_api2.default.qualifyList(loanId, "095c2c011ef740508bf27785e0ffe8f1", function (res) {
 				console.log(res);
+				that.setState({
+					flag: true
+				});
 				if (res.code == "0000") {
 					var data = JSON.parse(strDec(res.data, key1, "", ""));
 					//var qualifyList=data.qualifyList;
 					//console.log(data);
 					var queryData = { applyNumber: applyNumber, applyName: applyName, loanId: loanId, applyQuery: applyQuery, qualifyList: data };
+					that.setState({
+						flag: false
+					});
 					var path = {
 						pathname: '/ApplyLevel',
 						state: queryData
 					};
 					_reactRouter.hashHistory.push(path);
+				} else {
+					that.setState({
+						flag: false
+					});
 				}
 			}, function () {
+				that.setState({
+					flag: false
+				});
 				toast.show("连接错误", 2000);
 			});
 		} else {
@@ -35755,6 +35838,7 @@ var ApplyInfo = _react2.default.createClass({
 						)
 					)
 				),
+				_react2.default.createElement(_loading2.default, { flag: that.state.flag }),
 				_react2.default.createElement(
 					'form',
 					{ className: 'applyInfo' },
@@ -35834,6 +35918,10 @@ var _header = __webpack_require__(10);
 
 var _header2 = _interopRequireDefault(_header);
 
+var _loading = __webpack_require__(124);
+
+var _loading2 = _interopRequireDefault(_loading);
+
 var _reactRouter = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -35846,7 +35934,7 @@ var ApplyLevel = _react2.default.createClass({
 	getInitialState: function getInitialState() {
 		return {
 			checked: true,
-			activequalifyListArr: [],
+			flag: false,
 			valSelect: [],
 			qualifyListArr: [],
 			second: []
@@ -35855,7 +35943,9 @@ var ApplyLevel = _react2.default.createClass({
 
 	componentWillMount: function componentWillMount() {
 		var loanId = this.props.location.state.loanId;
-		this.setState({ loanId: loanId });
+		var applyQuery = this.props.location.state.applyQuery;
+		console.log(applyQuery);
+		this.setState({ loanId: loanId, applyQuery: applyQuery });
 	},
 	toBack: function toBack() {
 		var backRouter = this.props.backRouter;
@@ -35867,27 +35957,95 @@ var ApplyLevel = _react2.default.createClass({
 	},
 	toApplyResult: function toApplyResult() {
 		var that = this;
+		console.log(that.state.valSelect);
+		var key1 = _global.globalData.key;
+		var toast = _global.globalData.toast;
+		var isOver;
 		if (!this.state.checked) {
 			toast.show("请同意智能贷服务协议", 2000);
 		} else {
-			var qualifyList = that.state.valSelect;
-			//console.log(qualifyList);
-			_api2.default.qualifyListAdd(qualifyList, function (res) {
-				console.log(res);
-				if (res.code == "0000") {
-					var data = JSON.parse(strDec(res.data, key1, "", ""));
-					console.log(data);
+			var qualifySelect = that.state.valSelect;
+			console.log(qualifySelect);
+			for (var i in qualifySelect) {
+				if (qualifySelect[i].selectName == "") {
+					toast.show(qualifySelect[i].dictionaryName + '必填', 2000);
+					isOver = false;
+					break;
+				} else {
+					isOver = true;
 				}
-			}, function () {
-				toast.show("连接错误", 2000);
-			});
+			}
+			if (isOver) {
+				_api2.default.qualifyListSave(qualifySelect, function (res) {
+					that.setState({
+						flag: true
+					});
+					console.log(res);
+					if (res.code == "0000") {
+						//申请贷款
+						var _that$state$applyQuer = that.state.applyQuery,
+						    value2 = _that$state$applyQuer.value2,
+						    limitType = _that$state$applyQuer.limitType,
+						    loanId = _that$state$applyQuer.loanId,
+						    value1 = _that$state$applyQuer.value1;
 
-			/*var data = {id:3,name:"qin",age:18};
-   var path = {
-     pathname:'/ApplyResult',
-     state:data,
-   }
-   hashHistory.push(path);*/
+						_api2.default.applyLoan(value2, limitType, loanId, value1 * 100, function (res) {
+							console.log(res);
+							if (res.code == "0000") {
+								that.setState({
+									flag: false
+								});
+								toast.show("申请订单成功", 2000);
+								var path = {
+									pathname: '/ApplyResult'
+								};
+								_reactRouter.hashHistory.push(path);
+							} else if (res.code == "5555") {
+								that.setState({
+									flag: false
+								});
+								toast.show("登录过时，请重新登录", 2000);
+								var path = {
+									pathname: '/Login'
+								};
+								_reactRouter.hashHistory.push(path);
+							} else {
+								that.setState({
+									flag: false
+								});
+								toast.show(res.msg, 2000);
+							}
+						}, function () {
+							that.setState({
+								flag: false
+							});
+							toast.show("连接错误", 2000);
+						});
+					} else if (res.code == "5555") {
+						toast.show("登录过时，请重新登录", 2000);
+						that.setState({
+							flag: false
+						});
+						var path = {
+							pathname: '/Login'
+						};
+						_reactRouter.hashHistory.push(path);
+					} else {
+						//申请失败：信息保存有误
+						toast.show(res.msg + ",申请贷款失败", 2000);
+						that.setState({
+							flag: false
+						});
+					}
+				}, function () {
+					that.setState({
+						flag: false
+					});
+					toast.show("连接错误", 2000);
+				});
+			} else {
+				console.log("未填完");
+			}
 		}
 	},
 	agreeRule: function agreeRule(event) {
@@ -35899,7 +36057,7 @@ var ApplyLevel = _react2.default.createClass({
 
 	render: function render() {
 		var that = this;
-		console.log(that.state.valSelect);
+
 		return _react2.default.createElement(
 			'div',
 			{ className: 'app_Box applyFlow' },
@@ -35972,6 +36130,7 @@ var ApplyLevel = _react2.default.createClass({
 				_react2.default.createElement(
 					'div',
 					{ className: 'applyLevel' },
+					_react2.default.createElement(_loading2.default, { flag: that.state.flag }),
 					_react2.default.createElement(
 						'form',
 						{ className: 'applyLevelForm' },
@@ -36009,7 +36168,13 @@ var ApplyLevel = _react2.default.createClass({
 			)
 		);
 	},
-
+	inputSelect: function inputSelect(event) {
+		console.log("aaa");
+		var valSelect = event.target.value;
+		var indexId = event.target.getAttribute("data-indexId") * 1;
+		that.state.valSelect[indexId].selectName = valSelect;
+		console.log(that.state.valSelect);
+	},
 	checkHandle: function checkHandle(event) {
 		var that = this;
 		var toast = _global.globalData.toast;
@@ -36029,6 +36194,7 @@ var ApplyLevel = _react2.default.createClass({
 		var that = this;
 		var key1 = _global.globalData.key;
 		var toast = _global.globalData.toast;
+		var curEvent = event.target;
 		var dictionaryId = event.target.getAttribute("data-dictionaryId");
 		var indexId = event.target.getAttribute("data-indexId") * 1;
 		that.setState({ activeIndexId: indexId });
@@ -36048,7 +36214,7 @@ var ApplyLevel = _react2.default.createClass({
 				//console.log(res);
 				if (res.code == "0000") {
 					var qualifyList = JSON.parse(strDec(res.data, key1, "", ""));
-					console.log(qualifyList);
+					//console.log(qualifyList);
 					if (qualifyList.length > 0) {
 						//说明有下级
 						for (var i in qualifyList) {
@@ -36061,6 +36227,9 @@ var ApplyLevel = _react2.default.createClass({
 					} else {
 						//没有下级.点击即选
 						console.log("没有下级");
+						//console.log($(curEvent).find("input"))
+						$(curEvent).html($(curEvent).html().replace("请选择", ""));
+						$(curEvent).find("input").removeClass("insertInput").focus();
 					}
 					that.setState({ second: that.state.second, qualifyListArr: that.state.qualifyListArr, valSelect: that.state.valSelect });
 				}
@@ -36069,18 +36238,20 @@ var ApplyLevel = _react2.default.createClass({
 			});
 		}
 	},
+
 	componentDidMount: function componentDidMount() {
 		var that = this;
 		var qualifyList = that.props.location.state.qualifyList;
-		console.log(qualifyList);
+		//console.log(qualifyList);
 		//var qualifyListArr=[];
 		for (var i in qualifyList) {
 			var selectName = qualifyList[i].selectName;
 			that.state.second.push([]);
 			that.state.second[i].isShow = false;
 			that.state.second[i].isRequest = false;
-			that.state.valSelect.push([]);
+			that.state.valSelect.push({});
 			that.state.valSelect[i].userId = _global.globalData.userId;
+			that.state.valSelect[i].qualifyId = qualifyList[i].qualifyId;
 			that.state.valSelect[i].dictionaryId = qualifyList[i].dictionaryId;
 			that.state.valSelect[i].dictionaryName = qualifyList[i].dictionaryName;
 			that.state.valSelect[i].dictionaryParentId = qualifyList[i].dictionaryParentId;
@@ -36097,7 +36268,8 @@ var ApplyLevel = _react2.default.createClass({
 				_react2.default.createElement(
 					'i',
 					{ 'data-dictionaryId': qualifyList[i].dictionaryId, style: { 'color': '#333333' }, 'data-indexId': i, 'data-txt': qualifyList[i].name, className: "selectValue" + i, onClick: that.selectHandle },
-					that.state.valSelect[i].selectName || '请选择'
+					that.state.valSelect[i].selectName || '请选择',
+					_react2.default.createElement('input', { type: 'text', 'data-indexId': i, onChange: that.inputSelect, className: 'insertInput' })
 				),
 				_react2.default.createElement(
 					'ul',
