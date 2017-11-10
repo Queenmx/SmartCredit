@@ -35837,13 +35837,14 @@ var Order = _react2.default.createClass({
                             { className: 'orderNum' },
                             _react2.default.createElement(
                                 'span',
-                                { className: '' },
-                                '\u8BA2\u5355\u53F7\uFF1A201705092356412'
+                                { className: 'order_n' },
+                                '\u8BA2\u5355\u53F7\uFF1A',
+                                orderList[i].applyId
                             ),
                             _react2.default.createElement(
                                 'span',
                                 null,
-                                '\u5DF2\u7533\u8BF7'
+                                orderList[i].applyStatus
                             )
                         ),
                         _react2.default.createElement(
@@ -35853,12 +35854,12 @@ var Order = _react2.default.createClass({
                             _react2.default.createElement(
                                 'span',
                                 null,
-                                '\u73B0\u91D1\u501F\u6B3E\uFF08\u591A\u671F\uFF09'
+                                orderList[i].loanType
                             ),
                             _react2.default.createElement(
                                 'span',
                                 { className: 'p_name' },
-                                '\u4FE1\u7528\u8D37'
+                                orderList[i].loanName
                             )
                         ),
                         _react2.default.createElement(
@@ -35867,7 +35868,8 @@ var Order = _react2.default.createClass({
                             _react2.default.createElement(
                                 'li',
                                 null,
-                                '\u501F\u6B3E\u91D1\u989D \xA55000'
+                                '\u501F\u6B3E\u91D1\u989D ',
+                                orderList[i].money
                             ),
                             _react2.default.createElement(
                                 'li',
@@ -35901,6 +35903,9 @@ var Order = _react2.default.createClass({
                         )
                     ));
                 }
+                that.setState({
+                    list: arr
+                });
             }
         }, function () {
             toast.show("连接错误", 2000);

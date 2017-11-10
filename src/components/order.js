@@ -35,16 +35,16 @@ var Order = React.createClass({
                 for (var i in orderList) {
                     arr.push(<li key={i}>
                         <div className="orderNum">
-                            <span className="">订单号：201705092356412</span>
-                            <span>已申请</span>
+                            <span className="order_n">订单号：{orderList[i].applyId}</span>
+                            <span>{orderList[i].applyStatus}</span>
                         </div>
                         <h3 className="list_title">
                             <img src="src/img/icon/order.png" />
-                            <span>现金借款（多期）</span>
-                            <span className="p_name">信用贷</span>
+                            <span>{orderList[i].loanType}</span>
+                            <span className="p_name">{orderList[i].loanName}</span>
                         </h3>
                         <ul className="container">
-                            <li>借款金额 ¥5000</li>
+                            <li>借款金额 {orderList[i].money}</li>
                             <li>期限12月</li>
                             <li>利息480元</li>
                             <li>月费用3.17%</li>
@@ -55,6 +55,9 @@ var Order = React.createClass({
                         </div>
                     </li>)
                 }
+                that.setState({
+                    list: arr
+                })
             }
 
         }, function () {
