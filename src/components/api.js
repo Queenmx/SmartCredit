@@ -465,28 +465,6 @@ module.exports.saveArticle=function(pageNum,pageSize,cb1,cb2){
 }
 
 
-/*module.exports.queryBanner=function(cb){ 
-    var data=globalData.requestData;
-    data.ACTION="main_v2";
-    var param=JSON.stringify(data);
-    var queryData = base64encode(des(key,utf16to8(param),1,0, iv, 1));
-  	http(`${globalData.path1}`,queryData,cb);
-}*/
-
-/**
- * 功能描述：发现
- * 函数名：queryFind
- * @para:参数描述
- * ACTION
- */
-/*module.exports.queryFind=function(cb){
-	var data=globalData.requestData;
-    data.ACTION="find";
-    data.DEVICE_ID="aaaaaaaaaaaaaaa123";
-    var param=JSON.stringify(data);
-    var queryData = base64encode(des(key,utf16to8(param),1,0, iv, 1));
-  	http(`${globalData.path}`,queryData,cb);
-}*/
 
 
 /**
@@ -504,6 +482,30 @@ module.exports.saveArticle=function(pageNum,pageSize,cb1,cb2){
   	http(`${globalData.path}`,queryData,cb);
 }*/
 
+/**
+ * 功能描述：我的订单
+ * 函数名：orderList
+ * @param {String} pageNum
+ * @param {String} pageSize
+ * @param {String} tag
+ * ACTION
+ */
+module.exports.orderList = function (pageNum, pageSize, tag, cb1, cb2) {
+    var data = globalData.requestData;
+    //data.token=token;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    data.tag = tag;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    //console.log(param);
+    http(`${globalData.path}/zndai/loan/apply/list/c`, { params: str }, cb1, cb2);
+		delete data.pageNum;
+  	delete data.pageSize;
+  	delete data.tag;
+  	delete data.userId;
+}
 
 
 

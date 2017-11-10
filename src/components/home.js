@@ -75,12 +75,6 @@ var Home=React.createClass({
 			if(res.code=="0000"){
 				var data =JSON.parse(strDec(res.data,key1,"",""));
 				console.log(data);
-			}else if(res.code=="5555"){
-				toast.show("登录过时，请重新登录",2000);
-				var path = {
-				  pathname:'/Login',
-				}
-				hashHistory.push(path);
 			}else{
 				toast.show(res.msg,2000);
 			}
@@ -88,24 +82,7 @@ var Home=React.createClass({
 		},function(){
 			toast.show("连接错误",2000);
 		})
-		//"095c2c011ef740508bf27785e0ffe8f1"
-		/*api.qualifyListAdd(parentId,qualifyName,qualifyNo,selectName,userId,function(){
-			
-		})*/
-		/*api.qualifyList("",function(res){
-			//console.log(res);
-			if(res.code=="0000"){
-				var data =JSON.parse(strDec(res.data,key1,"",""));
-				console.log(data);
-			}
-		})
-		api.dictionary("","",function(res){
-			//console.log(res);
-			if(res.code=="0000"){
-				var data =JSON.parse(strDec(res.data,key1,"",""));
-				console.log(data);
-			}
-		})*/
+		
 		
 		api.loanList(1,5,"",function(res){
 			if(res.code=="0000"){
@@ -142,14 +119,8 @@ var Home=React.createClass({
 					list:arr
 				})
 				
-			}else if(res.code=="5555"){
-				toast.show("登录过时，请重新登录",2000);
-				var path = {
-				  pathname:'/Login',
-				}
-				hashHistory.push(path);
 			}else{
-				toast.show(res.msg,2000);
+				toast.show("连接错误",2000);
 			}
 		},function(){
 			toast.show("连接错误",2000);
@@ -180,12 +151,6 @@ var Home=React.createClass({
 					articleArr:articleArr
 				})
 				
-			}else if(res.code=="5555"){
-				toast.show("登录过时，请重新登录",2000);
-				var path = {
-				  pathname:'/Login',
-				}
-				hashHistory.push(path);
 			}else{
 				toast.show(res.msg,2000);
 			}
