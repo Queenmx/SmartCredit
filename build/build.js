@@ -586,14 +586,14 @@ exports.createMemoryHistory = _createMemoryHistory3.default;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 var request = {
-  QueryString: function QueryString(val) {
-    var uri = window.location.search;
-    var re = new RegExp("" + val + "=([^&?]*)", "ig");
-    return uri.match(re) ? uri.match(re)[0].substr(val.length + 1) : null;
-  }
+    QueryString: function QueryString(val) {
+        var uri = window.location.search;
+        var re = new RegExp("" + val + "=([^&?]*)", "ig");
+        return uri.match(re) ? uri.match(re)[0].substr(val.length + 1) : null;
+    }
 };
 var platform = request.QueryString("platform");
 var deviceno = request.QueryString("deviceno");
@@ -601,32 +601,33 @@ var toast = new Toast();
 var user = localStorage.getItem("user");
 // console.log(user);
 if (user) {
-  var userObj = JSON.parse(user);
-  var userId = userObj.userId;
-  var token = userObj.token;
+    var userObj = JSON.parse(user);
+    var userId = userObj.userId;
+    var token = userObj.token;
 } else {
-  var userId = "";
-  var token = "";
+    var userId = "";
+    var token = "";
 }
 
 var globalData = {
-  toast: toast,
-  selectedCityName: '',
-  key: "ZND171030APIMM",
-  appBasePath: "http://www.91ymfq.com/XR/",
-  // appBasePath:"http://122.144.133.20/XR/",
-  path1: "http://admin.91ymfq.com/api/h5Service.do",
-  //path:"http://test.91ymfq.com/api/h5Service.do",
-  path: "http://122.144.133.20:8088",
-  //path:"http://tdx.free.ngrok.cc",
-  //path:"http://192.168.1.17:8088",
-  pathCai: "http://apis.juhe.cn/cook/query.php",
-  userId: userId || "",
-  requestData: {
-    "platform": platform || "",
-    "deviceno": deviceno || "",
-    "token": token
-  }
+    toast: toast,
+    selectedCityName: '',
+    key: "ZND171030APIMM",
+    appBasePath: "http://www.91ymfq.com/XR/",
+    // appBasePath:"http://122.144.133.20/XR/",
+    path1: "http://admin.91ymfq.com/api/h5Service.do",
+    //path:"http://test.91ymfq.com/api/h5Service.do",
+    path: "http://122.144.133.20:8088",
+    //path:"http://tdx.free.ngrok.cc",
+    //path:"http://192.168.1.17:8088",
+    pathCai: "http://apis.juhe.cn/cook/query.php",
+    userId: userId || "",
+    requestData: {
+        "platform": platform || "",
+        "deviceno": deviceno || "",
+        "appFlag": "C",
+        "token": token
+    }
 };
 exports.globalData = globalData;
 
@@ -1097,6 +1098,7 @@ module.exports.orderList = function (pageNum, pageSize, tag, cb1, cb2) {
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     data.tag = tag;
+    data.userId = userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     //console.log(param);
@@ -35817,6 +35819,13 @@ var Order = _react2.default.createClass({
     },
     toCancel: function toCancel(e) {
         e.target.style.backgroundColor = e.target.style.backgroundColor === "grey" ? "#53a6ff" : "grey";
+    },
+    formateMoney: function formateMoney(money) {
+        if (money % 100 === 0) {
+            return (money / 100).toFixed(2);
+        } else {
+            return money / 100.0;
+        }
     },
     componentDidMount: function componentDidMount() {
         var key1 = _global.globalData.key;

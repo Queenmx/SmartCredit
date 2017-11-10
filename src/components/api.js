@@ -467,6 +467,7 @@ module.exports.orderList = function (pageNum, pageSize, tag, cb1, cb2) {
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     data.tag = tag;
+    data.userId = userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     //console.log(param);

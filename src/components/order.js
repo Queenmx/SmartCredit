@@ -22,6 +22,13 @@ var Order = React.createClass({
     toCancel: function (e) {
         e.target.style.backgroundColor = e.target.style.backgroundColor === "grey" ? "#53a6ff" : "grey";
     },
+    formateMoney: function (money) {
+        if (money % 100 === 0) {
+            return (money / 100).toFixed(2)
+        } else {
+            return money / 100.0
+        }
+    },
     componentDidMount: function () {
         var key1 = globalData.key;
         var toast = globalData.toast;
