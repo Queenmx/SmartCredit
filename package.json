@@ -42,7 +42,6 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
-    "react-avatar-editor": "^10.3.0",
     "react-cropper": "^1.0.0",
     "reactjs-iscroll": "^0.3.2"
   }

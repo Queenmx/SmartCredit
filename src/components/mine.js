@@ -83,12 +83,14 @@ var Mine = React.createClass({
             var path = {
                 pathname: '/Order'
             }
+            hashHistory.push(path);
         } else {
             var path = {
                 pathname: '/Login'
             }
+            hashHistory.push(path);
         }
-        hashHistory.push(path);
+        // hashHistory.push(path);
     },
     toHelp: function () {
         var path = {

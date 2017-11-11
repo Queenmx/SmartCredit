@@ -520,10 +520,10 @@ module.exports.orderList = function (pageNum, pageSize, tag, cb1, cb2) {
  * @param {String} userId
  * ACTION
  */
-module.exports.cancleOrder = function (applyId, userId, cb1, cb2) {
+module.exports.cancleOrder = function (applyId, cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
-    data.pageNum = applyId;
+    data.applyId = applyId;
     data.userId = userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
@@ -532,7 +532,6 @@ module.exports.cancleOrder = function (applyId, userId, cb1, cb2) {
     delete data.applyId;
     delete data.userId;
 }
-
 
 
 
