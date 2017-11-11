@@ -55,7 +55,9 @@ var Order = React.createClass({
         var id = consloe.log(e.target.getAttribute['data-id']);
         if (id === 2) {
             api.cancleOrder(dataId, "", function (res) {
+                if (res.code == "0000") {
 
+                }
             })
         }
     },
