@@ -19,6 +19,7 @@ var Home=React.createClass({
 			activeIndex:0,
 			pageNum:1,
 			pageSize:10,
+			tagArr:[],
 			list:[]
 		}
 	},
@@ -40,18 +41,18 @@ var Home=React.createClass({
 		event.target.onerror=null; //控制不要一直跳动 
 		//console.log(event.target.src);
     },
-	
+
 	toList:function(event){
 		const tag=event.currentTarget.getAttribute("data-tag");
 		const txt=event.currentTarget.getAttribute("data-txt");
-		const data = {tag:tag,txt:txt};
+		const tagId=event.currentTarget.getAttribute("data-tagId");
+		const data = {tag:tag,tagId:tagId,txt:txt};
 		const path = {
 		  pathname:'/List',
 		  state:data
 		}
 		hashHistory.push(path);
 	},
-	
 	toNewsDetail:function(event){
 		var articleId=event.currentTarget.getAttribute("data-articleid");
 	    	//console.log(articleId);
@@ -73,8 +74,16 @@ var Home=React.createClass({
 		api.tag("BQ",function(res){
 			//console.log(res)
 			if(res.code=="0000"){
-				var data =JSON.parse(strDec(res.data,key1,"",""));
-				console.log(data);
+				var tagdata =JSON.parse(strDec(res.data,key1,"",""));
+				console.log(tagdata);
+				for(var i in tagdata){
+					that.state.tagArr.push(
+					<li key={i} data-tag={tagdata[i].tagNo} data-tagId={tagdata[i].tagId} onClick={that.toList}>
+        				<img src={tagdata[i].tagPic}/>
+        				<p>{tagdata[i].tagName}</p>
+        			</li>)
+				}
+				that.setState({tagArr:that.state.tagArr})
 			}else{
 				toast.show(res.msg,2000);
 			}
@@ -170,7 +179,8 @@ var Home=React.createClass({
       		<HomeHeader curCity={curCity}/>
 	        	<div className="content">
 	        		<ul className="homeTab">
-	        			<li data-tag="SBZ" data-txt="上班族" onClick={that.toList}>
+	        			{that.state.tagArr}
+	        			{/*<li data-tag="SBZ" data-txt="上班族" onClick={that.toList}>
 	        				<img src="src/img/icon/group.png"/>
 	        				<p>上班族</p>
 	        			</li>
@@ -185,7 +195,7 @@ var Home=React.createClass({
 	        			<li data-tag="ZYZY" data-txt="自由职业" onClick={that.toList}>
 	        				<img src="src/img/icon/ziyou.png"/>
 	        				<p>自由职业</p>
-	        			</li>
+	        			</li>*/}
 	        		</ul>
 	        		 <div className="capitalBox">
 					       {that.state.list}

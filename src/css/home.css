@@ -28,6 +28,7 @@
       .home .homeTab li img {
         width: 0.9rem;
         height: 0.9rem;
+        border-radius: 50%;
         display: block;
         margin: 0 auto; }
       .home .homeTab li p {

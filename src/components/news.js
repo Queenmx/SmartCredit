@@ -15,6 +15,7 @@ class News extends Component {
 	  		list: [],
 	  		currentPage: 1,
 	      	lastPage: false,
+	      	banner:[],
 			pageSize:10
 	    };
 	    this.toNewsDetail = (event) => {
@@ -121,22 +122,21 @@ class News extends Component {
 		var toast = globalData.toast;
 		const {currentPage,pageSize,list} = that.state;
 		this.loadData();
-		var banner=[];
 		api.banner(function(res){
 				//console.log(res);
 				if(res.code=="0000"){
 					var bannerList =JSON.parse(strDec(res.data,key1,"",""));
 					console.log(bannerList);
 		               for (var i in bannerList) {
-			            	banner.push(
-			              	 <div className="swiper-slide" key={i}>
-			              	 	<img src={bannerList[i].img_URL}/>
+			            	that.state.banner.push(
+			              	 <div className="swiper-slide" key={i} data-objUrl={bannerList[i].objUrl}>
+			              	 	<img src={bannerList[i].imgUrl}/>
 			              	 </div>
 			              	 )
 			            };
 			            that.setState({
-			            	banner:banner
-			            })
+				        	banner:that.state.banner
+				        })
 				}else{
 					toast.show(res.msg,2000);
 				}
@@ -144,7 +144,19 @@ class News extends Component {
 			},function(){
 			toast.show("连接错误",2000);
 		});
-	
+		
+		//console.log(that.state.banner);
+		
+		that.timeoutId = setTimeout(() => {
+	      var swiper = new Swiper("#bannerList",{
+				loop:true,
+				autoplay : 3000,
+				speed:500,
+				pagination: '.swiper-pagination',
+				autoplayDisableOnInteraction:false
+			});
+	    }, 500)
+		
 	}
 	
 	
@@ -173,7 +185,10 @@ class News extends Component {
         	</div>
         )
 	}
-	componentDidUpdate(){
+	 componentWillUnmount() {
+	    clearTimeout(this.timeoutId)
+	  }
+	/*componentDidUpdate(){
 		var current=$(".swiper-slide swiper-slide-active").index();
 		var length=this.state.length;
 		var swiper = new Swiper("#bannerList",{
@@ -191,7 +206,7 @@ class News extends Component {
 			    //console.log(current); 
 			 // }
 		});     
-	}
+	}*/
 };
 
 export default News;
