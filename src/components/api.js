@@ -1,344 +1,344 @@
-var http=require("./http");
-import {globalData} from './global.js';
+var http = require("./http");
+import { globalData } from './global.js';
 
 var key1 = globalData.key;
-var userId=globalData.userId;
+var userId = globalData.userId;
 //var toast = new Toast();
 console.log(userId);
 //console.log(globalData.userId);
 //var getNewUser=function(){
-	/*var user=localStorage.getItem("user");
-   console.log(user);
-   if(user){
-   	var userObj=JSON.parse(user);
-   	var userId=userObj.userId;
-   	var token=userObj.token;
-   }else{
-   	var userId="";
-   	var token="";
-   }*/
+/*var user=localStorage.getItem("user");
+console.log(user);
+if(user){
+      var userObj=JSON.parse(user);
+      var userId=userObj.userId;
+      var token=userObj.token;
+}else{
+      var userId="";
+      var token="";
+}*/
 //}
- //getNewUser();
- //module.exports.getNewUser;
+//getNewUser();
+//module.exports.getNewUser;
 //ex
 
 //标签
-module.exports.tag=function(type,cb1,cb2){ 
-	 //getNewUser();
-    var data=globalData.requestData;
+module.exports.tag = function (type, cb1, cb2) {
+    //getNewUser();
+    var data = globalData.requestData;
     //data.token=token;
-     data.tagType="LOAN";
-    data.type=type;//BQ 标签 FL 分类
-    var param=JSON.stringify(data);
+    data.tagType = "LOAN";
+    data.type = type;//BQ 标签 FL 分类
+    var param = JSON.stringify(data);
     console.log(param);
-    var str = strEnc(param,key1);
+    var str = strEnc(param, key1);
     // console.log(str);
-  	http(`${globalData.path}/zndai/tag/list`,{params:str},cb1,cb2);
-  	delete data.tagType;
-  	delete data.type;
+    http(`${globalData.path}/zndai/tag/list`, { params: str }, cb1, cb2);
+    delete data.tagType;
+    delete data.type;
 }
 
 
 //获取城市列表
-module.exports.getCityList=function(cb1,cb2){ 
-    var data=globalData.requestData;
+module.exports.getCityList = function (cb1, cb2) {
+    var data = globalData.requestData;
     //data.token=token;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/city/list`,{params:str},cb1,cb2);
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/city/list`, { params: str }, cb1, cb2);
 }
 
- 
+
 //热门城市
-module.exports.getHotCity=function(cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/city/hot`,{params:str},cb1,cb2);
+module.exports.getHotCity = function (cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/city/hot`, { params: str }, cb1, cb2);
 }
 
 //登录
-module.exports.login=function(loginType,phone,pwd,verifyCode,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    data.loginType=loginType;
-    data.phone=phone;
-    data.pwd=pwd;//login_type为PWD时必填
-    data.type="C";
-    data.verifyCode=verifyCode;//	login_type为CODE时必填
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/user/login`,{params:str},cb1,cb2);
-  	delete data.loginType;
-  	delete data.phone;
-  	delete data.pwd;
-  	delete data.type;
-  	delete data.verifyCode;
+module.exports.login = function (loginType, phone, pwd, verifyCode, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.loginType = loginType;
+    data.phone = phone;
+    data.pwd = pwd;//login_type为PWD时必填
+    data.type = "C";
+    data.verifyCode = verifyCode;//	login_type为CODE时必填
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/user/login`, { params: str }, cb1, cb2);
+    delete data.loginType;
+    delete data.phone;
+    delete data.pwd;
+    delete data.type;
+    delete data.verifyCode;
 }
 
 //注册
-module.exports.register=function(phone,pwd,verifyCode,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    data.phone=phone;
-    data.pwd=pwd;
-    data.type="C";
-    data.verifyCode=verifyCode;
+module.exports.register = function (phone, pwd, verifyCode, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.phone = phone;
+    data.pwd = pwd;
+    data.type = "C";
+    data.verifyCode = verifyCode;
     console.log(data);
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/user/add`,{params:str},cb1,cb2);
-  	delete data.phone;
-  	delete data.pwd;
-  	delete data.type;
-  	delete data.verifyCode;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/user/add`, { params: str }, cb1, cb2);
+    delete data.phone;
+    delete data.pwd;
+    delete data.type;
+    delete data.verifyCode;
 }
 
 //忘记密码，重置密码
-module.exports.forgot=function(phone,pwd,verifyCode,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    data.phone=phone;
-    data.pwd=pwd;
-    data.verifyCode=verifyCode;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/user/pwd/forgot`,{params:str},cb1,cb2);
-  	delete data.phone;
-  	delete data.pwd;
-  	delete data.verifyCode;
+module.exports.forgot = function (phone, pwd, verifyCode, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.phone = phone;
+    data.pwd = pwd;
+    data.verifyCode = verifyCode;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/user/pwd/forgot`, { params: str }, cb1, cb2);
+    delete data.phone;
+    delete data.pwd;
+    delete data.verifyCode;
 }
 
 //发送手机验证码
-module.exports.verifyCode=function(phone,type,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    data.phone=phone;
-    data.type="REG";//REG 注册 ，FPWD忘记密码
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
+module.exports.verifyCode = function (phone, type, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.phone = phone;
+    data.type = "REG";//REG 注册 ，FPWD忘记密码
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
     console.log(data);
-  	http(`${globalData.path}/zndai/user/verifyCode`,{params:str},cb1,cb2);
-  	delete data.phone;
-  	delete data.type;
-  	
+    http(`${globalData.path}/zndai/user/verifyCode`, { params: str }, cb1, cb2);
+    delete data.phone;
+    delete data.type;
+
 }
 //退出
-module.exports.exit=function(userId,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    data.userId=userId;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/user/exit`,{params:str},cb1,cb2);
-  	delete data.userId;
+module.exports.exit = function (userId, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/user/exit`, { params: str }, cb1, cb2);
+    delete data.userId;
 }
 
 //----------------个人中心
 
 //个人信息修改
-module.exports.edit=function(idCard,located,realName,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    data.idCard=idCard;
-    data.located=located;
-    data.realName=realName;
-    data.userId=userId;
-    var param=JSON.stringify(data);
-    	console.log(param);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/user/edit`,{params:str},cb1,cb2);
-  	delete data.idCard;
-  	delete data.located;
-  	delete data.realName;
-  	delete data.userId;
+module.exports.edit = function (idCard, located, realName, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.idCard = idCard;
+    data.located = located;
+    data.realName = realName;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    console.log(param);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/user/edit`, { params: str }, cb1, cb2);
+    delete data.idCard;
+    delete data.located;
+    delete data.realName;
+    delete data.userId;
 }
 
 //个人信息查询
-module.exports.userInfo=function(userId,cb1,cb2){ 
-    var data=globalData.requestData;
+module.exports.userInfo = function (userId, cb1, cb2) {
+    var data = globalData.requestData;
     //data.token=token;
-    data.userId=userId;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/user/userInfo`,{params:str},cb1,cb2);
-  	delete data.userId;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/user/userInfo`, { params: str }, cb1, cb2);
+    delete data.userId;
 }
 
 //修改密码
-module.exports.userInfo=function(newPwd,oldPwd,userId,cb1,cb2){ 
-    var data=globalData.requestData;
-  //  data.token=token;
-    data.newPwd=newPwd;
-    data.oldPwd=oldPwd;
-    data.userId=userId;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/user/pwd/edit`,{params:str},cb1,cb2);
-  	delete data.newPwd;
-  	delete data.oldPwd;
-  	delete data.userId;
+module.exports.userInfo = function (newPwd, oldPwd, userId, cb1, cb2) {
+    var data = globalData.requestData;
+    //  data.token=token;
+    data.newPwd = newPwd;
+    data.oldPwd = oldPwd;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/user/pwd/edit`, { params: str }, cb1, cb2);
+    delete data.newPwd;
+    delete data.oldPwd;
+    delete data.userId;
 }
 
 //用户个人资质保存
-module.exports.qualifyListSave=function(qualifySelect,cb1,cb2){
-	 let data=globalData.requestData;
-	data.qualifyList=JSON.stringify(qualifySelect);
-    var param1=JSON.stringify(data);
-    var str1 = strEnc(param1,key1);
+module.exports.qualifyListSave = function (qualifySelect, cb1, cb2) {
+    let data = globalData.requestData;
+    data.qualifyList = JSON.stringify(qualifySelect);
+    var param1 = JSON.stringify(data);
+    var str1 = strEnc(param1, key1);
     //console.log(data);
     //console.log(param1);
-  	http(`${globalData.path}/zndai/user/qualify/add`,{params:str1},cb1,cb2);
-  	delete data.qualifyList;
+    http(`${globalData.path}/zndai/user/qualify/add`, { params: str1 }, cb1, cb2);
+    delete data.qualifyList;
 }
 
 //用户个人资质查询
-module.exports.qualifyList=function(loanId,parentId,cb1,cb2){ 
-    let data=globalData.requestData;
-   // data.token=token;
-   data.loanId=loanId;
-    data.parentId=parentId;
-    data.userId=userId;
-    let param=JSON.stringify(data);
+module.exports.qualifyList = function (loanId, parentId, cb1, cb2) {
+    let data = globalData.requestData;
+    // data.token=token;
+    data.loanId = loanId;
+    data.parentId = parentId;
+    data.userId = userId;
+    let param = JSON.stringify(data);
     //console.log(param);
-    let str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/user/qualify/list`,{params:str},cb1,cb2);
-  	delete data.loanId;
-  	delete data.parentId;
-  	delete data.userId;
+    let str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/user/qualify/list`, { params: str }, cb1, cb2);
+    delete data.loanId;
+    delete data.parentId;
+    delete data.userId;
 }
 //字典查询
-module.exports.dictionary=function(objId,parentId,typeCode,cb1,cb2){ 
-    let data=globalData.requestData;
+module.exports.dictionary = function (objId, parentId, typeCode, cb1, cb2) {
+    let data = globalData.requestData;
     //data.token=token;
-    data.parentId=parentId;
-    data.objId=objId;
-    data.typeCode=typeCode;
-    let param=JSON.stringify(data);
-   // console.log(param);
-    let str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/dictionary/list`,{params:str},cb1,cb2);
-  	delete data.objId;
-  	delete data.parentId;
-  	delete data.typeCode;
-  	delete data.userId;
+    data.parentId = parentId;
+    data.objId = objId;
+    data.typeCode = typeCode;
+    let param = JSON.stringify(data);
+    // console.log(param);
+    let str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/dictionary/list`, { params: str }, cb1, cb2);
+    delete data.objId;
+    delete data.parentId;
+    delete data.typeCode;
+    delete data.userId;
 }
 
 
 //用户头像上传
-module.exports.userHead=function(headPic,userId,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-   data.headPic=headPic;
-    data.userId=userId;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/user/userHead`,{params:str,headPic:headPic},cb1,cb2);
-  	delete data.headPic;
-  	delete data.userId;
+module.exports.userHead = function (headPic, userId, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.headPic = headPic;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/user/userHead`, { params: str, headPic: headPic }, cb1, cb2);
+    delete data.headPic;
+    delete data.userId;
 }
 
 //身份认证
-module.exports.identityUserCert=function(backPic,frontPic,userId,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    data.userId=userId;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/user/identityUserCert`,{params:str,backPic:backPic,frontPic:frontPic},cb1,cb2);
-	delete data.userId;
+module.exports.identityUserCert = function (backPic, frontPic, userId, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/user/identityUserCert`, { params: str, backPic: backPic, frontPic: frontPic }, cb1, cb2);
+    delete data.userId;
 }
 
 
 //-------------------资讯
 
 //banner
-module.exports.banner=function(cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/banner/list`,{params:str},cb1,cb2);
+module.exports.banner = function (cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/banner/list`, { params: str }, cb1, cb2);
 }
 
 //资讯列表
-module.exports.articleList=function(pageNum,pageSize,cb1,cb2){ 
-    var data=globalData.requestData;
+module.exports.articleList = function (pageNum, pageSize, cb1, cb2) {
+    var data = globalData.requestData;
     //data.token=token;
-    data.pageNum=pageNum;
-    data.pageSize=pageSize;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/article/list`,{params:str},cb1,cb2);
-  	delete data.pageNum;
-  	delete data.pageSize;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/article/list`, { params: str }, cb1, cb2);
+    delete data.pageNum;
+    delete data.pageSize;
 }
 
 //资讯详情
-module.exports.articleDetail=function(articleId,cb1,cb2){ 
-    var data=globalData.requestData;
+module.exports.articleDetail = function (articleId, cb1, cb2) {
+    var data = globalData.requestData;
     //data.token=token;
-    data.articleId=articleId;
-    data.userId=userId;
-    var param=JSON.stringify(data);
+    data.articleId = articleId;
+    data.userId = userId;
+    var param = JSON.stringify(data);
     console.log(param);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/article/detail`,{params:str},cb1,cb2);
-  	delete data.articleId;
-  	delete data.userId;
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/article/detail`, { params: str }, cb1, cb2);
+    delete data.articleId;
+    delete data.userId;
 }
 
 
 //---------------------贷款产品
 //精准贷
 //列表
-module.exports.loanList=function(pageNum,pageSize,tag,cb1,cb2){ 
-    var data=globalData.requestData;
+module.exports.loanList = function (pageNum, pageSize, tag, cb1, cb2) {
+    var data = globalData.requestData;
     //data.token=token;
-    data.pageNum=pageNum;
-    data.pageSize=pageSize;
-    data.tag=tag;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    data.tag = tag;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
     console.log(param);
-  	http(`${globalData.path}/zndai/loan/list`,{params:str},cb1,cb2);
-  	delete data.pageNum;
-  	delete data.pageSize;
-  	delete data.tag;
+    http(`${globalData.path}/zndai/loan/list`, { params: str }, cb1, cb2);
+    delete data.pageNum;
+    delete data.pageSize;
+    delete data.tag;
 }
 //详情
-module.exports.loanDetail=function(loanId,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    data.loanId=loanId;
-    data.userId=globalData.userId;
-    var param=JSON.stringify(data);
+module.exports.loanDetail = function (loanId, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.loanId = loanId;
+    data.userId = globalData.userId;
+    var param = JSON.stringify(data);
     //console.log(param)
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/loan/detail`,{params:str},cb1,cb2);
-  	delete data.loanId;
-  	delete data.userId;
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/loan/detail`, { params: str }, cb1, cb2);
+    delete data.loanId;
+    delete data.userId;
 }
 //申请贷款
 
-module.exports.applyLoan=function(limitDay,limitType,loanId,money,cb1,cb2){ 
-    var data=globalData.requestData;
+module.exports.applyLoan = function (limitDay, limitType, loanId, money, cb1, cb2) {
+    var data = globalData.requestData;
     //data.token=token;
-    data.limitDay=limitDay;
-    data.limitType=limitType;
-    data.loanId=loanId;
-    data.money=money;
-    data.userId=userId;
-    var param=JSON.stringify(data);
-   // console.log(param)
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/loan/apply/add`,{params:str},cb1,cb2);
-  	delete data.limitDay;
-  	delete data.limitType;
-  	delete data.loanId;
-  	delete data.money;
-  	delete data.userId;
+    data.limitDay = limitDay;
+    data.limitType = limitType;
+    data.loanId = loanId;
+    data.money = money;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    // console.log(param)
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/loan/apply/add`, { params: str }, cb1, cb2);
+    delete data.limitDay;
+    delete data.limitType;
+    delete data.loanId;
+    delete data.money;
+    delete data.userId;
 }
 
 
@@ -347,130 +347,130 @@ module.exports.applyLoan=function(limitDay,limitType,loanId,money,cb1,cb2){
 //------------------------问题
 
 //提交反馈
-module.exports.feedBackAdd=function(content,userId,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    data.content=content;
-    data.userId=userId;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/feedBack/add`,{params:str},cb1,cb2);
-  	delete data.content;
-  	delete data.userId;
+module.exports.feedBackAdd = function (content, userId, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.content = content;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/feedBack/add`, { params: str }, cb1, cb2);
+    delete data.content;
+    delete data.userId;
 }
 
 //我要提问
-module.exports.questionAdd=function(content,objId,objType,userId,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    data.content=content;
-    data.objId=objId;
-    data.objType=objType;
-    data.userId=userId;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/question/add`,{params:str},cb1,cb2);
-  	delete data.content;
-  	delete data.objId;
-  	delete data.objType;
-  	delete data.userId;
+module.exports.questionAdd = function (content, objId, objType, userId, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.content = content;
+    data.objId = objId;
+    data.objType = objType;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/question/add`, { params: str }, cb1, cb2);
+    delete data.content;
+    delete data.objId;
+    delete data.objType;
+    delete data.userId;
 }
 
 //问题列表
-module.exports.questionList=function(objId,pageNum,pageSize,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    data.objId=objId;
-    data.pageNum=pageNum;
-    data.pageSize=pageSize;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/question/list`,{params:str},cb1,cb2);
-  	delete data.objId;
-  	delete data.pageNum;
-  	delete data.pageSize;
+module.exports.questionList = function (objId, pageNum, pageSize, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.objId = objId;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/question/list`, { params: str }, cb1, cb2);
+    delete data.objId;
+    delete data.pageNum;
+    delete data.pageSize;
 }
 //问题列表
 
-module.exports.questionAdd=function(content,objId,objType,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    data.objId=objId;
-    data.content=content;
-    data.objType=objType;
-    data.userId=userId;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/question/add`,{params:str},cb1,cb2);
-  	delete data.objId;
-  	delete data.content;
-  	delete data.objType;
-  	delete data.userId;
+module.exports.questionAdd = function (content, objId, objType, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.objId = objId;
+    data.content = content;
+    data.objType = objType;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/question/add`, { params: str }, cb1, cb2);
+    delete data.objId;
+    delete data.content;
+    delete data.objType;
+    delete data.userId;
 }
 
 
 //收藏——————————————————————————
 //添加收藏
-module.exports.save=function(objId,objType,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    data.objId=objId;
-    data.objType=objType;//ARTICLE   LOAN 
-    data.userId=userId;
-    var param=JSON.stringify(data);
+module.exports.save = function (objId, objType, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.objId = objId;
+    data.objType = objType;//ARTICLE   LOAN 
+    data.userId = userId;
+    var param = JSON.stringify(data);
     //console.log(param);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/mark/add`,{params:str},cb1,cb2);
-  	delete data.objId;
-  	delete data.objType;
-  	delete data.userId;
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/mark/add`, { params: str }, cb1, cb2);
+    delete data.objId;
+    delete data.objType;
+    delete data.userId;
 }
 //取消收藏
-module.exports.delSave=function(markIds,objType,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-    data.markIds=markIds;
-    data.objType=objType;//ARTICLE   LOAN 
-    data.userId=userId;
-    var param=JSON.stringify(data);
-   // console.log(param);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/mark/del`,{params:str},cb1,cb2);
-  	delete data.markIds;
-  	delete data.objType;
-  	delete data.userId;
+module.exports.delSave = function (markIds, objType, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.markIds = markIds;
+    data.objType = objType;//ARTICLE   LOAN 
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    // console.log(param);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/mark/del`, { params: str }, cb1, cb2);
+    delete data.markIds;
+    delete data.objType;
+    delete data.userId;
 }
 
 //收藏贷款列表
-module.exports.saveLoan=function(pageNum,pageSize,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-   data.pageNum=pageNum;
-   data.pageSize=pageSize;
-    data.userId=userId;
-    var param=JSON.stringify(data);
+module.exports.saveLoan = function (pageNum, pageSize, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    data.userId = userId;
+    var param = JSON.stringify(data);
     //console.log(param);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/mark/loan/list`,{params:str},cb1,cb2);
-  	delete data.pageNum;
-  	delete data.pageSize;
-  	delete data.userId;
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/mark/loan/list`, { params: str }, cb1, cb2);
+    delete data.pageNum;
+    delete data.pageSize;
+    delete data.userId;
 }
 
 //收藏贷款列表
- 
-module.exports.saveArticle=function(pageNum,pageSize,cb1,cb2){ 
-    var data=globalData.requestData;
-   // data.token=token;
-   data.pageNum=pageNum;
-   data.pageSize=pageSize;
-    data.userId=userId;
-    var param=JSON.stringify(data);
-    var str = strEnc(param,key1);
-  	http(`${globalData.path}/zndai/mark/article/list`,{params:str},cb1,cb2);
-  	delete data.pageNum;
-  	delete data.pageSize;
-  	delete data.userId;
+
+module.exports.saveArticle = function (pageNum, pageSize, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/mark/article/list`, { params: str }, cb1, cb2);
+    delete data.pageNum;
+    delete data.pageSize;
+    delete data.userId;
 }
 
 
@@ -506,12 +506,31 @@ module.exports.orderList = function (pageNum, pageSize, tag, cb1, cb2) {
     data.userId = userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    //console.log(param);
+    // console.log(userId);
     http(`${globalData.path}/zndai/loan/apply/list/c`, { params: str }, cb1, cb2);
-		delete data.pageNum;
-  	delete data.pageSize;
-  	delete data.tag;
-  	delete data.userId;
+    delete data.pageNum;
+    delete data.pageSize;
+    delete data.tag;
+    delete data.userId;
+}
+/**
+ * 功能描述：取消订单
+ * 函数名：orderList
+ * @param {String} applyId
+ * @param {String} userId
+ * ACTION
+ */
+module.exports.cancleOrder = function (applyId, userId, cb1, cb2) {
+    var data = globalData.requestData;
+    //data.token=token;
+    data.pageNum = applyId;
+    data.userId = userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // console.log(userId);
+    http(`${globalData.path}/zndai/loan/apply/cancel`, { params: str }, cb1, cb2);
+    delete data.applyId;
+    delete data.userId;
 }
 
 

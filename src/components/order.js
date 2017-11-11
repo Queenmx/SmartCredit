@@ -16,11 +16,48 @@ var Order = React.createClass({
             isLoading: false,
             pageNum: 1,
             pageSize: 10,
-            list: []
+            list: [],
+            status: {
+                PENDING: {
+                    text: '待处理',
+                    btntext: '取消借款',
+                    dataId: '1'
+                },
+                APRING: {
+                    text: '待审核',
+                    btntext: '取消借款',
+                    dataId: '2'
+                },
+                APRNO: {
+                    text: '审核不通过',
+                    btntext: '删除订单',
+                    dataId: '3'
+                },
+                APRYES: {
+                    text: '审核通过',
+                    btntext: '确认借款',
+                    dataId: '4'
+                }
+            },
+            name: {
+                KSD: '快速贷',
+                JZD: '精准贷'
+            },
+            rate: {
+                D: '日',
+                M: '月',
+                Y: '年'
+            }
         }
     },
-    toCancel: function (e) {
-        e.target.style.backgroundColor = e.target.style.backgroundColor === "grey" ? "#53a6ff" : "grey";
+    toCancel: function (e, dataId) {
+        // e.target.style.backgroundColor = e.target.style.backgroundColor === "rgb(221, 221, 221)" ? "#53a6ff" : "rgb(221, 221, 221)";
+        var id = consloe.log(e.target.getAttribute['data-id']);
+        if (id === 2) {
+            api.cancleOrder(dataId, "", function (res) {
+
+            })
+        }
     },
     formateMoney: function (money) {
         if (money % 100 === 0) {
@@ -42,30 +79,46 @@ var Order = React.createClass({
                 for (var i in orderList) {
                     arr.push(<li key={i}>
                         <div className="orderNum">
-                            <span className="order_n">订单号：{orderList[i].applyId}</span>
-                            <span>{orderList[i].applyStatus}</span>
+                            <span className="order_n">订单号：{orderList[i].applyId.slice(0, 20)}</span>
+                            <span>{that.state.status.text[orderList[i].applyStatus]}</span>
                         </div>
                         <h3 className="list_title">
-                            <img src="src/img/icon/order.png" />
-                            <span>{orderList[i].loanType}</span>
-                            <span className="p_name">{orderList[i].loanName}</span>
+                            <img src={'http://xrjf.oss-cn-shanghai.aliyuncs.com/' + orderList[i].logo} />
+                            <span>{orderList[i].loanName}</span>
+                            <span className="p_name">{that.state.name[orderList[i].loanType]}</span>
                         </h3>
                         <ul className="container">
-                            <li>借款金额 {orderList[i].money}</li>
-                            <li>期限12月</li>
-                            <li>利息480元</li>
-                            <li>月费用3.17%</li>
+                            <li>借款金额 {that.formateMoney(orderList[i].money)}元</li>
+                            <li>期限{orderList[i].limitDay}{that.state.rate[orderList[i].limitType]}</li>
+                            <li>利息{that.formateMoney(orderList[i].interest)}元</li>
+                            <li>{orderList[i].rateType}费用{orderList[i].rate}%</li>
                         </ul>
                         <div className="listFoot">
                             <span className="status">您的贷款申请已提交，3个工作日内完成</span>
-                            <span onClick={that.toCancel} className='statusBtn'>取消借款</span>
+                            <span onClick={() => that.toCancel(orderList[i].applyId)} className='statusBtn' data-id={that.state.status.dataId}>{that.state.status.btntext[orderList[i].applyStatus]}</span>
                         </div>
-                    </li>)
+                    </li >)
                 }
                 that.setState({
                     list: arr
                 })
             }
+            // else if (res.code == "5555") {
+            //     var isLogin = localStorage.getItem("isLogin");
+            //     if (isLogin) {
+            //         var path = {
+            //             pathname: '/Login',
+            //             //query:data,
+            //         }
+            //         hashHistory.push(path);
+            //     } else {
+            //         var path = {
+            //             pathname: '/Order',
+            //             //query:data,
+            //         }
+            //         hashHistory.push(path);
+            //     }
+            // }
 
         }, function () {
             toast.show("连接错误", 2000);
@@ -98,28 +151,7 @@ var Order = React.createClass({
                                 <span className="status">您的贷款申请已提交，3个工作日内完成</span>
                                 <span onClick={that.toCancel} className='statusBtn'>取消借款</span>
                             </div>
-                        </li>
-                        <li>
-                            <div className="orderNum">
-                                订单号：201705092356412
-	                            <span>审核中</span>
-                            </div>
-                            <h3 className="list_title">
-                                <img src="src/img/icon/order.png" />
-                                <span>现金借款（多期）</span>
-                                <span className="p_name">信用贷</span>
-                            </h3>
-                            <ul className="container">
-                                <li>借款金额 ¥5000</li>
-                                <li>期限12月</li>
-                                <li>利息480元</li>
-                                <li>月费用3.17%</li>
-                            </ul>
-                            <div className="listFoot">
-                                <span className="status">您的贷款申请正在审核中，3个工作日内完成</span>
-                                <span onClick={that.toCancel} className='statusBtn'>取消借款</span>
-                            </div>
-                        </li> */}
+                        </li>*/}
                         {that.state.list}
                     </ul>
                     <Loading flag={that.state.isLoading} />
