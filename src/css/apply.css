@@ -174,7 +174,7 @@
   overflow-x: hidden;
   overflow-y: scroll; }
   .applyLevel ul {
-    padding-left: 0.5rem;
+    padding: 0 0.5rem;
     overflow: hidden;
     background: #FFFFFF; }
     .applyLevel ul.applyLevelZero {

@@ -44,7 +44,8 @@
     .problemList .problemBlock p {
       color: #333333;
       font-size: 0.24rem;
-      line-height: 0.5rem; }
+      line-height: 0.5rem;
+      overflow: hidden; }
     .problemList .problemBlock span {
       color: #aaaaaa;
       font-size: 0.2rem;
@@ -78,7 +79,8 @@
     font-size: 0.3rem;
     text-align: center;
     line-height: 0.82rem;
-    position: absolute;
+    position: fixed;
+    z-index: 22;
     bottom: 0.7rem;
     right: 0.5rem;
     box-shadow: 0 3px 10px rgba(83, 166, 255, 0.5); }

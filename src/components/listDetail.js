@@ -19,43 +19,84 @@ var ListDetail=React.createClass({
 			activeIndex:0,
 			isShowDetail:false,
 			loanDetail:{},
+			problemList:[],
 			value1onChange:"" ,
 			value2onChange:"",
+			myTotalMoney:"",
 			rateMoney:""
 		}
 	},
 	
-	
-	toNewsDetail:function(){
-		var data = {id:3,name:"qin",age:18};
-		var path = {
-		  pathname:'/NewsDetail',
-		  query:data,
+	componentWillMount:function(){
+		var user=globalData.user;
+		var loanId=this.props.location.query.loanId;
+		if(user){
+			this.setState({
+				isLogin:true,
+				loanId:loanId
+			})
+		}else{
+			this.setState({
+				isLogin:false,
+				loanId:loanId
+			})
 		}
-		hashHistory.push(path);
+	},
+	lixi:function(){
+		var that=this;
+  		var key1 = globalData.key;
+		var toast=globalData.toast;
+		const {value2,limitType,loanId,value1}=that.state;
+		api.lixi(value2,limitType,loanId,value1*100,function(res){
+			console.log(res);
+			if(res.code=="0000"){
+				var data =JSON.parse(strDec(res.data,key1,"",""));
+				console.log(data);
+				that.setState({
+					myRateMoney:parseFloat(data)/100
+				})
+			}else{
+				toast.show(res.msg,2000);
+			}
+		},function(){
+			toast.show("连接错误",2000);
+		})
 	},
 	
-	
 	handleBlur1:function(event){
+		var that=this;
 		const valueBlur1=parseInt(event.target.value||0);
 		const {moneyMin,moneyMax}=this.state.loanDetail;
 		if(valueBlur1 < moneyMin){
-			this.setState({value1: moneyMin,value1onChange:moneyMin});
+			that.setState({value1: moneyMin,value1onChange:moneyMin},()=>{
+				that.lixi();
+			});
 		}else if(valueBlur1 > moneyMax){
-			this.setState({value1: moneyMax,value1onChange:moneyMax});
+			that.setState({value1: moneyMax,value1onChange:moneyMax},()=>{
+				that.lixi();
+			});
 		}else{
-			this.setState({value1: valueBlur1,value1onChange:valueBlur1});
+			that.setState({value1: valueBlur1,value1onChange:valueBlur1},()=>{
+				that.lixi();
+			});
 		}
 	},
 	handleBlur2:function(event){
+		var that=this;
 		const valueBlur2=parseInt(event.target.value||0);
 		const {limitMin,limitMax}=this.state.loanDetail;
 		if(valueBlur2<limitMin){
-			this.setState({value2: limitMin,value2onChange:limitMin});
+			that.setState({value2: limitMin,value2onChange:limitMin},()=>{
+				that.lixi();
+			});
 		}else if(valueBlur2>limitMax){
-			this.setState({value2: limitMax,value2onChange:limitMax});
+			that.setState({value2: limitMax,value2onChange:limitMax},()=>{
+				that.lixi();
+			});
 		}else{
-			this.setState({value2: valueBlur2,value2onChange:valueBlur2});
+			that.setState({value2: valueBlur2,value2onChange:valueBlur2},()=>{
+				that.lixi();
+			});
 		}
 	},
 	
@@ -72,18 +113,17 @@ var ListDetail=React.createClass({
 	  	this.setState({isShowDetail: !this.state.isShowDetail});
 	},
 	toProblem:function(){
-	  	//var data = {};
+	  	var data = {objId:this.state.loanId};
 		var path = {
 		  pathname:'/Problem',
-		  //query:data,
+		  query:data,
 		}
 		hashHistory.push(path);
 	},
 	toApplyInfo:function(event){
 		var that=this;
 		var key1 = globalData.key;
-		var userId=globalData.userId;
-		if(userId){
+		if(that.state.isLogin){
 			const {value2,limitType,loanId,value1}=that.state;
 			var queryData = {
 					loanId:loanId,
@@ -127,7 +167,6 @@ var ListDetail=React.createClass({
 		  
 		}else{
 			var path = {
-			  //pathname:'/Login/listDetail?loanId='+loanId,
 			  pathname:'/Login',
 			  //query:data,
 			}
@@ -135,11 +174,14 @@ var ListDetail=React.createClass({
 		}
 		
 	},
+	
+	
+	
 	componentDidMount:function(){
 		var that=this;
 		var key1 = globalData.key;
 		var toast=globalData.toast;
-		var loanId=that.props.location.query.loanId;
+		var loanId=that.state.loanId;
 		/*var content="啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦";
 		
 		api.questionAdd(content,loanId,"LOAN",function(res){
@@ -152,7 +194,7 @@ var ListDetail=React.createClass({
 		},function(){
 			toast.show("连接错误",2000);
 		})
-		*/
+	*/
 		
 		api.loanDetail(loanId,function(res){
 			//console.log(res);
@@ -163,10 +205,10 @@ var ListDetail=React.createClass({
 				
 				var moneyMin=data.moneyMin;
 				var limitMin=data.limitMin;
-				var rateType=data.rateType;
+				//var rateType=data.rateType;
 				var limitType=data.limitType;
-				var rate=data.rate;
-				var getMyRate;
+				//var rate=data.rate;
+		/*		var getMyRate;
 					switch (limitType){
 						case "D"://贷款按天数
 							switch (rateType){//资方给的利率
@@ -200,26 +242,67 @@ var ListDetail=React.createClass({
 							break;
 						default:
 							break;
-					}
+					}*/
 					
 				//var rateMoney=
 				that.setState({
 					loanDetail:data,
-					loanId:loanId,
 					value1:moneyMin,
 					value2:limitMin,
 					value1onChange:moneyMin,
 					value2onChange:limitMin,
 					limitType:limitType,
-					myRate:getMyRate,
+					//myRate:getMyRate,
 					isMark:data.isMark//1已收藏
+				},()=>{
+					that.lixi();
 				})
+			}else{
+				toast.show(res.msg,2000);
 			}
 		},function(){
 			toast.show("连接错误",2000);
 		})
+		
+		//问题列表
+		api.questionList(loanId,1,3,function(res){
+			//console.log(res);
+			if(res.code=="0000"){
+				var data =JSON.parse(strDec(res.data,key1,"",""));
+				var problemList=data.list;
+				var total=data.total;
+				console.log(problemList);
+				var arr=[];
+				if(problemList.length>0){
+					for(var i in problemList){
+						arr.push( <div className="problemList" key={i}>
+	                        <div className="problemBlock">
+	                            <img src="src/img/icon/problem.png" />
+	                            <p>problemList[i].answer</p>
+	                            <span>提问时间:{problemList[i].addTime}</span>
+	                        </div>
+	                        <div className="answerBlock">
+	                            <img src="src/img/icon/answer.png" />
+	                            <p><span>{problemList[i].answerUser}</span><span>{problemList[i].answerTime}</span></p>
+	                            <p>{problemList[i].content}</p>
+	                        </div>
+	                    </div>)
+					}
+				}else{
+					arr.push(<div key={Math.random()} style={{'textAlign':'center','lineHeight':'1rem'}}>暂无数据</div>)
+				}
+				that.setState({
+					problemList:arr
+				})
+			}else{
+				toast.show(res.msg,2000);
+			}
+		},function(){
+			toast.show("连接错误",2000);
+		})
+		
 	},
-	 logoError:function(event){
+	logoError:function(event){
     	event.target.src="src/img/icon/capitalLogo.jpg";
 		event.target.onerror=null; //控制不要一直跳动 
 		//console.log(event.target.src);
@@ -227,15 +310,15 @@ var ListDetail=React.createClass({
     saveThis:function(event){
     	var that=this;
     	var objId=that.state.loanId;
-    	//var userId=globalData.userId;
-    	var isLogin=localStorage.getItem("isLogin");
-    	//api.getNewUser;
-		if(isLogin){
+    	let toast = globalData.toast;
+		if(that.state.isLogin){
 		  	if(that.state.isMark==1){//已收藏,取消
     			api.delSave(objId,"LOAN",function(res){
 		    		console.log(res);
 		    		if(res.code=="0000"){
 		    			that.setState({isMark:0})
+		    		}else{
+		    			toast.show(res.msg,2000);
 		    		}
 		    	},function(){
 					toast.show("连接错误",2000);
@@ -245,6 +328,8 @@ var ListDetail=React.createClass({
 		    		console.log(res);
 		    		if(res.code=="0000"){
 		    			that.setState({isMark:1})
+		    		}else{
+		    			toast.show(res.msg,2000);
 		    		}
 		    	},function(){
 					toast.show("连接错误",2000);
@@ -260,15 +345,17 @@ var ListDetail=React.createClass({
     	
     },
 	render:function(){
+		console.log(this.state.myRateMoney);
 		var that=this;
 		var loanDetail=that.state.loanDetail;
 		var value1=that.state.value1*1;
 		var value2=that.state.value2*1;
-		var myRate=that.state.myRate*1;
-		var myRateMoney=value2*myRate*value1*0.01;
-		myRateMoney=parseFloat(myRateMoney.toFixed(2)); 
-		var myFeeMoney=myRateMoney+value1;
-		var myTotalMoney=myFeeMoney+loanDetail.fee;
+		//var myRate=that.state.myRate*1;
+		//var myRateMoney=value2*myRate*value1*0.01;
+		//myRateMoney=parseFloat(myRateMoney.toFixed(2)); 
+		//var myFeeMoney=myRateMoney+value1;
+		var myRateMoney=parseFloat(that.state.myRateMoney);
+		var myTotalMoney=loanDetail.fee+myRateMoney+value1;
 		//console.log(loanDetail);
         return (
         	<div className="app_Box listDetail">
@@ -336,18 +423,7 @@ var ListDetail=React.createClass({
         				</div>
 	        		
 	        			<h2 onClick={this.toProblem}>常见问题<span>更多回复<img src="src/img/icon/right.png"/></span></h2>
-        				<div className="problemList">
-        					<div className="problemBlock">
-        						<img src="src/img/icon/problem.png"/>
-        						<p>我是国企员工,工资打卡4000元以上,工作5年了,信用卡有过逾期，能贷款吗？</p>
-        						<span>提问时间:2017-09-28</span>
-        					</div>
-        					<div className="answerBlock">
-        						<img src="src/img/icon/answer.png"/>
-        						<p><span>王昭君</span><span>2017-09-28</span></p>
-        						<p>首先你查一下自己的逾期情况有多严重，有没有超过九十天，有几次，是不是连续的，不同成都有不同的处理办法，如果只有几次逾期，超过几天，关系影响不大。</p>
-        					</div>
-        				</div>
+        				{that.state.problemList}
         			</div>
 	        	</div>
 	        	

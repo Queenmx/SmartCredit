@@ -25,10 +25,10 @@ var Save=React.createClass({
 	},
 	
 
-	toNewsDetail:function(event){
-		var articleId=event.currentTarget.getAttribute("data-articleid");
-	    	console.log(articleId);
-	    	var data = {articleId:articleId};
+	toNewsDetail:function(id){
+		//var articleId=event.currentTarget.getAttribute("data-articleid");
+	    	console.log(id);
+	    	var data = {articleId:id};
 			var path = {
 			  pathname:'/NewsDetail',
 			  query:data,
@@ -54,11 +54,9 @@ var Save=React.createClass({
 		
 		
 	},
-	toListDetail:function(event){
-		alert("111")
-		 event.stopPropagation();
-    	var loanId=event.target.getAttribute("data-loanId");
-		var data = {loanId:loanId};
+	toListDetail:function(id){
+    	//var loanId=event.target.getAttribute("data-loanId");
+		var data = {loanId:id};
 		var path = {
 		  pathname:'/ListDetail',
 		  query:data,
@@ -71,6 +69,7 @@ var Save=React.createClass({
 			activeSaveTab:id,
 		})
 		localStorage.setItem("newsDetailTab",id);
+		this.loadData();
 	},
 	logoError:function(event){
     	event.target.src="src/img/icon/capitalLogo.jpg";
@@ -103,15 +102,48 @@ var Save=React.createClass({
 	},
 	
 	cancelHandle:function(){
+		var toast=globalData.toast;
+		toast.show("进来",1000);
 		this.setState({
 			mask:'none'
 		})
 		console.log(this.state.id);
 	},
 	sureHandle:function(){
-		this.setState({
-			mask:'none'
-		})
+		var that=this;
+  		var key1 = globalData.key;
+		var toast=globalData.toast;
+		toast.show("进来",1000);
+		api.delSave(that.state.id,"mySave", function(res){
+			console.log(res);
+			if(res.code=="0000"){
+				that.setState({
+					mask:'none'
+				})
+				var data =JSON.parse(strDec(res.data,key1,"",""));
+				console.log(data);
+			}else if(res.code=="5555"){
+				that.setState({
+					mask:'none'
+				})
+				toast.show("登录过时，请重新登录",2000);
+				var path = {
+				  pathname:'/Login',
+				}
+				hashHistory.push(path);
+			}else{
+				that.setState({
+					mask:'none'
+				})
+				toast.show(res.msg,2000);
+			}
+		},function(){
+				that.setState({
+					mask:'none'
+				})
+				toast.show("连接错误",2000);
+			})
+		
 		console.log(this.state.id);
 	},
 	render:function(){
@@ -167,17 +199,33 @@ var Save=React.createClass({
         )
 	},
 	
-	touchStart:function(type,id){
-		
-		console.log(type+"---"+id);
-		this.timeout = setTimeout(function(){
+	touchStart:function(event){
+		 event.stopPropagation();
+		var id=event.currentTarget.getAttribute("data-articleid");
+		this.setState({isLong:false})
+ 		this.timeout = setTimeout(function(){
 	 		this.longPress(id);
+	 		this.setState({isLong:true})
 	 	}.bind(this), 800);  //长按时间超过800ms，则执行传入的方法
+		
 	},
-	touchEnd:function(){
+	touchEndLoan:function(event){
 		clearTimeout(this.timeout);  //长按时间少于800ms，不会执行传入的方法
+		event.stopPropagation();
+		 if(!this.state.isLong){
+		 	var id=event.currentTarget.getAttribute("data-articleid");
+			this.toListDetail(id);
+		 }
 	},
-	
+	touchEndArticle:function(event){
+		clearTimeout(this.timeout);  //长按时间少于800ms，不会执行传入的方法
+		 event.stopPropagation();
+		 if(!this.state.isLong){
+		 	var id=event.currentTarget.getAttribute("data-articleid");
+			this.toNewsDetail(id);
+		 }
+		
+	},
 	loadData:function(downOrUp,callback) {
   		var that=this;
   		var key1 = globalData.key;
@@ -187,7 +235,7 @@ var Save=React.createClass({
 	 	var arr=[];
 	 	var newsDetailTab= localStorage.getItem("newsDetailTab");
 	 	console.log(newsDetailTab+typeof newsDetailTab);
-	 	if(newsDetailTab=="1"){//贷款
+	 	if(newsDetailTab=="1"){//资讯
 	 		console.log("new")
 	 		api.saveArticle(currentPage,pageSize,function(res){
 	 			if(res.code=="0000"){
@@ -197,7 +245,7 @@ var Save=React.createClass({
 					var total=data.total;
 					var articleArr=[];
 					for(var i in articleList){
-						articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail} onTouchStart={that.touchStart.bind(that,"type","abc")} onTouchEnd={that.touchEnd}>
+						articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndArticle}>
 	    							<dd>
 	    								<h4>{articleList[i].articleTitle}</h4>
 	    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
@@ -231,7 +279,7 @@ var Save=React.createClass({
 	 		},function(){
 				toast.show("连接错误",2000);
 			})
-	 	}else{
+	 	}else{//贷款
 	 		console.log("dai")
 		 	api.saveLoan(currentPage,pageSize,function(res){
 				//console.log(res);
@@ -241,7 +289,7 @@ var Save=React.createClass({
 					var total=data.total;
 					//console.log(data);
 					for(var i in loanList){
-						arr.push(<div className="capitalList" key={Math.random()} onTouchStart={that.touchStart.bind(that,"type","abc")} onTouchEnd={that.touchEnd}>
+						arr.push(<div className="capitalList" data-articleid={loanList[i].loanId} key={Math.random()} onTouchStart={that.touchStart} onTouchEnd={that.touchEndLoan}>
 		        				<h3>
 		        					<img src={loanList[i].logo} onError={that.logoError} />
 		        					<span>{loanList[i].loanName}</span>
@@ -257,7 +305,7 @@ var Save=React.createClass({
 		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}天</li>
 		        					</ul>
 		        					<div className="apply">
-		        						<a  data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>
+		        						<a  data-loanId={loanList[i].loanId}>申请贷款</a>
 		        					</div>
 		        				</div>
 		        				

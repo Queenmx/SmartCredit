@@ -18,7 +18,6 @@ var Login=React.createClass({
 			wayNum:1,
 			eyeImg:eyeImg,
 			inputType:"password",
-			changePhoneTxt:"",
 			count: 60,
           	liked: true,
           	flag:false,
@@ -32,6 +31,12 @@ var Login=React.createClass({
 				display:"none"
 			}
 		}
+	},
+	componentWillMount:function(){
+		localStorage.removeItem("user");
+		localStorage.removeItem("isLogin");
+		var phoneNum=localStorage.getItem("phoneNum");
+		this.setState({phoneNum:phoneNum})
 	},
 	checkWay:function(e){
 		var id=e.target.id*1;
@@ -71,6 +76,7 @@ var Login=React.createClass({
             }, 2000);*/
            toast.show("请输入正确格式的手机号码",2000);
 		}else{
+			
 			switch (wayNum){
 				case 1:
 					
@@ -94,10 +100,6 @@ var Login=React.createClass({
 								localStorage.setItem("user",data);
 								localStorage.setItem("isLogin",true);
 								localStorage.setItem("phoneNum",phoneNum);
-								/*setTimeout(function(){
-									location.reload();
-								},1000);*/
-								
 								toast.show("登录成功",2000);
 								//location.reload();
 								window.history.back();
@@ -140,13 +142,7 @@ var Login=React.createClass({
 									localStorage.setItem("isLogin",true);
 									localStorage.setItem("phoneNum",phoneNum);
 									toast.show("登录成功",2000);
-									//location.reload();
-									
 									window.history.back();
-									/*var path = {
-									  pathname:'/',
-										}
-									hashHistory.push(path);*/
 								}else{
 									toast.show(res.msg,2000);
 								}
@@ -156,10 +152,11 @@ var Login=React.createClass({
 							
 						}else{
 							//注册,去设置密码
-						var data = {phoneNum:phoneNum,verifyCode:yzCode};
+						var data = {fromWhy:"register",phoneNum:phoneNum,verifyCode:yzCode};
+						localStorage.setItem("phoneNum",phoneNum);
 						var path = {
 						  pathname:'/setPsd',
-						  state:data,
+						  state:data
 						}
 						hashHistory.push(path);
 						}
@@ -296,7 +293,7 @@ var Login=React.createClass({
         				<form>
 	        				<div className="inputLine">
 	        					<label htmlFor="phoneNum">手机号</label>
-	        					<input id="phoneNum"  type="number" onChange={that.changeInputTxt} className="flex1" name="phoneNum" placeholder="请输入手机号"/>
+	        					<input id="phoneNum"  type="number" onChange={that.changeInputTxt} value={that.state.phoneNum} className="flex1" name="phoneNum" placeholder="请输入手机号"/>
 	        				</div>
 	        				<div className="inputLine" id="psdBox">
 	        					<label htmlFor="psd">密码</label>
@@ -323,7 +320,7 @@ var Login=React.createClass({
         			</div>
         		</div>
         		<Loading flag={that.state.flag}/>
-        		<p className="note">
+        		<p className="note footer">
         					<span>登录即表示您同意</span>
         					<Link to={   
 							         {   

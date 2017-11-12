@@ -13,6 +13,7 @@ class News extends Component {
 	    super();
 	    this.state = {
 	  		list: [],
+	  		scrollShow:false,
 	  		currentPage: 1,
 	      	lastPage: false,
 	      	banner:[],
@@ -38,8 +39,8 @@ class News extends Component {
   handleRefresh(downOrUp, callback) {
     //真实的世界中是从后端取页面和判断是否是最后一页
     var that=this;
-    let {currentPage, lastPage,pageSize,total} = that.state;
-    var totalPage=Math.ceil(total/pageSize);
+    let {currentPage, lastPage,pageSize,totalPage} = that.state;
+   
     console.log(totalPage);
 	    if (downOrUp === 'up') { // 加载更多
 	      if (currentPage == totalPage) {
@@ -84,17 +85,25 @@ class News extends Component {
 				console.log(data);
 				var articleList=data.list;
 				var total=data.total;
+				var totalPage=Math.ceil(total/pageSize);
+				if(totalPage>1){
+					that.setState({scrollShow:true})
+				}
 				var articleArr=[];
-				for(var i in articleList){
-					articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
-    							<dd>
-    								<h4>{articleList[i].articleTitle}</h4>
-    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
-    							</dd>
-    							<dt>
-    								<img src={articleList[i].imgUrl} onError={that.logoError} />
-    							</dt>
-    					</dl>)
+				if(articleList.length<1){
+					articleArr.push(<div key={Math.random()} style={{'textAlign':'center','lineHeight':'1rem'}}>暂无数据</div>)
+				}else{
+					for(var i in articleList){
+						articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
+	    							<dd>
+	    								<h4>{articleList[i].articleTitle}</h4>
+	    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
+	    							</dd>
+	    							<dt>
+	    								<img src={articleList[i].imgUrl} onError={that.logoError} />
+	    							</dt>
+	    					</dl>)
+					}
 				}
 				if(downOrUp=='up'){
 					var c=list.concat(articleArr);
@@ -102,7 +111,7 @@ class News extends Component {
 					var c=articleArr;
 				}
 				that.setState({
-					total:total,
+					totalPage:totalPage,
 					list:c
 				})
 				if (callback && typeof callback === 'function') {
@@ -122,29 +131,44 @@ class News extends Component {
 		var toast = globalData.toast;
 		const {currentPage,pageSize,list} = that.state;
 		this.loadData();
-		api.banner(function(res){
-				//console.log(res);
-				if(res.code=="0000"){
-					var bannerList =JSON.parse(strDec(res.data,key1,"",""));
-					console.log(bannerList);
-		               for (var i in bannerList) {
-			            	that.state.banner.push(
-			              	 <div className="swiper-slide" key={i} data-objUrl={bannerList[i].objUrl}>
-			              	 	<img src={bannerList[i].imgUrl}/>
-			              	 </div>
-			              	 )
-			            };
-			            that.setState({
-				        	banner:that.state.banner
-				        })
-				}else{
-					toast.show(res.msg,2000);
-				}
-				
-			},function(){
-			toast.show("连接错误",2000);
-		});
-		
+		var newsArticle=sessionStorage.getItem("newsArticle");
+		if(newsArticle){
+			var bannerList=JSON.parse(newsArticle);
+			for (var i in bannerList) {
+            	that.state.banner.push(
+              	 <div className="swiper-slide" key={i} data-objUrl={bannerList[i].objUrl}>
+              	 	<img src={bannerList[i].imgUrl}/>
+              	 </div>
+              	 )
+            };
+            that.setState({
+	        	banner:that.state.banner
+	        })
+		}else{
+			api.banner(function(res){
+					//console.log(res);
+					if(res.code=="0000"){
+						var bannerList =JSON.parse(strDec(res.data,key1,"",""));
+						sessionStorage.setItem("newsArticle",JSON.stringify(bannerList));
+						console.log(bannerList);
+			               for (var i in bannerList) {
+				            	that.state.banner.push(
+				              	 <div className="swiper-slide" key={i} data-objUrl={bannerList[i].objUrl}>
+				              	 	<img src={bannerList[i].imgUrl}/>
+				              	 </div>
+				              	 )
+				            };
+				            that.setState({
+					        	banner:that.state.banner
+					        })
+					}else{
+						toast.show(res.msg,2000);
+					}
+					
+				},function(){
+				toast.show("连接错误",2000);
+			});
+		}
 		//console.log(that.state.banner);
 		
 		that.timeoutId = setTimeout(() => {
@@ -162,6 +186,14 @@ class News extends Component {
 	
 	render(){
 		var that=this;
+		var scollTxt=[];
+		if(that.state.scrollShow){
+			scollTxt.push(<ReactIScroll iScroll={iScroll} key={Math.random()} handleRefresh={this.handleRefresh} >
+					        	{that.state.list}
+					        </ReactIScroll>)
+		}else{
+			scollTxt=that.state.list;
+		}
         return (
         	<div className="app_Box news">
         		<header>资讯中心</header>
@@ -175,9 +207,7 @@ class News extends Component {
 					<div className="newsBox">
 			        	<h3>你关心的资讯</h3>
 				        <div className="listWrap">
-						 	<ReactIScroll iScroll={iScroll} handleRefresh={this.handleRefresh.bind(this)} >
-					        	{that.state.list}
-					        </ReactIScroll>
+						 	{scollTxt}
 		        		</div>
 				    </div>
 				</div>

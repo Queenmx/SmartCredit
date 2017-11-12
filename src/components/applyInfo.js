@@ -38,13 +38,9 @@ var ApplyInfo = React.createClass({
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
-        //var applyName=$("#applyName").val().trim();
-        //var applyNumber=$("#applyNumber").val().trim();
-        //console.log(this.props.location.state);
         var loanId = that.props.location.state.loanId;
         var applyQuery = that.props.location.state.applyQuery;
         var { realName, applyName, applyNumber, located, user } = that.state;
-        //console.log(loanId);
         //console.log(user);
         if (applyName.length > 0) {
             if (!realName) {//修改名字

@@ -25,11 +25,13 @@ var Mine = React.createClass({
     },
     componentWillMount: function () {
         var that = this;
-        var user = localStorage.getItem("user");
+        var user=localStorage.getItem("user");
+        //console.log(user);
         if (user) {//已登陆
             var userObj = JSON.parse(user);
             that.setState({
-                user: userObj
+                user: userObj,
+                isLogin:true
             })
 
         } else {
@@ -44,14 +46,14 @@ var Mine = React.createClass({
                     token: "",
                     userId: "",
                     userName: "未登录",
-                }
+                },
+                isLogin:false
             })
         }
 
     },
     goLogin: function () {
-        var isLogin = localStorage.getItem("isLogin");
-        if (isLogin) {
+        if (this.state.isLogin) {
             var path = {
                 pathname: '/UserInfo',
                 //query:data,
@@ -66,11 +68,19 @@ var Mine = React.createClass({
         }
     },
     toSave: function () {
-        var path = {
-            pathname: '/Save',
-            //query:data,
+    	if (this.state.isLogin) {
+            var path = {
+                pathname: '/Save',
+                //query:data,
+            }
+            hashHistory.push(path);
+        } else {
+            var path = {
+                pathname: '/Login/Mine',
+                //query:data,
+            }
+            hashHistory.push(path);
         }
-        hashHistory.push(path);
     },
     toOrder: function () {
         // var path = {
@@ -99,16 +109,37 @@ var Mine = React.createClass({
         hashHistory.push(path);
     },
     toIdCard: function () {
-        var path = {
-            pathname: '/IdCard',
+    	if (this.state.isLogin) {
+            var path = {
+                pathname: '/idCard',
+                //query:data,
+            }
+            hashHistory.push(path);
+        } else {
+            var path = {
+                pathname: '/Login/Mine',
+                //query:data,
+            }
+            hashHistory.push(path);
         }
-        hashHistory.push(path);
     },
     toPersonalLevel: function () {
-        var path = {
-            pathname: '/PersonalLevel',
+    	var key1 = globalData.key;
+        var toast = globalData.toast;
+        var user=globalData.user;
+        console.log(user);
+        if(this.state.isLogin){
+	        var path = {
+	                pathname: '/PersonalLevel',
+	            }
+            hashHistory.push(path);
+        }else {
+            var path = {
+                pathname: '/Login/Mine',
+                //query:data,
+            }
+            hashHistory.push(path);
         }
-        hashHistory.push(path);
     },
     imgError: function (e) {
         e.target.src = "src/img/icon/header.png";

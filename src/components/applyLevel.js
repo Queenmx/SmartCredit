@@ -15,7 +15,7 @@ var ApplyLevel=React.createClass({
 			flag:false,
 			valSelect:[],
 			qualifyListArr:[],
-			second:[],
+			second:[]
 		}
 	},
 	
@@ -274,7 +274,7 @@ var ApplyLevel=React.createClass({
 	componentDidMount:function(){
 		var that=this;
 		var qualifyList=that.props.location.state.qualifyList;
-		console.log(qualifyList);
+		//console.log(qualifyList);
 		//var qualifyListArr=[];
 		for (var i in qualifyList){
 			var selectName=qualifyList[i].selectName;

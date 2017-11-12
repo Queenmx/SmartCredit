@@ -9,7 +9,8 @@ import Header from './header';
 var NewsDetail=React.createClass({
 	getInitialState:function(){
 		return {
-			articleDetail:""
+			articleDetail:"",
+			isMark:0
 		}
 	},
 	getTabId:function(e){
@@ -26,17 +27,90 @@ var NewsDetail=React.createClass({
 		})
 	},
 	componentWillMount:function(){
+		let articleId=this.props.location.query.articleId;
+		this.setState({articleId:articleId});
+		console.log(articleId);
+	},
+	saveHandle:function(event){
+		var user=globalData.user;
+		var key1 = globalData.key;
+        var toast = globalData.toast;
+        var that = this;
+        
+		if(user){
+			if(that.state.isMark!=1){//收藏
+				api.save(that.state.articleId,"ARTICLE",function(res){
+					console.log(res);
+					if(res.code=="0000"){
+						that.setState({
+							isMark:1
+						})
+					}else{
+						toast.show(res.msg,2000);
+					}
+				},function(){
+					toast.show("连接错误",2000);
+				})
+			}else{//取消收藏
+				api.delSave(that.state.articleId,"ARTICLE" ,function(res){
+					console.log(res);
+					if(res.code=="0000"){
+						that.setState({
+							isMark:0
+						})
+					}else{
+						toast.show(res.msg,2000);
+					}
+				},function(){
+					toast.show("连接错误",2000);
+				})
+			}
+			
+			
+		}else{
+			var path = {
+                pathname: '/Login',
+                //query:data,
+            }
+            hashHistory.push(path);
+		}
+	},
+	render:function(){
 		let that=this;
+		let articleDetail=that.state.articleDetail;
+		var addTime=articleDetail.addTime||"";
+		var addTimeArr=addTime.split(" ");
+        return (
+        	<div className="app_Box newsDetail">
+        		<Header title=""/>
+        		<div className="content newsDetailCon">
+        			<h1>{articleDetail.articleTitle}</h1>
+        			<div className="newsDetailInfo">
+        				<span>媒体来源:{articleDetail.mediaSource}</span>
+        				<span>{addTimeArr[0]}</span>
+        				<span>{articleDetail.readerNum}阅读</span>
+        			</div>
+        			<div className="newsArticleCon">
+        				{articleDetail.content}
+        			</div>
+        		</div>
+        		<div className="botBtn" onClick={that.saveHandle}>{that.state.isMark==1?"取消收藏":"收藏"}</div>
+        	</div>
+        )
+	},
+	componentDidMount:function(){
+		var that=this;
 		let key1 = globalData.key;
 		let toast = globalData.toast;
-		let articleId=that.props.location.query.articleId;
-		console.log(articleId);
-		api.articleDetail(articleId,function(res){
+		api.articleDetail(that.state.articleId,function(res){
+			//console.log(res);
 			if(res.code=="0000"){
 				let data =strDec(res.data,key1,"","");
 				let articleDetail=JSON.parse(data);
+				console.log(articleDetail);
 				that.setState({
-					articleDetail:articleDetail
+					articleDetail:articleDetail,
+					isMark:articleDetail.isMark
 				})
 			}else if(res.code=="5555"){
 				toast.show("登录过时，请重新登录",2000);
@@ -47,43 +121,9 @@ var NewsDetail=React.createClass({
 			}else{
 				toast.show(res.msg,2000);
 			}
-		})
-		
-	},
-	saveHandle:function(e){
-		e.target.innerHTML="取消收藏"
-		/*let articleId=this.props.location.query.articleId;
-		api.save(articleId,"ARTICLE",function(res){
-			if(res.code=="0000"){
-				e.target.innerHTML="取消收藏"
-			}else{
-				toast.show(res.msg,2000);
-			}
-		})*/
-	},
-	render:function(){
-		let that=this;
-		let articleDetail=that.state.articleDetail;
-        return (
-        	<div className="app_Box newsDetail">
-        		<Header title=""/>
-        		<div className="content newsDetailCon">
-        			<h1>{articleDetail.articleTitle}</h1>
-        			<div className="newsDetailInfo">
-        				<span>媒体来源:{articleDetail.mediaSource}</span>
-        				<span>{articleDetail.addTime}</span>
-        				<span>{articleDetail.readerNum}阅读</span>
-        			</div>
-        			<div className="newsArticleCon">
-        				{articleDetail.content}
-        			</div>
-        		</div>
-        		<div className="botBtn" onClick={that.saveHandle}>收藏</div>
-        	</div>
-        )
-	},
-	componentDidMount:function(){
-		     
+		},function(){
+			toast.show("连接错误",2000);
+		}) 
 	}
 });
 

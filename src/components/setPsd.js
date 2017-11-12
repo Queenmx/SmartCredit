@@ -4,13 +4,14 @@ import ReactDom from 'react-dom';
 import api from './api';
 import {globalData} from './global.js';
 import Header from './header';
+import Loading from './loading';
 import { hashHistory} from 'react-router';
 var key1 = globalData.key;
 var appBasePath=globalData.appBasePath;
 var SetPsd=React.createClass({
 	getInitialState:function(){
 		return {
-			
+			isLoading:false
 		}
 	},
 	vauleChange:function(e){
@@ -28,47 +29,71 @@ var SetPsd=React.createClass({
 		}else{
 			var phoneNum=that.props.location.state.phoneNum;
 			var verifyCode=that.props.location.state.verifyCode;
-			//调注册接口
-			api.register(phoneNum,psd,verifyCode,function(res){
-				console.log(res);
-				
-				if(res.code=="0000"){
-					var data = JSON.parse(strDec(res.data,key1,"",""));
-					console.log(data);
-					//自动登录
-					api.login("PWD",phoneNum,"",psd,function(res){
-						console.log(res);
-							if(res.code=="0000"){
-								var data =strDec(res.data,key1,"","");
-								//console.log(data);
-								//成功后
-								localStorage.setItem("user",data);
-								localStorage.setItem("isLogin",true);
-								localStorage.setItem("phoneNum",phoneNum);
-								toast.show("登录成功",2000);
-								var path = {
-								  pathname:'/',
-									}
-								hashHistory.push(path);
-							}else{
-								toast.show(res.msg,2000);
+			var fromWhy=that.props.location.state.fromWhy;
+			that.setState({isLoading:true})
+			console.log(that.props.location.state);
+			if(fromWhy=="register"){//调注册接口
+				api.register(phoneNum,psd,verifyCode,function(res){
+					console.log(res);
+					if(res.code=="0000"){
+						var data = JSON.parse(strDec(res.data,key1,"",""));
+						console.log(data);
+						//自动登录
+						api.login("PWD",phoneNum,"",psd,function(res){
+							console.log(res);
+								if(res.code=="0000"){
+									that.setState({isLoading:false})
+									var data =strDec(res.data,key1,"","");
+									//console.log(data);
+									//成功后
+									localStorage.setItem("user",data);
+									localStorage.setItem("isLogin",true);
+									localStorage.setItem("phoneNum",phoneNum);
+									toast.show("登录成功",2000);
+									var path = {
+									  pathname:'/',
+										}
+									hashHistory.push(path);
+								}else{
+									that.setState({isLoading:false})
+									toast.show(res.msg,2000);
+								}
+							},function(){
+								that.setState({isLoading:false})
+								toast.show("连接错误",2000);
+							})	
+						}else{
+							that.setState({isLoading:false})
+							toast.show(res.msg,2000);
+						}
+					},function(){
+						that.setState({isLoading:false})
+						toast.show("连接错误",2000);
+					})
+			}else{//忘记密码，设置密码登陆phone, pwd, verifyCode,
+				api.forgot(phoneNum,psd,verifyCode,function(res){
+					console.log(res);
+					if(res.code=="0000"){
+						that.setState({isLoading:false})
+						var data =strDec(res.data,key1,"","");
+						//console.log(data);
+						toast.show("密码设置成功",2000);
+						localStorage.setItem("phoneNum",phoneNum);
+						var path = {
+						  pathname:'/Login/',
 							}
-						})	
-				}else{
-					toast.show(res.msg,2000);
-				}
-			},function(){
-			toast.show("连接错误",2000);
-		})
-			
-			
-			/*let path = {
-			  pathname:'/'
+						hashHistory.push(path);
+					}else{
+						that.setState({isLoading:false})
+						toast.show(res.msg,2000);
+					}
+				},function(){
+					that.setState({isLoading:false})
+					toast.show("连接错误",2000);
+				})	
 			}
-			hashHistory.push(path);
-			localStorage.setItem("isLogin",true);
-			localStorage.setItem("userId","userId");
-			localStorage.setItem("phoneNum",phoneNum);*/
+			
+			
 		}
 		
 	},
@@ -78,6 +103,7 @@ var SetPsd=React.createClass({
        return (
         	<div className="setPsd app_Box">
         		<Header title="确认密码" />
+        		<Loading flag={that.state.isLoading}/>
         		<div className="setPsdCon">
         			<div className="inputPsd">
     					<label htmlFor="psd">请输入密码</label>

@@ -145,6 +145,21 @@
 }
 
 .setPsd,.forgotPsd{
+    .getMsg{
+            margin-left: 0.2rem;
+            display: inline-block;
+            width: 1.8rem;
+            border: 0;
+            border-radius: 3px;
+            font-size: 0.22rem;
+            height: 0.58rem;
+            background: #ffa81e;
+            text-align: center;
+            line-height: 0.58rem;
+            //align-items:flex-end;
+            color: #ffffff;
+        }
+            
     .inputPsd,.realName{
         height: 1rem;
         line-height: 1rem;

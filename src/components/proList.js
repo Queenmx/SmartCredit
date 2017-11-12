@@ -13,7 +13,8 @@ class ProList extends Component {
 	  		list: [],
 	  		currentPage: 1,
 	      	lastPage: false,
-			pageSize:10
+			pageSize:10,
+			scrollShow:false
 	    };
 	    
 	    this.toListDetail=(event)=>{
@@ -35,8 +36,8 @@ class ProList extends Component {
 		handleRefresh(downOrUp, callback) {
     //真实的世界中是从后端取页面和判断是否是最后一页
     var that=this;
-    let {currentPage, lastPage,pageSize,total} = that.state;
-    var totalPage=Math.ceil(total/pageSize);
+    let {currentPage, lastPage,pageSize,totalPage} = that.state;
+    
     console.log(totalPage);
 	    if (downOrUp === 'up') { // 加载更多
 	      if (currentPage == totalPage) {
@@ -84,29 +85,37 @@ class ProList extends Component {
 				var data =JSON.parse(strDec(res.data,key1,"",""));
 				var loanList=data.list;
 				var total=data.total;
+				var totalPage=Math.ceil(total/pageSize);
+				if(totalPage>1){
+					that.setState({scrollShow:true})
+				}
+				if(loanList.length<1){
+					arr.push(<div key={Math.random()} style={{'textAlign':'center','lineHeight':'1rem'}}>暂无数据</div>)
+				}else{
 				//console.log(data);
-				for(var i in loanList){
-					arr.push(<div className="capitalList" key={Math.random()}>
-	        				<h3>
-	        					<img src={loanList[i].logo} onError={that.logoError} />
-	        					<span>{loanList[i].loanName}</span>
-	        				</h3>
-	        				<div className="capitalInfo">
-	        					<div className="limit">
-	        						<h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
-	        						<p>额度范围(元)</p>
-	        					</div>
-	        					<ul className="special">
-	        						<li>{loanList[i].loanTime}小时放款</li>
-	        						<li>日费率{loanList[i].rate}%</li>
-	        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}天</li>
-	        					</ul>
-	        					<div className="apply">
-	        						<a href="javascript:;" data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>
-	        					</div>
-	        				</div>
-	        				
-	        			</div>)
+					for(var i in loanList){
+						arr.push(<div className="capitalList" key={Math.random()}>
+		        				<h3>
+		        					<img src={loanList[i].logo} onError={that.logoError} />
+		        					<span>{loanList[i].loanName}</span>
+		        				</h3>
+		        				<div className="capitalInfo">
+		        					<div className="limit">
+		        						<h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
+		        						<p>额度范围(元)</p>
+		        					</div>
+		        					<ul className="special">
+		        						<li>{loanList[i].loanTime}小时放款</li>
+		        						<li>日费率{loanList[i].rate}%</li>
+		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}天</li>
+		        					</ul>
+		        					<div className="apply">
+		        						<a href="javascript:;" data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>
+		        					</div>
+		        				</div>
+		        				
+		        			</div>)
+					}
 				}
 				if(downOrUp=='up'){
 					var c=list.concat(arr);
@@ -145,6 +154,14 @@ class ProList extends Component {
 	
 	render(){
 		var that=this;
+		var scollTxt=[];
+		if(that.state.scrollShow){
+			scollTxt.push(<ReactIScroll iScroll={iScroll} key={Math.random()} handleRefresh={this.handleRefresh} >
+					        	{that.state.list}
+					        </ReactIScroll>)
+		}else{
+			scollTxt=that.state.list;
+		}
 		/*var scollFlag=that.props.scollFlag;
 		//console.log(scollFlag);
 		let box=[];
@@ -157,9 +174,7 @@ class ProList extends Component {
 		}*/
         return (
         	 <div className="capitalBox">
-		        <ReactIScroll key={1} iScroll={iScroll} handleRefresh={this.handleRefresh.bind(this)} >
-		        		{that.state.list}
-		        </ReactIScroll>
+		        {scollTxt}
 		      </div>
         )
 	}

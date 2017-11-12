@@ -70,81 +70,121 @@ var Home=React.createClass({
 		var key1 = globalData.key;
 		var toast=globalData.toast;
 		var that=this;
-	
-		api.tag("BQ",function(res){
-			//console.log(res)
-			if(res.code=="0000"){
-				var tagdata =JSON.parse(strDec(res.data,key1,"",""));
-				console.log(tagdata);
-				for(var i in tagdata){
-					that.state.tagArr.push(
-					<li key={i} data-tag={tagdata[i].tagNo} data-tagId={tagdata[i].tagId} onClick={that.toList}>
-        				<img src={tagdata[i].tagPic}/>
-        				<p>{tagdata[i].tagName}</p>
-        			</li>)
+		var homeTag=sessionStorage.getItem("homeTag");
+		if(homeTag){
+			var tagdata=JSON.parse(homeTag);
+			for(var i in tagdata){
+				that.state.tagArr.push(
+				<li key={i} data-tag={tagdata[i].tagNo} data-txt={tagdata[i].tagName} data-tagId={tagdata[i].tagId} onClick={that.toList}>
+    				<img src={tagdata[i].tagPic}/>
+    				<p>{tagdata[i].tagName}</p>
+    			</li>)
+			}
+			that.setState({tagArr:that.state.tagArr})
+		}else{
+			api.tag("BQ",function(res){
+				//console.log(res)
+				if(res.code=="0000"){
+					var tagdata =JSON.parse(strDec(res.data,key1,"",""));
+					console.log(tagdata);
+					sessionStorage.setItem("homeTag",JSON.stringify(tagdata));
+					for(var i in tagdata){
+						that.state.tagArr.push(
+						<li key={i} data-tag={tagdata[i].tagNo} data-txt={tagdata[i].tagName} data-tagId={tagdata[i].tagId} onClick={that.toList}>
+	        				<img src={tagdata[i].tagPic}/>
+	        				<p>{tagdata[i].tagName}</p>
+	        			</li>)
+					}
+					that.setState({tagArr:that.state.tagArr})
+				}else{
+					toast.show(res.msg,2000);
 				}
-				that.setState({tagArr:that.state.tagArr})
-			}else{
-				toast.show(res.msg,2000);
+				
+			},function(){
+				toast.show("连接错误",2000);
+			})
+		}
+		
+		var homeLoan=sessionStorage.getItem("homeLoan");
+		if(homeLoan){
+			var loanList=JSON.parse(homeLoan);
+			var arr=[];
+			for(var i in loanList){
+				arr.push(<div className="capitalList" key={i}>
+        				<h3>
+        					<img src={loanList[i].logo} onError={that.logoError} />
+        					<span>{loanList[i].loanName}</span>
+        				</h3>
+        				<div className="capitalInfo">
+        					<div className="limit">
+        						<h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
+        						<p>额度范围(元)</p>
+        					</div>
+        					<ul className="special">
+        						<li>{loanList[i].loanTime}小时放款</li>
+        						<li>日费率{loanList[i].rate}%</li>
+        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}天</li>
+        					</ul>
+        					<div className="apply">
+        						<a href="javascript:;" data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>
+        					</div>
+        				</div>
+        				
+        			</div>)
 			}
 			
-		},function(){
-			toast.show("连接错误",2000);
-		})
-		
-		
-		api.loanList(1,5,"",function(res){
-			if(res.code=="0000"){
-				var data =JSON.parse(strDec(res.data,key1,"",""));
-				//var data=res.data;
-				var loanList=data.list;
-				//console.log(data);
-				var arr=[];
-				for(var i in loanList){
-					arr.push(<div className="capitalList" key={i}>
-	        				<h3>
-	        					<img src={loanList[i].logo} onError={that.logoError} />
-	        					<span>{loanList[i].loanName}</span>
-	        				</h3>
-	        				<div className="capitalInfo">
-	        					<div className="limit">
-	        						<h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
-	        						<p>额度范围(元)</p>
-	        					</div>
-	        					<ul className="special">
-	        						<li>{loanList[i].loanTime}小时放款</li>
-	        						<li>日费率{loanList[i].rate}%</li>
-	        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}天</li>
-	        					</ul>
-	        					<div className="apply">
-	        						<a href="javascript:;" data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>
-	        					</div>
-	        				</div>
-	        				
-	        			</div>)
+			that.setState({
+				list:arr
+			})
+		}else{
+			api.loanList(1,5,"",function(res){
+				if(res.code=="0000"){
+					var data =JSON.parse(strDec(res.data,key1,"",""));
+					//var data=res.data;
+					var loanList=data.list;
+					//console.log(data);
+					sessionStorage.setItem("homeLoan",JSON.stringify(loanList));
+					var arr=[];
+					for(var i in loanList){
+						arr.push(<div className="capitalList" key={i}>
+		        				<h3>
+		        					<img src={loanList[i].logo} onError={that.logoError} />
+		        					<span>{loanList[i].loanName}</span>
+		        				</h3>
+		        				<div className="capitalInfo">
+		        					<div className="limit">
+		        						<h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
+		        						<p>额度范围(元)</p>
+		        					</div>
+		        					<ul className="special">
+		        						<li>{loanList[i].loanTime}小时放款</li>
+		        						<li>日费率{loanList[i].rate}%</li>
+		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}天</li>
+		        					</ul>
+		        					<div className="apply">
+		        						<a href="javascript:;" data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>
+		        					</div>
+		        				</div>
+		        				
+		        			</div>)
+					}
+					
+					that.setState({
+						list:arr
+					})
+					
+				}else{
+					toast.show("连接错误",2000);
 				}
-				
-				that.setState({
-					list:arr
-				})
-				
-			}else{
+			},function(){
 				toast.show("连接错误",2000);
-			}
-		},function(){
-			toast.show("连接错误",2000);
-		})
+			})
+		}
 		
-		
-		
-		api.articleList(1,3,function(res){
-			//console.log(res);
-			if(res.code=="0000"){
-				var data =JSON.parse(strDec(res.data,key1,"",""));
-				//var data =JSON.parse(res.data);
-				//console.log(data);
-				var articleList=data.list;
-				var articleArr=[];
+		var homeArticle=sessionStorage.getItem("homeArticle");
+		if(homeArticle){
+			var articleList=JSON.parse(homeArticle);
+			var articleArr=[];
 				for(var i in articleList){
 					articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
     							<dd>
@@ -159,14 +199,38 @@ var Home=React.createClass({
 				that.setState({
 					articleArr:articleArr
 				})
-				
-			}else{
-				toast.show(res.msg,2000);
-			}
-		},function(){
-			toast.show("连接错误",2000);
-		})
-		
+		}else{
+			api.articleList(1,3,function(res){
+				//console.log(res);
+				if(res.code=="0000"){
+					var data =JSON.parse(strDec(res.data,key1,"",""));
+					//var data =JSON.parse(res.data);
+					//console.log(data);
+					var articleList=data.list;
+					sessionStorage.setItem("homeArticle",JSON.stringify(articleList));
+					var articleArr=[];
+					for(var i in articleList){
+						articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
+	    							<dd>
+	    								<h4>{articleList[i].articleTitle}</h4>
+	    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
+	    							</dd>
+	    							<dt>
+	    								<img src={articleList[i].imgUrl} onError={that.logoError} />
+	    							</dt>
+	    					</dl>)
+					}
+					that.setState({
+						articleArr:articleArr
+					})
+					
+				}else{
+					toast.show(res.msg,2000);
+				}
+			},function(){
+				toast.show("连接错误",2000);
+			})
+		}
 	},
 	
 	
