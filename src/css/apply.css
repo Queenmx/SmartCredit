@@ -211,7 +211,24 @@
       background: transparent;
       font-size: 0.24rem; }
     .applyLevel .levelInfo .insertInput {
-      width: 0; }
+      float: none;
+      position: relative; }
+      .applyLevel .levelInfo .insertInput:after {
+        pointer-events: none;
+        width: 200%;
+        height: 200%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        content: "";
+        -webkit-transform: scale(0.5);
+        -webkit-transform-origin: 0 0;
+        transform: scale(0.5);
+        transform-origin: 0 0;
+        border-bottom: 1px solid #f3f3f3; }
+    .applyLevel .levelInfo .insertSure {
+      color: #53a6ff; }
     .applyLevel .levelInfo span {
       float: right;
       color: #53a6ff;
@@ -228,18 +245,17 @@
       font-style: normal; }
   .applyLevel .second {
     box-sizing: border-box;
+    font-size: 0.26rem;
     position: relative;
     line-height: 1rem;
     text-align: center;
     border: 0;
     background: transparent;
-    font-size: 0.28rem;
     color: #333333;
     font-style: normal; }
-    .applyLevel .second:after {
+    .applyLevel .second:before {
       pointer-events: none;
       width: 200%;
-      height: 200%;
       position: absolute;
       top: 0;
       left: 0;
@@ -249,6 +265,6 @@
       -webkit-transform-origin: 0 0;
       transform: scale(0.5);
       transform-origin: 0 0;
-      border-bottom: 1px solid #f3f3f3; }
+      border-top: 1px solid #f3f3f3; }
 
 /*# sourceMappingURL=apply.css.map */

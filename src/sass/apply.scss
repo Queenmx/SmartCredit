@@ -176,7 +176,11 @@
                 font-size: 0.24rem;
             }
             .insertInput{
-                width: 0;
+             float: none;
+              @include border_Bot;
+            }
+            .insertSure{
+                color: $blue;
             }
             span{
                 float: right;
@@ -199,12 +203,12 @@
         }
         .second{
             box-sizing: border-box;
-            @include border_Bot;
+            font-size: 0.26rem;
+            @include border_Top;
                 line-height: 1rem;
                 text-align: center;
                 border: 0;
                 background: transparent;
-                font-size: 0.28rem;
                 color: #333333;
                font-style: normal;
            }

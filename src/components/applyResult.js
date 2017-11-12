@@ -15,7 +15,7 @@ var ApplyResult=React.createClass({
 	},
 	
 	componentWillMount:function(){
-		
+		console.log(hashHistory);
 	},
 	
 	toBack:function(){
@@ -58,6 +58,9 @@ var ApplyResult=React.createClass({
 	        	</div>	
         	</div>
         )
+	},
+	componentDidMount:function(){
+		
 	}
 });
 

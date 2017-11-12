@@ -45,7 +45,7 @@ var ApplyLevel=React.createClass({
 		}else{
 			var qualifySelect=that.state.valSelect; 
 			console.log(qualifySelect);
-			for(var i in qualifySelect){
+			/*for(var i in qualifySelect){
 				if(qualifySelect[i].selectName==""){
 					toast.show(qualifySelect[i].dictionaryName+'必填',2000);
 					isOver=false;
@@ -54,14 +54,14 @@ var ApplyLevel=React.createClass({
 				}else{
 					isOver=true;
 				}
-			}
-			if(isOver){
-				api.qualifyListSave(qualifySelect,function(res){
+			}*/
+			//if(isOver){
+				/*api.qualifyListSave(qualifySelect,function(res){
 					that.setState({
 							flag:true
 						})
 					console.log(res);
-					if(res.code=="0000"){
+					if(res.code=="0000"){*/
 						//申请贷款
 						const {value2,limitType,loanId,value1}=that.state.applyQuery;
 						api.applyLoan(value2,limitType,loanId,value1*100,function(res){
@@ -97,7 +97,7 @@ var ApplyLevel=React.createClass({
 							toast.show("连接错误",2000);
 						})
 						
-					}else if(res.code=="5555"){
+					/*}else if(res.code=="5555"){
 						toast.show("登录过时，请重新登录",2000);
 						that.setState({
 							flag:false
@@ -118,10 +118,10 @@ var ApplyLevel=React.createClass({
 							flag:false
 					})
 					toast.show("连接错误",2000);
-				})
-			}else{
+				})*/
+			/*}else{
 				console.log("未填完")
-			}
+			}*/
 		}
 	},
 	agreeRule:function(event){
@@ -186,11 +186,18 @@ var ApplyLevel=React.createClass({
         )
 	},
 	inputSelect:function(event){
-		console.log("aaa");
-		var valSelect=event.target.value;
-		var indexId=event.target.getAttribute("data-indexId")*1;
-		that.state.valSelect[indexId].selectName=valSelect;
-		console.log(that.state.valSelect);
+		var toast=globalData.toast;
+		var val=$(event.target).prev().val();
+  		if (!(/^[0-9]{1,2}$/).test(val)){
+  			toast.show("请输入正确的年龄",2000);
+  		}else{
+  			var indexId=event.target.getAttribute("data-indexId")*1;
+			this.state.valSelect[indexId].selectName=val;
+			console.log(this.state.valSelect);
+			$(".levelInfoFirst"+indexId).hide();
+			$(".selectValue"+indexId).html(val);
+  		}
+		
 	},
 	checkHandle:function(event){
 		var that=this;
@@ -241,9 +248,12 @@ var ApplyLevel=React.createClass({
 								}
 							}else{//没有下级.点击即选
 								console.log("没有下级");
-								//console.log($(curEvent).find("input"))
-								$(curEvent).html($(curEvent).html().replace("请选择",""));
-								$(curEvent).find("input").removeClass("insertInput").focus();
+								//$(curEvent).html($(curEvent).html().replace("请选择",""));
+								//$(curEvent).find("input").css('width','0.5rem').focus();
+								that.state.second[indexId].push(<li className="second"  data-parentIndex={indexId}  data-dictionaryId={dictionaryId} style={{'color':'#333333'}} >
+									请输入:<input className='insertInput' type="text" /><span className="insertSure" data-indexId={indexId} onClick={that.inputSelect}>确定</span>
+								</li>)
+								
 							}
 							that.setState({second:that.state.second,qualifyListArr:that.state.qualifyListArr,valSelect:that.state.valSelect});
 						}else if(res.code=="5555"){
@@ -264,7 +274,7 @@ var ApplyLevel=React.createClass({
 	componentDidMount:function(){
 		var that=this;
 		var qualifyList=that.props.location.state.qualifyList;
-		//console.log(qualifyList);
+		console.log(qualifyList);
 		//var qualifyListArr=[];
 		for (var i in qualifyList){
 			var selectName=qualifyList[i].selectName;
@@ -283,7 +293,7 @@ var ApplyLevel=React.createClass({
 				<label htmlFor={i}>{qualifyList[i].dictionaryName}</label>
 				{/*<input type="text" id={i} className="selectValue" readOnly="readonly" name={'val'+i} data-dictionaryId={qualifyList[i].dictionaryId} value={that.state.valSelect[i]} onChange={that.selectHandle} placeholder="请选择"/>*/}
 				<i data-dictionaryId={qualifyList[i].dictionaryId}  style={{'color':'#333333'}} data-indexId={i} data-txt={qualifyList[i].name}  className={"selectValue"+i} onClick={that.selectHandle}>{that.state.valSelect[i].selectName||'请选择'}
-					<input type="text" data-indexId={i}  onChange={that.inputSelect} className="insertInput"/>
+					{/*<input type="text" data-indexId={i} className="insertInput" onBlur={that.inputSelect} />*/}
 				</i>
 				<ul className={"levelInfoFirst"+i} >
 					{that.state.second[i]}
