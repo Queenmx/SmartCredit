@@ -1,7 +1,21 @@
 @import "common";
 .help{
     background: $grey;
-    
+    position: relative;
+    .askBtn{
+      width: 1.6rem;
+      height: 0.82rem;
+      background: $blue;
+      color: #ffffff;
+      font-size: 0.3rem;
+      text-align: center;
+      line-height: 0.82rem;
+      position: fixed;
+      z-index: 22;
+      bottom: 0.7rem;
+      right: 0.5rem;
+      box-shadow: 0 3px 10px rgba(83,166,255,0.5);
+    } 
 }
 .helpList{
         li{

@@ -13,7 +13,21 @@
   -webkit-box-orient: vertical; }
 
 .help {
-  background: #f3f3f3; }
+  background: #f3f3f3;
+  position: relative; }
+  .help .askBtn {
+    width: 1.6rem;
+    height: 0.82rem;
+    background: #53a6ff;
+    color: #ffffff;
+    font-size: 0.3rem;
+    text-align: center;
+    line-height: 0.82rem;
+    position: fixed;
+    z-index: 22;
+    bottom: 0.7rem;
+    right: 0.5rem;
+    box-shadow: 0 3px 10px rgba(83, 166, 255, 0.5); }
 
 .helpList li {
   margin-top: 0.12rem;

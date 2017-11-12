@@ -22,14 +22,13 @@ var Problem = React.createClass({
     },
 
     componentWillMount: function () {
-		var objId=this.props.location.query.objId;
-		this.setState({
-			objId:objId
-		})
+    	var objId=this.props.location.query.objId;
+		this.setState({objId:objId})
     },
 
     toAsk: function () {
-        var data = { objId: this.state.objId,objType:"LOAN" };
+    	var loanName=this.props.location.query.loanName;
+        var data = { objId: this.state.objId,objType:"LOAN",fromWho:"problem",loanName:loanName};
         var path = {
             pathname: '/Ask',
             query: data,
@@ -45,6 +44,7 @@ var Problem = React.createClass({
   		var key1 = globalData.key;
 		var toast=globalData.toast;
 	 	const {objId,currentPage,pageSize,list} = that.state;
+	 	console.log(objId);
 	 	var arr=[];
 	 	//console.log(tag);
 	 	api.questionList(objId,currentPage,pageSize,function(res){

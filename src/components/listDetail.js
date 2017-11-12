@@ -113,7 +113,7 @@ var ListDetail=React.createClass({
 	  	this.setState({isShowDetail: !this.state.isShowDetail});
 	},
 	toProblem:function(){
-	  	var data = {objId:this.state.loanId};
+	  	var data = {objId:this.state.loanId,loanName:this.state.loanName};
 		var path = {
 		  pathname:'/Problem',
 		  query:data,
@@ -246,6 +246,7 @@ var ListDetail=React.createClass({
 					
 				//var rateMoney=
 				that.setState({
+					loanName:data.loanName,
 					loanDetail:data,
 					value1:moneyMin,
 					value2:limitMin,

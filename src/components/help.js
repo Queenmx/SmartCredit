@@ -22,6 +22,14 @@ var Help=React.createClass({
 		}
 		hashHistory.push(path);
 	},
+	toAsk: function () {
+		 var data = {fromWho:"help"};
+        var path = {
+            pathname: '/Ask',
+            query: data,
+        }
+        hashHistory.push(path);
+    },
 	render:function(){
 		var that=this;
         return (
@@ -32,6 +40,7 @@ var Help=React.createClass({
 	        			<li onClick={that.helpDetail}>申请贷款<img src="src/img/icon/right.png"/></li>
 	        			<li onClick={that.helpDetail}>付款异常<img src="src/img/icon/right.png"/></li>
 	        		</ul>
+	        	<div className="askBtn" onClick={this.toAsk}>提问</div>	
         	</div>
         )
 	}

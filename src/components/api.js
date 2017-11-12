@@ -157,7 +157,7 @@ module.exports.edit = function (idCard, located, realName, cb1, cb2) {
 }
 
 //个人信息查询
-module.exports.userInfo = function (userId, cb1, cb2) {
+module.exports.userInfo = function (cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     data.userId = userId;
@@ -228,7 +228,7 @@ module.exports.dictionary = function (objId, parentId, typeCode, cb1, cb2) {
 
 
 //用户头像上传
-module.exports.userHead = function (headPic, userId, cb1, cb2) {
+module.exports.userHead = function (headPic, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.headPic = headPic;
@@ -241,7 +241,7 @@ module.exports.userHead = function (headPic, userId, cb1, cb2) {
 }
 
 //身份认证
-module.exports.identityUserCert = function (backPic, frontPic, userId, cb1, cb2) {
+module.exports.identityUserCert = function (backPic, frontPic, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.userId = userId;
@@ -368,7 +368,7 @@ module.exports.applyLoan = function (limitDay, limitType, loanId, money, cb1, cb
 //------------------------问题
 
 //提交反馈
-module.exports.feedBackAdd = function (content, userId, cb1, cb2) {
+module.exports.feedBackAdd = function (content, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.content = content;
@@ -381,7 +381,7 @@ module.exports.feedBackAdd = function (content, userId, cb1, cb2) {
 }
 
 //我要提问
-module.exports.questionAdd = function (content, objId, objType, userId, cb1, cb2) {
+module.exports.questionAdd = function (content, objId, objType, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.content = content;
