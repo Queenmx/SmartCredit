@@ -166,6 +166,7 @@
     color: #333333; }
   .userInfo .userInfoCon li > img {
     margin-top: 0.2rem;
+    border-radius: 50%;
     width: 0.6rem;
     height: 0.6rem; }
   .userInfo .userInfoCon li .infoRight {
@@ -190,5 +191,16 @@
   font-size: 0.28rem;
   background: #53a6ff;
   border-radius: 3px; }
+#head{
+    width: 100%;
+    height: 1rem;
+    line-height: 1rem;
+    position: absolute;
+    background: #FFFFFF;
+    padding: 0 0.45rem;
+    z-index: 33333;
+    opacity: 0;
+}
+
 
 /*# sourceMappingURL=mine.css.map */

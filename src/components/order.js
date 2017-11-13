@@ -52,11 +52,11 @@ var Order = React.createClass({
     },
     toCancel: function (e, dataId) {
         // e.target.style.backgroundColor = e.target.style.backgroundColor === "rgb(221, 221, 221)" ? "#53a6ff" : "rgb(221, 221, 221)";
-        var id = consloe.log(e.target.getAttribute['data-id']);
+        var id = e.target.getAttribute('data-id');
         if (id === 2) {
             api.cancleOrder(dataId, "", function (res) {
                 if (res.code == "0000") {
-
+                    e.target.style.backgroundColor = "#53a6ff"
                 }
             })
         }

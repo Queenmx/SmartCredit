@@ -25,13 +25,13 @@ var Mine = React.createClass({
     },
     componentWillMount: function () {
         var that = this;
-        var user=localStorage.getItem("user");
+        var user = localStorage.getItem("user");
         //console.log(user);
         if (user) {//已登陆
             var userObj = JSON.parse(user);
             that.setState({
                 user: userObj,
-                isLogin:true
+                isLogin: true
             })
 
         } else {
@@ -47,7 +47,7 @@ var Mine = React.createClass({
                     userId: "",
                     userName: "未登录",
                 },
-                isLogin:false
+                isLogin: false
             })
         }
 
@@ -68,7 +68,7 @@ var Mine = React.createClass({
         }
     },
     toSave: function () {
-    	if (this.state.isLogin) {
+        if (this.state.isLogin) {
             var path = {
                 pathname: '/Save',
                 //query:data,
@@ -109,7 +109,7 @@ var Mine = React.createClass({
         hashHistory.push(path);
     },
     toIdCard: function () {
-    	if (this.state.isLogin) {
+        if (this.state.isLogin) {
             var path = {
                 pathname: '/idCard',
                 //query:data,
@@ -124,16 +124,16 @@ var Mine = React.createClass({
         }
     },
     toPersonalLevel: function () {
-    	var key1 = globalData.key;
+        var key1 = globalData.key;
         var toast = globalData.toast;
-        var user=globalData.user;
+        var user = globalData.user;
         console.log(user);
-        if(this.state.isLogin){
-	        var path = {
-	                pathname: '/PersonalLevel',
-	            }
+        if (this.state.isLogin) {
+            var path = {
+                pathname: '/PersonalLevel',
+            }
             hashHistory.push(path);
-        }else {
+        } else {
             var path = {
                 pathname: '/Login/Mine',
                 //query:data,
