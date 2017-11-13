@@ -28,9 +28,7 @@ var ListDetail=React.createClass({
 	},
 	
 	componentWillMount:function(){
-		console.log(globalData.user);
 		var user=localStorage.getItem("user");
-		console.log(user);
 		var loanId=this.props.location.query.loanId;
 		if(user){
 			this.setState({
@@ -49,13 +47,14 @@ var ListDetail=React.createClass({
   		var key1 = globalData.key;
 		var toast=globalData.toast;
 		const {value2,limitType,loanId,value1}=that.state;
+		console.log(that.state);
 		api.lixi(value2,limitType,loanId,value1*100,function(res){
-			console.log(res);
+			//console.log(res);
 			if(res.code=="0000"){
 				var data =JSON.parse(strDec(res.data,key1,"",""));
-				console.log(data);
+				//console.log(data);
 				that.setState({
-					myRateMoney:parseFloat(data)/100
+					myRateMoney:parseFloat(data.lixi)/100
 				})
 			}else{
 				toast.show(res.msg,2000);
@@ -127,6 +126,7 @@ var ListDetail=React.createClass({
 		var key1 = globalData.key;
 		if(that.state.isLogin){
 			const {value2,limitType,loanId,value1}=that.state;
+			//console.log(that.state);
 			var queryData = {
 					loanId:loanId,
 					applyQuery:{
@@ -141,32 +141,6 @@ var ListDetail=React.createClass({
 					  state:queryData,
 					}
 					hashHistory.push(path);
-			/*api.applyLoan(value2,limitType,loanId,value1*100,function(res){
-				that.setState({
-						flag:true
-					})
-				console.log(res);
-				if(res.code=="0000"){
-					var data=res.data;
-					var data =JSON.parse(strDec(res.data,key1,"",""));
-					console.log(data);
-					that.setState({
-						flag:false
-					})
-					var path = {
-					  pathname:'/ApplyInfo',
-					  state:queryData,
-					}
-					hashHistory.push(path);
-				}
-			},function(){
-				that.setState({
-						flag:false
-					})
-			toast.show("连接错误",2000);
-		})*/
-			
-		  
 		}else{
 			var path = {
 			  pathname:'/Login',
@@ -209,6 +183,11 @@ var ListDetail=React.createClass({
 				var limitMin=data.limitMin;
 				//var rateType=data.rateType;
 				var limitType=data.limitType;
+				if(limitType=="D"){
+					limitType="D"
+				}else{
+					limitType="M"
+				}
 				//var rate=data.rate;
 		/*		var getMyRate;
 					switch (limitType){
@@ -274,20 +253,20 @@ var ListDetail=React.createClass({
 				var data =JSON.parse(strDec(res.data,key1,"",""));
 				var problemList=data.list;
 				var total=data.total;
-				console.log(problemList);
+				//console.log(problemList);
 				var arr=[];
 				if(problemList.length>0){
 					for(var i in problemList){
 						arr.push( <div className="problemList" key={i}>
 	                        <div className="problemBlock">
 	                            <img src="src/img/icon/problem.png" />
-	                            <p>problemList[i].answer</p>
+	                            <p>{problemList[i].content}</p>
 	                            <span>提问时间:{problemList[i].addTime}</span>
 	                        </div>
 	                        <div className="answerBlock">
 	                            <img src="src/img/icon/answer.png" />
 	                            <p><span>{problemList[i].answerUser}</span><span>{problemList[i].answerTime}</span></p>
-	                            <p>{problemList[i].content}</p>
+	                            <p>{problemList[i].answer}</p>
 	                        </div>
 	                    </div>)
 					}
@@ -348,7 +327,7 @@ var ListDetail=React.createClass({
     	
     },
 	render:function(){
-		console.log(this.state.myRateMoney);
+		//console.log(this.state.myRateMoney);
 		var that=this;
 		var loanDetail=that.state.loanDetail;
 		var value1=that.state.value1*1;

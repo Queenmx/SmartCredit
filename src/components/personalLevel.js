@@ -23,9 +23,12 @@ var PersonalLevel=React.createClass({
 		
 	},
 	toSaveBtn:function(){
+		var that=this;
 		that.setState({
 			flag:true
 		})
+		var qualifySelect=that.state.valSelect;
+		console.log(qualifySelect);
 		api.qualifyListSave(qualifySelect,function(res){
 			console.log(res);
 			if(res.code=="0000"){
@@ -167,7 +170,7 @@ var PersonalLevel=React.createClass({
                 
                 if (res.code == "0000") {
                     var data = JSON.parse(strDec(res.data, key1, "", ""));
-                   // console.log(data);
+                    console.log(data);
                     that.setState({
                     	flag: false,
                         qualifyList: data

@@ -24,6 +24,7 @@ var Set = React.createClass({
             	localStorage.removeItem("user");
             	localStorage.removeItem("isLogin");
             	localStorage.removeItem("phoneNum");
+            	localStorage.removeItem("curCity");
                  window.history.back();
             }else{
             	that.setState({isLoading:false})
@@ -37,6 +38,8 @@ var Set = React.createClass({
     },
     clearCache: function () {
         let toast = globalData.toast;
+        localStorage.removeItem("curCity");
+        sessionStorage.clear();
         this.timer=setTimeout( function(){toast.show("清空缓存成功", 2000)},500)
     },
     aboutUs: function () {

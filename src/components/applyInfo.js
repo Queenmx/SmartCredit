@@ -20,7 +20,9 @@ var ApplyInfo = React.createClass({
     },
 
     componentWillMount: function () {
+    	console.log(globalData.user);
         var userStr = localStorage.getItem("user");
+        console.log(userStr);
         if (!userStr) {
             var path = {
                 pathname: '/Login',

@@ -63,8 +63,11 @@ var ApplyLevel=React.createClass({
 					console.log(res);
 					if(res.code=="0000"){*/
 						//申请贷款
-						const {value2,limitType,loanId,value1}=that.state.applyQuery;
-						api.applyLoan(value2,limitType,loanId,value1*100,function(res){
+						const {limitDay,limitType,loanId,money}=that.state.applyQuery;
+						console.log(that.state.applyQuery);
+						var money=parseFloat(money)*100;
+						//console.log(money);
+						api.applyLoan(limitType,limitType,loanId,money,function(res){
 							console.log(res);
 							if(res.code=="0000"){
 								that.setState({

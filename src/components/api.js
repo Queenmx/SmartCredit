@@ -2,25 +2,7 @@ var http = require("./http");
 import { globalData } from './global.js';
 
 var key1 = globalData.key;
-var userId = globalData.userId;
-//var toast = new Toast();
-console.log(userId);
-//console.log(globalData.userId);
-//var getNewUser=function(){
-/*var user=localStorage.getItem("user");
-console.log(user);
-if(user){
-      var userObj=JSON.parse(user);
-      var userId=userObj.userId;
-      var token=userObj.token;
-}else{
-      var userId="";
-      var token="";
-}*/
-//}
-//getNewUser();
-//module.exports.getNewUser;
-//ex
+
 
 //标签
 module.exports.tag = function (type, cb1, cb2) {
@@ -68,6 +50,7 @@ module.exports.login = function (loginType, phone, pwd, verifyCode, cb1, cb2) {
     data.type = "C";
     data.verifyCode = verifyCode;//	login_type为CODE时必填
     var param = JSON.stringify(data);
+    console.log(param);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/login`, { params: str }, cb1, cb2);
     delete data.loginType;
@@ -119,7 +102,7 @@ module.exports.verifyCode = function (phone, type, cb1, cb2) {
     data.type = "REG";//REG 注册 ，FPWD忘记密码
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    console.log(data);
+    console.log(param);
     http(`${globalData.path}/zndai/user/verifyCode`, { params: str }, cb1, cb2);
     delete data.phone;
     delete data.type;
@@ -129,7 +112,7 @@ module.exports.verifyCode = function (phone, type, cb1, cb2) {
 module.exports.exit = function (cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
-    data.userId = userId;
+    data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/exit`, { params: str }, cb1, cb2);
@@ -145,7 +128,7 @@ module.exports.edit = function (idCard, located, realName, cb1, cb2) {
     data.idCard = idCard;
     data.located = located;
     data.realName = realName;
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     console.log(param);
     var str = strEnc(param, key1);
@@ -173,7 +156,7 @@ module.exports.updatePsd = function (newPwd, oldPwd, cb1, cb2) {
     //  data.token=token;
     data.newPwd = newPwd;
     data.oldPwd = oldPwd;
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/pwd/edit`, { params: str }, cb1, cb2);
@@ -200,7 +183,7 @@ module.exports.qualifyList = function (loanId, parentId, cb1, cb2) {
     // data.token=token;
     data.loanId = loanId;
     data.parentId = parentId;
-    data.userId = userId;
+    data.userId = globalData.userId;;
     let param = JSON.stringify(data);
     console.log(param);
     let str = strEnc(param, key1);
@@ -223,7 +206,6 @@ module.exports.dictionary = function (objId, parentId, typeCode, cb1, cb2) {
     delete data.objId;
     delete data.parentId;
     delete data.typeCode;
-    delete data.userId;
 }
 
 
@@ -232,7 +214,7 @@ module.exports.userHead = function (headPic, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.headPic = headPic;
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/userHead`, { params: str }, cb1, cb2);
@@ -244,10 +226,13 @@ module.exports.userHead = function (headPic, cb1, cb2) {
 module.exports.identityUserCert = function (backPic, frontPic, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
-    data.userId = userId;
+    data.backPic=backPic;
+    data.frontPic=frontPic;
+    data.userId = globalData.userId;
     var param = JSON.stringify(data);
+    console.log(param)
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/identityUserCert`, { params: str, backPic: backPic, frontPic: frontPic }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/identityUserCert`, { params: str}, cb1, cb2);
     delete data.userId;
 }
 
@@ -281,7 +266,7 @@ module.exports.articleDetail = function (articleId, cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     data.articleId = articleId;
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     //console.log(param);
     var str = strEnc(param, key1);
@@ -329,10 +314,11 @@ module.exports.lixi = function (limitDay, limitType, loanId, money, cb1, cb2) {
     data.limitType = limitType;
     data.loanId = loanId;
     data.money = money;
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
-    // console.log(param)
+    console.log(param)
     var str = strEnc(param, key1);
+     //console.log(str)
     http(`${globalData.path}/zndai/loan/lixi`, { params: str }, cb1, cb2);
     delete data.limitDay;
     delete data.limitType;
@@ -350,10 +336,11 @@ module.exports.applyLoan = function (limitDay, limitType, loanId, money, cb1, cb
     data.limitType = limitType;
     data.loanId = loanId;
     data.money = money;
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     console.log(param)
     var str = strEnc(param, key1);
+   // console.log(str)
     http(`${globalData.path}/zndai/loan/apply/add`, { params: str }, cb1, cb2);
     delete data.limitDay;
     delete data.limitType;
@@ -372,7 +359,7 @@ module.exports.feedBackAdd = function (content, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.content = content;
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/feedBack/add`, { params: str }, cb1, cb2);
@@ -387,7 +374,7 @@ module.exports.questionAdd = function (content, objId, objType, cb1, cb2) {
     data.content = content;
     data.objId = objId;
     data.objType = objType;
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/question/add`, { params: str }, cb1, cb2);
@@ -419,7 +406,7 @@ module.exports.questionAdd = function (content, objId, objType, cb1, cb2) {
     data.objId = objId;
     data.content = content;
     data.objType = objType;
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/question/add`, { params: str }, cb1, cb2);
@@ -437,7 +424,7 @@ module.exports.save = function (objId, objType, cb1, cb2) {
     // data.token=token;
     data.objId = objId;
     data.objType = objType;//ARTICLE   LOAN 
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     //console.log(param);
     var str = strEnc(param, key1);
@@ -452,7 +439,7 @@ module.exports.delSave = function (markIds, objType, cb1, cb2) {
     // data.token=token;
     data.markIds = markIds;
     data.objType = objType;//ARTICLE   LOAN 
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     console.log(param);
     var str = strEnc(param, key1);
@@ -468,7 +455,7 @@ module.exports.saveLoan = function (pageNum, pageSize, cb1, cb2) {
     // data.token=token;
     data.pageNum = pageNum;
     data.pageSize = pageSize;
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     //console.log(param);
     var str = strEnc(param, key1);
@@ -485,7 +472,7 @@ module.exports.saveArticle = function (pageNum, pageSize, cb1, cb2) {
     // data.token=token;
     data.pageNum = pageNum;
     data.pageSize = pageSize;
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/mark/article/list`, { params: str }, cb1, cb2);
@@ -524,7 +511,7 @@ module.exports.orderList = function (pageNum, pageSize, tag, cb1, cb2) {
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     data.tag = tag;
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     // console.log(userId);
@@ -545,7 +532,7 @@ module.exports.cancleOrder = function (applyId, cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     data.applyId = applyId;
-    data.userId = userId;
+    data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     // console.log(userId);

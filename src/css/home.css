@@ -20,11 +20,19 @@
   .home .homeTab {
     height: 2.3rem;
     background: #FFFFFF;
-    padding: 0 0.5rem; }
+    padding: 0 0.5rem;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex; }
     .home .homeTab li {
-      float: left;
-      margin-top: 0.5rem;
-      width: 25%; }
+      -webkit-box-flex: 1;
+      -moz-box-flex: 1;
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      margin-top: 0.5rem; }
       .home .homeTab li img {
         width: 0.9rem;
         height: 0.9rem;

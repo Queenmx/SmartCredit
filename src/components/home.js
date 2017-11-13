@@ -109,7 +109,23 @@ var Home=React.createClass({
 		if(homeLoan){
 			var loanList=JSON.parse(homeLoan);
 			var arr=[];
+			//console.log(loanList)
 			for(var i in loanList){
+				var theDate=loanList[i].rateType;
+				var theDateTxt;
+				switch (theDate){
+					case "Y":
+					theDateTxt="年"
+						break;
+					case "M":
+					theDateTxt="月"
+						break;
+					case "D":
+					theDateTxt="日"
+						break;
+					default:
+						break;
+				}
 				arr.push(<div className="capitalList" key={i}>
         				<h3>
         					<img src={loanList[i].logo} onError={that.logoError} />
@@ -121,9 +137,9 @@ var Home=React.createClass({
         						<p>额度范围(元)</p>
         					</div>
         					<ul className="special">
-        						<li>{loanList[i].loanTime}小时放款</li>
-        						<li>日费率{loanList[i].rate}%</li>
-        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}天</li>
+        						<li>{loanList[i].loanTime}</li>
+        						<li>{theDateTxt}费率{loanList[i].rate}%</li>
+        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDate=="D"?"天":"月"}</li>
         					</ul>
         					<div className="apply">
         						<a href="javascript:;" data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>
@@ -146,6 +162,21 @@ var Home=React.createClass({
 					sessionStorage.setItem("homeLoan",JSON.stringify(loanList));
 					var arr=[];
 					for(var i in loanList){
+						var theDate=loanList[i].rateType;
+						var theDateTxt;
+						switch (theDate){
+							case "Y":
+							theDateTxt="年"
+								break;
+							case "M":
+							theDateTxt="月"
+								break;
+							case "D":
+							theDateTxt="日"
+								break;
+							default:
+								break;
+						}
 						arr.push(<div className="capitalList" key={i}>
 		        				<h3>
 		        					<img src={loanList[i].logo} onError={that.logoError} />
@@ -157,9 +188,9 @@ var Home=React.createClass({
 		        						<p>额度范围(元)</p>
 		        					</div>
 		        					<ul className="special">
-		        						<li>{loanList[i].loanTime}小时放款</li>
-		        						<li>日费率{loanList[i].rate}%</li>
-		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}天</li>
+		        						<li>{loanList[i].loanTime}</li>
+		        						<li>{theDateTxt}利率{loanList[i].rate}%</li>
+		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDate=="D"?"天":"月"}</li>
 		        					</ul>
 		        					<div className="apply">
 		        						<a href="javascript:;" data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>

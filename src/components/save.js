@@ -113,15 +113,16 @@ var Save=React.createClass({
 		var that=this;
   		var key1 = globalData.key;
 		var toast=globalData.toast;
-		toast.show("进来",1000);
+		//toast.show("进来",1000);
 		api.delSave(that.state.id,"mySave", function(res){
 			console.log(res);
 			if(res.code=="0000"){
 				that.setState({
 					mask:'none'
 				})
+				that.loadData();
 				var data =JSON.parse(strDec(res.data,key1,"",""));
-				console.log(data);
+				//console.log(data);
 			}else if(res.code=="5555"){
 				that.setState({
 					mask:'none'
@@ -234,7 +235,7 @@ var Save=React.createClass({
 	 	const {currentPage,pageSize,list,list1} = that.state;
 	 	var arr=[];
 	 	var newsDetailTab= localStorage.getItem("newsDetailTab");
-	 	console.log(newsDetailTab+typeof newsDetailTab);
+	 //	console.log(newsDetailTab+typeof newsDetailTab);
 	 	if(newsDetailTab=="1"){//资讯
 	 		console.log("new")
 	 		api.saveArticle(currentPage,pageSize,function(res){
@@ -245,7 +246,7 @@ var Save=React.createClass({
 					var total=data.total;
 					var articleArr=[];
 					for(var i in articleList){
-						articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndArticle}>
+						articleArr.push(<dl className="newsList" data-articleid={articleList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndArticle}>
 	    							<dd>
 	    								<h4>{articleList[i].articleTitle}</h4>
 	    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
@@ -289,7 +290,7 @@ var Save=React.createClass({
 					var total=data.total;
 					//console.log(data);
 					for(var i in loanList){
-						arr.push(<div className="capitalList" data-articleid={loanList[i].loanId} key={Math.random()} onTouchStart={that.touchStart} onTouchEnd={that.touchEndLoan}>
+						arr.push(<div className="capitalList" data-articleid={loanList[i].markId} key={Math.random()} onTouchStart={that.touchStart} onTouchEnd={that.touchEndLoan}>
 		        				<h3>
 		        					<img src={loanList[i].logo} onError={that.logoError} />
 		        					<span>{loanList[i].loanName}</span>
