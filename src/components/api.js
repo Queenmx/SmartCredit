@@ -352,7 +352,7 @@ module.exports.applyLoan = function (limitDay, limitType, loanId, money, cb1, cb
     data.money = money;
     data.userId = userId;
     var param = JSON.stringify(data);
-    // console.log(param)
+     console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/loan/apply/add`, { params: str }, cb1, cb2);
     delete data.limitDay;

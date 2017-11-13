@@ -28,7 +28,9 @@ var ListDetail=React.createClass({
 	},
 	
 	componentWillMount:function(){
-		var user=globalData.user;
+		console.log(globalData.user);
+		var user=localStorage.getItem("user");
+		console.log(user);
 		var loanId=this.props.location.query.loanId;
 		if(user){
 			this.setState({
