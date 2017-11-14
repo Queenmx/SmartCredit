@@ -4,16 +4,33 @@ import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
 import Header from './header';
+import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 // import Cropper from 'react-cropper';
 
 var toast = globalData.toast;
-var appBasePath = globalData.appBasePath;
 var UserInfo = React.createClass({
     getInitialState: function () {
         return {
-            user: ''
+			flag:false
         }
+    },
+     componentWillMount: function () {
+    	console.log(globalData.user);
+        var userStr = globalData.user;
+        //console.log(userStr);
+        if (!userStr) {
+            var path = {
+                pathname: '/Login',
+            }
+            hashHistory.push(path);
+        } else {
+            var user = JSON.parse(userStr);//必须登录才能看到本页面
+            var located = localStorage.getItem("dingwei") || "";
+            var { realName, phone, idCard ,headPic} = user;
+            this.setState({headPic:headPic, realName: realName, phone: phone,located: located, user: user,idCard:idCard });
+        }
+
     },
     finishID: function () {
         var data = {};
@@ -24,6 +41,7 @@ var UserInfo = React.createClass({
         hashHistory.push(path);
     },
     userHead: function (c, d) {
+    	var that=this;
         var $c = document.querySelector(c),
             $d = document.querySelector(d),
             file = $c.files[0],
@@ -36,42 +54,49 @@ var UserInfo = React.createClass({
             if (reader.error) {
                 console.log(reader.error);
             } else {
-                $d.setAttribute("src", e.target.result);
-                api.userHead(e.target.result, function (res) {
-                    if (res.code == "0000") {
-                        toast.show("头像设置成功", 2000);
-                    } else {
-                        toast.show(res.msg)
-                    }
+            	that.setState({
+                    flag: true
                 })
-                console.log(e.target.result);
+               // $d.setAttribute("src", e.target.result);
+                api.userHead(e.target.result, function (res) {
+                	console.log(res);
+                    if (res.code == "0000") {
+                    	that.setState({
+	                        flag: false
+	                    })
+                    	var data = JSON.parse(strDec(res.data, key1, "", ""));
+			            console.log(data);
+                    	var user=that.state.user;
+                    	user.headPic=data.headPicPath;
+                    	globalData.user=JSON.stringify(user);
+                    	localStorage.setItem("user",user);
+                    	console.log(user);
+                        toast.show("头像设置成功", 2000);
+                    }else if(res.code=="5555"){
+	                	 that.setState({
+	                        flag: false
+	                    })
+	                    toast.show("登录过时，请重新登录", 2000);
+	                    var path = {
+	                        pathname: '/Login',
+	                    }
+	                    hashHistory.push(path);
+	                }else{
+	                	that.setState({
+	                        flag: false
+	                    })
+	                    	toast.show(res.msg,2000)
+	                 }
+	                },function(){
+	                	that.setState({
+	                        flag: false
+	                    })
+	                	toast.show("连接错误",2000)
+	                })
+                //console.log(e.target.result);
             }
 
         }
-    },
-    componentDidMount: function () {
-        var that = this;
-        var user = that.state.user;
-        let key1 = globalData.key;
-        let toast = globalData.toast;
-        api.userInfo(function (res) {
-            var data = JSON.parse(strDec(res.data, key1, "", ""));
-            if (res.code == "0000") {
-                that.setState({
-                    user: data
-                })
-                console.log(data);
-            }
-        })
-    },
-    phone: function (num) {
-
-    },
-    componentWillMount: function () {
-        var that = this;
-        // var user = localStorage.getItem("user");
-        //console.log(user);
-
     },
     rePsd: function () {
         var path = {
@@ -85,19 +110,31 @@ var UserInfo = React.createClass({
         }
         hashHistory.push(path);
     },
+    idNumber:function(){
+    	var path = {
+            pathname: '/IdNumber'
+        }
+        hashHistory.push(path);
+    },
+     logoError:function(event){
+    	event.target.src="src/img/icon/tx.png";
+		event.target.onerror=null; //控制不要一直跳动 
+		//console.log(event.target.src);
+    },
     render: function () {
         var that = this;
         return (
             <div className="app_Box userInfo">
                 <Header title="个人信息" />
+                 <Loading flag={that.state.flag} />
                 <ul className="userInfoCon">
                     <li>
                         <input id="head" type="file" onChange={that.userHead.bind(this, "#head", "#headImg")} accept="image/*" />
-                        <img id="headImg" src={`${globalData.imgPath}` + that.state.user.headPic} /><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
-                    <li><span>手机号</span><div className="infoRight"><b>{`${that.state.user.phone}`.replace(/^(\d{3})\d{4}(\d+)/, "$1****$2")}</b></div></li>
+                        <img id="headImg" src={that.state.headPic} onError={that.logoError}  /><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
+                    <li><span>手机号</span><div className="infoRight"><b>{`${that.state.phone}`.replace(/^(\d{3})\d{4}(\d+)/, "$1****$2")}</b></div></li>
                     <li onClick={that.rePsd}><span>修改密码</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
-                    <li onClick={that.realName}><span>真实姓名</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
-                    <li><span>身份证号码</span><div className="infoRight"><b>未验证/**君</b><img src="src/img/icon/right.png" /></div></li>
+                    <li onClick={that.realName}><span>真实姓名</span><div className="infoRight"><b>{that.state.realName}</b><img src="src/img/icon/right.png" /></div></li>
+                    <li onClick={that.idNumber}><span>身份证号码</span><div className="infoRight"><b>{that.state.idCard==""?"未验证":"已验证"}</b><img src="src/img/icon/right.png" /></div></li>
                     {/*<li className="userInfoLi"><span>关于我们</span><div className="infoRight"><img src="src/img/icon/right.png"/></div></li>*/}
                 </ul>
 

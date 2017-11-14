@@ -329,14 +329,15 @@ module.exports.lixi = function (limitDay, limitType, loanId, money, cb1, cb2) {
 
 //申请贷款
 
-module.exports.applyLoan = function (limitDay, limitType, loanId, money, cb1, cb2) {
+module.exports.applyLoan = function (limitDay, limitType, loanId, money,qualifyList, cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     data.limitDay = limitDay;
     data.limitType = limitType;
     data.loanId = loanId;
     data.money = money;
-    data.userId = globalData.userId;;
+    data.qualifyList=qualifyList;
+    data.userId = globalData.userId;
     var param = JSON.stringify(data);
     console.log(param)
     var str = strEnc(param, key1);
@@ -345,6 +346,7 @@ module.exports.applyLoan = function (limitDay, limitType, loanId, money, cb1, cb
     delete data.limitDay;
     delete data.limitType;
     delete data.loanId;
+    delete data.qualifyList;
     delete data.money;
     delete data.userId;
 }

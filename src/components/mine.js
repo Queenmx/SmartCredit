@@ -15,42 +15,23 @@ var Mine = React.createClass({
         return {
             activeTab: 1,
             isShow: false,
-            activeIndex: 2,
-            user: ''
+            activeIndex: 2
             //dataStatus: 0
         }
     },
 
     componentDidMount: function () {
         //console.log(this.props.location.query.price);
-        // api.userInfo(function (res) {
-        //     console.log(res)
-        //     if (res.code == "0000") {
-        //         var userObj = JSON.parse(strDec(res.data, key1, "", "") || []);
-        //         console.log(userObj);
-        //         that.setState({
-        //             user: userObj,
-        //             isLogin: true
-        //         })
-        //     }
-        // })
     },
     componentWillMount: function () {
         var that = this;
-        let key1 = globalData.key;
         var user = localStorage.getItem("user");
         //console.log(user);
         if (user) {//已登陆
             var userObj = JSON.parse(user);
-            api.userInfo(function (res) {
-                var data = JSON.parse(strDec(res.data, key1, "", ""));
-                if (res.code == "0000") {
-                    that.setState({
-                        user: data,
-                        isLogin: true
-                    })
-                    console.log(data);
-                }
+            that.setState({
+                user: userObj,
+                isLogin: true
             })
 
         } else {
@@ -171,11 +152,11 @@ var Mine = React.createClass({
             <div className="app_Box mine">
                 <div className="mineContent content">
                     <div className="userHeader" onClick={that.goLogin}>
-                        <div className="userImg"><img src={`${globalData.imgPath}` + that.state.user.headPic} onError={that.imgError} /></div>
-                        <div className="userInfo"><p>{userObj.userName}</p><span>{userObj.idCard == "" ? "未认证" : "已认证"}</span></div>
+                        <div className="userImg"><img src={userObj.headPic} onError={that.imgError} /></div>
+                        <div className="userInfo"><p>{userObj.userName}</p><span>{userObj.certStatus == 1? "已认证" : "未认证"}</span></div>
                         <div className="goLogin"><img src="src/img/icon/go.png" /></div>
                     </div>
-                    <div className="creditLevel"><p>我的信用等级:<b>{that.state.user.certLevel}</b></p><span>去提升,5000轻松拿<img src="src/img/icon/right.png" /></span></div>
+                    <div className="creditLevel"><p>我的信用等级:<b>{userObj.certLevel}</b></p><span>去提升,5000轻松拿<img src="src/img/icon/right.png" /></span></div>
                     <div className="userOrder">
                         <ul>
                             <li onClick={that.toOrder}><img src="src/img/icon/order.png" /><p>全部订单</p></li>

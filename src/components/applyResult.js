@@ -7,7 +7,7 @@ import Header from './header';
 import { hashHistory, Link } from 'react-router';
 
 
-var appBasePath=globalData.appBasePath;
+var toast=globalData.toast;
 var ApplyResult=React.createClass({
 	getInitialState:function(){
 		return {
@@ -15,14 +15,17 @@ var ApplyResult=React.createClass({
 			resultTxt:"",
 			resultTips:"",
 			btnTxt:"",
-			apiUrl:""
+			//apiUrl:""
 		}
 	},
 	
 	componentWillMount:function(){
 		//console.log(hashHistory);
-		//var apiWay=this.props.location.query.apiWey;
-		this.setState({apiWay:"tell",apiUrl:"https://www.baidu.com/"})		
+		//var apiWay=this.props.location.state.apiWey;
+		//var apiUrl=this.props.location.state.apiUrl;
+		const {apiWay,apiUrl,logo}=this.props.location.state;
+		console.log(this.props.location.state);
+		this.setState({apiWay:apiWay,apiUrl:apiUrl,logo:logo})		
 	},
 	
 	toBack:function(){
@@ -33,17 +36,25 @@ var ApplyResult=React.createClass({
             window.history.back()
         }
 	},
+	 logoError:function(event){
+    	event.target.src="src/img/icon/logo.png";
+		event.target.onerror=null; //控制不要一直跳动 
+		//console.log(event.target.src);
+    },
 	nextHandle:function(){
 		const apiWay=this.state.apiWay;
-		if(false){//电话
+		if(apiWay=="TEL"){//电话
 			/*var path = {
 			  pathname:'/',
 			  //query:data,
 			}
 			hashHistory.push(path);*/
 			 history.go(-3);
-		}else{//url
+		}else if(apiWay=="H5"){//url
 			window.location.href=this.state.apiUrl
+		}else{
+			history.go(-3);
+			toast.show("参数为空",2000)
 		}
 	},
 	render:function(){
@@ -74,8 +85,8 @@ var ApplyResult=React.createClass({
 						</li>
 					</ul>
 					<div className="applyResult">
-						<div className="applyResult"><img src="" /></div>
-						<div className="applyResult"><h4>{this.state.resultTxt}</h4><p>{this.state.resultTips}</p></div>
+						<div className="applyResultImg"><img src={this.state.logo} onError={that.logoError}/></div>
+						<div className="applyResultTxt"><h4>{this.state.resultTxt}</h4><p>{this.state.resultTips}</p></div>
 						<div className="next" onClick={this.nextHandle}>{this.state.btnTxt}</div>
 					</div>
 	        	</div>	
@@ -85,18 +96,25 @@ var ApplyResult=React.createClass({
 	componentDidMount:function(){
 		var that=this;
 		const apiWay=that.state.apiWay;
-		if(true){//电话审核
+		if(apiWay=="TEL"){//电话审核
 			that.setState({
 				resultTxt:"恭喜你申请成功!",
 				resultTips:"请保持你的手机畅通，稍后将有审核人员与您联系。",
 				btnTxt:"确定"
 			})
-		}else{//h5跳转
+		}else if(apiWay=="H5"){//h5跳转
 			that.setState({
 				resultTxt:"恭喜你申请成功，请完成余下操作!",
 				resultTips:"说明：<br/>接下来将进入资方（第三方）的网站，请完成剩余操作，完成贷款。",
 				btnTxt:"下一步"
 			})
+		}else{
+			that.setState({
+				resultTxt:"恭喜你申请成功!",
+				resultTips:"请保持你的手机畅通，稍后将有审核人员与您联系。",
+				btnTxt:"确定"
+			})
+			//toast.show("内部错误",2000)
 		}
 	}
 });
