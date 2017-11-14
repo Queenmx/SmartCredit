@@ -26,8 +26,6 @@ var Save=React.createClass({
 	
 
 	toNewsDetail:function(id){
-		//var articleId=event.currentTarget.getAttribute("data-articleid");
-	    	console.log(id);
 	    	var data = {articleId:id};
 			var path = {
 			  pathname:'/NewsDetail',
@@ -90,6 +88,7 @@ var Save=React.createClass({
 		})
 	},*/
 	longPress:function(id){
+		console.log(id)
 		this.setState({
 			id:id,
 			mask:'block'
@@ -103,7 +102,7 @@ var Save=React.createClass({
 	
 	cancelHandle:function(){
 		var toast=globalData.toast;
-		toast.show("进来",1000);
+		//toast.show("进来",1000);
 		this.setState({
 			mask:'none'
 		})
@@ -202,10 +201,11 @@ var Save=React.createClass({
 	
 	touchStart:function(event){
 		 event.stopPropagation();
-		var id=event.currentTarget.getAttribute("data-articleid");
+		var markId=event.currentTarget.getAttribute("data-articleid");
+		console.log(markId);
 		this.setState({isLong:false})
  		this.timeout = setTimeout(function(){
-	 		this.longPress(id);
+	 		this.longPress(markId);
 	 		this.setState({isLong:true})
 	 	}.bind(this), 800);  //长按时间超过800ms，则执行传入的方法
 		
@@ -214,16 +214,16 @@ var Save=React.createClass({
 		clearTimeout(this.timeout);  //长按时间少于800ms，不会执行传入的方法
 		event.stopPropagation();
 		 if(!this.state.isLong){
-		 	var id=event.currentTarget.getAttribute("data-articleid");
-			this.toListDetail(id);
+		 	var detailId=event.currentTarget.getAttribute("data-id");
+			this.toListDetail(detailId);
 		 }
 	},
 	touchEndArticle:function(event){
 		clearTimeout(this.timeout);  //长按时间少于800ms，不会执行传入的方法
 		 event.stopPropagation();
 		 if(!this.state.isLong){
-		 	var id=event.currentTarget.getAttribute("data-articleid");
-			this.toNewsDetail(id);
+		 	var detailId=event.currentTarget.getAttribute("data-id");
+			this.toNewsDetail(detailId);
 		 }
 		
 	},
@@ -246,7 +246,7 @@ var Save=React.createClass({
 					var total=data.total;
 					var articleArr=[];
 					for(var i in articleList){
-						articleArr.push(<dl className="newsList" data-articleid={articleList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndArticle}>
+						articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndArticle}>
 	    							<dd>
 	    								<h4>{articleList[i].articleTitle}</h4>
 	    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
@@ -290,7 +290,7 @@ var Save=React.createClass({
 					var total=data.total;
 					//console.log(data);
 					for(var i in loanList){
-						arr.push(<div className="capitalList" data-articleid={loanList[i].markId} key={Math.random()} onTouchStart={that.touchStart} onTouchEnd={that.touchEndLoan}>
+						arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId} key={Math.random()} onTouchStart={that.touchStart} onTouchEnd={that.touchEndLoan}>
 		        				<h3>
 		        					<img src={loanList[i].logo} onError={that.logoError} />
 		        					<span>{loanList[i].loanName}</span>

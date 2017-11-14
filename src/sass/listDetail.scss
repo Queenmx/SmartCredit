@@ -114,10 +114,11 @@
   }
   
   .flowBox{
+       overflow: hidden;
       .flowPic{
           background: #ffffff;
-          height:1.8rem;
-          line-height: 1.8rem;
+          //height:1.8rem;
+          line-height: 0.48rem;
           padding: 0.2rem 0.5rem 0;
           img{
              // width: ;

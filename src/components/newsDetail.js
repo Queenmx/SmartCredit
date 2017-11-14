@@ -32,7 +32,7 @@ var NewsDetail = React.createClass({
         console.log(articleId);
     },
     saveHandle: function (event) {
-        var user = globalData.user;
+        var user = localStorage.getItem("user")
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
@@ -52,7 +52,8 @@ var NewsDetail = React.createClass({
                     toast.show("连接错误", 2000);
                 })
             } else {//取消收藏
-                api.delSave(that.state.articleId, "ARTICLE", function (res) {
+            	var markId=event.currentTarget.getAttribute("data-markId");
+                api.delSave(markId, "ARTICLE", function (res) {
                     console.log(res);
                     if (res.code == "0000") {
                         that.setState({
@@ -94,7 +95,7 @@ var NewsDetail = React.createClass({
                         {articleDetail.content}
                     </div>
                 </div>
-                <div className="botBtn" onClick={that.saveHandle}>{that.state.isMark == 1 ? "取消收藏" : "收藏"}</div>
+                <div className="botBtn" data-markId={articleDetail.markId} onClick={that.saveHandle}>{that.state.isMark == 1 ? "取消收藏" : "收藏"}</div>
             </div>
         )
     },
