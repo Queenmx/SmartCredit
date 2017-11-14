@@ -329,14 +329,14 @@ module.exports.lixi = function (limitDay, limitType, loanId, money, cb1, cb2) {
 
 //申请贷款
 
-module.exports.applyLoan = function (limitDay, limitType, loanId, money,qualifyList, cb1, cb2) {
+module.exports.applyLoan = function (limitDay, limitType, loanId, money, qualifyList, cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     data.limitDay = limitDay;
     data.limitType = limitType;
     data.loanId = loanId;
     data.money = money;
-    data.qualifyList=qualifyList;
+    data.qualifyList = qualifyList;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     console.log(param)
@@ -541,6 +541,21 @@ module.exports.cancleOrder = function (applyId, cb1, cb2) {
     // console.log(userId);
     http(`${globalData.path}/zndai/loan/apply/cancel`, { params: str }, cb1, cb2);
     delete data.applyId;
+    delete data.userId;
+}
+
+/**
+ * 功能描述：饼图
+ * 函数名：circle
+ * ACTION
+ */
+module.exports.circle = function (cb1, cb2) {
+    var data = globalData.requestData;
+    //data.token=token;
+    data.userId = globalData.userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/loan/apply/list/b`, { params: str }, cb1, cb2);
     delete data.userId;
 }
 

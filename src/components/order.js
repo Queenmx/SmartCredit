@@ -47,18 +47,20 @@ var Order = React.createClass({
                 D: '日',
                 M: '月',
                 Y: '年'
-            }
+            },
+            orderList: []
         }
     },
     toCancel: function (e) {
+        var that = this;
         // e.target.style.backgroundColor = e.target.style.backgroundColor === "rgb(221, 221, 221)" ? "#53a6ff" : "rgb(221, 221, 221)";
         // console.log(e.target)
         var id = e.target.getAttribute('data-id');
-        var applyId = e.target.getAttribute('data-sign');
-        // var status = e.target.getAttribute('data-status');
-        console.log(status);
-        if (id == 1 || id == 2 && status > 0) {
-            api.cancleOrder(applyId, function (res) {
+        var dataId = that.state.status[that.orderList[id].applyStatus].dataId;
+        console.log(dataId);
+        console.log(that.orderList[id].status);
+        if ((dataId == 1 || dataId == 2) && that.orderList[id].status > 0) {
+            api.cancleOrder(that.orderList[id].applyId, function (res) {
                 if (res.code == "0000") {
                     e.target.style.backgroundColor = "#555"
                 }
@@ -77,13 +79,12 @@ var Order = React.createClass({
         var toast = globalData.toast;
         var that = this;
         api.orderList(1, 5, "", function (res) {
-            console.log(res);
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", "") || []);
                 var orderList = data.list;
-                console.log(data);
+                that.orderList = data.list
                 var arr = [];
-
+                console.log(data);
                 for (var i in orderList) {
                     var status = orderList[i].status;
                     arr.push(<li key={i}>
@@ -104,7 +105,7 @@ var Order = React.createClass({
                         </ul>
                         <div className="listFoot">
                             <span className="status">您的贷款申请已提交，3个工作日内完成</span>
-                            <span onClick={that.toCancel} className='statusBtn' data-id={that.state.status[orderList[i].applyStatus].dataId} data-sign={orderList[i].applyId} style={{ backgroundColor: status < 0 ? 'rgb(221, 221, 221)' : '#53a6ff' }}>
+                            <span onClick={that.toCancel} className='statusBtn' data-id={i} style={{ backgroundColor: status < 0 ? 'rgb(221, 221, 221)' : '#53a6ff' }}>
                                 {that.state.status[orderList[i].applyStatus].btntext}
                             </span>
                             {/* <span onClick={that.toCancel} className='statusBtn' data-id={that.state.status[orderList[i].applyStatus].dataId} data-sign={orderList[i].applyId} style={}>

@@ -30,7 +30,7 @@ var ListDetail = React.createClass({
             rateMoney: ""
         }
     },
-
+	
     componentWillMount: function () {
         var user = localStorage.getItem("user");
         var loanId = this.props.location.query.loanId;
@@ -46,6 +46,8 @@ var ListDetail = React.createClass({
             })
         }
     },
+
+
     lixi: function () {
         var that = this;
         var key1 = globalData.key;
@@ -67,8 +69,7 @@ var ListDetail = React.createClass({
             toast.show("连接错误", 2000);
         })
     },
-
-    handleBlur1: function (event) {
+	handleBlur1: function (event) {
         var that = this;
         const valueBlur1 = parseInt(event.target.value || 0);
         const { moneyMin, moneyMax } = this.state.loanDetail;
@@ -86,6 +87,8 @@ var ListDetail = React.createClass({
             });
         }
     },
+    
+    
     handleBlur2: function (event) {
         var that = this;
         const valueBlur2 = parseInt(event.target.value || 0);
@@ -104,9 +107,6 @@ var ListDetail = React.createClass({
             });
         }
     },
-
-
-
     handleChange1: function (event) {
         this.setState({ value1onChange: parseInt(event.target.value) || "" });
     },
@@ -293,80 +293,9 @@ var ListDetail = React.createClass({
         event.target.onerror = null; //控制不要一直跳动 
         //console.log(event.target.src);
     },
-    componentWillMount: function () {
-        console.log(globalData.user);
-        var user = localStorage.getItem("user");
-        console.log(user);
-        var loanId = this.props.location.query.loanId;
-        if (user) {
-            this.setState({
-                isLogin: true,
-                loanId: loanId
-            })
-        } else {
-            this.setState({
-                isLogin: false,
-                loanId: loanId
-            })
-        }
-    },
-    lixi: function () {
-        var that = this;
-        var key1 = globalData.key;
-        var toast = globalData.toast;
-        const { value2, limitType, loanId, value1 } = that.state;
-        api.lixi(value2, limitType, loanId, value1 * 100, function (res) {
-            console.log(res);
-            if (res.code == "0000") {
-                var data = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log(data);
-                that.setState({
-                    myRateMoney: parseFloat(data) / 100
-                })
-            } else {
-                toast.show(res.msg, 2000);
-            }
-        }, function () {
-            toast.show("连接错误", 2000);
-        })
-    },
+    
+ 
 
-    handleBlur1: function (event) {
-        var that = this;
-        const valueBlur1 = parseInt(event.target.value || 0);
-        const { moneyMin, moneyMax } = this.state.loanDetail;
-        if (valueBlur1 < moneyMin) {
-            that.setState({ value1: moneyMin, value1onChange: moneyMin }, () => {
-                that.lixi();
-            });
-        } else if (valueBlur1 > moneyMax) {
-            that.setState({ value1: moneyMax, value1onChange: moneyMax }, () => {
-                that.lixi();
-            });
-        } else {
-            that.setState({ value1: valueBlur1, value1onChange: valueBlur1 }, () => {
-                that.lixi();
-            });
-        }
-    },
-    handleBlur2: function (event) {
-        var that = this;
-        const valueBlur2 = parseInt(event.target.value || 0);
-        const { limitMin, limitMax } = this.state.loanDetail;
-        if (valueBlur2 < limitMin) {
-            that.setState({ value2: limitMin, value2onChange: limitMin }, () => {
-                that.lixi();
-            });
-        } else if (valueBlur2 > limitMax) {
-            that.setState({ value2: limitMax, value2onChange: limitMax }, () => {
-                that.lixi();
-            });
-        } else {
-            that.setState({ value2: valueBlur2, value2onChange: valueBlur2 }, () => {
-                that.lixi();
-            });
-        }
-    },
     formateMoney: function (money) {
         if (money % 100 === 0) {
             return (money / 100).toFixed(2);
@@ -374,298 +303,17 @@ var ListDetail = React.createClass({
             return money / 100.0;
         }
     },
-    handleChange1: function (event) {
-        this.setState({ value1onChange: parseInt(event.target.value) || "" });
-    },
-    handleChange2: function (event) {
-        this.setState({ value2onChange: parseInt(event.target.value) || "" });
-    },
-    toMoneyDetail: function () {
-        //参照我的收藏
-        this.setState({ isShowDetail: !this.state.isShowDetail });
-    },
-    toProblem: function () {
-        var data = { objId: this.state.loanId, loanName: this.state.loanName };
-        var path = {
-            pathname: '/Problem',
-            query: data,
-        }
-        hashHistory.push(path);
-    },
-    toApplyInfo: function (event) {
-        var that = this;
-        var key1 = globalData.key;
-        if (that.state.isLogin) {
-            const { value2, limitType, loanId, value1 } = that.state;
-            var queryData = {
-                loanId: loanId,
-                applyQuery: {
-                    limitDay: value2,
-                    limitType: limitType,
-                    loanId: loanId,
-                    money: value1
-                }
-            };
-            var path = {
-                pathname: '/ApplyInfo',
-                state: queryData,
-            }
-            hashHistory.push(path);
-            /*api.applyLoan(value2,limitType,loanId,value1*100,function(res){
-                that.setState({
-                        flag:true
-                    })
-                console.log(res);
-                if(res.code=="0000"){
-                    var data=res.data;
-                    var data =JSON.parse(strDec(res.data,key1,"",""));
-                    console.log(data);
-                    that.setState({
-                        flag:false
-                    })
-                    var path = {
-                      pathname:'/ApplyInfo',
-                      state:queryData,
-                    }
-                    hashHistory.push(path);
-                }
-            },function(){
-                that.setState({
-                        flag:false
-                    })
-            toast.show("连接错误",2000);
-        })*/
-
-
-        } else {
-            var path = {
-                pathname: '/Login',
-                //query:data,
-            }
-            hashHistory.push(path);
-        }
-
-    },
-
-
-
-    componentDidMount: function () {
-        var that = this;
-        var key1 = globalData.key;
-        var toast = globalData.toast;
-        var loanId = that.state.loanId;
-        /*var content="啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦";
-    	
-        api.questionAdd(content,loanId,"LOAN",function(res){
-            console.log(res);
-            if(res.code=="0000"){
-                var data=res.data;
-                var data =JSON.parse(strDec(res.data,key1,"",""));
-                console.log(data);
-            }
-        },function(){
-            toast.show("连接错误",2000);
-        })
-    */
-
-        api.loanDetail(loanId, function (res) {
-            //console.log(res);
-            if (res.code == "0000") {
-                var data = res.data;
-                var data = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log(data);
-
-                var moneyMin = data.moneyMin;
-                var limitMin = data.limitMin;
-                //var rateType=data.rateType;
-                var limitType = data.limitType;
-
-
-
-              /*  // 基于准备好的dom，初始化 echarts 实例并绘制图表。
-                var that = this;
-                echarts.init(document.getElementById("main")).setOption({
-                    color: ["#f94b4b", "#ffcc00", "#4dbeff"],
-                    tooltip: {
-                        trigger: "item",
-                        formatter: "{a} <br/>{b}: {c} ({d}%)"
-                    },
-                    legend: {
-                        icon: "circle",
-                        orient: "vertical",
-                        right: "0",
-                        top: "10",
-                        data: [
-                            '贷款'
-                        ],
-                        textStyle: {
-                            fontSize: 10,
-                            color: "#aaaaaa"
-                        }
-                    },
-                    series: [
-                        {
-                            name: "访问来源",
-                            type: "pie",
-                            silent: true,
-                            radius: ["70%", "100%"],
-                            center: ["20%", "50%"],
-                            avoidLabelOverlap: false,
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: "center"
-                                },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: "30",
-                                        fontWeight: "bold"
-                                    }
-                                }
-                            },
-                            labelLine: {
-                                normal: {
-                                    show: false
-                                }
-                            },
-                            data: [
-                                {
-                                    value: `${that.formateMoney(data.money)}`,
-                                    name:
-                                    "贷款" +
-                                    `${this.formateMoney(data.money)}` +
-                                    "元/" +
-                                    data.limitDay +
-                                    this.dayTpye[data.limitType]
-                                },
-                                {
-                                    value: `${that.formateMoney(that.loanInfo.interest)}`,
-                                    name:
-                                    "利息" +
-                                    `${this.formateMoney(data.interest)}` +
-                                    "元(" +
-                                    data.rate +
-                                    "%/" +
-                                    this.rateType[data.rateType] +
-                                    ")"
-                                },
-                                {
-                                    value: `${that.formateMoney(that.loanInfo.fee)}`,
-                                    name: "一次性" + `${this.formateMoney(data.fee)}` + "元"
-                                }
-                            ]
-                        }
-                    ]
-                });*/
-                //var rate=data.rate;
-                /*		var getMyRate;
-                            switch (limitType){
-                                case "D"://贷款按天数
-                                    switch (rateType){//资方给的利率
-                                        case "D":
-                                            getMyRate=rate;
-                                            break;
-                                        case "M":
-                                            getMyRate=rate/30;
-                                            break;
-                                        case "Y":
-                                            getMyRate=rate/365;
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                    break;
-                                case "M"://贷款按天数
-                                    switch (rateType){//资方给的利率
-                                        case "D":
-                                            getMyRate=rate*30;
-                                            break;
-                                        case "M":
-                                            getMyRate=rate;
-                                            break;
-                                        case "Y":
-                                            getMyRate=rate/12;
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }*/
-
-                //var rateMoney=
-                that.setState({
-                    loanName: data.loanName,
-                    loanDetail: data,
-                    value1: moneyMin,
-                    value2: limitMin,
-                    value1onChange: moneyMin,
-                    value2onChange: limitMin,
-                    limitType: limitType,
-                    //myRate:getMyRate,
-                    isMark: data.isMark//1已收藏
-                }, () => {
-                    that.lixi();
-                })
-            } else {
-                toast.show(res.msg, 2000);
-            }
-        }, function () {
-            toast.show("连接错误", 2000);
-        })
-
-        //问题列表
-        api.questionList(loanId, 1, 3, function (res) {
-            //console.log(res);
-            if (res.code == "0000") {
-                var data = JSON.parse(strDec(res.data, key1, "", ""));
-                var problemList = data.list;
-                var total = data.total;
-                console.log(problemList);
-                var arr = [];
-                if (problemList.length > 0) {
-                    for (var i in problemList) {
-                        arr.push(<div className="problemList" key={i}>
-                            <div className="problemBlock">
-                                <img src="src/img/icon/problem.png" />
-                                <p>problemList[i].answer</p>
-                                <span>提问时间:{problemList[i].addTime}</span>
-                            </div>
-                            <div className="answerBlock">
-                                <img src="src/img/icon/answer.png" />
-                                <p><span>{problemList[i].answerUser}</span><span>{problemList[i].answerTime}</span></p>
-                                <p>{problemList[i].content}</p>
-                            </div>
-                        </div>)
-                    }
-                } else {
-                    arr.push(<div key={Math.random()} style={{ 'textAlign': 'center', 'lineHeight': '1rem' }}>暂无数据</div>)
-                }
-                that.setState({
-                    problemList: arr
-                })
-            } else {
-                toast.show(res.msg, 2000);
-            }
-        }, function () {
-            toast.show("连接错误", 2000);
-        })
-
-    },
-    logoError: function (event) {
-        event.target.src = "src/img/icon/capitalLogo.jpg";
-        event.target.onerror = null; //控制不要一直跳动 
-        //console.log(event.target.src);
-    },
+   
+  
     saveThis: function (event) {
         var that = this;
         var objId = that.state.loanId;
         let toast = globalData.toast;
         if (that.state.isLogin) {
+        	var markId=event.currentTarget.getAttribute("data-markId");
+        	console.log(markId);
             if (that.state.isMark == 1) {//已收藏,取消
-                api.delSave(objId, "LOAN", function (res) {
+                api.delSave(markId, "LOAN", function (res) {
                     console.log(res);
                     if (res.code == "0000") {
                         that.setState({ isMark: 0 })
@@ -706,7 +354,9 @@ var ListDetail = React.createClass({
         //var myRateMoney=value2*myRate*value1*0.01;
         //myRateMoney=parseFloat(myRateMoney.toFixed(2)); 
         //var myFeeMoney=myRateMoney+value1;
+        
         var myRateMoney = parseFloat(that.state.myRateMoney);
+        console.log(that.state.myRateMoney);
         var myTotalMoney = loanDetail.fee + myRateMoney + value1;
         //console.log(loanDetail);
         return (
@@ -763,8 +413,8 @@ var ListDetail = React.createClass({
                     </div>
                     <div className="flowBox">
                         <h2>办理流程(门店办理)</h2>
-                        <div className="flowPic">
-                            <img src={loanDetail.loanFlow} onError={that.logoError} />
+                        <div className="flowPic" dangerouslySetInnerHTML={{__html: loanDetail.loanFlow}}>
+                        	
                         </div>
                         <h2>申请条件</h2>
                         <div className="application">
@@ -781,7 +431,7 @@ var ListDetail = React.createClass({
                 </div>
 
                 <div className="applyBtnBox footer">
-                    <div className="applySaveBtn" onClick={that.saveThis}><img src={that.state.isMark == 1 ? "src/img/icon/sc2.png" : "src/img/icon/sc1.png"} /><p>{that.state.isMark == 1 ? "取消收藏" : "收藏"}</p></div>
+                    <div className="applySaveBtn" onClick={that.saveThis} data-markId={loanDetail.markId}><img src={that.state.isMark == 1 ? "src/img/icon/sc2.png" : "src/img/icon/sc1.png"} /><p>{that.state.isMark == 1 ? "取消收藏" : "收藏"}</p></div>
                     <div className="applyBtn" onClick={that.toApplyInfo}>申请借款</div>
                 </div>
             </div>
