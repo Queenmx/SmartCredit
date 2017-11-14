@@ -542,6 +542,27 @@ module.exports.cancleOrder = function (applyId, cb1, cb2) {
     delete data.userId;
 }
 
+/**
+ * 功能描述：取消订单
+ * 函数名：orderList
+ * @param {String} applyId
+ * @param {String} userId
+ * ACTION
+ */
+module.exports.cancleOrder = function (applyId, cb1, cb2) {
+    var data = globalData.requestData;
+    //data.token=token;
+    data.applyId = applyId;
+    data.userId = globalData.userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // console.log(data);
+    // console.log(userId);
+    http(`${globalData.path}/zndai/loan/apply/cancel`, { params: str }, cb1, cb2);
+    delete data.applyId;
+    delete data.userId;
+}
+
 
 
 
