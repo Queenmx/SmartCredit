@@ -226,10 +226,13 @@ module.exports.userHead = function (headPic, cb1, cb2) {
 module.exports.identityUserCert = function (backPic, frontPic, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
-    data.userId = globalData.userId;;
+    data.backPic = backPic;
+    data.frontPic = frontPic;
+    data.userId = globalData.userId;
     var param = JSON.stringify(data);
+    console.log(param)
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/identityUserCert`, { params: str, backPic: backPic, frontPic: frontPic }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/identityUserCert`, { params: str }, cb1, cb2);
     delete data.userId;
 }
 
@@ -337,6 +340,7 @@ module.exports.applyLoan = function (limitDay, limitType, loanId, money, cb1, cb
     var param = JSON.stringify(data);
     console.log(param)
     var str = strEnc(param, key1);
+    // console.log(str)
     http(`${globalData.path}/zndai/loan/apply/add`, { params: str }, cb1, cb2);
     delete data.limitDay;
     delete data.limitType;
