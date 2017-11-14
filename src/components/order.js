@@ -104,18 +104,18 @@ var Order = React.createClass({
                         </ul>
                         <div className="listFoot">
                             <span className="status">您的贷款申请已提交，3个工作日内完成</span>
-                            <span onClick={that.toCancel} className='statusBtn' data-id={that.state.status[orderList[i].applyStatus].dataId} data-sign={orderList[i].applyId} style={{ status< 0 ? 'rgb(221, 221, 221)' : '#53a6ff'}}>
+                            <span onClick={that.toCancel} className='statusBtn' data-id={that.state.status[orderList[i].applyStatus].dataId} data-sign={orderList[i].applyId} style={{ backgroundColor: status < 0 ? 'rgb(221, 221, 221)' : '#53a6ff' }}>
                                 {that.state.status[orderList[i].applyStatus].btntext}
                             </span>
-                        {/* <span onClick={that.toCancel} className='statusBtn' data-id={that.state.status[orderList[i].applyStatus].dataId} data-sign={orderList[i].applyId} style={}>
+                            {/* <span onClick={that.toCancel} className='statusBtn' data-id={that.state.status[orderList[i].applyStatus].dataId} data-sign={orderList[i].applyId} style={}>
                                 {that.state.status[orderList[i].applyStatus].btntext}
                             </span> */}
                         </div>
                     </li >)
                 }
-that.setState({
-    list: arr
-})
+                that.setState({
+                    list: arr
+                })
             }
             // else if (res.code == "5555") {
             //     var isLogin = localStorage.getItem("isLogin");
@@ -135,17 +135,17 @@ that.setState({
             // }
 
         }, function () {
-    toast.show("连接错误", 2000);
-})
+            toast.show("连接错误", 2000);
+        })
     },
-render: function () {
-    var that = this;
-    return (
-        <div className="app_Box orderList">
-            <Header title="我的订单" />
-            <div className="orderCon content">
-                <ul>
-                    {/* <li>
+    render: function () {
+        var that = this;
+        return (
+            <div className="app_Box orderList">
+                <Header title="我的订单" />
+                <div className="orderCon content">
+                    <ul>
+                        {/* <li>
                             <div className="orderNum">
                                 订单号：201705092356412
 	                            <span>已申请</span>
@@ -166,13 +166,13 @@ render: function () {
                                 <span onClick={that.toCancel} className='statusBtn'>取消借款</span>
                             </div>
                         </li>*/}
-                    {that.state.list}
-                </ul>
-                <Loading flag={that.state.isLoading} />
+                        {that.state.list}
+                    </ul>
+                    <Loading flag={that.state.isLoading} />
+                </div>
             </div>
-        </div>
-    )
-}
+        )
+    }
 })
 
 
