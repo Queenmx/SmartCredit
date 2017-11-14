@@ -49,6 +49,10 @@ var SetPsd=React.createClass({
 									localStorage.setItem("user",data);
 									localStorage.setItem("isLogin",true);
 									localStorage.setItem("phoneNum",phoneNum);
+									var user=JSON.parse(data);
+									globalData.user=data;
+									globalData.userId=user.userId;
+									globalData.requestData.token=user.token;
 									toast.show("登录成功",2000);
 									var path = {
 									  pathname:'/',

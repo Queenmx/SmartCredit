@@ -10,34 +10,34 @@ import { hashHistory, Link } from 'react-router';
 var Set = React.createClass({
     getInitialState: function () {
         return {
-			isLoading:false
+            isLoading: false
         }
     },
 
     quitLogin: function () {
-    	var that=this;
-    	that.setState({isLoading:true})
+        var that = this;
+        that.setState({ isLoading: true })
         api.exit(function (res) {
-        	console.log(res);
+            console.log(res);
             if (res.code == "0000") {
-            	that.setState({isLoading:false})
-            	localStorage.removeItem("user");
-            	localStorage.removeItem("isLogin");
-            	localStorage.removeItem("phoneNum");
-                 window.history.back();
-            }else{
-            	that.setState({isLoading:false})
-            	toast.show(res.msg,2000);
+                that.setState({ isLoading: false })
+                localStorage.removeItem("user");
+                localStorage.removeItem("isLogin");
+                localStorage.removeItem("phoneNum");
+                window.history.back();
+            } else {
+                that.setState({ isLoading: false })
+                toast.show(res.msg, 2000);
             }
-        },function(){
-        	that.setState({isLoading:false})
-			toast.show("连接错误",2000);
-		})
+        }, function () {
+            that.setState({ isLoading: false })
+            toast.show("连接错误", 2000);
+        })
 
     },
     clearCache: function () {
         let toast = globalData.toast;
-        this.timer=setTimeout( function(){toast.show("清空缓存成功", 2000)},500)
+        this.timer = setTimeout(function () { toast.show("清空缓存成功", 2000) }, 500)
     },
     aboutUs: function () {
         let path = {
@@ -51,7 +51,7 @@ var Set = React.createClass({
         return (
             <div className="userInfo app_Box">
                 <Header title="设置" />
-                <Loading flag={that.state.isLoading}/>
+                <Loading flag={that.state.isLoading} />
                 <div className="userInfoCon">
                     <ul className="setLi">
                         <li onClick={that.clearCache}><span>清空缓存</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
@@ -62,9 +62,9 @@ var Set = React.createClass({
             </div>
         )
     },
-	componentWillUnmount() {
-	    clearInterval(this.timer);
-	 }
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
 });
 export default Set;
 

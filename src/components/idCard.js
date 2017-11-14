@@ -27,7 +27,6 @@ var IdCard = React.createClass({
             $d = document.querySelector(d),
             file = $c.files[0],
             reader = new FileReader();
-        //reader.readAsBinaryString(file,'gb2312');
         reader.readAsDataURL(file);
         reader.onload = function (e) {
             // 这个事件在读取结束后，无论成功或者失败都会触发

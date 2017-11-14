@@ -33,8 +33,8 @@ var Login = React.createClass({
         }
     },
     componentWillMount: function () {
-        localStorage.removeItem("user");
-        localStorage.removeItem("isLogin");
+        //localStorage.removeItem("user");
+        //localStorage.removeItem("isLogin");
         var phoneNum = localStorage.getItem("phoneNum");
         this.setState({ phoneNum: phoneNum })
     },
@@ -100,6 +100,10 @@ var Login = React.createClass({
                                 localStorage.setItem("user", data);
                                 localStorage.setItem("isLogin", true);
                                 localStorage.setItem("phoneNum", phoneNum);
+                                var user = JSON.parse(data);
+                                globalData.user = data;
+                                globalData.userId = user.userId;
+                                globalData.requestData.token = user.token;
                                 toast.show("登录成功", 2000);
                                 //location.reload();
                                 window.history.back();
@@ -141,6 +145,10 @@ var Login = React.createClass({
                                     localStorage.setItem("user", data);
                                     localStorage.setItem("isLogin", true);
                                     localStorage.setItem("phoneNum", phoneNum);
+                                    var user = JSON.parse(data);
+                                    globalData.user = data;
+                                    globalData.userId = user.userId;
+                                    globalData.requestData.token = user.token;
                                     toast.show("登录成功", 2000);
                                     window.history.back();
                                 } else {
