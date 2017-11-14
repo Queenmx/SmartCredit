@@ -57,7 +57,9 @@ var Order = React.createClass({
         // console.log(e.target)
         var id = e.target.getAttribute('data-id');
         var dataId = that.state.status[that.orderList[id].applyStatus].dataId;
-        if (dataId == 1 || dataId == 2 && that.orderList[id].status > 0) {
+        console.log(dataId);
+        console.log(that.orderList[id].status);
+        if ((dataId == 1 || dataId == 2) && that.orderList[id].status > 0) {
             api.cancleOrder(that.orderList[id].applyId, function (res) {
                 if (res.code == "0000") {
                     e.target.style.backgroundColor = "#555"
@@ -77,13 +79,12 @@ var Order = React.createClass({
         var toast = globalData.toast;
         var that = this;
         api.orderList(1, 5, "", function (res) {
-            console.log(res);
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", "") || []);
                 var orderList = data.list;
                 that.orderList = data.list
                 var arr = [];
-
+                console.log(data);
                 for (var i in orderList) {
                     var status = orderList[i].status;
                     arr.push(<li key={i}>

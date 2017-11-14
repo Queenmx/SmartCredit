@@ -483,81 +483,81 @@ var ListDetail = React.createClass({
 
 
                 // 基于准备好的dom，初始化 echarts 实例并绘制图表。
-                var that = this;
-                echarts.init(document.getElementById("main")).setOption({
-                    color: ["#f94b4b", "#ffcc00", "#4dbeff"],
-                    tooltip: {
-                        trigger: "item",
-                        formatter: "{a} <br/>{b}: {c} ({d}%)"
-                    },
-                    legend: {
-                        icon: "circle",
-                        orient: "vertical",
-                        right: "0",
-                        top: "10",
-                        data: [
-                            '贷款'
-                        ],
-                        textStyle: {
-                            fontSize: 10,
-                            color: "#aaaaaa"
-                        }
-                    },
-                    series: [
-                        {
-                            name: "访问来源",
-                            type: "pie",
-                            silent: true,
-                            radius: ["70%", "100%"],
-                            center: ["20%", "50%"],
-                            avoidLabelOverlap: false,
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: "center"
-                                },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: "30",
-                                        fontWeight: "bold"
-                                    }
-                                }
-                            },
-                            labelLine: {
-                                normal: {
-                                    show: false
-                                }
-                            },
-                            data: [
-                                {
-                                    value: `${that.formateMoney(data.money)}`,
-                                    name:
-                                    "贷款" +
-                                    `${this.formateMoney(data.money)}` +
-                                    "元/" +
-                                    data.limitDay +
-                                    this.dayTpye[data.limitType]
-                                },
-                                {
-                                    value: `${that.formateMoney(that.loanInfo.interest)}`,
-                                    name:
-                                    "利息" +
-                                    `${this.formateMoney(data.interest)}` +
-                                    "元(" +
-                                    data.rate +
-                                    "%/" +
-                                    this.rateType[data.rateType] +
-                                    ")"
-                                },
-                                {
-                                    value: `${that.formateMoney(that.loanInfo.fee)}`,
-                                    name: "一次性" + `${this.formateMoney(data.fee)}` + "元"
-                                }
-                            ]
-                        }
-                    ]
-                });
+                // var that = this;
+                // echarts.init(document.getElementById("main")).setOption({
+                //     color: ["#f94b4b", "#ffcc00", "#4dbeff"],
+                //     tooltip: {
+                //         trigger: "item",
+                //         formatter: "{a} <br/>{b}: {c} ({d}%)"
+                //     },
+                //     legend: {
+                //         icon: "circle",
+                //         orient: "vertical",
+                //         right: "0",
+                //         top: "10",
+                //         data: [
+                //             '贷款'
+                //         ],
+                //         textStyle: {
+                //             fontSize: 10,
+                //             color: "#aaaaaa"
+                //         }
+                //     },
+                //     series: [
+                //         {
+                //             name: "访问来源",
+                //             type: "pie",
+                //             silent: true,
+                //             radius: ["70%", "100%"],
+                //             center: ["20%", "50%"],
+                //             avoidLabelOverlap: false,
+                //             label: {
+                //                 normal: {
+                //                     show: false,
+                //                     position: "center"
+                //                 },
+                //                 emphasis: {
+                //                     show: true,
+                //                     textStyle: {
+                //                         fontSize: "30",
+                //                         fontWeight: "bold"
+                //                     }
+                //                 }
+                //             },
+                //             labelLine: {
+                //                 normal: {
+                //                     show: false
+                //                 }
+                //             },
+                //             data: [
+                //                 {
+                //                     value: `${that.formateMoney(data.money)}`,
+                //                     name:
+                //                     "贷款" +
+                //                     `${this.formateMoney(data.money)}` +
+                //                     "元/" +
+                //                     data.limitDay +
+                //                     this.dayTpye[data.limitType]
+                //                 },
+                //                 {
+                //                     value: `${that.formateMoney(that.loanInfo.interest)}`,
+                //                     name:
+                //                     "利息" +
+                //                     `${this.formateMoney(data.interest)}` +
+                //                     "元(" +
+                //                     data.rate +
+                //                     "%/" +
+                //                     this.rateType[data.rateType] +
+                //                     ")"
+                //                 },
+                //                 {
+                //                     value: `${that.formateMoney(that.loanInfo.fee)}`,
+                //                     name: "一次性" + `${this.formateMoney(data.fee)}` + "元"
+                //                 }
+                //             ]
+                //         }
+                //     ]
+                // });
                 //var rate=data.rate;
                 /*		var getMyRate;
                             switch (limitType){
