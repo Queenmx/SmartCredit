@@ -482,7 +482,7 @@ var ListDetail = React.createClass({
 
 
 
-                // 基于准备好的dom，初始化 echarts 实例并绘制图表。
+              /*  // 基于准备好的dom，初始化 echarts 实例并绘制图表。
                 var that = this;
                 echarts.init(document.getElementById("main")).setOption({
                     color: ["#f94b4b", "#ffcc00", "#4dbeff"],
@@ -557,7 +557,7 @@ var ListDetail = React.createClass({
                             ]
                         }
                     ]
-                });
+                });*/
                 //var rate=data.rate;
                 /*		var getMyRate;
                             switch (limitType){
