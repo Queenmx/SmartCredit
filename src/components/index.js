@@ -30,6 +30,7 @@ import Set from './set';
 import RePsd from './rePsd';
 import ForgotPsd from './forgotPsd';
 import RealName from './realName';
+import IdNumber from './idNumber';
 import PersonalLevel from './personalLevel';
 //<Route path='/detail/:id' component={Detail} />
 
@@ -61,5 +62,6 @@ ReactDom.render((
  		<Route path='/RePsd' component={RePsd}/>
  		<Route path='/ForgotPsd' component={ForgotPsd}/>
  		<Route path='/RealName' component={RealName}/>
+ 		<Route path='/IdNumber' component={IdNumber}/>
    </Router>
 ), document.getElementById('app'));

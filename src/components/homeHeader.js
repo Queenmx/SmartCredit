@@ -80,7 +80,7 @@ var HomeHeader=React.createClass({
         			<img src="src/img/icon/map.jpg" />
         			<Link to="/myMap">{this.state.address}</Link>
         		</div>
-        		<p className="title">智能贷</p>
+        		<p className="title">万融汇</p>
         		<p className="headerLinkBtn"></p>
         	</div>
         )

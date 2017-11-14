@@ -37,7 +37,7 @@ var Home=React.createClass({
     },
 	  
    logoError:function(event){
-    	event.target.src="src/img/icon/capitalLogo.jpg";
+    	event.target.src="src/img/icon/logo.png";
 		event.target.onerror=null; //控制不要一直跳动 
 		//console.log(event.target.src);
     },

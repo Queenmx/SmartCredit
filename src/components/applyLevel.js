@@ -36,7 +36,7 @@ var ApplyLevel=React.createClass({
 	},
 	toApplyResult:function(){
 		var that=this;
-		console.log(that.state.valSelect);
+		//console.log(that.state.valSelect);
 		var key1 = globalData.key;
 		var toast=globalData.toast;
 		var isOver;
@@ -44,8 +44,8 @@ var ApplyLevel=React.createClass({
 			toast.show("请同意智能贷服务协议",2000);
 		}else{
 			var qualifySelect=that.state.valSelect; 
-			console.log(qualifySelect);
-			/*for(var i in qualifySelect){
+			//console.log(qualifySelect);
+			for(var i in qualifySelect){
 				if(qualifySelect[i].selectName==""){
 					toast.show(qualifySelect[i].dictionaryName+'必填',2000);
 					isOver=false;
@@ -54,28 +54,33 @@ var ApplyLevel=React.createClass({
 				}else{
 					isOver=true;
 				}
-			}*/
-			//if(isOver){
-				/*api.qualifyListSave(qualifySelect,function(res){
+			}
+			if(isOver){
+				api.qualifyListSave(qualifySelect,function(res){
 					that.setState({
 							flag:true
 						})
 					console.log(res);
-					if(res.code=="0000"){*/
+					if(res.code=="0000"){
 						//申请贷款
 						const {limitDay,limitType,loanId,money}=that.state.applyQuery;
+						var qualifyList=that.state.valSelect;
 						console.log(that.state.applyQuery);
 						var money=parseFloat(money)*100;
 						//console.log(money);
-						api.applyLoan(limitType,limitType,loanId,money,function(res){
-							console.log(res);
+						api.applyLoan(limitType,limitType,loanId,money,qualifyList,function(res){
+							//console.log(res);
 							if(res.code=="0000"){
 								that.setState({
 									flag:false
 								})
+								var data = JSON.parse(strDec(res.data, key1, "", ""));
+			                    console.log(data);
+								var queryData = {apiUrl:data.apiUrl||"",apiWay:data.apiUrl||"",logo:data.logo};
 								toast.show("申请订单成功",2000);
 								var path = {
 								  pathname:'/ApplyResult',
+								  state:queryData
 								}
 								hashHistory.push(path);
 							}else if(res.code=="5555"){
@@ -100,7 +105,7 @@ var ApplyLevel=React.createClass({
 							toast.show("连接错误",2000);
 						})
 						
-					/*}else if(res.code=="5555"){
+					}else if(res.code=="5555"){
 						toast.show("登录过时，请重新登录",2000);
 						that.setState({
 							flag:false
@@ -121,10 +126,10 @@ var ApplyLevel=React.createClass({
 							flag:false
 					})
 					toast.show("连接错误",2000);
-				})*/
-			/*}else{
+				})
+			}else{
 				console.log("未填完")
-			}*/
+			}
 		}
 	},
 	agreeRule:function(event){

@@ -25,15 +25,15 @@ const globalData = {
     toast: toast,
     selectedCityName: '',
     key: "ZND171030APIMM",
-    appBasePath: "http://www.91ymfq.com/XR/",
+   // appBasePath: "http://www.91ymfq.com/XR/",
     path: "http://xingrongjinfu.iask.in:8886",
-    // path:"http://tdx.free.ngrok.cc",
-    //path:"http://192.168.1.17:8886",
+    // path:"http://wangjuan6.free.ngrok.cc",
+     //path:"http://192.168.1.17:8886",
     //path:"http://122.144.133.20:8088",
     imgPath: "http://xrjf.oss-cn-shanghai.aliyuncs.com/",
     //path:"http://192.168.1.17:8088",
-    user: localStorage.getItem("user") || "",
-    // userObj:JSON.parse(this.user);
+    user:localStorage.getItem("user")||"",
+   // userObj:JSON.parse(this.user);
     //userId: this.userObj.userId || "",
     userId: userId || "",
     requestData: {

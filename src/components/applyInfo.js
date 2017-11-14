@@ -20,7 +20,6 @@ var ApplyInfo = React.createClass({
     },
 
     componentWillMount: function () {
-    	console.log(globalData.user);
         var userStr = localStorage.getItem("user");
         console.log(userStr);
         if (!userStr) {
@@ -50,9 +49,10 @@ var ApplyInfo = React.createClass({
                     console.log(res);
                     if (res.code == "0000") {
                         //修改信息成功
-                        var userObj = { realName: realName, located: located, idCard: user.idCard, certLevel: user.certLevel, phone: user.phone, userName: user.userName, token: user.token, headPic: user.headPic, userId: user.userId }
-                        localStorage.setItem("user", JSON.stringify(userObj));
-                        //console.log(res.data);
+                        user.realName=realName
+                        //var userObj = { realName: realName, located: located, idCard: user.idCard, certLevel: user.certLevel, phone: user.phone, userName: user.userName, token: user.token, headPic: user.headPic, userId: user.userId }
+                        localStorage.setItem("user", JSON.stringify(user));
+                    	globalData.user=JSON.stringify(user);
                     } else if (res.code == "5555") {
                         toast.show("登录过时，请重新登录", 2000);
                         var path = {
