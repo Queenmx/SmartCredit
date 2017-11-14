@@ -8,10 +8,7 @@ import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../css/listDetail.css';
 // 引入 ECharts 主模块
-import echarts from 'echarts/lib/echarts';
-import 'echarts/lib/chart/bar';
-import 'echarts/lib/component/tooltip';
-import 'echarts/lib/component/title';
+import echarts from "echarts";
 
 var appBasePath = globalData.appBasePath;
 var ListDetail = React.createClass({
@@ -467,6 +464,64 @@ var ListDetail = React.createClass({
             toast.show("连接错误",2000);
         })
     */
+        api.orderList(1, 5, "", function (res) {
+            if (res.code == "0000") {
+                // 基于准备好的dom，初始化 echarts 实例并绘制图表。
+                var that = this;
+                echarts.init(document.getElementById("main")).setOption({
+                    color: ["#f94b4b", "#ffcc00", "#4dbeff"],
+                    tooltip: {
+                        trigger: "item",
+                        formatter: "{a} <br/>{b}: {c} ({d}%)"
+                    },
+                    legend: {
+                        icon: "circle",
+                        orient: "vertical",
+                        right: "0",
+                        top: "10",
+                        data: ['邮件营销', '联盟广告', '视频广告'],
+                        textStyle: {
+                            fontSize: 10,
+                            color: "#aaaaaa"
+                        }
+                    },
+                    series: [
+                        {
+                            name: "访问来源",
+                            type: "pie",
+                            silent: true,
+                            radius: ["80%", "100%"],
+                            center: ["30%", "50%"],
+                            avoidLabelOverlap: false,
+                            label: {
+                                normal: {
+                                    show: false,
+                                    position: "center"
+                                },
+                                emphasis: {
+                                    show: true,
+                                    textStyle: {
+                                        fontSize: "30",
+                                        fontWeight: "bold"
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            data: [
+                                { value: 335, name: '直接访问' },
+                                { value: 310, name: '邮件营销' },
+                                { value: 234, name: '联盟广告' }
+                            ],
+                        }
+                    ]
+                });
+            }
+
+        })
 
         api.loanDetail(loanId, function (res) {
             //console.log(res);
@@ -482,82 +537,7 @@ var ListDetail = React.createClass({
 
 
 
-                // 基于准备好的dom，初始化 echarts 实例并绘制图表。
-                // var that = this;
-                // echarts.init(document.getElementById("main")).setOption({
-                //     color: ["#f94b4b", "#ffcc00", "#4dbeff"],
-                //     tooltip: {
-                //         trigger: "item",
-                //         formatter: "{a} <br/>{b}: {c} ({d}%)"
-                //     },
-                //     legend: {
-                //         icon: "circle",
-                //         orient: "vertical",
-                //         right: "0",
-                //         top: "10",
-                //         data: [
-                //             '贷款'
-                //         ],
-                //         textStyle: {
-                //             fontSize: 10,
-                //             color: "#aaaaaa"
-                //         }
-                //     },
-                //     series: [
-                //         {
-                //             name: "访问来源",
-                //             type: "pie",
-                //             silent: true,
-                //             radius: ["70%", "100%"],
-                //             center: ["20%", "50%"],
-                //             avoidLabelOverlap: false,
-                //             label: {
-                //                 normal: {
-                //                     show: false,
-                //                     position: "center"
-                //                 },
-                //                 emphasis: {
-                //                     show: true,
-                //                     textStyle: {
-                //                         fontSize: "30",
-                //                         fontWeight: "bold"
-                //                     }
-                //                 }
-                //             },
-                //             labelLine: {
-                //                 normal: {
-                //                     show: false
-                //                 }
-                //             },
-                //             data: [
-                //                 {
-                //                     value: `${that.formateMoney(data.money)}`,
-                //                     name:
-                //                     "贷款" +
-                //                     `${this.formateMoney(data.money)}` +
-                //                     "元/" +
-                //                     data.limitDay +
-                //                     this.dayTpye[data.limitType]
-                //                 },
-                //                 {
-                //                     value: `${that.formateMoney(that.loanInfo.interest)}`,
-                //                     name:
-                //                     "利息" +
-                //                     `${this.formateMoney(data.interest)}` +
-                //                     "元(" +
-                //                     data.rate +
-                //                     "%/" +
-                //                     this.rateType[data.rateType] +
-                //                     ")"
-                //                 },
-                //                 {
-                //                     value: `${that.formateMoney(that.loanInfo.fee)}`,
-                //                     name: "一次性" + `${this.formateMoney(data.fee)}` + "元"
-                //                 }
-                //             ]
-                //         }
-                //     ]
-                // });
+
                 //var rate=data.rate;
                 /*		var getMyRate;
                             switch (limitType){
@@ -739,10 +719,13 @@ var ListDetail = React.createClass({
                         </li>
                     </ul>
                     <div className="circle">
-                        <div className="circlePic">
+                        <div className="circleBox">
+                            <div id="main" className="chart" style={{ "height": "3rem" }}></div>
+                        </div>
+                        {/* <div className="circlePic">
                             <div className="rings" onClick={that.echartDraw}>
                                 <div></div>
-                                <div id="main" className="chart"></div>
+                                
                                 <p>
                                     {myTotalMoney}元
 	        							<span>还款金额</span>
@@ -752,10 +735,10 @@ var ListDetail = React.createClass({
                         </div>
                         <ul className="circleInfo">
                             <li><i></i>贷款 {that.state.value1}/{that.state.value2}{loanDetail.limitType == "D" ? "天" : "个月"}</li>
-                            <li><i></i>利息 {myRateMoney}元({loanDetail.rate}%/{loanDetail.rateType == "D" ? "天" : "月"})</li>
-                            {/*<li><i></i>费用 {myFeeMoney}元</li>*/}
-                            <li><i></i>一次性{loanDetail.fee}元(0%)</li>
-                        </ul>
+                            <li><i></i>利息 {myRateMoney}元({loanDetail.rate}%/{loanDetail.rateType == "D" ? "天" : "月"})</li> */}
+                        {/*<li><i></i>费用 {myFeeMoney}元</li>*/}
+                        {/* <li><i></i>一次性{loanDetail.fee}元(0%)</li>
+                        </ul> */}
                     </div>
                     <div className="moneyDetailBox">
                         <div className="moneyDetail" style={{ "display": that.state.isShowDetail ? "block" : "none" }}>{loanDetail.loanIntro}</div>

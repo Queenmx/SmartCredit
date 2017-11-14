@@ -76,6 +76,14 @@
   .listDetail .circle {
     background: #ffffff;
     padding: 0.35rem 0; }
+    .circleBox{
+        padding: .5rem .4rem .4rem;
+    }
+    .circleBox .chart{
+        width: 100%;
+        height: 3rem;
+        margin: 0 auto;
+    }
     .listDetail .circle:after {
       content: "";
       display: block;

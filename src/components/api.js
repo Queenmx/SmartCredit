@@ -545,23 +545,17 @@ module.exports.cancleOrder = function (applyId, cb1, cb2) {
 }
 
 /**
- * 功能描述：取消订单
- * 函数名：orderList
- * @param {String} applyId
- * @param {String} userId
+ * 功能描述：饼图
+ * 函数名：circle
  * ACTION
  */
-module.exports.cancleOrder = function (applyId, cb1, cb2) {
+module.exports.circle = function (cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
-    data.applyId = applyId;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    // console.log(data);
-    // console.log(userId);
-    http(`${globalData.path}/zndai/loan/apply/cancel`, { params: str }, cb1, cb2);
-    delete data.applyId;
+    http(`${globalData.path}/zndai/loan/apply/list/b`, { params: str }, cb1, cb2);
     delete data.userId;
 }
 
