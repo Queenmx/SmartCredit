@@ -50,13 +50,17 @@ var Order = React.createClass({
             }
         }
     },
-    toCancel: function (e, dataId) {
+    toCancel: function (e) {
         // e.target.style.backgroundColor = e.target.style.backgroundColor === "rgb(221, 221, 221)" ? "#53a6ff" : "rgb(221, 221, 221)";
+        // console.log(e.target)
         var id = e.target.getAttribute('data-id');
-        if (id === 2) {
-            api.cancleOrder(dataId, "", function (res) {
+        var applyId = e.target.getAttribute('data-sign');
+        // var status = e.target.getAttribute('data-status');
+        console.log(status);
+        if (id == 1 || id == 2 && status > 0) {
+            api.cancleOrder(applyId, function (res) {
                 if (res.code == "0000") {
-                    e.target.style.backgroundColor = "#53a6ff"
+                    e.target.style.backgroundColor = "#555"
                 }
             })
         }
@@ -79,11 +83,13 @@ var Order = React.createClass({
                 var orderList = data.list;
                 console.log(data);
                 var arr = [];
+
                 for (var i in orderList) {
+                    var status = orderList[i].status;
                     arr.push(<li key={i}>
                         <div className="orderNum">
-                            <span className="order_n">订单号：{orderList[i].applyId.slice(0, 20)}</span>
-                            <span>{that.state.status.text[orderList[i].applyStatus]}</span>
+                            <span className="order_n">订单号：{orderList[i].applyNo.slice(0, 20)}</span>
+                            <span>{that.state.status[orderList[i].applyStatus].text}</span>
                         </div>
                         <h3 className="list_title">
                             <img src={'http://xrjf.oss-cn-shanghai.aliyuncs.com/' + orderList[i].logo} />
@@ -98,13 +104,18 @@ var Order = React.createClass({
                         </ul>
                         <div className="listFoot">
                             <span className="status">您的贷款申请已提交，3个工作日内完成</span>
-                            <span onClick={() => that.toCancel(orderList[i].applyId)} className='statusBtn' data-id={that.state.status.dataId}>{that.state.status.btntext[orderList[i].applyStatus]}</span>
+                            <span onClick={that.toCancel} className='statusBtn' data-id={that.state.status[orderList[i].applyStatus].dataId} data-sign={orderList[i].applyId} style={{ status< 0 ? 'rgb(221, 221, 221)' : '#53a6ff'}}>
+                                {that.state.status[orderList[i].applyStatus].btntext}
+                            </span>
+                        {/* <span onClick={that.toCancel} className='statusBtn' data-id={that.state.status[orderList[i].applyStatus].dataId} data-sign={orderList[i].applyId} style={}>
+                                {that.state.status[orderList[i].applyStatus].btntext}
+                            </span> */}
                         </div>
                     </li >)
                 }
-                that.setState({
-                    list: arr
-                })
+that.setState({
+    list: arr
+})
             }
             // else if (res.code == "5555") {
             //     var isLogin = localStorage.getItem("isLogin");
@@ -124,17 +135,17 @@ var Order = React.createClass({
             // }
 
         }, function () {
-            toast.show("连接错误", 2000);
-        })
+    toast.show("连接错误", 2000);
+})
     },
-    render: function () {
-        var that = this;
-        return (
-            <div className="app_Box orderList">
-                <Header title="我的订单" />
-                <div className="orderCon content">
-                    <ul>
-                        {/* <li>
+render: function () {
+    var that = this;
+    return (
+        <div className="app_Box orderList">
+            <Header title="我的订单" />
+            <div className="orderCon content">
+                <ul>
+                    {/* <li>
                             <div className="orderNum">
                                 订单号：201705092356412
 	                            <span>已申请</span>
@@ -155,13 +166,13 @@ var Order = React.createClass({
                                 <span onClick={that.toCancel} className='statusBtn'>取消借款</span>
                             </div>
                         </li>*/}
-                        {that.state.list}
-                    </ul>
-                    <Loading flag={that.state.isLoading} />
-                </div>
+                    {that.state.list}
+                </ul>
+                <Loading flag={that.state.isLoading} />
             </div>
-        )
-    }
+        </div>
+    )
+}
 })
 
 
