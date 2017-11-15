@@ -71,7 +71,7 @@ var ForgotPsd=React.createClass({
 	          }.bind(that), 1000);
 	          	
 	          //发送短信验证码
-			api.verifyCode(phoneNum,"REG",function(res){
+			api.verifyCode(phoneNum,"FPWD",function(res){
 				console.log(res);
 				if(res.code=="0000"){
 					var data = JSON.parse(strDec(res.data,key1,"",""));

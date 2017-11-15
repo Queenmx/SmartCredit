@@ -20,6 +20,7 @@ var ApplyInfo = React.createClass({
     },
 
     componentWillMount: function () {
+    	console.log(globalData.user)
         var userStr = localStorage.getItem("user");
         console.log(userStr);
         if (!userStr) {
@@ -47,6 +48,7 @@ var ApplyInfo = React.createClass({
             if (!realName) {//修改名字
                 api.edit(user.idCard, located, realName, function (res) {
                     console.log(res);
+                    console.log(realName);
                     if (res.code == "0000") {
                         //修改信息成功
                         user.realName=realName

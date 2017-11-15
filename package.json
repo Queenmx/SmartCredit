@@ -43,7 +43,6 @@
     },
     "dependencies": {
         "echarts": "^3.8.3",
-        "react-cropper": "^1.0.0",
         "reactjs-iscroll": "^0.3.2"
     }
 }

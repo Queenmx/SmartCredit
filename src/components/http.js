@@ -8,6 +8,9 @@ module.exports = (url, data, cb1, cb2) => {
         success: function (res) {
             cb1(res)
         },
+        xhrFields: {
+		      withCredentials: true
+		   },
         error: function (event, XMLHttpRequest, ajaxOptions, thrownError) {
             //console.log(event);
             cb2();

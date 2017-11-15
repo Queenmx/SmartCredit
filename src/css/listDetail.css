@@ -76,14 +76,6 @@
   .listDetail .circle {
     background: #ffffff;
     padding: 0.35rem 0; }
-    .circleBox{
-        padding: .5rem .4rem .4rem;
-    }
-    .circleBox .chart{
-        width: 100%;
-        height: 3rem;
-        margin: 0 auto;
-    }
     .listDetail .circle:after {
       content: "";
       display: block;
@@ -136,16 +128,17 @@
         width: 0.37rem;
         height: 0.15rem;
         margin-left: 0.5rem; }
-  .listDetail .flowBox .flowPic {
-    background: #ffffff;
-    height: 1.8rem;
-    line-height: 1.8rem;
-    padding: 0.2rem 0.5rem 0; }
-  .listDetail .flowBox .application {
-    background: #ffffff;
-    color: #666666;
-    font-size: 0.22rem;
-    padding: 0.3rem 0.5rem; }
+  .listDetail .flowBox {
+    overflow: hidden; }
+    .listDetail .flowBox .flowPic {
+      background: #ffffff;
+      line-height: 0.48rem;
+      padding: 0.2rem 0.5rem 0; }
+    .listDetail .flowBox .application {
+      background: #ffffff;
+      color: #666666;
+      font-size: 0.22rem;
+      padding: 0.3rem 0.5rem; }
   .listDetail h2 {
     height: 0.8rem;
     line-height: 0.8rem;

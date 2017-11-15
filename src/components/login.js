@@ -76,7 +76,6 @@ var Login = React.createClass({
                         }, 2000);*/
             toast.show("请输入正确格式的手机号码", 2000);
         } else {
-
             switch (wayNum) {
                 case 1:
 
@@ -107,10 +106,7 @@ var Login = React.createClass({
                                 toast.show("登录成功", 2000);
                                 //location.reload();
                                 window.history.back();
-								/*var path = {
-								  pathname:'/',
-									}
-								hashHistory.push(path);*/
+								
                             } else {
                                 toast.show(res.msg, 2000);
                             }
@@ -132,6 +128,9 @@ var Login = React.createClass({
                         toast.show("请输入验证码", 2000);
                     } else if (yzCode == verifyCode) {
                         //验证码登录
+                        that.setState({
+                            flag: true
+                        })
                         var reg = that.state.reg;
                         console.log(reg + "mmmmm" + that.state.yzCode)
                         if (reg) {
@@ -139,6 +138,9 @@ var Login = React.createClass({
                             api.login("CODE", phoneNum, "", yzCode, function (res) {
                                 console.log(res);
                                 if (res.code == "0000") {
+                                	that.setState({
+		                                flag: false
+		                            })
                                     var data = strDec(res.data, key1, "", "");
                                     //console.log(data);
                                     //成功后
@@ -152,13 +154,22 @@ var Login = React.createClass({
                                     toast.show("登录成功", 2000);
                                     window.history.back();
                                 } else {
+                                	that.setState({
+		                                flag: false
+		                            })
                                     toast.show(res.msg, 2000);
                                 }
                             }, function () {
+                            	that.setState({
+		                                flag: false
+		                            })
                                 toast.show("连接错误", 2000);
                             })
 
                         } else {
+                        	that.setState({
+	                                flag: false
+	                            })
                             //注册,去设置密码
                             var data = { fromWhy: "register", phoneNum: phoneNum, verifyCode: yzCode };
                             localStorage.setItem("phoneNum", phoneNum);

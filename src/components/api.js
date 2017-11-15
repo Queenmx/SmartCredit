@@ -99,7 +99,7 @@ module.exports.verifyCode = function (phone, type, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.phone = phone;
-    data.type = "REG";//REG 注册 ，FPWD忘记密码
+    data.type = type;//REG 注册 ，FPWD忘记密码
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     console.log(param);

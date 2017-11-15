@@ -17,7 +17,13 @@ var Order = React.createClass({
             pageNum: 1,
             pageSize: 10,
             list: [],
-            status: {
+           
+            orderList: []
+        }
+    },
+    componentDidMount:function(){
+    	this.setState({
+    		 status: {
                 PENDING: {
                     text: '待处理',
                     btntext: '取消借款',
@@ -47,9 +53,8 @@ var Order = React.createClass({
                 D: '日',
                 M: '月',
                 Y: '年'
-            },
-            orderList: []
-        }
+            }
+    	})
     },
     toCancel: function (e) {
         var that = this;
@@ -82,38 +87,42 @@ var Order = React.createClass({
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", "") || []);
                 var orderList = data.list;
-                that.orderList = data.list
+                //that.orderList = data.list
                 var arr = [];
                 console.log(data);
-                for (var i in orderList) {
-                    var status = orderList[i].status;
-                    arr.push(<li key={i}>
-                        <div className="orderNum">
-                            <span className="order_n">订单号：{orderList[i].applyNo.slice(0, 20)}</span>
-                            <span>{that.state.status[orderList[i].applyStatus].text}</span>
-                        </div>
-                        <h3 className="list_title">
-                            <img src={'http://xrjf.oss-cn-shanghai.aliyuncs.com/' + orderList[i].logo} />
-                            <span>{orderList[i].loanName}</span>
-                            <span className="p_name">{that.state.name[orderList[i].loanType]}</span>
-                        </h3>
-                        <ul className="container">
-                            <li>借款金额 {that.formateMoney(orderList[i].money)}元</li>
-                            <li>期限{orderList[i].limitDay}{that.state.rate[orderList[i].limitType]}</li>
-                            <li>利息{that.formateMoney(orderList[i].interest)}元</li>
-                            <li>{orderList[i].rateType}费用{orderList[i].rate}%</li>
-                        </ul>
-                        <div className="listFoot">
-                            <span className="status">您的贷款申请已提交，3个工作日内完成</span>
-                            <span onClick={that.toCancel} className='statusBtn' data-id={i} style={{ backgroundColor: status < 0 ? 'rgb(221, 221, 221)' : '#53a6ff' }}>
-                                {that.state.status[orderList[i].applyStatus].btntext}
-                            </span>
-                            {/* <span onClick={that.toCancel} className='statusBtn' data-id={that.state.status[orderList[i].applyStatus].dataId} data-sign={orderList[i].applyId} style={}>
-                                {that.state.status[orderList[i].applyStatus].btntext}
-                            </span> */}
-                        </div>
-                    </li >)
-                }
+                if(orderList.length<1){
+					arr.push(<div key={Math.random()} style={{'textAlign':'center','lineHeight':'1rem'}}>暂无订单</div>)
+				}else{
+	                for (var i in orderList) {
+	                    var status = orderList[i].status;
+	                    arr.push(<li key={i}>
+	                        <div className="orderNum">
+	                            <span className="order_n">订单号：{orderList[i].applyNo.slice(0, 20)}</span>
+	                            <span>{that.state.status[orderList[i].applyStatus].text}</span>
+	                        </div>
+	                        <h3 className="list_title">
+	                            <img src={'http://xrjf.oss-cn-shanghai.aliyuncs.com/' + orderList[i].logo} />
+	                            <span>{orderList[i].loanName}</span>
+	                            <span className="p_name">{that.state.name[orderList[i].loanType]}</span>
+	                        </h3>
+	                        <ul className="container">
+	                            <li>借款金额 {that.formateMoney(orderList[i].money)}元</li>
+	                            <li>期限{orderList[i].limitDay}{that.state.rate[orderList[i].limitType]}</li>
+	                            <li>利息{that.formateMoney(orderList[i].interest)}元</li>
+	                            <li>{orderList[i].rateType}费用{orderList[i].rate}%</li>
+	                        </ul>
+	                        <div className="listFoot">
+	                            <span className="status">您的贷款申请已提交，3个工作日内完成</span>
+	                            <span onClick={that.toCancel} className='statusBtn' data-id={i} style={{ backgroundColor: status < 0 ? 'rgb(221, 221, 221)' : '#53a6ff' }}>
+	                                {that.state.status[orderList[i].applyStatus].btntext}
+	                            </span>
+	                            {/* <span onClick={that.toCancel} className='statusBtn' data-id={that.state.status[orderList[i].applyStatus].dataId} data-sign={orderList[i].applyId} style={}>
+	                                {that.state.status[orderList[i].applyStatus].btntext}
+	                            </span> */}
+	                        </div>
+	                    </li >)
+	                }
+               }
                 that.setState({
                     list: arr
                 })

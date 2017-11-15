@@ -39,7 +39,7 @@ var SetPsd=React.createClass({
 						var data = JSON.parse(strDec(res.data,key1,"",""));
 						console.log(data);
 						//自动登录
-						api.login("PWD",phoneNum,"",psd,function(res){
+						api.login("PWD",phoneNum,psd,"",function(res){
 							console.log(res);
 								if(res.code=="0000"){
 									that.setState({isLoading:false})
@@ -81,7 +81,7 @@ var SetPsd=React.createClass({
 						that.setState({isLoading:false})
 						var data =strDec(res.data,key1,"","");
 						//console.log(data);
-						toast.show("密码设置成功",2000);
+						toast.show("密码设置成功,请登录",2000);
 						localStorage.setItem("phoneNum",phoneNum);
 						var path = {
 						  pathname:'/Login/',

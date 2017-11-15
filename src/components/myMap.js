@@ -103,7 +103,7 @@ var MyMap=React.createClass({
 					var data = JSON.parse(strDec(res.data,key1,"",""));
             		var hotCity=data.list;
 					for(var i in hotCity){
-						hotCityHtml.push(<li className="hotCityLi sendCityId" key={i}>{hotCity[i].name}</li>)
+						hotCityHtml.push(<li className="hotCityLi sendCityId" onClick={that.selectCity} key={i}>{hotCity[i].name}</li>)
 					}
 					that.setState({
 						hotCityHtml:hotCityHtml
