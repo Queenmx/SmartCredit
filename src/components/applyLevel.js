@@ -44,11 +44,17 @@ var ApplyLevel=React.createClass({
 			toast.show("请同意智能贷服务协议",2000);
 		}else{
 			var qualifySelect=that.state.valSelect; 
+			that.setState({
+							flag:true
+						})
 			//console.log(qualifySelect);
 			for(var i in qualifySelect){
 				if(qualifySelect[i].selectName==""){
 					toast.show(qualifySelect[i].dictionaryName+'必填',2000);
 					isOver=false;
+					that.setState({
+							flag:false
+					})
 					break;
 					
 				}else{
@@ -57,9 +63,7 @@ var ApplyLevel=React.createClass({
 			}
 			if(isOver){
 				api.qualifyListSave(qualifySelect,function(res){
-					that.setState({
-							flag:true
-						})
+					
 					console.log(res);
 					if(res.code=="0000"){
 						//申请贷款
@@ -128,6 +132,9 @@ var ApplyLevel=React.createClass({
 					toast.show("连接错误",2000);
 				})
 			}else{
+				/*that.setState({
+						flag:false
+					})*/
 				console.log("未填完")
 			}
 		}
@@ -278,39 +285,77 @@ var ApplyLevel=React.createClass({
 					})
 		}
 	},
-	
 	componentDidMount:function(){
-		var that=this;
-		var qualifyList=that.props.location.state.qualifyList;
-		//console.log(qualifyList);
-		//var qualifyListArr=[];
-		for (var i in qualifyList){
-			var selectName=qualifyList[i].selectName;
-			that.state.second.push([]);
-			that.state.second[i].isShow=false;
-			that.state.second[i].isRequest=false;
-			that.state.valSelect.push({});
-			that.state.valSelect[i].userId=globalData.userId;
-			that.state.valSelect[i].qualifyId=qualifyList[i].qualifyId;
-			that.state.valSelect[i].dictionaryId=qualifyList[i].dictionaryId;
-			that.state.valSelect[i].dictionaryName=qualifyList[i].dictionaryName;
-			that.state.valSelect[i].dictionaryParentId=qualifyList[i].dictionaryParentId;
-			that.state.valSelect[i].selectName=qualifyList[i].selectName;
-			that.state.valSelect[i].selectId=qualifyList[i].selectId;
-			that.state.qualifyListArr.push(<li className="levelInfo" key={i}>
-				<label htmlFor={i}>{qualifyList[i].dictionaryName}</label>
-				{/*<input type="text" id={i} className="selectValue" readOnly="readonly" name={'val'+i} data-dictionaryId={qualifyList[i].dictionaryId} value={that.state.valSelect[i]} onChange={that.selectHandle} placeholder="请选择"/>*/}
-				<i data-dictionaryId={qualifyList[i].dictionaryId}  style={{'color':'#333333'}} data-indexId={i} data-txt={qualifyList[i].name}  className={"selectValue"+i} onClick={that.selectHandle}>{that.state.valSelect[i].selectName||'请选择'}
-					{/*<input type="text" data-indexId={i} className="insertInput" onBlur={that.inputSelect} />*/}
-				</i>
-				<ul className={"levelInfoFirst"+i} >
-					{that.state.second[i]}
-				</ul>
-			</li>)
-		}
-		that.setState({second:that.state.second,qualifyListArr:that.state.qualifyListArr,valSelect:that.state.valSelect});
-		
+		var key1 = globalData.key;
+        var toast = globalData.toast;
+        var that = this; 
+        console.log(that.state.loanId);
+        that.setState({
+                flag: true
+            })
+		 //获取资质列表
+            api.qualifyList(that.state.loanId, "095c2c011ef740508bf27785e0ffe8f1", function (res) {
+                console.log(res);
+                
+                if (res.code == "0000") {
+                    var data = JSON.parse(strDec(res.data, key1, "", ""));
+                    console.log(data);
+                    that.setState({
+                    	flag: false,
+                        qualifyList: data
+                    },() => {
+                    	var qualifyList=that.state.qualifyList;
+                    	//console.log(qualifyList);
+                    	for (var i in qualifyList){
+							var selectName=qualifyList[i].selectName;
+							that.state.second.push([]);
+							that.state.second[i].isShow=false;
+							that.state.second[i].isRequest=false;
+							that.state.valSelect.push({});
+							that.state.valSelect[i].userId=globalData.userId;
+							that.state.valSelect[i].qualifyId=qualifyList[i].qualifyId;
+							that.state.valSelect[i].dictionaryId=qualifyList[i].dictionaryId;
+							that.state.valSelect[i].dictionaryName=qualifyList[i].dictionaryName;
+							that.state.valSelect[i].dictionaryParentId=qualifyList[i].dictionaryParentId;
+							that.state.valSelect[i].selectName=qualifyList[i].selectName;
+							that.state.valSelect[i].selectId=qualifyList[i].selectId;
+							that.state.qualifyListArr.push(<li className="levelInfo" key={i}>
+								<label htmlFor={i}>{qualifyList[i].dictionaryName}</label>
+								<i data-dictionaryId={qualifyList[i].dictionaryId}  style={{'color':'#333333'}} data-indexId={i} data-txt={qualifyList[i].name}  className={"selectValue"+i} onClick={that.selectHandle}>{that.state.valSelect[i].selectName||'请选择'}</i>
+								<ul className={"levelInfoFirst"+i} >
+									{that.state.second[i]}
+								</ul>
+							</li>)
+						}
+						that.setState({second:that.state.second,qualifyListArr:that.state.qualifyListArr,valSelect:that.state.valSelect});
+                    })
+                    
+                } else if (res.code == "5555") {
+                    that.setState({
+                        flag: false
+                    })
+                    toast.show("登录过时，请重新登录", 2000);
+                    var path = {
+                        pathname: '/Login',
+                    }
+                    hashHistory.push(path);
+                } else {
+                    that.setState({
+                        flag: false
+                    })
+                    toast.show(res.msg, 2000);
+                }
+            }, function () {
+                that.setState({
+                    flag: false
+                })
+                toast.show("连接错误", 2000);
+            })
+          // console.log(that.state.qualifyList);
+            
+            
 	}
+
 });
 
 

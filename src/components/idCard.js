@@ -15,6 +15,16 @@ var IdCard = React.createClass({
             flag: false
         }
     },
+    componentWillMount:function(){
+    	 var user=globalData.user;
+         var userObj=JSON.parse(user);
+         this.setState({
+         	userObj:userObj,
+         	backPic:userObj.backPic,
+         	frontPic:userObj.frontPic
+         })
+         
+    },
     finishID: function () {
         var that = this;
         var faceImgData = that.state.faceImg;
@@ -30,6 +40,11 @@ var IdCard = React.createClass({
                 })
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
                 console.log(data);
+               var userObj=that.state.userObj;
+                userObj.backPic=data.backPic;
+                userObj.frontPic=data.frontPic;
+                localStorage.setItem("user",JSON.stringify(userObj));
+                globalData.user=JSON.stringify(userObj);
                 var queryData = {};
                 var path = {
                     pathname: '/Mine',
@@ -97,13 +112,22 @@ var IdCard = React.createClass({
                     [name]: e.target.result
                 })
                 $d.setAttribute("src", e.target.result);
-                console.log(e.target.result);
+                //console.log(e.target.result);
             }
 
         }
     },
-
+	errorFace:function(event){
+		event.target.src = "src/img/face.png";
+        event.target.onerror = null; //控制不要一直跳动 
+	},
+	
+	errorback:function(event){
+		event.target.src = "src/img/back.png";
+        event.target.onerror = null; //控制不要一直跳动 
+	},
     render: function () {
+    	var imgPath=globalData.imgPath;
         console.log(this.state);
         var that = this;
         return (
@@ -114,12 +138,12 @@ var IdCard = React.createClass({
                     <h4>智能贷依法保护你的个人信息</h4>
                     <div className="photoBox">
                         <input id="face" type="file" onChange={that.upload.bind(this, "#face", "#faceImg", "faceImg")} accept="image/*" />
-                        <img id="faceImg" src="src/img/face.png" />
+                        <img id="faceImg"  src={imgPath+that.state.frontPic} onError={that.state.errorFace}  />
                         <p>身份证人头像,图片清晰,边缘完整</p>
                     </div>
                     <div className="photoBox">
                         <input id="back" type="file" onChange={that.upload.bind(this, "#back", "#backImg", "backImg")} accept="image/*" />
-                        <img id="backImg" src="src/img/back.png" />
+                        <img id="backImg"  src={imgPath+that.state.backPic} onError={that.state.errorback} />
                         <p>身份证反面照,图片清晰,边缘完整</p>
                     </div>
                 </div>

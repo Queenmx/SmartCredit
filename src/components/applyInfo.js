@@ -68,7 +68,18 @@ var ApplyInfo = React.createClass({
                     toast.show("连接错误", 2000);
                 })
             }
-            //获取资质列表
+            var queryData = { applyNumber: applyNumber, applyName: applyName, loanId: loanId, applyQuery: applyQuery };
+                    that.setState({
+                        flag: false
+                    })
+                    var path = {
+                        pathname: '/ApplyLevel',
+                        state: queryData,
+                    }
+                    hashHistory.push(path);
+            
+            
+    /*        //获取资质列表
             api.qualifyList(loanId, "095c2c011ef740508bf27785e0ffe8f1", function (res) {
                 console.log(res);
                 that.setState({
@@ -107,7 +118,7 @@ var ApplyInfo = React.createClass({
                     flag: false
                 })
                 toast.show("连接错误", 2000);
-            })
+            })*/
         } else {
             toast.show("请输入姓名", 2000);
         }

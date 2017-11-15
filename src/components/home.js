@@ -45,7 +45,7 @@ var Home=React.createClass({
 		const tag=event.currentTarget.getAttribute("data-tag");
 		const txt=event.currentTarget.getAttribute("data-txt");
 		const tagId=event.currentTarget.getAttribute("data-tagId");
-		const data = {tag:txt,tagId:tagId,txt:txt};
+		const data = {tag:tagId,tagId:tagId,txt:txt};
 		const path = {
 		  pathname:'/List',
 		  state:data

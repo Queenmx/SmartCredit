@@ -41,6 +41,7 @@ var UserInfo = React.createClass({
         hashHistory.push(path);
     },
     userHead: function (c, d) {
+    	var key1 = globalData.key;
     	var that=this;
         var $c = document.querySelector(c),
             $d = document.querySelector(d),
