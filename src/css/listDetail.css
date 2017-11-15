@@ -74,8 +74,7 @@
         color: #aaaaaa;
         font-size: 0.22rem; }
   .listDetail .circle {
-    background: #ffffff;
-    padding: 0.35rem 0; }
+    background: #ffffff; }
     .listDetail .circle:after {
       content: "";
       display: block;
@@ -116,8 +115,9 @@
           margin-right: 0.2rem;
           background: aqua; }
   .listDetail .moneyDetailBox {
-    background: #ffffff;
-    text-align: center; }
+    background: #ffffff; }
+    .listDetail .moneyDetailBox .moneyDetail {
+      padding: 0 0.5rem; }
     .listDetail .moneyDetailBox p {
       height: 0.7rem;
       line-height: 0.7rem;

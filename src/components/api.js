@@ -316,7 +316,7 @@ module.exports.lixi = function (limitDay, limitType, loanId, money, cb1, cb2) {
     data.money = money;
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
-    console.log(param)
+  //  console.log(param)
     var str = strEnc(param, key1);
     //console.log(str)
     http(`${globalData.path}/zndai/loan/lixi`, { params: str }, cb1, cb2);

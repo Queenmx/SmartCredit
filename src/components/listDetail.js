@@ -16,7 +16,7 @@ var ListDetail = React.createClass({
         return {
             activeTab: 1,
             isMark: 0,
-            flag: false,
+            flag: true,
             activeIndex: 0,
             isShowDetail: false,
             loanDetail: {},
@@ -59,6 +59,8 @@ var ListDetail = React.createClass({
                 that.setState({
                     //myRateMoney: parseFloat(data.lixi) / 100
                     myRateMoney: that.formateMoney(data.lixi)
+                },function(){
+                	that.chart();
                 })
             } else {
                 toast.show(res.msg, 2000);
@@ -160,65 +162,6 @@ var ListDetail = React.createClass({
         var key1 = globalData.key;
         var toast = globalData.toast;
         var loanId = that.state.loanId;
-/*		api.orderList(1, 5, "", function (res) {
-            if (res.code == "0000") {
-                // 基于准备好的dom，初始化 echarts 实例并绘制图表。
-                var that = this;
-                echarts.init(document.getElementById("main")).setOption({
-                    color: ["#f94b4b", "#ffcc00", "#4dbeff"],
-                    tooltip: {
-                        trigger: "item",
-                        formatter: "{a} <br/>{b}: {c} ({d}%)"
-                    },
-                    legend: {
-                        icon: "circle",
-                        orient: "vertical",
-                        right: "0",
-                        top: "10",
-                        data: ['邮件营销', '联盟广告', '视频广告'],
-                        textStyle: {
-                            fontSize: 10,
-                            color: "#aaaaaa"
-                        }
-                    },
-                    series: [
-                        {
-                            name: "访问来源",
-                            type: "pie",
-                            silent: true,
-                            radius: ["80%", "100%"],
-                            center: ["30%", "50%"],
-                            avoidLabelOverlap: false,
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: "center"
-                                },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: "30",
-                                        fontWeight: "bold"
-                                    }
-                                }
-                            },
-                            labelLine: {
-                                normal: {
-                                    show: false
-                                }
-                            },
-                            data: [
-                                { value: 335, name: '视频广告' },
-                                { value: 310, name: '邮件营销' },
-                                { value: 234, name: '联盟广告' }
-                            ],
-                        }
-                    ]
-                });
-            }
-
-        })*/
-
         api.loanDetail(loanId, function (res) {
             //console.log(res);
             if (res.code == "0000") {
@@ -228,7 +171,7 @@ var ListDetail = React.createClass({
 
                 var moneyMin = data.moneyMin;
                 var limitMin = data.limitMin;
-                //var rateType=data.rateType;
+                var rate=data.rate;
                 var limitType = data.limitType;
                 if (limitType == "D") {
                     limitType = "D"
@@ -281,10 +224,16 @@ var ListDetail = React.createClass({
                     value1onChange: moneyMin,
                     value2onChange: limitMin,
                     limitType: limitType,
-                    //myRate:getMyRate,
+                    rate:rate,
+                    rateType:data.rateType,
+                    markId:data.markId,
+                    fee:data.fee,
                     isMark: data.isMark//1已收藏
                 }, () => {
                     that.lixi();
+                    that.setState({
+                    	flag:false
+                    })
                 })
             } else {
                 toast.show(res.msg, 2000);
@@ -331,6 +280,72 @@ var ListDetail = React.createClass({
         })
 
     },
+    
+    chart:function(){
+    	var that=this;
+    	var day1=that.state.limitType=="D"?'天':"个月";
+    	var day2=that.state.rateType=="D"?'天':"个月";
+    	var loanMoney="贷款"+that.state.value1+"/"+that.state.value2+day1;
+    	var loanlixi="利息"+that.state.myRateMoney+"元"+that.state.rate+"%/"+day2;
+    	var loanFee="一次性"+that.state.fee+"元";
+    	//console.log(that.state)
+    	//console.log(loanMoney);
+    	//console.log(loanlixi);
+    	//console.log(loanFee);
+    	    echarts.init(document.getElementById("main")).setOption({
+                color: ["#f94b4b", "#ffcc00", "#4dbeff"],
+                tooltip: {
+                    trigger: "item",
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    icon: "circle",
+                    orient: "vertical",
+                    right: "10",
+                    top: "30",
+                    data: [loanMoney, loanlixi, loanFee],
+                    textStyle: {
+                        fontSize: 10,
+                        color: "#aaaaaa"
+                    }
+                },
+                series: [
+                    {
+                        name: "资金比例",
+                        type: "pie",
+                        silent: true,
+                        radius: ["60%", "80%"],
+                        center: ["30%", "50%"],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: false,
+                                position: "center"
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: "30",
+                                    fontWeight: "bold"
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data: [
+                            { value: that.state.value1, name:loanMoney},
+                            { value: that.state.myRateMoney, name: loanlixi },
+                            { value: that.state.fee, name: loanFee }
+                        ],
+                    }
+                ]
+            });
+    },
+    
+    
     logoError: function (event) {
         event.target.src = "src/img/icon/capitalLogo.jpg";
         event.target.onerror = null; //控制不要一直跳动 
@@ -351,21 +366,42 @@ var ListDetail = React.createClass({
     saveThis: function (event) {
         var that = this;
         var objId = that.state.loanId;
+        var key1 = globalData.key;
         let toast = globalData.toast;
         if (that.state.isLogin) {
         	var markId=event.currentTarget.getAttribute("data-markId");
         	console.log(markId);
             if (that.state.isMark == 1) {//已收藏,取消
-                api.delSave(markId, "LOAN", function (res) {
-                    console.log(res);
-                    if (res.code == "0000") {
-                        that.setState({ isMark: 0 })
-                    } else {
-                        toast.show(res.msg, 2000);
-                    }
-                }, function () {
+            	api.loanDetail(objId, function (res) {
+		            //console.log(res);
+		            if (res.code == "0000") {
+		                var data = res.data;
+		                var data = JSON.parse(strDec(res.data, key1, "", ""));
+		                console.log(data);
+		                that.setState({
+		                	markId:data.markId
+		                },function(){
+		                	api.delSave(that.state.markId, "LOAN", function (res) {
+			                    console.log(res);
+			                    if (res.code == "0000") {
+			                        that.setState({
+			                            isMark: 0
+			                        })
+			                    } else {
+			                        toast.show(res.msg, 2000);
+			                    }
+			                }, function () {
+			                    toast.show("连接错误", 2000);
+			                })
+		                })
+	            	}else{
+	            		toast.show(res.msg, 2000);
+	            	}
+            	}, function () {
                     toast.show("连接错误", 2000);
                 })
+
+            	
             } else {//未收藏,添加收藏
                 api.save(objId, "LOAN", function (res) {
                     console.log(res);
@@ -432,10 +468,10 @@ var ListDetail = React.createClass({
                         </li>
                     </ul>
                     <div className="circle">
-                    	{/*<div className="circleBox">
+                    	<div className="circleBox">
                             <div id="main" className="chart" style={{ "height": "3rem" }}></div>
-                        </div>*/}
-                        <div className="circlePic">
+                        </div>
+                       {/* <div className="circlePic">
                             <div className="rings" onClick={that.echartDraw}>
                                 <div></div>
                                 <div id="main" className="chart"></div>
@@ -450,10 +486,10 @@ var ListDetail = React.createClass({
                             <li><i></i>贷款 {that.state.value1}/{that.state.value2}{loanDetail.limitType == "D" ? "天" : "个月"}</li>
                             <li><i></i>利息 {myRateMoney}元({loanDetail.rate}%/{loanDetail.rateType == "D" ? "天" : "月"})</li>
                             <li><i></i>一次性{loanDetail.fee}元(0%)</li>
-                        </ul>
+                        </ul>*/}
                     </div>
                     <div className="moneyDetailBox">
-                        <div className="moneyDetail" style={{ "display": that.state.isShowDetail ? "block" : "none" }}>{loanDetail.loanIntro}</div>
+                        <div className="moneyDetail" style={{ "display": that.state.isShowDetail ? "block" : "none" }} dangerouslySetInnerHTML={{__html: loanDetail.loanIntro}}></div>
                         <p onClick={that.toMoneyDetail}>查看详情<img src="src/img/icon/down.png" /></p>
                     </div>
                     <div className="flowBox">

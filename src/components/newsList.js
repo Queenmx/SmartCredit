@@ -143,7 +143,7 @@ class News extends Component {
 			        	<h3>你关心的资讯</h3>
 				        <div className="listWrap">
 						 	<ReactIScroll iScroll={iScroll} handleRefresh={this.handleRefresh.bind(this)} >
-					        	{that.state.list}你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>你好吧代表大会的防火防盗还返还话费返还<br/>
+					        	{that.state.list}
 					        </ReactIScroll>
 		        		</div>
 				    </div>

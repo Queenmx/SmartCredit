@@ -3,6 +3,7 @@ import {render} from 'react-dom';
 import iScroll from 'iscroll/build/iscroll-probe';
 import ReactIScroll from 'reactjs-iscroll';
 import api from './api';
+import Loading from './loading';
 import {globalData} from './global.js';
 import { hashHistory, Link } from 'react-router';
 
@@ -10,6 +11,7 @@ class ProList extends Component {
 	constructor() {
 	    super();
 	    this.state = {
+	    	 flag: true,
 	  		list: [],
 	  		currentPage: 1,
 	      	lastPage: false,
@@ -82,6 +84,9 @@ class ProList extends Component {
 	 		
 			//console.log(res);
 			if(res.code=="0000"){
+				that.setState({
+		        	flag:false
+		        })
 				var data =JSON.parse(strDec(res.data,key1,"",""));
 				var loanList=data.list;
 				var total=data.total;
@@ -138,7 +143,7 @@ class ProList extends Component {
 					var c=arr;
 				}
 				that.setState({
-					total:total,
+					totalPage:totalPage,
 					list:c
 				})
 				if (callback && typeof callback === 'function') {
@@ -146,15 +151,24 @@ class ProList extends Component {
 		          }
 				
 			}else if(res.code=="5555"){
+				that.setState({
+		        	flag:false
+		        })
 				toast.show("登录过时，请重新登录",2000);
 				var path = {
 				  pathname:'/Login',
 				}
 				hashHistory.push(path);
 			}else{
+				that.setState({
+		        	flag:false
+		        })
 				toast.show(res.msg,2000);
 			}
 		},function(){
+			that.setState({
+	        	flag:false
+	        })
 			toast.show("连接错误",2000);
 		})
 	 	
@@ -189,6 +203,7 @@ class ProList extends Component {
 		}*/
         return (
         	 <div className="capitalBox">
+        	 <Loading flag={that.state.flag} />
 		        {scollTxt}
 		      </div>
         )

@@ -52,19 +52,40 @@ var NewsDetail = React.createClass({
                     toast.show("连接错误", 2000);
                 })
             } else {//取消收藏
-            	var markId=event.currentTarget.getAttribute("data-markId");
-                api.delSave(markId, "ARTICLE", function (res) {
-                    console.log(res);
-                    if (res.code == "0000") {
-                        that.setState({
-                            isMark: 0
-                        })
-                    } else {
-                        toast.show(res.msg, 2000);
-                    }
-                }, function () {
-                    toast.show("连接错误", 2000);
-                })
+            	//var markId=event.currentTarget.getAttribute("data-markId");
+            	 let key1 = globalData.key;
+		        let toast = globalData.toast;
+		        api.articleDetail(that.state.articleId, function (res) {
+		            //console.log(res);
+		            if (res.code == "0000") {
+		                let data = strDec(res.data, key1, "", "");
+		                let articleDetail = JSON.parse(data);
+		                //console.log(articleDetail);
+		                that.setState({
+		                	markId:articleDetail.markId
+		                },function(){
+		                	api.delSave(that.state.markId, "ARTICLE", function (res) {
+			                    console.log(res);
+			                    if (res.code == "0000") {
+			                        that.setState({
+			                            isMark: 0
+			                        })
+			                    } else {
+			                        toast.show(res.msg, 2000);
+			                    }
+			                }, function () {
+			                    toast.show("连接错误", 2000);
+			                })
+		                })
+		            }else {
+		                toast.show(res.msg, 2000);
+		            }
+		        }, function () {
+		            toast.show("连接错误", 2000);
+		        })
+		        console.log(that.state.markId);
+		        
+                
             }
 
 
@@ -111,7 +132,8 @@ var NewsDetail = React.createClass({
                 console.log(articleDetail);
                 that.setState({
                     articleDetail: articleDetail,
-                    isMark: articleDetail.isMark
+                    isMark: articleDetail.isMark,
+                    markId:articleDetail.markId
                 })
             } else if (res.code == "5555") {
                 toast.show("登录过时，请重新登录", 2000);

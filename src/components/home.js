@@ -6,7 +6,6 @@ import {globalData} from './global.js';
 import HomeHeader from './homeHeader';
 import Footer from './footer';
 import Loading from './loading';
-import ProList from './proList';
 import { hashHistory, Link } from 'react-router';
 import '../css/home.css';
 
@@ -46,7 +45,7 @@ var Home=React.createClass({
 		const tag=event.currentTarget.getAttribute("data-tag");
 		const txt=event.currentTarget.getAttribute("data-txt");
 		const tagId=event.currentTarget.getAttribute("data-tagId");
-		const data = {tag:tag,tagId:tagId,txt:txt};
+		const data = {tag:txt,tagId:tagId,txt:txt};
 		const path = {
 		  pathname:'/List',
 		  state:data

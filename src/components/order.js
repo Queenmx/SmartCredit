@@ -13,15 +13,17 @@ var Order = React.createClass({
     getInitialState: function () {
         return {
             //btnActive: 0,
-            isLoading: false,
+            flag: true,
             pageNum: 1,
-            pageSize: 10,
             list: [],
-           
-            orderList: []
+            orderList: [],
+            currentPage: 1,
+	      	lastPage: false,
+			pageSize:10,
+			scrollShow:false
         }
     },
-    componentDidMount:function(){
+    componentWillMount:function(){
     	this.setState({
     		 status: {
                 PENDING: {
@@ -56,8 +58,50 @@ var Order = React.createClass({
             }
     	})
     },
+   logoError:function(event){
+	    	event.target.src="src/img/icon/logo.png";
+			event.target.onerror=null; //控制不要一直跳动 
+ 	},
+	handleRefresh:function(downOrUp, callback) {
+    //真实的世界中是从后端取页面和判断是否是最后一页
+    var that=this;
+    let {currentPage, lastPage,pageSize,totalPage} = that.state;
+    
+    console.log(totalPage);
+	    if (downOrUp === 'up') { // 加载更多
+	      if (currentPage == totalPage) {
+	      	console.log("zuihou")
+	        lastPage = true;
+	        	if (callback && typeof callback === 'function') {
+		            callback();
+		          }
+	      } else {
+	        currentPage++;
+	        console.log(currentPage);
+	        lastPage = false;
+	        that.setState({
+		      currentPage,
+		      lastPage
+		    }, () => {
+		      that.loadData(downOrUp, callback);
+			});
+	      }
+	    } else { // 刷新
+	      lastPage = false;
+	      currentPage = 1;
+	        that.setState({
+		      currentPage,
+		      lastPage
+		    }, () => {
+		      that.loadData(downOrUp, callback);
+			});
+	    }
+	  
+  },
     toCancel: function (e) {
         var that = this;
+        var key1 = globalData.key;
+		var toast=globalData.toast;
         // e.target.style.backgroundColor = e.target.style.backgroundColor === "rgb(221, 221, 221)" ? "#53a6ff" : "rgb(221, 221, 221)";
         // console.log(e.target)
         var id = e.target.getAttribute('data-id');
@@ -67,7 +111,10 @@ var Order = React.createClass({
         if ((dataId == 1 || dataId == 2) && that.orderList[id].status > 0) {
             api.cancleOrder(that.orderList[id].applyId, function (res) {
                 if (res.code == "0000") {
+                	toast.show("取消订单成功",2000);
                     e.target.style.backgroundColor = "#555"
+                }else{
+                	toast.show(res.msg,2000);
                 }
             })
         }
@@ -79,20 +126,32 @@ var Order = React.createClass({
             return money / 100.0
         }
     },
-    componentDidMount: function () {
-        var key1 = globalData.key;
-        var toast = globalData.toast;
-        var that = this;
-        api.orderList(1, 5, "", function (res) {
+      loadData:function(downOrUp,callback) {
+  		var that=this;
+  		var key1 = globalData.key;
+		var toast=globalData.toast;
+		var tag=that.props.tag;
+	 	const {currentPage,pageSize,list} = that.state;
+	 	var arr=[];
+	 	//console.log(tag);
+	 	 api.orderList(currentPage, pageSize, "", function (res) {
             if (res.code == "0000") {
+            	that.setState({
+					flag:false
+				})
                 var data = JSON.parse(strDec(res.data, key1, "", "") || []);
                 var orderList = data.list;
-                //that.orderList = data.list
-                var arr = [];
+                that.orderList = data.list
+                var total=data.total;
+				var totalPage=Math.ceil(total/pageSize);
+				if(totalPage>1){
+					that.setState({scrollShow:true})
+				}
                 console.log(data);
                 if(orderList.length<1){
 					arr.push(<div key={Math.random()} style={{'textAlign':'center','lineHeight':'1rem'}}>暂无订单</div>)
 				}else{
+					
 	                for (var i in orderList) {
 	                    var status = orderList[i].status;
 	                    arr.push(<li key={i}>
@@ -101,7 +160,7 @@ var Order = React.createClass({
 	                            <span>{that.state.status[orderList[i].applyStatus].text}</span>
 	                        </div>
 	                        <h3 className="list_title">
-	                            <img src={'http://xrjf.oss-cn-shanghai.aliyuncs.com/' + orderList[i].logo} />
+	                            <img src={'http://xrjf.oss-cn-shanghai.aliyuncs.com/' + orderList[i].logo} onError={that.logoError}/>
 	                            <span>{orderList[i].loanName}</span>
 	                            <span className="p_name">{that.state.name[orderList[i].loanType]}</span>
 	                        </h3>
@@ -123,62 +182,57 @@ var Order = React.createClass({
 	                    </li >)
 	                }
                }
-                that.setState({
-                    list: arr
-                })
-            }
-            // else if (res.code == "5555") {
-            //     var isLogin = localStorage.getItem("isLogin");
-            //     if (isLogin) {
-            //         var path = {
-            //             pathname: '/Login',
-            //             //query:data,
-            //         }
-            //         hashHistory.push(path);
-            //     } else {
-            //         var path = {
-            //             pathname: '/Order',
-            //             //query:data,
-            //         }
-            //         hashHistory.push(path);
-            //     }
-            // }
-
+                if(downOrUp=='up'){
+					var c=list.concat(arr);
+				}else{
+					var c=arr;
+				}
+				that.setState({
+					totalPage:totalPage,
+					list:c
+				})
+				if (callback && typeof callback === 'function') {
+		            callback();
+		          }
+            }else{
+            	that.setState({
+						flag:false
+					})
+				toast.show(res.msg,2000);
+			}
         }, function () {
+        	that.setState({
+        	flag:false
+        })
             toast.show("连接错误", 2000);
         })
+
+	
+       },
+    componentDidMount: function () {
+        var that = this;
+		that.loadData();
     },
+   
     render: function () {
         var that = this;
+        var scollTxt=[];
+        if(that.state.scrollShow){
+			scollTxt.push(<ReactIScroll iScroll={iScroll} key={Math.random()} handleRefresh={this.handleRefresh} >
+					        	{that.state.list}
+					        </ReactIScroll>)
+		}else{
+			scollTxt=that.state.list;
+		}
         return (
             <div className="app_Box orderList">
                 <Header title="我的订单" />
+                <Loading flag={that.state.flag} />
                 <div className="orderCon content">
                     <ul>
-                        {/* <li>
-                            <div className="orderNum">
-                                订单号：201705092356412
-	                            <span>已申请</span>
-                            </div>
-                            <h3 className="list_title">
-                                <img src="src/img/icon/order.png" />
-                                <span>现金借款（多期）</span>
-                                <span className="p_name">信用贷</span>
-                            </h3>
-                            <ul className="container">
-                                <li>借款金额 ¥5000</li>
-                                <li>期限12月</li>
-                                <li>利息480元</li>
-                                <li>月费用3.17%</li>
-                            </ul>
-                            <div className="listFoot">
-                                <span className="status">您的贷款申请已提交，3个工作日内完成</span>
-                                <span onClick={that.toCancel} className='statusBtn'>取消借款</span>
-                            </div>
-                        </li>*/}
-                        {that.state.list}
+                       {scollTxt}
                     </ul>
-                    <Loading flag={that.state.isLoading} />
+                    
                 </div>
             </div>
         )
