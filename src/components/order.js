@@ -3,6 +3,8 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
+import iScroll from 'iscroll/build/iscroll-probe';
+import ReactIScroll from 'reactjs-iscroll';
 import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
