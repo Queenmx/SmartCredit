@@ -402,7 +402,16 @@ body {
        text-align: center;
    }
    
-
+.spinnerBox{
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    z-index: 10;
+    //background: rgba(0,0,0,0.1);
+}
 .spinner {
    // margin: 2.5rem auto;
     width: 0.8rem;
@@ -413,7 +422,7 @@ body {
     left: 0;
     right: 0;
     margin: auto;
-    z-index: 5;
+    z-index: 11;
 }
 
 .container1 > div, .container2 > div, .container3 > div {

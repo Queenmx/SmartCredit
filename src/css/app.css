@@ -449,6 +449,15 @@ body {
   font-size: 0.3rem;
   text-align: center; }
 
+.spinnerBox {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  z-index: 10; }
+
 .spinner {
   width: 0.8rem;
   height: 0.8rem;
@@ -458,7 +467,7 @@ body {
   left: 0;
   right: 0;
   margin: auto;
-  z-index: 5; }
+  z-index: 11; }
 
 .container1 > div, .container2 > div, .container3 > div {
   width: 0.18rem;
