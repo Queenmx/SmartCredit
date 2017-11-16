@@ -135,7 +135,7 @@ var IdCard = React.createClass({
                 <Header title="身份证认证" />
                 <Loading flag={that.state.flag} />
                 <div className="idCardCon content">
-                    <h4>智能贷依法保护你的个人信息</h4>
+                    <h4>万融汇依法保护你的个人信息</h4>
                     <div className="photoBox">
                         <input id="face" type="file" onChange={that.upload.bind(this, "#face", "#faceImg", "faceImg")} accept="image/*" />
                         <img id="faceImg"  src={imgPath+that.state.frontPic} onError={that.state.errorFace}  />

@@ -23,12 +23,20 @@ var Help=React.createClass({
 		hashHistory.push(path);
 	},
 	toAsk: function () {
-		 var data = {fromWho:"help"};
-        var path = {
-            pathname: '/Ask',
-            query: data,
+		var user=localStorage.getItem("user");
+        if(user){
+			 var data = {fromWho:"help"};
+	        var path = {
+	            pathname: '/Ask',
+	            query: data,
+	        }
+	        hashHistory.push(path);
+        }else{
+        	 var path = {
+                    pathname: '/Login',
+                }
+                hashHistory.push(path);
         }
-        hashHistory.push(path);
     },
 	render:function(){
 		var that=this;

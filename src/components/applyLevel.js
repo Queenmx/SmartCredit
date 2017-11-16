@@ -41,7 +41,7 @@ var ApplyLevel=React.createClass({
 		var toast=globalData.toast;
 		var isOver;
 		if(!this.state.checked){
-			toast.show("请同意智能贷服务协议",2000);
+			toast.show("请同意万融汇服务协议",2000);
 		}else{
 			var qualifySelect=that.state.valSelect; 
 			that.setState({
@@ -187,10 +187,10 @@ var ApplyLevel=React.createClass({
 							         {   
 							             pathname:"/txt",   
 							             //hash:'#ahash',    
-							             state:{title: '智能贷服务条款',backRouter:'/Login'}    
+							             state:{title: '万融汇服务条款',backRouter:'/Login'}    
 							         }   
 							    } >
-	    					《智能贷服务条款》
+	    					《万融汇服务条款》
 							</Link>   
 							
 						</div>

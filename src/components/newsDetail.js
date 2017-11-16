@@ -124,7 +124,7 @@ var NewsDetail = React.createClass({
         let key1 = globalData.key;
         let toast = globalData.toast;
         api.articleDetail(that.state.articleId, function (res) {
-            //console.log(res);
+            console.log(res);
             if (res.code == "0000") {
                 let data = strDec(res.data, key1, "", "");
                 let articleDetail = JSON.parse(data);

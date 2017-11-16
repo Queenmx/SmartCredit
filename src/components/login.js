@@ -17,6 +17,7 @@ var Login = React.createClass({
         return {
             wayNum: 1,
             eyeImg: eyeImg,
+            phoneNum:"",
             inputType: "password",
             count: 60,
             liked: true,
@@ -35,7 +36,7 @@ var Login = React.createClass({
     componentWillMount: function () {
         //localStorage.removeItem("user");
         //localStorage.removeItem("isLogin");
-        var phoneNum = localStorage.getItem("phoneNum");
+        var phoneNum = localStorage.getItem("phoneNum")||"";
         this.setState({ phoneNum: phoneNum })
     },
     checkWay: function (e) {
@@ -345,11 +346,11 @@ var Login = React.createClass({
                         {
                             pathname: "/txt",
                             //hash:'#ahash',    
-                            state: { title: '智能贷协议', backRouter: '/Login' }
+                            state: { title: '万融汇协议', backRouter: '/Login' }
                             //state:{data:'hello'}     
                         }
                     } >
-                        智能贷协议
+                        万融汇协议
 							</Link>
                 </p>
             </div>

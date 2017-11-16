@@ -146,8 +146,7 @@
       margin-left: 0.35rem; }
 
 .listWrap {
-  position: relative;
-  height: 100%; }
+  position: relative; }
 
 .saveCon {
   display: -webkit-box;

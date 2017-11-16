@@ -6,7 +6,7 @@ import { globalData } from './global.js';
 import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
-
+var toast = globalData.toast;
 var Set = React.createClass({
     getInitialState: function () {
         return {
@@ -17,27 +17,34 @@ var Set = React.createClass({
     quitLogin: function () {
         var that = this;
         that.setState({ isLoading: true })
-        api.exit(function (res) {
-            console.log(res);
-            if (res.code == "0000") {
-                that.setState({ isLoading: false })
-                localStorage.removeItem("user");
-                localStorage.removeItem("isLogin");
-                localStorage.removeItem("phoneNum");
-                localStorage.removeItem("curCity");
-                window.history.back();
-            } else {
-                that.setState({ isLoading: false })
-                toast.show(res.msg, 2000);
-            }
-        }, function () {
-            that.setState({ isLoading: false })
-            toast.show("连接错误", 2000);
-        })
+        var user=localStorage.getItem("user");
+        if(user){
+        	api.exit(function (res) {
+	            console.log(res);
+	            if (res.code == "0000") {
+	                that.setState({ isLoading: false })
+	                localStorage.removeItem("user");
+	                localStorage.removeItem("isLogin");
+	                localStorage.removeItem("phoneNum");
+	                localStorage.removeItem("curCity");
+	                window.history.back();
+	            } else {
+	                that.setState({ isLoading: false })
+	                toast.show(res.msg, 2000);
+	            }
+	        }, function () {
+	            that.setState({ isLoading: false })
+	            toast.show("连接错误", 2000);
+	        })
+        }else{
+        	that.setState({ isLoading: false })
+        	 toast.show("当前未登录", 2000);
+        }
+        
 
     },
     clearCache: function () {
-        let toast = globalData.toast;
+       
         localStorage.removeItem("curCity");
         sessionStorage.clear();
         this.timer = setTimeout(function () { toast.show("清空缓存成功", 2000) }, 500)

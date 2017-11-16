@@ -4752,7 +4752,7 @@ module.exports.tag = function (type, cb1, cb2) {
     data.tagType = "LOAN";
     data.type = type; //BQ 标签 FL 分类
     var param = JSON.stringify(data);
-    console.log(param);
+    // console.log(param);
     var str = strEnc(param, key1);
     // console.log(str);
     http(_global.globalData.path + "/zndai/tag/list", { params: str }, cb1, cb2);
@@ -4966,10 +4966,12 @@ module.exports.identityUserCert = function (backPic, frontPic, cb1, cb2) {
     data.frontPic = frontPic;
     data.userId = _global.globalData.userId;
     var param = JSON.stringify(data);
-    console.log(param);
+    //console.log(param)
     var str = strEnc(param, key1);
     http(_global.globalData.path + "/zndai/user/identityUserCert", { params: str }, cb1, cb2);
     delete data.userId;
+    delete data.backPic;
+    delete data.frontPic;
 };
 
 //-------------------资讯
@@ -43511,6 +43513,7 @@ var _reactRouter = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var toast = _global.globalData.toast;
 var Set = _react2.default.createClass({
     displayName: 'Set',
 
@@ -43523,26 +43526,32 @@ var Set = _react2.default.createClass({
     quitLogin: function quitLogin() {
         var that = this;
         that.setState({ isLoading: true });
-        _api2.default.exit(function (res) {
-            console.log(res);
-            if (res.code == "0000") {
+        var user = localStorage.getItem("user");
+        if (user) {
+            _api2.default.exit(function (res) {
+                console.log(res);
+                if (res.code == "0000") {
+                    that.setState({ isLoading: false });
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("isLogin");
+                    localStorage.removeItem("phoneNum");
+                    localStorage.removeItem("curCity");
+                    window.history.back();
+                } else {
+                    that.setState({ isLoading: false });
+                    toast.show(res.msg, 2000);
+                }
+            }, function () {
                 that.setState({ isLoading: false });
-                localStorage.removeItem("user");
-                localStorage.removeItem("isLogin");
-                localStorage.removeItem("phoneNum");
-                localStorage.removeItem("curCity");
-                window.history.back();
-            } else {
-                that.setState({ isLoading: false });
-                toast.show(res.msg, 2000);
-            }
-        }, function () {
+                toast.show("连接错误", 2000);
+            });
+        } else {
             that.setState({ isLoading: false });
-            toast.show("连接错误", 2000);
-        });
+            toast.show("当前未登录", 2000);
+        }
     },
     clearCache: function clearCache() {
-        var toast = _global.globalData.toast;
+
         localStorage.removeItem("curCity");
         sessionStorage.clear();
         this.timer = setTimeout(function () {
@@ -43664,6 +43673,7 @@ var Login = _react2.default.createClass({
         return {
             wayNum: 1,
             eyeImg: eyeImg,
+            phoneNum: "",
             inputType: "password",
             count: 60,
             liked: true,
@@ -43682,7 +43692,7 @@ var Login = _react2.default.createClass({
     componentWillMount: function componentWillMount() {
         //localStorage.removeItem("user");
         //localStorage.removeItem("isLogin");
-        var phoneNum = localStorage.getItem("phoneNum");
+        var phoneNum = localStorage.getItem("phoneNum") || "";
         this.setState({ phoneNum: phoneNum });
     },
     checkWay: function checkWay(e) {
@@ -44037,10 +44047,10 @@ var Login = _react2.default.createClass({
                     { to: {
                             pathname: "/txt",
                             //hash:'#ahash',    
-                            state: { title: '智能贷协议', backRouter: '/Login'
+                            state: { title: '万融汇协议', backRouter: '/Login'
                                 //state:{data:'hello'}     
                             } } },
-                    '\u667A\u80FD\u8D37\u534F\u8BAE'
+                    '\u4E07\u878D\u6C47\u534F\u8BAE'
                 )
             )
         );
@@ -68933,7 +68943,7 @@ var NewsDetail = _react2.default.createClass({
         var key1 = _global.globalData.key;
         var toast = _global.globalData.toast;
         _api2.default.articleDetail(that.state.articleId, function (res) {
-            //console.log(res);
+            console.log(res);
             if (res.code == "0000") {
                 var data = strDec(res.data, key1, "", "");
                 var articleDetail = JSON.parse(data);
@@ -111964,13 +111974,21 @@ var Problem = _react2.default.createClass({
 	},
 
 	toAsk: function toAsk() {
-		var loanName = this.props.location.query.loanName;
-		var data = { objId: this.state.objId, objType: "LOAN", fromWho: "problem", loanName: loanName };
-		var path = {
-			pathname: '/Ask',
-			query: data
-		};
-		_reactRouter.hashHistory.push(path);
+		var user = localStorage.getItem("user");
+		if (user) {
+			var loanName = this.props.location.query.loanName;
+			var data = { objId: this.state.objId, objType: "LOAN", fromWho: "problem", loanName: loanName };
+			var path = {
+				pathname: '/Ask',
+				query: data
+			};
+			_reactRouter.hashHistory.push(path);
+		} else {
+			var path = {
+				pathname: '/Login'
+			};
+			_reactRouter.hashHistory.push(path);
+		}
 	},
 	componentDidMount: function componentDidMount() {
 		var that = this;
@@ -113071,7 +113089,7 @@ var ApplyLevel = _react2.default.createClass({
 		var toast = _global.globalData.toast;
 		var isOver;
 		if (!this.state.checked) {
-			toast.show("请同意智能贷服务协议", 2000);
+			toast.show("请同意万融汇服务协议", 2000);
 		} else {
 			var qualifySelect = that.state.valSelect;
 			that.setState({
@@ -113278,9 +113296,9 @@ var ApplyLevel = _react2.default.createClass({
 							{ to: {
 									pathname: "/txt",
 									//hash:'#ahash',    
-									state: { title: '智能贷服务条款', backRouter: '/Login' }
+									state: { title: '万融汇服务条款', backRouter: '/Login' }
 								} },
-							'\u300A\u667A\u80FD\u8D37\u670D\u52A1\u6761\u6B3E\u300B'
+							'\u300A\u4E07\u878D\u6C47\u670D\u52A1\u6761\u6B3E\u300B'
 						)
 					)
 				)
@@ -113746,12 +113764,20 @@ var Help = _react2.default.createClass({
 		_reactRouter.hashHistory.push(path);
 	},
 	toAsk: function toAsk() {
-		var data = { fromWho: "help" };
-		var path = {
-			pathname: '/Ask',
-			query: data
-		};
-		_reactRouter.hashHistory.push(path);
+		var user = localStorage.getItem("user");
+		if (user) {
+			var data = { fromWho: "help" };
+			var path = {
+				pathname: '/Ask',
+				query: data
+			};
+			_reactRouter.hashHistory.push(path);
+		} else {
+			var path = {
+				pathname: '/Login'
+			};
+			_reactRouter.hashHistory.push(path);
+		}
 	},
 	render: function render() {
 		var that = this;
@@ -114083,7 +114109,7 @@ var IdCard = _react2.default.createClass({
                 _react2.default.createElement(
                     'h4',
                     null,
-                    '\u667A\u80FD\u8D37\u4F9D\u6CD5\u4FDD\u62A4\u4F60\u7684\u4E2A\u4EBA\u4FE1\u606F'
+                    '\u4E07\u878D\u6C47\u4F9D\u6CD5\u4FDD\u62A4\u4F60\u7684\u4E2A\u4EBA\u4FE1\u606F'
                 ),
                 _react2.default.createElement(
                     'div',

@@ -27,13 +27,21 @@ var Problem = React.createClass({
     },
 
     toAsk: function () {
-    	var loanName=this.props.location.query.loanName;
-        var data = { objId: this.state.objId,objType:"LOAN",fromWho:"problem",loanName:loanName};
-        var path = {
-            pathname: '/Ask',
-            query: data,
-        }
-        hashHistory.push(path);
+    	var user=localStorage.getItem("user");
+    	 if(user){
+	    	var loanName=this.props.location.query.loanName;
+	        var data = { objId: this.state.objId,objType:"LOAN",fromWho:"problem",loanName:loanName};
+	        var path = {
+	            pathname: '/Ask',
+	            query: data,
+	        }
+	        hashHistory.push(path);
+	       }else{
+	       	 	var path = {
+                    pathname: '/Login',
+                }
+                hashHistory.push(path);
+	       }
     },
     componentDidMount: function () {
     	var that=this;

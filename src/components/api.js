@@ -12,7 +12,7 @@ module.exports.tag = function (type, cb1, cb2) {
     data.tagType = "LOAN";
     data.type = type;//BQ 标签 FL 分类
     var param = JSON.stringify(data);
-    console.log(param);
+   // console.log(param);
     var str = strEnc(param, key1);
     // console.log(str);
     http(`${globalData.path}/zndai/tag/list`, { params: str }, cb1, cb2);
@@ -230,10 +230,12 @@ module.exports.identityUserCert = function (backPic, frontPic, cb1, cb2) {
     data.frontPic = frontPic;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
-    console.log(param)
+    //console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/identityUserCert`, { params: str }, cb1, cb2);
     delete data.userId;
+    delete data.backPic;
+    delete data.frontPic;
 }
 
 
