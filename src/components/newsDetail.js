@@ -112,8 +112,7 @@ var NewsDetail = React.createClass({
                         <span>{addTimeArr[0]}</span>
                         <span>{articleDetail.readerNum}阅读</span>
                     </div>
-                    <div className="newsArticleCon">
-                        {articleDetail.content}
+                    <div className="newsArticleCon" dangerouslySetInnerHTML={{__html: articleDetail.content}}>
                     </div>
                 </div>
                 <div className="botBtn" data-markId={articleDetail.markId} onClick={that.saveHandle}>{that.state.isMark == 1 ? "取消收藏" : "收藏"}</div>
