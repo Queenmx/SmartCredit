@@ -68376,6 +68376,7 @@ var Mine = _react2.default.createClass({
     },
     render: function render() {
         var that = this;
+        var imgPath = _global.globalData.imgPath;
         var userObj = that.state.user;
         return _react2.default.createElement(
             'div',
@@ -68389,7 +68390,7 @@ var Mine = _react2.default.createClass({
                     _react2.default.createElement(
                         'div',
                         { className: 'userImg' },
-                        _react2.default.createElement('img', { src: userObj.headPic, onError: that.imgError })
+                        _react2.default.createElement('img', { src: imgPath + userObj.headPic, onError: that.imgError })
                     ),
                     _react2.default.createElement(
                         'div',
@@ -112372,7 +112373,7 @@ var Order = _react2.default.createClass({
                                     'span',
                                     { className: 'order_n' },
                                     '\u8BA2\u5355\u53F7\uFF1A',
-                                    orderList[i].applyNo.slice(0, 20)
+                                    orderList[i].applyNo
                                 ),
                                 _react2.default.createElement(
                                     'span',
@@ -114278,6 +114279,7 @@ var UserInfo = _react2.default.createClass({
     },
     render: function render() {
         var that = this;
+        var imgPath = _global.globalData.imgPath;
         return _react2.default.createElement(
             'div',
             { className: 'app_Box userInfo' },
@@ -114290,7 +114292,7 @@ var UserInfo = _react2.default.createClass({
                     'li',
                     null,
                     _react2.default.createElement('input', { id: 'head', type: 'file', onChange: that.userHead.bind(this, "#head", "#headImg"), accept: 'image/*' }),
-                    _react2.default.createElement('img', { id: 'headImg', src: that.state.headPic, onError: that.logoError }),
+                    _react2.default.createElement('img', { id: 'headImg', src: imgPath + that.state.headPic, onError: that.logoError }),
                     _react2.default.createElement(
                         'div',
                         { className: 'infoRight' },

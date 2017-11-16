@@ -124,6 +124,7 @@ var UserInfo = React.createClass({
     },
     render: function () {
         var that = this;
+        var imgPath=globalData.imgPath;
         return (
             <div className="app_Box userInfo">
                 <Header title="个人信息" />
@@ -131,7 +132,7 @@ var UserInfo = React.createClass({
                 <ul className="userInfoCon">
                     <li>
                         <input id="head" type="file" onChange={that.userHead.bind(this, "#head", "#headImg")} accept="image/*" />
-                        <img id="headImg" src={that.state.headPic} onError={that.logoError} /><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
+                        <img id="headImg" src={imgPath+that.state.headPic} onError={that.logoError} /><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
                     <li><span>手机号</span><div className="infoRight"><b>{`${that.state.phone}`.replace(/^(\d{3})\d{4}(\d+)/, "$1****$2")}</b></div></li>
                     <li onClick={that.rePsd}><span>修改密码</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
                     <li onClick={that.realName}><span>真实姓名</span><div className="infoRight"><b>{that.state.realName}</b><img src="src/img/icon/right.png" /></div></li>

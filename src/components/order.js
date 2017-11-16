@@ -158,7 +158,7 @@ var Order = React.createClass({
 	                    var status = orderList[i].status;
 	                    arr.push(<li key={i}>
 	                        <div className="orderNum">
-	                            <span className="order_n">订单号：{orderList[i].applyNo.slice(0, 20)}</span>
+	                            <span className="order_n">订单号：{orderList[i].applyNo}</span>
 	                            <span>{that.state.status[orderList[i].applyStatus].text}</span>
 	                        </div>
 	                        <h3 className="list_title">
