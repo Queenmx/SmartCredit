@@ -138,7 +138,7 @@ var Home=React.createClass({
         					<ul className="special">
         						<li>{loanList[i].loanTime}</li>
         						<li>{theDateTxt}费率{loanList[i].rate}%</li>
-        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDate=="D"?"天":"月"}</li>
+        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
         					</ul>
         					<div className="apply">
         						<a href="javascript:;" data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>
@@ -157,7 +157,7 @@ var Home=React.createClass({
 					var data =JSON.parse(strDec(res.data,key1,"",""));
 					//var data=res.data;
 					var loanList=data.list;
-					//console.log(data);
+					
 					sessionStorage.setItem("homeLoan",JSON.stringify(loanList));
 					var arr=[];
 					for(var i in loanList){
@@ -189,7 +189,7 @@ var Home=React.createClass({
 		        					<ul className="special">
 		        						<li>{loanList[i].loanTime}</li>
 		        						<li>{theDateTxt}利率{loanList[i].rate}%</li>
-		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDate=="D"?"天":"月"}</li>
+		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
 		        					</ul>
 		        					<div className="apply">
 		        						<a href="javascript:;" data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>

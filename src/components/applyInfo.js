@@ -43,15 +43,16 @@ var ApplyInfo = React.createClass({
         var loanId = that.props.location.state.loanId;
         var applyQuery = that.props.location.state.applyQuery;
         var { realName, applyName, applyNumber, located, user } = that.state;
-        //console.log(user);
+        console.log(that.state);
         if (applyName.length > 0) {
-            if (!realName) {//修改名字
-                api.edit(user.idCard, located, realName, function (res) {
+            if (realName==""||realName==null) {//修改名字
+                api.edit(user.idCard, located, applyName, function (res) {
                     console.log(res);
-                    console.log(realName);
+                    console.log(applyName);
                     if (res.code == "0000") {
                         //修改信息成功
-                        user.realName=realName
+                        console.log(applyName)
+                        user.realName=applyName;
                         //var userObj = { realName: realName, located: located, idCard: user.idCard, certLevel: user.certLevel, phone: user.phone, userName: user.userName, token: user.token, headPic: user.headPic, userId: user.userId }
                         localStorage.setItem("user", JSON.stringify(user));
                     	globalData.user=JSON.stringify(user);

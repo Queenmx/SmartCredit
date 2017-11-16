@@ -2,6 +2,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import api from './api';
+import Loading from './loading';
 import { globalData } from './global.js';
 import { hashHistory, Link } from 'react-router';
 import Header from './header';
@@ -10,7 +11,8 @@ var NewsDetail = React.createClass({
     getInitialState: function () {
         return {
             articleDetail: "",
-            isMark: 0
+            isMark: 0,
+            flag: true
         }
     },
     getTabId: function (e) {
@@ -105,6 +107,7 @@ var NewsDetail = React.createClass({
         return (
             <div className="app_Box newsDetail">
                 <Header title="" />
+                 <Loading flag={that.state.flag} />
                 <div className="content newsDetailCon">
                     <h1>{articleDetail.articleTitle}</h1>
                     <div className="newsDetailInfo">
@@ -124,26 +127,36 @@ var NewsDetail = React.createClass({
         let key1 = globalData.key;
         let toast = globalData.toast;
         api.articleDetail(that.state.articleId, function (res) {
-            console.log(res);
+           // console.log(res);
             if (res.code == "0000") {
                 let data = strDec(res.data, key1, "", "");
                 let articleDetail = JSON.parse(data);
-                console.log(articleDetail);
+               // console.log(articleDetail);
                 that.setState({
+                	flag:false,
                     articleDetail: articleDetail,
                     isMark: articleDetail.isMark,
                     markId:articleDetail.markId
                 })
             } else if (res.code == "5555") {
+            	that.setState({
+		        	flag:false
+		        })
                 toast.show("登录过时，请重新登录", 2000);
                 var path = {
                     pathname: '/Login',
                 }
                 hashHistory.push(path);
             } else {
+            	that.setState({
+		        	flag:false
+		        })
                 toast.show(res.msg, 2000);
             }
         }, function () {
+        	that.setState({
+	        	flag:false
+	        })
             toast.show("连接错误", 2000);
         })
     }

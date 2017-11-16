@@ -21,6 +21,19 @@ body {
 //  transform: translate(-50%,-50%);
 
 }
+
+* {
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+-webkit-tap-highlight-color: transparent;
+outline: none;
+}
+*:not(input,textarea) { 
+-webkit-touch-callout: none; 
+  -webkit-user-select: none; 
+}
+a:focus { outline: none; }
 .iscroll-pull-down, .iscroll-pull-up {
     //opacity: 0;
     }

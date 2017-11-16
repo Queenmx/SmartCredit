@@ -99,7 +99,7 @@ class ProList extends Component {
 				}else{
 				//console.log(data);
 					for(var i in loanList){
-						var theDate=loanList[i].rateType;
+						var theDate=loanList[i].limitType;
 						var theDateTxt;
 						switch (theDate){
 							case "Y":
@@ -127,7 +127,7 @@ class ProList extends Component {
 		        					<ul className="special">
 		        						<li>{loanList[i].loanTime}</li>
 		        						<li>{theDateTxt}费率{loanList[i].rate}%</li>
-		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDate=="D"?"天":"月"}</li>
+		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
 		        					</ul>
 		        					<div className="apply">
 		        						<a href="javascript:;" data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>

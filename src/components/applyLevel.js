@@ -72,7 +72,7 @@ var ApplyLevel=React.createClass({
 						console.log(that.state.applyQuery);
 						var money=parseFloat(money)*100;
 						//console.log(money);
-						api.applyLoan(limitType,limitType,loanId,money,qualifyList,function(res){
+						api.applyLoan(limitDay,limitType,loanId,money,qualifyList,function(res){
 							//console.log(res);
 							if(res.code=="0000"){
 								that.setState({
@@ -80,7 +80,7 @@ var ApplyLevel=React.createClass({
 								})
 								var data = JSON.parse(strDec(res.data, key1, "", ""));
 			                    console.log(data);
-								var queryData = {apiUrl:data.apiUrl||"",apiWay:data.apiUrl||"",logo:data.logo};
+								var queryData = {apiUrl:data.apiUrl,apiWay:data.apiWay,logo:data.logo};
 								toast.show("申请订单成功",2000);
 								var path = {
 								  pathname:'/ApplyResult',
@@ -262,7 +262,7 @@ var ApplyLevel=React.createClass({
 									</li>)
 								}
 							}else{//没有下级.点击即选
-								console.log("没有下级");
+								//console.log("没有下级");
 								//$(curEvent).html($(curEvent).html().replace("请选择",""));
 								//$(curEvent).find("input").css('width','0.5rem').focus();
 								that.state.second[indexId].push(<li className="second"  data-parentIndex={indexId}  data-dictionaryId={dictionaryId} style={{'color':'#333333'}} >
@@ -295,11 +295,11 @@ var ApplyLevel=React.createClass({
             })
 		 //获取资质列表
             api.qualifyList(that.state.loanId, "095c2c011ef740508bf27785e0ffe8f1", function (res) {
-                console.log(res);
+               // console.log(res);
                 
                 if (res.code == "0000") {
                     var data = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(data);
+                   // console.log(data);
                     that.setState({
                     	flag: false,
                         qualifyList: data

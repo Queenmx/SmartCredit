@@ -4711,9 +4711,9 @@ var globalData = {
     selectedCityName: '',
     key: "ZND171030APIMM",
     // appBasePath: "http://www.91ymfq.com/XR/",
-    path: "http://xingrongjinfu.iask.in:8886",
+    //path: "http://xingrongjinfu.iask.in:8886",
     // path:"http://wangjuan6.free.ngrok.cc",
-    // path:"http://192.168.1.17:8886",
+    path: "http://192.168.1.17:8886",
     //path:"http://122.144.133.20:8088",
     imgPath: "http://xrjf.oss-cn-shanghai.aliyuncs.com/",
     //path:"http://192.168.1.17:8088",
@@ -4922,7 +4922,7 @@ module.exports.qualifyList = function (loanId, parentId, cb1, cb2) {
     data.parentId = parentId;
     data.userId = _global.globalData.userId;;
     var param = JSON.stringify(data);
-    console.log(param);
+    //console.log(param);
     var str = strEnc(param, key1);
     http(_global.globalData.path + "/zndai/user/qualify/list", { params: str }, cb1, cb2);
     delete data.loanId;
@@ -5268,7 +5268,7 @@ module.exports.cancleOrder = function (applyId, cb1, cb2) {
     data.userId = _global.globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    // console.log(data);
+    console.log(param);
     // console.log(userId);
     http(_global.globalData.path + "/zndai/loan/apply/cancel", { params: str }, cb1, cb2);
     delete data.applyId;
@@ -43536,7 +43536,7 @@ var Set = _react2.default.createClass({
                     localStorage.removeItem("isLogin");
                     localStorage.removeItem("phoneNum");
                     localStorage.removeItem("curCity");
-                    window.history.back();
+                    _global.globalData.user = "", _global.globalData.requestData.token = "", window.history.back();
                 } else {
                     that.setState({ isLoading: false });
                     toast.show(res.msg, 2000);
@@ -67350,7 +67350,7 @@ var Home = _react2.default.createClass({
 								loanList[i].limitMin,
 								'-',
 								loanList[i].limitMax,
-								theDate == "D" ? "天" : "月"
+								theDateTxt
 							)
 						),
 						_react2.default.createElement(
@@ -67375,7 +67375,7 @@ var Home = _react2.default.createClass({
 					var data = JSON.parse(strDec(res.data, key1, "", ""));
 					//var data=res.data;
 					var loanList = data.list;
-					//console.log(data);
+
 					sessionStorage.setItem("homeLoan", JSON.stringify(loanList));
 					var arr = [];
 					for (var i in loanList) {
@@ -67449,7 +67449,7 @@ var Home = _react2.default.createClass({
 										loanList[i].limitMin,
 										'-',
 										loanList[i].limitMax,
-										theDate == "D" ? "天" : "月"
+										theDateTxt
 									)
 								),
 								_react2.default.createElement(
@@ -68790,6 +68790,10 @@ var _api = __webpack_require__(12);
 
 var _api2 = _interopRequireDefault(_api);
 
+var _loading = __webpack_require__(29);
+
+var _loading2 = _interopRequireDefault(_loading);
+
 var _global = __webpack_require__(11);
 
 var _reactRouter = __webpack_require__(9);
@@ -68806,7 +68810,8 @@ var NewsDetail = _react2.default.createClass({
     getInitialState: function getInitialState() {
         return {
             articleDetail: "",
-            isMark: 0
+            isMark: 0,
+            flag: true
         };
     },
     getTabId: function getTabId(e) {
@@ -68900,6 +68905,7 @@ var NewsDetail = _react2.default.createClass({
             'div',
             { className: 'app_Box newsDetail' },
             _react2.default.createElement(_header2.default, { title: '' }),
+            _react2.default.createElement(_loading2.default, { flag: that.state.flag }),
             _react2.default.createElement(
                 'div',
                 { className: 'content newsDetailCon' },
@@ -68943,26 +68949,36 @@ var NewsDetail = _react2.default.createClass({
         var key1 = _global.globalData.key;
         var toast = _global.globalData.toast;
         _api2.default.articleDetail(that.state.articleId, function (res) {
-            console.log(res);
+            // console.log(res);
             if (res.code == "0000") {
                 var data = strDec(res.data, key1, "", "");
                 var articleDetail = JSON.parse(data);
-                console.log(articleDetail);
+                // console.log(articleDetail);
                 that.setState({
+                    flag: false,
                     articleDetail: articleDetail,
                     isMark: articleDetail.isMark,
                     markId: articleDetail.markId
                 });
             } else if (res.code == "5555") {
+                that.setState({
+                    flag: false
+                });
                 toast.show("登录过时，请重新登录", 2000);
                 var path = {
                     pathname: '/Login'
                 };
                 _reactRouter.hashHistory.push(path);
             } else {
+                that.setState({
+                    flag: false
+                });
                 toast.show(res.msg, 2000);
             }
         }, function () {
+            that.setState({
+                flag: false
+            });
             toast.show("连接错误", 2000);
         });
     }
@@ -69757,7 +69773,7 @@ var ProList = function (_Component) {
 					} else {
 						//console.log(data);
 						for (var i in loanList) {
-							var theDate = loanList[i].rateType;
+							var theDate = loanList[i].limitType;
 							var theDateTxt;
 							switch (theDate) {
 								case "Y":
@@ -69827,7 +69843,7 @@ var ProList = function (_Component) {
 											loanList[i].limitMin,
 											'-',
 											loanList[i].limitMax,
-											theDate == "D" ? "天" : "月"
+											theDateTxt
 										)
 									),
 									_react2.default.createElement(
@@ -69984,7 +70000,12 @@ var ListDetail = _react2.default.createClass({
             value1onChange: "",
             value2onChange: "",
             myTotalMoney: "",
-            rateMoney: ""
+            rateMoney: "",
+            limitMin: "",
+            limitMax: "",
+            limitType: "",
+            theDateTxt: "",
+            rate: ""
         };
     },
 
@@ -70058,9 +70079,9 @@ var ListDetail = _react2.default.createClass({
     handleBlur2: function handleBlur2(event) {
         var that = this;
         var valueBlur2 = parseInt(event.target.value || 0);
-        var _state$loanDetail2 = this.state.loanDetail,
-            limitMin = _state$loanDetail2.limitMin,
-            limitMax = _state$loanDetail2.limitMax;
+        var _state = this.state,
+            limitMin = _state.limitMin,
+            limitMax = _state.limitMax;
 
         if (valueBlur2 < limitMin) {
             that.setState({ value2: limitMin, value2onChange: limitMin }, function () {
@@ -70142,8 +70163,26 @@ var ListDetail = _react2.default.createClass({
 
                 var moneyMin = data.moneyMin;
                 var limitMin = data.limitMin;
+                var limitMax = data.limitMax;
                 var rate = data.rate;
                 var limitType = data.limitType;
+                var theDateTxt;
+                switch (limitType) {
+                    case "Y":
+                        theDateTxt = "月";
+                        limitMin = limitMin * 12;
+                        limitMax = limitMax * 12;
+                        break;
+                    case "M":
+                        theDateTxt = "月";
+                        break;
+                    case "D":
+                        theDateTxt = "日";
+                        break;
+                    default:
+                        break;
+                }
+
                 if (limitType == "D") {
                     limitType = "D";
                 } else {
@@ -70192,9 +70231,12 @@ var ListDetail = _react2.default.createClass({
                     loanDetail: data,
                     value1: moneyMin,
                     value2: limitMin,
+                    limitMin: limitMin,
+                    limitMax: limitMax,
                     value1onChange: moneyMin,
                     value2onChange: limitMin,
                     limitType: limitType,
+                    theDateTxt: theDateTxt,
                     rate: rate,
                     rateType: data.rateType,
                     markId: data.markId,
@@ -70207,9 +70249,15 @@ var ListDetail = _react2.default.createClass({
                     });
                 });
             } else {
+                that.setState({
+                    flag: false
+                });
                 toast.show(res.msg, 2000);
             }
         }, function () {
+            that.setState({
+                flag: false
+            });
             toast.show("连接错误", 2000);
         });
 
@@ -70291,7 +70339,7 @@ var ListDetail = _react2.default.createClass({
         var that = this;
         var day1 = that.state.limitType == "D" ? '天' : "个月";
         var day2 = that.state.rateType == "D" ? '天' : "个月";
-        var loanMoney = "贷款" + that.state.value1 + "/" + that.state.value2 + day1;
+        var loanMoney = "贷款" + that.state.value1 + "元/" + that.state.value2 + day1;
         var loanlixi = "利息" + that.state.myRateMoney + "元" + that.state.rate + "%/" + day2;
         var loanFee = "一次性" + that.state.fee + "元";
         //console.log(that.state)
@@ -70431,7 +70479,6 @@ var ListDetail = _react2.default.createClass({
         var myRateMoney = parseFloat(that.state.myRateMoney);
         console.log(that.state.myRateMoney);
         var myTotalMoney = loanDetail.fee + myRateMoney + value1;
-        //console.log(loanDetail);
         return _react2.default.createElement(
             'div',
             { className: 'app_Box listDetail' },
@@ -70492,9 +70539,9 @@ var ListDetail = _react2.default.createClass({
                             'p',
                             null,
                             '\u671F\u9650\u8303\u56F4:',
-                            loanDetail.limitMin,
+                            that.state.limitMin,
                             '~',
-                            loanDetail.limitMax,
+                            that.state.limitMax,
                             loanDetail.limitType == "D" ? "天" : "个月"
                         )
                     )
@@ -70558,8 +70605,7 @@ var ListDetail = _react2.default.createClass({
                             '\u66F4\u591A\u56DE\u590D',
                             _react2.default.createElement('img', { src: 'src/img/icon/right.png' })
                         )
-                    ),
-                    that.state.problemList
+                    )
                 )
             ),
             _react2.default.createElement(
@@ -112251,12 +112297,14 @@ var Order = _react2.default.createClass({
                 },
                 APRNO: {
                     text: '审核不通过',
-                    btntext: '删除订单',
+                    btntext: '取消借款',
+                    // btntext: '删除订单',
                     dataId: '3'
                 },
                 APRYES: {
                     text: '审核通过',
-                    btntext: '确认借款',
+                    btntext: '取消借款',
+                    // btntext: '确认借款',
                     dataId: '4'
                 }
             },
@@ -112318,6 +112366,7 @@ var Order = _react2.default.createClass({
         }
     },
     toCancel: function toCancel(e) {
+        var btn = e.target;
         var that = this;
         var key1 = _global.globalData.key;
         var toast = _global.globalData.toast;
@@ -112329,9 +112378,10 @@ var Order = _react2.default.createClass({
         console.log(that.orderList[id].status);
         if ((dataId == 1 || dataId == 2) && that.orderList[id].status > 0) {
             _api2.default.cancleOrder(that.orderList[id].applyId, function (res) {
+                console.log(res);
                 if (res.code == "0000") {
                     toast.show("取消订单成功", 2000);
-                    e.target.style.backgroundColor = "#555";
+                    btn.style.backgroundColor = "#DDDDDD";
                 } else {
                     toast.show(res.msg, 2000);
                 }
@@ -112383,7 +112433,7 @@ var Order = _react2.default.createClass({
                         var status = orderList[i].status;
                         arr.push(_react2.default.createElement(
                             'li',
-                            { key: i },
+                            { key: Math.random() },
                             _react2.default.createElement(
                                 'div',
                                 { className: 'orderNum' },
@@ -112453,7 +112503,7 @@ var Order = _react2.default.createClass({
                                 _react2.default.createElement(
                                     'span',
                                     { className: 'status' },
-                                    '\u60A8\u7684\u8D37\u6B3E\u7533\u8BF7\u5DF2\u63D0\u4EA4\uFF0C3\u4E2A\u5DE5\u4F5C\u65E5\u5185\u5B8C\u6210'
+                                    '\u60A8\u7684\u8D37\u6B3E\u7533\u8BF7\u5DF2\u63D0\u4EA4\uFF0C\u6211\u4EEC\u4F1A\u5C3D\u5FEB\u5904\u7406'
                                 ),
                                 _react2.default.createElement(
                                     'span',
@@ -112695,7 +112745,7 @@ var Ask = _react2.default.createClass({
 					null,
 					that.state.head
 				),
-				_react2.default.createElement('textarea', { placeholder: that.state.placeholder + "描述(200个字以内)", value: that.state.content, onChange: that.upText })
+				_react2.default.createElement('textarea', { placeholder: '\u63CF\u8FF0(200\u4E2A\u5B57\u4EE5\u5185)', value: that.state.content, onChange: that.upText })
 			),
 			_react2.default.createElement(
 				'div',
@@ -112791,17 +112841,18 @@ var ApplyInfo = _react2.default.createClass({
             applyNumber = _that$state.applyNumber,
             located = _that$state.located,
             user = _that$state.user;
-        //console.log(user);
 
+        console.log(that.state);
         if (applyName.length > 0) {
-            if (!realName) {
+            if (realName == "" || realName == null) {
                 //修改名字
-                _api2.default.edit(user.idCard, located, realName, function (res) {
+                _api2.default.edit(user.idCard, located, applyName, function (res) {
                     console.log(res);
-                    console.log(realName);
+                    console.log(applyName);
                     if (res.code == "0000") {
                         //修改信息成功
-                        user.realName = realName;
+                        console.log(applyName);
+                        user.realName = applyName;
                         //var userObj = { realName: realName, located: located, idCard: user.idCard, certLevel: user.certLevel, phone: user.phone, userName: user.userName, token: user.token, headPic: user.headPic, userId: user.userId }
                         localStorage.setItem("user", JSON.stringify(user));
                         _global.globalData.user = JSON.stringify(user);
@@ -113124,7 +113175,7 @@ var ApplyLevel = _react2.default.createClass({
 						console.log(that.state.applyQuery);
 						var _money = parseFloat(_money) * 100;
 						//console.log(money);
-						_api2.default.applyLoan(limitType, limitType, loanId, _money, qualifyList, function (res) {
+						_api2.default.applyLoan(limitDay, limitType, loanId, _money, qualifyList, function (res) {
 							//console.log(res);
 							if (res.code == "0000") {
 								that.setState({
@@ -113132,7 +113183,7 @@ var ApplyLevel = _react2.default.createClass({
 								});
 								var data = JSON.parse(strDec(res.data, key1, "", ""));
 								console.log(data);
-								var queryData = { apiUrl: data.apiUrl || "", apiWay: data.apiUrl || "", logo: data.logo };
+								var queryData = { apiUrl: data.apiUrl, apiWay: data.apiWay, logo: data.logo };
 								toast.show("申请订单成功", 2000);
 								var path = {
 									pathname: '/ApplyResult',
@@ -113374,7 +113425,7 @@ var ApplyLevel = _react2.default.createClass({
 						}
 					} else {
 						//没有下级.点击即选
-						console.log("没有下级");
+						//console.log("没有下级");
 						//$(curEvent).html($(curEvent).html().replace("请选择",""));
 						//$(curEvent).find("input").css('width','0.5rem').focus();
 						that.state.second[indexId].push(_react2.default.createElement(
@@ -113414,11 +113465,11 @@ var ApplyLevel = _react2.default.createClass({
 		});
 		//获取资质列表
 		_api2.default.qualifyList(that.state.loanId, "095c2c011ef740508bf27785e0ffe8f1", function (res) {
-			console.log(res);
+			// console.log(res);
 
 			if (res.code == "0000") {
 				var data = JSON.parse(strDec(res.data, key1, "", ""));
-				console.log(data);
+				// console.log(data);
 				that.setState({
 					flag: false,
 					qualifyList: data
@@ -113542,11 +113593,10 @@ var ApplyResult = _react2.default.createClass({
 		//var apiUrl=this.props.location.state.apiUrl;
 		var _props$location$state = this.props.location.state,
 		    apiWay = _props$location$state.apiWay,
-		    apiUrl = _props$location$state.apiUrl,
-		    logo = _props$location$state.logo;
+		    apiUrl = _props$location$state.apiUrl;
 
 		console.log(this.props.location.state);
-		this.setState({ apiWay: apiWay, apiUrl: apiUrl, logo: logo });
+		this.setState({ apiWay: apiWay, apiUrl: apiUrl });
 	},
 
 	toBack: function toBack() {
@@ -113658,7 +113708,7 @@ var ApplyResult = _react2.default.createClass({
 					_react2.default.createElement(
 						'div',
 						{ className: 'applyResultImg' },
-						_react2.default.createElement('img', { src: this.state.logo, onError: that.logoError })
+						_react2.default.createElement('img', { src: 'src/img/icon/logo.png', onError: that.logoError })
 					),
 					_react2.default.createElement(
 						'div',
@@ -113697,7 +113747,7 @@ var ApplyResult = _react2.default.createClass({
 			//h5跳转
 			that.setState({
 				resultTxt: "恭喜你申请成功，请完成余下操作!",
-				resultTips: "说明：<br/>接下来将进入资方（第三方）的网站，请完成剩余操作，完成贷款。",
+				resultTips: "说明：接下来将进入资方（第三方）的网站，请完成剩余操作，完成贷款。",
 				btnTxt: "下一步"
 			});
 		} else {

@@ -40,12 +40,14 @@ var Order = React.createClass({
                 },
                 APRNO: {
                     text: '审核不通过',
-                    btntext: '删除订单',
+                    btntext: '取消借款',
+                   // btntext: '删除订单',
                     dataId: '3'
                 },
                 APRYES: {
                     text: '审核通过',
-                    btntext: '确认借款',
+                    btntext: '取消借款',
+                   // btntext: '确认借款',
                     dataId: '4'
                 }
             },
@@ -101,6 +103,7 @@ var Order = React.createClass({
 	  
   },
     toCancel: function (e) {
+    	var btn=e.target;
         var that = this;
         var key1 = globalData.key;
 		var toast=globalData.toast;
@@ -112,9 +115,11 @@ var Order = React.createClass({
         console.log(that.orderList[id].status);
         if ((dataId == 1 || dataId == 2) && that.orderList[id].status > 0) {
             api.cancleOrder(that.orderList[id].applyId, function (res) {
+            	console.log(res);
                 if (res.code == "0000") {
                 	toast.show("取消订单成功",2000);
-                    e.target.style.backgroundColor = "#555"
+                   btn.style.backgroundColor = "#DDDDDD";
+                   
                 }else{
                 	toast.show(res.msg,2000);
                 }
@@ -156,7 +161,7 @@ var Order = React.createClass({
 					
 	                for (var i in orderList) {
 	                    var status = orderList[i].status;
-	                    arr.push(<li key={i}>
+	                    arr.push(<li key={Math.random()}>
 	                        <div className="orderNum">
 	                            <span className="order_n">订单号：{orderList[i].applyNo}</span>
 	                            <span>{that.state.status[orderList[i].applyStatus].text}</span>
@@ -173,7 +178,7 @@ var Order = React.createClass({
 	                            <li>{orderList[i].rateType}费用{orderList[i].rate}%</li>
 	                        </ul>
 	                        <div className="listFoot">
-	                            <span className="status">您的贷款申请已提交，3个工作日内完成</span>
+	                            <span className="status">您的贷款申请已提交，我们会尽快处理</span>
 	                            <span onClick={that.toCancel} className='statusBtn' data-id={i} style={{ backgroundColor: status < 0 ? 'rgb(221, 221, 221)' : '#53a6ff' }}>
 	                                {that.state.status[orderList[i].applyStatus].btntext}
 	                            </span>

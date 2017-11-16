@@ -23,9 +23,9 @@ var ApplyResult=React.createClass({
 		//console.log(hashHistory);
 		//var apiWay=this.props.location.state.apiWey;
 		//var apiUrl=this.props.location.state.apiUrl;
-		const {apiWay,apiUrl,logo}=this.props.location.state;
+		const {apiWay,apiUrl}=this.props.location.state;
 		console.log(this.props.location.state);
-		this.setState({apiWay:apiWay,apiUrl:apiUrl,logo:logo})		
+		this.setState({apiWay:apiWay,apiUrl:apiUrl})		
 	},
 	
 	toBack:function(){
@@ -85,7 +85,7 @@ var ApplyResult=React.createClass({
 						</li>
 					</ul>
 					<div className="applyResult">
-						<div className="applyResultImg"><img src={this.state.logo} onError={that.logoError}/></div>
+						<div className="applyResultImg"><img src="src/img/icon/logo.png" onError={that.logoError}/></div>
 						<div className="applyResultTxt"><h4>{this.state.resultTxt}</h4><p>{this.state.resultTips}</p></div>
 						<div className="next" onClick={this.nextHandle}>{this.state.btnTxt}</div>
 					</div>
@@ -105,7 +105,7 @@ var ApplyResult=React.createClass({
 		}else if(apiWay=="H5"){//h5跳转
 			that.setState({
 				resultTxt:"恭喜你申请成功，请完成余下操作!",
-				resultTips:"说明：<br/>接下来将进入资方（第三方）的网站，请完成剩余操作，完成贷款。",
+				resultTips:"说明：接下来将进入资方（第三方）的网站，请完成剩余操作，完成贷款。",
 				btnTxt:"下一步"
 			})
 		}else{

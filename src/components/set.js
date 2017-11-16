@@ -27,6 +27,8 @@ var Set = React.createClass({
 	                localStorage.removeItem("isLogin");
 	                localStorage.removeItem("phoneNum");
 	                localStorage.removeItem("curCity");
+	                globalData.user="",
+	                globalData.requestData.token="",
 	                window.history.back();
 	            } else {
 	                that.setState({ isLoading: false })

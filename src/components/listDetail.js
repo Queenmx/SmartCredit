@@ -24,7 +24,12 @@ var ListDetail = React.createClass({
             value1onChange: "",
             value2onChange: "",
             myTotalMoney: "",
-            rateMoney: ""
+            rateMoney: "",
+            limitMin:"",
+            limitMax:"",
+            limitType: "",
+            theDateTxt:"",
+            rate:""
         }
     },
 	
@@ -92,7 +97,7 @@ var ListDetail = React.createClass({
     handleBlur2: function (event) {
         var that = this;
         const valueBlur2 = parseInt(event.target.value || 0);
-        const { limitMin, limitMax } = this.state.loanDetail;
+        const { limitMin, limitMax } = this.state;
         if (valueBlur2 < limitMin) {
             that.setState({ value2: limitMin, value2onChange: limitMin }, () => {
                 that.lixi();
@@ -171,8 +176,28 @@ var ListDetail = React.createClass({
 
                 var moneyMin = data.moneyMin;
                 var limitMin = data.limitMin;
+                var limitMax=data.limitMax;
                 var rate=data.rate;
                 var limitType = data.limitType;
+				var theDateTxt;
+				switch (limitType){
+					case "Y":
+					theDateTxt="月";
+					limitMin=limitMin*12;
+					limitMax=limitMax*12;
+						break;
+					case "M":
+					theDateTxt="月";
+						break;
+					case "D":
+					theDateTxt="日";
+						break;
+					default:
+						break;
+				}
+                
+                
+                
                 if (limitType == "D") {
                     limitType = "D"
                 } else {
@@ -221,9 +246,12 @@ var ListDetail = React.createClass({
                     loanDetail: data,
                     value1: moneyMin,
                     value2: limitMin,
+                    limitMin:limitMin,
+                    limitMax:limitMax,
                     value1onChange: moneyMin,
                     value2onChange: limitMin,
                     limitType: limitType,
+                    theDateTxt:theDateTxt,
                     rate:rate,
                     rateType:data.rateType,
                     markId:data.markId,
@@ -236,9 +264,15 @@ var ListDetail = React.createClass({
                     })
                 })
             } else {
+            	that.setState({
+                    	flag:false
+                    })
                 toast.show(res.msg, 2000);
             }
         }, function () {
+        	that.setState({
+                	flag:false
+                })
             toast.show("连接错误", 2000);
         })
 
@@ -285,7 +319,7 @@ var ListDetail = React.createClass({
     	var that=this;
     	var day1=that.state.limitType=="D"?'天':"个月";
     	var day2=that.state.rateType=="D"?'天':"个月";
-    	var loanMoney="贷款"+that.state.value1+"/"+that.state.value2+day1;
+    	var loanMoney="贷款"+that.state.value1+"元/"+that.state.value2+day1;
     	var loanlixi="利息"+that.state.myRateMoney+"元"+that.state.rate+"%/"+day2;
     	var loanFee="一次性"+that.state.fee+"元";
     	//console.log(that.state)
@@ -437,7 +471,6 @@ var ListDetail = React.createClass({
         var myRateMoney = parseFloat(that.state.myRateMoney);
         console.log(that.state.myRateMoney);
         var myTotalMoney = loanDetail.fee + myRateMoney + value1;
-        //console.log(loanDetail);
         return (
             <div className="app_Box listDetail">
                 <Header title={loanDetail.loanName} />
@@ -464,29 +497,13 @@ var ListDetail = React.createClass({
                                     <span>{loanDetail.limitType == "D" ? "天" : "月"}</span>
                                 </div>
                             </div>
-                            <p>期限范围:{loanDetail.limitMin}~{loanDetail.limitMax}{loanDetail.limitType == "D" ? "天" : "个月"}</p>
+                            <p>期限范围:{that.state.limitMin}~{that.state.limitMax}{loanDetail.limitType == "D" ? "天" : "个月"}</p>
                         </li>
                     </ul>
                     <div className="circle">
                     	<div className="circleBox">
                             <div id="main" className="chart" style={{ "height": "3rem" }}></div>
                         </div>
-                       {/* <div className="circlePic">
-                            <div className="rings" onClick={that.echartDraw}>
-                                <div></div>
-                                <div id="main" className="chart"></div>
-                                <p>
-                                    {myTotalMoney}元
-	        							<span>还款金额</span>
-                                </p>
-                            </div>
-
-                        </div>
-                        <ul className="circleInfo">
-                            <li><i></i>贷款 {that.state.value1}/{that.state.value2}{loanDetail.limitType == "D" ? "天" : "个月"}</li>
-                            <li><i></i>利息 {myRateMoney}元({loanDetail.rate}%/{loanDetail.rateType == "D" ? "天" : "月"})</li>
-                            <li><i></i>一次性{loanDetail.fee}元(0%)</li>
-                        </ul>*/}
                     </div>
                     <div className="moneyDetailBox">
                         <div className="moneyDetail" style={{ "display": that.state.isShowDetail ? "block" : "none" }} dangerouslySetInnerHTML={{__html: loanDetail.loanIntro}}></div>
@@ -507,7 +524,7 @@ var ListDetail = React.createClass({
                         </div>
 
                         <h2 onClick={this.toProblem}>常见问题<span>更多回复<img src="src/img/icon/right.png" /></span></h2>
-                        {that.state.problemList}
+                       {/* <div>{that.state.problemList}</div>*/}
                     </div>
                 </div>
 
