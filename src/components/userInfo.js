@@ -69,8 +69,9 @@ var UserInfo = React.createClass({
                         console.log(data);
                         var user = that.state.user;
                         user.headPic = data.headPicPath;
+                        that.setState({headPic:data.headPicPath});
                         globalData.user = JSON.stringify(user);
-                        localStorage.setItem("user", user);
+                        localStorage.setItem("user", JSON.stringify(user));
                         console.log(user);
                         toast.show("头像设置成功", 2000);
                     } else if (res.code == "5555") {

@@ -227,6 +227,24 @@ var Save=React.createClass({
 		 }
 		
 	},
+	toLoanDetail:function(event){
+		var detailId=event.currentTarget.getAttribute("data-id");
+		var data = {loanId:detailId};
+		var path = {
+		  pathname:'/ListDetail',
+		  query:data,
+		}
+		hashHistory.push(path);
+	},
+	toZiDetail:function(event){
+		var detailId=event.currentTarget.getAttribute("data-id");
+			var data = {articleId:detailId};
+			var path = {
+			  pathname:'/NewsDetail',
+			  query:data,
+			}
+			hashHistory.push(path);
+	},
 	loadData:function(downOrUp,callback) {
   		var that=this;
   		var key1 = globalData.key;
@@ -246,7 +264,8 @@ var Save=React.createClass({
 					var total=data.total;
 					var articleArr=[];
 					for(var i in articleList){
-						articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndArticle}>
+						//articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndArticle}>
+						articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()} onClick={that.toZiDetail}>
 	    							<dd>
 	    								<h4>{articleList[i].articleTitle}</h4>
 	    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
@@ -290,7 +309,8 @@ var Save=React.createClass({
 					var total=data.total;
 					//console.log(data);
 					for(var i in loanList){
-						arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId} key={Math.random()} onTouchStart={that.touchStart} onTouchEnd={that.touchEndLoan}>
+						//arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndLoan}>
+						arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId}  key={Math.random()} onClick={that.toLoanDetail}>
 		        				<h3>
 		        					<img src={loanList[i].logo} onError={that.logoError} />
 		        					<span>{loanList[i].loanName}</span>

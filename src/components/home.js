@@ -26,7 +26,7 @@ var Home=React.createClass({
 	componentWillMount:function(){
 	},
 	toListDetail:function(event){
-    	var loanId=event.target.getAttribute("data-loanId");
+    	var loanId=event.currentTarget.getAttribute("data-loanId");
 		var data = {loanId:loanId};
 		var path = {
 		  pathname:'/ListDetail',
@@ -125,7 +125,7 @@ var Home=React.createClass({
 					default:
 						break;
 				}
-				arr.push(<div className="capitalList" key={i}>
+				arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} onClick={that.toListDetail}>
         				<h3>
         					<img src={loanList[i].logo} onError={that.logoError} />
         					<span>{loanList[i].loanName}</span>
@@ -141,7 +141,7 @@ var Home=React.createClass({
         						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
         					</ul>
         					<div className="apply">
-        						<a href="javascript:;" data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>
+        						<a href="javascript:;" >申请贷款</a>
         					</div>
         				</div>
         				
@@ -176,7 +176,7 @@ var Home=React.createClass({
 							default:
 								break;
 						}
-						arr.push(<div className="capitalList" key={i}>
+						arr.push(<div className="capitalList" key={i}  data-loanId={loanList[i].loanId} onClick={that.toListDetail}>
 		        				<h3>
 		        					<img src={loanList[i].logo} onError={that.logoError} />
 		        					<span>{loanList[i].loanName}</span>
@@ -192,7 +192,7 @@ var Home=React.createClass({
 		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
 		        					</ul>
 		        					<div className="apply">
-		        						<a href="javascript:;" data-loanId={loanList[i].loanId} onClick={that.toListDetail}>申请贷款</a>
+		        						<a href="javascript:;">申请贷款</a>
 		        					</div>
 		        				</div>
 		        				

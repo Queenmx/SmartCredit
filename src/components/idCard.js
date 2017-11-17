@@ -53,10 +53,10 @@ var IdCard = React.createClass({
 	                userObj.frontPic=data.frontPic;
 	                localStorage.setItem("user",JSON.stringify(userObj));
 	                globalData.user=JSON.stringify(userObj);
-	                var queryData = {};
+	                //var queryData = {};
 	                var path = {
 	                    pathname: '/Mine',
-	                    state: queryData,
+	                  //  state: queryData,
 	                }
 	                hashHistory.push(path);
 	                

@@ -4712,9 +4712,10 @@ var globalData = {
     key: "ZND171030APIMM",
     // appBasePath: "http://www.91ymfq.com/XR/",
     path: "http://xingrongjinfu.iask.in:8886",
-    // path:"http://wangjuan6.free.ngrok.cc",
+    //path:"http://wangjuan6.free.ngrok.cc",
     // path:"http://192.168.1.17:8886",
     //path:"http://122.144.133.20:8088",
+    //  path:"http://101.132.32.72:8102",
     imgPath: "http://xrjf.oss-cn-shanghai.aliyuncs.com/",
     //path:"http://192.168.1.17:8088",
     user: localStorage.getItem("user") || "",
@@ -67204,7 +67205,7 @@ var Home = _react2.default.createClass({
 
 	componentWillMount: function componentWillMount() {},
 	toListDetail: function toListDetail(event) {
-		var loanId = event.target.getAttribute("data-loanId");
+		var loanId = event.currentTarget.getAttribute("data-loanId");
 		var data = { loanId: loanId };
 		var path = {
 			pathname: '/ListDetail',
@@ -67312,7 +67313,7 @@ var Home = _react2.default.createClass({
 				}
 				arr.push(_react2.default.createElement(
 					'div',
-					{ className: 'capitalList', key: i },
+					{ className: 'capitalList', key: i, 'data-loanId': loanList[i].loanId, onClick: that.toListDetail },
 					_react2.default.createElement(
 						'h3',
 						null,
@@ -67373,7 +67374,7 @@ var Home = _react2.default.createClass({
 							{ className: 'apply' },
 							_react2.default.createElement(
 								'a',
-								{ href: 'javascript:;', 'data-loanId': loanList[i].loanId, onClick: that.toListDetail },
+								{ href: 'javascript:;' },
 								'\u7533\u8BF7\u8D37\u6B3E'
 							)
 						)
@@ -67411,7 +67412,7 @@ var Home = _react2.default.createClass({
 						}
 						arr.push(_react2.default.createElement(
 							'div',
-							{ className: 'capitalList', key: i },
+							{ className: 'capitalList', key: i, 'data-loanId': loanList[i].loanId, onClick: that.toListDetail },
 							_react2.default.createElement(
 								'h3',
 								null,
@@ -67472,7 +67473,7 @@ var Home = _react2.default.createClass({
 									{ className: 'apply' },
 									_react2.default.createElement(
 										'a',
-										{ href: 'javascript:;', 'data-loanId': loanList[i].loanId, onClick: that.toListDetail },
+										{ href: 'javascript:;' },
 										'\u7533\u8BF7\u8D37\u6B3E'
 									)
 								)
@@ -69342,6 +69343,24 @@ var Save = _react2.default.createClass({
 			this.toNewsDetail(detailId);
 		}
 	},
+	toLoanDetail: function toLoanDetail(event) {
+		var detailId = event.currentTarget.getAttribute("data-id");
+		var data = { loanId: detailId };
+		var path = {
+			pathname: '/ListDetail',
+			query: data
+		};
+		_reactRouter.hashHistory.push(path);
+	},
+	toZiDetail: function toZiDetail(event) {
+		var detailId = event.currentTarget.getAttribute("data-id");
+		var data = { articleId: detailId };
+		var path = {
+			pathname: '/NewsDetail',
+			query: data
+		};
+		_reactRouter.hashHistory.push(path);
+	},
 	loadData: function loadData(downOrUp, callback) {
 		var that = this;
 		var key1 = _global.globalData.key;
@@ -69367,9 +69386,10 @@ var Save = _react2.default.createClass({
 					var total = data.total;
 					var articleArr = [];
 					for (var i in articleList) {
+						//articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndArticle}>
 						articleArr.push(_react2.default.createElement(
 							'dl',
-							{ className: 'newsList', 'data-id': articleList[i].articleId, 'data-articleid': articleList[i].markId, key: Math.random(), onTouchStart: that.touchStart, onTouchEnd: that.touchEndArticle },
+							{ className: 'newsList', 'data-id': articleList[i].articleId, 'data-articleid': articleList[i].markId, key: Math.random(), onClick: that.toZiDetail },
 							_react2.default.createElement(
 								'dd',
 								null,
@@ -69437,9 +69457,10 @@ var Save = _react2.default.createClass({
 					var total = data.total;
 					//console.log(data);
 					for (var i in loanList) {
+						//arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndLoan}>
 						arr.push(_react2.default.createElement(
 							'div',
-							{ className: 'capitalList', 'data-id': loanList[i].loanId, 'data-articleid': loanList[i].markId, key: Math.random(), onTouchStart: that.touchStart, onTouchEnd: that.touchEndLoan },
+							{ className: 'capitalList', 'data-id': loanList[i].loanId, 'data-articleid': loanList[i].markId, key: Math.random(), onClick: that.toLoanDetail },
 							_react2.default.createElement(
 								'h3',
 								null,
@@ -69729,7 +69750,7 @@ var ProList = function (_Component) {
 		};
 
 		_this.toListDetail = function (event) {
-			var loanId = event.target.getAttribute("data-loanId");
+			var loanId = event.currentTarget.getAttribute("data-loanId");
 			var data = { loanId: loanId };
 			var path = {
 				pathname: '/ListDetail',
@@ -69846,7 +69867,7 @@ var ProList = function (_Component) {
 							}
 							arr.push(_react2.default.createElement(
 								'div',
-								{ className: 'capitalList', key: Math.random() },
+								{ className: 'capitalList', key: Math.random(), 'data-loanId': loanList[i].loanId, onClick: that.toListDetail },
 								_react2.default.createElement(
 									'h3',
 									null,
@@ -69907,7 +69928,7 @@ var ProList = function (_Component) {
 										{ className: 'apply' },
 										_react2.default.createElement(
 											'a',
-											{ href: 'javascript:;', 'data-loanId': loanList[i].loanId, onClick: that.toListDetail },
+											{ href: 'javascript:;' },
 											'\u7533\u8BF7\u8D37\u6B3E'
 										)
 									)
@@ -114150,10 +114171,10 @@ var IdCard = _react2.default.createClass({
                     userObj.frontPic = data.frontPic;
                     localStorage.setItem("user", JSON.stringify(userObj));
                     _global.globalData.user = JSON.stringify(userObj);
-                    var queryData = {};
+                    //var queryData = {};
                     var path = {
-                        pathname: '/Mine',
-                        state: queryData
+                        pathname: '/Mine'
+                        //  state: queryData,
                     };
                     _reactRouter.hashHistory.push(path);
                 } else if (res.code == "5555") {
@@ -114383,8 +114404,9 @@ var UserInfo = _react2.default.createClass({
                         console.log(data);
                         var user = that.state.user;
                         user.headPic = data.headPicPath;
+                        that.setState({ headPic: data.headPicPath });
                         _global.globalData.user = JSON.stringify(user);
-                        localStorage.setItem("user", user);
+                        localStorage.setItem("user", JSON.stringify(user));
                         console.log(user);
                         toast.show("头像设置成功", 2000);
                     } else if (res.code == "5555") {
