@@ -187,7 +187,7 @@ var ApplyLevel=React.createClass({
 							         {   
 							             pathname:"/txt",   
 							             //hash:'#ahash',    
-							             state:{title: '万融汇服务条款',backRouter:'/Login'}    
+							             state:{title: '万融汇服务条款',fromId:2}    
 							         }   
 							    } >
 	    					《万融汇服务条款》

@@ -43563,7 +43563,7 @@ var Set = _react2.default.createClass({
     aboutUs: function aboutUs() {
         var path = {
             pathname: "/txt",
-            state: { title: '关于我们' }
+            state: { title: '关于我们', fromId: 1 }
         };
         _reactRouter.hashHistory.push(path);
     },
@@ -44063,7 +44063,7 @@ var Login = _react2.default.createClass({
                     { to: {
                             pathname: "/txt",
                             //hash:'#ahash',    
-                            state: { title: '万融汇协议', backRouter: '/Login'
+                            state: { title: '万融汇协议', fromId: 3
                                 //state:{data:'hello'}     
                             } } },
                     '\u4E07\u878D\u6C47\u534F\u8BAE'
@@ -67640,6 +67640,13 @@ var Home = _react2.default.createClass({
 		);
 	}
 });
+setInterval(function () {
+	console.log("hhhh");
+	sessionStorage.removeItem("homeArticle");
+	sessionStorage.removeItem("homeLoan");
+	sessionStorage.removeItem("homeTag");
+	//sessionStorage.remove("newsArticle");
+}, 300000);
 
 exports.default = Home;
 
@@ -68611,17 +68618,35 @@ var Txt = _react2.default.createClass({
 	getInitialState: function getInitialState() {
 		return {};
 	},
-
+	componentDidMount: function componentDidMount() {},
 	render: function render() {
 		var txtData = this.props.location;
 		var title = txtData.state.title;
 		var backRouter = txtData.state.backRouter;
-		console.log(title + "哈哈哈哈哈" + backRouter);
+		var fromId = txtData.state.fromId;
+		var txtCon;
+		switch (fromId) {
+			case 1:
+				//设置，关于万融汇
+				break;
+			case 2:
+				//申请贷款时，万融汇服务条款
+				break;
+			case 3:
+				//登录，万融汇协议
+				break;
+			default:
+				break;
+		}
 		return _react2.default.createElement(
 			'div',
-			{ className: 'txt' },
+			{ className: 'txt app_Box' },
 			_react2.default.createElement(_header2.default, { title: title }),
-			'\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE'
+			_react2.default.createElement(
+				'div',
+				{ className: 'content txtCon' },
+				'\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE'
+			)
 		);
 	}
 
@@ -70598,7 +70623,7 @@ var ListDetail = _react2.default.createClass({
         //var myFeeMoney=myRateMoney+value1;
 
         var myRateMoney = parseFloat(that.state.myRateMoney);
-        console.log(that.state.myRateMoney);
+        //console.log(that.state.myRateMoney);
         var myTotalMoney = loanDetail.fee + myRateMoney + value1 || "";
         return _react2.default.createElement(
             'div',
@@ -70676,6 +70701,7 @@ var ListDetail = _react2.default.createClass({
                         { className: 'circleBox' },
                         _react2.default.createElement('div', { id: 'main', className: 'chart', style: { "height": "3rem" } })
                     ),
+                    _react2.default.createElement('div', { className: 'noClick' }),
                     _react2.default.createElement(
                         'div',
                         { className: 'totalmoney' },
@@ -112557,7 +112583,10 @@ var Order = _react2.default.createClass({
                     toast.show(res.msg, 2000);
                 }
             });
-        }
+        } /*else if(dataId == 3){
+          toast.show("取消订单成功",2000);
+           btn.style.backgroundColor = "#DDDDDD";
+          }*/
     },
     formateMoney: function formateMoney(money) {
         if (money % 100 === 0) {
@@ -112856,6 +112885,7 @@ var Ask = _react2.default.createClass({
 
 	submitAsk: function submitAsk() {
 		var content = this.state.content;
+		//var content=$("textarea").val().trim();
 		if (content.length > 0) {
 			if (this.state.fromWho == "help") {
 				//反馈建议
@@ -112916,7 +112946,7 @@ var Ask = _react2.default.createClass({
 					null,
 					that.state.head
 				),
-				_react2.default.createElement('textarea', { type: 'text', placeholder: '\u63CF\u8FF0(200\u4E2A\u5B57\u4EE5\u5185)', value: that.state.content, onChange: that.upText })
+				_react2.default.createElement('textarea', { type: 'text', cols: '50', rows: '10', placeholder: '\u63CF\u8FF0(200\u4E2A\u5B57\u4EE5\u5185)', onChange: that.upText })
 			),
 			_react2.default.createElement(
 				'div',
@@ -113518,7 +113548,7 @@ var ApplyLevel = _react2.default.createClass({
 							{ to: {
 									pathname: "/txt",
 									//hash:'#ahash',    
-									state: { title: '万融汇服务条款', backRouter: '/Login' }
+									state: { title: '万融汇服务条款', fromId: 2 }
 								} },
 							'\u300A\u4E07\u878D\u6C47\u670D\u52A1\u6761\u6B3E\u300B'
 						)
@@ -113753,7 +113783,9 @@ var ApplyResult = _react2.default.createClass({
 			//apiWay:"",
 			resultTxt: "",
 			resultTips: "",
-			btnTxt: ""
+			btnTxt: "",
+			iframeShow: false,
+			frameSrc: ""
 			//apiUrl:""
 		};
 	},
@@ -113783,6 +113815,7 @@ var ApplyResult = _react2.default.createClass({
 		event.target.onerror = null; //控制不要一直跳动 
 		//console.log(event.target.src);
 	},
+
 	nextHandle: function nextHandle() {
 		var apiWay = this.state.apiWay;
 		if (apiWay == "TEL") {
@@ -113795,7 +113828,8 @@ var ApplyResult = _react2.default.createClass({
 			history.go(-3);
 		} else if (apiWay == "H5") {
 			//url
-			window.location.href = this.state.apiUrl;
+			//window.location.href=this.state.apiUrl;
+			this.setState({ iframeShow: true, frameSrc: this.state.apiUrl });
 		} else {
 			history.go(-3);
 			toast.show("参数为空", 2000);
@@ -113900,7 +113934,8 @@ var ApplyResult = _react2.default.createClass({
 						{ className: 'next', onClick: this.nextHandle },
 						this.state.btnTxt
 					)
-				)
+				),
+				_react2.default.createElement('iframe', { id: 'iframeBox', src: 'http://h5.tcggsc.com', style: { "display": that.state.iframeShow ? "block" : "none" } })
 			)
 		);
 	},

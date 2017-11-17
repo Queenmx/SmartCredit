@@ -93,6 +93,13 @@
       .listDetail .circle .totalmoney p {
         color: #333333;
         font-size: 0.24rem; }
+    .listDetail .circle .noClick {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 0; }
     .listDetail .circle .circlePic {
       width: 50%;
       float: left; }

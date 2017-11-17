@@ -54,7 +54,7 @@ var Set = React.createClass({
     aboutUs: function () {
         let path = {
             pathname: "/txt",
-            state: { title: '关于我们' }
+            state: { title: '关于我们',fromId:1 }
         }
         hashHistory.push(path);
     },

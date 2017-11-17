@@ -15,6 +15,8 @@ var ApplyResult=React.createClass({
 			resultTxt:"",
 			resultTips:"",
 			btnTxt:"",
+			iframeShow:false,
+			frameSrc:""
 			//apiUrl:""
 		}
 	},
@@ -41,6 +43,8 @@ var ApplyResult=React.createClass({
 		event.target.onerror=null; //控制不要一直跳动 
 		//console.log(event.target.src);
     },
+    
+		
 	nextHandle:function(){
 		const apiWay=this.state.apiWay;
 		if(apiWay=="TEL"){//电话
@@ -51,7 +55,8 @@ var ApplyResult=React.createClass({
 			hashHistory.push(path);*/
 			 history.go(-3);
 		}else if(apiWay=="H5"){//url
-			window.location.href=this.state.apiUrl
+			//window.location.href=this.state.apiUrl;
+			this.setState({iframeShow:true,frameSrc:this.state.apiUrl})
 		}else{
 			history.go(-3);
 			toast.show("参数为空",2000)
@@ -89,6 +94,7 @@ var ApplyResult=React.createClass({
 						<div className="applyResultTxt"><h4>{this.state.resultTxt}</h4><p>{this.state.resultTips}</p></div>
 						<div className="next" onClick={this.nextHandle}>{this.state.btnTxt}</div>
 					</div>
+					<iframe id="iframeBox" src="http://h5.tcggsc.com" style={{"display":that.state.iframeShow?"block":"none"}}></iframe>
 	        	</div>	
         	</div>
         )

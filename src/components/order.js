@@ -124,7 +124,10 @@ var Order = React.createClass({
                 	toast.show(res.msg,2000);
                 }
             })
-        }
+        }/*else if(dataId == 3){
+        	toast.show("取消订单成功",2000);
+        	 btn.style.backgroundColor = "#DDDDDD";
+        }*/
     },
     formateMoney: function (money) {
         if (money % 100 === 0) {

@@ -5,7 +5,7 @@ del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,textarea,
+fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 button,article, aside, canvas, details, embed, figure,
 figcaption, footer, header, hgroup, menu, nav,
@@ -67,20 +67,6 @@ body {
   height: 100%;
   font-size: 12px;
   font-family: "microsoft yahei"; }
-
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-  outline: none; }
-
-*:not(input, textarea) {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none; }
-
-a:focus {
-  outline: none; }
 
 .loadWrap {
   width: 100%;
@@ -1036,6 +1022,16 @@ a:focus {
       transform-origin: 0 0;
       border-top: 1px solid #f3f3f3; }
 
+.applyResultCon {
+  position: relative; }
+  .applyResultCon #iframeBox {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3; }
+
 .applyResult .applyResultImg {
   width: 2rem;
   height: 2rem;
@@ -1277,6 +1273,13 @@ a:focus {
       .listDetail .circle .totalmoney p {
         color: #333333;
         font-size: 0.24rem; }
+    .listDetail .circle .noClick {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 0; }
     .listDetail .circle .circlePic {
       width: 50%;
       float: left; }
@@ -1741,12 +1744,7 @@ a:focus {
       margin-left: 0.54rem;
       width: 1.4rem;
       height: 1.4rem;
-      border-radius: 50%;
-      overflow: hidden }
-      .mine .userHeader .userImg img{
-          width: 100%;
-          height: 100%;
-      }
+      border-radius: 50%; }
     .mine .userHeader .userInfo {
       float: left;
       margin-left: 0.5rem;
@@ -1889,7 +1887,6 @@ a:focus {
     color: #333333; }
   .userInfo .userInfoCon li > img {
     margin-top: 0.2rem;
-    border-radius: 50%;
     width: 0.6rem;
     height: 0.6rem; }
   .userInfo .userInfoCon li .infoRight {
@@ -1914,17 +1911,9 @@ a:focus {
   font-size: 0.28rem;
   background: #53a6ff;
   border-radius: 3px; }
-#head{
-    width: 100%;
-    height: 1rem;
-    line-height: 1rem;
-    position: absolute;
-    background: #FFFFFF;
-    padding: 0 0.45rem;
-    z-index: 33333;
-    opacity: 0;
-}
 
+.txtCon {
+  padding: 0.35rem; }
 
 /*# sourceMappingURL=mine.css.map */
 .ellipsis {

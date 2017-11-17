@@ -326,7 +326,13 @@ var Home=React.createClass({
         )
 	}
 });
-
+setInterval(function(){
+	console.log("hhhh")
+	sessionStorage.removeItem("homeArticle");
+	sessionStorage.removeItem("homeLoan");
+	sessionStorage.removeItem("homeTag");
+	//sessionStorage.remove("newsArticle");
+	},300000)
 
 export default Home;
 

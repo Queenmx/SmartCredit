@@ -551,6 +551,7 @@ var ListDetail = React.createClass({
                     	<div className="circleBox">
                             <div id="main" className="chart" style={{ "height": "3rem" }}></div>
                         </div>
+                        <div className="noClick"></div>
                         <div className="totalmoney"><p>{myTotalMoney}元</p>还款金额</div>
                     </div>
                     <div className="moneyDetailBox">

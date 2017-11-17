@@ -360,7 +360,7 @@ var Login = React.createClass({
                         {
                             pathname: "/txt",
                             //hash:'#ahash',    
-                            state: { title: '万融汇协议', backRouter: '/Login' }
+                            state: { title: '万融汇协议', fromId: 3 }
                             //state:{data:'hello'}     
                         }
                     } >
