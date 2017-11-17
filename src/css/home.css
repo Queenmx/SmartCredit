@@ -146,7 +146,8 @@
       margin-left: 0.35rem; }
 
 .listWrap {
-  position: relative; }
+  position: relative;
+  height: 100%; }
 
 .saveCon {
   display: -webkit-box;
@@ -176,15 +177,38 @@
   -ms-flex-direction: column;
   -o-flex-direction: column;
   flex-direction: column; }
+  .newsCon h3 {
+    margin-top: 0.15rem;
+    height: .8rem;
+    padding-left: .35rem;
+    line-height: .8rem;
+    color: #333;
+    font-size: .28rem;
+    position: relative;
+    background: #FFFFFF; }
+    .newsCon h3:after {
+      pointer-events: none;
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      content: "";
+      -webkit-transform: scale(0.5);
+      -webkit-transform-origin: 0 0;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+      border-bottom: 1px solid #f3f3f3; }
 
 .newsBox {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   -webkit-flex: 1;
   -ms-flex: 1;
-  flex: 1;
-  margin-top: 0.15rem; }
+  flex: 1; }
   .newsBox h3 {
+    margin-top: 0.15rem;
     height: .8rem;
     padding-left: .35rem;
     line-height: .8rem;

@@ -26,6 +26,7 @@ var Header=React.createClass({
 	},
 	toBack:function(){
 		const backRouter = this.props.backRouter;
+		console.log(backRouter);
         if (backRouter) {
             hashHistory.push(backRouter);
           /*hashHistory.push({  

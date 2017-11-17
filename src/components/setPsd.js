@@ -84,7 +84,7 @@ var SetPsd=React.createClass({
 						toast.show("密码设置成功,请登录",2000);
 						localStorage.setItem("phoneNum",phoneNum);
 						var path = {
-						  pathname:'/Login/',
+						  pathname:'/Login/Mine',
 							}
 						hashHistory.push(path);
 					}else{

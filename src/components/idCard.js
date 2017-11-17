@@ -35,6 +35,7 @@ var IdCard = React.createClass({
         api.identityUserCert(backImgData, faceImgData, function (res) {
             console.log(res);
             if (res.code == "0000") {
+            	toast.show("上传成功，等待审核", 2000);
                 that.setState({
                     flag: false
                 })
@@ -51,6 +52,7 @@ var IdCard = React.createClass({
                     state: queryData,
                 }
                 hashHistory.push(path);
+                
             } else if (res.code == "5555") {
                 that.setState({
                     flag: false
@@ -138,12 +140,12 @@ var IdCard = React.createClass({
                     <h4>万融汇依法保护你的个人信息</h4>
                     <div className="photoBox">
                         <input id="face" type="file" onChange={that.upload.bind(this, "#face", "#faceImg", "faceImg")} accept="image/*" />
-                        <img id="faceImg"  src={imgPath+that.state.frontPic} onError={that.state.errorFace}  />
+                        <img id="faceImg"  src={imgPath+that.state.frontPic} onError={that.errorFace}  />
                         <p>身份证人头像,图片清晰,边缘完整</p>
                     </div>
                     <div className="photoBox">
                         <input id="back" type="file" onChange={that.upload.bind(this, "#back", "#backImg", "backImg")} accept="image/*" />
-                        <img id="backImg"  src={imgPath+that.state.backPic} onError={that.state.errorback} />
+                        <img id="backImg"  src={imgPath+that.state.backPic} onError={that.errorback} />
                         <p>身份证反面照,图片清晰,边缘完整</p>
                     </div>
                 </div>

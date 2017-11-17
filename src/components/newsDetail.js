@@ -59,6 +59,9 @@ var NewsDetail = React.createClass({
 		        let toast = globalData.toast;
 		        api.articleDetail(that.state.articleId, function (res) {
 		            //console.log(res);
+			            that.setState({
+			            	flag:true
+			            })
 		            if (res.code == "0000") {
 		                let data = strDec(res.data, key1, "", "");
 		                let articleDetail = JSON.parse(data);
@@ -69,20 +72,34 @@ var NewsDetail = React.createClass({
 		                	api.delSave(that.state.markId, "ARTICLE", function (res) {
 			                    console.log(res);
 			                    if (res.code == "0000") {
+			                    	
 			                        that.setState({
-			                            isMark: 0
+			                            isMark: 0,
+			                            flag:false
 			                        })
 			                    } else {
+			                    	 that.setState({
+						            	flag:false
+						            })
 			                        toast.show(res.msg, 2000);
 			                    }
 			                }, function () {
+			                	 that.setState({
+					            	flag:false
+					            })
 			                    toast.show("连接错误", 2000);
 			                })
 		                })
 		            }else {
+		            	 that.setState({
+			            	flag:false
+			            })
 		                toast.show(res.msg, 2000);
 		            }
 		        }, function () {
+		        	 that.setState({
+			            	flag:false
+			            })
 		            toast.show("连接错误", 2000);
 		        })
 		        console.log(that.state.markId);

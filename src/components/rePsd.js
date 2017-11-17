@@ -38,7 +38,15 @@ var Repsd = React.createClass({
                     console.log(res);
            		 if (res.code == "0000") {
            		 	that.setState({isLoading:false})
-           		 	toast.show("修改成功", 2000);
+           		 	toast.show("修改成功,请重新登录", 2000);
+           		 	localStorage.removeItem("user");
+           		 	localStorage.removeItem("isLogin");
+           		 	globalData.user="";
+           		 	globalData.requestData.token="";
+           		 	var path = {
+					  pathname:'/Login/Mine',
+					}
+					hashHistory.push(path);
            		 }else if(res.code=="5555"){
            		 	that.setState({isLoading:false})
 					toast.show("登录过时，请重新登录",2000);

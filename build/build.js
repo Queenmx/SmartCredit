@@ -4711,9 +4711,9 @@ var globalData = {
     selectedCityName: '',
     key: "ZND171030APIMM",
     // appBasePath: "http://www.91ymfq.com/XR/",
-    //path: "http://xingrongjinfu.iask.in:8886",
+    path: "http://xingrongjinfu.iask.in:8886",
     // path:"http://wangjuan6.free.ngrok.cc",
-    path: "http://192.168.1.17:8886",
+    // path:"http://192.168.1.17:8886",
     //path:"http://122.144.133.20:8088",
     imgPath: "http://xrjf.oss-cn-shanghai.aliyuncs.com/",
     //path:"http://192.168.1.17:8088",
@@ -7071,6 +7071,7 @@ var Header = _react2.default.createClass({
 	},
 	toBack: function toBack() {
 		var backRouter = this.props.backRouter;
+		console.log(backRouter);
 		if (backRouter) {
 			_reactRouter.hashHistory.push(backRouter);
 			/*hashHistory.push({  
@@ -43761,7 +43762,14 @@ var Login = _react2.default.createClass({
                                 _global.globalData.requestData.token = user.token;
                                 toast.show("登录成功", 2000);
                                 //location.reload();
-                                window.history.back();
+                                //window.history.back();
+                                var backRouter = that.props.params.backRouter;
+                                console.log(backRouter);
+                                if (backRouter) {
+                                    _reactRouter.hashHistory.push(backRouter);
+                                } else {
+                                    window.history.back();
+                                }
                             } else {
                                 toast.show(res.msg, 2000);
                             }
@@ -43804,7 +43812,14 @@ var Login = _react2.default.createClass({
                                     _global.globalData.userId = user.userId;
                                     _global.globalData.requestData.token = user.token;
                                     toast.show("登录成功", 2000);
-                                    window.history.back();
+                                    // window.history.back();
+                                    var backRouter = that.props.params.backRouter;
+                                    console.log(backRouter);
+                                    if (backRouter) {
+                                        _reactRouter.hashHistory.push(backRouter);
+                                    } else {
+                                        window.history.back();
+                                    }
                                 } else {
                                     that.setState({
                                         flag: false
@@ -68123,13 +68138,13 @@ var News = function (_Component) {
 						)
 					),
 					_react2.default.createElement(
+						'h3',
+						null,
+						'\u4F60\u5173\u5FC3\u7684\u8D44\u8BAF'
+					),
+					_react2.default.createElement(
 						'div',
 						{ className: 'newsBox' },
-						_react2.default.createElement(
-							'h3',
-							null,
-							'\u4F60\u5173\u5FC3\u7684\u8D44\u8BAF'
-						),
 						_react2.default.createElement(
 							'div',
 							{ className: 'listWrap' },
@@ -68709,7 +68724,7 @@ var SetPsd = _react2.default.createClass({
 						toast.show("密码设置成功,请登录", 2000);
 						localStorage.setItem("phoneNum", phoneNum);
 						var path = {
-							pathname: '/Login/'
+							pathname: '/Login/Mine'
 						};
 						_reactRouter.hashHistory.push(path);
 					} else {
@@ -68860,6 +68875,9 @@ var NewsDetail = _react2.default.createClass({
                 var _toast = _global.globalData.toast;
                 _api2.default.articleDetail(that.state.articleId, function (res) {
                     //console.log(res);
+                    that.setState({
+                        flag: true
+                    });
                     if (res.code == "0000") {
                         var data = strDec(res.data, _key, "", "");
                         var articleDetail = JSON.parse(data);
@@ -68870,20 +68888,34 @@ var NewsDetail = _react2.default.createClass({
                             _api2.default.delSave(that.state.markId, "ARTICLE", function (res) {
                                 console.log(res);
                                 if (res.code == "0000") {
+
                                     that.setState({
-                                        isMark: 0
+                                        isMark: 0,
+                                        flag: false
                                     });
                                 } else {
+                                    that.setState({
+                                        flag: false
+                                    });
                                     _toast.show(res.msg, 2000);
                                 }
                             }, function () {
+                                that.setState({
+                                    flag: false
+                                });
                                 _toast.show("连接错误", 2000);
                             });
                         });
                     } else {
+                        that.setState({
+                            flag: false
+                        });
                         _toast.show(res.msg, 2000);
                     }
                 }, function () {
+                    that.setState({
+                        flag: false
+                    });
                     _toast.show("连接错误", 2000);
                 });
                 console.log(that.state.markId);
@@ -113860,7 +113892,7 @@ var Help = _react2.default.createClass({
 			_react2.default.createElement(
 				'div',
 				{ className: 'askBtn', onClick: this.toAsk },
-				'\u63D0\u95EE'
+				'\u53CD\u9988'
 			)
 		);
 	}
@@ -114059,6 +114091,7 @@ var IdCard = _react2.default.createClass({
         _api2.default.identityUserCert(backImgData, faceImgData, function (res) {
             console.log(res);
             if (res.code == "0000") {
+                toast.show("上传成功，等待审核", 2000);
                 that.setState({
                     flag: false
                 });
@@ -114165,7 +114198,7 @@ var IdCard = _react2.default.createClass({
                     'div',
                     { className: 'photoBox' },
                     _react2.default.createElement('input', { id: 'face', type: 'file', onChange: that.upload.bind(this, "#face", "#faceImg", "faceImg"), accept: 'image/*' }),
-                    _react2.default.createElement('img', { id: 'faceImg', src: imgPath + that.state.frontPic, onError: that.state.errorFace }),
+                    _react2.default.createElement('img', { id: 'faceImg', src: imgPath + that.state.frontPic, onError: that.errorFace }),
                     _react2.default.createElement(
                         'p',
                         null,
@@ -114176,7 +114209,7 @@ var IdCard = _react2.default.createClass({
                     'div',
                     { className: 'photoBox' },
                     _react2.default.createElement('input', { id: 'back', type: 'file', onChange: that.upload.bind(this, "#back", "#backImg", "backImg"), accept: 'image/*' }),
-                    _react2.default.createElement('img', { id: 'backImg', src: imgPath + that.state.backPic, onError: that.state.errorback }),
+                    _react2.default.createElement('img', { id: 'backImg', src: imgPath + that.state.backPic, onError: that.errorback }),
                     _react2.default.createElement(
                         'p',
                         null,
@@ -114523,7 +114556,15 @@ var Repsd = _react2.default.createClass({
                     console.log(res);
                     if (res.code == "0000") {
                         that.setState({ isLoading: false });
-                        toast.show("修改成功", 2000);
+                        toast.show("修改成功,请重新登录", 2000);
+                        localStorage.removeItem("user");
+                        localStorage.removeItem("isLogin");
+                        _global.globalData.user = "";
+                        _global.globalData.requestData.token = "";
+                        var path = {
+                            pathname: '/Login/Mine'
+                        };
+                        _reactRouter.hashHistory.push(path);
                     } else if (res.code == "5555") {
                         that.setState({ isLoading: false });
                         toast.show("登录过时，请重新登录", 2000);

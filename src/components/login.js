@@ -106,7 +106,14 @@ var Login = React.createClass({
                                 globalData.requestData.token = user.token;
                                 toast.show("登录成功", 2000);
                                 //location.reload();
-                                window.history.back();
+                                //window.history.back();
+                                const backRouter = that.props.params.backRouter;
+								console.log(backRouter);
+						        if (backRouter) {
+						            hashHistory.push(backRouter);
+						        } else {
+						            window.history.back()
+						        }
 								
                             } else {
                                 toast.show(res.msg, 2000);
@@ -153,7 +160,14 @@ var Login = React.createClass({
                                     globalData.userId = user.userId;
                                     globalData.requestData.token = user.token;
                                     toast.show("登录成功", 2000);
-                                    window.history.back();
+                                   // window.history.back();
+                                    const backRouter = that.props.params.backRouter;
+									console.log(backRouter);
+							        if (backRouter) {
+							            hashHistory.push(backRouter);
+							        } else {
+							            window.history.back()
+							        }
                                 } else {
                                 	that.setState({
 		                                flag: false

@@ -204,8 +204,8 @@ class News extends Component {
 					    </div>
 					    <div className="swiper-pagination">{that.state.paginationCustomRender}</div>
 					</div>
+					<h3>你关心的资讯</h3>
 					<div className="newsBox">
-			        	<h3>你关心的资讯</h3>
 				        <div className="listWrap">
 						 	{scollTxt}
 		        		</div>
