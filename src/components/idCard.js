@@ -20,6 +20,7 @@ var IdCard = React.createClass({
          var userObj=JSON.parse(user);
          this.setState({
          	userObj:userObj,
+         	certStatus:userObj.certStatus,
          	backPic:userObj.backPic,
          	frontPic:userObj.frontPic
          })
@@ -27,54 +28,63 @@ var IdCard = React.createClass({
     },
     finishID: function () {
         var that = this;
-        var faceImgData = that.state.faceImg;
-        var backImgData = that.state.backImg;
-        that.setState({
-            flag: true
-        })
-        api.identityUserCert(backImgData, faceImgData, function (res) {
-            console.log(res);
-            if (res.code == "0000") {
-            	toast.show("上传成功，等待审核", 2000);
-                that.setState({
-                    flag: false
-                })
-                var data = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log(data);
-               var userObj=that.state.userObj;
-                userObj.backPic=data.backPic;
-                userObj.frontPic=data.frontPic;
-                localStorage.setItem("user",JSON.stringify(userObj));
-                globalData.user=JSON.stringify(userObj);
-                var queryData = {};
-                var path = {
-                    pathname: '/Mine',
-                    state: queryData,
-                }
-                hashHistory.push(path);
-                
-            } else if (res.code == "5555") {
-                that.setState({
-                    flag: false
-                })
-                toast.show("登录过时，请重新登录", 2000);
-                var path = {
-                    pathname: '/Login',
-                }
-                hashHistory.push(path);
-            } else {
-                that.setState({
-                    flag: false
-                })
-                toast.show(res.msg, 2000);
-            }
-        }, function () {
-            that.setState({
-                flag: false
-            })
-            toast.show("连接错误", 2000);
-        })
+        var certStatus=that.state.certStatus;
+       if(this.state.certStatus==1){
+        		toast.show("认证已通过，无需重复上传",2000);
+       }else if(this.state.certStatus==0){
+        		toast.show("正在审核中，无需重复上传",2000);
+       }else{
+       		var faceImgData = that.state.faceImg;
+	        var backImgData = that.state.backImg;
+	        that.setState({
+	            flag: true
+	        })
+	        api.identityUserCert(backImgData, faceImgData, function (res) {
+	            console.log(res);
+	            if (res.code == "0000") {
+	            	toast.show("上传成功，等待审核", 2000);
+	                that.setState({
+	                    flag: false
+	                })
+	                var data = JSON.parse(strDec(res.data, key1, "", ""));
+	                console.log(data);
+	               var userObj=that.state.userObj;
+	                userObj.backPic=data.backPic;
+	                userObj.frontPic=data.frontPic;
+	                localStorage.setItem("user",JSON.stringify(userObj));
+	                globalData.user=JSON.stringify(userObj);
+	                var queryData = {};
+	                var path = {
+	                    pathname: '/Mine',
+	                    state: queryData,
+	                }
+	                hashHistory.push(path);
+	                
+	            } else if (res.code == "5555") {
+	                that.setState({
+	                    flag: false
+	                })
+	                toast.show("登录过时，请重新登录", 2000);
+	                var path = {
+	                    pathname: '/Login',
+	                }
+	                hashHistory.push(path);
+	            } else {
+	                that.setState({
+	                    flag: false
+	                })
+	                toast.show(res.msg, 2000);
+	            }
+	        }, function () {
+	            that.setState({
+	                flag: false
+	            })
+	            toast.show("连接错误", 2000);
+	        })
 
+       }
+        
+        
 
 
     },

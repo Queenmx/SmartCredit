@@ -67,7 +67,7 @@ var Set = React.createClass({
                 <div className="userInfoCon">
                     <ul className="setLi">
                         <li onClick={that.clearCache}><span>清空缓存</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
-                        <li onClick={that.aboutUs}><span>关于智能贷</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
+                        <li onClick={that.aboutUs}><span>关于万融汇</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
                     </ul>
                     <div className="quit" onClick={that.quitLogin}>退出当前帐号</div>
                 </div>

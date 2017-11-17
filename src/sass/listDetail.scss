@@ -52,6 +52,21 @@
       background: #ffffff;
      // padding: 0.35rem 0;
       @include clear_float;
+      position: relative;
+      .totalmoney{
+            width: 1.5rem;
+            height: 1rem;
+            position: absolute;
+            top: 42%;
+            left: 20%;
+            text-align: center;
+            color: #666666;
+            font-size: 0.2rem;
+        p{
+            color: #333333;
+            font-size: 0.24rem;
+        }
+      }
       .circlePic{
           width: 50%;
           float: left;

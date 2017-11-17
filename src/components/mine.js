@@ -31,6 +31,7 @@ var Mine = React.createClass({
             var userObj = JSON.parse(user);
             that.setState({
                 user: userObj,
+                certStatus:userObj.certStatus,
                 isLogin: true
             })
 
@@ -109,12 +110,32 @@ var Mine = React.createClass({
         hashHistory.push(path);
     },
     toIdCard: function () {
+    	var toast = globalData.toast;
         if (this.state.isLogin) {
-            var path = {
-                pathname: '/idCard',
-                //query:data,
-            }
-            hashHistory.push(path);
+        	console.log(this.state.certStatus);
+        	if(this.state.certStatus==1){
+        		toast.show("认证已通过，无需重复上传",2000);
+        		var path = {
+	                pathname: '/idCard',
+	                //query:data,
+	            }
+	            hashHistory.push(path);
+        		
+        	}else if(this.state.certStatus==0){
+        		toast.show("正在审核中，无需重复上传",2000);
+        		var path = {
+	                pathname: '/idCard',
+	                //query:data,
+	            }
+	            hashHistory.push(path);
+        	}else{
+        		var path = {
+	                pathname: '/idCard',
+	                //query:data,
+	            }
+	            hashHistory.push(path);
+        	}
+            
         } else {
             var path = {
                 pathname: '/Login/Mine',

@@ -43599,7 +43599,7 @@ var Set = _react2.default.createClass({
                         _react2.default.createElement(
                             'span',
                             null,
-                            '\u5173\u4E8E\u667A\u80FD\u8D37'
+                            '\u5173\u4E8E\u4E07\u878D\u6C47'
                         ),
                         _react2.default.createElement(
                             'div',
@@ -67897,7 +67897,8 @@ var News = function (_Component) {
 			};
 			_reactRouter.hashHistory.push(path);
 		};
-
+		_this.handleRefresh = _this.handleRefresh.bind(_this);
+		_this.loadData = _this.loadData.bind(_this);
 		_this.logoError = function (event) {
 			event.target.src = "src/img/icon/capitalLogo.jpg";
 			event.target.onerror = null; //控制不要一直跳动 
@@ -67911,13 +67912,15 @@ var News = function (_Component) {
 		value: function handleRefresh(downOrUp, callback) {
 			//真实的世界中是从后端取页面和判断是否是最后一页
 			var that = this;
+			console.log(this);
+			console.log(that);
 			var _that$state = that.state,
 			    currentPage = _that$state.currentPage,
 			    lastPage = _that$state.lastPage,
 			    pageSize = _that$state.pageSize,
 			    totalPage = _that$state.totalPage;
 
-
+			console.log(that.state);
 			console.log(totalPage);
 			if (downOrUp === 'up') {
 				// 加载更多
@@ -68104,6 +68107,7 @@ var News = function (_Component) {
 			var that = this;
 			var scollTxt = [];
 			if (that.state.scrollShow) {
+				//if(true){
 				scollTxt.push(_react2.default.createElement(
 					_reactjsIscroll2.default,
 					{ iScroll: _iscrollProbe2.default, key: Math.random(), handleRefresh: this.handleRefresh },
@@ -68287,6 +68291,7 @@ var Mine = _react2.default.createClass({
             var userObj = JSON.parse(user);
             that.setState({
                 user: userObj,
+                certStatus: userObj.certStatus,
                 isLogin: true
             });
         } else {
@@ -68363,12 +68368,30 @@ var Mine = _react2.default.createClass({
         _reactRouter.hashHistory.push(path);
     },
     toIdCard: function toIdCard() {
+        var toast = _global.globalData.toast;
         if (this.state.isLogin) {
-            var path = {
-                pathname: '/idCard'
-                //query:data,
-            };
-            _reactRouter.hashHistory.push(path);
+            console.log(this.state.certStatus);
+            if (this.state.certStatus == 1) {
+                toast.show("认证已通过，无需重复上传", 2000);
+                var path = {
+                    pathname: '/idCard'
+                    //query:data,
+                };
+                _reactRouter.hashHistory.push(path);
+            } else if (this.state.certStatus == 0) {
+                toast.show("正在审核中，无需重复上传", 2000);
+                var path = {
+                    pathname: '/idCard'
+                    //query:data,
+                };
+                _reactRouter.hashHistory.push(path);
+            } else {
+                var path = {
+                    pathname: '/idCard'
+                    //query:data,
+                };
+                _reactRouter.hashHistory.push(path);
+            }
         } else {
             var path = {
                 pathname: '/Login/Mine'
@@ -69714,7 +69737,8 @@ var ProList = function (_Component) {
 			};
 			_reactRouter.hashHistory.push(path);
 		};
-
+		_this.handleRefresh = _this.handleRefresh.bind(_this);
+		_this.loadData = _this.loadData.bind(_this);
 		_this.logoError = function (event) {
 			event.target.src = "src/img/icon/capitalLogo.jpg";
 			event.target.onerror = null; //控制不要一直跳动 
@@ -69937,6 +69961,7 @@ var ProList = function (_Component) {
 			var that = this;
 			var scollTxt = [];
 			if (that.state.scrollShow) {
+				//if(true){
 				scollTxt.push(_react2.default.createElement(
 					_reactjsIscroll2.default,
 					{ iScroll: _iscrollProbe2.default, key: Math.random(), handleRefresh: this.handleRefresh },
@@ -70014,9 +70039,11 @@ var _echarts2 = _interopRequireDefault(_echarts);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var appBasePath = _global.globalData.appBasePath;
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 // 引入 ECharts 主模块
 
+
+var appBasePath = _global.globalData.appBasePath;
 var ListDetail = _react2.default.createClass({
     displayName: 'ListDetail',
 
@@ -70368,6 +70395,8 @@ var ListDetail = _react2.default.createClass({
     },
 
     chart: function chart() {
+        var _ref;
+
         var that = this;
         var day1 = that.state.limitType == "D" ? '天' : "个月";
         var day2 = that.state.rateType == "D" ? '天' : "个月";
@@ -70395,33 +70424,28 @@ var ListDetail = _react2.default.createClass({
                     color: "#aaaaaa"
                 }
             },
-            series: [{
+            series: [(_ref = {
                 name: "资金比例",
                 type: "pie",
                 silent: true,
-                radius: ["60%", "80%"],
-                center: ["30%", "50%"],
-                avoidLabelOverlap: false,
-                label: {
-                    normal: {
-                        show: false,
-                        position: "center"
-                    },
-                    emphasis: {
-                        show: true,
-                        textStyle: {
-                            fontSize: "30",
-                            fontWeight: "bold"
-                        }
-                    }
+                hoverAnimation: false
+            }, _defineProperty(_ref, 'silent', true), _defineProperty(_ref, 'radius', ["50%", "70%"]), _defineProperty(_ref, 'center', ["30%", "50%"]), _defineProperty(_ref, 'avoidLabelOverlap', false), _defineProperty(_ref, 'label', {
+                normal: {
+                    show: false,
+                    position: "center"
                 },
-                labelLine: {
-                    normal: {
-                        show: false
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: "30",
+                        fontWeight: "bold"
                     }
-                },
-                data: [{ value: that.state.value1, name: loanMoney }, { value: that.state.myRateMoney, name: loanlixi }, { value: that.state.fee, name: loanFee }]
-            }]
+                }
+            }), _defineProperty(_ref, 'labelLine', {
+                normal: {
+                    show: false
+                }
+            }), _defineProperty(_ref, 'data', [{ value: that.state.value1, name: loanMoney }, { value: that.state.myRateMoney, name: loanlixi }, { value: that.state.fee, name: loanFee }]), _ref)]
         });
     },
 
@@ -70510,7 +70534,7 @@ var ListDetail = _react2.default.createClass({
 
         var myRateMoney = parseFloat(that.state.myRateMoney);
         console.log(that.state.myRateMoney);
-        var myTotalMoney = loanDetail.fee + myRateMoney + value1;
+        var myTotalMoney = loanDetail.fee + myRateMoney + value1 || "";
         return _react2.default.createElement(
             'div',
             { className: 'app_Box listDetail' },
@@ -70546,7 +70570,8 @@ var ListDetail = _react2.default.createClass({
                             '\u989D\u5EA6\u8303\u56F4:',
                             loanDetail.moneyMin,
                             '~',
-                            loanDetail.moneyMax
+                            loanDetail.moneyMax,
+                            '\u5143'
                         )
                     ),
                     _react2.default.createElement(
@@ -70585,6 +70610,17 @@ var ListDetail = _react2.default.createClass({
                         'div',
                         { className: 'circleBox' },
                         _react2.default.createElement('div', { id: 'main', className: 'chart', style: { "height": "3rem" } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'totalmoney' },
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            myTotalMoney,
+                            '\u5143'
+                        ),
+                        '\u8FD8\u6B3E\u91D1\u989D'
                     )
                 ),
                 _react2.default.createElement(
@@ -70637,6 +70673,11 @@ var ListDetail = _react2.default.createClass({
                             '\u66F4\u591A\u56DE\u590D',
                             _react2.default.createElement('img', { src: 'src/img/icon/right.png' })
                         )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        that.state.problemList
                     )
                 )
             ),
@@ -112777,7 +112818,7 @@ var Ask = _react2.default.createClass({
 					null,
 					that.state.head
 				),
-				_react2.default.createElement('textarea', { placeholder: '\u63CF\u8FF0(200\u4E2A\u5B57\u4EE5\u5185)', value: that.state.content, onChange: that.upText })
+				_react2.default.createElement('textarea', { type: 'text', placeholder: '\u63CF\u8FF0(200\u4E2A\u5B57\u4EE5\u5185)', value: that.state.content, onChange: that.upText })
 			),
 			_react2.default.createElement(
 				'div',
@@ -114077,58 +114118,66 @@ var IdCard = _react2.default.createClass({
         var userObj = JSON.parse(user);
         this.setState({
             userObj: userObj,
+            certStatus: userObj.certStatus,
             backPic: userObj.backPic,
             frontPic: userObj.frontPic
         });
     },
     finishID: function finishID() {
         var that = this;
-        var faceImgData = that.state.faceImg;
-        var backImgData = that.state.backImg;
-        that.setState({
-            flag: true
-        });
-        _api2.default.identityUserCert(backImgData, faceImgData, function (res) {
-            console.log(res);
-            if (res.code == "0000") {
-                toast.show("上传成功，等待审核", 2000);
-                that.setState({
-                    flag: false
-                });
-                var data = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log(data);
-                var userObj = that.state.userObj;
-                userObj.backPic = data.backPic;
-                userObj.frontPic = data.frontPic;
-                localStorage.setItem("user", JSON.stringify(userObj));
-                _global.globalData.user = JSON.stringify(userObj);
-                var queryData = {};
-                var path = {
-                    pathname: '/Mine',
-                    state: queryData
-                };
-                _reactRouter.hashHistory.push(path);
-            } else if (res.code == "5555") {
-                that.setState({
-                    flag: false
-                });
-                toast.show("登录过时，请重新登录", 2000);
-                var path = {
-                    pathname: '/Login'
-                };
-                _reactRouter.hashHistory.push(path);
-            } else {
-                that.setState({
-                    flag: false
-                });
-                toast.show(res.msg, 2000);
-            }
-        }, function () {
+        var certStatus = that.state.certStatus;
+        if (this.state.certStatus == 1) {
+            toast.show("认证已通过，无需重复上传", 2000);
+        } else if (this.state.certStatus == 0) {
+            toast.show("正在审核中，无需重复上传", 2000);
+        } else {
+            var faceImgData = that.state.faceImg;
+            var backImgData = that.state.backImg;
             that.setState({
-                flag: false
+                flag: true
             });
-            toast.show("连接错误", 2000);
-        });
+            _api2.default.identityUserCert(backImgData, faceImgData, function (res) {
+                console.log(res);
+                if (res.code == "0000") {
+                    toast.show("上传成功，等待审核", 2000);
+                    that.setState({
+                        flag: false
+                    });
+                    var data = JSON.parse(strDec(res.data, key1, "", ""));
+                    console.log(data);
+                    var userObj = that.state.userObj;
+                    userObj.backPic = data.backPic;
+                    userObj.frontPic = data.frontPic;
+                    localStorage.setItem("user", JSON.stringify(userObj));
+                    _global.globalData.user = JSON.stringify(userObj);
+                    var queryData = {};
+                    var path = {
+                        pathname: '/Mine',
+                        state: queryData
+                    };
+                    _reactRouter.hashHistory.push(path);
+                } else if (res.code == "5555") {
+                    that.setState({
+                        flag: false
+                    });
+                    toast.show("登录过时，请重新登录", 2000);
+                    var path = {
+                        pathname: '/Login'
+                    };
+                    _reactRouter.hashHistory.push(path);
+                } else {
+                    that.setState({
+                        flag: false
+                    });
+                    toast.show(res.msg, 2000);
+                }
+            }, function () {
+                that.setState({
+                    flag: false
+                });
+                toast.show("连接错误", 2000);
+            });
+        }
     },
     componentDidMount: function componentDidMount() {
         /*api.userInfo(function(res){
@@ -114473,7 +114522,7 @@ var UserInfo = _react2.default.createClass({
                         _react2.default.createElement(
                             'b',
                             null,
-                            that.state.idCard == "" ? "未验证" : "已验证"
+                            that.state.idCard == "" ? "未验证" : "待审核"
                         ),
                         _react2.default.createElement('img', { src: 'src/img/icon/right.png' })
                     )

@@ -98,7 +98,7 @@ var Ask = React.createClass({
                 <Header title={that.state.title} />
                 <div className="askCon content">
                     <p>{that.state.head}</p>
-                    <textarea placeholder="描述(200个字以内)" value={that.state.content} onChange={that.upText}></textarea>
+                    <textarea type="text" placeholder="描述(200个字以内)" value={that.state.content} onChange={that.upText}></textarea>
                 </div>
                 <div className="botBtn" onClick={that.submitAsk}>提交</div>
             </div>

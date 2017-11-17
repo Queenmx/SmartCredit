@@ -348,7 +348,9 @@ var ListDetail = React.createClass({
                         name: "资金比例",
                         type: "pie",
                         silent: true,
-                        radius: ["60%", "80%"],
+                         hoverAnimation:false,
+            			silent:true,
+                        radius: ["50%", "70%"],
                         center: ["30%", "50%"],
                         avoidLabelOverlap: false,
                         label: {
@@ -467,10 +469,10 @@ var ListDetail = React.createClass({
         //var myRateMoney=value2*myRate*value1*0.01;
         //myRateMoney=parseFloat(myRateMoney.toFixed(2)); 
         //var myFeeMoney=myRateMoney+value1;
-        
+       
         var myRateMoney = parseFloat(that.state.myRateMoney);
         console.log(that.state.myRateMoney);
-        var myTotalMoney = loanDetail.fee + myRateMoney + value1;
+        var myTotalMoney = (loanDetail.fee + myRateMoney + value1)||"";
         return (
             <div className="app_Box listDetail">
                 <Header title={loanDetail.loanName} />
@@ -486,7 +488,7 @@ var ListDetail = React.createClass({
                                     <span>元</span>
                                 </div>
                             </div>
-                            <p>额度范围:{loanDetail.moneyMin}~{loanDetail.moneyMax}</p>
+                            <p>额度范围:{loanDetail.moneyMin}~{loanDetail.moneyMax}元</p>
                         </li>
                         <li>
                             <div className="numBox">
@@ -504,6 +506,7 @@ var ListDetail = React.createClass({
                     	<div className="circleBox">
                             <div id="main" className="chart" style={{ "height": "3rem" }}></div>
                         </div>
+                        <div className="totalmoney"><p>{myTotalMoney}元</p>还款金额</div>
                     </div>
                     <div className="moneyDetailBox">
                         <div className="moneyDetail" style={{ "display": that.state.isShowDetail ? "block" : "none" }} dangerouslySetInnerHTML={{__html: loanDetail.loanIntro}}></div>
@@ -524,7 +527,7 @@ var ListDetail = React.createClass({
                         </div>
 
                         <h2 onClick={this.toProblem}>常见问题<span>更多回复<img src="src/img/icon/right.png" /></span></h2>
-                       {/* <div>{that.state.problemList}</div>*/}
+                        <div>{that.state.problemList}</div>
                     </div>
                 </div>
 

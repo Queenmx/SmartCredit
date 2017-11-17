@@ -28,8 +28,8 @@ class News extends Component {
 			}
 			hashHistory.push(path);
 		}
-	
-	  
+		this.handleRefresh = this.handleRefresh.bind(this);
+	  	this.loadData = this.loadData.bind(this);
 	    this.logoError=(event)=>{
 	    	event.target.src="src/img/icon/capitalLogo.jpg";
 			event.target.onerror=null; //控制不要一直跳动 
@@ -39,8 +39,10 @@ class News extends Component {
   handleRefresh(downOrUp, callback) {
     //真实的世界中是从后端取页面和判断是否是最后一页
     var that=this;
+    console.log(this);
+    console.log(that);
     let {currentPage, lastPage,pageSize,totalPage} = that.state;
-   
+   console.log(that.state);
     console.log(totalPage);
 	    if (downOrUp === 'up') { // 加载更多
 	      if (currentPage == totalPage) {
@@ -188,6 +190,7 @@ class News extends Component {
 		var that=this;
 		var scollTxt=[];
 		if(that.state.scrollShow){
+			//if(true){
 			scollTxt.push(<ReactIScroll iScroll={iScroll} key={Math.random()} handleRefresh={this.handleRefresh} >
 					        	{that.state.list}
 					        </ReactIScroll>)

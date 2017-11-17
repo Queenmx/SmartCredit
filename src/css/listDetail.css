@@ -74,12 +74,25 @@
         color: #aaaaaa;
         font-size: 0.22rem; }
   .listDetail .circle {
-    background: #ffffff; }
+    background: #ffffff;
+    position: relative; }
     .listDetail .circle:after {
       content: "";
       display: block;
       height: 0;
       clear: both; }
+    .listDetail .circle .totalmoney {
+      width: 1.5rem;
+      height: 1rem;
+      position: absolute;
+      top: 42%;
+      left: 20%;
+      text-align: center;
+      color: #666666;
+      font-size: 0.2rem; }
+      .listDetail .circle .totalmoney p {
+        color: #333333;
+        font-size: 0.24rem; }
     .listDetail .circle .circlePic {
       width: 50%;
       float: left; }

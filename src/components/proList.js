@@ -28,7 +28,8 @@ class ProList extends Component {
 			}
 			hashHistory.push(path);
 	    }
-	  
+	  this.handleRefresh = this.handleRefresh.bind(this);
+	  	this.loadData = this.loadData.bind(this);
 	    this.logoError=(event)=>{
 	    	event.target.src="src/img/icon/capitalLogo.jpg";
 			event.target.onerror=null; //控制不要一直跳动 
@@ -185,6 +186,7 @@ class ProList extends Component {
 		var that=this;
 		var scollTxt=[];
 		if(that.state.scrollShow){
+			//if(true){
 			scollTxt.push(<ReactIScroll iScroll={iScroll} key={Math.random()} handleRefresh={this.handleRefresh} >
 					        	{that.state.list}
 					        </ReactIScroll>)
