@@ -70228,6 +70228,47 @@ var ListDetail = _react2.default.createClass({
             _reactRouter.hashHistory.push(path);
         }
     },
+    //字符串转换为时间戳
+
+    getDateDiff: function getDateDiff(dateStr) {
+        var publishTime = dateStr / 1000,
+            d_seconds,
+            d_minutes,
+            d_hours,
+            d_days,
+            timeNow = parseInt(new Date().getTime() / 1000),
+            d,
+            date = new Date(publishTime * 1000),
+            Y = date.getFullYear(),
+            M = date.getMonth() + 1,
+            D = date.getDate(),
+            H = date.getHours(),
+            m = date.getMinutes(),
+            s = date.getSeconds();
+        //小于10的在前面补0
+        if (M < 10) {
+            M = '0' + M;
+        }
+        if (D < 10) {
+            D = '0' + D;
+        }
+        if (H < 10) {
+            H = '0' + H;
+        }
+        if (m < 10) {
+            m = '0' + m;
+        }
+        if (s < 10) {
+            s = '0' + s;
+        }
+
+        d = timeNow - publishTime;
+        d_days = parseInt(d / 86400);
+        d_hours = parseInt(d / 3600);
+        d_minutes = parseInt(d / 60);
+        d_seconds = parseInt(d);
+        return Y + '-' + M + '-' + D + ' ' + H + ':' + m;
+    },
 
     componentDidMount: function componentDidMount() {
         var that = this;
@@ -70343,7 +70384,7 @@ var ListDetail = _react2.default.createClass({
 
         //问题列表
         _api2.default.questionList(loanId, 1, 3, function (res) {
-            //console.log(res);
+            console.log(res);
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
                 var problemList = data.list;
@@ -70352,6 +70393,9 @@ var ListDetail = _react2.default.createClass({
                 var arr = [];
                 if (problemList.length > 0) {
                     for (var i in problemList) {
+                        var theTime = problemList[i].addTime.time;
+                        var theAddTime = that.getDateDiff(theTime);
+                        //console.log(theAddTime);
                         arr.push(_react2.default.createElement(
                             'div',
                             { className: 'problemList', key: i },
@@ -70368,7 +70412,7 @@ var ListDetail = _react2.default.createClass({
                                     'span',
                                     null,
                                     '\u63D0\u95EE\u65F6\u95F4:',
-                                    problemList[i].addTime
+                                    theAddTime
                                 )
                             ),
                             _react2.default.createElement(
@@ -70669,21 +70713,13 @@ var ListDetail = _react2.default.createClass({
                         null,
                         '\u7533\u8BF7\u6761\u4EF6'
                     ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'application' },
-                        loanDetail.loanCondition
-                    ),
+                    _react2.default.createElement('div', { className: 'application', dangerouslySetInnerHTML: { __html: loanDetail.loanCondition } }),
                     _react2.default.createElement(
                         'h2',
                         null,
                         '\u6240\u9700\u6750\u6599'
                     ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'application' },
-                        loanDetail.loanDoc
-                    ),
+                    _react2.default.createElement('div', { className: 'application', dangerouslySetInnerHTML: { __html: loanDetail.loanDoc } }),
                     _react2.default.createElement(
                         'h2',
                         { onClick: this.toProblem },
@@ -112130,6 +112166,45 @@ var Problem = _react2.default.createClass({
 			_reactRouter.hashHistory.push(path);
 		}
 	},
+	getDateDiff: function getDateDiff(dateStr) {
+		var publishTime = dateStr / 1000,
+		    d_seconds,
+		    d_minutes,
+		    d_hours,
+		    d_days,
+		    timeNow = parseInt(new Date().getTime() / 1000),
+		    d,
+		    date = new Date(publishTime * 1000),
+		    Y = date.getFullYear(),
+		    M = date.getMonth() + 1,
+		    D = date.getDate(),
+		    H = date.getHours(),
+		    m = date.getMinutes(),
+		    s = date.getSeconds();
+		//小于10的在前面补0
+		if (M < 10) {
+			M = '0' + M;
+		}
+		if (D < 10) {
+			D = '0' + D;
+		}
+		if (H < 10) {
+			H = '0' + H;
+		}
+		if (m < 10) {
+			m = '0' + m;
+		}
+		if (s < 10) {
+			s = '0' + s;
+		}
+
+		d = timeNow - publishTime;
+		d_days = parseInt(d / 86400);
+		d_hours = parseInt(d / 3600);
+		d_minutes = parseInt(d / 60);
+		d_seconds = parseInt(d);
+		return Y + '-' + M + '-' + D + ' ' + H + ':' + m;
+	},
 	componentDidMount: function componentDidMount() {
 		var that = this;
 		that.loadData();
@@ -112160,6 +112235,8 @@ var Problem = _react2.default.createClass({
 				console.log(problemList);
 				if (problemList.length > 0) {
 					for (var i in problemList) {
+						var theTime = problemList[i].addTime.time;
+						var theAddTime = that.getDateDiff(theTime);
 						arr.push(_react2.default.createElement(
 							'div',
 							{ className: 'problemList', key: i },
@@ -112176,7 +112253,7 @@ var Problem = _react2.default.createClass({
 									'span',
 									null,
 									'\u63D0\u95EE\u65F6\u95F4:',
-									problemList[i].addTime
+									theAddTime
 								)
 							),
 							_react2.default.createElement(
@@ -114147,9 +114224,10 @@ var IdCard = _react2.default.createClass({
     finishID: function finishID() {
         var that = this;
         var certStatus = that.state.certStatus;
+        console.log(certStatus);
         if (this.state.certStatus == 1) {
             toast.show("认证已通过，无需重复上传", 2000);
-        } else if (this.state.certStatus == 0) {
+        } else if (this.state.certStatus === 0) {
             toast.show("正在审核中，无需重复上传", 2000);
         } else {
             var faceImgData = that.state.faceImg;

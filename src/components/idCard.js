@@ -29,9 +29,10 @@ var IdCard = React.createClass({
     finishID: function () {
         var that = this;
         var certStatus=that.state.certStatus;
+        console.log(certStatus);
        if(this.state.certStatus==1){
         		toast.show("认证已通过，无需重复上传",2000);
-       }else if(this.state.certStatus==0){
+       }else if(this.state.certStatus===0){
         		toast.show("正在审核中，无需重复上传",2000);
        }else{
        		var faceImgData = that.state.faceImg;

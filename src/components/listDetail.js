@@ -159,7 +159,49 @@ var ListDetail = React.createClass({
         }
 
     },
-
+    //字符串转换为时间戳
+	
+	getDateDiff: function (dateStr) {
+	    var publishTime = dateStr/1000,
+	        d_seconds,
+	        d_minutes,
+	        d_hours,
+	        d_days,
+	        timeNow = parseInt(new Date().getTime()/1000),
+	        d,
+	
+	        date = new Date(publishTime*1000),
+	        Y = date.getFullYear(),
+	        M = date.getMonth() + 1,
+	        D = date.getDate(),
+	        H = date.getHours(),
+	        m = date.getMinutes(),
+	        s = date.getSeconds();
+	        //小于10的在前面补0
+	        if (M < 10) {
+	            M = '0' + M;
+	        }
+	        if (D < 10) {
+	            D = '0' + D;
+	        }
+	        if (H < 10) {
+	            H = '0' + H;
+	        }
+	        if (m < 10) {
+	            m = '0' + m;
+	        }
+	        if (s < 10) {
+	            s = '0' + s;
+	        }
+	
+	    d = timeNow - publishTime;
+	    d_days = parseInt(d/86400);
+	    d_hours = parseInt(d/3600);
+	    d_minutes = parseInt(d/60);
+	    d_seconds = parseInt(d);
+		return Y + '-' + M + '-' + D + ' ' + H + ':' + m;
+	  
+	} ,
 
 
     componentDidMount: function () {
@@ -275,10 +317,10 @@ var ListDetail = React.createClass({
                 })
             toast.show("连接错误", 2000);
         })
-
+        
         //问题列表
         api.questionList(loanId, 1, 3, function (res) {
-            //console.log(res);
+            console.log(res);
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
                 var problemList = data.list;
@@ -287,11 +329,14 @@ var ListDetail = React.createClass({
                 var arr = [];
                 if (problemList.length > 0) {
                     for (var i in problemList) {
+                    	var theTime=problemList[i].addTime.time;
+                    	var theAddTime=that.getDateDiff(theTime);
+                    	//console.log(theAddTime);
                         arr.push(<div className="problemList" key={i}>
                             <div className="problemBlock">
                                 <img src="src/img/icon/problem.png" />
                                 <p>{problemList[i].content}</p>
-                                <span>提问时间:{problemList[i].addTime}</span>
+                                <span>提问时间:{theAddTime}</span>
                             </div>
                             <div className="answerBlock">
                                 <img src="src/img/icon/answer.png" />
@@ -471,7 +516,7 @@ var ListDetail = React.createClass({
         //var myFeeMoney=myRateMoney+value1;
        
         var myRateMoney = parseFloat(that.state.myRateMoney);
-        console.log(that.state.myRateMoney);
+        //console.log(that.state.myRateMoney);
         var myTotalMoney = (loanDetail.fee + myRateMoney + value1)||"";
         return (
             <div className="app_Box listDetail">
@@ -515,15 +560,12 @@ var ListDetail = React.createClass({
                     <div className="flowBox">
                         <h2>办理流程(门店办理)</h2>
                         <div className="flowPic" dangerouslySetInnerHTML={{__html: loanDetail.loanFlow}}>
-                        	
                         </div>
                         <h2>申请条件</h2>
-                        <div className="application">
-                            {loanDetail.loanCondition}
+                        <div className="application" dangerouslySetInnerHTML={{__html: loanDetail.loanCondition}}>
                         </div>
                         <h2>所需材料</h2>
-                        <div className="application">
-                            {loanDetail.loanDoc}
+                        <div className="application" dangerouslySetInnerHTML={{__html: loanDetail.loanDoc}}>
                         </div>
 
                         <h2 onClick={this.toProblem}>常见问题<span>更多回复<img src="src/img/icon/right.png" /></span></h2>
