@@ -12,6 +12,16 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical; }
 
+#head {
+  width: 100%;
+  height: 1rem;
+  line-height: 1rem;
+  position: absolute;
+  background: #FFFFFF;
+  padding: 0 0.45rem;
+  z-index: 33333;
+  opacity: 0; }
+
 .mine {
   background: #f3f3f3; }
   .mine .userHeader {

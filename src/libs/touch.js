@@ -158,7 +158,7 @@
 
     // scrolling the window indicates intention of the user
     // to scroll, not tap or swipe, so cancel all ongoing events
-    $(window).on('scroll', cancelAll)
+   // $(window).on('scroll', cancelAll)
   })
 
   ;['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown',

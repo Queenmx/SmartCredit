@@ -20814,7 +20814,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			bounceTime: 600,
 			bounceEasing: '',
 
-			preventDefault: true,
+			preventDefault: false,
 			preventDefaultException: { tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT)$/ },
 
 			HWCompositing: true,
@@ -70563,6 +70563,9 @@ var ListDetail = _react2.default.createClass({
             console.log(markId);
             if (that.state.isMark == 1) {
                 //已收藏,取消
+                that.setState({
+                    flag: true
+                });
                 _api2.default.loanDetail(objId, function (res) {
                     //console.log(res);
                     if (res.code == "0000") {
@@ -70576,19 +70579,32 @@ var ListDetail = _react2.default.createClass({
                                 console.log(res);
                                 if (res.code == "0000") {
                                     that.setState({
-                                        isMark: 0
+                                        isMark: 0,
+                                        flag: false
                                     });
                                 } else {
+                                    that.setState({
+                                        flag: false
+                                    });
                                     toast.show(res.msg, 2000);
                                 }
                             }, function () {
+                                that.setState({
+                                    flag: false
+                                });
                                 toast.show("连接错误", 2000);
                             });
                         });
                     } else {
+                        that.setState({
+                            flag: false
+                        });
                         toast.show(res.msg, 2000);
                     }
                 }, function () {
+                    that.setState({
+                        flag: false
+                    });
                     toast.show("连接错误", 2000);
                 });
             } else {
@@ -113935,7 +113951,7 @@ var ApplyResult = _react2.default.createClass({
 						this.state.btnTxt
 					)
 				),
-				_react2.default.createElement('iframe', { id: 'iframeBox', src: 'http://h5.tcggsc.com', style: { "display": that.state.iframeShow ? "block" : "none" } })
+				_react2.default.createElement('iframe', { id: 'iframeBox', src: this.state.frameSrc, style: { "display": that.state.iframeShow ? "block" : "none" } })
 			)
 		);
 	},

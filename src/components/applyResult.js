@@ -94,7 +94,7 @@ var ApplyResult=React.createClass({
 						<div className="applyResultTxt"><h4>{this.state.resultTxt}</h4><p>{this.state.resultTips}</p></div>
 						<div className="next" onClick={this.nextHandle}>{this.state.btnTxt}</div>
 					</div>
-					<iframe id="iframeBox" src="http://h5.tcggsc.com" style={{"display":that.state.iframeShow?"block":"none"}}></iframe>
+					<iframe id="iframeBox" src={this.state.frameSrc} style={{"display":that.state.iframeShow?"block":"none"}}></iframe>
 	        	</div>	
         	</div>
         )
