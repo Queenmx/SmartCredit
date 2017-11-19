@@ -107,6 +107,7 @@ var Order = React.createClass({
         var that = this;
         var key1 = globalData.key;
 		var toast=globalData.toast;
+		var $e=e.target;
         // e.target.style.backgroundColor = e.target.style.backgroundColor === "rgb(221, 221, 221)" ? "#53a6ff" : "rgb(221, 221, 221)";
         // console.log(e.target)
         var id = e.target.getAttribute('data-id');
@@ -119,13 +120,14 @@ var Order = React.createClass({
                 if (res.code == "0000") {
                 	toast.show("取消订单成功",2000);
                    btn.style.backgroundColor = "#DDDDDD";
-                   
+                  // btn.style.display = "none";
+                  $($e).parents("li").find(".orderNum span:nth-child(2)").html("已取消");                   
                 }else{
                 	toast.show(res.msg,2000);
                 }
             })
-        }/*else if(dataId == 3){
-        	toast.show("取消订单成功",2000);
+        }/*else if(dataId == 3||dataId == 4){
+        	//toast.show("取消订单成功",2000);
         	 btn.style.backgroundColor = "#DDDDDD";
         }*/
     },
@@ -164,10 +166,12 @@ var Order = React.createClass({
 					
 	                for (var i in orderList) {
 	                    var status = orderList[i].status;
+	                    //if(orderList[i].applyStatus== "APRYES"||orderList[i].applyStatus=="APRNO")
+	                    
 	                    arr.push(<li key={Math.random()}>
 	                        <div className="orderNum">
 	                            <span className="order_n">订单号：{orderList[i].applyNo}</span>
-	                            <span>{that.state.status[orderList[i].applyStatus].text}</span>
+	                            <span>{orderList[i].status==-2?"已取消":that.state.status[orderList[i].applyStatus].text}</span>
 	                        </div>
 	                        <h3 className="list_title">
 	                            <img src={'http://xrjf.oss-cn-shanghai.aliyuncs.com/' + orderList[i].logo} onError={that.logoError}/>
@@ -182,7 +186,7 @@ var Order = React.createClass({
 	                        </ul>
 	                        <div className="listFoot">
 	                            <span className="status">您的贷款申请已提交，我们会尽快处理</span>
-	                            <span onClick={that.toCancel} className='statusBtn' data-id={i} style={{ backgroundColor: status < 0 ? 'rgb(221, 221, 221)' : '#53a6ff' }}>
+	                            <span onClick={that.toCancel} className='statusBtn' data-id={i} style={{ backgroundColor: status < 0 ? 'rgb(221, 221, 221)' : '#53a6ff' ,'display':orderList[i].applyStatus== "APRYES"||orderList[i].applyStatus== "APRNO"? 'none':'block'}}>
 	                                {that.state.status[orderList[i].applyStatus].btntext}
 	                            </span>
 	                            {/* <span onClick={that.toCancel} className='statusBtn' data-id={that.state.status[orderList[i].applyStatus].dataId} data-sign={orderList[i].applyId} style={}>

@@ -44,9 +44,9 @@ var Help=React.createClass({
         	<div className="app_Box help">
         		<Header title="帮助与反馈" />
         			<ul className="helpList">
-	        			<li onClick={that.helpDetail}>如何还款<img src="src/img/icon/right.png"/></li>
-	        			<li onClick={that.helpDetail}>申请贷款<img src="src/img/icon/right.png"/></li>
-	        			<li onClick={that.helpDetail}>付款异常<img src="src/img/icon/right.png"/></li>
+	        			<li onClick={that.helpDetail}>如何贷款<img src="src/img/icon/right.png"/></li>
+	        			{/*<li onClick={that.helpDetail}>申请贷款<img src="src/img/icon/right.png"/></li>
+	        			<li onClick={that.helpDetail}>付款异常<img src="src/img/icon/right.png"/></li>*/}
 	        		</ul>
 	        	<div className="askBtn" onClick={this.toAsk}>反馈</div>	
         	</div>

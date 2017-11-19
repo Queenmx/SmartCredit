@@ -50,7 +50,7 @@ var HelpDetail=React.createClass({
         		<div className="helpDetailCon">
         			<div className="helpDetailTxt">
         				<h4>如何还款</h4>
-        				<p>我们支持两种还款方式，主动还款和系统自动还款，系统自动扣款根据绑定银行卡的先后顺序自动扣款。主动还款，用户在“账单”-“立即还款”可主动还款，可自主选择还款银行卡。</p>
+        				<p>万融汇上的产品目前均由第三方资方进行发布（代理），申请贷款需要经过第三方资方的电话审核或者相关资方的网页服务和数据审核。</p>
         				{/*<div className="solve">
         					<span onClick={that.anp}><img src="src/img/icon/yes.png"/>解决</span>
         					<span onClick={that.anp}><img src="src/img/icon/no.png"/>未解决</span>

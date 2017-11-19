@@ -111,7 +111,8 @@ var Mine = React.createClass({
     },
     toIdCard: function () {
     	var toast = globalData.toast;
-        if (this.state.isLogin) {
+    	toast.show("身份证认证功能尚未开放",2000);
+        /*if (this.state.isLogin) {
         	console.log(this.state.certStatus);
         	if(this.state.certStatus==1){
         		toast.show("认证已通过，无需重复上传",2000);
@@ -142,7 +143,7 @@ var Mine = React.createClass({
                 //query:data,
             }
             hashHistory.push(path);
-        }
+        }*/
     },
     toPersonalLevel: function () {
         var key1 = globalData.key;
@@ -178,7 +179,7 @@ var Mine = React.createClass({
                         <div className="userInfo"><p>{userObj.userName}</p><span>{userObj.certStatus == 1? "已认证" : "未认证"}</span></div>
                         <div className="goLogin"><img src="src/img/icon/go.png" /></div>
                     </div>
-                    <div className="creditLevel"><p>我的信用等级:<b>{userObj.certLevel}</b></p><span>去提升,5000轻松拿<img src="src/img/icon/right.png" /></span></div>
+                    <div className="creditLevel"><p>我的信用等级:<b>{userObj.certLevel}</b></p>{/*<span>去提升,5000轻松拿<img src="src/img/icon/right.png" /></span>*/}</div>
                     <div className="userOrder">
                         <ul>
                             <li onClick={that.toOrder}><img src="src/img/icon/order.png" /><p>全部订单</p></li>

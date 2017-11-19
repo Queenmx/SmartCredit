@@ -120,6 +120,7 @@ var IdCard = React.createClass({
             // 这个事件在读取结束后，无论成功或者失败都会触发
             if (reader.error) {
                 console.log(reader.error);
+                alert(reader.error);
             } else {
                 that.setState({
                     [name]: e.target.result
