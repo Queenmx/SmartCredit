@@ -51,10 +51,10 @@ var HelpDetail=React.createClass({
         			<div className="helpDetailTxt">
         				<h4>如何还款</h4>
         				<p>我们支持两种还款方式，主动还款和系统自动还款，系统自动扣款根据绑定银行卡的先后顺序自动扣款。主动还款，用户在“账单”-“立即还款”可主动还款，可自主选择还款银行卡。</p>
-        				<div className="solve">
+        				{/*<div className="solve">
         					<span onClick={that.anp}><img src="src/img/icon/yes.png"/>解决</span>
         					<span onClick={that.anp}><img src="src/img/icon/no.png"/>未解决</span>
-        				</div>
+        				</div>*/}
         			</div>
         		</div>
         		

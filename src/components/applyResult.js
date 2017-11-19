@@ -55,8 +55,8 @@ var ApplyResult=React.createClass({
 			hashHistory.push(path);*/
 			 history.go(-3);
 		}else if(apiWay=="H5"){//url
-			//window.location.href=this.state.apiUrl;
-			this.setState({iframeShow:true,frameSrc:this.state.apiUrl})
+			window.location.href=this.state.apiUrl;
+			//this.setState({iframeShow:true,frameSrc:this.state.apiUrl})
 		}else{
 			history.go(-3);
 			toast.show("参数为空",2000)
@@ -94,7 +94,7 @@ var ApplyResult=React.createClass({
 						<div className="applyResultTxt"><h4>{this.state.resultTxt}</h4><p>{this.state.resultTips}</p></div>
 						<div className="next" onClick={this.nextHandle}>{this.state.btnTxt}</div>
 					</div>
-					<iframe id="iframeBox" src={this.state.frameSrc} style={{"display":that.state.iframeShow?"block":"none"}}></iframe>
+					{/*<iframe id="iframeBox" src={this.state.frameSrc} style={{"display":that.state.iframeShow?"block":"none"}}></iframe>*/}
 	        	</div>	
         	</div>
         )

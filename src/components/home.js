@@ -331,7 +331,7 @@ setInterval(function(){
 	sessionStorage.removeItem("homeArticle");
 	sessionStorage.removeItem("homeLoan");
 	sessionStorage.removeItem("homeTag");
-	//sessionStorage.remove("newsArticle");
+	sessionStorage.removeItem("newsArticle");
 	},300000)
 
 export default Home;

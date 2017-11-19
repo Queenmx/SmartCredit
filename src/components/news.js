@@ -28,6 +28,12 @@ class News extends Component {
 			}
 			hashHistory.push(path);
 		}
+	    this.bannerUrl = (event) => {
+	    	var objUrl=event.currentTarget.getAttribute("data-objUrl");
+	    	if(objUrl){
+	    		window.location.href=objUrl;
+	    	}
+		}
 		this.handleRefresh = this.handleRefresh.bind(this);
 	  	this.loadData = this.loadData.bind(this);
 	    this.logoError=(event)=>{
@@ -36,6 +42,7 @@ class News extends Component {
 			//console.log(event.target.src);
 	    }
  	}
+	
   handleRefresh(downOrUp, callback) {
     //真实的世界中是从后端取页面和判断是否是最后一页
     var that=this;
@@ -127,6 +134,7 @@ class News extends Component {
 		})
 
         }
+  
 	componentDidMount(){
 		var that=this;
 		var key1 = globalData.key;
@@ -138,7 +146,7 @@ class News extends Component {
 			var bannerList=JSON.parse(newsArticle);
 			for (var i in bannerList) {
             	that.state.banner.push(
-              	 <div className="swiper-slide" key={i} data-objUrl={bannerList[i].objUrl}>
+              	 <div className="swiper-slide" key={i} data-objUrl={bannerList[i].objUrl} onClick={that.bannerUrl}>
               	 	<img src={bannerList[i].imgUrl}/>
               	 </div>
               	 )
@@ -155,7 +163,7 @@ class News extends Component {
 						console.log(bannerList);
 			               for (var i in bannerList) {
 				            	that.state.banner.push(
-				              	 <div className="swiper-slide" key={i} data-objUrl={bannerList[i].objUrl}>
+				              	 <div className="swiper-slide" key={i} data-objUrl={bannerList[i].objUrl} onClick={that.bannerUrl}>
 				              	 	<img src={bannerList[i].imgUrl}/>
 				              	 </div>
 				              	 )
@@ -173,13 +181,25 @@ class News extends Component {
 		}
 		//console.log(that.state.banner);
 		
-		that.timeoutId = setTimeout(() => {
+		that.timeoutId = setTimeout((event) => {
 	      var swiper = new Swiper("#bannerList",{
 				loop:true,
 				autoplay : 3000,
 				speed:500,
 				pagination: '.swiper-pagination',
-				autoplayDisableOnInteraction:false
+				autoplayDisableOnInteraction:false,
+				/*onTap: function(swiper,event){
+					var swiperIndex=swiper.activeIndex;
+					console.log(swiperIndex);
+					var objUrl=$(".swiper-slide:nth-of-child("+[swiperIndex]+")").attr("data-objUrl");
+					console.log(objUrl);.children('td').eq(1).
+			     	 //var objUrl=event.currentTarget.getAttribute("data-objUrl");
+			     	 //console.log(objUrl);
+			     	 if(objUrl){
+			     	 	window.location.href=objUrl;
+			     	 }
+			    	
+			    }*/
 			});
 	    }, 500)
 		

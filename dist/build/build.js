@@ -20801,9 +20801,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			snapThreshold: 0.334,
 
 			// INSERT POINT: OPTIONS
-			disablePointer: !utils.hasPointer,
-			disableTouch: utils.hasPointer || !utils.hasTouch,
-			disableMouse: utils.hasPointer || utils.hasTouch,
+//			disablePointer: !utils.hasPointer,
+//			disableTouch: utils.hasPointer || !utils.hasTouch,
+//			disableMouse: utils.hasPointer || utils.hasTouch,
+			disablePointer: true,
+			disableTouch: false,
+			disableMouse: false,
 			startX: 0,
 			startY: 0,
 			scrollY: true,
@@ -67645,7 +67648,7 @@ setInterval(function () {
 	sessionStorage.removeItem("homeArticle");
 	sessionStorage.removeItem("homeLoan");
 	sessionStorage.removeItem("homeTag");
-	//sessionStorage.remove("newsArticle");
+	sessionStorage.removeItem("newsArticle");
 }, 300000);
 
 exports.default = Home;
@@ -67905,6 +67908,12 @@ var News = function (_Component) {
 			};
 			_reactRouter.hashHistory.push(path);
 		};
+		_this.bannerUrl = function (event) {
+			var objUrl = event.currentTarget.getAttribute("data-objUrl");
+			if (objUrl) {
+				window.location.href = objUrl;
+			}
+		};
 		_this.handleRefresh = _this.handleRefresh.bind(_this);
 		_this.loadData = _this.loadData.bind(_this);
 		_this.logoError = function (event) {
@@ -68066,7 +68075,7 @@ var News = function (_Component) {
 				for (var i in bannerList) {
 					that.state.banner.push(_react2.default.createElement(
 						'div',
-						{ className: 'swiper-slide', key: i, 'data-objUrl': bannerList[i].objUrl },
+						{ className: 'swiper-slide', key: i, 'data-objUrl': bannerList[i].objUrl, onClick: that.bannerUrl },
 						_react2.default.createElement('img', { src: bannerList[i].imgUrl })
 					));
 				};
@@ -68083,7 +68092,7 @@ var News = function (_Component) {
 						for (var i in bannerList) {
 							that.state.banner.push(_react2.default.createElement(
 								'div',
-								{ className: 'swiper-slide', key: i, 'data-objUrl': bannerList[i].objUrl },
+								{ className: 'swiper-slide', key: i, 'data-objUrl': bannerList[i].objUrl, onClick: that.bannerUrl },
 								_react2.default.createElement('img', { src: bannerList[i].imgUrl })
 							));
 						};
@@ -68099,13 +68108,25 @@ var News = function (_Component) {
 			}
 			//console.log(that.state.banner);
 
-			that.timeoutId = setTimeout(function () {
+			that.timeoutId = setTimeout(function (event) {
 				var swiper = new Swiper("#bannerList", {
 					loop: true,
 					autoplay: 3000,
 					speed: 500,
 					pagination: '.swiper-pagination',
 					autoplayDisableOnInteraction: false
+					/*onTap: function(swiper,event){
+     	var swiperIndex=swiper.activeIndex;
+     	console.log(swiperIndex);
+     	var objUrl=$(".swiper-slide:nth-of-child("+[swiperIndex]+")").attr("data-objUrl");
+     	console.log(objUrl);.children('td').eq(1).
+         	 //var objUrl=event.currentTarget.getAttribute("data-objUrl");
+         	 //console.log(objUrl);
+         	 if(objUrl){
+         	 	window.location.href=objUrl;
+         	 }
+        	
+        }*/
 				});
 			}, 500);
 		}
@@ -68616,7 +68637,9 @@ var Txt = _react2.default.createClass({
 	displayName: 'Txt',
 
 	getInitialState: function getInitialState() {
-		return {};
+		return {
+			txtCon: ""
+		};
 	},
 	componentDidMount: function componentDidMount() {},
 	render: function render() {
@@ -68628,9 +68651,11 @@ var Txt = _react2.default.createClass({
 		switch (fromId) {
 			case 1:
 				//设置，关于万融汇
+				txtCon = "万融汇，贷款业务涵盖个人消费贷、经营贷、房贷、车贷。平台整理归类了各类金融产品名同事收集了各类产品的详细信息和风控规则，提供给了用户高质量，精准的金融产品服务。用户通过万融汇独有的智能匹配系统，可一站式比较数万款贷款产品，筛选产品并直接提交申请。对银行而言，则是批量获取优质客户的营销渠道；同时，万融汇优秀的风控系统，能辅助银行，贷款方过滤信用较低，历史还款记录较差或高风险用户，为资方的安全保驾护航。";
 				break;
 			case 2:
 				//申请贷款时，万融汇服务条款
+
 				break;
 			case 3:
 				//登录，万融汇协议
@@ -68645,7 +68670,7 @@ var Txt = _react2.default.createClass({
 			_react2.default.createElement(
 				'div',
 				{ className: 'content txtCon' },
-				'\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE\u534F\u8BAE'
+				txtCon
 			)
 		);
 	}
@@ -113844,8 +113869,8 @@ var ApplyResult = _react2.default.createClass({
 			history.go(-3);
 		} else if (apiWay == "H5") {
 			//url
-			//window.location.href=this.state.apiUrl;
-			this.setState({ iframeShow: true, frameSrc: this.state.apiUrl });
+			window.location.href = this.state.apiUrl;
+			//this.setState({iframeShow:true,frameSrc:this.state.apiUrl})
 		} else {
 			history.go(-3);
 			toast.show("参数为空", 2000);
@@ -113950,8 +113975,7 @@ var ApplyResult = _react2.default.createClass({
 						{ className: 'next', onClick: this.nextHandle },
 						this.state.btnTxt
 					)
-				),
-				_react2.default.createElement('iframe', { id: 'iframeBox', src: this.state.frameSrc, style: { "display": that.state.iframeShow ? "block" : "none" } })
+				)
 			)
 		);
 	},
@@ -114187,22 +114211,6 @@ var HelpDetail = _react2.default.createClass({
             'p',
             null,
             '\u6211\u4EEC\u652F\u6301\u4E24\u79CD\u8FD8\u6B3E\u65B9\u5F0F\uFF0C\u4E3B\u52A8\u8FD8\u6B3E\u548C\u7CFB\u7EDF\u81EA\u52A8\u8FD8\u6B3E\uFF0C\u7CFB\u7EDF\u81EA\u52A8\u6263\u6B3E\u6839\u636E\u7ED1\u5B9A\u94F6\u884C\u5361\u7684\u5148\u540E\u987A\u5E8F\u81EA\u52A8\u6263\u6B3E\u3002\u4E3B\u52A8\u8FD8\u6B3E\uFF0C\u7528\u6237\u5728\u201C\u8D26\u5355\u201D-\u201C\u7ACB\u5373\u8FD8\u6B3E\u201D\u53EF\u4E3B\u52A8\u8FD8\u6B3E\uFF0C\u53EF\u81EA\u4E3B\u9009\u62E9\u8FD8\u6B3E\u94F6\u884C\u5361\u3002'
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'solve' },
-            _react2.default.createElement(
-              'span',
-              { onClick: that.anp },
-              _react2.default.createElement('img', { src: 'src/img/icon/yes.png' }),
-              '\u89E3\u51B3'
-            ),
-            _react2.default.createElement(
-              'span',
-              { onClick: that.anp },
-              _react2.default.createElement('img', { src: 'src/img/icon/no.png' }),
-              '\u672A\u89E3\u51B3'
-            )
           )
         )
       )
