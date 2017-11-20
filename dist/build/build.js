@@ -4711,9 +4711,9 @@ var globalData = {
     selectedCityName: '',
     key: "ZND171030APIMM",
     // appBasePath: "http://www.91ymfq.com/XR/",
-    path: "http://xingrongjinfu.iask.in:8886",
+    // path: "http://xingrongjinfu.iask.in:8886",
     //path:"http://wangjuan6.free.ngrok.cc",
-    // path:"http://192.168.1.17:8886",
+    path: "http://101.132.32.72:8102/",
     //path:"http://122.144.133.20:8088",
     //  path:"http://101.132.32.72:8102",
     imgPath: "http://xrjf.oss-cn-shanghai.aliyuncs.com/",
@@ -20801,11 +20801,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			snapThreshold: 0.334,
 
 			// INSERT POINT: OPTIONS
-			/*disablePointer: !utils.hasPointer,
-			disableTouch: utils.hasPointer || !utils.hasTouch,
-			disableMouse: utils.hasPointer || utils.hasTouch,*/
-			disablePointer:true,
-			disableTouch:false,
+//			disablePointer: !utils.hasPointer,
+//			disableTouch: utils.hasPointer || !utils.hasTouch,
+//			disableMouse: utils.hasPointer || utils.hasTouch,
+			disablePointer: true,
+			disableTouch: false,
 			disableMouse: false,
 			startX: 0,
 			startY: 0,
@@ -68470,7 +68470,7 @@ var Mine = _react2.default.createClass({
                     _react2.default.createElement(
                         'div',
                         { className: 'userImg' },
-                        _react2.default.createElement('img', { src: imgPath + userObj.headPic, onError: that.imgError })
+                        _react2.default.createElement('img', { src: 'src/img/icon/tx.png', onError: that.imgError })
                     ),
                     _react2.default.createElement(
                         'div',

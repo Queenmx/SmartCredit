@@ -175,7 +175,7 @@ var Mine = React.createClass({
             <div className="app_Box mine">
                 <div className="mineContent content">
                     <div className="userHeader" onClick={that.goLogin}>
-                        <div className="userImg"><img src={imgPath+userObj.headPic} onError={that.imgError} /></div>
+                        <div className="userImg"><img src="src/img/icon/tx.png" onError={that.imgError} /></div>
                         <div className="userInfo"><p>{userObj.userName}</p><span>{userObj.certStatus == 1? "已认证" : "未认证"}</span></div>
                         <div className="goLogin"><img src="src/img/icon/go.png" /></div>
                     </div>
