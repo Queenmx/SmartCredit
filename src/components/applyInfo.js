@@ -20,9 +20,9 @@ var ApplyInfo = React.createClass({
     },
 
     componentWillMount: function () {
-    	console.log(globalData.user)
+    	//console.log(globalData.user)
         var userStr = localStorage.getItem("user");
-        console.log(userStr);
+        //console.log(userStr);
         if (!userStr) {
             var path = {
                 pathname: '/Login',
@@ -43,15 +43,15 @@ var ApplyInfo = React.createClass({
         var loanId = that.props.location.state.loanId;
         var applyQuery = that.props.location.state.applyQuery;
         var { realName, applyName, applyNumber, located, user } = that.state;
-        console.log(that.state);
+        //console.log(that.state);
         if (applyName.length > 0) {
             if (realName==""||realName==null) {//修改名字
                 api.edit(user.idCard, located, applyName, function (res) {
-                    console.log(res);
-                    console.log(applyName);
+                    //console.log(res);
+                    //console.log(applyName);
                     if (res.code == "0000") {
                         //修改信息成功
-                        console.log(applyName)
+                        //console.log(applyName)
                         user.realName=applyName;
                         //var userObj = { realName: realName, located: located, idCard: user.idCard, certLevel: user.certLevel, phone: user.phone, userName: user.userName, token: user.token, headPic: user.headPic, userId: user.userId }
                         localStorage.setItem("user", JSON.stringify(user));
@@ -82,14 +82,14 @@ var ApplyInfo = React.createClass({
             
     /*        //获取资质列表
             api.qualifyList(loanId, "095c2c011ef740508bf27785e0ffe8f1", function (res) {
-                console.log(res);
+                //console.log(res);
                 that.setState({
                     flag: true
                 })
                 if (res.code == "0000") {
                     var data = JSON.parse(strDec(res.data, key1, "", ""));
                     //var qualifyList=data.qualifyList;
-                    //console.log(data);
+                    ////console.log(data);
                     var queryData = { applyNumber: applyNumber, applyName: applyName, loanId: loanId, applyQuery: applyQuery, qualifyList: data };
                     that.setState({
                         flag: false
@@ -143,7 +143,7 @@ var ApplyInfo = React.createClass({
     applyNameHandle: function (event) {
 
         if (this.state.realName) {
-            console.log("you")
+            //console.log("you")
         } else {
             this.setState({
                 applyName: event.target.value

@@ -43,7 +43,7 @@ var RealName = React.createClass({
         var toast = globalData.toast;
         if (realName) {
             api.edit(user.idCard, that.state.located, realName, function (res) {
-                 console.log(res);
+                 //console.log(res);
                 if (res.code == "0000") {
                 	 that.setState({
 		                flag: false

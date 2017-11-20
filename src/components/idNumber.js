@@ -43,17 +43,17 @@ var RealName = React.createClass({
 		var user=that.state.user;
         let idCard = that.state.idCard;
         var toast = globalData.toast;
-         console.log(idCard);
+        // console.log(idCard);
         if (idCartReg.test(idCard)) {
             api.edit(idCard, that.state.located, user.realName, function (res) {
-                 console.log(res);
+               //  console.log(res);
                 if (res.code == "0000") {
                 	user.idCard=idCard;
                 	user.located=that.state.located;
                     //var userObj = { realName: user.realName, located:that.state.located, idCard: idCard, certLevel: user.certLevel, phone: user.phone, userName: user.userName, token: globalData.requestData.token, headPic: user.headPic, userId: globalData.userId }
                     localStorage.setItem("user", JSON.stringify(user));
                     globalData.user=JSON.stringify(user);
-                    console.log(user);
+                  //  console.log(user);
                     that.setState({
 		                flag: false
 		            })

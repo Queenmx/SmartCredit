@@ -93,7 +93,7 @@ var Problem = React.createClass({
   		var key1 = globalData.key;
 		var toast=globalData.toast;
 	 	const {objId,currentPage,pageSize,list} = that.state;
-	 	console.log(objId);
+	 	//console.log(objId);
 	 	var arr=[];
 	 	//console.log(tag);
 	 	api.questionList(objId,currentPage,pageSize,function(res){
@@ -106,7 +106,7 @@ var Problem = React.createClass({
 				if(totalPage>1){
 					that.setState({scrollShow:true})
 				}
-				console.log(problemList);
+				//console.log(problemList);
 				if(problemList.length>0){
 					for(var i in problemList){
 						var theTime=problemList[i].addTime.time;
@@ -158,17 +158,17 @@ var Problem = React.createClass({
 	    //真实的世界中是从后端取页面和判断是否是最后一页
 	    var that=this;
 	    let {currentPage, lastPage,pageSize,totalPage} = that.state;
-	    console.log(totalPage);
+	    //console.log(totalPage);
 		    if (downOrUp === 'up') { // 加载更多
 		      if (currentPage == totalPage) {
-		      	console.log("zuihou")
+		      	//console.log("zuihou")
 		        lastPage = true;
 		        	if (callback && typeof callback === 'function') {
 			            callback();
 			          }
 		      } else {
 		        currentPage++;
-		        console.log(currentPage);
+		        //console.log(currentPage);
 		        lastPage = false;
 		        that.setState({
 			      currentPage,

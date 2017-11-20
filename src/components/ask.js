@@ -45,7 +45,7 @@ var Ask = React.createClass({
         if(content.length>0){
         	if(this.state.fromWho=="help"){//反馈建议
     			api.feedBackAdd(content,function(res){
-					console.log(res);
+					//console.log(res);
 					if(res.code=="0000"){
 						toast.show("提交成功",2000);
 				        window.history.back();

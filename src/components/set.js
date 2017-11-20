@@ -20,7 +20,7 @@ var Set = React.createClass({
         var user=localStorage.getItem("user");
         if(user){
         	api.exit(function (res) {
-	            console.log(res);
+	            //console.log(res);
 	            if (res.code == "0000") {
 	                that.setState({ isLoading: false })
 	                localStorage.removeItem("user");

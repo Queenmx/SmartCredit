@@ -50,7 +50,7 @@ module.exports.login = function (loginType, phone, pwd, verifyCode, cb1, cb2) {
     data.type = "C";
     data.verifyCode = verifyCode;//	login_type为CODE时必填
     var param = JSON.stringify(data);
-    console.log(param);
+    //console.log(param);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/login`, { params: str }, cb1, cb2);
     delete data.loginType;
@@ -69,7 +69,7 @@ module.exports.register = function (phone, pwd, verifyCode, cb1, cb2) {
     data.type = "C";
     data.verifyCode = verifyCode;
     var param = JSON.stringify(data);
-    console.log(param);
+    //console.log(param);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/add`, { params: str }, cb1, cb2);
     delete data.phone;
@@ -86,7 +86,7 @@ module.exports.forgot = function (phone, pwd, verifyCode, cb1, cb2) {
     data.pwd = pwd;
     data.verifyCode = verifyCode;
     var param = JSON.stringify(data);
-    console.log(param);
+    //console.log(param);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/pwd/forgot`, { params: str }, cb1, cb2);
     delete data.phone;
@@ -102,7 +102,7 @@ module.exports.verifyCode = function (phone, type, cb1, cb2) {
     data.type = type;//REG 注册 ，FPWD忘记密码
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    console.log(param);
+    //console.log(param);
     http(`${globalData.path}/zndai/user/verifyCode`, { params: str }, cb1, cb2);
     delete data.phone;
     delete data.type;
@@ -130,7 +130,7 @@ module.exports.edit = function (idCard, located, realName, cb1, cb2) {
     data.realName = realName;
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
-    console.log(param);
+    //console.log(param);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/edit`, { params: str }, cb1, cb2);
     delete data.idCard;
@@ -289,7 +289,7 @@ module.exports.loanList = function (pageNum, pageSize, tag, cb1, cb2) {
     data.tag = tag;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    console.log(param);
+    //console.log(param);
     http(`${globalData.path}/zndai/loan/list`, { params: str }, cb1, cb2);
     delete data.pageNum;
     delete data.pageSize;
@@ -341,7 +341,7 @@ module.exports.applyLoan = function (limitDay, limitType, loanId, money, qualify
     data.qualifyList = qualifyList;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
-    console.log(param)
+    //console.log(param)
     var str = strEnc(param, key1);
     // console.log(str)
     http(`${globalData.path}/zndai/loan/apply/add`, { params: str }, cb1, cb2);
@@ -445,7 +445,7 @@ module.exports.delSave = function (markIds, objType, cb1, cb2) {
     data.objType = objType;//ARTICLE   LOAN 
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
-    console.log(param);
+   // console.log(param);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/mark/del`, { params: str }, cb1, cb2);
     delete data.markIds;
@@ -539,7 +539,7 @@ module.exports.cancleOrder = function (applyId, cb1, cb2) {
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-     console.log(param);
+     //console.log(param);
     // console.log(userId);
     http(`${globalData.path}/zndai/loan/apply/cancel`, { params: str }, cb1, cb2);
     delete data.applyId;

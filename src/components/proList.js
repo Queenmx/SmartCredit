@@ -41,17 +41,17 @@ class ProList extends Component {
     var that=this;
     let {currentPage, lastPage,pageSize,totalPage} = that.state;
     
-    console.log(totalPage);
+    //console.log(totalPage);
 	    if (downOrUp === 'up') { // 加载更多
 	      if (currentPage == totalPage) {
-	      	console.log("zuihou")
+	      	//console.log("zuihou")
 	        lastPage = true;
 	        	if (callback && typeof callback === 'function') {
 		            callback();
 		          }
 	      } else {
 	        currentPage++;
-	        console.log(currentPage);
+	        //console.log(currentPage);
 	        lastPage = false;
 	        that.setState({
 		      currentPage,

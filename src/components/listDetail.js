@@ -55,7 +55,7 @@ var ListDetail = React.createClass({
         var key1 = globalData.key;
         var toast = globalData.toast;
         const { value2, limitType, loanId, value1 } = that.state;
-        console.log(that.state);
+        //console.log(that.state);
         api.lixi(value2, limitType, loanId, value1 * 100, function (res) {
             //console.log(res);
             if (res.code == "0000") {
@@ -210,11 +210,11 @@ var ListDetail = React.createClass({
         var toast = globalData.toast;
         var loanId = that.state.loanId;
         api.loanDetail(loanId, function (res) {
-            //console.log(res);
+            ////console.log(res);
             if (res.code == "0000") {
                 var data = res.data;
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log(data);
+                //console.log(data);
 
                 var moneyMin = data.moneyMin;
                 var limitMin = data.limitMin;
@@ -320,7 +320,7 @@ var ListDetail = React.createClass({
         
         //问题列表
         api.questionList(loanId, 1, 3, function (res) {
-            console.log(res);
+            //console.log(res);
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
                 var problemList = data.list;
@@ -451,7 +451,7 @@ var ListDetail = React.createClass({
         let toast = globalData.toast;
         if (that.state.isLogin) {
         	var markId=event.currentTarget.getAttribute("data-markId");
-        	console.log(markId);
+        	//console.log(markId);
             if (that.state.isMark == 1) {//已收藏,取消
             	that.setState({
                     	flag:true
@@ -461,12 +461,12 @@ var ListDetail = React.createClass({
 		            if (res.code == "0000") {
 		                var data = res.data;
 		                var data = JSON.parse(strDec(res.data, key1, "", ""));
-		                console.log(data);
+		                //console.log(data);
 		                that.setState({
 		                	markId:data.markId
 		                },function(){
 		                	api.delSave(that.state.markId, "LOAN", function (res) {
-			                    console.log(res);
+			                   // console.log(res);
 			                    if (res.code == "0000") {
 			                        that.setState({
 			                            isMark: 0,
@@ -501,7 +501,7 @@ var ListDetail = React.createClass({
             	
             } else {//未收藏,添加收藏
                 api.save(objId, "LOAN", function (res) {
-                    console.log(res);
+                    //console.log(res);
                     if (res.code == "0000") {
                         that.setState({ isMark: 1 })
                     } else {

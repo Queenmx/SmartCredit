@@ -30,7 +30,7 @@ var PersonalLevel=React.createClass({
 		var qualifySelect=that.state.valSelect;
 		//console.log(qualifySelect);
 		api.qualifyListSave(qualifySelect,function(res){
-			console.log(res);
+			//console.log(res);
 			if(res.code=="0000"){
 				that.setState({
 					flag:false
@@ -136,7 +136,7 @@ var PersonalLevel=React.createClass({
 									</li>)
 								}
 							}else{//没有下级.点击即选
-								console.log("没有下级");
+								//console.log("没有下级");
 								that.state.second[indexId].push(<li className="second"  data-parentIndex={indexId}  data-dictionaryId={dictionaryId} style={{'color':'#333333'}} >
 									请输入:<input className='insertInput' type="text" /><span className="insertSure" data-indexId={indexId} onClick={that.inputSelect}>确定</span>
 								</li>)
@@ -166,11 +166,11 @@ var PersonalLevel=React.createClass({
             })
 		 //获取资质列表
             api.qualifyList("", "095c2c011ef740508bf27785e0ffe8f1", function (res) {
-                console.log(res);
+                //console.log(res);
                 
                 if (res.code == "0000") {
                     var data = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(data);
+                    //console.log(data);
                     that.setState({
                     	flag: false,
                         qualifyList: data

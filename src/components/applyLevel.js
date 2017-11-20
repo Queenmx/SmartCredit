@@ -22,7 +22,7 @@ var ApplyLevel=React.createClass({
 	componentWillMount:function(){
 		var loanId=this.props.location.state.loanId;
 		var applyQuery=this.props.location.state.applyQuery;
-		console.log(applyQuery);
+		//console.log(applyQuery);
 		this.setState({loanId:loanId,applyQuery:applyQuery});
 		
 	},
@@ -36,7 +36,7 @@ var ApplyLevel=React.createClass({
 	},
 	toApplyResult:function(){
 		var that=this;
-		//console.log(that.state.valSelect);
+		////console.log(that.state.valSelect);
 		var key1 = globalData.key;
 		var toast=globalData.toast;
 		var isOver;
@@ -64,12 +64,12 @@ var ApplyLevel=React.createClass({
 			if(isOver){
 				api.qualifyListSave(qualifySelect,function(res){
 					
-					console.log(res);
+					//console.log(res);
 					if(res.code=="0000"){
 						//申请贷款
 						const {limitDay,limitType,loanId,money}=that.state.applyQuery;
 						var qualifyList=that.state.valSelect;
-						console.log(that.state.applyQuery);
+						//console.log(that.state.applyQuery);
 						var money=parseFloat(money)*100;
 						//console.log(money);
 						api.applyLoan(limitDay,limitType,loanId,money,qualifyList,function(res){
@@ -79,9 +79,9 @@ var ApplyLevel=React.createClass({
 									flag:false
 								})
 								var data = JSON.parse(strDec(res.data, key1, "", ""));
-			                    console.log(data);
+			                   // console.log(data);
 								var queryData = {apiUrl:data.apiUrl,apiWay:data.apiWay,logo:data.logo};
-								toast.show("申请订单成功",2000);
+								//toast.show("申请订单成功",2000);
 								var path = {
 								  pathname:'/ApplyResult',
 								  state:queryData
@@ -135,7 +135,7 @@ var ApplyLevel=React.createClass({
 				/*that.setState({
 						flag:false
 					})*/
-				console.log("未填完")
+				//console.log("未填完")
 			}
 		}
 	},
@@ -208,7 +208,7 @@ var ApplyLevel=React.createClass({
   		}else{
   			var indexId=event.target.getAttribute("data-indexId")*1;
 			this.state.valSelect[indexId].selectName=val;
-			console.log(this.state.valSelect);
+			//console.log(this.state.valSelect);
 			$(".levelInfoFirst"+indexId).hide();
 			$(".selectValue"+indexId).html(val);
   		}
@@ -289,7 +289,7 @@ var ApplyLevel=React.createClass({
 		var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this; 
-        console.log(that.state.loanId);
+        //console.log(that.state.loanId);
         that.setState({
                 flag: true
             })

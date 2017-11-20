@@ -29,7 +29,7 @@ var IdCard = React.createClass({
     finishID: function () {
         var that = this;
         var certStatus=that.state.certStatus;
-        console.log(certStatus);
+        //console.log(certStatus);
        if(this.state.certStatus==1){
         		toast.show("认证已通过，无需重复上传",2000);
        }else if(this.state.certStatus===0){
@@ -41,14 +41,14 @@ var IdCard = React.createClass({
 	            flag: true
 	        })
 	        api.identityUserCert(backImgData, faceImgData, function (res) {
-	            console.log(res);
+	            //console.log(res);
 	            if (res.code == "0000") {
 	            	toast.show("上传成功，等待审核", 2000);
 	                that.setState({
 	                    flag: false
 	                })
 	                var data = JSON.parse(strDec(res.data, key1, "", ""));
-	                console.log(data);
+	                //console.log(data);
 	               var userObj=that.state.userObj;
 	                userObj.backPic=data.backPic;
 	                userObj.frontPic=data.frontPic;
@@ -119,7 +119,7 @@ var IdCard = React.createClass({
         reader.onload = function (e) {
             // 这个事件在读取结束后，无论成功或者失败都会触发
             if (reader.error) {
-                console.log(reader.error);
+                //console.log(reader.error);
                 alert(reader.error);
             } else {
                 that.setState({
@@ -142,7 +142,7 @@ var IdCard = React.createClass({
 	},
     render: function () {
     	var imgPath=globalData.imgPath;
-        console.log(this.state);
+        //console.log(this.state);
         var that = this;
         return (
             <div className="app_Box idCard">

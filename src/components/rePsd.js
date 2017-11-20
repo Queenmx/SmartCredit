@@ -35,7 +35,7 @@ var Repsd = React.createClass({
             }else {
             	that.setState({isLoading:true})
                 api.updatePsd(newPsd, oldPsd, function (res) {
-                    console.log(res);
+                    //console.log(res);
            		 if (res.code == "0000") {
            		 	that.setState({isLoading:false})
            		 	toast.show("修改成功,请重新登录", 2000);

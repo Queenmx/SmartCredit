@@ -46,21 +46,21 @@ class News extends Component {
   handleRefresh(downOrUp, callback) {
     //真实的世界中是从后端取页面和判断是否是最后一页
     var that=this;
-    console.log(this);
-    console.log(that);
+    //console.log(this);
+    //console.log(that);
     let {currentPage, lastPage,pageSize,totalPage} = that.state;
-   console.log(that.state);
-    console.log(totalPage);
+   //console.log(that.state);
+    //console.log(totalPage);
 	    if (downOrUp === 'up') { // 加载更多
 	      if (currentPage == totalPage) {
-	      	console.log("zuihou")
+	      	//console.log("zuihou")
 	        lastPage = true;
 	        	if (callback && typeof callback === 'function') {
 		            callback();
 		          }
 	      } else {
 	        currentPage++;
-	        console.log(currentPage);
+	        //console.log(currentPage);
 	        lastPage = false;
 	        that.setState({
 		      currentPage,
@@ -88,10 +88,10 @@ class News extends Component {
 	 	const {currentPage,pageSize,list} = that.state;
 	 	var arr=[];
 	 	api.articleList(currentPage,pageSize,function(res){
-			//console.log(res);
+			////console.log(res);
 			if(res.code=="0000"){
 				var data =JSON.parse(strDec(res.data,key1,"",""));
-				console.log(data);
+				//console.log(data);
 				var articleList=data.list;
 				var total=data.total;
 				var totalPage=Math.ceil(total/pageSize);
@@ -160,7 +160,7 @@ class News extends Component {
 					if(res.code=="0000"){
 						var bannerList =JSON.parse(strDec(res.data,key1,"",""));
 						sessionStorage.setItem("newsArticle",JSON.stringify(bannerList));
-						console.log(bannerList);
+						//console.log(bannerList);
 			               for (var i in bannerList) {
 				            	that.state.banner.push(
 				              	 <div className="swiper-slide" key={i} data-objUrl={bannerList[i].objUrl} onClick={that.bannerUrl}>

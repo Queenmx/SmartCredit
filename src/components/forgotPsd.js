@@ -38,7 +38,7 @@ var ForgotPsd=React.createClass({
 			//console.log(phoneNum);
 			toast.show("请输入正确格式的手机号码",2000);
 		}else{
-			console.log(phoneNum);
+			//console.log(phoneNum);
 			if(that.state.liked){
 	          that.timer = setInterval(function () {
 	            var count = that.state.count;
@@ -72,10 +72,10 @@ var ForgotPsd=React.createClass({
 	          	
 	          //发送短信验证码
 			api.verifyCode(phoneNum,"FPWD",function(res){
-				console.log(res);
+				//console.log(res);
 				if(res.code=="0000"){
 					var data = JSON.parse(strDec(res.data,key1,"",""));
-					console.log(data);
+					//console.log(data);
 					var reg=data.reg;
 					var verifyCode=data.verify;
 					that.setState({
@@ -106,7 +106,7 @@ var ForgotPsd=React.createClass({
 		let verifyCode=that.state.verifyCode;
 		var fromWhy;
 		if(!(/^1[34578]\d{9}$/.test(phoneNum))){
-			//console.log(phoneNum);
+			////console.log(phoneNum);
 			toast.show("请输入正确格式的手机号码",2000);
 		}else{
 			if(that.state.reg){//注册了,忘记密码
@@ -114,7 +114,7 @@ var ForgotPsd=React.createClass({
 			}else{//号码还没注册过
 				fromWhy="register";
 			}
-			console.log(fromWhy);
+			//console.log(fromWhy);
 				if(phoneNum&&yzCode){
 					if(yzCode==verifyCode){
 						var data = {fromWhy:fromWhy,phoneNum:phoneNum,verifyCode:yzCode};

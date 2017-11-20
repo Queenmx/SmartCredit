@@ -10,23 +10,23 @@ var Header=React.createClass({
 		}
 	},
 	toHuanKuan:function(){
-		console.log("huan")
+		//console.log("huan")
 	},
 	toShare:function(){
-		console.log("share")
+		//console.log("share")
 	},
 	toAddBankCard:function(){
-		console.log("bank")
+		//console.log("bank")
 	},
 	toEdit:function(){
-		console.log("bianji")
+		//console.log("bianji")
 	},
 	toSave:function(){
-		console.log("save")
+		//console.log("save")
 	},
 	toBack:function(){
 		const backRouter = this.props.backRouter;
-		console.log(backRouter);
+		//console.log(backRouter);
         if (backRouter) {
             hashHistory.push(backRouter);
           /*hashHistory.push({  
@@ -71,7 +71,7 @@ var Header=React.createClass({
 			default:
 				break;
 		}
-		//console.log(headerLink);
+		////console.log(headerLink);
 		that.setState({
 			headerLinkBtn:headerLinkBtn
 		});

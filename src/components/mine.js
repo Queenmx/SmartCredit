@@ -113,7 +113,7 @@ var Mine = React.createClass({
     	var toast = globalData.toast;
     	toast.show("身份证认证功能尚未开放",2000);
         /*if (this.state.isLogin) {
-        	console.log(this.state.certStatus);
+        	//console.log(this.state.certStatus);
         	if(this.state.certStatus==1){
         		toast.show("认证已通过，无需重复上传",2000);
         		var path = {
@@ -149,7 +149,7 @@ var Mine = React.createClass({
         var key1 = globalData.key;
         var toast = globalData.toast;
         var user = globalData.user;
-        console.log(user);
+        //console.log(user);
         if (this.state.isLogin) {
             var path = {
                 pathname: '/PersonalLevel',

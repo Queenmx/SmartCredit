@@ -16,9 +16,9 @@ var UserInfo = React.createClass({
         }
     },
     componentWillMount: function () {
-        console.log(globalData.user);
+        //console.log(globalData.user);
         var userStr = globalData.user;
-        //console.log(userStr);
+        ////console.log(userStr);
         if (!userStr) {
             var path = {
                 pathname: '/Login',
@@ -53,26 +53,26 @@ var UserInfo = React.createClass({
         reader.readAsDataURL(file);
         reader.onload = function (e) {
             if (reader.error) {
-                console.log(reader.error);
+                //console.log(reader.error);
             } else {
                 that.setState({
                     flag: true
                 })
                 // $d.setAttribute("src", e.target.result);
                 api.userHead(e.target.result, function (res) {
-                    console.log(res);
+                    //console.log(res);
                     if (res.code == "0000") {
                         that.setState({
                             flag: false
                         })
                         var data = JSON.parse(strDec(res.data, key1, "", ""));
-                        console.log(data);
+                        //console.log(data);
                         var user = that.state.user;
                         user.headPic = data.headPicPath;
                         that.setState({headPic:data.headPicPath});
                         globalData.user = JSON.stringify(user);
                         localStorage.setItem("user", JSON.stringify(user));
-                        console.log(user);
+                        //console.log(user);
                         toast.show("头像设置成功", 2000);
                     } else if (res.code == "5555") {
                         that.setState({
@@ -95,7 +95,7 @@ var UserInfo = React.createClass({
                     })
                     toast.show("连接错误", 2000)
                 })
-                //console.log(e.target.result);
+                ////console.log(e.target.result);
             }
 
         }

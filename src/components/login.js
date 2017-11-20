@@ -88,14 +88,14 @@ var Login = React.createClass({
                             flag: true
                         })
                         api.login("PWD", phoneNum, psd, "", function (res) {
-                            console.log(res);
+                            //console.log(res);
                             that.setState({
                                 flag: false
                             })
                             if (res.code == "0000") {
                                 //var data =JSON.stringify(res.data);
                                 var data = strDec(res.data, key1, "", "");
-                                console.log(data);
+                                //console.log(data);
                                 //成功后
                                 localStorage.setItem("user", data);
                                 localStorage.setItem("isLogin", true);
@@ -108,7 +108,7 @@ var Login = React.createClass({
                                 //location.reload();
                                 //window.history.back();
                                 const backRouter = that.props.params.backRouter;
-								console.log(backRouter);
+								//console.log(backRouter);
 						        if (backRouter) {
 						            hashHistory.push(backRouter);
 						        } else {
@@ -140,11 +140,11 @@ var Login = React.createClass({
                             flag: true
                         })
                         var reg = that.state.reg;
-                        console.log(reg + "mmmmm" + that.state.yzCode)
+                        //console.log(reg + "mmmmm" + that.state.yzCode)
                         if (reg) {
                             //已注册，调登录接口
                             api.login("CODE", phoneNum, "", yzCode, function (res) {
-                                console.log(res);
+                                //console.log(res);
                                 if (res.code == "0000") {
                                 	that.setState({
 		                                flag: false
@@ -162,7 +162,7 @@ var Login = React.createClass({
                                     toast.show("登录成功", 2000);
                                    // window.history.back();
                                     const backRouter = that.props.params.backRouter;
-									console.log(backRouter);
+									//console.log(backRouter);
 							        if (backRouter) {
 							            hashHistory.push(backRouter);
 							        } else {
@@ -245,10 +245,10 @@ var Login = React.createClass({
         var phoneNum = that.state.phoneNum;
 
         if (!(/^1[34578]\d{9}$/.test(phoneNum))) {
-            console.log(phoneNum);
+            //console.log(phoneNum);
             toast.show("请输入正确格式的手机号码", 2000);
         } else {
-            console.log(phoneNum);
+            //console.log(phoneNum);
             if (that.state.liked) {
                 that.timer = setInterval(function () {
                     var count = that.state.count;
@@ -282,10 +282,10 @@ var Login = React.createClass({
 
                 //发送短信验证码
                 api.verifyCode(phoneNum, "REG", function (res) {
-                    console.log(res);
+                    //console.log(res);
                     if (res.code == "0000") {
                         var data = JSON.parse(strDec(res.data, key1, "", ""));
-                        console.log(data);
+                        //console.log(data);
                         var reg = data.reg;
                         var verifyCode = data.verify;
                         that.setState({

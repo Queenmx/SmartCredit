@@ -85,7 +85,7 @@ var Home=React.createClass({
 				//console.log(res)
 				if(res.code=="0000"){
 					var tagdata =JSON.parse(strDec(res.data,key1,"",""));
-					console.log(tagdata);
+					//console.log(tagdata);
 					sessionStorage.setItem("homeTag",JSON.stringify(tagdata));
 					for(var i in tagdata){
 						that.state.tagArr.push(
@@ -327,7 +327,7 @@ var Home=React.createClass({
 	}
 });
 setInterval(function(){
-	console.log("hhhh")
+	//console.log("hhhh")
 	sessionStorage.removeItem("homeArticle");
 	sessionStorage.removeItem("homeLoan");
 	sessionStorage.removeItem("homeTag");

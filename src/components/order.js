@@ -71,17 +71,17 @@ var Order = React.createClass({
     var that=this;
     let {currentPage, lastPage,pageSize,totalPage} = that.state;
     
-    console.log(totalPage);
+    //console.log(totalPage);
 	    if (downOrUp === 'up') { // 加载更多
 	      if (currentPage == totalPage) {
-	      	console.log("zuihou")
+	      	//console.log("zuihou")
 	        lastPage = true;
 	        	if (callback && typeof callback === 'function') {
 		            callback();
 		          }
 	      } else {
 	        currentPage++;
-	        console.log(currentPage);
+	        //console.log(currentPage);
 	        lastPage = false;
 	        that.setState({
 		      currentPage,
@@ -109,14 +109,14 @@ var Order = React.createClass({
 		var toast=globalData.toast;
 		var $e=e.target;
         // e.target.style.backgroundColor = e.target.style.backgroundColor === "rgb(221, 221, 221)" ? "#53a6ff" : "rgb(221, 221, 221)";
-        // console.log(e.target)
+        // //console.log(e.target)
         var id = e.target.getAttribute('data-id');
         var dataId = that.state.status[that.orderList[id].applyStatus].dataId;
-        console.log(dataId);
-        console.log(that.orderList[id].status);
+        //console.log(dataId);
+        //console.log(that.orderList[id].status);
         if ((dataId == 1 || dataId == 2) && that.orderList[id].status > 0) {
             api.cancleOrder(that.orderList[id].applyId, function (res) {
-            	console.log(res);
+            	//console.log(res);
                 if (res.code == "0000") {
                 	toast.show("取消订单成功",2000);
                    btn.style.backgroundColor = "#DDDDDD";
@@ -145,7 +145,7 @@ var Order = React.createClass({
 		var tag=that.props.tag;
 	 	const {currentPage,pageSize,list} = that.state;
 	 	var arr=[];
-	 	//console.log(tag);
+	 	////console.log(tag);
 	 	 api.orderList(currentPage, pageSize, "", function (res) {
             if (res.code == "0000") {
             	that.setState({
@@ -159,7 +159,7 @@ var Order = React.createClass({
 				if(totalPage>1){
 					that.setState({scrollShow:true})
 				}
-                console.log(data);
+                //console.log(data);
                 if(orderList.length<1){
 					arr.push(<div key={Math.random()} style={{'textAlign':'center','lineHeight':'1rem'}}>暂无订单</div>)
 				}else{

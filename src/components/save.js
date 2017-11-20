@@ -88,12 +88,12 @@ var Save=React.createClass({
 		})
 	},*/
 	longPress:function(id){
-		console.log(id)
+		//console.log(id)
 		this.setState({
 			id:id,
 			mask:'block'
 		})
-		console.log("long")
+		//console.log("long")
 	},
 	componentWillMount:function(){
 		var that=this;
@@ -106,7 +106,7 @@ var Save=React.createClass({
 		this.setState({
 			mask:'none'
 		})
-		console.log(this.state.id);
+		//console.log(this.state.id);
 	},
 	sureHandle:function(){
 		var that=this;
@@ -114,7 +114,7 @@ var Save=React.createClass({
 		var toast=globalData.toast;
 		//toast.show("进来",1000);
 		api.delSave(that.state.id,"mySave", function(res){
-			console.log(res);
+			//console.log(res);
 			if(res.code=="0000"){
 				that.setState({
 					mask:'none'
@@ -144,7 +144,7 @@ var Save=React.createClass({
 				toast.show("连接错误",2000);
 			})
 		
-		console.log(this.state.id);
+		//console.log(this.state.id);
 	},
 	render:function(){
 		var that=this;
@@ -202,7 +202,7 @@ var Save=React.createClass({
 	touchStart:function(event){
 		 event.stopPropagation();
 		var markId=event.currentTarget.getAttribute("data-articleid");
-		console.log(markId);
+		//console.log(markId);
 		this.setState({isLong:false})
  		this.timeout = setTimeout(function(){
 	 		this.longPress(markId);
@@ -253,13 +253,13 @@ var Save=React.createClass({
 	 	const {currentPage,pageSize,list,list1} = that.state;
 	 	var arr=[];
 	 	var newsDetailTab= localStorage.getItem("newsDetailTab");
-	 //	console.log(newsDetailTab+typeof newsDetailTab);
+	 //	//console.log(newsDetailTab+typeof newsDetailTab);
 	 	if(newsDetailTab=="1"){//资讯
-	 		console.log("new")
+	 		//console.log("new")
 	 		api.saveArticle(currentPage,pageSize,function(res){
 	 			if(res.code=="0000"){
 					var data =JSON.parse(strDec(res.data,key1,"",""));
-					console.log(data);
+					//console.log(data);
 					var articleList=data.list;
 					var total=data.total;
 					var articleArr=[];
@@ -300,7 +300,7 @@ var Save=React.createClass({
 				toast.show("连接错误",2000);
 			})
 	 	}else{//贷款
-	 		console.log("dai")
+	 		//console.log("dai")
 		 	api.saveLoan(currentPage,pageSize,function(res){
 				//console.log(res);
 				if(res.code=="0000"){
@@ -370,14 +370,14 @@ var Save=React.createClass({
 	    //console.log(totalPage);
 		    if (downOrUp === 'up') { // 加载更多
 		      if (currentPage == totalPage) {
-		      	console.log("zuihou")
+		      	//console.log("zuihou")
 		        lastPage = true;
 		        	if (callback && typeof callback === 'function') {
 			            callback();
 			          }
 		      } else {
 		        currentPage++;
-		        console.log(currentPage);
+		        //console.log(currentPage);
 		        lastPage = false;
 		        that.setState({
 			      currentPage,

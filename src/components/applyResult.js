@@ -26,7 +26,7 @@ var ApplyResult=React.createClass({
 		//var apiWay=this.props.location.state.apiWey;
 		//var apiUrl=this.props.location.state.apiUrl;
 		const {apiWay,apiUrl}=this.props.location.state;
-		console.log(this.props.location.state);
+		//console.log(this.props.location.state);
 		this.setState({apiWay:apiWay,apiUrl:apiUrl})		
 	},
 	

@@ -24,14 +24,14 @@ var NewsDetail = React.createClass({
             //dataStatus: 0
         }, () => {
 			/*api.queryBanner(function(data){
-				console.log(data);
+				//console.log(data);
 			})*/
         })
     },
     componentWillMount: function () {
         let articleId = this.props.location.query.articleId;
         this.setState({ articleId: articleId });
-        console.log(articleId);
+        //console.log(articleId);
     },
     saveHandle: function (event) {
         var user = localStorage.getItem("user")
@@ -42,7 +42,7 @@ var NewsDetail = React.createClass({
         if (user) {
             if (that.state.isMark != 1) {//收藏
                 api.save(that.state.articleId, "ARTICLE", function (res) {
-                    console.log(res);
+                    //console.log(res);
                     if (res.code == "0000") {
                         that.setState({
                             isMark: 1
@@ -58,7 +58,7 @@ var NewsDetail = React.createClass({
             	 let key1 = globalData.key;
 		        let toast = globalData.toast;
 		        api.articleDetail(that.state.articleId, function (res) {
-		            //console.log(res);
+		            ////console.log(res);
 			            that.setState({
 			            	flag:true
 			            })
@@ -70,7 +70,7 @@ var NewsDetail = React.createClass({
 		                	markId:articleDetail.markId
 		                },function(){
 		                	api.delSave(that.state.markId, "ARTICLE", function (res) {
-			                    console.log(res);
+			                    //console.log(res);
 			                    if (res.code == "0000") {
 			                    	
 			                        that.setState({
@@ -102,7 +102,7 @@ var NewsDetail = React.createClass({
 			            })
 		            toast.show("连接错误", 2000);
 		        })
-		        console.log(that.state.markId);
+		        //console.log(that.state.markId);
 		        
                 
             }
