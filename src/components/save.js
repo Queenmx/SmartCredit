@@ -151,15 +151,15 @@ var Save=React.createClass({
 		var activeSaveTab=that.state.activeSaveTab;
 		var saveCapitalCon=[];
 		var saveNewsCon=[];
-		saveCapitalCon.push(<ReactIScroll iScroll={iScroll} handleRefresh={that.handleRefresh} key={"capitalBox0"}>
+		saveCapitalCon.push(<div key={Math.random()}><ReactIScroll iScroll={iScroll} handleRefresh={that.handleRefresh} >
 			<div className="capitalBox" id="capitalBox">
 							{that.state.list}
-						</div></ReactIScroll>)
+						</div></ReactIScroll></div>)
 		
-		saveNewsCon.push(<ReactIScroll iScroll={iScroll} handleRefresh={that.handleRefresh} key={"newsBox0"}>
+		saveNewsCon.push(<div key={Math.random()}><ReactIScroll iScroll={iScroll} handleRefresh={that.handleRefresh} >
 			<div className="newsBox"  id="newsBox" >
 							{that.state.list1}
-	        		</div></ReactIScroll>)
+	        		</div></ReactIScroll></div>)
 		
         return (
         	<div className="app_Box save">
@@ -263,6 +263,7 @@ var Save=React.createClass({
 					var articleList=data.list;
 					var total=data.total;
 					var articleArr=[];
+					console.log(articleList)
 					for(var i in articleList){
 						//articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndArticle}>
 						articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()} onClick={that.toZiDetail}>

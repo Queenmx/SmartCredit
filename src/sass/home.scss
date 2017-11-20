@@ -135,12 +135,19 @@
     }
     .listWrap{
         position: relative;
-        height: 100%;
+        //height: 100%;
+        @include flex_1;
+        overflow: auto;
+        overflow-x:hidden ;
+        -webkit-overflow-scrolling: touch;
     }
     .saveCon{
         @include flex_column;
          .saveConBox{
-            height: 100%;
+            @include flex_1;
+            overflow: auto;
+            overflow-x:hidden ;
+            -webkit-overflow-scrolling: touch;
             position: relative;
         }
     }
@@ -161,6 +168,7 @@
     
     .newsBox{
         @include flex_1;
+        @include flex_column; 
        h3{
             margin-top: 0.15rem;
             height: .8rem;

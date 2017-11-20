@@ -4713,9 +4713,9 @@ var globalData = {
     // appBasePath: "http://www.91ymfq.com/XR/",
     path: "http://xingrongjinfu.iask.in:8886",
     //path:"http://wangjuan6.free.ngrok.cc",
-    // path:"http://101.132.32.72:8102/",
+    //path:"http://101.132.32.72:8102/",
     //path:"http://122.144.133.20:8088",
-    //  path:"http://101.132.32.72:8102",
+    // path:"http://192.168.1.17:8886",
     imgPath: "http://xrjf.oss-cn-shanghai.aliyuncs.com/",
     //path:"http://192.168.1.17:8088",
     user: localStorage.getItem("user") || "",
@@ -20801,9 +20801,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			snapThreshold: 0.334,
 
 			// INSERT POINT: OPTIONS
-//			disablePointer: !utils.hasPointer,
-//			disableTouch: utils.hasPointer || !utils.hasTouch,
-//			disableMouse: utils.hasPointer || utils.hasTouch,
 			disablePointer: true,
 			disableTouch: false,
 			disableMouse: false,
@@ -68139,7 +68136,7 @@ var News = function (_Component) {
 				//if(true){
 				scollTxt.push(_react2.default.createElement(
 					_reactjsIscroll2.default,
-					{ iScroll: _iscrollProbe2.default, key: Math.random(), handleRefresh: this.handleRefresh },
+					{ key: Math.random(), iScroll: _iscrollProbe2.default, handleRefresh: this.handleRefresh },
 					that.state.list
 				));
 			} else {
@@ -69272,22 +69269,30 @@ var Save = _react2.default.createClass({
 		var saveCapitalCon = [];
 		var saveNewsCon = [];
 		saveCapitalCon.push(_react2.default.createElement(
-			_reactjsIscroll2.default,
-			{ iScroll: _iscrollProbe2.default, handleRefresh: that.handleRefresh, key: "capitalBox0" },
+			'div',
+			{ key: Math.random() },
 			_react2.default.createElement(
-				'div',
-				{ className: 'capitalBox', id: 'capitalBox' },
-				that.state.list
+				_reactjsIscroll2.default,
+				{ iScroll: _iscrollProbe2.default, handleRefresh: that.handleRefresh },
+				_react2.default.createElement(
+					'div',
+					{ className: 'capitalBox', id: 'capitalBox' },
+					that.state.list
+				)
 			)
 		));
 
 		saveNewsCon.push(_react2.default.createElement(
-			_reactjsIscroll2.default,
-			{ iScroll: _iscrollProbe2.default, handleRefresh: that.handleRefresh, key: "newsBox0" },
+			'div',
+			{ key: Math.random() },
 			_react2.default.createElement(
-				'div',
-				{ className: 'newsBox', id: 'newsBox' },
-				that.state.list1
+				_reactjsIscroll2.default,
+				{ iScroll: _iscrollProbe2.default, handleRefresh: that.handleRefresh },
+				_react2.default.createElement(
+					'div',
+					{ className: 'newsBox', id: 'newsBox' },
+					that.state.list1
+				)
 			)
 		));
 
@@ -69435,6 +69440,7 @@ var Save = _react2.default.createClass({
 					var articleList = data.list;
 					var total = data.total;
 					var articleArr = [];
+					console.log(articleList);
 					for (var i in articleList) {
 						//articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndArticle}>
 						articleArr.push(_react2.default.createElement(

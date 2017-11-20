@@ -211,7 +211,7 @@ class News extends Component {
 		var scollTxt=[];
 		if(that.state.scrollShow){
 			//if(true){
-			scollTxt.push(<ReactIScroll iScroll={iScroll} key={Math.random()} handleRefresh={this.handleRefresh} >
+			scollTxt.push(<ReactIScroll key={Math.random()} iScroll={iScroll}  handleRefresh={this.handleRefresh} >
 					        	{that.state.list}
 					        </ReactIScroll>)
 		}else{
@@ -229,7 +229,7 @@ class News extends Component {
 					</div>
 					<h3>你关心的资讯</h3>
 					<div className="newsBox">
-				        <div className="listWrap">
+				       <div className="listWrap">
 						 	{scollTxt}
 		        		</div>
 				    </div>

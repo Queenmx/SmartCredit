@@ -147,7 +147,14 @@
 
 .listWrap {
   position: relative;
-  height: 100%; }
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  overflow: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; }
 
 .saveCon {
   display: -webkit-box;
@@ -162,7 +169,14 @@
   -o-flex-direction: column;
   flex-direction: column; }
   .saveCon .saveConBox {
-    height: 100%;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
     position: relative; }
 
 .newsCon {
@@ -206,7 +220,18 @@
   -moz-box-flex: 1;
   -webkit-flex: 1;
   -ms-flex: 1;
-  flex: 1; }
+  flex: 1;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column; }
   .newsBox h3 {
     margin-top: 0.15rem;
     height: .8rem;
