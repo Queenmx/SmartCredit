@@ -28,109 +28,124 @@ var IdCard = React.createClass({
     },
     finishID: function () {
         var that = this;
-        var certStatus=that.state.certStatus;
-        //console.log(certStatus);
-       if(this.state.certStatus==1){
+        var certStatus=that.state.certStatus*1;
+      //  console.log(typeof certStatus);
+       if(certStatus==1){
         		toast.show("认证已通过，无需重复上传",2000);
-       }else if(this.state.certStatus===0){
+       }else if(certStatus===0){
         		toast.show("正在审核中，无需重复上传",2000);
        }else{
+       		that.setState({
+		            flag: true
+		        })
        		var faceImgData = that.state.faceImg;
 	        var backImgData = that.state.backImg;
-	        that.setState({
-	            flag: true
-	        })
-	        api.identityUserCert(backImgData, faceImgData, function (res) {
-	            //console.log(res);
-	            if (res.code == "0000") {
-	            	toast.show("上传成功，等待审核", 2000);
-	                that.setState({
-	                    flag: false
-	                })
-	                var data = JSON.parse(strDec(res.data, key1, "", ""));
-	                //console.log(data);
-	               var userObj=that.state.userObj;
-	                userObj.backPic=data.backPic;
-	                userObj.frontPic=data.frontPic;
-	                localStorage.setItem("user",JSON.stringify(userObj));
-	                globalData.user=JSON.stringify(userObj);
-	                //var queryData = {};
-	                var path = {
-	                    pathname: '/Mine',
-	                  //  state: queryData,
-	                }
-	                hashHistory.push(path);
-	                
-	            } else if (res.code == "5555") {
-	                that.setState({
-	                    flag: false
-	                })
-	                toast.show("登录过时，请重新登录", 2000);
-	                var path = {
-	                    pathname: '/Login',
-	                }
-	                hashHistory.push(path);
-	            } else {
-	                that.setState({
-	                    flag: false
-	                })
-	                toast.show(res.msg, 2000);
-	            }
-	        }, function () {
-	            that.setState({
-	                flag: false
-	            })
-	            toast.show("连接错误", 2000);
-	        })
-
-       }
+	        if(faceImgData&&backImgData){
+		        api.identityUserCert(backImgData, faceImgData, function (res) {
+		          //  console.log(res);
+		            if (res.code == "0000") {
+		            	toast.show("上传成功，等待审核", 2000);
+		                that.setState({
+		                    flag: false
+		                })
+		                var data = JSON.parse(strDec(res.data, key1, "", ""));
+		              //  console.log(data);
+		               var userObj=that.state.userObj;
+		                userObj.backPic=data.backPic;
+		                userObj.frontPic=data.frontPic;
+		                localStorage.setItem("user",JSON.stringify(userObj));
+		                globalData.user=JSON.stringify(userObj);
+		                //var queryData = {};
+		                var path = {
+		                    pathname: '/Mine',
+		                  //  state: queryData,
+		                }
+		                hashHistory.push(path);
+		                
+		            } else if (res.code == "5555") {
+		                that.setState({
+		                    flag: false
+		                })
+		                toast.show("登录过时，请重新登录", 2000);
+		                var path = {
+		                    pathname: '/Login',
+		                }
+		                hashHistory.push(path);
+		            } else {
+		                that.setState({
+		                    flag: false
+		                })
+		                toast.show(res.msg, 2000);
+		            }
+		        }, function () {
+		            that.setState({
+		                flag: false
+		            })
+		            toast.show("连接错误", 2000);
+		        })
+	
+	       }else{
+	       		that.setState({
+		                flag: false
+		            })
+	       		toast.show("请选择图片",2000)
+	       }
         
-        
+      }  
 
 
     },
     componentDidMount: function () {
-		/*api.userInfo(function(res){
-			//console.log(res);
-			if(res.code=="0000"){
-				var data =JSON.parse(strDec(res.data,key1,"",""));
-				console.log(data);
-			}else if(res.code=="5555"){
-				toast.show("登录过时，请重新登录",2000);
-				var path = {
-				  pathname:'/Login',
-				}
-				hashHistory.push(path);
-			}else{
-				toast.show(res.msg,2000);
-			}
-		},function(){
-			toast.show("连接错误",2000);
-		})*/
+		
     },
-    upload: function (c, d, name) {
+ 
+    upload: function (c, d,name) {
         var that = this;
         var $c = document.querySelector(c),
             $d = document.querySelector(d),
-            file = $c.files[0],
+            myfile = $c.files[0],
             reader = new FileReader();
         //reader.readAsBinaryString(file,'gb2312');
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(myfile);
         reader.onload = function (e) {
             // 这个事件在读取结束后，无论成功或者失败都会触发
             if (reader.error) {
-                //console.log(reader.error);
+               // console.log(reader.error);
                 alert(reader.error);
             } else {
-                that.setState({
-                    [name]: e.target.result
-                })
                 $d.setAttribute("src", e.target.result);
                 //console.log(e.target.result);
             }
 
         }
+        if(myfile){
+	        new html5ImgCompress(myfile, {
+		        before: function(myfile) {
+		         // console.log('单张: 压缩前...');
+		        },
+		        done: function (myfile, base64) {
+		        //  console.log('单张: 压缩成功...');
+		         // toast.show("单张: 压缩成功...",1000)
+		         // console.log(base64);
+		          that.setState({
+	                    [name]: base64
+	                })
+		        },
+		        fail: function(myfile) {
+		       //  toast.show('单张: 压缩失败...');
+		        },
+		        complete: function(myfile) {
+		        //  console.log('单张: 压缩完成...');
+		        //  console.log(that.state)
+		        },
+		        notSupport: function(myfile) {
+		          alert('浏览器不支持！');
+		        }
+		      });
+	      }
     },
+
+    
 	errorFace:function(event){
 		event.target.src = "src/img/face.png";
         event.target.onerror = null; //控制不要一直跳动 
@@ -142,7 +157,7 @@ var IdCard = React.createClass({
 	},
     render: function () {
     	var imgPath=globalData.imgPath;
-        //console.log(this.state);
+        console.log(this.state);
         var that = this;
         return (
             <div className="app_Box idCard">
@@ -151,12 +166,13 @@ var IdCard = React.createClass({
                 <div className="idCardCon content">
                     <h4>万融汇依法保护你的个人信息</h4>
                     <div className="photoBox">
-                        <input id="face" type="file" onChange={that.upload.bind(this, "#face", "#faceImg", "faceImg")} accept="image/*" />
+                        <input id="face" type="file" onChange={that.upload.bind(this,"#face","#faceImg","faceImg")} accept="image/*" />
                         <img id="faceImg"  src={imgPath+that.state.frontPic} onError={that.errorFace}  />
-                        <p>身份证人头像,图片清晰,边缘完整</p>
+                       <div id="box"></div>
+                       <p>身份证人头像,图片清晰,边缘完整</p>
                     </div>
                     <div className="photoBox">
-                        <input id="back" type="file" onChange={that.upload.bind(this, "#back", "#backImg", "backImg")} accept="image/*" />
+                        <input id="back" type="file" onChange={that.upload.bind(this,"#back","#backImg","backImg")} accept="image/*" />
                         <img id="backImg"  src={imgPath+that.state.backPic} onError={that.errorback} />
                         <p>身份证反面照,图片清晰,边缘完整</p>
                     </div>

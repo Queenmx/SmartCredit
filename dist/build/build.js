@@ -4712,7 +4712,7 @@ var globalData = {
     key: "ZND171030APIMM",
     // appBasePath: "http://www.91ymfq.com/XR/",
     path: "http://xingrongjinfu.iask.in:8886",
-    //path:"http://wangjuan6.free.ngrok.cc",
+    // path:"http://wangjuan6.free.ngrok.cc",
     //path:"http://101.132.32.72:8102/",
     //path:"http://122.144.133.20:8088",
     // path:"http://192.168.1.17:8886",
@@ -4950,12 +4950,12 @@ module.exports.dictionary = function (objId, parentId, typeCode, cb1, cb2) {
 module.exports.userHead = function (headPic, cb1, cb2) {
     var data = _global.globalData.requestData;
     // data.token=token;
-    data.headPic = headPic;
+    //data.headPic = headPic;
     data.userId = _global.globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(_global.globalData.path + "/zndai/user/userHead", { params: str, headPic: headPic }, cb1, cb2);
-    delete data.headPic;
+    //delete data.headPic;
     delete data.userId;
 };
 
@@ -4963,13 +4963,13 @@ module.exports.userHead = function (headPic, cb1, cb2) {
 module.exports.identityUserCert = function (backPic, frontPic, cb1, cb2) {
     var data = _global.globalData.requestData;
     // data.token=token;
-    data.backPic = backPic;
-    data.frontPic = frontPic;
+    //data.backPic = backPic;
+    //data.frontPic = frontPic;
     data.userId = _global.globalData.userId;
     var param = JSON.stringify(data);
     //console.log(param)
     var str = strEnc(param, key1);
-    http(_global.globalData.path + "/zndai/user/identityUserCert", { params: str }, cb1, cb2);
+    http(_global.globalData.path + "/zndai/user/identityUserCert", { params: str, backPic: backPic, frontPic: frontPic }, cb1, cb2);
     delete data.userId;
     delete data.backPic;
     delete data.frontPic;
@@ -68395,39 +68395,37 @@ var Mine = _react2.default.createClass({
     },
     toIdCard: function toIdCard() {
         var toast = _global.globalData.toast;
-        toast.show("身份证认证功能尚未开放", 2000);
-        /*if (this.state.isLogin) {
-        	//console.log(this.state.certStatus);
-        	if(this.state.certStatus==1){
-        		toast.show("认证已通过，无需重复上传",2000);
-        		var path = {
-                 pathname: '/idCard',
-                 //query:data,
-             }
-             hashHistory.push(path);
-        		
-        	}else if(this.state.certStatus==0){
-        		toast.show("正在审核中，无需重复上传",2000);
-        		var path = {
-                 pathname: '/idCard',
-                 //query:data,
-             }
-             hashHistory.push(path);
-        	}else{
-        		var path = {
-                 pathname: '/idCard',
-                 //query:data,
-             }
-             hashHistory.push(path);
-        	}
-            
+        //toast.show("身份证认证功能尚未开放",2000);
+        if (this.state.isLogin) {
+            //console.log(this.state.certStatus);
+            if (this.state.certStatus == 1) {
+                toast.show("认证已通过，无需重复上传", 2000);
+                var path = {
+                    pathname: '/idCard'
+                    //query:data,
+                };
+                _reactRouter.hashHistory.push(path);
+            } else if (this.state.certStatus == 0) {
+                toast.show("正在审核中，无需重复上传", 2000);
+                var path = {
+                    pathname: '/idCard'
+                    //query:data,
+                };
+                _reactRouter.hashHistory.push(path);
+            } else {
+                var path = {
+                    pathname: '/idCard'
+                    //query:data,
+                };
+                _reactRouter.hashHistory.push(path);
+            }
         } else {
             var path = {
-                pathname: '/Login/Mine',
+                pathname: '/Login/Mine'
                 //query:data,
-            }
-            hashHistory.push(path);
-        }*/
+            };
+            _reactRouter.hashHistory.push(path);
+        }
     },
     toPersonalLevel: function toPersonalLevel() {
         var key1 = _global.globalData.key;
@@ -68467,7 +68465,7 @@ var Mine = _react2.default.createClass({
                     _react2.default.createElement(
                         'div',
                         { className: 'userImg' },
-                        _react2.default.createElement('img', { src: 'src/img/icon/tx.png', onError: that.imgError })
+                        _react2.default.createElement('img', { src: imgPath + userObj.headPic, onError: that.imgError })
                     ),
                     _react2.default.createElement(
                         'div',
@@ -69440,7 +69438,7 @@ var Save = _react2.default.createClass({
 					var articleList = data.list;
 					var total = data.total;
 					var articleArr = [];
-					console.log(articleList);
+					//console.log(articleList)
 					for (var i in articleList) {
 						//articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndArticle}>
 						articleArr.push(_react2.default.createElement(
@@ -70778,7 +70776,7 @@ var ListDetail = _react2.default.createClass({
                     _react2.default.createElement(
                         'h2',
                         null,
-                        '\u529E\u7406\u6D41\u7A0B(\u95E8\u5E97\u529E\u7406)'
+                        '\u529E\u7406\u6D41\u7A0B'
                     ),
                     _react2.default.createElement('div', { className: 'flowPic', dangerouslySetInnerHTML: { __html: loanDetail.loanFlow } }),
                     _react2.default.createElement(
@@ -114228,7 +114226,7 @@ exports.default = HelpDetail;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+				value: true
 });
 
 var _react = __webpack_require__(5);
@@ -114262,175 +114260,189 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var key1 = _global.globalData.key;
 var toast = _global.globalData.toast;
 var IdCard = _react2.default.createClass({
-    displayName: 'IdCard',
+				displayName: 'IdCard',
 
-    getInitialState: function getInitialState() {
-        return {
-            flag: false
-        };
-    },
-    componentWillMount: function componentWillMount() {
-        var user = _global.globalData.user;
-        var userObj = JSON.parse(user);
-        this.setState({
-            userObj: userObj,
-            certStatus: userObj.certStatus,
-            backPic: userObj.backPic,
-            frontPic: userObj.frontPic
-        });
-    },
-    finishID: function finishID() {
-        var that = this;
-        var certStatus = that.state.certStatus;
-        //console.log(certStatus);
-        if (this.state.certStatus == 1) {
-            toast.show("认证已通过，无需重复上传", 2000);
-        } else if (this.state.certStatus === 0) {
-            toast.show("正在审核中，无需重复上传", 2000);
-        } else {
-            var faceImgData = that.state.faceImg;
-            var backImgData = that.state.backImg;
-            that.setState({
-                flag: true
-            });
-            _api2.default.identityUserCert(backImgData, faceImgData, function (res) {
-                //console.log(res);
-                if (res.code == "0000") {
-                    toast.show("上传成功，等待审核", 2000);
-                    that.setState({
-                        flag: false
-                    });
-                    var data = JSON.parse(strDec(res.data, key1, "", ""));
-                    //console.log(data);
-                    var userObj = that.state.userObj;
-                    userObj.backPic = data.backPic;
-                    userObj.frontPic = data.frontPic;
-                    localStorage.setItem("user", JSON.stringify(userObj));
-                    _global.globalData.user = JSON.stringify(userObj);
-                    //var queryData = {};
-                    var path = {
-                        pathname: '/Mine'
-                        //  state: queryData,
-                    };
-                    _reactRouter.hashHistory.push(path);
-                } else if (res.code == "5555") {
-                    that.setState({
-                        flag: false
-                    });
-                    toast.show("登录过时，请重新登录", 2000);
-                    var path = {
-                        pathname: '/Login'
-                    };
-                    _reactRouter.hashHistory.push(path);
-                } else {
-                    that.setState({
-                        flag: false
-                    });
-                    toast.show(res.msg, 2000);
-                }
-            }, function () {
-                that.setState({
-                    flag: false
-                });
-                toast.show("连接错误", 2000);
-            });
-        }
-    },
-    componentDidMount: function componentDidMount() {
-        /*api.userInfo(function(res){
-        	//console.log(res);
-        	if(res.code=="0000"){
-        		var data =JSON.parse(strDec(res.data,key1,"",""));
-        		console.log(data);
-        	}else if(res.code=="5555"){
-        		toast.show("登录过时，请重新登录",2000);
-        		var path = {
-        		  pathname:'/Login',
-        		}
-        		hashHistory.push(path);
-        	}else{
-        		toast.show(res.msg,2000);
-        	}
-        },function(){
-        	toast.show("连接错误",2000);
-        })*/
-    },
-    upload: function upload(c, d, name) {
-        var that = this;
-        var $c = document.querySelector(c),
-            $d = document.querySelector(d),
-            file = $c.files[0],
-            reader = new FileReader();
-        //reader.readAsBinaryString(file,'gb2312');
-        reader.readAsDataURL(file);
-        reader.onload = function (e) {
-            // 这个事件在读取结束后，无论成功或者失败都会触发
-            if (reader.error) {
-                //console.log(reader.error);
-                alert(reader.error);
-            } else {
-                that.setState(_defineProperty({}, name, e.target.result));
-                $d.setAttribute("src", e.target.result);
-                //console.log(e.target.result);
-            }
-        };
-    },
-    errorFace: function errorFace(event) {
-        event.target.src = "src/img/face.png";
-        event.target.onerror = null; //控制不要一直跳动 
-    },
+				getInitialState: function getInitialState() {
+								return {
+												flag: false
+								};
+				},
+				componentWillMount: function componentWillMount() {
+								var user = _global.globalData.user;
+								var userObj = JSON.parse(user);
+								this.setState({
+												userObj: userObj,
+												certStatus: userObj.certStatus,
+												backPic: userObj.backPic,
+												frontPic: userObj.frontPic
+								});
+				},
+				finishID: function finishID() {
+								var that = this;
+								var certStatus = that.state.certStatus * 1;
+								//  console.log(typeof certStatus);
+								if (certStatus == 1) {
+												toast.show("认证已通过，无需重复上传", 2000);
+								} else if (certStatus === 0) {
+												toast.show("正在审核中，无需重复上传", 2000);
+								} else {
+												that.setState({
+																flag: true
+												});
+												var faceImgData = that.state.faceImg;
+												var backImgData = that.state.backImg;
+												if (faceImgData && backImgData) {
+																_api2.default.identityUserCert(backImgData, faceImgData, function (res) {
+																				//  console.log(res);
+																				if (res.code == "0000") {
+																								toast.show("上传成功，等待审核", 2000);
+																								that.setState({
+																												flag: false
+																								});
+																								var data = JSON.parse(strDec(res.data, key1, "", ""));
+																								//  console.log(data);
+																								var userObj = that.state.userObj;
+																								userObj.backPic = data.backPic;
+																								userObj.frontPic = data.frontPic;
+																								localStorage.setItem("user", JSON.stringify(userObj));
+																								_global.globalData.user = JSON.stringify(userObj);
+																								//var queryData = {};
+																								var path = {
+																												pathname: '/Mine'
+																												//  state: queryData,
+																								};
+																								_reactRouter.hashHistory.push(path);
+																				} else if (res.code == "5555") {
+																								that.setState({
+																												flag: false
+																								});
+																								toast.show("登录过时，请重新登录", 2000);
+																								var path = {
+																												pathname: '/Login'
+																								};
+																								_reactRouter.hashHistory.push(path);
+																				} else {
+																								that.setState({
+																												flag: false
+																								});
+																								toast.show(res.msg, 2000);
+																				}
+																}, function () {
+																				that.setState({
+																								flag: false
+																				});
+																				toast.show("连接错误", 2000);
+																});
+												} else {
+																that.setState({
+																				flag: false
+																});
+																toast.show("请选择图片", 2000);
+												}
+								}
+				},
+				componentDidMount: function componentDidMount() {},
 
-    errorback: function errorback(event) {
-        event.target.src = "src/img/back.png";
-        event.target.onerror = null; //控制不要一直跳动 
-    },
-    render: function render() {
-        var imgPath = _global.globalData.imgPath;
-        //console.log(this.state);
-        var that = this;
-        return _react2.default.createElement(
-            'div',
-            { className: 'app_Box idCard' },
-            _react2.default.createElement(_header2.default, { title: '\u8EAB\u4EFD\u8BC1\u8BA4\u8BC1' }),
-            _react2.default.createElement(_loading2.default, { flag: that.state.flag }),
-            _react2.default.createElement(
-                'div',
-                { className: 'idCardCon content' },
-                _react2.default.createElement(
-                    'h4',
-                    null,
-                    '\u4E07\u878D\u6C47\u4F9D\u6CD5\u4FDD\u62A4\u4F60\u7684\u4E2A\u4EBA\u4FE1\u606F'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'photoBox' },
-                    _react2.default.createElement('input', { id: 'face', type: 'file', onChange: that.upload.bind(this, "#face", "#faceImg", "faceImg"), accept: 'image/*' }),
-                    _react2.default.createElement('img', { id: 'faceImg', src: imgPath + that.state.frontPic, onError: that.errorFace }),
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        '\u8EAB\u4EFD\u8BC1\u4EBA\u5934\u50CF,\u56FE\u7247\u6E05\u6670,\u8FB9\u7F18\u5B8C\u6574'
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'photoBox' },
-                    _react2.default.createElement('input', { id: 'back', type: 'file', onChange: that.upload.bind(this, "#back", "#backImg", "backImg"), accept: 'image/*' }),
-                    _react2.default.createElement('img', { id: 'backImg', src: imgPath + that.state.backPic, onError: that.errorback }),
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        '\u8EAB\u4EFD\u8BC1\u53CD\u9762\u7167,\u56FE\u7247\u6E05\u6670,\u8FB9\u7F18\u5B8C\u6574'
-                    )
-                )
-            ),
-            _react2.default.createElement(
-                'div',
-                { className: 'botBtn', onClick: that.finishID },
-                '\u5B8C\u6210\u8EAB\u4EFD\u9A8C\u8BC1'
-            )
-        );
-    }
+				upload: function upload(c, d, name) {
+								var that = this;
+								var $c = document.querySelector(c),
+								    $d = document.querySelector(d),
+								    myfile = $c.files[0],
+								    reader = new FileReader();
+								//reader.readAsBinaryString(file,'gb2312');
+								reader.readAsDataURL(myfile);
+								reader.onload = function (e) {
+												// 这个事件在读取结束后，无论成功或者失败都会触发
+												if (reader.error) {
+																// console.log(reader.error);
+																alert(reader.error);
+												} else {
+																$d.setAttribute("src", e.target.result);
+																//console.log(e.target.result);
+												}
+								};
+								if (myfile) {
+												new html5ImgCompress(myfile, {
+																before: function before(myfile) {
+																				// console.log('单张: 压缩前...');
+																},
+																done: function done(myfile, base64) {
+																				//  console.log('单张: 压缩成功...');
+																				// toast.show("单张: 压缩成功...",1000)
+																				// console.log(base64);
+																				that.setState(_defineProperty({}, name, base64));
+																},
+																fail: function fail(myfile) {
+																				//  toast.show('单张: 压缩失败...');
+																},
+																complete: function complete(myfile) {
+																				//  console.log('单张: 压缩完成...');
+																				//  console.log(that.state)
+																},
+																notSupport: function notSupport(myfile) {
+																				alert('浏览器不支持！');
+																}
+												});
+								}
+				},
+
+				errorFace: function errorFace(event) {
+								event.target.src = "src/img/face.png";
+								event.target.onerror = null; //控制不要一直跳动 
+				},
+
+				errorback: function errorback(event) {
+								event.target.src = "src/img/back.png";
+								event.target.onerror = null; //控制不要一直跳动 
+				},
+				render: function render() {
+								var imgPath = _global.globalData.imgPath;
+								console.log(this.state);
+								var that = this;
+								return _react2.default.createElement(
+												'div',
+												{ className: 'app_Box idCard' },
+												_react2.default.createElement(_header2.default, { title: '\u8EAB\u4EFD\u8BC1\u8BA4\u8BC1' }),
+												_react2.default.createElement(_loading2.default, { flag: that.state.flag }),
+												_react2.default.createElement(
+																'div',
+																{ className: 'idCardCon content' },
+																_react2.default.createElement(
+																				'h4',
+																				null,
+																				'\u4E07\u878D\u6C47\u4F9D\u6CD5\u4FDD\u62A4\u4F60\u7684\u4E2A\u4EBA\u4FE1\u606F'
+																),
+																_react2.default.createElement(
+																				'div',
+																				{ className: 'photoBox' },
+																				_react2.default.createElement('input', { id: 'face', type: 'file', onChange: that.upload.bind(this, "#face", "#faceImg", "faceImg"), accept: 'image/*' }),
+																				_react2.default.createElement('img', { id: 'faceImg', src: imgPath + that.state.frontPic, onError: that.errorFace }),
+																				_react2.default.createElement('div', { id: 'box' }),
+																				_react2.default.createElement(
+																								'p',
+																								null,
+																								'\u8EAB\u4EFD\u8BC1\u4EBA\u5934\u50CF,\u56FE\u7247\u6E05\u6670,\u8FB9\u7F18\u5B8C\u6574'
+																				)
+																),
+																_react2.default.createElement(
+																				'div',
+																				{ className: 'photoBox' },
+																				_react2.default.createElement('input', { id: 'back', type: 'file', onChange: that.upload.bind(this, "#back", "#backImg", "backImg"), accept: 'image/*' }),
+																				_react2.default.createElement('img', { id: 'backImg', src: imgPath + that.state.backPic, onError: that.errorback }),
+																				_react2.default.createElement(
+																								'p',
+																								null,
+																								'\u8EAB\u4EFD\u8BC1\u53CD\u9762\u7167,\u56FE\u7247\u6E05\u6670,\u8FB9\u7F18\u5B8C\u6574'
+																				)
+																)
+												),
+												_react2.default.createElement(
+																'div',
+																{ className: 'botBtn', onClick: that.finishID },
+																'\u5B8C\u6210\u8EAB\u4EFD\u9A8C\u8BC1'
+												)
+								);
+				}
 
 });
 
@@ -114517,59 +114529,72 @@ var UserInfo = _react2.default.createClass({
         var that = this;
         var $c = document.querySelector(c),
             $d = document.querySelector(d),
-            file = $c.files[0],
-            reader = new FileReader();
-        // if (file) {
-        //     reader.readAsDataURL(file);
-        // }
-        reader.readAsDataURL(file);
-        reader.onload = function (e) {
-            if (reader.error) {
-                //console.log(reader.error);
-            } else {
-                that.setState({
-                    flag: true
-                });
-                // $d.setAttribute("src", e.target.result);
-                _api2.default.userHead(e.target.result, function (res) {
-                    //console.log(res);
-                    if (res.code == "0000") {
-                        that.setState({
-                            flag: false
-                        });
-                        var data = JSON.parse(strDec(res.data, key1, "", ""));
-                        //console.log(data);
-                        var user = that.state.user;
-                        user.headPic = data.headPicPath;
-                        that.setState({ headPic: data.headPicPath });
-                        _global.globalData.user = JSON.stringify(user);
-                        localStorage.setItem("user", JSON.stringify(user));
-                        //console.log(user);
-                        toast.show("头像设置成功", 2000);
-                    } else if (res.code == "5555") {
-                        that.setState({
-                            flag: false
-                        });
-                        toast.show("登录过时，请重新登录", 2000);
-                        var path = {
-                            pathname: '/Login'
-                        };
-                        _reactRouter.hashHistory.push(path);
-                    } else {
-                        that.setState({
-                            flag: false
-                        });
-                        toast.show(res.msg, 2000);
-                    }
-                }, function () {
+            myfile = $c.files[0];
+        if (myfile) {
+            that.setState({
+                flag: true
+            });
+            new html5ImgCompress(myfile, {
+                before: function before(myfile) {
+                    //console.log('单张: 压缩前...');
+                },
+                done: function done(myfile, base64) {
+                    // console.log('单张: 压缩成功...');
+                    //toast.show("单张: 压缩成功...",1000)
                     that.setState({
-                        flag: false
+                        headerPic: base64
+                    }, function () {
+                        // $d.setAttribute("src", e.target.result);
+                        _api2.default.userHead(that.state.headerPic, function (res) {
+                            //console.log(res);
+                            if (res.code == "0000") {
+                                that.setState({
+                                    flag: false
+                                });
+                                var data = JSON.parse(strDec(res.data, key1, "", ""));
+                                //console.log(data);
+                                var user = that.state.user;
+                                user.headPic = data.headPicPath;
+                                that.setState({ headPic: data.headPicPath });
+                                _global.globalData.user = JSON.stringify(user);
+                                localStorage.setItem("user", JSON.stringify(user));
+                                //console.log(user);
+                                toast.show("头像设置成功", 2000);
+                            } else if (res.code == "5555") {
+                                that.setState({
+                                    flag: false
+                                });
+                                toast.show("登录过时，请重新登录", 2000);
+                                var path = {
+                                    pathname: '/Login'
+                                };
+                                _reactRouter.hashHistory.push(path);
+                            } else {
+                                that.setState({
+                                    flag: false
+                                });
+                                toast.show(res.msg, 2000);
+                            }
+                        }, function () {
+                            that.setState({
+                                flag: false
+                            });
+                            toast.show("连接错误", 2000);
+                        });
                     });
-                    toast.show("连接错误", 2000);
-                });
-                ////console.log(e.target.result);
-            }
-        };
+                },
+                fail: function fail(myfile) {
+                    //toast.show('单张: 压缩失败...');
+                },
+                complete: function complete(myfile) {
+                    //console.log('单张: 压缩完成...');
+                    //console.log(that.state)
+                },
+                notSupport: function notSupport(myfile) {
+                    alert('浏览器不支持！');
+                }
+            });
+        }
     },
     rePsd: function rePsd() {
         var path = {
@@ -114605,6 +114630,17 @@ var UserInfo = _react2.default.createClass({
             _react2.default.createElement(
                 'ul',
                 { className: 'userInfoCon' },
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement('input', { id: 'head', type: 'file', onChange: that.userHead.bind(this, "#head", "#headImg"), accept: 'image/*' }),
+                    _react2.default.createElement('img', { id: 'headImg', src: imgPath + that.state.headPic, onError: that.logoError }),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'infoRight' },
+                        _react2.default.createElement('img', { src: 'src/img/icon/right.png' })
+                    )
+                ),
                 _react2.default.createElement(
                     'li',
                     null,

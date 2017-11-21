@@ -575,7 +575,7 @@ var ListDetail = React.createClass({
                         <p onClick={that.toMoneyDetail}>查看详情<img src="src/img/icon/down.png" /></p>
                     </div>
                     <div className="flowBox">
-                        <h2>办理流程(门店办理)</h2>
+                        <h2>办理流程</h2>
                         <div className="flowPic" dangerouslySetInnerHTML={{__html: loanDetail.loanFlow}}>
                         </div>
                         <h2>申请条件</h2>

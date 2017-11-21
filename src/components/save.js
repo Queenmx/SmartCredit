@@ -263,7 +263,7 @@ var Save=React.createClass({
 					var articleList=data.list;
 					var total=data.total;
 					var articleArr=[];
-					console.log(articleList)
+					//console.log(articleList)
 					for(var i in articleList){
 						//articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndArticle}>
 						articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()} onClick={that.toZiDetail}>

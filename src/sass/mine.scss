@@ -23,6 +23,10 @@
            width: 1.4rem;
            height: 1.4rem;
            border-radius: 50%;
+           img{
+               max-height: 1.4rem;
+               max-width: 1.4rem;
+           }
        }
        .userInfo{
            float: left;

@@ -111,8 +111,8 @@ var Mine = React.createClass({
     },
     toIdCard: function () {
     	var toast = globalData.toast;
-    	toast.show("身份证认证功能尚未开放",2000);
-        /*if (this.state.isLogin) {
+    	//toast.show("身份证认证功能尚未开放",2000);
+        if (this.state.isLogin) {
         	//console.log(this.state.certStatus);
         	if(this.state.certStatus==1){
         		toast.show("认证已通过，无需重复上传",2000);
@@ -143,7 +143,7 @@ var Mine = React.createClass({
                 //query:data,
             }
             hashHistory.push(path);
-        }*/
+        }
     },
     toPersonalLevel: function () {
         var key1 = globalData.key;
@@ -175,7 +175,7 @@ var Mine = React.createClass({
             <div className="app_Box mine">
                 <div className="mineContent content">
                     <div className="userHeader" onClick={that.goLogin}>
-                        <div className="userImg"><img src="src/img/icon/tx.png" onError={that.imgError} /></div>
+                        <div className="userImg"><img src={imgPath+userObj.headPic} onError={that.imgError} /></div>
                         <div className="userInfo"><p>{userObj.userName}</p><span>{userObj.certStatus == 1? "已认证" : "未认证"}</span></div>
                         <div className="goLogin"><img src="src/img/icon/go.png" /></div>
                     </div>

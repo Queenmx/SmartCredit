@@ -27,7 +27,7 @@ const globalData = {
     key: "ZND171030APIMM",
    // appBasePath: "http://www.91ymfq.com/XR/",
     path: "http://xingrongjinfu.iask.in:8886",
-     //path:"http://wangjuan6.free.ngrok.cc",
+    // path:"http://wangjuan6.free.ngrok.cc",
      //path:"http://101.132.32.72:8102/",
     //path:"http://122.144.133.20:8088",
    // path:"http://192.168.1.17:8886",
