@@ -91,12 +91,12 @@ module.exports = {
         //			     NODE_ENV: JSON.stringify("production") 
         //			   }
         //			}),
-        new ExtractTextPlugin('main.css')
-        //	        new webpack.optimize.UglifyJsPlugin({
-        //	          compress: {
-        //	            warnings: false
-        //	          }
-        //	        })
+        new ExtractTextPlugin('main.css'),
+        new webpack.optimize.UglifyJsPlugin({
+          compress: {
+            warnings: false
+          }
+        })
     ]
 
 }

@@ -29,14 +29,15 @@
                  input{
                      border: 0;
                      background: transparent;
-                     text-indent: 0.2rem;
+                    // text-indent: 0.2rem;
+                     margin-left: 0.15rem;
                      width: 1rem;
                      color: $blue;
                      text-align: center;
                  }
                  span{
                      position: absolute;
-                     right: 0.2rem;
+                     right: 0.15rem;
                  }
              }
              

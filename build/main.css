@@ -1242,13 +1242,13 @@ body {
           .listDetail .rangeInfo li .numBox div input {
             border: 0;
             background: transparent;
-            text-indent: 0.2rem;
+            margin-left: 0.15rem;
             width: 1rem;
             color: #53a6ff;
             text-align: center; }
           .listDetail .rangeInfo li .numBox div span {
             position: absolute;
-            right: 0.2rem; }
+            right: 0.15rem; }
       .listDetail .rangeInfo li p {
         text-align: center;
         color: #aaaaaa;
