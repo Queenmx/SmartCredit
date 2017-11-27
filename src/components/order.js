@@ -153,6 +153,7 @@ var Order = React.createClass({
 				})
                 var data = JSON.parse(strDec(res.data, key1, "", "") || []);
                 var orderList = data.list;
+                    console.log(orderList)
                 that.orderList = data.list
                 var total=data.total;
 				var totalPage=Math.ceil(total/pageSize);
@@ -182,7 +183,7 @@ var Order = React.createClass({
 	                            <li>借款金额 {that.formateMoney(orderList[i].money)}元</li>
 	                            <li>期限{orderList[i].limitDay}{that.state.rate[orderList[i].limitType]}</li>
 	                            <li>利息{that.formateMoney(orderList[i].interest)}元</li>
-	                            <li>{orderList[i].rateType}费用{orderList[i].rate}%</li>
+	                            <li>{orderList[i].rateType}费用{orderList[i].fee}元</li>
 	                        </ul>
 	                        <div className="listFoot">
 	                            <span className="status">您的贷款申请已提交，我们会尽快处理</span>

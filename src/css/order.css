@@ -60,7 +60,7 @@
   float: right; }
 
 .container {
-  width: 4rem;
+  width: 5rem;
   display: flex;
   flex-wrap: wrap;
   font-size: 0.22rem;
