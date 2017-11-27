@@ -29,7 +29,8 @@ var ListDetail = React.createClass({
             limitMax:"",
             limitType: "",
             theDateTxt:"",
-            rate:""
+            rate:"",
+            isDownImg:true
         }
     },
 	
@@ -60,7 +61,6 @@ var ListDetail = React.createClass({
             //console.log(res);
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                //console.log(data);
                 that.setState({
                     //myRateMoney: parseFloat(data.lixi) / 100
                     myRateMoney: that.formateMoney(data.lixi)
@@ -120,7 +120,7 @@ var ListDetail = React.createClass({
     },
     toMoneyDetail: function () {
         //参照我的收藏
-        this.setState({ isShowDetail: !this.state.isShowDetail });
+        this.setState({ isShowDetail: !this.state.isShowDetail,isDownImg:!this.state.isDownImg });
     },
     toProblem: function () {
         var data = { objId: this.state.loanId, loanName: this.state.loanName };
@@ -363,7 +363,21 @@ var ListDetail = React.createClass({
     chart:function(){
     	var that=this;
     	var day1=that.state.limitType=="D"?'天':"个月";
-    	var day2=that.state.rateType=="D"?'天':"个月";
+    	var day2;
+    	//var day2=that.state.rateType=="D"?'天':"个月";
+    	switch (that.state.rateType){
+			case "D":
+				day2="天"
+				break;
+			case "M":
+				day2="月"
+				break;
+			case "Y":
+				day2="年"
+				break;
+			default:
+				break;
+		}
     	var loanMoney="贷款"+that.state.value1+"元/"+that.state.value2+day1;
     	var loanlixi="利息"+that.state.myRateMoney+"元"+that.state.rate+"%/"+day2;
     	var loanFee="一次性"+that.state.fee+"元";
@@ -531,9 +545,8 @@ var ListDetail = React.createClass({
         //myRateMoney=parseFloat(myRateMoney.toFixed(2)); 
         //var myFeeMoney=myRateMoney+value1;
        
-        var myRateMoney = parseFloat(that.state.myRateMoney);
-        //console.log(that.state.myRateMoney);
-        var myTotalMoney = (loanDetail.fee + myRateMoney + value1)||"";
+        var myRateMoney = Number(that.state.myRateMoney);
+        var myTotalMoney = (loanDetail.fee + myRateMoney + value1).toFixed(2)||"";
         return (
             <div className="app_Box listDetail">
                 <Header title={loanDetail.loanName} />
@@ -572,7 +585,7 @@ var ListDetail = React.createClass({
                     </div>
                     <div className="moneyDetailBox">
                         <div className="moneyDetail" style={{ "display": that.state.isShowDetail ? "block" : "none" }} dangerouslySetInnerHTML={{__html: loanDetail.loanIntro}}></div>
-                        <p onClick={that.toMoneyDetail}>查看详情<img src="src/img/icon/down.png" /></p>
+                        <p onClick={that.toMoneyDetail}>查看详情<img src={that.state.isDownImg?"src/img/icon/down.png":"src/img/icon/up.png"} /></p>
                     </div>
                     <div className="flowBox">
                         <h2>办理流程</h2>
