@@ -9,7 +9,7 @@ import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../css/home.css';
 
-var appBasePath=globalData.appBasePath;
+var imgPath=globalData.imgPath;
 var Home=React.createClass({
 	getInitialState:function(){
 		return {
@@ -75,7 +75,7 @@ var Home=React.createClass({
 			for(var i in tagdata){
 				that.state.tagArr.push(
 				<li key={i} data-tag={tagdata[i].tagNo} data-txt={tagdata[i].tagName} data-tagId={tagdata[i].tagId} onClick={that.toList}>
-    				<img src={tagdata[i].tagPic}/>
+    				<img src={imgPath+tagdata[i].tagPic}/>
     				<p>{tagdata[i].tagName}</p>
     			</li>)
 			}
@@ -90,7 +90,7 @@ var Home=React.createClass({
 					for(var i in tagdata){
 						that.state.tagArr.push(
 						<li key={i} data-tag={tagdata[i].tagNo} data-txt={tagdata[i].tagName} data-tagId={tagdata[i].tagId} onClick={that.toList}>
-	        				<img src={tagdata[i].tagPic}/>
+	        				<img src={imgPath+tagdata[i].tagPic}/>
 	        				<p>{tagdata[i].tagName}</p>
 	        			</li>)
 					}
@@ -127,7 +127,7 @@ var Home=React.createClass({
 				}
 				arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} onClick={that.toListDetail}>
         				<h3>
-        					<img src={loanList[i].logo} onError={that.logoError} />
+        					<img src={imgPath+loanList[i].logo} onError={that.logoError} />
         					<span>{loanList[i].loanName}</span>
         				</h3>
         				<div className="capitalInfo">
@@ -178,7 +178,7 @@ var Home=React.createClass({
 						}
 						arr.push(<div className="capitalList" key={i}  data-loanId={loanList[i].loanId} onClick={that.toListDetail}>
 		        				<h3>
-		        					<img src={loanList[i].logo} onError={that.logoError} />
+		        					<img src={imgPath+loanList[i].logo} onError={that.logoError} />
 		        					<span>{loanList[i].loanName}</span>
 		        				</h3>
 		        				<div className="capitalInfo">
@@ -222,7 +222,7 @@ var Home=React.createClass({
     								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
     							</dd>
     							<dt>
-    								<img src={articleList[i].imgUrl} onError={that.logoError} />
+    								<img src={imgPath+articleList[i].imgUrl} onError={that.logoError} />
     							</dt>
     					</dl>)
 				}
@@ -246,7 +246,7 @@ var Home=React.createClass({
 	    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
 	    							</dd>
 	    							<dt>
-	    								<img src={articleList[i].imgUrl} onError={that.logoError} />
+	    								<img src={imgPath+articleList[i].imgUrl} onError={that.logoError} />
 	    							</dt>
 	    					</dl>)
 					}

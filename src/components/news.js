@@ -8,6 +8,7 @@ import {globalData} from './global.js';
 import { hashHistory, Link } from 'react-router';
 var key1 = globalData.key;
 var toast=globalData.toast;
+var imgPath=globalData.imgPath;
 class News extends Component {
 	constructor() {
 	    super();
@@ -109,7 +110,7 @@ class News extends Component {
 	    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
 	    							</dd>
 	    							<dt>
-	    								<img src={articleList[i].imgUrl} onError={that.logoError} />
+	    								<img src={imgPath+articleList[i].imgUrl} onError={that.logoError} />
 	    							</dt>
 	    					</dl>)
 					}
@@ -147,7 +148,7 @@ class News extends Component {
 			for (var i in bannerList) {
             	that.state.banner.push(
               	 <div className="swiper-slide" key={i} data-objUrl={bannerList[i].objUrl} onClick={that.bannerUrl}>
-              	 	<img src={bannerList[i].imgUrl}/>
+              	 	<img src={imgPath+bannerList[i].imgUrl}/>
               	 </div>
               	 )
             };
@@ -164,7 +165,7 @@ class News extends Component {
 			               for (var i in bannerList) {
 				            	that.state.banner.push(
 				              	 <div className="swiper-slide" key={i} data-objUrl={bannerList[i].objUrl} onClick={that.bannerUrl}>
-				              	 	<img src={bannerList[i].imgUrl}/>
+				              	 	<img src={imgPath+bannerList[i].imgUrl}/>
 				              	 </div>
 				              	 )
 				            };
