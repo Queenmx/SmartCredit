@@ -133,9 +133,9 @@ var Order = React.createClass({
     },
     formateMoney: function (money) {
         if (money % 100 === 0) {
-            return (money / 100).toFixed(2)
+            return (money / 100);
         } else {
-            return money / 100.0
+            return (money / 100.0).toFixed(2)
         }
     },
       loadData:function(downOrUp,callback) {
@@ -168,7 +168,7 @@ var Order = React.createClass({
 	                for (var i in orderList) {
 	                    var status = orderList[i].status;
 	                    //if(orderList[i].applyStatus== "APRYES"||orderList[i].applyStatus=="APRNO")
-	                    
+	                    var fee=that.formateMoney(orderList[i].fee);
 	                    arr.push(<li key={Math.random()}>
 	                        <div className="orderNum">
 	                            <span className="order_n">订单号：{orderList[i].applyNo}</span>
@@ -183,7 +183,7 @@ var Order = React.createClass({
 	                            <li>借款金额 {that.formateMoney(orderList[i].money)}元</li>
 	                            <li>期限{orderList[i].limitDay}{that.state.rate[orderList[i].limitType]}</li>
 	                            <li>利息{that.formateMoney(orderList[i].interest)}元</li>
-	                            <li>{orderList[i].rateType}费用{orderList[i].fee}元</li>
+	                            <li>费用{fee}元</li>
 	                        </ul>
 	                        <div className="listFoot">
 	                            <span className="status">您的贷款申请已提交，我们会尽快处理</span>

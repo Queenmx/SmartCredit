@@ -451,9 +451,9 @@ var ListDetail = React.createClass({
 
     formateMoney: function (money) {
         if (parseFloat(money) % 100 === 0) {
-            return (money / 100).toFixed(2);
+            return (money / 100);
         } else {
-            return money / 100.0;
+            return (money / 100.0).toFixed(2);
         }
     },
    
