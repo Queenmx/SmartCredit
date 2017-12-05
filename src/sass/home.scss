@@ -5,6 +5,29 @@
 }
 .home{
     background: #f3f3f3;
+    .loanTab{
+        height:2.8rem;
+        background: #FFFFFF;
+        @include only_display;
+        padding:0.5rem 0.5rem 0;
+        div{
+           @include flex_1; 
+           img{
+              width:1.2rem;
+              height:1.2rem;
+              border-radius: 50%;
+              display: block;
+              margin:0 auto;
+            }
+            p{
+              text-align: center;
+              font-size: 0.24rem;
+              margin-top: 0.2rem;
+              color: #666666;
+            }
+        }
+        
+    }
     .homeTab{
         height: 2.3rem;
         background: #FFFFFF;

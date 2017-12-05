@@ -1,5 +1,5 @@
 
-'use strict';
+
 
 //引入样式文件
 import './css/clear.css';

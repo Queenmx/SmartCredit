@@ -100,16 +100,7 @@ body {
   #app .app_Box {
     width: 100%;
     height: 100%;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-flex-direction: column;
-    -moz-flex-direction: column;
-    -ms-flex-direction: column;
-    -o-flex-direction: column;
     flex-direction: column;
     background: #f3f3f3; }
   #app .swiper-container {
@@ -119,10 +110,6 @@ body {
     height: 0.9rem;
     line-height: 0.9rem;
     font-size: 0.4rem;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     justify-content: space-between;
     position: relative; }
@@ -174,10 +161,6 @@ body {
       float: right;
       margin-right: 0.32rem; }
   #app .content {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
     flex: 1;
     overflow: auto;
     overflow-x: hidden;
@@ -189,10 +172,6 @@ body {
     background: #fff;
     z-index: 2;
     position: relative;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex; }
     #app #tabBar:before {
       pointer-events: none;
@@ -210,33 +189,13 @@ body {
     #app #tabBar a {
       text-decoration: none;
       padding-top: 0.1rem;
-      -webkit-box-flex: 1;
-      -moz-box-flex: 1;
-      -webkit-flex: 1;
-      -ms-flex: 1;
       flex: 1;
       text-align: center;
-      display: -webkit-box;
-      display: -moz-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
       display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-flex-direction: column;
-      -moz-flex-direction: column;
-      -ms-flex-direction: column;
-      -o-flex-direction: column;
       flex-direction: column;
       color: #aaaaaa; }
       #app #tabBar a div {
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
         display: flex;
-        -webkit-box-pack: center;
-        -moz-justify-content: center;
-        -webkit-justify-content: center;
         justify-content: center;
         text-align: center; }
         #app #tabBar a div img {
@@ -244,10 +203,6 @@ body {
           height: 0.4rem;
           display: block; }
       #app #tabBar a p {
-        -webkit-box-flex: 1;
-        -moz-box-flex: 1;
-        -webkit-flex: 1;
-        -ms-flex: 1;
         flex: 1;
         font-size: 0.2rem;
         margin-top: 0.1rem; }
@@ -295,24 +250,12 @@ body {
     line-height: 0.75rem;
     color: #aaaaaa;
     font-size: 0.22rem;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     -webkit-justify-content: space-between;
     justify-content: space-between; }
     .newsDetail .newsDetailCon .newsDetailInfo span {
-      -webkit-box-flex: 1;
-      -moz-box-flex: 1;
-      -webkit-flex: 1;
-      -ms-flex: 1;
       flex: 1; }
       .newsDetail .newsDetailCon .newsDetailInfo span:nth-child(1) {
-        -webkit-box-flex: 1.5;
-        -moz-box-flex: 1.5;
-        -webkit-flex: 1.5;
-        -ms-flex: 1.5;
         flex: 1.5;
         text-align: left; }
       .newsDetail .newsDetailCon .newsDetailInfo span:nth-child(2) {
@@ -407,10 +350,6 @@ body {
   padding: 0 0.4rem;
   line-height: 1rem;
   background: #ffffff;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
   justify-content: space-around; }
   .save .saveTab li {
@@ -576,16 +515,6 @@ body {
     margin-left: 1rem;
     height: 100%;
     overflow: hidden;
-    display: box;
-    /* OLD - Android 4.4- */
-    display: -webkit-box;
-    /* OLD - iOS 6-, Safari 3.1-6 */
-    display: -moz-box;
-    /* OLD - Firefox 19- (buggy but mostly works) */
-    display: -ms-flexbox;
-    /* TWEENER - IE 10 */
-    display: -webkit-flex;
-    /* NEW - Chrome */
     display: flex; }
     .listBox dl dt {
       margin-top: 1.04rem;
@@ -597,10 +526,6 @@ body {
         height: 100%;
         border-radius: 50%; }
     .listBox dl dd {
-      -webkit-box-flex: 1;
-      -moz-box-flex: 1;
-      -webkit-flex: 1;
-      -ms-flex: 1;
       flex: 1;
       margin-top: 0.65rem;
       margin-left: 0.8rem;

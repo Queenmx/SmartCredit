@@ -32,11 +32,11 @@ import ForgotPsd from './forgotPsd';
 import RealName from './realName';
 import IdNumber from './idNumber';
 import PersonalLevel from './personalLevel';
-//<Route path='/detail/:id' component={Detail} />
+import Loan from './loan';
 
-ReactDom.render((
-    <Router history={hashHistory}>
+ReactDom.render((<Router history={hashHistory}>
         <Route path='/' component={Home}></Route>
+        <Route path='/Loan' component={Loan}></Route>
    		<Route path='/news' component={News}></Route>
    		<Route path='/mine' component={Mine}></Route>
    		<Route path='/myMap' component={MyMap}></Route>

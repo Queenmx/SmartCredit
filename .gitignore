@@ -1,8 +1,5 @@
-# dependencies
-node_modules
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
+*.swp
+*.map
+*.log
+dist/
+node_modules/

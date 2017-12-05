@@ -17,20 +17,30 @@
 
 .home {
   background: #f3f3f3; }
+  .home .loanTab {
+    height: 2.8rem;
+    background: #FFFFFF;
+    display: flex;
+    padding: 0.5rem 0.5rem 0; }
+    .home .loanTab div {
+      flex: 1; }
+      .home .loanTab div img {
+        width: 1.2rem;
+        height: 1.2rem;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto; }
+      .home .loanTab div p {
+        text-align: center;
+        font-size: 0.24rem;
+        margin-top: 0.2rem;
+        color: #666666; }
   .home .homeTab {
     height: 2.3rem;
     background: #FFFFFF;
     padding: 0 0.2rem;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex; }
     .home .homeTab li {
-      -webkit-box-flex: 1;
-      -moz-box-flex: 1;
-      -webkit-flex: 1;
-      -ms-flex: 1;
       flex: 1;
       margin-top: 0.5rem; }
       .home .homeTab li img {
@@ -147,32 +157,15 @@
 
 .listWrap {
   position: relative;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
   flex: 1;
   overflow: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch; }
 
 .saveCon {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-flex-direction: column;
-  -moz-flex-direction: column;
-  -ms-flex-direction: column;
-  -o-flex-direction: column;
   flex-direction: column; }
   .saveCon .saveConBox {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
     flex: 1;
     overflow: auto;
     overflow-x: hidden;
@@ -180,16 +173,7 @@
     position: relative; }
 
 .newsCon {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-flex-direction: column;
-  -moz-flex-direction: column;
-  -ms-flex-direction: column;
-  -o-flex-direction: column;
   flex-direction: column; }
   .newsCon h3 {
     margin-top: 0.15rem;
@@ -216,21 +200,8 @@
       border-bottom: 1px solid #f3f3f3; }
 
 .newsBox {
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
   flex: 1;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-flex-direction: column;
-  -moz-flex-direction: column;
-  -ms-flex-direction: column;
-  -o-flex-direction: column;
   flex-direction: column; }
   .newsBox h3 {
     margin-top: 0.15rem;

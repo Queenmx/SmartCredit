@@ -564,11 +564,6 @@ body {
                 margin-left: 1rem;
                 height: 100%;
                 overflow: hidden;
-                display: box;              /* OLD - Android 4.4- */
-                display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-                display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-                display: -ms-flexbox;      /* TWEENER - IE 10 */
-                display: -webkit-flex;     /* NEW - Chrome */
                 display: flex;
                 dt{
                     margin-top: 1.04rem;
@@ -582,10 +577,6 @@ body {
                     }
                 }
                dd{
-                   -webkit-box-flex: 1;
-                    -moz-box-flex: 1; 
-                    -webkit-flex: 1;
-                    -ms-flex: 1;
                     flex: 1;
                    //float: left;
                    //width: 8.3rem;

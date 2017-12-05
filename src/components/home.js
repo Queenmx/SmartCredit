@@ -18,7 +18,6 @@ var Home=React.createClass({
 			activeIndex:0,
 			pageNum:1,
 			pageSize:10,
-			tagArr:[],
 			list:[]
 		}
 	},
@@ -63,46 +62,17 @@ var Home=React.createClass({
 			hashHistory.push(path);
 	},
 	
-	
+	toLoan:function(){
+			var path = {
+			  pathname:'/Loan',
+			}
+			hashHistory.push(path);
+	},
 	
 	componentDidMount:function(){
 		var key1 = globalData.key;
 		var toast=globalData.toast;
 		var that=this;
-		var homeTag=sessionStorage.getItem("homeTag");
-		if(homeTag){
-			var tagdata=JSON.parse(homeTag);
-			for(var i in tagdata){
-				that.state.tagArr.push(
-				<li key={i} data-tag={tagdata[i].tagNo} data-txt={tagdata[i].tagName} data-tagId={tagdata[i].tagId} onClick={that.toList}>
-    				<img src={imgPath+tagdata[i].tagPic}/>
-    				<p>{tagdata[i].tagName}</p>
-    			</li>)
-			}
-			that.setState({tagArr:that.state.tagArr})
-		}else{
-			api.tag("BQ",function(res){
-				//console.log(res)
-				if(res.code=="0000"){
-					var tagdata =JSON.parse(strDec(res.data,key1,"",""));
-					//console.log(tagdata);
-					sessionStorage.setItem("homeTag",JSON.stringify(tagdata));
-					for(var i in tagdata){
-						that.state.tagArr.push(
-						<li key={i} data-tag={tagdata[i].tagNo} data-txt={tagdata[i].tagName} data-tagId={tagdata[i].tagId} onClick={that.toList}>
-	        				<img src={imgPath+tagdata[i].tagPic}/>
-	        				<p>{tagdata[i].tagName}</p>
-	        			</li>)
-					}
-					that.setState({tagArr:that.state.tagArr})
-				}else{
-					toast.show(res.msg,2000);
-				}
-				
-			},function(){
-				toast.show("连接错误",2000);
-			})
-		}
 		
 		var homeLoan=sessionStorage.getItem("homeLoan");
 		if(homeLoan){
@@ -272,9 +242,13 @@ var Home=React.createClass({
         	<div className="app_Box home">
       		<HomeHeader curCity={curCity}/>
 	        	<div className="content">
-	        		<ul className="homeTab">
+	        		<div className="loanTab">
+	        			<div onClick={that.toLoan}><img src="src/img/icon/daikuan.png"/><p>我要贷款</p></div>
+	        			<div><img src="src/img/icon/progress.png"/><p>进度查询</p></div>
+	        		</div>
+	        		{/*<ul className="homeTab">
 	        			{that.state.tagArr}
-	        			{/*<li data-tag="SBZ" data-txt="上班族" onClick={that.toList}>
+	        			<li data-tag="SBZ" data-txt="上班族" onClick={that.toList}>
 	        				<img src="src/img/icon/group.png"/>
 	        				<p>上班族</p>
 	        			</li>
@@ -289,8 +263,8 @@ var Home=React.createClass({
 	        			<li data-tag="ZYZY" data-txt="自由职业" onClick={that.toList}>
 	        				<img src="src/img/icon/ziyou.png"/>
 	        				<p>自由职业</p>
-	        			</li>*/}
-	        		</ul>
+	        			</li>
+	        		</ul>*/}
 	        		 <div className="capitalBox">
 					       {that.state.list}
 					  </div>
