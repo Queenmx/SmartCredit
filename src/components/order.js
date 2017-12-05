@@ -102,6 +102,7 @@ var Order = React.createClass({
 	    }
 	  
   },
+  
     toCancel: function (e) {
     	var btn=e.target;
         var that = this;
@@ -138,6 +139,15 @@ var Order = React.createClass({
             return money / 100.0
         }
     },
+    toOrderDetail:function(event){
+    	var applyId=event.currentTarget.getAttribute("data-applyId");
+    	const path = {
+		  pathname:'/orderDetail',
+		  query:{applyId:applyId}
+		}
+		hashHistory.push(path);
+    	
+    },
       loadData:function(downOrUp,callback) {
   		var that=this;
   		var key1 = globalData.key;
@@ -169,10 +179,10 @@ var Order = React.createClass({
 	                    var status = orderList[i].status;
 	                    //if(orderList[i].applyStatus== "APRYES"||orderList[i].applyStatus=="APRNO")
 	                    
-	                    arr.push(<li key={Math.random()}>
+	                    arr.push(<li key={Math.random()} data-applyId={orderList[i].applyId} onClick={that.toOrderDetail}>
 	                        <div className="orderNum">
-	                            <span className="order_n">订单号：{orderList[i].applyNo}</span>
-	                            <span>{orderList[i].status==-2?"已取消":that.state.status[orderList[i].applyStatus].text}</span>
+	                            <span>订单号：{orderList[i].applyNo}</span>
+	                            <span  className="order_n">{orderList[i].status==-2?"已取消":that.state.status[orderList[i].applyStatus].text}</span>
 	                        </div>
 	                        <h3 className="list_title">
 	                            <img src={'http://xrjf.oss-cn-shanghai.aliyuncs.com/' + orderList[i].logo} onError={that.logoError}/>
@@ -183,7 +193,7 @@ var Order = React.createClass({
 	                            <li>借款金额 {that.formateMoney(orderList[i].money)}元</li>
 	                            <li>期限{orderList[i].limitDay}{that.state.rate[orderList[i].limitType]}</li>
 	                            <li>利息{that.formateMoney(orderList[i].interest)}元</li>
-	                            <li>{orderList[i].rateType}费用{orderList[i].fee}元</li>
+	                            <li>费用{orderList[i].fee}元</li>
 	                        </ul>
 	                        <div className="listFoot">
 	                            <span className="status">您的贷款申请已提交，我们会尽快处理</span>

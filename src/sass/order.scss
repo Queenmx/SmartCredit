@@ -7,12 +7,12 @@
         margin-bottom: 0.12rem;
         .orderNum{
             font-size: 0.24rem;
-            color: #666;
             line-height: 0.85rem;
             @include border_Bot;
             @include only_display;
             justify-content: space-between;
-            span{
+            -webkit-justify-content: space-between;
+            span.order_n{
                 color: red;
                 font-size: 0.26rem;
             }
@@ -20,8 +20,30 @@
     }
     
 }
-
-
+.orderDetailInfo{
+    background: #FFFFFF;
+    padding:0 0.35rem 0.35rem;
+   margin-bottom: 0.12rem;
+    .orderNum{
+            font-size: 0.24rem;
+            line-height: 0.85rem;
+            @include border_Bot;
+            @include only_display;
+            justify-content: space-between;
+            -webkit-justify-content: space-between;
+            span.order_n{
+                color: red;
+                font-size: 0.26rem;
+            }
+        }
+}
+.note{
+    line-height: 0.8rem;
+    text-align: center;
+    color: red;
+    font-size: 0.22rem;
+    
+}
 .list_title{
     font-size: 0.28rem;
     line-height: 1rem;

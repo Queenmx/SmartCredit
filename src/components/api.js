@@ -560,8 +560,17 @@ module.exports.circle = function (cb1, cb2) {
     http(`${globalData.path}/zndai/loan/apply/list/b`, { params: str }, cb1, cb2);
     delete data.userId;
 }
-
-
+//订单详情
+module.exports.orderDetail = function (applyId,cb1, cb2) {
+    var data = globalData.requestData;
+    data.applyId=applyId;
+    data.userId = globalData.userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/loan/apply/detail`, { params: str }, cb1, cb2);
+    delete data.userId;
+    delete data.applyId;
+}
 
 
 

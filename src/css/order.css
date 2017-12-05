@@ -18,15 +18,14 @@
   margin-bottom: 0.12rem; }
   .orderCon ul li .orderNum {
     font-size: 0.24rem;
-    color: #666;
     line-height: 0.85rem;
     position: relative;
     display: -webkit-box;
-    display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-    justify-content: space-between; }
+    justify-content: space-between;
+    -webkit-justify-content: space-between; }
     .orderCon ul li .orderNum:after {
       pointer-events: none;
       width: 200%;
@@ -41,9 +40,47 @@
       transform: scale(0.5);
       transform-origin: 0 0;
       border-bottom: 1px solid #f3f3f3; }
-    .orderCon ul li .orderNum span {
+    .orderCon ul li .orderNum span.order_n {
       color: red;
       font-size: 0.26rem; }
+
+.orderDetailInfo {
+  background: #FFFFFF;
+  padding: 0 0.35rem 0.35rem;
+  margin-bottom: 0.12rem; }
+  .orderDetailInfo .orderNum {
+    font-size: 0.24rem;
+    line-height: 0.85rem;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between; }
+    .orderDetailInfo .orderNum:after {
+      pointer-events: none;
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      content: "";
+      -webkit-transform: scale(0.5);
+      -webkit-transform-origin: 0 0;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+      border-bottom: 1px solid #f3f3f3; }
+    .orderDetailInfo .orderNum span.order_n {
+      color: red;
+      font-size: 0.26rem; }
+
+.note {
+  line-height: 0.8rem;
+  text-align: center;
+  color: red;
+  font-size: 0.22rem; }
 
 .list_title {
   font-size: 0.28rem;

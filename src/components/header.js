@@ -10,7 +10,8 @@ var Header=React.createClass({
 		}
 	},
 	toHuanKuan:function(){
-		//console.log("huan")
+		console.log("huan")
+		
 	},
 	toShare:function(){
 		//console.log("share")

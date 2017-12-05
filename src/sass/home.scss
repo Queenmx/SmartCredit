@@ -13,8 +13,8 @@
         div{
            @include flex_1; 
            img{
-              width:1.2rem;
-              height:1.2rem;
+              width:1.28rem;
+              height:1.28rem;
               border-radius: 50%;
               display: block;
               margin:0 auto;
@@ -28,9 +28,41 @@
         }
         
     }
+    .empty{
+        height: 1.4rem;
+    }
+    .loankind{
+        width: 100%;
+        padding: 0.4rem 0;
+        background: #FFFFFF;
+        position: fixed;
+        z-index: 5;
+       border-bottom: 1px solid $grey;
+        .loankindTab{
+            margin:auto;
+            width: 4.4rem;
+            height: 0.6rem;
+            border: 0.02rem solid $blue;
+            border-radius: 3px;
+            p{
+                width: 50%;
+                line-height: 0.58rem;
+                color: $blue;
+                float: left;
+                font-size: 0.24rem;
+                text-align: center;
+                &.activeLoan{
+                    color: #FFFFFF;
+                    background: $blue;
+                }
+            }
+        }
+        
+    }
     .homeTab{
         height: 2.3rem;
         background: #FFFFFF;
+        margin-top: 0.15rem;
         padding: 0 0.2rem;
         @include only_display;
         li{

@@ -33,6 +33,7 @@ import RealName from './realName';
 import IdNumber from './idNumber';
 import PersonalLevel from './personalLevel';
 import Loan from './loan';
+import OrderDetail from './orderDetail';
 
 ReactDom.render((<Router history={hashHistory}>
         <Route path='/' component={Home}></Route>
@@ -63,5 +64,6 @@ ReactDom.render((<Router history={hashHistory}>
  		<Route path='/ForgotPsd' component={ForgotPsd}/>
  		<Route path='/RealName' component={RealName}/>
  		<Route path='/IdNumber' component={IdNumber}/>
+ 		<Route path='/OrderDetail' component={OrderDetail}/>
    </Router>
 ), document.getElementById('app'));

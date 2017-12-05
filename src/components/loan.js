@@ -4,16 +4,15 @@ import ReactDom from 'react-dom';
 import api from './api';
 import {globalData} from './global.js';
 import Header from './header';
-import Footer from './footer';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../css/home.css';
 
 var imgPath=globalData.imgPath;
-var Home=React.createClass({
+var Loan=React.createClass({
 	getInitialState:function(){
 		return {
-			activeTab: 1,
+			activeLoanId: 0,
 			isLoading: false,
 			activeIndex:0,
 			pageNum:1,
@@ -52,23 +51,28 @@ var Home=React.createClass({
 		}
 		hashHistory.push(path);
 	},
-	toNewsDetail:function(event){
-		var articleId=event.currentTarget.getAttribute("data-articleid");
-	    	//console.log(articleId);
-	    	var data = {articleId:articleId};
-			var path = {
-			  pathname:'/NewsDetail',
-			  query:data,
-			}
-			hashHistory.push(path);
-	},
 	
+	loankindHandle:function(event){
+		var activeLoanId=event.currentTarget.getAttribute("data-activeLoanId");
+		this.setState({
+			activeLoanId:activeLoanId
+		},() => {this.loadData();})
+		localStorage.setItem("activeLoanId",activeLoanId);
+	},
 	
 	
 	componentDidMount:function(){
 		var key1 = globalData.key;
 		var toast=globalData.toast;
 		var that=this;
+		
+		var activeLoanId= localStorage.getItem("activeLoanId");
+		if(activeLoanId){
+			that.setState({
+				activeLoanId:activeLoanId
+			},() => {that.loadData();})
+		}
+	
 		var homeTag=sessionStorage.getItem("homeTag");
 		if(homeTag){
 			var tagdata=JSON.parse(homeTag);
@@ -103,7 +107,14 @@ var Home=React.createClass({
 				toast.show("连接错误",2000);
 			})
 		}
-		
+	
+	},
+	//精准贷
+	jzd:function(){
+		console.log("精准贷")
+		var key1 = globalData.key;
+		var toast=globalData.toast;
+		var that=this;
 		var homeLoan=sessionStorage.getItem("homeLoan");
 		if(homeLoan){
 			var loanList=JSON.parse(homeLoan);
@@ -152,7 +163,7 @@ var Home=React.createClass({
 				list:arr
 			})
 		}else{
-			api.loanList(1,5,"",function(res){
+			api.loanList(1,10,"",function(res){
 				if(res.code=="0000"){
 					var data =JSON.parse(strDec(res.data,key1,"",""));
 					//var data=res.data;
@@ -210,131 +221,60 @@ var Home=React.createClass({
 				toast.show("连接错误",2000);
 			})
 		}
-		
-		var homeArticle=sessionStorage.getItem("homeArticle");
-		if(homeArticle){
-			var articleList=JSON.parse(homeArticle);
-			var articleArr=[];
-				for(var i in articleList){
-					articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
-    							<dd>
-    								<h4>{articleList[i].articleTitle}</h4>
-    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
-    							</dd>
-    							<dt>
-    								<img src={imgPath+articleList[i].imgUrl} onError={that.logoError} />
-    							</dt>
-    					</dl>)
-				}
-				that.setState({
-					articleArr:articleArr
-				})
-		}else{
-			api.articleList(1,3,function(res){
-				//console.log(res);
-				if(res.code=="0000"){
-					var data =JSON.parse(strDec(res.data,key1,"",""));
-					//var data =JSON.parse(res.data);
-					//console.log(data);
-					var articleList=data.list;
-					sessionStorage.setItem("homeArticle",JSON.stringify(articleList));
-					var articleArr=[];
-					for(var i in articleList){
-						articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
-	    							<dd>
-	    								<h4>{articleList[i].articleTitle}</h4>
-	    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
-	    							</dd>
-	    							<dt>
-	    								<img src={imgPath+articleList[i].imgUrl} onError={that.logoError} />
-	    							</dt>
-	    					</dl>)
-					}
-					that.setState({
-						articleArr:articleArr
-					})
-					
-				}else{
-					toast.show(res.msg,2000);
-				}
-			},function(){
-				toast.show("连接错误",2000);
-			})
-		}
+	},
+	//快速贷
+	ksd:function(){
+		console.log("快速贷")
 	},
 	
+	
+	loadData:function() {
+  		var that=this;
+  		var key1 = globalData.key;
+		var toast=globalData.toast;
+	 	var activeLoanId= that.state.activeLoanId;
+	 	console.log(activeLoanId);
+	 	if(activeLoanId=="1"){//精准贷
+	 		that.jzd()
+	 	}else{//快速贷
+	 		that.ksd()
+	 	}
+	 	
+       },
 	
 	render:function(){
 		var that=this;
 		var curCity=that.props.location.query.cityId;
-		
+		var activeLoanId=that.state.activeLoanId;
+		//var capitalHtml=activeLoanId=="0"?"":that.state.list
         return (
         	<div className="app_Box home">
-      		<Header title="我要贷款"/>
+      		<Header title="贷款" headerLink="1"/>
 	        	<div className="content">
-	        		
-	        		<ul className="homeTab">
-	        			{that.state.tagArr}
-	        			{/*<li data-tag="SBZ" data-txt="上班族" onClick={that.toList}>
-	        				<img src="src/img/icon/group.png"/>
-	        				<p>上班族</p>
-	        			</li>
-	        			<li data-tag="GTH"  data-txt="个体户" onClick={that.toList}>
-	        				<img src="src/img/icon/personal.png"/>
-	        				<p>个体户</p>
-	        			</li>
-	        			<li data-tag="QY" data-txt="企业主" onClick={that.toList}>
-	        				<img src="src/img/icon/qiye.png"/>
-	        				<p>企业主</p>
-	        			</li>
-	        			<li data-tag="ZYZY" data-txt="自由职业" onClick={that.toList}>
-	        				<img src="src/img/icon/ziyou.png"/>
-	        				<p>自由职业</p>
-	        			</li>*/}
-	        		</ul>
+	        		<div className="loankind">
+		        		<div className="loankindTab">
+		        			<p data-activeLoanId="0" className={activeLoanId=="0"?"activeLoan":""} onClick={that.loankindHandle}>快速贷</p>
+		        			<p data-activeLoanId="1" className={activeLoanId=="1"?"activeLoan":""} onClick={that.loankindHandle}>精准贷</p>
+		        		</div>
+		        	</div>
+		        	<div className="empty"></div>
+		        	<div style={{"display":activeLoanId=="0"?"none":"block"}}>
+		        		<ul className="homeTab" >
+		        			{that.state.tagArr}
+		        		</ul>
+	        		 </div>
 	        		 <div className="capitalBox">
-					       {that.state.list}
+					      {activeLoanId=="0"?"":that.state.list}
 					  </div>
-	        		<div className="newsBox">
-	        				<h3>你关心的资讯</h3>
-	        				<div>
-	        					{/*<dl className="newsList" data-articleId="" onClick={that.toNewsDetail}>
-	        							<dd>
-	        								<h4>小呆还不起遇到暴力催收,我该怎么办?</h4>
-	        								<p><span>2017-10-20</span> <span>355阅读</span></p>
-	        							</dd>
-	        							<dt>
-	        								<img src=""/>
-	        							</dt>
-	        					</dl>
-		        				<dl className="newsList" onClick={that.toNewsDetail}>
-	        							<dd>
-	        								<h4>小呆还不起遇到暴力催收,我该怎么办?</h4>
-	        								<p><span>2017-10-20</span> <span>355阅读</span></p>
-	        							</dd>
-	        							<dt>
-	        								<img src=""/>
-	        							</dt>
-	        					</dl>*/}
-	        					{that.state.articleArr}
-	        				</div>
-        					<Link to="/news" className="linkNews">全部热门资讯<img src=""/></Link>
-	        	</div>
+	        		
 	        		<Loading flag={that.state.isLoading}/>
 	        	</div>
-				<Footer activeIndex="0"/>
         	</div>
         )
 	}
 });
-setInterval(function(){
-	//console.log("hhhh")
-	sessionStorage.removeItem("homeArticle");
-	sessionStorage.removeItem("homeLoan");
-	sessionStorage.removeItem("homeTag");
-	sessionStorage.removeItem("newsArticle");
-	},300000)
 
-export default Home;
+
+export default Loan;
 
 
