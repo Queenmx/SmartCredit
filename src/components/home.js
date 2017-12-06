@@ -122,7 +122,7 @@ var Home=React.createClass({
 				list:arr
 			})
 		}else{
-			api.loanList(1,5,"",function(res){
+			api.loanList(1,10,"","",function(res){
 				if(res.code=="0000"){
 					var data =JSON.parse(strDec(res.data,key1,"",""));
 					//var data=res.data;

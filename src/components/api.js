@@ -281,12 +281,13 @@ module.exports.articleDetail = function (articleId, cb1, cb2) {
 //---------------------贷款产品
 //精准贷
 //列表
-module.exports.loanList = function (pageNum, pageSize, tag, cb1, cb2) {
+module.exports.loanList = function (pageNum, pageSize, tag,type, cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     data.tag = tag;
+    data.type = type;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     //console.log(param);
@@ -294,6 +295,7 @@ module.exports.loanList = function (pageNum, pageSize, tag, cb1, cb2) {
     delete data.pageNum;
     delete data.pageSize;
     delete data.tag;
+    delete data.type;
 }
 //详情
 module.exports.loanDetail = function (loanId, cb1, cb2) {

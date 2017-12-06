@@ -18,7 +18,8 @@ var Loan=React.createClass({
 			pageNum:1,
 			pageSize:10,
 			tagArr:[],
-			list:[]
+			listKSD:[],
+			listJZD:[]
 		}
 	},
 	
@@ -76,6 +77,7 @@ var Loan=React.createClass({
 		var homeTag=sessionStorage.getItem("homeTag");
 		if(homeTag){
 			var tagdata=JSON.parse(homeTag);
+			//console.log(tagdata);
 			for(var i in tagdata){
 				that.state.tagArr.push(
 				<li key={i} data-tag={tagdata[i].tagNo} data-txt={tagdata[i].tagName} data-tagId={tagdata[i].tagId} onClick={that.toList}>
@@ -89,7 +91,7 @@ var Loan=React.createClass({
 				//console.log(res)
 				if(res.code=="0000"){
 					var tagdata =JSON.parse(strDec(res.data,key1,"",""));
-					//console.log(tagdata);
+					console.log(tagdata);
 					sessionStorage.setItem("homeTag",JSON.stringify(tagdata));
 					for(var i in tagdata){
 						that.state.tagArr.push(
@@ -115,9 +117,9 @@ var Loan=React.createClass({
 		var key1 = globalData.key;
 		var toast=globalData.toast;
 		var that=this;
-		var homeLoan=sessionStorage.getItem("homeLoan");
-		if(homeLoan){
-			var loanList=JSON.parse(homeLoan);
+		var homeLoanJZD=sessionStorage.getItem("homeLoanJZD");
+		if(homeLoanJZD){
+			var loanList=JSON.parse(homeLoanJZD);
 			var arr=[];
 			//console.log(loanList)
 			for(var i in loanList){
@@ -160,16 +162,16 @@ var Loan=React.createClass({
 			}
 			
 			that.setState({
-				list:arr
+				listJZD:arr
 			})
 		}else{
-			api.loanList(1,10,"",function(res){
+			api.loanList(1,10,"","JZD",function(res){
 				if(res.code=="0000"){
 					var data =JSON.parse(strDec(res.data,key1,"",""));
 					//var data=res.data;
 					var loanList=data.list;
 					
-					sessionStorage.setItem("homeLoan",JSON.stringify(loanList));
+					sessionStorage.setItem("homeLoanJZD",JSON.stringify(loanList));
 					var arr=[];
 					for(var i in loanList){
 						var theDate=loanList[i].rateType;
@@ -211,7 +213,7 @@ var Loan=React.createClass({
 					}
 					
 					that.setState({
-						list:arr
+						listJZD:arr
 					})
 					
 				}else{
@@ -225,6 +227,117 @@ var Loan=React.createClass({
 	//快速贷
 	ksd:function(){
 		console.log("快速贷")
+		var key1 = globalData.key;
+		var toast=globalData.toast;
+		var that=this;
+		var homeLoanKSD=sessionStorage.getItem("homeLoanKSD");
+		if(homeLoanKSD){
+			var loanList=JSON.parse(homeLoanKSD);
+			var arr=[];
+			//console.log(loanList)
+			for(var i in loanList){
+				var theDate=loanList[i].rateType;
+				var theDateTxt;
+				switch (theDate){
+					case "Y":
+					theDateTxt="年"
+						break;
+					case "M":
+					theDateTxt="月"
+						break;
+					case "D":
+					theDateTxt="日"
+						break;
+					default:
+						break;
+				}
+				arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} onClick={that.toListDetail}>
+        				<h3>
+        					<img src={imgPath+loanList[i].logo} onError={that.logoError} />
+        					<span>{loanList[i].loanName}</span>
+        				</h3>
+        				<div className="capitalInfo">
+        					<div className="limit">
+        						<h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
+        						<p>额度范围(元)</p>
+        					</div>
+        					<ul className="special">
+        						<li>{loanList[i].loanTime}</li>
+        						<li>{theDateTxt}费率{loanList[i].rate}%</li>
+        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
+        					</ul>
+        					<div className="apply">
+        						<a href="javascript:;" >申请贷款</a>
+        					</div>
+        				</div>
+        				
+        			</div>)
+			}
+			
+			that.setState({
+				listKSD:arr
+			})
+		}else{
+			api.loanList(1,10,"","KSD",function(res){
+				if(res.code=="0000"){
+					var data =JSON.parse(strDec(res.data,key1,"",""));
+					//var data=res.data;
+					var loanList=data.list;
+					
+					sessionStorage.setItem("homeLoanKSD",JSON.stringify(loanList));
+					var arr=[];
+					for(var i in loanList){
+						var theDate=loanList[i].rateType;
+						var theDateTxt;
+						switch (theDate){
+							case "Y":
+							theDateTxt="年"
+								break;
+							case "M":
+							theDateTxt="月"
+								break;
+							case "D":
+							theDateTxt="日"
+								break;
+							default:
+								break;
+						}
+						arr.push(<div className="capitalList" key={i}  data-loanId={loanList[i].loanId} onClick={that.toListDetail}>
+		        				<h3>
+		        					<img src={imgPath+loanList[i].logo} onError={that.logoError} />
+		        					<span>{loanList[i].loanName}</span>
+		        				</h3>
+		        				<div className="capitalInfo">
+		        					<div className="limit">
+		        						<h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
+		        						<p>额度范围(元)</p>
+		        					</div>
+		        					<ul className="special">
+		        						<li>{loanList[i].loanTime}</li>
+		        						<li>{theDateTxt}利率{loanList[i].rate}%</li>
+		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
+		        					</ul>
+		        					<div className="apply">
+		        						<a href="javascript:;">申请贷款</a>
+		        					</div>
+		        				</div>
+		        				
+		        			</div>)
+					}
+					
+					that.setState({
+						listKSD:arr
+					})
+					
+				}else{
+					toast.show("连接错误",2000);
+				}
+			},function(){
+				toast.show("连接错误",2000);
+			})
+		}
+		
+		
 	},
 	
 	
@@ -264,7 +377,7 @@ var Loan=React.createClass({
 		        		</ul>
 	        		 </div>
 	        		 <div className="capitalBox">
-					      {activeLoanId=="0"?"":that.state.list}
+					      {activeLoanId=="0"?that.state.listKSD:that.state.listJZD}
 					  </div>
 	        		
 	        		<Loading flag={that.state.isLoading}/>
