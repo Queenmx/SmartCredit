@@ -68,6 +68,7 @@ ReactDom.render((
         <Route path='/ForgotPsd' component={ForgotPsd} />
         <Route path='/RealName' component={RealName} />
         <Route path='/IdNumber' component={IdNumber} />
+        <Route path='/Loan' component={Loan} />
         <Route path='/Progress' component={Progress} />
         <Route path='/ProgressDetail' component={ProgressDetail} />
         <Route path='/OrderDetail' component={OrderDetail} />
