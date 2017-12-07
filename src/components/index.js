@@ -34,7 +34,10 @@ import IdNumber from './idNumber';
 import PersonalLevel from './personalLevel';
 import Progress from './Progress';
 import ProgressDetail from './ProgressDetail';
+import Loan from './loan';
+import OrderDetail from './orderDetail';
 //<Route path='/detail/:id' component={Detail} />
+
 
 ReactDom.render((
     <Router history={hashHistory}>
@@ -67,5 +70,6 @@ ReactDom.render((
         <Route path='/IdNumber' component={IdNumber} />
         <Route path='/Progress' component={Progress} />
         <Route path='/ProgressDetail' component={ProgressDetail} />
-    </Router>
+        <Route path='/OrderDetail' component={OrderDetail} />
+    </Router >
 ), document.getElementById('app'));

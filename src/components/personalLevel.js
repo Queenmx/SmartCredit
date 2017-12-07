@@ -170,7 +170,7 @@ var PersonalLevel=React.createClass({
                 
                 if (res.code == "0000") {
                     var data = JSON.parse(strDec(res.data, key1, "", ""));
-                    //console.log(data);
+                    console.log(data);
                     that.setState({
                     	flag: false,
                         qualifyList: data

@@ -1,7 +1,5 @@
 var http = require("./http");
-import {
-    globalData
-} from './global.js';
+import { globalData } from './global.js';
 
 var key1 = globalData.key;
 
@@ -12,14 +10,12 @@ module.exports.tag = function (type, cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     data.tagType = "LOAN";
-    data.type = type; //BQ 标签 FL 分类
+    data.type = type;//BQ 标签 FL 分类
     var param = JSON.stringify(data);
     // console.log(param);
     var str = strEnc(param, key1);
     // console.log(str);
-    http(`${globalData.path}/zndai/tag/list`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/tag/list`, { params: str }, cb1, cb2);
     delete data.tagType;
     delete data.type;
 }
@@ -31,9 +27,7 @@ module.exports.getCityList = function (cb1, cb2) {
     //data.token=token;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/city/list`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/city/list`, { params: str }, cb1, cb2);
 }
 
 
@@ -42,12 +36,8 @@ module.exports.getHotCity = function (cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     var param = JSON.stringify(data);
-
-
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/city/hot`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/city/hot`, { params: str }, cb1, cb2);
 }
 
 //登录
@@ -56,15 +46,13 @@ module.exports.login = function (loginType, phone, pwd, verifyCode, cb1, cb2) {
     // data.token=token;
     data.loginType = loginType;
     data.phone = phone;
-    data.pwd = pwd; //login_type为PWD时必填
+    data.pwd = pwd;//login_type为PWD时必填
     data.type = "C";
-    data.verifyCode = verifyCode; //	login_type为CODE时必填
+    data.verifyCode = verifyCode;//	login_type为CODE时必填
     var param = JSON.stringify(data);
     //console.log(param);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/login`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/login`, { params: str }, cb1, cb2);
     delete data.loginType;
     delete data.phone;
     delete data.pwd;
@@ -83,9 +71,7 @@ module.exports.register = function (phone, pwd, verifyCode, cb1, cb2) {
     var param = JSON.stringify(data);
     //console.log(param);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/add`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/add`, { params: str }, cb1, cb2);
     delete data.phone;
     delete data.pwd;
     delete data.type;
@@ -102,9 +88,7 @@ module.exports.forgot = function (phone, pwd, verifyCode, cb1, cb2) {
     var param = JSON.stringify(data);
     //console.log(param);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/pwd/forgot`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/pwd/forgot`, { params: str }, cb1, cb2);
     delete data.phone;
     delete data.pwd;
     delete data.verifyCode;
@@ -115,13 +99,11 @@ module.exports.verifyCode = function (phone, type, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.phone = phone;
-    data.type = type; //REG 注册 ，FPWD忘记密码
+    data.type = type;//REG 注册 ，FPWD忘记密码
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     //console.log(param);
-    http(`${globalData.path}/zndai/user/verifyCode`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/verifyCode`, { params: str }, cb1, cb2);
     delete data.phone;
     delete data.type;
 
@@ -133,9 +115,7 @@ module.exports.exit = function (cb1, cb2) {
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/exit`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/exit`, { params: str }, cb1, cb2);
     delete data.userId;
 }
 
@@ -152,9 +132,7 @@ module.exports.edit = function (idCard, located, realName, cb1, cb2) {
     var param = JSON.stringify(data);
     //console.log(param);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/edit`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/edit`, { params: str }, cb1, cb2);
     delete data.idCard;
     delete data.located;
     delete data.realName;
@@ -168,9 +146,7 @@ module.exports.userInfo = function (cb1, cb2) {
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/userInfo`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/userInfo`, { params: str }, cb1, cb2);
     delete data.userId;
 }
 
@@ -183,9 +159,7 @@ module.exports.updatePsd = function (newPwd, oldPwd, cb1, cb2) {
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/pwd/edit`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/pwd/edit`, { params: str }, cb1, cb2);
     delete data.newPwd;
     delete data.oldPwd;
     delete data.userId;
@@ -199,9 +173,7 @@ module.exports.qualifyListSave = function (qualifySelect, cb1, cb2) {
     var str1 = strEnc(param1, key1);
     //console.log(data);
     //console.log(param1);
-    http(`${globalData.path}/zndai/user/qualify/add`, {
-        params: str1
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/qualify/add`, { params: str1 }, cb1, cb2);
     delete data.qualifyList;
 }
 
@@ -215,9 +187,7 @@ module.exports.qualifyList = function (loanId, parentId, cb1, cb2) {
     let param = JSON.stringify(data);
     //console.log(param);
     let str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/qualify/list`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/qualify/list`, { params: str }, cb1, cb2);
     delete data.loanId;
     delete data.parentId;
     delete data.userId;
@@ -232,9 +202,7 @@ module.exports.dictionary = function (objId, parentId, typeCode, cb1, cb2) {
     let param = JSON.stringify(data);
     // console.log(param);
     let str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/dictionary/list`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/dictionary/list`, { params: str }, cb1, cb2);
     delete data.objId;
     delete data.parentId;
     delete data.typeCode;
@@ -249,10 +217,7 @@ module.exports.userHead = function (headPic, cb1, cb2) {
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/userHead`, {
-        params: str,
-        headPic: headPic
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/userHead`, { params: str, headPic: headPic }, cb1, cb2);
     //delete data.headPic;
     delete data.userId;
 }
@@ -267,11 +232,7 @@ module.exports.identityUserCert = function (backPic, frontPic, cb1, cb2) {
     var param = JSON.stringify(data);
     //console.log(param)
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/identityUserCert`, {
-        params: str,
-        backPic: backPic,
-        frontPic: frontPic
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/identityUserCert`, { params: str, backPic: backPic, frontPic: frontPic }, cb1, cb2);
     delete data.userId;
     delete data.backPic;
     delete data.frontPic;
@@ -286,9 +247,7 @@ module.exports.banner = function (cb1, cb2) {
     // data.token=token;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/banner/list`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/banner/list`, { params: str }, cb1, cb2);
 }
 
 //资讯列表
@@ -299,9 +258,7 @@ module.exports.articleList = function (pageNum, pageSize, cb1, cb2) {
     data.pageSize = pageSize;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/article/list`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/article/list`, { params: str }, cb1, cb2);
     delete data.pageNum;
     delete data.pageSize;
 }
@@ -315,9 +272,7 @@ module.exports.articleDetail = function (articleId, cb1, cb2) {
     var param = JSON.stringify(data);
     //console.log(param);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/article/detail`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/article/detail`, { params: str }, cb1, cb2);
     delete data.articleId;
     delete data.userId;
 }
@@ -326,21 +281,21 @@ module.exports.articleDetail = function (articleId, cb1, cb2) {
 //---------------------贷款产品
 //精准贷
 //列表
-module.exports.loanList = function (pageNum, pageSize, tag, cb1, cb2) {
+module.exports.loanList = function (pageNum, pageSize, tag, type, cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     data.tag = tag;
+    data.type = type;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     //console.log(param);
-    http(`${globalData.path}/zndai/loan/list`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/loan/list`, { params: str }, cb1, cb2);
     delete data.pageNum;
     delete data.pageSize;
     delete data.tag;
+    delete data.type;
 }
 //详情
 module.exports.loanDetail = function (loanId, cb1, cb2) {
@@ -351,9 +306,7 @@ module.exports.loanDetail = function (loanId, cb1, cb2) {
     var param = JSON.stringify(data);
     //console.log(param)
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/loan/detail`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/loan/detail`, { params: str }, cb1, cb2);
     delete data.loanId;
     delete data.userId;
 }
@@ -370,9 +323,7 @@ module.exports.lixi = function (limitDay, limitType, loanId, money, cb1, cb2) {
     //  console.log(param)
     var str = strEnc(param, key1);
     //console.log(str)
-    http(`${globalData.path}/zndai/loan/lixi`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/loan/lixi`, { params: str }, cb1, cb2);
     delete data.limitDay;
     delete data.limitType;
     delete data.loanId;
@@ -395,9 +346,7 @@ module.exports.applyLoan = function (limitDay, limitType, loanId, money, qualify
     //console.log(param)
     var str = strEnc(param, key1);
     // console.log(str)
-    http(`${globalData.path}/zndai/loan/apply/add`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/loan/apply/add`, { params: str }, cb1, cb2);
     delete data.limitDay;
     delete data.limitType;
     delete data.loanId;
@@ -419,9 +368,7 @@ module.exports.feedBackAdd = function (content, cb1, cb2) {
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/feedBack/add`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/feedBack/add`, { params: str }, cb1, cb2);
     delete data.content;
     delete data.userId;
 }
@@ -436,9 +383,7 @@ module.exports.questionAdd = function (content, objId, objType, cb1, cb2) {
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/question/add`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/question/add`, { params: str }, cb1, cb2);
     delete data.content;
     delete data.objId;
     delete data.objType;
@@ -454,9 +399,7 @@ module.exports.questionList = function (objId, pageNum, pageSize, cb1, cb2) {
     data.pageSize = pageSize;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/question/list`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/question/list`, { params: str }, cb1, cb2);
     delete data.objId;
     delete data.pageNum;
     delete data.pageSize;
@@ -472,9 +415,7 @@ module.exports.questionAdd = function (content, objId, objType, cb1, cb2) {
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/question/add`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/question/add`, { params: str }, cb1, cb2);
     delete data.objId;
     delete data.content;
     delete data.objType;
@@ -488,14 +429,12 @@ module.exports.save = function (objId, objType, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.objId = objId;
-    data.objType = objType; //ARTICLE   LOAN 
+    data.objType = objType;//ARTICLE   LOAN 
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     //console.log(param);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/mark/add`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/mark/add`, { params: str }, cb1, cb2);
     delete data.objId;
     delete data.objType;
     delete data.userId;
@@ -505,14 +444,12 @@ module.exports.delSave = function (markIds, objType, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.markIds = markIds;
-    data.objType = objType; //ARTICLE   LOAN 
+    data.objType = objType;//ARTICLE   LOAN 
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     // console.log(param);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/mark/del`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/mark/del`, { params: str }, cb1, cb2);
     delete data.markIds;
     delete data.objType;
     delete data.userId;
@@ -528,9 +465,7 @@ module.exports.saveLoan = function (pageNum, pageSize, cb1, cb2) {
     var param = JSON.stringify(data);
     //console.log(param);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/mark/loan/list`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/mark/loan/list`, { params: str }, cb1, cb2);
     delete data.pageNum;
     delete data.pageSize;
     delete data.userId;
@@ -546,9 +481,7 @@ module.exports.saveArticle = function (pageNum, pageSize, cb1, cb2) {
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/mark/article/list`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/mark/article/list`, { params: str }, cb1, cb2);
     delete data.pageNum;
     delete data.pageSize;
     delete data.userId;
@@ -588,9 +521,7 @@ module.exports.orderList = function (pageNum, pageSize, tag, cb1, cb2) {
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     // console.log(userId);
-    http(`${globalData.path}/zndai/loan/apply/list/c`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/loan/apply/list/c`, { params: str }, cb1, cb2);
     delete data.pageNum;
     delete data.pageSize;
     delete data.tag;
@@ -612,9 +543,7 @@ module.exports.cancleOrder = function (applyId, cb1, cb2) {
     var str = strEnc(param, key1);
     //console.log(param);
     // console.log(userId);
-    http(`${globalData.path}/zndai/loan/apply/cancel`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/loan/apply/cancel`, { params: str }, cb1, cb2);
     delete data.applyId;
     delete data.userId;
 }
@@ -630,10 +559,19 @@ module.exports.circle = function (cb1, cb2) {
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/loan/apply/list/b`, {
-        params: str
-    }, cb1, cb2);
+    http(`${globalData.path}/zndai/loan/apply/list/b`, { params: str }, cb1, cb2);
     delete data.userId;
+}
+//订单详情
+module.exports.orderDetail = function (applyId, cb1, cb2) {
+    var data = globalData.requestData;
+    data.applyId = applyId;
+    data.userId = globalData.userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/loan/apply/detail`, { params: str }, cb1, cb2);
+    delete data.userId;
+    delete data.applyId;
 }
 
 /**

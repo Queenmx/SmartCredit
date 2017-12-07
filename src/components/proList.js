@@ -81,8 +81,7 @@ class ProList extends Component {
 	 	const {currentPage,pageSize,list} = that.state;
 	 	var arr=[];
 	 	//console.log(tag);
-	 	api.loanList(currentPage,pageSize,tag,function(res){
-	 		
+	 	api.loanList(currentPage,pageSize,tag,"JZD",function(res){	 		
 			//console.log(res);
 			if(res.code=="0000"){
 				that.setState({
