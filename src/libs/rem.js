@@ -17,6 +17,7 @@
 	    function sizeHtml(){
 	        var size = $(window).width()/7.5;
 	        size1 = size>55.2?55.2:size;
+	        // console.log("size1"+size1)
 	        $("html").css("font-size",size1+"px");
 	    }
 	    sizeHtml();

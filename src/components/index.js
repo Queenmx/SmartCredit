@@ -32,36 +32,40 @@ import ForgotPsd from './forgotPsd';
 import RealName from './realName';
 import IdNumber from './idNumber';
 import PersonalLevel from './personalLevel';
-import Loan from './loan';
+import Progress from './Progress';
+import ProgressDetail from './ProgressDetail';
+//<Route path='/detail/:id' component={Detail} />
 
-ReactDom.render((<Router history={hashHistory}>
+ReactDom.render((
+    <Router history={hashHistory}>
         <Route path='/' component={Home}></Route>
-        <Route path='/Loan' component={Loan}></Route>
-   		<Route path='/news' component={News}></Route>
-   		<Route path='/mine' component={Mine}></Route>
-   		<Route path='/myMap' component={MyMap}></Route>
-   		<Route path='/Login(/:backRouter)' component={Login}/>
-   		<Route path='/txt(/:txtData)' component={Txt}/>
-   		<Route path='/SetPsd' component={SetPsd}/>
-   		<Route path='/NewsDetail' component={NewsDetail}/>
-   		<Route path='/Save' component={Save}/>
-   		<Route path='/List' component={List}/>
-   		<Route path='/ListDetail' component={ListDetail}/>
-   		<Route path='/Problem' component={Problem}/>
-   		<Route path='/Order' component={Order}/>
-   		<Route path='/Ask' component={Ask}/>
-   		<Route path='/ApplyInfo' component={ApplyInfo}/>
-   		<Route path='/ApplyLevel' component={ApplyLevel}/>
-   		<Route path='/ApplyResult' component={ApplyResult}/>
-   		<Route path='/Help' component={Help}/>
-   		<Route path='/HelpDetail' component={HelpDetail}/>
-   		<Route path='/IdCard' component={IdCard}/>
-   		<Route path='/UserInfo' component={UserInfo}/>
-   		<Route path='/PersonalLevel' component={PersonalLevel}/>
- 		<Route path='/Set' component={Set}/>
- 		<Route path='/RePsd' component={RePsd}/>
- 		<Route path='/ForgotPsd' component={ForgotPsd}/>
- 		<Route path='/RealName' component={RealName}/>
- 		<Route path='/IdNumber' component={IdNumber}/>
-   </Router>
+        <Route path='/news' component={News}></Route>
+        <Route path='/mine' component={Mine}></Route>
+        <Route path='/myMap' component={MyMap}></Route>
+        <Route path='/Login(/:backRouter)' component={Login} />
+        <Route path='/txt(/:txtData)' component={Txt} />
+        <Route path='/SetPsd' component={SetPsd} />
+        <Route path='/NewsDetail' component={NewsDetail} />
+        <Route path='/Save' component={Save} />
+        <Route path='/List' component={List} />
+        <Route path='/ListDetail' component={ListDetail} />
+        <Route path='/Problem' component={Problem} />
+        <Route path='/Order' component={Order} />
+        <Route path='/Ask' component={Ask} />
+        <Route path='/ApplyInfo' component={ApplyInfo} />
+        <Route path='/ApplyLevel' component={ApplyLevel} />
+        <Route path='/ApplyResult' component={ApplyResult} />
+        <Route path='/Help' component={Help} />
+        <Route path='/HelpDetail' component={HelpDetail} />
+        <Route path='/IdCard' component={IdCard} />
+        <Route path='/UserInfo' component={UserInfo} />
+        <Route path='/PersonalLevel' component={PersonalLevel} />
+        <Route path='/Set' component={Set} />
+        <Route path='/RePsd' component={RePsd} />
+        <Route path='/ForgotPsd' component={ForgotPsd} />
+        <Route path='/RealName' component={RealName} />
+        <Route path='/IdNumber' component={IdNumber} />
+        <Route path='/Progress' component={Progress} />
+        <Route path='/ProgressDetail' component={ProgressDetail} />
+    </Router>
 ), document.getElementById('app'));
