@@ -6,21 +6,18 @@ import { globalData } from './global.js';
 import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
-import '../css/listDetail.css';
 // 引入 ECharts 主模块
 import echarts from "echarts";
 
 var appBasePath = globalData.appBasePath;
-var ListDetail = React.createClass({
+var ListDetailKSD = React.createClass({
     getInitialState: function () {
         return {
             activeTab: 1,
             isMark: 0,
             flag: true,
             activeIndex: 0,
-            isShowDetail: false,
             loanDetail: {},
-            problemList: [],
             value1onChange: "",
             value2onChange: "",
             myTotalMoney: "",
@@ -30,7 +27,6 @@ var ListDetail = React.createClass({
             limitType: "",
             theDateTxt:"",
             rate:"",
-            isDownImg:true
         }
     },
 	
@@ -118,18 +114,16 @@ var ListDetail = React.createClass({
     handleChange2: function (event) {
         this.setState({ value2onChange: parseInt(event.target.value) || "" });
     },
-    toMoneyDetail: function () {
+    toIntroKSD: function () {
         //参照我的收藏
-        this.setState({ isShowDetail: !this.state.isShowDetail,isDownImg:!this.state.isDownImg });
-    },
-    toProblem: function () {
-        var data = { objId: this.state.loanId, loanName: this.state.loanName };
+        var data = {loanDetail: this.state.loanDetail };
         var path = {
-            pathname: '/Problem',
-            query: data,
+            pathname: '/introKSD',
+            state: data,
         }
         hashHistory.push(path);
     },
+  
     toApplyInfo: function (event) {
         var that = this;
         var key1 = globalData.key;
@@ -248,42 +242,7 @@ var ListDetail = React.createClass({
                 } else {
                     limitType = "M"
                 }
-                //var rate=data.rate;
-                /*		var getMyRate;
-                            switch (limitType){
-                                case "D"://贷款按天数
-                                    switch (rateType){//资方给的利率
-                                        case "D":
-                                            getMyRate=rate;
-                                            break;
-                                        case "M":
-                                            getMyRate=rate/30;
-                                            break;
-                                        case "Y":
-                                            getMyRate=rate/365;
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                    break;
-                                case "M"://贷款按天数
-                                    switch (rateType){//资方给的利率
-                                        case "D":
-                                            getMyRate=rate*30;
-                                            break;
-                                        case "M":
-                                            getMyRate=rate;
-                                            break;
-                                        case "Y":
-                                            getMyRate=rate/12;
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }*/
+               
 
                 //var rateMoney=
                 that.setState({
@@ -321,47 +280,7 @@ var ListDetail = React.createClass({
             toast.show("连接错误", 2000);
         })
         
-        //问题列表
-        api.questionList(loanId, 1, 3, function (res) {
-            //console.log(res);
-            if (res.code == "0000") {
-                var data = JSON.parse(strDec(res.data, key1, "", ""));
-                var problemList = data.list;
-                var total = data.total;
-               // console.log(problemList);
-                var arr = [];
-                if (problemList.length > 0) {
-                    for (var i in problemList) {
-                    	var theTime=problemList[i].addTime||"";
-                    	var answerTime=problemList[i].answerTime||"";
-                    	var theAnswerTime=that.getDateDiff(answerTime.time);
-                    	var theAddTime=that.getDateDiff(theTime.time);
-                    	//console.log(theAddTime);
-                        arr.push(<div className="problemList" key={i}>
-                            <div className="problemBlock">
-                                <img src="src/img/icon/problem.png" />
-                                <p>{problemList[i].content}</p>
-                                <span>提问时间:{theAddTime}</span>
-                            </div>
-                            <div className="answerBlock">
-                                <img src="src/img/icon/answer.png" />
-                                <p><span>{problemList[i].answerUser}</span><span>{theAnswerTime}</span></p>
-                                <p>{problemList[i].answer}</p>
-                            </div>
-                        </div>)
-                    }
-                } else {
-                    arr.push(<div key={Math.random()} style={{ 'textAlign': 'center', 'lineHeight': '1rem' }}>暂无数据</div>)
-                }
-                that.setState({
-                    problemList: arr
-                })
-            } else {
-                toast.show(res.msg, 2000);
-            }
-        }, function () {
-            toast.show("连接错误", 2000);
-        })
+    
 
     },
     
@@ -545,11 +464,6 @@ var ListDetail = React.createClass({
         var loanDetail = that.state.loanDetail;
         var value1 = that.state.value1 * 1;
         var value2 = that.state.value2 * 1;
-        //var myRate=that.state.myRate*1;
-        //var myRateMoney=value2*myRate*value1*0.01;
-        //myRateMoney=parseFloat(myRateMoney.toFixed(2)); 
-        //var myFeeMoney=myRateMoney+value1;
-       
         var myRateMoney = Number(that.state.myRateMoney);
         var myTotalMoney = (loanDetail.fee + myRateMoney + value1).toFixed(2)||"";
         return (
@@ -589,28 +503,23 @@ var ListDetail = React.createClass({
                         <div className="totalmoney"><p>{myTotalMoney}元</p>还款金额</div>
                     </div>
                     <div className="moneyDetailBox">
-                        <div className="moneyDetail" style={{ "display": that.state.isShowDetail ? "block" : "none" }} dangerouslySetInnerHTML={{__html: loanDetail.loanIntro}}></div>
-                        <p onClick={that.toMoneyDetail} className="showBtn">利率详情<img src={that.state.isDownImg?"src/img/icon/down.png":"src/img/icon/up.png"} /></p>
+                        <p onClick={that.toIntroKSD} className="showBtn">查看产品详情<img className="toIntroKSD" src="src/img/icon/right.png"/></p>
                     </div>
-                    <div className="flowBox">
-                        <h2>办理流程</h2>
-                        <div className="flowPic" dangerouslySetInnerHTML={{__html: loanDetail.loanFlow}}>
-                        </div>
-                        <h2>申请条件</h2>
-                        <div className="application" dangerouslySetInnerHTML={{__html: loanDetail.loanCondition}}>
-                        </div>
-                        <h2>所需材料</h2>
-                        <div className="application" dangerouslySetInnerHTML={{__html: loanDetail.loanDoc}}>
-                        </div>
-
-                        <h2 onClick={this.toProblem}>常见问题<span>更多回复<img src="src/img/icon/right.png" /></span></h2>
-                        <div>{that.state.problemList}</div>
-                    </div>
+                   <div className="authBox">
+                   		<h2>基本材料</h2>
+                        <ul className="authTap">
+                        	<li className="activeAuthLi"><i className="iconfont authIcon">&#xe647;</i>基本信息<div className="goAuth"><span>去认证</span><i className="iconfont">&#xe60b;</i></div></li>
+                        	<li><i className="iconfont authIcon">&#xe604;</i>身份证<div className="goAuth"><span>去认证</span><i className="iconfont">&#xe60b;</i></div></li>
+                        	<li><i className="iconfont authIcon">&#xe60a;</i>手机运营商<div className="goAuth"><span>去认证</span><i className="iconfont">&#xe60b;</i></div></li>
+                        	<li><i className="iconfont authIcon">&#xe645;</i>芝麻认证<div className="goAuth"><span>去认证</span><i className="iconfont">&#xe60b;</i></div></li>
+                        	<li><i className="iconfont authIcon">&#xe61e;</i>其他信息<div className="goAuth"><span>去认证</span><i className="iconfont">&#xe60b;</i></div></li>
+                        </ul>
+                   </div>
                 </div>
 
                 <div className="applyBtnBox footer">
                     <div className="applySaveBtn" onClick={that.saveThis} data-markId={loanDetail.markId}><img src={that.state.isMark == 1 ? "src/img/icon/sc2.png" : "src/img/icon/sc1.png"} /><p>{that.state.isMark == 1 ? "取消收藏" : "收藏"}</p></div>
-                    <div className="applyBtn" onClick={that.toApplyInfo}>申请借款</div>
+                    <div className="applyBtn" onClick={that.toApplyInfo}>开始认证</div>
                 </div>
             </div>
         )
@@ -618,5 +527,5 @@ var ListDetail = React.createClass({
 });
 
 
-export default ListDetail;
+export default ListDetailKSD;
 

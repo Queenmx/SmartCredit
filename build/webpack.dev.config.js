@@ -148,8 +148,31 @@ module.exports = function(env) {
                     // use:  "file-loader?name=[hash].[name].[ext]&outputPath=assets/images/"
                     use:  "file-loader?name=[hash].[ext]&outputPath=assets/images/"
                 },
+				// svg.
+                {
+                    test: /\.svg$/,
+                    use: [
+                        /* 小于10240byte(10kb)时返回data url否则返回url, 返回data url时不会生成对应的文件. */
+                        // {loader: 'svg-url-loader?limit=10240&name=assets/images/[hash].[name].[ext]'}
+                        // {loader: 'svg-url-loader?limit=10240&name=assets/images/[hash].[name].[ext]'}
+                        // {loader: 'svg-url-loader?limit=1&name=assets/images/[hash].[name].[ext]'}
+                        {loader: 'svg-url-loader?limit=1&name=assets/images/[hash].[ext]'}
+                    ]
+                },
 
-               
+                // woff、fft、eot、svg
+                {
+                    test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+                    use: 'url-loader?limit=10000&mimetype=application/font-woff&outputPath=assets/font/'
+                },
+                {
+                    test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                    use: 'url-loader?limit=10000&mimetype=application/octet-stream&outputPath=assets/font/'
+                },
+                {
+                    test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                    use: 'file-loader?outputPath=assets/font/'
+                },
               
                 // js.
                 {

@@ -188,9 +188,9 @@ var Mine = React.createClass({
                     <div className="creditLevel"><p>我的信用等级:<b>{userObj.certLevel}</b></p>{/*<span>去提升,5000轻松拿<img src="src/img/icon/right.png" /></span>*/}</div>
                     <div className="userOrder">
                         <ul>
-                        	<li onClick={that.toOrder} data-title="待完成订单" data-statusType="3"><img src="src/img/icon/order.png" /><p>待完成订单</p></li>
-                        	<li onClick={that.toOrder} data-title="待还款订单" data-statusType="2"><img src="src/img/icon/dd2.png" /><p>待还款订单</p></li>
-                            <li onClick={that.toOrder} data-title="全部订单" data-statusType="1"><img src="src/img/icon/dd3.png" /><p>全部订单</p></li>
+                        	<li onClick={that.toOrder} data-title="待完成订单" data-statusType="ING"><img src="src/img/icon/order.png" /><p>待完成订单</p></li>
+                        	<li onClick={that.toOrder} data-title="待还款订单" data-statusType="REPAY"><img src="src/img/icon/dd2.png" /><p>待还款订单</p></li>
+                            <li onClick={that.toOrder} data-title="全部订单" data-statusType=""><img src="src/img/icon/dd3.png" /><p>全部订单</p></li>
                         </ul>
                         <ul>
                         	<li onClick={that.toPersonalLevel}><img src="src/img/icon/personLevel.png" /><p>个人资质</p></li>

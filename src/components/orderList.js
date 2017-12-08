@@ -68,6 +68,7 @@ var OrderList = React.createClass({
     	var that=this;
     	var statusType=that.props.statusType;
     	console.log(statusType);
+    	this.setState({statusType:statusType})
     },
    logoError:function(event){
 	    	event.target.src="src/img/icon/logo.png";
@@ -190,7 +191,7 @@ var OrderList = React.createClass({
 	 	////console.log(tag);
 	 	console.log(that.state.status)
 	 	console.log(that.state.status.APRNO.btnTwo)
-	 	 api.orderList(currentPage, pageSize, "", function (res) {
+	 	 api.orderList(currentPage, pageSize,that.state.statusType, function (res) {
             if (res.code == "0000") {
             	that.setState({
 					flag:false

@@ -36,6 +36,8 @@ import Progress from './Progress';
 import ProgressDetail from './ProgressDetail';
 import Loan from './loan';
 import OrderDetail from './orderDetail';
+import IntroKSD from './introKSD';
+import ListDetailKSD from './listDetailKSD';
 //<Route path='/detail/:id' component={Detail} />
 
 
@@ -72,5 +74,7 @@ ReactDom.render((
         <Route path='/Progress' component={Progress} />
         <Route path='/ProgressDetail' component={ProgressDetail} />
         <Route path='/OrderDetail' component={OrderDetail} />
+        <Route path='/IntroKSD' component={IntroKSD} />
+        <Route path='/ListDetailKSD' component={ListDetailKSD} />
     </Router >
 ), document.getElementById('app'));
