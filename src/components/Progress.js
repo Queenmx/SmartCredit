@@ -7,14 +7,12 @@ import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../sass/progress.scss';
-
+import Processlist from './processList';
 var imgPath = globalData.imgPath;
 var Progress = React.createClass({
     getInitialState: function () {
         return {
-            activeTab: 1,
             isLoading: false,
-            activeIndex: 0,
             pageNum: 1,
             pageSize: 10,
             list: []
@@ -41,7 +39,7 @@ var Progress = React.createClass({
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
-        api.progressList(this.pageNum, this.pageSize, function (res) {
+        api.progressList(that.state.pageNum, that.state.pageSize, function (res) {
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
                 var progressList = data.list;
@@ -108,10 +106,11 @@ var Progress = React.createClass({
             <div className="app_Box progress">
                 <Header title="申请进度" />
                 <div className="content">
-                    <div className="capitalBox">
+                    <Processlist />
+                    {/* <div className="capitalBox">
                         {that.state.list}
-                    </div>
-                    <Loading flag={that.state.isLoading} />
+                    </div> */}
+                    {/* <Loading flag={that.state.isLoading} /> */}
                 </div>
             </div>
         )

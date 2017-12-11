@@ -14,6 +14,12 @@
                 color:#aaaaaa;
             }
         }
+        .fontblack{
+            color: #333333;
+        }
+        .fontgrey{
+            color: #C7C4C4;
+        }
         .index{
             display: inline-block;
             margin-right: .16rem;
@@ -24,7 +30,14 @@
             text-align: center;
             font-style: normal;
             border-radius: 50%;
+        }
+        .blue{
+            @extend .index;
             background: $blue;
+        }
+        .grey{
+            @extend .index;
+            background: #ebe6e6;
         }
     }
 }

@@ -36,12 +36,15 @@ import Progress from './Progress';
 import ProgressDetail from './ProgressDetail';
 import Loan from './loan';
 import OrderDetail from './orderDetail';
+import OtherInfo from './otherInfo';
+import loanFeedback from './loanFeedback';
 //<Route path='/detail/:id' component={Detail} />
 
 
 ReactDom.render((
     <Router history={hashHistory}>
         <Route path='/' component={Home}></Route>
+        <Route path='/Loan' component={Loan}></Route>
         <Route path='/news' component={News}></Route>
         <Route path='/mine' component={Mine}></Route>
         <Route path='/myMap' component={MyMap}></Route>
@@ -71,5 +74,8 @@ ReactDom.render((
         <Route path='/Progress' component={Progress} />
         <Route path='/ProgressDetail' component={ProgressDetail} />
         <Route path='/OrderDetail' component={OrderDetail} />
+        <Route path='/OrderDetail' component={OrderDetail} />
+        <Route path='/OtherInfo' component={OtherInfo} />
+        <Route path='/loanFeedback' component={loanFeedback} />
     </Router >
 ), document.getElementById('app'));

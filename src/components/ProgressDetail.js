@@ -14,18 +14,83 @@ var ProgressDetail = React.createClass({
         return {
             activeTab: 1,
             isShow: false,
-            activeIndex: 0
+            activeIndex: 0,
+            steps: {},
+            list: []
         }
     },
-    goContract: function (contractId) {
-        var data = { contractId: contractId };
-        var path = {
-            pathname: '/Contract',
-            state: data,
-        }
-        hashHistory.push(path);
-    },
+    componentDidMount: function () {
+        var key1 = globalData.key;
+        var toast = globalData.toast;
+        var that = this;
+        api.processDetail(that.props.location.state.progressItem.applyId, function (res) {
+            if (res.code == "0000") {
+                var data = JSON.parse(strDec(res.data, key1, "", ""));
+                var flow = {}
+                var type = data.type; //KSD快速贷 JZD精准贷
+                if (type === 'KSD') {
+                    flow = {
+                        DEAL: { default: '贷款申请', Y: '贷款申请', N: '贷款申请' },
+                        APPR: { default: '贷款审查', Y: '贷款审查', N: '审核不通过' },
+                        SIGN: { default: '绑卡签约', Y: '绑卡签约', N: '绑卡签约' },
+                        LOAN: { default: '等待放款', Y: '放款成功', N: '放款失败' }
+                    }
+                } else if (type === 'JZD') {
+                    if (data.apiWay === 'H5') {
+                        flow = {
+                            DEAL: { default: '提交资料', Y: '提交资料', N: '提交资料' },
+                            APPR: { default: '转第三方审核', Y: '转第三方审核', N: '转第三方审核' },
+                        }
+                    } else if (data.apiWay === 'TEL') {
+                        flow = {
+                            DEAL: { default: '提交资料', Y: '提交资料', N: '提交资料' },
+                            APPR: { default: '贷款审查', Y: '贷款审查', N: '审核不通过' }
+                        }
+                    }
+                }
+                var obj = {}
+                var arr = []
+                var i = 0, y = 0
+                for (var key in flow) {
+                    if (y === 0) {
+                        obj.text = flow.DEAL.default
+                        obj.time = data.addTime.time
+                    }
+                    else if (i < data.logList.length) {
+                        obj.text = flow[data.logList[i].type][data.logList[i].opinion]
+                        obj.time = data.logList[i].addTime.time
+                        i++
+                    } else {
+                        obj.text = flow[key].default
+                        obj.time = ''
+                    }
+                    arr[y] = obj
+                    obj = {}
+                    y++
+                }
+                if (type === 'JZD' && data.apiWay === 'TEL') {
+                    if (data.logList[i - 1].opinion === 'N') {
+                        obj.time = ''
+                    } else {
+                        obj.time = arr[y - 1].time
+                    }
+                    obj.text = '门店服务'
+                    arr[y] = obj
+                    obj = {}
+                }
 
+                that.setState({
+                    list: arr,
+                    steps: flow
+                })
+
+            } else {
+                toast.show("连接错误", 2000);
+            }
+        }, function () {
+            toast.show("连接错误", 2000);
+        })
+    },
     render: function () {
         var that = this;
         var progressItem = that.props.location.state.progressItem;
@@ -47,7 +112,6 @@ var ProgressDetail = React.createClass({
         return (
             <div className="app_Box progressDetail">
                 <Header title='借款进度' />
-                <div className="hit">您的借款申请已通过，3个工作日内完成放款</div>
                 <div className="capitalBox">
                     <div className="capitalList">
                         <h3>
@@ -68,9 +132,8 @@ var ProgressDetail = React.createClass({
                     </div>
                 </div>
                 <div className="step-wrap">
-                    <ProgressStep />
+                    <ProgressStep steps={that.state.list} />
                 </div>
-                <div className="footer-btn" onClick={this.goContract.bind(null, 1)}>查看合同</div>
             </div>
         )
     }

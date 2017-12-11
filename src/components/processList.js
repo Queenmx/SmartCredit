@@ -6,8 +6,8 @@ import api from './api';
 import Loading from './loading';
 import { globalData } from './global.js';
 import { hashHistory, Link } from 'react-router';
-
-class ProList extends Component {
+var imgPath = globalData.imgPath;
+class processList extends Component {
     constructor() {
         super();
         this.state = {
@@ -19,12 +19,11 @@ class ProList extends Component {
             scrollShow: false
         };
 
-        this.toListDetail = (event) => {
-            var loanId = event.currentTarget.getAttribute("data-loanId");
-            var data = { loanId: loanId };
-            var path = {
-                pathname: '/ListDetail',
-                query: data,
+        this.toProgressDetail = (progressItem) => {
+            const data = { progressItem: progressItem };
+            const path = {
+                pathname: '/ProgressDetail',
+                state: data
             }
             hashHistory.push(path);
         }
@@ -80,26 +79,23 @@ class ProList extends Component {
         var tag = that.props.tag;
         const { currentPage, pageSize, list } = that.state;
         var arr = [];
-        //console.log(tag);
-        api.loanList(currentPage, pageSize, tag, "JZD", function (res) {
-            //console.log(res);
+        api.progressList(currentPage, pageSize, function (res) {
             if (res.code == "0000") {
                 that.setState({
                     flag: false
                 })
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                var loanList = data.list;
+                var progressList = data.list;
                 var total = data.total;
                 var totalPage = Math.ceil(total / pageSize);
                 if (totalPage > 1) {
                     that.setState({ scrollShow: true })
                 }
-                if (loanList.length < 1) {
+                if (progressList.length < 1) {
                     arr.push(<div key={Math.random()} style={{ 'textAlign': 'center', 'lineHeight': '1rem' }}>暂无数据</div>)
                 } else {
-                    //console.log(data);
-                    for (var i in loanList) {
-                        var theDate = loanList[i].limitType;
+                    for (var i in progressList) {
+                        var theDate = progressList[i].limitType;
                         var theDateTxt;
                         switch (theDate) {
                             case "Y":
@@ -114,23 +110,23 @@ class ProList extends Component {
                             default:
                                 break;
                         }
-                        arr.push(<div className="capitalList" key={Math.random()} data-loanId={loanList[i].loanId} onClick={that.toListDetail}>
+                        arr.push(<div className="capitalList" key={Math.random()} onClick={that.toProgressDetail.bind(this, progressList[i])}>
                             <h3>
-                                <img src={loanList[i].logo} onError={that.logoError} />
-                                <span>{loanList[i].loanName}</span>
+                                <img src={imgPath + progressList[i].logo} onError={that.logoError} />
+                                <span>{progressList[i].loanName}</span>
                             </h3>
                             <div className="capitalInfo">
                                 <div className="limit">
-                                    <h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
+                                    <h2>{progressList[i].moneyMin}~{progressList[i].moneyMax}</h2>
                                     <p>额度范围(元)</p>
                                 </div>
                                 <ul className="special">
-                                    <li>{loanList[i].loanTime}</li>
-                                    <li>{theDateTxt}费率{loanList[i].rate}%</li>
-                                    <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
+                                    <li>{progressList[i].loanTime}</li>
+                                    <li>{theDateTxt}利率{progressList[i].rate}%</li>
+                                    <li>贷款期限{progressList[i].limitMin}-{progressList[i].limitMax}{theDateTxt}</li>
                                 </ul>
-                                <div className="apply">
-                                    <a href="javascript:;" >申请贷款</a>
+                                <div className="detail">
+                                    <a href="javascript:;">查看详情</a>
                                 </div>
                             </div>
 
@@ -143,6 +139,7 @@ class ProList extends Component {
                     var c = arr;
                 }
                 that.setState({
+
                     totalPage: totalPage,
                     list: c
                 })
@@ -177,7 +174,6 @@ class ProList extends Component {
     componentDidMount() {
         var that = this;
         that.loadData();
-
     }
 
 
@@ -192,16 +188,6 @@ class ProList extends Component {
         } else {
             scollTxt = that.state.list;
         }
-		/*var scollFlag=that.props.scollFlag;
-		//console.log(scollFlag);
-		let box=[];
-		if(scollFlag==='true'){//不iscoll
-			 box.push(<ReactIScroll key={1} iScroll={iScroll} handleRefresh={this.handleRefresh.bind(this)} >
-		        		{that.state.list}
-		        </ReactIScroll>)
-		}else{
-			box=that.state.list;
-		}*/
         return (
             <div className="capitalBox">
                 <Loading flag={that.state.flag} />
@@ -211,6 +197,6 @@ class ProList extends Component {
     }
 };
 
-export default ProList;
+export default processList;
 
 

@@ -230,6 +230,18 @@ body {
                 }
             //}
         }
+    .footer-btn{
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1rem;
+        line-height: 1rem;
+        font-size: .32rem;
+        color:#fff;
+        text-align: center;
+        background: $blue;
+    }
 }
 
 .news{

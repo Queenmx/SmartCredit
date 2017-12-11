@@ -576,7 +576,7 @@ module.exports.orderDetail = function (applyId, cb1, cb2) {
 
 /**
  * 功能描述：进展列表
- * 函数名：circle
+ * 函数名：progressList
  * ACTION
  */
 module.exports.progressList = function (pageNum, pageSize, cb1, cb2) {
@@ -587,6 +587,23 @@ module.exports.progressList = function (pageNum, pageSize, cb1, cb2) {
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/loan/apply/process/list`, {
+        params: str
+    }, cb1, cb2);
+    delete data.userId;
+}
+
+/**
+ * 功能描述：进展详情
+ * 函数名：processDetail
+ * ACTION
+ */
+module.exports.processDetail = function (applyId, cb1, cb2) {
+    var data = globalData.requestData;
+    data.applyId = applyId;
+    data.userId = globalData.userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/loan/apply/process/detail`, {
         params: str
     }, cb1, cb2);
     delete data.userId;
