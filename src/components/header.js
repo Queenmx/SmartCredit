@@ -10,7 +10,11 @@ var Header=React.createClass({
 		}
 	},
 	toHuanKuan:function(){
-		console.log("huan")
+		var path = {
+		  pathname:'/Order',
+		 // query:data,
+		}
+		hashHistory.push(path);
 		
 	},
 	toShare:function(){

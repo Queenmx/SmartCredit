@@ -20,12 +20,25 @@ class ProList extends Component {
         };
 
         this.toListDetail = (event) => {
+            var toast = globalData.toast;
             var loanId = event.currentTarget.getAttribute("data-loanId");
+            var type = event.currentTarget.getAttribute("data-type");
             var data = { loanId: loanId };
-            var path = {
-                pathname: '/ListDetail',
-                query: data,
+            console.log(type);
+            if (type == "JZD") {
+                var path = {
+                    pathname: '/ListDetail',
+                    query: data,
+                }
+            } else if (type == "KSD") {
+                var path = {
+                    pathname: '/ListDetailKSD',
+                    query: data,
+                }
+            } else {
+                toast.show("数据错误", 2000)
             }
+
             hashHistory.push(path);
         }
         this.handleRefresh = this.handleRefresh.bind(this);
@@ -114,7 +127,7 @@ class ProList extends Component {
                             default:
                                 break;
                         }
-                        arr.push(<div className="capitalList" key={Math.random()} data-loanId={loanList[i].loanId} onClick={that.toListDetail}>
+                        arr.push(<div className="capitalList" key={Math.random()} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
                             <h3>
                                 <img src={loanList[i].logo} onError={that.logoError} />
                                 <span>{loanList[i].loanName}</span>
@@ -212,5 +225,3 @@ class ProList extends Component {
 };
 
 export default ProList;
-
-

@@ -511,20 +511,20 @@ module.exports.saveArticle = function (pageNum, pageSize, cb1, cb2) {
  * @param {String} tag
  * ACTION
  */
-module.exports.orderList = function (pageNum, pageSize, tag, cb1, cb2) {
+module.exports.orderList = function (pageNum, pageSize, flag, cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     data.pageNum = pageNum;
     data.pageSize = pageSize;
-    data.tag = tag;
+    data.flag = flag;
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    // console.log(userId);
+     console.log(param);
     http(`${globalData.path}/zndai/loan/apply/list/c`, { params: str }, cb1, cb2);
     delete data.pageNum;
     delete data.pageSize;
-    delete data.tag;
+    delete data.flag;
     delete data.userId;
 }
 /**
@@ -572,6 +572,23 @@ module.exports.orderDetail = function (applyId, cb1, cb2) {
     http(`${globalData.path}/zndai/loan/apply/detail`, { params: str }, cb1, cb2);
     delete data.userId;
     delete data.applyId;
+}
+/**
+ * 功能描述：进展列表
+ * 函数名：circle
+ * ACTION
+ */
+module.exports.progressList = function (pageNum, pageSize, cb1, cb2) {
+    var data = globalData.requestData;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    data.userId = globalData.userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/loan/apply/process/list`, {
+        params: str
+    }, cb1, cb2);
+    delete data.userId;
 }
 
 /**

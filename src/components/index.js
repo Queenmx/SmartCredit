@@ -38,6 +38,8 @@ import Loan from './loan';
 import OrderDetail from './orderDetail';
 import OtherInfo from './otherInfo';
 import loanFeedback from './loanFeedback';
+import IntroKSD from './introKSD';
+import ListDetailKSD from './listDetailKSD';
 //<Route path='/detail/:id' component={Detail} />
 
 
@@ -71,11 +73,13 @@ ReactDom.render((
         <Route path='/ForgotPsd' component={ForgotPsd} />
         <Route path='/RealName' component={RealName} />
         <Route path='/IdNumber' component={IdNumber} />
+        <Route path='/Loan' component={Loan} />
         <Route path='/Progress' component={Progress} />
         <Route path='/ProgressDetail' component={ProgressDetail} />
         <Route path='/OrderDetail' component={OrderDetail} />
-        <Route path='/OrderDetail' component={OrderDetail} />
         <Route path='/OtherInfo' component={OtherInfo} />
         <Route path='/loanFeedback' component={loanFeedback} />
+        <Route path='/IntroKSD' component={IntroKSD} />
+        <Route path='/ListDetailKSD' component={ListDetailKSD} />
     </Router >
 ), document.getElementById('app'));

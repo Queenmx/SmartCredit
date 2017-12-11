@@ -17,7 +17,6 @@
   .listDetail .rangeInfo {
     background: #ffffff;
     display: -webkit-box;
-    display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex; }
@@ -138,16 +137,19 @@
     background: #ffffff; }
     .listDetail .moneyDetailBox .moneyDetail {
       padding: 0 0.5rem; }
-    .listDetail .moneyDetailBox p {
+    .listDetail .moneyDetailBox .showBtn {
       height: 0.7rem;
       line-height: 0.7rem;
       text-align: center;
       color: #666666;
       font-size: 0.22rem; }
-      .listDetail .moneyDetailBox p img {
-        width: 0.37rem;
+      .listDetail .moneyDetailBox .showBtn img {
         height: 0.15rem;
         margin-left: 0.5rem; }
+      .listDetail .moneyDetailBox .showBtn .toIntroKSD {
+        height: 0.3rem;
+        margin-left: 0.4rem;
+        vertical-align: middle; }
   .listDetail .flowBox {
     overflow: hidden; }
     .listDetail .flowBox .flowPic {
@@ -191,6 +193,53 @@
         width: 0.1rem;
         height: 0.2rem;
         margin-left: 0.2rem; }
+  .listDetail .authBox {
+    margin-bottom: 0.15rem; }
+    .listDetail .authBox .authTap {
+      background: #FFFFFF; }
+      .listDetail .authBox .authTap li {
+        height: 1rem;
+        line-height: 1rem;
+        position: relative;
+        text-indent: 0.5rem;
+        font-size: 0.24rem;
+        color: #CCCCCC; }
+        .listDetail .authBox .authTap li.activeAuthLi {
+          color: #333333; }
+          .listDetail .authBox .authTap li.activeAuthLi .authIcon {
+            color: #fa5d5d; }
+          .listDetail .authBox .authTap li.activeAuthLi .goAuth span {
+            background: #53a6ff; }
+        .listDetail .authBox .authTap li:after {
+          pointer-events: none;
+          width: 200%;
+          height: 200%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1;
+          content: "";
+          -webkit-transform: scale(0.5);
+          -webkit-transform-origin: 0 0;
+          transform: scale(0.5);
+          transform-origin: 0 0;
+          border-bottom: 1px solid #f3f3f3; }
+        .listDetail .authBox .authTap li .authIcon {
+          margin-right: 0.26rem;
+          font-size: 0.5rem; }
+        .listDetail .authBox .authTap li .goAuth {
+          height: 0.9rem;
+          float: right;
+          margin-right: 0.5rem; }
+          .listDetail .authBox .authTap li .goAuth span {
+            background: #CCCCCC;
+            color: #FFFFFF;
+            border-radius: 10px;
+            padding: 0.04rem 0.2rem;
+            font-size: 0.22rem; }
+          .listDetail .authBox .authTap li .goAuth i {
+            font-size: 0.34rem;
+            margin-left: 0.26rem; }
   .listDetail .applyBtnBox {
     width: 100%;
     height: 0.95rem; }

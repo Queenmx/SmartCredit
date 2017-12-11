@@ -125,17 +125,22 @@
       .moneyDetail{
           padding: 0 0.5rem;
       }
-      p{
+      
+      .showBtn{
           height: 0.7rem;
           line-height: 0.7rem;
           text-align: center;
           color: #666666;
           font-size: 0.22rem;
           img{
-              width: 0.37rem;
               height:0.15rem;
               margin-left: 0.5rem;
           }
+          .toIntroKSD{
+            height:0.3rem;
+            margin-left: 0.4rem;
+            vertical-align: middle;
+            }
       }
   }
   
@@ -180,6 +185,55 @@
           }
       }
   }
+  .authBox{
+      margin-bottom: 0.15rem;
+      .authTap{
+          background: #FFFFFF;
+          li{
+              &.activeAuthLi{
+                  color: #333333;
+                  .authIcon{
+                     color: #fa5d5d;
+                  }
+                  .goAuth{
+                      span{
+                          background: $blue;
+                      }
+                  }
+              }
+              height: 1rem;
+              line-height: 1rem;
+              @include border_Bot;
+              text-indent: 0.5rem;
+              font-size: 0.24rem;
+              color: #CCCCCC;
+              .authIcon{
+                  margin-right: 0.26rem;
+                  font-size:0.5rem;
+              }
+              .goAuth{
+                  height: 0.9rem;
+                   float: right;
+                   margin-right: 0.5rem;
+                  span{
+                      background: #CCCCCC;
+                      color: #FFFFFF;
+                      border-radius: 10px;
+                      padding: 0.04rem 0.2rem;
+                      font-size: 0.22rem;
+                  }
+                  i{
+                      font-size: 0.34rem;
+                      margin-left: 0.26rem;
+                  }
+              }
+          }
+          
+      }
+  }
+  
+  
+  
       .applyBtnBox{
           width: 100%;
         height: 0.95rem;
