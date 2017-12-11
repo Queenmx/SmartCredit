@@ -40,6 +40,7 @@ import OtherInfo from './otherInfo';
 import loanFeedback from './loanFeedback';
 import IntroKSD from './introKSD';
 import ListDetailKSD from './listDetailKSD';
+import SubmitResult from './submitResult';
 //<Route path='/detail/:id' component={Detail} />
 
 
@@ -81,5 +82,6 @@ ReactDom.render((
         <Route path='/loanFeedback' component={loanFeedback} />
         <Route path='/IntroKSD' component={IntroKSD} />
         <Route path='/ListDetailKSD' component={ListDetailKSD} />
+        <Route path='/SubmitResult' component={SubmitResult} />
     </Router >
 ), document.getElementById('app'));

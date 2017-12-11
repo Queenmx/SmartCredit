@@ -4,6 +4,7 @@ import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
 import Header from './header';
+import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import ProgressStep from './ProgressStep';
 import '../sass/progressDetail.scss';
@@ -16,7 +17,8 @@ var ProgressDetail = React.createClass({
             isShow: false,
             activeIndex: 0,
             steps: {},
-            list: []
+            list: [],
+            flag: true
         }
     },
     componentDidMount: function () {
@@ -25,6 +27,9 @@ var ProgressDetail = React.createClass({
         var that = this;
         api.processDetail(that.props.location.state.progressItem.applyId, function (res) {
             if (res.code == "0000") {
+                that.setState({
+                    flag: false
+                })
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
                 var flow = {}
                 var type = data.type; //KSD快速贷 JZD精准贷
@@ -85,9 +90,15 @@ var ProgressDetail = React.createClass({
                 })
 
             } else {
+                that.setState({
+                    flag: false
+                })
                 toast.show("连接错误", 2000);
             }
         }, function () {
+            that.setState({
+                flag: false
+            })
             toast.show("连接错误", 2000);
         })
     },
@@ -134,6 +145,7 @@ var ProgressDetail = React.createClass({
                 <div className="step-wrap">
                     <ProgressStep steps={that.state.list} />
                 </div>
+                <Loading flag={that.state.flag} />
             </div>
         )
     }

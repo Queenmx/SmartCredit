@@ -55,7 +55,8 @@ var IdCard = React.createClass({
                 <ul className="list">
                     <li className="item">
                         <lable>直属联系人关系</lable>
-                        <div className="input-wrap"><input placeholder="请选择" /></div>
+                        {/* <div className="input-wrap"><input placeholder="请选择" /></div> */}
+                        <div className="input-wrap"><span className="input">请选择</span></div>
                     </li>
                     <li className="item">
                         <lable>直系亲属姓名</lable>
