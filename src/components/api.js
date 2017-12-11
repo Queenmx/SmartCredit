@@ -185,7 +185,7 @@ module.exports.qualifyList = function (loanId, parentId, cb1, cb2) {
     data.parentId = parentId;
     data.userId = globalData.userId;;
     let param = JSON.stringify(data);
-    //console.log(param);
+    console.log(param);
     let str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/qualify/list`, { params: str }, cb1, cb2);
     delete data.loanId;
@@ -534,17 +534,19 @@ module.exports.orderList = function (pageNum, pageSize, flag, cb1, cb2) {
  * @param {String} userId
  * ACTION
  */
-module.exports.cancleOrder = function (applyId, cb1, cb2) {
+module.exports.cancleOrder = function (applyId,flag ,cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     data.applyId = applyId;
+     data.flag = flag;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    //console.log(param);
+    console.log(param);
     // console.log(userId);
     http(`${globalData.path}/zndai/loan/apply/cancel`, { params: str }, cb1, cb2);
     delete data.applyId;
+     delete data.flag;
     delete data.userId;
 }
 

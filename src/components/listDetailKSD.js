@@ -458,6 +458,16 @@ var ListDetailKSD = React.createClass({
 
 
     },
+    toAuthInfo:function(btnStatus,toAuthTap){
+    	//if(btnStatus==="0"){
+    		 var path = {
+                pathname: `${toAuthTap}`,
+                query:{loanId:this.state.loanId}
+            }
+            hashHistory.push(path);
+    	//}
+    	
+    },
     render: function () {
         //console.log(this.state.myRateMoney);
         var that = this;
@@ -466,6 +476,8 @@ var ListDetailKSD = React.createClass({
         var value2 = that.state.value2 * 1;
         var myRateMoney = Number(that.state.myRateMoney);
         var myTotalMoney = (loanDetail.fee + myRateMoney + value1).toFixed(2)||"";
+        var userCertInfo=loanDetail.userCertInfo||"";
+		//console.log(userCertInfo);
         return (
             <div className="app_Box listDetail">
                 <Header title={loanDetail.loanName} />
@@ -508,11 +520,11 @@ var ListDetailKSD = React.createClass({
                    <div className="authBox">
                    		<h2>基本材料</h2>
                         <ul className="authTap">
-                        	<li className="activeAuthLi"><i className="iconfont authIcon">&#xe647;</i>基本信息<div className="goAuth"><span>去认证</span><i className="iconfont">&#xe60b;</i></div></li>
-                        	<li><i className="iconfont authIcon">&#xe604;</i>身份证<div className="goAuth"><span>去认证</span><i className="iconfont">&#xe60b;</i></div></li>
-                        	<li><i className="iconfont authIcon">&#xe60a;</i>手机运营商<div className="goAuth"><span>去认证</span><i className="iconfont">&#xe60b;</i></div></li>
-                        	<li><i className="iconfont authIcon">&#xe645;</i>芝麻认证<div className="goAuth"><span>去认证</span><i className="iconfont">&#xe60b;</i></div></li>
-                        	<li><i className="iconfont authIcon">&#xe61e;</i>其他信息<div className="goAuth"><span>去认证</span><i className="iconfont">&#xe60b;</i></div></li>
+                        	<li className={userCertInfo.qualify>0?"activeAuthLi":""} onClick={that.toAuthInfo.bind(that,userCertInfo.qualify,"BaseInfo")}><i className="iconfont authIcon">&#xe647;</i>基本信息<div className="goAuth"><span>{userCertInfo.qualify>0?"已认证":"去认证"}</span><i className="iconfont">&#xe60b;</i></div></li>
+                        	<li className={userCertInfo.idcard>0?"activeAuthLi":""} onClick={that.toAuthInfo.bind(that,userCertInfo.idcard,"IdCard")}><i className="iconfont authIcon">&#xe604;</i>身份证<div className="goAuth"><span>{userCertInfo.idcard>0?"已认证":"去认证"}</span><i className="iconfont">&#xe60b;</i></div></li>
+                        	<li className={userCertInfo.phone>0?"activeAuthLi":""} onClick={that.toAuthInfo.bind(that,userCertInfo.phone,"IdCard")}><i className="iconfont authIcon">&#xe60a;</i>手机运营商<div className="goAuth"><span>{userCertInfo.phone>0?"已认证":"去认证"}</span><i className="iconfont">&#xe60b;</i></div></li>
+                        	<li className={userCertInfo.zm>0?"activeAuthLi":""} onClick={that.toAuthInfo.bind(that,userCertInfo.zm,"IdCard")}><i className="iconfont authIcon">&#xe645;</i>芝麻认证<div className="goAuth"><span>{userCertInfo.zm>0?"已认证":"去认证"}</span><i className="iconfont">&#xe60b;</i></div></li>
+                        	<li className={userCertInfo.info>0?"activeAuthLi":""} onClick={that.toAuthInfo.bind(that,userCertInfo.info,"IdCard")}><i className="iconfont authIcon">&#xe61e;</i>其他信息<div className="goAuth"><span>{userCertInfo.info>0?"已认证":"去认证"}</span><i className="iconfont">&#xe60b;</i></div></li>
                         </ul>
                    </div>
                 </div>

@@ -10,11 +10,9 @@ import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../sass/order.scss';
 
-
 var OrderList = React.createClass({
     getInitialState: function () {
         return {
-            //btnActive: 0,
             flag: true,
             pageNum: 1,
             list: [],
@@ -51,6 +49,13 @@ var OrderList = React.createClass({
                 	"2":"绑卡签约",
                     "text": "审核通过",
                     "dataId": 4
+                },
+                "LOANYES":{
+                	"btnTwo":false,
+                	"-2":"删除订单",
+                	"1":"立即还款",
+                    "text": "放款成功",
+                    "dataId": 5
                 }
             },
             name: {
@@ -134,32 +139,50 @@ var OrderList = React.createClass({
             })
        
     },*/
-    toCancel: function (status,applyId,e) {
+   
+   
+    toCancel: function (applyId,e) {
     	//var btn=e.target;
         var that = this;
        	e.stopPropagation();
         var key1 = globalData.key;
 		var toast=globalData.toast;
-		//var $e=e.target;
+		var $e=e.target;
         // //console.log(e.target)
        // var id = e.target.getAttribute('data-id');//id=1 取消订单，id=-2 删除订单 ,id=3 签约
+       var status = e.target.getAttribute('data-status');
         console.log(status);
-        if(status==1){
-        	 api.cancleOrder(applyId, function (res) {
+        if(status=="1"){
+        	 api.cancleOrder(applyId,"",function (res) {
             	console.log(res);
                 if (res.code == "0000") {
                 	toast.show("取消订单成功",2000);
                   // btn.style.backgroundColor = "#DDDDDD";
                   // btn.style.display = "none";
+                  $($e).parents("li").find(".orderNum span:nth-child(2)").html("已取消");   
+                   $e.setAttribute("data-status","-2");
+                  $e.innerHTML="删除订单";
+                  $($e).next("span").hide();
+                }else{
+                	toast.show(res.msg,2000);
+                }
+            })
+        }else if(status=="-2"){
+        	console.log("删除订单");
+        	 api.cancleOrder(applyId,"DELETE",function (res) {
+            	console.log(res);
+                if (res.code == "0000") {
+                	toast.show("删除订单成功",2000);
+                  // btn.style.backgroundColor = "#DDDDDD";
+                  // btn.style.display = "none";
+                  $($e).parents("li").hide("slow");
                   //$($e).parents("li").find(".orderNum span:nth-child(2)").html("已取消");                   
                 }else{
                 	toast.show(res.msg,2000);
                 }
             })
-        }else if(status==-2){
-        	console.log("删除订单");
         	
-        }else if(status==3){
+        }else if(status=="3"){
         	console.log("签约");
         }
            
@@ -189,8 +212,8 @@ var OrderList = React.createClass({
 	 	const {currentPage,pageSize,list} = that.state;
 	 	var arr=[];
 	 	////console.log(tag);
-	 	console.log(that.state.status)
-	 	console.log(that.state.status.APRNO.btnTwo)
+	 	//console.log(that.state.status)
+	 	//console.log(that.state.status.APRNO.btnTwo)
 	 	 api.orderList(currentPage, pageSize,that.state.statusType, function (res) {
             if (res.code == "0000") {
             	that.setState({
@@ -232,10 +255,10 @@ var OrderList = React.createClass({
 	                        <div className="listFoot">
 	                            <span className="status">您的贷款申请已提交，我们会尽快处理</span>
 	                            {/*<span onClick={that.toCancel} className='statusBtn' data-id={i} style={{ backgroundColor: status < 0 ? 'rgb(221, 221, 221)' : '#53a6ff' ,'display':orderList[i].applyStatus== "APRYES"||orderList[i].applyStatus== "APRNO"? 'none':'block'}}>*/}
-	                            <span onClick={that.toCancel.bind(that,status,orderList[i].applyId)} className='statusBtn' >
+	                            <span data-status={status} onClick={that.toCancel.bind(that,orderList[i].applyId)} className='statusBtn' >
 	                            	{that.state.status[applyStatus][status]}
 	                            </span>
-	                             <span onClick={that.toCancel.bind(that,3,orderList[i].applyId)} className='statusBtn'  style={{"display":that.state.status[applyStatus].btnTwo? 'block':'none'}}>
+	                             <span data-status="3" onClick={that.toCancel.bind(that,orderList[i].applyId)} className='statusBtn'  style={{"display":that.state.status[applyStatus].btnTwo? 'block':'none'}}>
 	                            	绑卡签约
 	                            </span>
 	                        </div>
@@ -273,7 +296,6 @@ var OrderList = React.createClass({
         var that = this;
 		that.loadData();
     },
-   
     render: function () {
         var that = this;
         var scollTxt=[];

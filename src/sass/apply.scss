@@ -76,7 +76,8 @@
     overflow: auto;
     overflow-x:hidden ;
     @include flex_column;
-    
+}
+.applyLevel{
     .rule{
         height:1rem;
         line-height: 1rem;

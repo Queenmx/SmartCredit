@@ -43,7 +43,8 @@ var Problem = React.createClass({
                 hashHistory.push(path);
 	       }
     },
-    	getDateDiff: function (dateStr) {
+    getDateDiff: function (dateStr) {
+      if(dateStr){
 	    var publishTime = dateStr/1000,
 	        d_seconds,
 	        d_minutes,
@@ -82,7 +83,9 @@ var Problem = React.createClass({
 	    d_minutes = parseInt(d/60);
 	    d_seconds = parseInt(d);
 		return Y + '-' + M + '-' + D + ' ' + H + ':' + m;
-	  
+	  }else{
+	 	return ""
+	 }
 	} ,
     componentDidMount: function () {
     	var that=this;
@@ -109,8 +112,10 @@ var Problem = React.createClass({
 				//console.log(problemList);
 				if(problemList.length>0){
 					for(var i in problemList){
-						var theTime=problemList[i].addTime.time;
-                    	var theAddTime=that.getDateDiff(theTime);
+						var theTime=problemList[i].addTime||"";
+                    	var answerTime=problemList[i].answerTime||"";
+                    	var theAnswerTime=that.getDateDiff(answerTime.time);
+                    	var theAddTime=that.getDateDiff(theTime.time);
 						arr.push( <div className="problemList" key={i}>
 	                        <div className="problemBlock">
 	                            <img src="src/img/icon/problem.png" />
@@ -119,7 +124,7 @@ var Problem = React.createClass({
 	                        </div>
 	                        <div className="answerBlock">
 	                            <img src="src/img/icon/answer.png" />
-	                            <p><span>{problemList[i].answerUser}</span><span>{problemList[i].answerTime}</span></p>
+	                            <p><span>{problemList[i].answerUser}</span><span>{theAnswerTime}</span></p>
 	                            <p>{problemList[i].answer}</p>
 	                        </div>
 	                    </div>)

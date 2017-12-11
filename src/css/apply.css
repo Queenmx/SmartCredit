@@ -48,7 +48,6 @@
 
 .applyInfoCon {
   display: -webkit-box;
-  display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -102,7 +101,6 @@
   overflow: auto;
   overflow-x: hidden;
   display: -webkit-box;
-  display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -112,14 +110,15 @@
   -ms-flex-direction: column;
   -o-flex-direction: column;
   flex-direction: column; }
-  .applyLevelCon .rule {
-    height: 1rem;
-    line-height: 1rem;
-    margin-left: 0.5rem;
-    font-size: 0.2rem;
-    position: relative; }
-    .applyLevelCon .rule a {
-      margin-left: 0.3rem; }
+
+.applyLevel .rule {
+  height: 1rem;
+  line-height: 1rem;
+  margin-left: 0.5rem;
+  font-size: 0.2rem;
+  position: relative; }
+  .applyLevel .rule a {
+    margin-left: 0.3rem; }
 
 .magic-checkbox {
   position: absolute;
