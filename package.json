@@ -61,6 +61,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+  	"antd-mobile": "^2.1.1",
     "echarts": "^3.8.3",
     "reactjs-iscroll": "^0.3.2",
     "bundle-loader": "^0.5.5",

@@ -31,7 +31,6 @@ var OtherInfo = React.createClass({
     },
     render: function () {
         var imgPath = globalData.imgPath;
-        console.log(this.state);
         var that = this;
         return (
             <div className="app_Box otherInfo">
