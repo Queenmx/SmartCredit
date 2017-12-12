@@ -42,6 +42,7 @@ import IntroKSD from './introKSD';
 import ListDetailKSD from './listDetailKSD';
 import SubmitResult from './submitResult';
 import BaseInfo from './baseInfo';
+import Operator from './operator';
 
 
 //<Route path='/detail/:id' component={Detail} />
@@ -87,5 +88,6 @@ ReactDom.render((
         <Route path='/ListDetailKSD' component={ListDetailKSD} />
         <Route path='/SubmitResult' component={SubmitResult} />
         <Route path='/BaseInfo' component={BaseInfo} />
+        <Route path='/Operator' component={Operator} />
     </Router >
 ), document.getElementById('app'));

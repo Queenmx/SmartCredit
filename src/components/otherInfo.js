@@ -9,7 +9,7 @@ import { hashHistory, Link } from 'react-router';
 import '../sass/otherInfo.scss';
 var key1 = globalData.key;
 var toast = globalData.toast;
-var IdCard = React.createClass({
+var OtherInfo = React.createClass({
     getInitialState: function () {
         return {
             flag: false
@@ -75,6 +75,6 @@ var IdCard = React.createClass({
 });
 
 
-export default IdCard;
+export default OtherInfo;
 
 

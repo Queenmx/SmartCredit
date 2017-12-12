@@ -21,9 +21,17 @@ class processList extends Component {
 
         this.toProgressDetail = (progressItem) => {
             const data = { progressItem: progressItem };
-            const path = {
-                pathname: '/ProgressDetail',
-                state: data
+            var path
+            var user = localStorage.getItem("user");
+            if (user) {
+                path = {
+                    pathname: '/ProgressDetail',
+                    state: data
+                }
+            } else {
+                path = {
+                    pathname: '/Login'
+                }
             }
             hashHistory.push(path);
         }

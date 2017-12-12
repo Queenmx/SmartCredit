@@ -26,22 +26,22 @@ var Home = React.createClass({
     },
     toListDetail: function (event) {
         var loanId = event.currentTarget.getAttribute("data-loanId");
-       var type=event.currentTarget.getAttribute("data-type");
-		var data = {loanId:loanId};
-			if(type=="JZD"){
-				var path = {
-				  pathname:'/ListDetail',
-				  query:data,
-				}
-			}else if(type=="KSD"){
-				var path = {
-				  pathname:'/ListDetailKSD',
-				  query:data,
-				}
-			}else{
-				toast.show("数据错误",2000)
-			}
-		hashHistory.push(path);
+        var type = event.currentTarget.getAttribute("data-type");
+        var data = { loanId: loanId };
+        if (type == "JZD") {
+            var path = {
+                pathname: '/ListDetail',
+                query: data,
+            }
+        } else if (type == "KSD") {
+            var path = {
+                pathname: '/ListDetailKSD',
+                query: data,
+            }
+        } else {
+            toast.show("数据错误", 2000)
+        }
+        hashHistory.push(path);
     },
 
     logoError: function (event) {
@@ -79,8 +79,16 @@ var Home = React.createClass({
         hashHistory.push(path);
     },
     toProgress: function () {
-        var path = {
-            pathname: '/Progress',
+        var path
+        var user = localStorage.getItem("user");
+        if (user) {
+            path = {
+                pathname: '/Progress',
+            }
+        } else {
+            path = {
+                pathname: '/Login'
+            }
         }
         hashHistory.push(path);
     },
@@ -93,7 +101,7 @@ var Home = React.createClass({
         if (homeLoan) {
             var loanList = JSON.parse(homeLoan);
             var arr = [];
-           
+
             for (var i in loanList) {
                 var theDate = loanList[i].rateType;
                 var theDateTxt;
@@ -138,7 +146,7 @@ var Home = React.createClass({
             })
         } else {
             api.loanList(1, 5, "", function (res) {
-            	 
+
                 if (res.code == "0000") {
                     var data = JSON.parse(strDec(res.data, key1, "", ""));
                     //var data=res.data;
@@ -161,7 +169,7 @@ var Home = React.createClass({
                             default:
                                 break;
                         }
-                        arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId}  data-type={loanList[i].type} onClick={that.toListDetail}>
+                        arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
                             <h3>
                                 <img src={imgPath + loanList[i].logo} onError={that.logoError} />
                                 <span>{loanList[i].loanName}</span>
@@ -303,7 +311,7 @@ var Home = React.createClass({
                     default:
                         break;
                 }
-                arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId}  data-type={loanList[i].type} onClick={that.toListDetail}>
+                arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
                     <h3>
                         <img src={imgPath + loanList[i].logo} onError={that.logoError} />
                         <span>{loanList[i].loanName}</span>
@@ -354,7 +362,7 @@ var Home = React.createClass({
                             default:
                                 break;
                         }
-                        arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId}  data-type={loanList[i].type} onClick={that.toListDetail}>
+                        arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
                             <h3>
                                 <img src={imgPath + loanList[i].logo} onError={that.logoError} />
                                 <span>{loanList[i].loanName}</span>
