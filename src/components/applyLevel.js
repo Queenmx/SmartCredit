@@ -46,6 +46,9 @@ var ApplyLevel=React.createClass({
         	this.refs.toChildSaveBtn.toSaveBtn(
         		
         		function(){
+        			that.setState({
+						flag:true
+					})
         			console.log("申请贷款");
         			//申请贷款
 						const {limitDay,limitType,loanId,money}=that.state.applyQuery;
@@ -132,8 +135,8 @@ var ApplyLevel=React.createClass({
 						</li>
 					</ul>
 					<div className="applyLevel">
-						{/*<Loading flag={that.state.flag}/>
-						<form className="applyLevelForm">
+						<Loading flag={that.state.flag}/>
+						{/*<form className="applyLevelForm">
 							<ul className="applyLevelZero">
 								{that.state.qualifyListArr}
 							</ul>

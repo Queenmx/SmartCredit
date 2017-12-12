@@ -9,6 +9,7 @@ import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../sass/order.scss';
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 
 var OrderList = React.createClass({
     getInitialState: function () {
@@ -23,56 +24,141 @@ var OrderList = React.createClass({
 			scrollShow:false,
 			status: {
                 "PENDING": {
-                	"btnTwo":false,
-                	"-2":"删除订单",
-                	"1":"取消借款",
-                    "text": "待处理",
-                    "dataId": 1
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnTwo":false,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"取消借款",
+                		"dataId":"1",
+                		"btnTwo":false,
+                		"text": "待处理"
+                	}
                 },
                 "APRING": {
-                	"btnTwo":false,
-                	"-2":"删除订单",
-                	"1":"取消借款",
-                    "text": "待审核",
-                    "dataId": 2
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnTwo":false,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"取消借款",
+                		"dataId":"1",
+                		"btnTwo":false,
+                		"text": "待审核"
+                	}
                 },
-                "APRNO": {
-                	"btnTwo":false,
-                	"-2":"删除订单",
-                	"1":"取消借款",
-                    "text": "审核不通过",
-                    "dataId": 3
+                "APRNO": {//审核不通过
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnTwo":false,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"取消借款",
+                		"dataId":"1",
+                		"btnTwo":false,
+                		"text": "审核不通过"
+                	}
                 },
-                "APRYES": {
-                	"btnTwo":true,
-                	"1":"取消借款",
-                	"2":"绑卡签约",
-                    "text": "审核通过",
-                    "dataId": 4
+                "APRYES": {//审核通过 ，就是待签合同
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnTwo":false,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"取消借款",
+                		"dataId":"1",
+                		"btnTwo":true,
+                		"text": "审核通过"
+                	},
+                	"2":{
+                		"btnTxt":"绑卡签约",
+                		"dataId":"3",
+                		"btnTwo":true,
+                		"text": "审核通过"
+                	}
                 },
-                "LOANYES":{
-                	"btnTwo":false,
-                	"-2":"删除订单",
-                	"1":"立即还款",
-                    "text": "放款成功",
-                    "dataId": 5
+                "CONYES":{//已签合同 就是等待放款
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnTwo":false,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"取消借款",
+                		"dataId":"1",
+                		"btnTwo":false,
+                		"text": "等待放款"
+                	}
+                },
+                "LOANNO":{// 放款失败
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnTwo":false,
+                		"text": "放款失败",
+                	},
+                	"1":{
+                		"btnTxt":"删除订单",
+                		"dataId":"1",
+                		"btnTwo":false,
+                		"text": "放款失败"
+                	}
+                },
+                "LOANYES":{//放款成功
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnTwo":false,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"立即放款",
+                		"dataId":"4",
+                		"btnTwo":false,
+                		"text": "放款成功"
+                	}
+                
+                },
+                "REPAYYES":{// 还款结束
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnTwo":false,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",
+                		"btnTwo":false,
+                		"text": "放款成功"
+                	}
                 }
             },
-            name: {
-                KSD: '快速贷',
-                JZD: '精准贷'
-            },
+           
             rate: {
                 D: '日',
                 M: '月',
                 Y: '年'
+            },
+            loanType:{
+            	XYD :'信用贷',
+            	CD :'车贷',
+            	FD:'房贷'
             }
        }
     },
     componentWillMount:function(){
     	var that=this;
     	var statusType=that.props.statusType;
-    	console.log(statusType);
     	this.setState({statusType:statusType})
     },
    logoError:function(event){
@@ -116,78 +202,112 @@ var OrderList = React.createClass({
 	  
   },
   
-   /* toCancel: function (e) {
-    	var btn=e.target;
-        var that = this;
-       	e.stopPropagation();
-        var key1 = globalData.key;
-		var toast=globalData.toast;
-		var $e=e.target;
-        // //console.log(e.target)
-        var id = e.target.getAttribute('data-id');//id=1 取消订单，id=-2 删除订单 ,id=3 签约
-        console.log(id);
-            api.cancleOrder(that.orderList[id].applyId, function (res) {
-            	//console.log(res);
-                if (res.code == "0000") {
-                	toast.show("取消订单成功",2000);
-                   btn.style.backgroundColor = "#DDDDDD";
-                  // btn.style.display = "none";
-                  $($e).parents("li").find(".orderNum span:nth-child(2)").html("已取消");                   
-                }else{
-                	toast.show(res.msg,2000);
-                }
-            })
-       
-    },*/
+
    
-   
-    toCancel: function (applyId,e) {
-    	//var btn=e.target;
-        var that = this;
-       	e.stopPropagation();
-        var key1 = globalData.key;
-		var toast=globalData.toast;
-		var $e=e.target;
-        // //console.log(e.target)
-       // var id = e.target.getAttribute('data-id');//id=1 取消订单，id=-2 删除订单 ,id=3 签约
-       var status = e.target.getAttribute('data-status');
-        console.log(status);
-        if(status=="1"){
-        	 api.cancleOrder(applyId,"",function (res) {
-            	console.log(res);
-                if (res.code == "0000") {
-                	toast.show("取消订单成功",2000);
-                  // btn.style.backgroundColor = "#DDDDDD";
-                  // btn.style.display = "none";
-                  $($e).parents("li").find(".orderNum span:nth-child(2)").html("已取消");   
-                   $e.setAttribute("data-status","-2");
-                  $e.innerHTML="删除订单";
-                  $($e).next("span").hide();
-                }else{
-                	toast.show(res.msg,2000);
-                }
-            })
-        }else if(status=="-2"){
-        	console.log("删除订单");
-        	 api.cancleOrder(applyId,"DELETE",function (res) {
-            	console.log(res);
-                if (res.code == "0000") {
-                	toast.show("删除订单成功",2000);
-                  // btn.style.backgroundColor = "#DDDDDD";
-                  // btn.style.display = "none";
-                  $($e).parents("li").hide("slow");
-                  //$($e).parents("li").find(".orderNum span:nth-child(2)").html("已取消");                   
-                }else{
-                	toast.show(res.msg,2000);
-                }
-            })
+showAlert :function (applyId,e) {
+	e.stopPropagation();
+	var that = this;
+	var $e=e.target;
+	const alert = Modal.alert;
+	//var status = $e.getAttribute('data-status');
+	var id = $e.getAttribute('data-id');
+        if(id=="1"){
+        	const alertInstance = alert('提示', '确定取消该订单？', [
+			    { text: '取消', onPress: () => console.log('quxiao'), style: 'default' },
+			    { text: '确定', onPress: () => {
+			       api.cancleOrder(applyId,"",function (res) {
+			            	console.log(res);
+			                if (res.code == "0000") {
+			                	Toast.info("取消订单成功",2);
+			                 $($e).parents("li").find(".orderNum span:nth-child(2)").html("已取消");   
+			                   $e.setAttribute("data-id","2");
+			                  $e.innerHTML="删除订单";
+			                  $($e).next("span").hide();
+			                }else{
+			                	Toast.info(res.msg,2);
+			                }
+			            })
+			    } },
+		  ]);
+		 /*  setTimeout(() => {
+		    // 可以调用close方法以在外部close
+		    console.log('auto close');
+		    alertInstance.close();
+		  }, 500000);*/
+        }else if(id=="2"){
+        	const alertInstance = alert('提示', '确定删除该订单？', [
+			    { text: '取消', onPress: () => console.log('quxiao'), style: 'default' },
+			    { text: '确定', onPress: () => {
+			        api.cancleOrder(applyId,"DELETE",function (res) {
+		                if (res.code == "0000") {
+		                	Toast.info("删除订单成功",2);
+		                  $($e).parents("li").hide("slow");
+		                  $($e).parents("li").find(".orderNum span:nth-child(2)").html("已取消");                   
+		                }else{
+		                	Toast.info(res.msg,2);
+		                }
+		            })
+			    } },
+		  ]);
+        	/* setTimeout(() => {
+		    // 可以调用close方法以在外部close
+		    console.log('auto close');
+		    alertInstance.close();
+		  }, 500000);*/
         	
-        }else if(status=="3"){
+        }else if(id=="3"){
         	console.log("签约");
+        }else if(id=="4"){
+        	console.log("放宽");
         }
-           
-       
-    },
+ 
+},
+	//字符串转换为时间戳
+	
+	getDateDiff: function (dateStr) {
+	  if(dateStr){
+	    var publishTime = dateStr/1000,
+	        d_seconds,
+	        d_minutes,
+	        d_hours,
+	        d_days,
+	        timeNow = parseInt(new Date().getTime()/1000),
+	        d,
+	
+	        date = new Date(publishTime*1000),
+	        Y = date.getFullYear(),
+	        M = date.getMonth() + 1,
+	        D = date.getDate(),
+	        H = date.getHours(),
+	        m = date.getMinutes(),
+	        s = date.getSeconds();
+	        //小于10的在前面补0
+	        if (M < 10) {
+	            M = '0' + M;
+	        }
+	        if (D < 10) {
+	            D = '0' + D;
+	        }
+	        if (H < 10) {
+	            H = '0' + H;
+	        }
+	        if (m < 10) {
+	            m = '0' + m;
+	        }
+	        if (s < 10) {
+	            s = '0' + s;
+	        }
+	
+	    d = timeNow - publishTime;
+	    d_days = parseInt(d/86400);
+	    d_hours = parseInt(d/3600);
+	    d_minutes = parseInt(d/60);
+	    d_seconds = parseInt(d);
+		return Y + '-' + M + '-' + D ;
+	 }else{
+	 	return ""
+	 }
+	} ,
     formateMoney: function (money) {
         if (money % 100 === 0) {
             return (money / 100).toFixed(2)
@@ -207,7 +327,6 @@ var OrderList = React.createClass({
       loadData:function(downOrUp,callback) {
   		var that=this;
   		var key1 = globalData.key;
-		var toast=globalData.toast;
 		var tag=that.props.tag;
 	 	const {currentPage,pageSize,list} = that.state;
 	 	var arr=[];
@@ -236,15 +355,22 @@ var OrderList = React.createClass({
 	                for (var i in orderList) {
 	                    var status = orderList[i].status;
 	                    var applyStatus=orderList[i].applyStatus;
+	                    var nextRepay;
+	                     if(orderList[i].nextNo>0){
+				        	 const nextRepayTime=orderList[i].nextRepayDate||"";
+				       		nextRepay=orderList[i].nextNo+"期还款时间："+that.getDateDiff(nextRepayTime.time);
+				        }else{
+				        	nextRepay="你的贷款申请已提交,3个工作日内完成"
+				        }
 	                    arr.push(<li key={Math.random()} data-applyId={orderList[i].applyId} onClick={that.toOrderDetail}>
 	                        <div className="orderNum">
 	                            <span>订单号：{orderList[i].applyNo}</span>
-	                            <span  className="order_n">{status==-2?"已取消":that.state.status[applyStatus].text}</span>
+	                            <span  className="order_n">{that.state.status[applyStatus][status].text}</span>
 	                        </div>
 	                        <h3 className="list_title">
 	                            <img src={'http://xrjf.oss-cn-shanghai.aliyuncs.com/' + orderList[i].logo} onError={that.logoError}/>
 	                            <span>{orderList[i].loanName}</span>
-	                            <span className="p_name">{that.state.name[orderList[i].loanType]}</span>
+	                            <span className="p_name">{that.state.loanType[orderList[i].loanType]}</span>
 	                        </h3>
 	                        <ul className="container">
 	                            <li>借款金额 {that.formateMoney(orderList[i].money)}元</li>
@@ -253,12 +379,11 @@ var OrderList = React.createClass({
 	                            <li>费用{orderList[i].fee}元</li>
 	                        </ul>
 	                        <div className="listFoot">
-	                            <span className="status">您的贷款申请已提交，我们会尽快处理</span>
-	                            {/*<span onClick={that.toCancel} className='statusBtn' data-id={i} style={{ backgroundColor: status < 0 ? 'rgb(221, 221, 221)' : '#53a6ff' ,'display':orderList[i].applyStatus== "APRYES"||orderList[i].applyStatus== "APRNO"? 'none':'block'}}>*/}
-	                            <span data-status={status} onClick={that.toCancel.bind(that,orderList[i].applyId)} className='statusBtn' >
-	                            	{that.state.status[applyStatus][status]}
+	                            <span className="status">{nextRepay}</span>
+	                            <span data-id={that.state.status[applyStatus][status].dataId} onClick={that.showAlert.bind(that,orderList[i].applyId)} className='statusBtn' >
+	                            	{that.state.status[applyStatus][status].btnTxt}
 	                            </span>
-	                             <span data-status="3" onClick={that.toCancel.bind(that,orderList[i].applyId)} className='statusBtn'  style={{"display":that.state.status[applyStatus].btnTwo? 'block':'none'}}>
+	                             <span data-id="3" onClick={that.showAlert.bind(that,orderList[i].applyId)} className='statusBtn'  style={{"display":that.state.status[applyStatus][status].btnTwo? 'block':'none'}}>
 	                            	绑卡签约
 	                            </span>
 	                        </div>
@@ -281,13 +406,13 @@ var OrderList = React.createClass({
             	that.setState({
 						flag:false
 					})
-				toast.show(res.msg,2000);
+				Toast.info(res.msg,2);
 			}
         }, function () {
         	that.setState({
         	flag:false
         })
-            toast.show("连接错误", 2000);
+            Toast.info("连接错误", 2);
         })
 
 	

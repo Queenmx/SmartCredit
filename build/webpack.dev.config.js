@@ -190,7 +190,7 @@ module.exports = function(env) {
 
         /* 插件配置 */
         plugins: [
-            // source map(方便排查、定位javascript问题)
+            // source map,//(方便排查、定位javascript问题)
             new webpack.SourceMapDevToolPlugin({
                 filename: 'map/[name].js.map', // 输出到map目录下
                // exclude: ['vendor.js'] // 排除vendor.js
@@ -198,7 +198,7 @@ module.exports = function(env) {
 
             // DefinePlugin 允许创建一个在编译时可以配置的全局常量。这可能会对开发模式和发布模式的构建允许不同的行为非常有用。
             definePluginConfig,
-
+			//["import", { libraryName: "antd-mobile", style: "css" }] ,// `style: true` 会加载 less 文件
             // 提取成单独的css文件.
             // extractGlobalSass,
             extractSass,

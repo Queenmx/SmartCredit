@@ -575,23 +575,6 @@ module.exports.orderDetail = function (applyId, cb1, cb2) {
     delete data.userId;
     delete data.applyId;
 }
-/**
- * 功能描述：进展列表
- * 函数名：circle
- * ACTION
- */
-module.exports.progressList = function (pageNum, pageSize, cb1, cb2) {
-    var data = globalData.requestData;
-    data.pageNum = pageNum;
-    data.pageSize = pageSize;
-    data.userId = globalData.userId;
-    var param = JSON.stringify(data);
-    var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/loan/apply/process/list`, {
-        params: str
-    }, cb1, cb2);
-    delete data.userId;
-}
 
 /**
  * 功能描述：进展列表

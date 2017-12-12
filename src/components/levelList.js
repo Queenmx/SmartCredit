@@ -47,7 +47,9 @@ var levelList=React.createClass({
 				api.qualifyListSave(qualifySelect,function(res){
 				//console.log(res);
 				if(res.code=="0000"){
-					
+					that.setState({
+							flag:false
+					})
 					//window.history.back();
 					callback();
 				}else if(res.code=="5555"){

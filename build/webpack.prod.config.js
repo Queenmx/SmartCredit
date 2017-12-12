@@ -162,7 +162,7 @@ module.exports = {
 
         // DefinePlugin.
         definePluginConfig,
-
+		//["import", { libraryName: "antd-mobile", style: "css" }] ,// `style: true` 会加载 less 文件
         // js压缩.
         new UglifyJSPlugin({
             compress: {
