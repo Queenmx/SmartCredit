@@ -37,7 +37,7 @@ import ProgressDetail from './ProgressDetail';
 import Loan from './loan';
 import OrderDetail from './orderDetail';
 import OtherInfo from './otherInfo';
-import loanFeedback from './loanFeedback';
+import LoanFeedback from './loanFeedback';
 import IntroKSD from './introKSD';
 import ListDetailKSD from './listDetailKSD';
 import SubmitResult from './submitResult';
@@ -82,7 +82,7 @@ ReactDom.render((
         <Route path='/ProgressDetail' component={ProgressDetail} />
         <Route path='/OrderDetail' component={OrderDetail} />
         <Route path='/OtherInfo' component={OtherInfo} />
-        <Route path='/loanFeedback' component={loanFeedback} />
+        <Route path='/LoanFeedback' component={LoanFeedback} />
         <Route path='/IntroKSD' component={IntroKSD} />
         <Route path='/ListDetailKSD' component={ListDetailKSD} />
         <Route path='/SubmitResult' component={SubmitResult} />
