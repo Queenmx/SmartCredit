@@ -363,7 +363,58 @@ var Save = React.createClass({
 	 	
        },
 
-
+handleRefresh:function(downOrUp, callback) {
+	    //真实的世界中是从后端取页面和判断是否是最后一页
+	    var that=this;
+	    let {currentPage, lastPage,pageSize,total} = that.state;
+	    var totalPage=Math.ceil(total/pageSize);
+	    //console.log(totalPage);
+		    if (downOrUp === 'up') { // 加载更多
+		      if (currentPage == totalPage) {
+		      	//console.log("zuihou")
+		        lastPage = true;
+		        	if (callback && typeof callback === 'function') {
+			            callback();
+			          }
+		      } else {
+		        currentPage++;
+		        //console.log(currentPage);
+		        lastPage = false;
+		        that.setState({
+			      currentPage,
+			      lastPage
+			    }, () => {
+			      that.loadData(downOrUp, callback);
+				});
+		      }
+		    } else { // 刷新
+		      lastPage = false;
+		      currentPage = 1;
+		        that.setState({
+			      currentPage,
+			      lastPage
+			    }, () => {
+			      that.loadData(downOrUp, callback);
+				});
+		    }
+	  
+  },
+	componentDidMount:function(){
+		var that=this;
+		var newsDetailTab= localStorage.getItem("newsDetailTab");
+		if(newsDetailTab){
+			that.setState({
+				activeSaveTab:newsDetailTab
+			})
+		}
+		
+		that.loadData();
+	
+	},
+	componentWillUnMount:function(){
+		window.removeEventListener('touchstart');
+		window.removeEventListener('touchend');
+	}
 });
 
 
