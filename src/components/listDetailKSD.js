@@ -151,7 +151,7 @@ var ListDetailKSD = React.createClass({
                     }
                 };
                 var path = {
-                    pathname: '/ApplyInfo',
+                    pathname: '/SubmitResult',
                     state: queryData,
                 }
                 hashHistory.push(path);
