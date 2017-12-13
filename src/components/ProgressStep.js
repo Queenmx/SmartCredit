@@ -4,6 +4,7 @@ import ReactDom from 'react-dom';
 import { hashHistory, Link } from 'react-router';
 import { formateTime } from './util'
 import '../sass/progressStep.scss';
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 // var appBasePath = globalData.appBasePath;
 var ProgressStep = React.createClass({
     getInitialState: function () {

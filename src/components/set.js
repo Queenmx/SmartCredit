@@ -6,7 +6,8 @@ import { globalData } from './global.js';
 import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
-var toast = globalData.toast;
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+// var toast = globalData.toast;
 var Set = React.createClass({
     getInitialState: function () {
         return {
@@ -17,44 +18,44 @@ var Set = React.createClass({
     quitLogin: function () {
         var that = this;
         that.setState({ isLoading: true })
-        var user=localStorage.getItem("user");
-        if(user){
-        	api.exit(function (res) {
-	            //console.log(res);
-	            if (res.code == "0000") {
-	                that.setState({ isLoading: false })
-	                localStorage.removeItem("user");
-	                localStorage.removeItem("isLogin");
-	                localStorage.removeItem("phoneNum");
-	                localStorage.removeItem("curCity");
-	                globalData.user="",
-	                globalData.requestData.token="",
-	                window.history.back();
-	            } else {
-	                that.setState({ isLoading: false })
-	                toast.show(res.msg, 2000);
-	            }
-	        }, function () {
-	            that.setState({ isLoading: false })
-	            toast.show("连接错误", 2000);
-	        })
-        }else{
-        	that.setState({ isLoading: false })
-        	 toast.show("当前未登录", 2000);
+        var user = localStorage.getItem("user");
+        if (user) {
+            api.exit(function (res) {
+                //console.log(res);
+                if (res.code == "0000") {
+                    that.setState({ isLoading: false })
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("isLogin");
+                    localStorage.removeItem("phoneNum");
+                    localStorage.removeItem("curCity");
+                    globalData.user = "",
+                        globalData.requestData.token = "",
+                        window.history.back();
+                } else {
+                    that.setState({ isLoading: false })
+                    Toast.info(res.msg, 2);
+                }
+            }, function () {
+                that.setState({ isLoading: false })
+                Toast.info("连接错误", 2);
+            })
+        } else {
+            that.setState({ isLoading: false })
+            Toast.info("当前未登录", 2);
         }
-        
+
 
     },
     clearCache: function () {
-       
+
         localStorage.removeItem("curCity");
         sessionStorage.clear();
-        this.timer = setTimeout(function () { toast.show("清空缓存成功", 2000) }, 500)
+        this.timer = setTimeout(function () { Toast.info("清空缓存成功", 2) }, 500)
     },
     aboutUs: function () {
         let path = {
             pathname: "/txt",
-            state: { title: '关于我们',fromId:1 }
+            state: { title: '关于我们', fromId: 1 }
         }
         hashHistory.push(path);
     },

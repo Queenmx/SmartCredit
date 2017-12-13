@@ -6,7 +6,7 @@ import api from './api';
 import Loading from './loading';
 import { globalData } from './global.js';
 import { hashHistory, Link } from 'react-router';
-
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 class ProList extends Component {
     constructor() {
         super();
@@ -20,7 +20,7 @@ class ProList extends Component {
         };
 
         this.toListDetail = (event) => {
-            var toast = globalData.toast;
+            // var toast = globalData.toast;
             var loanId = event.currentTarget.getAttribute("data-loanId");
             var type = event.currentTarget.getAttribute("data-type");
             var data = { loanId: loanId };
@@ -36,7 +36,7 @@ class ProList extends Component {
                     query: data,
                 }
             } else {
-                toast.show("数据错误", 2000)
+                Toast.info("数据错误", 2)
             }
 
             hashHistory.push(path);
@@ -89,7 +89,7 @@ class ProList extends Component {
 
         var that = this;
         var key1 = globalData.key;
-        var toast = globalData.toast;
+        // var toast = globalData.toast;
         var tag = that.props.tag;
         const { currentPage, pageSize, list } = that.state;
         var arr = [];
@@ -167,7 +167,7 @@ class ProList extends Component {
                 that.setState({
                     flag: false
                 })
-                toast.show("登录过时，请重新登录", 2000);
+                Toast.info("登录过时，请重新登录", 2);
                 var path = {
                     pathname: '/Login',
                 }
@@ -176,13 +176,13 @@ class ProList extends Component {
                 that.setState({
                     flag: false
                 })
-                toast.show(res.msg, 2000);
+                Toast.info(res.msg, 2);
             }
         }, function () {
             that.setState({
                 flag: false
             })
-            toast.show("连接错误", 2000);
+            Toast.info("连接错误", 2);
         })
 
 

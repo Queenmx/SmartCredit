@@ -8,6 +8,7 @@ import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../sass/progress.scss';
 import Processlist from './processList';
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 var imgPath = globalData.imgPath;
 var Progress = React.createClass({
     getInitialState: function () {
@@ -37,7 +38,7 @@ var Progress = React.createClass({
     },
     componentDidMount: function () {
         var key1 = globalData.key;
-        var toast = globalData.toast;
+        // var toast = globalData.toast;
         var that = this;
         api.progressList(that.state.pageNum, that.state.pageSize, function (res) {
             if (res.code == "0000") {
@@ -90,10 +91,10 @@ var Progress = React.createClass({
                 })
 
             } else {
-                toast.show("连接错误", 2000);
+                Toast.info("连接错误", 2);
             }
         }, function () {
-            toast.show("连接错误", 2000);
+            Toast.info("连接错误", 2);
         })
     },
 

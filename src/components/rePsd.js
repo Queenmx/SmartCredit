@@ -6,12 +6,12 @@ import { globalData } from './global.js';
 import Header from './header';
 import Loading from './loading';
 import { hashHistory } from 'react-router';
-
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 var appBasePath = globalData.appBasePath;
 var Repsd = React.createClass({
     getInitialState: function () {
         return {
-			isLoading:false
+            isLoading: false
         }
     },
     vauleChange: function (e) {
@@ -20,54 +20,54 @@ var Repsd = React.createClass({
         })
     },
     savePsd: function () {
-    	
+
         var that = this;
         let oldPsd = that.state.oldPsd;
         let newPsd = that.state.newPsd;
         let surePsd = that.state.surePsd;
         var userId = localStorage.getItem("userId");
-        var toast = new Toast();
+        // var toast = new Toast();
         if (oldPsd && newPsd && surePsd) {
             if (newPsd !== surePsd) {
-                toast.show("两次密码不一致",2000);
-            }else if(newPsd==oldPsd){
-            	toast.show("新密码不能与近期用过密码相同",2000);
-            }else {
-            	that.setState({isLoading:true})
+                Toast.info("两次密码不一致", 2);
+            } else if (newPsd == oldPsd) {
+                Toast.info("新密码不能与近期用过密码相同", 2);
+            } else {
+                that.setState({ isLoading: true })
                 api.updatePsd(newPsd, oldPsd, function (res) {
                     //console.log(res);
-           		 if (res.code == "0000") {
-           		 	that.setState({isLoading:false})
-           		 	toast.show("修改成功,请重新登录", 2000);
-           		 	localStorage.removeItem("user");
-           		 	localStorage.removeItem("isLogin");
-           		 	globalData.user="";
-           		 	globalData.requestData.token="";
-           		 	var path = {
-					  pathname:'/Login/Mine',
-					}
-					hashHistory.push(path);
-           		 }else if(res.code=="5555"){
-           		 	that.setState({isLoading:false})
-					toast.show("登录过时，请重新登录",2000);
-					var path = {
-					  pathname:'/Login',
-					}
-					hashHistory.push(path);
-				}else{
-					that.setState({isLoading:false})
-					toast.show(res.msg,2000);
-				}
+                    if (res.code == "0000") {
+                        that.setState({ isLoading: false })
+                        Toast.info("修改成功,请重新登录", 2);
+                        localStorage.removeItem("user");
+                        localStorage.removeItem("isLogin");
+                        globalData.user = "";
+                        globalData.requestData.token = "";
+                        var path = {
+                            pathname: '/Login/Mine',
+                        }
+                        hashHistory.push(path);
+                    } else if (res.code == "5555") {
+                        that.setState({ isLoading: false })
+                        Toast.info("登录过时，请重新登录", 2);
+                        var path = {
+                            pathname: '/Login',
+                        }
+                        hashHistory.push(path);
+                    } else {
+                        that.setState({ isLoading: false })
+                        Toast.info(res.msg, 2);
+                    }
                     // window.history.back();
-                    
-                },function(){
-                	that.setState({isLoading:false})
-					toast.show("连接错误",2000);
-				})
+
+                }, function () {
+                    that.setState({ isLoading: false })
+                    Toast.info("连接错误", 2);
+                })
 
             }
         } else {
-            toast.show("输入不能为空", 2000);
+            Toast.info("输入不能为空", 2);
         }
 
 
@@ -77,7 +77,7 @@ var Repsd = React.createClass({
         return (
             <div className="setPsd app_Box">
                 <Header title="修改密码" />
-                <Loading flag={that.state.isLoading}/>
+                <Loading flag={that.state.isLoading} />
                 <div className="setPsdCon">
                     <div className="inputPsd">
                         <label htmlFor="oldPsd">请输入旧密码</label>

@@ -7,6 +7,7 @@ import HomeHeader from './homeHeader';
 import Footer from './footer';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 import '../css/home.css';
 
 var imgPath = globalData.imgPath;
@@ -39,7 +40,7 @@ var Home = React.createClass({
                 query: data,
             }
         } else {
-            toast.show("数据错误", 2000)
+            Toast.info("数据错误", 2)
         }
         hashHistory.push(path);
     },
@@ -197,10 +198,10 @@ var Home = React.createClass({
                     })
 
                 } else {
-                    toast.show("连接错误", 2000);
+                    Toast.info("连接错误", 2);
                 }
             }, function () {
-                toast.show("连接错误", 2000);
+                Toast.info("连接错误", 2);
             })
         }
 
@@ -248,10 +249,10 @@ var Home = React.createClass({
                     })
 
                 } else {
-                    toast.show(res.msg, 2000);
+                    Toast.info(res.msg, 2);
                 }
             }, function () {
-                toast.show("连接错误", 2000);
+                Toast.info("连接错误", 2);
             })
         }
     },
@@ -390,10 +391,10 @@ var Home = React.createClass({
                     })
 
                 } else {
-                    toast.show("连接错误", 2000);
+                    Toast.info("连接错误", 2);
                 }
             }, function () {
-                toast.show("连接错误", 2000);
+                Toast.info("连接错误", 2);
             })
         }
 
@@ -441,10 +442,10 @@ var Home = React.createClass({
                     })
 
                 } else {
-                    toast.show(res.msg, 2000);
+                    Toast.info(res.msg, 2);
                 }
             }, function () {
-                toast.show("连接错误", 2000);
+                Toast.info("连接错误", 2);
             })
         }
     },

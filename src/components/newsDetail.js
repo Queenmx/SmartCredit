@@ -6,7 +6,7 @@ import Loading from './loading';
 import { globalData } from './global.js';
 import { hashHistory, Link } from 'react-router';
 import Header from './header';
-
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 var NewsDetail = React.createClass({
     getInitialState: function () {
         return {
@@ -36,7 +36,7 @@ var NewsDetail = React.createClass({
     saveHandle: function (event) {
         var user = localStorage.getItem("user")
         var key1 = globalData.key;
-        var toast = globalData.toast;
+        // var toast = globalData.toast;
         var that = this;
 
         if (user) {
@@ -48,63 +48,63 @@ var NewsDetail = React.createClass({
                             isMark: 1
                         })
                     } else {
-                        toast.show(res.msg, 2000);
+                        Toast.info(res.msg, 2);
                     }
                 }, function () {
-                    toast.show("连接错误", 2000);
+                    Toast.info("连接错误", 2);
                 })
             } else {//取消收藏
-            	//var markId=event.currentTarget.getAttribute("data-markId");
-            	 let key1 = globalData.key;
-		        let toast = globalData.toast;
-		        api.articleDetail(that.state.articleId, function (res) {
-		            ////console.log(res);
-			            that.setState({
-			            	flag:true
-			            })
-		            if (res.code == "0000") {
-		                let data = strDec(res.data, key1, "", "");
-		                let articleDetail = JSON.parse(data);
-		                //console.log(articleDetail);
-		                that.setState({
-		                	markId:articleDetail.markId
-		                },function(){
-		                	api.delSave(that.state.markId, "ARTICLE", function (res) {
-			                    //console.log(res);
-			                    if (res.code == "0000") {
-			                    	
-			                        that.setState({
-			                            isMark: 0,
-			                            flag:false
-			                        })
-			                    } else {
-			                    	 that.setState({
-						            	flag:false
-						            })
-			                        toast.show(res.msg, 2000);
-			                    }
-			                }, function () {
-			                	 that.setState({
-					            	flag:false
-					            })
-			                    toast.show("连接错误", 2000);
-			                })
-		                })
-		            }else {
-		            	 that.setState({
-			            	flag:false
-			            })
-		                toast.show(res.msg, 2000);
-		            }
-		        }, function () {
-		        	 that.setState({
-			            	flag:false
-			            })
-		            toast.show("连接错误", 2000);
-		        })
-		        //console.log(that.state.markId);
-		        
-                
+                //var markId=event.currentTarget.getAttribute("data-markId");
+                let key1 = globalData.key;
+                // let toast = globalData.toast;
+                api.articleDetail(that.state.articleId, function (res) {
+                    ////console.log(res);
+                    that.setState({
+                        flag: true
+                    })
+                    if (res.code == "0000") {
+                        let data = strDec(res.data, key1, "", "");
+                        let articleDetail = JSON.parse(data);
+                        //console.log(articleDetail);
+                        that.setState({
+                            markId: articleDetail.markId
+                        }, function () {
+                            api.delSave(that.state.markId, "ARTICLE", function (res) {
+                                //console.log(res);
+                                if (res.code == "0000") {
+
+                                    that.setState({
+                                        isMark: 0,
+                                        flag: false
+                                    })
+                                } else {
+                                    that.setState({
+                                        flag: false
+                                    })
+                                    Toast.info(res.msg, 2);
+                                }
+                            }, function () {
+                                that.setState({
+                                    flag: false
+                                })
+                                Toast.info("连接错误", 2);
+                            })
+                        })
+                    } else {
+                        that.setState({
+                            flag: false
+                        })
+                        Toast.info(res.msg, 2);
+                    }
+                }, function () {
+                    that.setState({
+                        flag: false
+                    })
+                    Toast.info("连接错误", 2);
+                })
+                //console.log(that.state.markId);
+
+
             }
 
 
@@ -124,7 +124,7 @@ var NewsDetail = React.createClass({
         return (
             <div className="app_Box newsDetail">
                 <Header title="" />
-                 <Loading flag={that.state.flag} />
+                <Loading flag={that.state.flag} />
                 <div className="content newsDetailCon">
                     <h1>{articleDetail.articleTitle}</h1>
                     <div className="newsDetailInfo">
@@ -132,7 +132,7 @@ var NewsDetail = React.createClass({
                         <span>{addTimeArr[0]}</span>
                         <span>{articleDetail.readerNum}阅读</span>
                     </div>
-                    <div className="newsArticleCon" dangerouslySetInnerHTML={{__html: articleDetail.content}}>
+                    <div className="newsArticleCon" dangerouslySetInnerHTML={{ __html: articleDetail.content }}>
                     </div>
                 </div>
                 <div className="botBtn" data-markId={articleDetail.markId} onClick={that.saveHandle}>{that.state.isMark == 1 ? "取消收藏" : "收藏"}</div>
@@ -142,39 +142,39 @@ var NewsDetail = React.createClass({
     componentDidMount: function () {
         var that = this;
         let key1 = globalData.key;
-        let toast = globalData.toast;
+        // let toast = globalData.toast;
         api.articleDetail(that.state.articleId, function (res) {
-           // console.log(res);
+            // console.log(res);
             if (res.code == "0000") {
                 let data = strDec(res.data, key1, "", "");
                 let articleDetail = JSON.parse(data);
-               // console.log(articleDetail);
+                // console.log(articleDetail);
                 that.setState({
-                	flag:false,
+                    flag: false,
                     articleDetail: articleDetail,
                     isMark: articleDetail.isMark,
-                    markId:articleDetail.markId
+                    markId: articleDetail.markId
                 })
             } else if (res.code == "5555") {
-            	that.setState({
-		        	flag:false
-		        })
-                toast.show("登录过时，请重新登录", 2000);
+                that.setState({
+                    flag: false
+                })
+                Toast.info("登录过时，请重新登录", 2);
                 var path = {
                     pathname: '/Login',
                 }
                 hashHistory.push(path);
             } else {
-            	that.setState({
-		        	flag:false
-		        })
-                toast.show(res.msg, 2000);
+                that.setState({
+                    flag: false
+                })
+                Toast.info(res.msg, 2);
             }
         }, function () {
-        	that.setState({
-	        	flag:false
-	        })
-            toast.show("连接错误", 2000);
+            that.setState({
+                flag: false
+            })
+            Toast.info("连接错误", 2);
         })
     }
 });

@@ -7,8 +7,9 @@ import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../sass/submitResult.scss';
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 var key1 = globalData.key;
-var toast = globalData.toast;
+// var toast = globalData.toast;
 var SubmitResult = React.createClass({
     getInitialState: function () {
         return {

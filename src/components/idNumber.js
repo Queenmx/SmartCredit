@@ -6,11 +6,11 @@ import { globalData } from './global.js';
 import Header from './header';
 import Loading from './loading';
 import { hashHistory } from 'react-router';
-
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 var RealName = React.createClass({
     getInitialState: function () {
         return {
-        	 flag: false
+            flag: false
         }
     },
     vauleChange: function (e) {
@@ -30,56 +30,56 @@ var RealName = React.createClass({
             var user = JSON.parse(userStr);//必须登录才能看到本页面
             var located = localStorage.getItem("dingwei") || "";
             var { realName, phone, idCard } = user;
-            this.setState({ located: located, user: user});
+            this.setState({ located: located, user: user });
         }
 
     },
     saveId: function () {
-    	var that = this;
-    	 that.setState({
-                flag: true
-            })
-		var idCartReg=/(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/;
-		var user=that.state.user;
+        var that = this;
+        that.setState({
+            flag: true
+        })
+        var idCartReg = /(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/;
+        var user = that.state.user;
         let idCard = that.state.idCard;
         var toast = globalData.toast;
         // console.log(idCard);
         if (idCartReg.test(idCard)) {
             api.edit(idCard, that.state.located, user.realName, function (res) {
-               //  console.log(res);
+                //  console.log(res);
                 if (res.code == "0000") {
-                	user.idCard=idCard;
-                	user.located=that.state.located;
+                    user.idCard = idCard;
+                    user.located = that.state.located;
                     //var userObj = { realName: user.realName, located:that.state.located, idCard: idCard, certLevel: user.certLevel, phone: user.phone, userName: user.userName, token: globalData.requestData.token, headPic: user.headPic, userId: globalData.userId }
                     localStorage.setItem("user", JSON.stringify(user));
-                    globalData.user=JSON.stringify(user);
-                  //  console.log(user);
+                    globalData.user = JSON.stringify(user);
+                    //  console.log(user);
                     that.setState({
-		                flag: false
-		            })
-                    toast.show("保存成功", 2000);
-                    window.history.back();
-                } else if(res.code=="5555"){
-                	 that.setState({
                         flag: false
                     })
-                    toast.show("登录过时，请重新登录", 2000);
+                    Toast.info("保存成功", 2);
+                    window.history.back();
+                } else if (res.code == "5555") {
+                    that.setState({
+                        flag: false
+                    })
+                    Toast.info("登录过时，请重新登录", 2);
                     var path = {
                         pathname: '/Login',
                     }
                     hashHistory.push(path);
-                }else {
-                	 that.setState({
-		                flag: false
-		            })
-                    toast.show(res.msg, 2000)
+                } else {
+                    that.setState({
+                        flag: false
+                    })
+                    Toast.info(res.msg, 2)
                 }
             });
         } else {
-        	 that.setState({
-		                flag: false
-		            })
-            toast.show("请输入正确的身份证号", 2000);
+            that.setState({
+                flag: false
+            })
+            Toast.info("请输入正确的身份证号", 2);
         }
 
     },
@@ -92,10 +92,10 @@ var RealName = React.createClass({
                 <div className="setPsdCon">
                     <div className="realName">
                         <label htmlFor="realName">请输入身份证号码</label>
-                         <input id="realName" type="number" name="idCard" placeholder="" onChange={that.vauleChange} /> 
+                        <input id="realName" type="number" name="idCard" placeholder="" onChange={that.vauleChange} />
                     </div>
 
-                   <div className="psdLogin" onClick={that.saveId}>保存</div> 
+                    <div className="psdLogin" onClick={that.saveId}>保存</div>
                 </div>
             </div>
         )

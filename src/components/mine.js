@@ -8,7 +8,7 @@ import Footer from './footer';
 import Set from './set';
 import Login from './login';
 import '../css/mine.css';
-
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 var appBasePath = globalData.appBasePath;
 var Mine = React.createClass({
     getInitialState: function () {
@@ -31,7 +31,7 @@ var Mine = React.createClass({
             var userObj = JSON.parse(user);
             that.setState({
                 user: userObj,
-                certStatus:userObj.certStatus,
+                certStatus: userObj.certStatus,
                 isLogin: true
             })
 
@@ -91,13 +91,13 @@ var Mine = React.createClass({
         var that = this;
         var user = localStorage.getItem("user");
         if (user) {
-        	const title=event.currentTarget.getAttribute("data-title");
-        	const statusType=event.currentTarget.getAttribute("data-statusType");
+            const title = event.currentTarget.getAttribute("data-title");
+            const statusType = event.currentTarget.getAttribute("data-statusType");
             var path = {
                 pathname: '/Order',
-                state:{
-                	title:title,
-                	statusType:statusType
+                state: {
+                    title: title,
+                    statusType: statusType
                 }
             }
             hashHistory.push(path);
@@ -116,33 +116,33 @@ var Mine = React.createClass({
         hashHistory.push(path);
     },
     toIdCard: function () {
-    	var toast = globalData.toast;
-    	//toast.show("身份证认证功能尚未开放",2000);
+        // var toast = globalData.toast;
+        //Toast.info("身份证认证功能尚未开放",2);
         if (this.state.isLogin) {
-        	//console.log(this.state.certStatus);
-        	if(this.state.certStatus==1){
-        		toast.show("认证已通过，无需重复上传",2000);
-        		var path = {
-	                pathname: '/idCard',
-	                //query:data,
-	            }
-	            hashHistory.push(path);
-        		
-        	}else if(this.state.certStatus==0){
-        		toast.show("正在审核中，无需重复上传",2000);
-        		var path = {
-	                pathname: '/idCard',
-	                //query:data,
-	            }
-	            hashHistory.push(path);
-        	}else{
-        		var path = {
-	                pathname: '/idCard',
-	                //query:data,
-	            }
-	            hashHistory.push(path);
-        	}
-            
+            //console.log(this.state.certStatus);
+            if (this.state.certStatus == 1) {
+                Toast.info("认证已通过，无需重复上传", 2);
+                var path = {
+                    pathname: '/idCard',
+                    //query:data,
+                }
+                hashHistory.push(path);
+
+            } else if (this.state.certStatus == 0) {
+                Toast.info("正在审核中，无需重复上传", 2);
+                var path = {
+                    pathname: '/idCard',
+                    //query:data,
+                }
+                hashHistory.push(path);
+            } else {
+                var path = {
+                    pathname: '/idCard',
+                    //query:data,
+                }
+                hashHistory.push(path);
+            }
+
         } else {
             var path = {
                 pathname: '/Login/Mine',
@@ -153,7 +153,7 @@ var Mine = React.createClass({
     },
     toPersonalLevel: function () {
         var key1 = globalData.key;
-        var toast = globalData.toast;
+        // var toast = globalData.toast;
         var user = globalData.user;
         //console.log(user);
         if (this.state.isLogin) {
@@ -175,25 +175,25 @@ var Mine = React.createClass({
     },
     render: function () {
         var that = this;
-        var imgPath=globalData.imgPath;
+        var imgPath = globalData.imgPath;
         var userObj = that.state.user;
         return (
             <div className="app_Box mine">
                 <div className="mineContent content">
                     <div className="userHeader" onClick={that.goLogin}>
-                        <div className="userImg"><img src={imgPath+userObj.headPic} onError={that.imgError} /></div>
-                        <div className="userInfo"><p>{userObj.userName}</p><span>{userObj.certStatus == 1? "已认证" : "未认证"}</span></div>
+                        <div className="userImg"><img src={imgPath + userObj.headPic} onError={that.imgError} /></div>
+                        <div className="userInfo"><p>{userObj.userName}</p><span>{userObj.certStatus == 1 ? "已认证" : "未认证"}</span></div>
                         <div className="goLogin"><img src="src/img/icon/go.png" /></div>
                     </div>
                     <div className="creditLevel"><p>我的信用等级:<b>{userObj.certLevel}</b></p>{/*<span>去提升,5000轻松拿<img src="src/img/icon/right.png" /></span>*/}</div>
                     <div className="userOrder">
                         <ul>
-                        	<li onClick={that.toOrder} data-title="待完成订单" data-statusType="ING"><img src="src/img/icon/order.png" /><p>待完成订单</p></li>
-                        	<li onClick={that.toOrder} data-title="待还款订单" data-statusType="REPAY"><img src="src/img/icon/dd2.png" /><p>待还款订单</p></li>
+                            <li onClick={that.toOrder} data-title="待完成订单" data-statusType="ING"><img src="src/img/icon/order.png" /><p>待完成订单</p></li>
+                            <li onClick={that.toOrder} data-title="待还款订单" data-statusType="REPAY"><img src="src/img/icon/dd2.png" /><p>待还款订单</p></li>
                             <li onClick={that.toOrder} data-title="全部订单" data-statusType=""><img src="src/img/icon/dd3.png" /><p>全部订单</p></li>
                         </ul>
                         <ul>
-                        	<li onClick={that.toPersonalLevel}><img src="src/img/icon/personLevel.png" /><p>个人资质</p></li>
+                            <li onClick={that.toPersonalLevel}><img src="src/img/icon/personLevel.png" /><p>个人资质</p></li>
                             {/*<li onClick={that.toIdCard}><img src="src/img/icon/id.png" /><p>身份证认证</p></li>*/}
                             <li onClick={that.toSave}><img src="src/img/icon/sc.png" /><p>我的收藏</p></li>
                             <li onClick={that.toHelp}><img src="src/img/icon/bz.png" /><p>帮助与反馈</p></li>

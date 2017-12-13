@@ -6,6 +6,7 @@ import { globalData } from './global.js';
 import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 // 引入 ECharts 主模块
 import echarts from "echarts";
 var isCarify//是否通过全部验证
@@ -51,7 +52,7 @@ var ListDetailKSD = React.createClass({
     lixi: function () {
         var that = this;
         var key1 = globalData.key;
-        var toast = globalData.toast;
+        // var toast = globalData.toast;
         const { value2, limitType, loanId, value1 } = that.state;
         //console.log(that.state);
         api.lixi(value2, limitType, loanId, value1 * 100, function (res) {
@@ -65,10 +66,12 @@ var ListDetailKSD = React.createClass({
                     that.chart();
                 })
             } else {
-                toast.show(res.msg, 2000);
+                // Toast.info(res.msg, 2);
+                Toast.info(res.msg, 2);
             }
         }, function () {
-            toast.show("连接错误", 2000);
+            // Toast.info("连接错误", 2);
+            Toast.info("连接错误", 2);
         })
     },
     handleBlur1: function (event) {
@@ -128,13 +131,15 @@ var ListDetailKSD = React.createClass({
     toApplyInfo: function (event) {
         var that = this;
         var key1 = globalData.key;
-        let toast = globalData.toast;
+        // let toast = globalData.toast;
         if (that.state.isLogin) {
             const { value2, limitType, loanId, value1 } = that.state;
             if (!isCarify) {
-                toast.show("请先完成认证", 2000);
+                // Toast.info("请先完成认证", 2);
+                Toast.info("请先完成认证", 2);
             } else if (that.state.isLoan) {
-                toast.show("您已申请了该产品，不能重复申请", 2000);
+                // Toast.info("您已申请了该产品，不能重复申请", 2);
+                Toast.info("您已申请了该产品，不能重复申请", 2);
             } else {
                 var queryData = {
                     loanId: loanId,
@@ -211,7 +216,7 @@ var ListDetailKSD = React.createClass({
     componentDidMount: function () {
         var that = this;
         var key1 = globalData.key;
-        var toast = globalData.toast;
+        // var toast = globalData.toast;
         var loanId = that.state.loanId;
         api.loanDetail(loanId, function (res) {
             ////console.log(res);
@@ -279,13 +284,15 @@ var ListDetailKSD = React.createClass({
                 that.setState({
                     flag: false
                 })
-                toast.show(res.msg, 2000);
+                // Toast.info(res.msg, 2);
+                Toast.info(res.msg, 2);
             }
         }, function () {
             that.setState({
                 flag: false
             })
-            toast.show("连接错误", 2000);
+            // Toast.info("连接错误", 2);
+            Toast.info("连接错误", 2);
         })
 
 
@@ -421,7 +428,7 @@ var ListDetailKSD = React.createClass({
         var that = this;
         var objId = that.state.loanId;
         var key1 = globalData.key;
-        let toast = globalData.toast;
+        // let toast = globalData.toast;
         if (that.state.isLogin) {
             var markId = event.currentTarget.getAttribute("data-markId");
             //console.log(markId);
@@ -449,26 +456,28 @@ var ListDetailKSD = React.createClass({
                                     that.setState({
                                         flag: false
                                     })
-                                    toast.show(res.msg, 2000);
+                                    // Toast.info(res.msg, 2);
+                                    Toast.info(res.msg, 2);
                                 }
                             }, function () {
                                 that.setState({
                                     flag: false
                                 })
-                                toast.show("连接错误", 2000);
+                                // Toast.info("连接错误", 2);
+                                Toast.info("连接错误", 2);
                             })
                         })
                     } else {
                         that.setState({
                             flag: false
                         })
-                        toast.show(res.msg, 2000);
+                        Toast.info(res.msg, 2);
                     }
                 }, function () {
                     that.setState({
                         flag: false
                     })
-                    toast.show("连接错误", 2000);
+                    Toast.info("连接错误", 2);
                 })
 
 
@@ -478,10 +487,10 @@ var ListDetailKSD = React.createClass({
                     if (res.code == "0000") {
                         that.setState({ isMark: 1 })
                     } else {
-                        toast.show(res.msg, 2000);
+                        Toast.info(res.msg, 2);
                     }
                 }, function () {
-                    toast.show("连接错误", 2000);
+                    Toast.info("连接错误", 2);
                 })
             }
         } else {

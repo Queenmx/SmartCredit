@@ -3,9 +3,9 @@
 /**
  * 使用示例：
  * var toast = new Toast();
- * toast.show("错误"); //默认显示3秒后消失
- * toast.show("错误", 5000);  //显示5秒后消失
- * toast.show();  //显示默认的提示信息
+ * Toast.info("错误"); //默认显示3秒后消失
+ * Toast.info("错误", 5000);  //显示5秒后消失
+ * Toast.info();  //显示默认的提示信息
  */
 
 function Toast() {

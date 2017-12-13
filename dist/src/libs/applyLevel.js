@@ -36,7 +36,7 @@ var ApplyLevel=React.createClass({
 	},
 	toApplyResult:function(){
 		if(!this.state.checked){
-			toast.show("请同意智能贷服务协议",2000);
+			Toast.info("请同意智能贷服务协议",2);
 		}else{
 			var data = {id:3,name:"qin",age:18};
 			var path = {
@@ -209,7 +209,7 @@ var ApplyLevel=React.createClass({
 							that.setState({four:that.state.four,third:that.state.third,second:that.state.second,qualifyListArr:that.state.qualifyListArr,valSelect:that.state.valSelect});
 						}
 					},function(){
-							toast.show("连接错误",2000);
+							Toast.info("连接错误",2);
 					})
 		}
 
@@ -267,7 +267,7 @@ var ApplyLevel=React.createClass({
 							that.setState({third:that.state.third,second:that.state.second,qualifyListArr:that.state.qualifyListArr,valSelect:that.state.valSelect});
 						}
 					},function(){
-							toast.show("连接错误",2000);
+							Toast.info("连接错误",2);
 					})
 		}
 
@@ -320,7 +320,7 @@ var ApplyLevel=React.createClass({
 							that.setState({third:that.state.third,second:that.state.second,qualifyListArr:that.state.qualifyListArr,valSelect:that.state.valSelect});
 						}
 					},function(){
-							toast.show("连接错误",2000);
+							Toast.info("连接错误",2);
 					})
 		}
 	},

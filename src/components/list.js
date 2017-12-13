@@ -6,7 +6,7 @@ import { globalData } from './global.js';
 import Header from './header';
 import { hashHistory, Link } from 'react-router';
 import ProList from './proList';
-
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 var appBasePath = globalData.appBasePath;
 var List = React.createClass({
     getInitialState: function () {

@@ -6,9 +6,10 @@ import { globalData } from './global.js';
 import Loading from './loading';
 import Header from './header';
 import { hashHistory, Link } from 'react-router';
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 import '../css/apply.css';
 
-var toast = new Toast();
+// var toast = new Toast();
 var appBasePath = globalData.appBasePath;
 var ApplyInfo = React.createClass({
     getInitialState: function () {
@@ -20,7 +21,7 @@ var ApplyInfo = React.createClass({
     },
 
     componentWillMount: function () {
-    	//console.log(globalData.user)
+        //console.log(globalData.user)
         var userStr = localStorage.getItem("user");
         //console.log(userStr);
         if (!userStr) {
@@ -38,90 +39,94 @@ var ApplyInfo = React.createClass({
     },
     toApplyLevel: function () {
         var key1 = globalData.key;
-        var toast = globalData.toast;
+        // var toast = globalData.toast;
         var that = this;
         var loanId = that.props.location.state.loanId;
         var applyQuery = that.props.location.state.applyQuery;
         var { realName, applyName, applyNumber, located, user } = that.state;
         //console.log(that.state);
         if (applyName.length > 0) {
-            if (realName==""||realName==null) {//修改名字
+            if (realName == "" || realName == null) {//修改名字
                 api.edit(user.idCard, located, applyName, function (res) {
                     //console.log(res);
                     //console.log(applyName);
                     if (res.code == "0000") {
                         //修改信息成功
                         //console.log(applyName)
-                        user.realName=applyName;
+                        user.realName = applyName;
                         //var userObj = { realName: realName, located: located, idCard: user.idCard, certLevel: user.certLevel, phone: user.phone, userName: user.userName, token: user.token, headPic: user.headPic, userId: user.userId }
                         localStorage.setItem("user", JSON.stringify(user));
-                    	globalData.user=JSON.stringify(user);
+                        globalData.user = JSON.stringify(user);
                     } else if (res.code == "5555") {
-                        toast.show("登录过时，请重新登录", 2000);
+                        // Toast.info("登录过时，请重新登录", 2);
+                        Toast.info('登录过时，请重新登录', 2);
                         var path = {
                             pathname: '/Login',
                         }
                         hashHistory.push(path);
                     } else {
-                        toast.show(res.msg, 2000);
+                        // Toast.info(res.msg, 2);
+                        Toast.info(res.msg, 2);
                     }
                 }, function () {
-                    toast.show("连接错误", 2000);
+                    // Toast.info("连接错误", 2);
+                    Toast.info("连接错误", 2);
                 })
             }
             var queryData = { applyNumber: applyNumber, applyName: applyName, loanId: loanId, applyQuery: applyQuery };
-                    that.setState({
-                        flag: false
-                    })
-                    var path = {
-                        pathname: '/ApplyLevel',
-                        state: queryData,
-                    }
-                    hashHistory.push(path);
-            
-            
-    /*        //获取资质列表
-            api.qualifyList(loanId, "095c2c011ef740508bf27785e0ffe8f1", function (res) {
-                //console.log(res);
-                that.setState({
-                    flag: true
-                })
-                if (res.code == "0000") {
-                    var data = JSON.parse(strDec(res.data, key1, "", ""));
-                    //var qualifyList=data.qualifyList;
-                    ////console.log(data);
-                    var queryData = { applyNumber: applyNumber, applyName: applyName, loanId: loanId, applyQuery: applyQuery, qualifyList: data };
-                    that.setState({
-                        flag: false
-                    })
-                    var path = {
-                        pathname: '/ApplyLevel',
-                        state: queryData,
-                    }
-                    hashHistory.push(path);
-                } else if (res.code == "5555") {
-                    that.setState({
-                        flag: false
-                    })
-                    toast.show("登录过时，请重新登录", 2000);
-                    var path = {
-                        pathname: '/Login',
-                    }
-                    hashHistory.push(path);
-                } else {
-                    that.setState({
-                        flag: false
-                    })
-                    toast.show(res.msg, 2000);
-                }
-            }, function () {
-                that.setState({
-                    flag: false
-                })
-                toast.show("连接错误", 2000);
-            })*/
+            that.setState({
+                flag: false
+            })
+            var path = {
+                pathname: '/ApplyLevel',
+                state: queryData,
+            }
+            hashHistory.push(path);
+
+
+            /*        //获取资质列表
+                    api.qualifyList(loanId, "095c2c011ef740508bf27785e0ffe8f1", function (res) {
+                        //console.log(res);
+                        that.setState({
+                            flag: true
+                        })
+                        if (res.code == "0000") {
+                            var data = JSON.parse(strDec(res.data, key1, "", ""));
+                            //var qualifyList=data.qualifyList;
+                            ////console.log(data);
+                            var queryData = { applyNumber: applyNumber, applyName: applyName, loanId: loanId, applyQuery: applyQuery, qualifyList: data };
+                            that.setState({
+                                flag: false
+                            })
+                            var path = {
+                                pathname: '/ApplyLevel',
+                                state: queryData,
+                            }
+                            hashHistory.push(path);
+                        } else if (res.code == "5555") {
+                            that.setState({
+                                flag: false
+                            })
+                            Toast.info("登录过时，请重新登录", 2);
+                            var path = {
+                                pathname: '/Login',
+                            }
+                            hashHistory.push(path);
+                        } else {
+                            that.setState({
+                                flag: false
+                            })
+                            Toast.info(res.msg, 2);
+                        }
+                    }, function () {
+                        that.setState({
+                            flag: false
+                        })
+                        Toast.info("连接错误", 2);
+                    })*/
         } else {
-            toast.show("请输入姓名", 2000);
+            // Toast.info("请输入姓名", 2);
+            Toast.info("请输入姓名", 2);
         }
 
 

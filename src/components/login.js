@@ -7,8 +7,8 @@ import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../css/login.css';
-
-var toast = globalData.toast;
+import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+// var toast = globalData.toast;
 var key1 = globalData.key;
 var Login = React.createClass({
     getInitialState: function () {
@@ -17,7 +17,7 @@ var Login = React.createClass({
         return {
             wayNum: 1,
             eyeImg: eyeImg,
-            phoneNum:"",
+            phoneNum: "",
             inputType: "password",
             count: 60,
             liked: true,
@@ -36,7 +36,7 @@ var Login = React.createClass({
     componentWillMount: function () {
         //localStorage.removeItem("user");
         //localStorage.removeItem("isLogin");
-        var phoneNum = localStorage.getItem("phoneNum")||"";
+        var phoneNum = localStorage.getItem("phoneNum") || "";
         this.setState({ phoneNum: phoneNum })
     },
     checkWay: function (e) {
@@ -74,15 +74,15 @@ var Login = React.createClass({
                             this.setState({
                                 selecthint:0				
                             })
-                        }, 2000);*/
-            toast.show("请输入正确格式的手机号码", 2000);
+                        }, 2);*/
+            Toast.info("请输入正确格式的手机号码", 2);
         } else {
             switch (wayNum) {
                 case 1:
 
                     var psd = that.state.password;
                     if (psd == "" || psd == null) {
-                        toast.show("请输入密码", 2000);
+                        Toast.info("请输入密码", 2);
                     } else {
                         that.setState({
                             flag: true
@@ -104,26 +104,26 @@ var Login = React.createClass({
                                 globalData.user = data;
                                 globalData.userId = user.userId;
                                 globalData.requestData.token = user.token;
-                                toast.show("登录成功", 2000);
+                                Toast.info("登录成功", 2);
                                 //location.reload();
                                 //window.history.back();
                                 const backRouter = that.props.params.backRouter;
-								//console.log(backRouter);
-						        if (backRouter) {
-						            hashHistory.push(backRouter);
-						        } else {
-						            window.history.back()
-						        }
-								
+                                //console.log(backRouter);
+                                if (backRouter) {
+                                    hashHistory.push(backRouter);
+                                } else {
+                                    window.history.back()
+                                }
+
                             } else {
-                                toast.show(res.msg, 2000);
+                                Toast.info(res.msg, 2);
                             }
 
                         }, function () {
                             that.setState({
                                 flag: false
                             })
-                            toast.show("连接错误", 2000);
+                            Toast.info("连接错误", 2);
                         })
 
 
@@ -133,7 +133,7 @@ var Login = React.createClass({
                     var yzCode = that.state.yzCode;//输入验证码
                     var verifyCode = that.state.verifyCode;//后台验证码
                     if (yzCode == "" || yzCode == null) {
-                        toast.show("请输入验证码", 2000);
+                        Toast.info("请输入验证码", 2);
                     } else if (yzCode == verifyCode) {
                         //验证码登录
                         that.setState({
@@ -146,9 +146,9 @@ var Login = React.createClass({
                             api.login("CODE", phoneNum, "", yzCode, function (res) {
                                 //console.log(res);
                                 if (res.code == "0000") {
-                                	that.setState({
-		                                flag: false
-		                            })
+                                    that.setState({
+                                        flag: false
+                                    })
                                     var data = strDec(res.data, key1, "", "");
                                     //console.log(data);
                                     //成功后
@@ -159,32 +159,32 @@ var Login = React.createClass({
                                     globalData.user = data;
                                     globalData.userId = user.userId;
                                     globalData.requestData.token = user.token;
-                                    toast.show("登录成功", 2000);
-                                   // window.history.back();
+                                    Toast.info("登录成功", 2);
+                                    // window.history.back();
                                     const backRouter = that.props.params.backRouter;
-									//console.log(backRouter);
-							        if (backRouter) {
-							            hashHistory.push(backRouter);
-							        } else {
-							            window.history.back()
-							        }
+                                    //console.log(backRouter);
+                                    if (backRouter) {
+                                        hashHistory.push(backRouter);
+                                    } else {
+                                        window.history.back()
+                                    }
                                 } else {
-                                	that.setState({
-		                                flag: false
-		                            })
-                                    toast.show(res.msg, 2000);
+                                    that.setState({
+                                        flag: false
+                                    })
+                                    Toast.info(res.msg, 2);
                                 }
                             }, function () {
-                            	that.setState({
-		                                flag: false
-		                            })
-                                toast.show("连接错误", 2000);
+                                that.setState({
+                                    flag: false
+                                })
+                                Toast.info("连接错误", 2);
                             })
 
                         } else {
-                        	that.setState({
-	                                flag: false
-	                            })
+                            that.setState({
+                                flag: false
+                            })
                             //注册,去设置密码
                             var data = { fromWhy: "register", phoneNum: phoneNum, verifyCode: yzCode };
                             localStorage.setItem("phoneNum", phoneNum);
@@ -196,7 +196,7 @@ var Login = React.createClass({
                         }
 
                     } else {
-                        toast.show("验证码不正确", 2000);
+                        Toast.info("验证码不正确", 2);
                     }
                     break;
                 default:
@@ -246,7 +246,7 @@ var Login = React.createClass({
 
         if (!(/^1[34578]\d{9}$/.test(phoneNum))) {
             //console.log(phoneNum);
-            toast.show("请输入正确格式的手机号码", 2000);
+            Toast.info("请输入正确格式的手机号码", 2);
         } else {
             //console.log(phoneNum);
             if (that.state.liked) {
@@ -293,10 +293,10 @@ var Login = React.createClass({
                             verifyCode: verifyCode
                         })
                     } else {
-                        toast.show(res.msg, 2000);
+                        Toast.info(res.msg, 2);
                     }
                 }, function () {
-                    toast.show("连接错误", 2000);
+                    Toast.info("连接错误", 2);
                 })
 
             }
