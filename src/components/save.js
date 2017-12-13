@@ -6,7 +6,7 @@ import { globalData } from './global.js';
 import { hashHistory, Link } from 'react-router';
 import iScroll from 'iscroll/build/iscroll-probe';
 import ReactIScroll from 'reactjs-iscroll';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Modal,Toast } from 'antd-mobile';
 var appBasePath = globalData.appBasePath;
 var Save = React.createClass({
 
@@ -197,224 +197,172 @@ var Save = React.createClass({
 
             </div>
         )
-    },
 
-    touchStart: function (event) {
-        event.stopPropagation();
-        var markId = event.currentTarget.getAttribute("data-articleid");
-        //console.log(markId);
-        this.setState({ isLong: false })
-        this.timeout = setTimeout(function () {
-            this.longPress(markId);
-            this.setState({ isLong: true })
-        }.bind(this), 800);  //长按时间超过800ms，则执行传入的方法
+	},
+	
+	touchStart:function(event){
+		 event.stopPropagation();
+		var markId=event.currentTarget.getAttribute("data-articleid");
+		//console.log(markId);
+		this.setState({isLong:false})
+ 		this.timeout = setTimeout(function(){
+	 		this.longPress(markId);
+	 		this.setState({isLong:true})
+	 	}.bind(this), 800);  //长按时间超过800ms，则执行传入的方法
+		
+	},
+	touchEndLoan:function(event){
+		clearTimeout(this.timeout);  //长按时间少于800ms，不会执行传入的方法
+		event.stopPropagation();
+		 if(!this.state.isLong){
+		 	var detailId=event.currentTarget.getAttribute("data-id");
+			this.toListDetail(detailId);
+		 }
+	},
+	touchEndArticle:function(event){
+		clearTimeout(this.timeout);  //长按时间少于800ms，不会执行传入的方法
+		 event.stopPropagation();
+		 if(!this.state.isLong){
+		 	var detailId=event.currentTarget.getAttribute("data-id");
+			this.toNewsDetail(detailId);
+		 }
+		
+	},
+	toLoanDetail:function(event){
+		var detailId=event.currentTarget.getAttribute("data-id");
+		var data = {loanId:detailId};
+		var path = {
+		  pathname:'/ListDetail',
+		  query:data,
+		}
+		hashHistory.push(path);
+	},
+	toZiDetail:function(event){
+		var detailId=event.currentTarget.getAttribute("data-id");
+			var data = {articleId:detailId};
+			var path = {
+			  pathname:'/NewsDetail',
+			  query:data,
+			}
+			hashHistory.push(path);
+	},
+	loadData:function(downOrUp,callback) {
+  		var that=this;
+  		var key1 = globalData.key;
+		//var toast=globalData.toast;
+		var tag=that.props.tag;
+	 	const {currentPage,pageSize,list,list1} = that.state;
+	 	var arr=[];
+	 	var newsDetailTab= localStorage.getItem("newsDetailTab");
+	 //	//console.log(newsDetailTab+typeof newsDetailTab);
+	 	if(newsDetailTab=="1"){//资讯
+	 		//console.log("new")
+	 		api.saveArticle(currentPage,pageSize,function(res){
+	 			if(res.code=="0000"){
+					var data =JSON.parse(strDec(res.data,key1,"",""));
+					//console.log(data);
+					var articleList=data.list;
+					var total=data.total;
+					var articleArr=[];
+					//console.log(articleList)
+					for(var i in articleList){
+						//articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndArticle}>
+						articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()} onClick={that.toZiDetail}>
+	    							<dd>
+	    								<h4>{articleList[i].articleTitle}</h4>
+	    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
+	    							</dd>
+	    							<dt>
+	    								<img src={articleList[i].imgUrl} onError={that.logoError} />
+	    							</dt>
+	    					</dl>)
+					}
+					if(downOrUp=='up'){
+						var c=list1.concat(articleArr);
+					}else{
+						var c=articleArr;
+					}
+					that.setState({
+						total:total,
+						list1:c
+					})
+					if (callback && typeof callback === 'function') {
+			            callback();
+			          }
+				}else if(res.code=="5555"){
+					Toast.info("登录过时，请重新登录",2);
+					var path = {
+					  pathname:'/Login',
+					}
+					hashHistory.push(path);
+				}else{
+					Toast.info(res.msg,2);
+				}
+	 		},function(){
+				Toast.info("连接错误",2);
+			})
+	 	}else{//贷款
+	 		//console.log("dai")
+		 	api.saveLoan(currentPage,pageSize,function(res){
+				//console.log(res);
+				if(res.code=="0000"){
+					var data =JSON.parse(strDec(res.data,key1,"",""));
+					var loanList=data.list;
+					var total=data.total;
+					console.log(data);
+					for(var i in loanList){
+						//arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndLoan}>
+						arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId}  key={Math.random()} onClick={that.toLoanDetail}>
+		        				<h3>
+		        					<img src={loanList[i].logo} onError={that.logoError} />
+		        					<span>{loanList[i].loanName}</span>
+		        				</h3>
+		        				<div className="capitalInfo">
+		        					<div className="limit">
+		        						<h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
+		        						<p>额度范围(元)</p>
+		        					</div>
+		        					<ul className="special">
+		        						<li>{loanList[i].loanTime}</li>
+		        						<li>日费率{loanList[i].rate}%</li>
+		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}天</li>
+		        					</ul>
+		        					<div className="apply">
+		        						<a  data-loanId={loanList[i].loanId}>申请贷款</a>
+		        					</div>
+		        				</div>
+		        				
+		        			</div>)
+					}
+					if(downOrUp=='up'){
+						var c=list.concat(arr);
+					}else{
+						var c=arr;
+					}
+					that.setState({
+						total:total,
+						list:c
+					})
+					if (callback && typeof callback === 'function') {
+			            callback();
+			          }
+					
+				}else if(res.code=="5555"){
+					Toast.info("登录过时，请重新登录",2);
+					var path = {
+					  pathname:'/Login',
+					}
+					hashHistory.push(path);
+				}else{
+					Toast.info(res.msg,2);
+				}
+			},function(){
+				Toast.info("连接错误",2);
+			})
+		 }		
+	 	
+       },
 
-    },
-    touchEndLoan: function (event) {
-        clearTimeout(this.timeout);  //长按时间少于800ms，不会执行传入的方法
-        event.stopPropagation();
-        if (!this.state.isLong) {
-            var detailId = event.currentTarget.getAttribute("data-id");
-            this.toListDetail(detailId);
-        }
-    },
-    touchEndArticle: function (event) {
-        clearTimeout(this.timeout);  //长按时间少于800ms，不会执行传入的方法
-        event.stopPropagation();
-        if (!this.state.isLong) {
-            var detailId = event.currentTarget.getAttribute("data-id");
-            this.toNewsDetail(detailId);
-        }
-
-    },
-    toLoanDetail: function (event) {
-        var detailId = event.currentTarget.getAttribute("data-id");
-        var data = { loanId: detailId };
-        var path = {
-            pathname: '/ListDetail',
-            query: data,
-        }
-        hashHistory.push(path);
-    },
-    toZiDetail: function (event) {
-        var detailId = event.currentTarget.getAttribute("data-id");
-        var data = { articleId: detailId };
-        var path = {
-            pathname: '/NewsDetail',
-            query: data,
-        }
-        hashHistory.push(path);
-    },
-    loadData: function (downOrUp, callback) {
-        var that = this;
-        var key1 = globalData.key;
-        // var toast = globalData.toast;
-        var tag = that.props.tag;
-        const { currentPage, pageSize, list, list1 } = that.state;
-        var arr = [];
-        var newsDetailTab = localStorage.getItem("newsDetailTab");
-        //	//console.log(newsDetailTab+typeof newsDetailTab);
-        if (newsDetailTab == "1") {//资讯
-            //console.log("new")
-            api.saveArticle(currentPage, pageSize, function (res) {
-                if (res.code == "0000") {
-                    var data = JSON.parse(strDec(res.data, key1, "", ""));
-                    //console.log(data);
-                    var articleList = data.list;
-                    var total = data.total;
-                    var articleArr = [];
-                    //console.log(articleList)
-                    for (var i in articleList) {
-                        //articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndArticle}>
-                        articleArr.push(<dl className="newsList" data-id={articleList[i].articleId} data-articleid={articleList[i].markId} key={Math.random()} onClick={that.toZiDetail}>
-                            <dd>
-                                <h4>{articleList[i].articleTitle}</h4>
-                                <p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
-                            </dd>
-                            <dt>
-                                <img src={articleList[i].imgUrl} onError={that.logoError} />
-                            </dt>
-                        </dl>)
-                    }
-                    if (downOrUp == 'up') {
-                        var c = list1.concat(articleArr);
-                    } else {
-                        var c = articleArr;
-                    }
-                    that.setState({
-                        total: total,
-                        list1: c
-                    })
-                    if (callback && typeof callback === 'function') {
-                        callback();
-                    }
-                } else if (res.code == "5555") {
-                    Toast.info("登录过时，请重新登录", 2);
-                    var path = {
-                        pathname: '/Login',
-                    }
-                    hashHistory.push(path);
-                } else {
-                    Toast.info(res.msg, 2);
-                }
-            }, function () {
-                Toast.info("连接错误", 2);
-            })
-        } else {//贷款
-            //console.log("dai")
-            api.saveLoan(currentPage, pageSize, function (res) {
-                //console.log(res);
-                if (res.code == "0000") {
-                    var data = JSON.parse(strDec(res.data, key1, "", ""));
-                    var loanList = data.list;
-                    var total = data.total;
-                    //console.log(data);
-                    for (var i in loanList) {
-                        //arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndLoan}>
-                        arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId} key={Math.random()} onClick={that.toLoanDetail}>
-                            <h3>
-                                <img src={loanList[i].logo} onError={that.logoError} />
-                                <span>{loanList[i].loanName}</span>
-                            </h3>
-                            <div className="capitalInfo">
-                                <div className="limit">
-                                    <h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
-                                    <p>额度范围(元)</p>
-                                </div>
-                                <ul className="special">
-                                    <li>{loanList[i].loanTime}小时放款</li>
-                                    <li>日费率{loanList[i].rate}%</li>
-                                    <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}天</li>
-                                </ul>
-                                <div className="apply">
-                                    <a data-loanId={loanList[i].loanId}>申请贷款</a>
-                                </div>
-                            </div>
-
-                        </div>)
-                    }
-                    if (downOrUp == 'up') {
-                        var c = list.concat(arr);
-                    } else {
-                        var c = arr;
-                    }
-                    that.setState({
-                        total: total,
-                        list: c
-                    })
-                    if (callback && typeof callback === 'function') {
-                        callback();
-                    }
-
-                } else if (res.code == "5555") {
-                    Toast.info("登录过时，请重新登录", 2);
-                    var path = {
-                        pathname: '/Login',
-                    }
-                    hashHistory.push(path);
-                } else {
-                    Toast.info(res.msg, 2);
-                }
-            }, function () {
-                Toast.info("连接错误", 2);
-            })
-        }
-
-    },
-
-
-    handleRefresh: function (downOrUp, callback) {
-        //真实的世界中是从后端取页面和判断是否是最后一页
-        var that = this;
-        let { currentPage, lastPage, pageSize, total } = that.state;
-        var totalPage = Math.ceil(total / pageSize);
-        //console.log(totalPage);
-        if (downOrUp === 'up') { // 加载更多
-            if (currentPage == totalPage) {
-                //console.log("zuihou")
-                lastPage = true;
-                if (callback && typeof callback === 'function') {
-                    callback();
-                }
-            } else {
-                currentPage++;
-                //console.log(currentPage);
-                lastPage = false;
-                that.setState({
-                    currentPage,
-                    lastPage
-                }, () => {
-                    that.loadData(downOrUp, callback);
-                });
-            }
-        } else { // 刷新
-            lastPage = false;
-            currentPage = 1;
-            that.setState({
-                currentPage,
-                lastPage
-            }, () => {
-                that.loadData(downOrUp, callback);
-            });
-        }
-
-    },
-    componentDidMount: function () {
-        var that = this;
-        var newsDetailTab = localStorage.getItem("newsDetailTab");
-        if (newsDetailTab) {
-            that.setState({
-                activeSaveTab: newsDetailTab
-            })
-        }
-
-        that.loadData();
-
-    },
-    componentWillUnMount: function () {
-        window.removeEventListener('touchstart');
-        window.removeEventListener('touchend');
-    }
 
 });
 

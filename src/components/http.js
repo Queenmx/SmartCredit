@@ -20,7 +20,7 @@ module.exports = (url, data, cb1, cb2) => {
 module.exports.get = (url, data, cb, cb2) => {
     $.ajax({
         url: url,
-        data: JSON.stringify(data),
+        data: data,
         type: "GET",
         dataType: "json",
         success: function (res) {
