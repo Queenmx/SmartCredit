@@ -151,6 +151,7 @@ var orderDetail = React.createClass({
             }
         }
     },
+
     showAlert: function (e) {
         e.stopPropagation();
         var that = this;
@@ -212,24 +213,44 @@ var orderDetail = React.createClass({
 
         } else if (id == "3") {
             console.log("签约");
+            const capitalId = that.state.orderDetail.capitalId;
+            const loanId = that.state.orderDetail.loanId;
+            const applyNo = that.state.orderDetail.applyNo;
+            const key1 = globalData.key;
+            api.h5bindcard(capitalId, loanId, applyNo, function (res) {
+                console.log(res)
+                if (res.code == "0000") {
+                    let data = strDec(res.data, key1, "", "");
+                    console.log(data);
+                } else {
+                    Toast.info(res.msg, 2);
+                }
+            }, function () {
+                Toast.info("连接错误", 2);
+            })
+
         } else if (id == "4") {
             console.log("放宽");
+            const capitalId = that.state.orderDetail.capitalId;
+            const loanId = that.state.orderDetail.loanId;
+            const applyNo = that.state.orderDetail.applyNo;
+            const key1 = globalData.key;
+
+            api.h5applyrepay(capitalId, loanId, applyNo, function (res) {
+                console.log(res)
+                if (res.code == "0000") {
+                    let data = strDec(res.data, key1, "", "");
+                    console.log(data);
+                } else {
+                    Toast.info(res.msg, 2);
+                }
+            }, function () {
+                Toast.info("连接错误", 2);
+            })
         }
 
     },
-    getTabId: function (e) {
-        var that = this;
-        var id = e.target.getAttribute('data-id');
-        that.setState({
-            activeTab: id,
-            isShow: false
-            //dataStatus: 0
-        }, () => {
-			/*api.queryBanner(function(data){
-				//console.log(data);
-			})*/
-        })
-    },
+
     componentWillMount: function () {
         let applyId = this.props.location.query.applyId;
         this.setState({
@@ -245,7 +266,7 @@ var orderDetail = React.createClass({
             return (money / 100.0).toFixed(2)
         }
     },
-    //字符串转换为时间戳
+
 
     getDateDiff: function (dateStr) {
         if (dateStr) {
@@ -341,6 +362,7 @@ var orderDetail = React.createClass({
     render: function () {
         let that = this;
         let orderDetail = that.state.orderDetail;
+
         // var addTime = orderDetail.addTime || "";
         var nextRepay;
         if (orderDetail.nextNo > 0) {
