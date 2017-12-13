@@ -6,13 +6,18 @@ import Loading from './loading';
 import { globalData } from './global.js';
 import { hashHistory, Link } from 'react-router';
 import Header from './header';
-
+import { Modal, Toast ,List} from 'antd-mobile';
+const Item = List.Item;
+const Brief = Item.Brief;
 var orderDetail = React.createClass({
     getInitialState: function () {
         return {
             orderDetail: "",
             isMark: 0,
             flag: true,
+            statusTxt:"",
+            btnTxt:"",
+            btnTwo:false,
             status: {
                 "PENDING": {
                 	"-2":{
@@ -134,7 +139,11 @@ var orderDetail = React.createClass({
                 	}
                 }
             },
-           
+           lixiType:{
+        	 	D: '日',
+                M: '月',
+                Y: '年'
+        	},
              loanType:{
             	XYD :'信用贷',
             	CD :'车贷',
@@ -142,6 +151,68 @@ var orderDetail = React.createClass({
             }
         }
     },
+    showAlert :function (e) {
+		e.stopPropagation();
+		var that = this;
+		var $e=e.target;
+		const applyId=that.state.applyId;
+		const alert = Modal.alert;
+		var id = $e.getAttribute('data-id');
+	        if(id=="1"){
+	        	const alertInstance = alert('提示', '确定取消该订单？', [
+				    { text: '取消', onPress: () => console.log('quxiao'), style: 'default' },
+				    { text: '确定', onPress: () => {
+				       api.cancleOrder(applyId,"",function (res) {
+				            	//console.log(res);
+				            	//if(true){
+				                if (res.code == "0000") {
+				                	Toast.info("取消订单成功",2);
+				                	that.setState({
+				                		statusTxt:"已取消",
+				                		btnTxt:"删除订单",
+				                		dataId:"2",
+				                		btnTwo:false
+				                	})
+				                }else{
+				                	Toast.info(res.msg,2);
+				                }
+				            })
+				    } },
+			  ]);
+			 /*  setTimeout(() => {
+			    // 可以调用close方法以在外部close
+			    console.log('auto close');
+			    alertInstance.close();
+			  }, 500000);*/
+	        }else if(id=="2"){
+	        	const alertInstance = alert('提示', '确定删除该订单？', [
+				    { text: '取消', onPress: () => console.log('quxiao'), style: 'default' },
+				    { text: '确定', onPress: () => {
+				        api.cancleOrder(applyId,"DELETE",function (res) {
+			                if (res.code == "0000") {
+			                	Toast.info("删除订单成功",2);
+			                	window.history.back();
+			                 // $($e).parents("li").hide("slow");
+			                 // $($e).parents("li").find(".orderNum span:nth-child(2)").html("已取消");                   
+			                }else{
+			                	Toast.info(res.msg,2);
+			                }
+			            })
+				    } },
+			  ]);
+	        	/* setTimeout(() => {
+			    // 可以调用close方法以在外部close
+			    console.log('auto close');
+			    alertInstance.close();
+			  }, 500000);*/
+	        	
+	        }else if(id=="3"){
+	        	console.log("签约");
+	        }else if(id=="4"){
+	        	console.log("放宽");
+	        }
+	 
+	},
     getTabId: function (e) {
         var that = this;
         var id = e.target.getAttribute('data-id');
@@ -158,12 +229,8 @@ var orderDetail = React.createClass({
     componentWillMount: function () {
         let applyId = this.props.location.query.applyId;
         this.setState({ 
-        	applyId: applyId,
-        	lixiType:{
-        	 	D: '日',
-                M: '月',
-                Y: '年'
-        	} 
+        	applyId: applyId
+        	
         });
         //console.log(articleId);
     },
@@ -215,7 +282,7 @@ var orderDetail = React.createClass({
 	    d_hours = parseInt(d/3600);
 	    d_minutes = parseInt(d/60);
 	    d_seconds = parseInt(d);
-		return Y + '-' + M + '-' + D + ' ' + H + ':' + m;
+		return Y + '-' + M + '-' + D ;
 	 }else{
 	 	return ""
 	 }
@@ -232,7 +299,9 @@ var orderDetail = React.createClass({
         }else{
         	 nextRepay="你的贷款申请已提交,3个工作日内完成";
         }
-       
+        var repayList=orderDetail.repayList||[];
+       var loanMoney=(orderDetail.loanMoney)*100||"";
+        var repayWay=orderDetail.repayWay;
         return (
             <div className="app_Box orderDetail">
                 <Header title="订单详情" />
@@ -242,21 +311,44 @@ var orderDetail = React.createClass({
                		<div className="orderDetailInfo">
 	                        <div className="orderNum">
 	                            <span>订单号：{orderDetail.applyNo}</span>
-	                            {/*that.state.status[orderDetail.applyStatus][orderDetail.status].text*/}
-	                            <span  className="order_n">待处理</span>
+	                            <span  className="order_n">{that.state.statusTxt}</span>
 	                        </div>
 	                        <h3 className="list_title">
 	                            <img src={'http://xrjf.oss-cn-shanghai.aliyuncs.com/' + orderDetail.logo} onError={that.logoError}/>
 	                            <span>{orderDetail.loanName}</span>
 	                            <span className="p_name">{that.state.loanType[orderDetail.loanType]}</span>
 	                        </h3>
-	                        <ul className="container">
-	                            <li>借款金额 {that.formateMoney(orderDetail.money)}元</li>
-	                            <li>期限{orderDetail.limitDay}{that.state.lixiType[orderDetail.limitType]}</li>
-	                            <li>利息{that.formateMoney(orderDetail.interest)}元</li>
-	                            <li>费用{orderDetail.fee}元</li>
-	                        </ul>
+	                        <div className="infoContainer">
+		                        <ul className="container">
+		                            <li>借款金额 {that.formateMoney(orderDetail.money)}元</li>
+		                            <li>期限{orderDetail.limitDay}{that.state.lixiType[orderDetail.limitType]}</li>
+		                            <li>利息{that.formateMoney(orderDetail.interest)}元</li>
+		                            <li>费用{orderDetail.fee}元</li>
+		                        </ul>
+		                        <p style={{'display':orderDetail.nextNo>0?'block':'none'}}>放款金额 <span>¥{loanMoney}</span></p>
+		                    </div>
                		</div>
+               		<div className="repayList" style={{'display':repayList.length>0?'block':'none'}}>
+               			<List renderHeader={() => '还款时间'} className="my-list">
+					       	{
+		               			repayList.map(function(item){
+		               				const planRepayTime=item.planRepayDate||"";
+		               				return <Item key={item.no} multipleLine  extra={that.getDateDiff(planRepayTime.time)}>{item.no+"期还款时间"}</Item>
+		               			})
+	               			}
+					       	<Item className='repayWay' extra={'不可提前还款'}>{'还款方式:'+repayWay||""}</Item>
+					      </List>
+               			
+               			
+               		</div>
+               		<div className="listDetailFoot">
+	                            <span data-id={that.state.dataId} onClick={that.showAlert} className='statusBtn' >
+	                            	{that.state.btnTxt}
+	                            </span>
+	                             <span data-id="3" onClick={that.showAlert} className='statusBtn'  style={{"display":that.state.btnTwo? 'block':'none'}}>
+	                            	绑卡签约
+	                            </span>
+	                        </div>
                 </div>    
             </div>
         )
@@ -274,8 +366,10 @@ var orderDetail = React.createClass({
                 that.setState({
                 	flag:false,
                     orderDetail: orderDetail,
-                    //isMark: orderDetail.isMark,
-                    //markId:orderDetail.markId
+                    statusTxt:that.state.status[orderDetail.applyStatus][orderDetail.status].text,
+                    btnTxt:that.state.status[orderDetail.applyStatus][orderDetail.status].btnTxt,
+                    btnTwo:that.state.status[orderDetail.applyStatus][orderDetail.status].btnTwo,
+                	dataId:that.state.status[orderDetail.applyStatus][orderDetail.status].dataId
                 })
             } else if (res.code == "5555") {
             	that.setState({

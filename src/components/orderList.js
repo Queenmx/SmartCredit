@@ -121,7 +121,7 @@ var OrderList = React.createClass({
                 		"text": "已取消",
                 	},
                 	"1":{
-                		"btnTxt":"立即放款",
+                		"btnTxt":"立即还款",
                 		"dataId":"4",
                 		"btnTwo":false,
                 		"text": "放款成功"
@@ -317,6 +317,7 @@ showAlert :function (applyId,e) {
     },
     toOrderDetail:function(event){
     	var applyId=event.currentTarget.getAttribute("data-applyId");
+    	
     	const path = {
 		  pathname:'/orderDetail',
 		  query:{applyId:applyId}
@@ -362,6 +363,7 @@ showAlert :function (applyId,e) {
 				        }else{
 				        	nextRepay="你的贷款申请已提交,3个工作日内完成"
 				        }
+				        const loanMoney=(orderList[i].loanMoney)*100||"";
 	                    arr.push(<li key={Math.random()} data-applyId={orderList[i].applyId} onClick={that.toOrderDetail}>
 	                        <div className="orderNum">
 	                            <span>订单号：{orderList[i].applyNo}</span>
@@ -372,12 +374,15 @@ showAlert :function (applyId,e) {
 	                            <span>{orderList[i].loanName}</span>
 	                            <span className="p_name">{that.state.loanType[orderList[i].loanType]}</span>
 	                        </h3>
-	                        <ul className="container">
-	                            <li>借款金额 {that.formateMoney(orderList[i].money)}元</li>
-	                            <li>期限{orderList[i].limitDay}{that.state.rate[orderList[i].limitType]}</li>
-	                            <li>利息{that.formateMoney(orderList[i].interest)}元</li>
-	                            <li>费用{orderList[i].fee}元</li>
-	                        </ul>
+	                        <div className="infoContainer">
+		                        <ul className="container">
+		                            <li>借款金额 {that.formateMoney(orderList[i].money)}元</li>
+		                            <li>期限{orderList[i].limitDay}{that.state.rate[orderList[i].limitType]}</li>
+		                            <li>利息{that.formateMoney(orderList[i].interest)}元</li>
+		                            <li>费用{orderList[i].fee}元</li>
+		                        </ul>
+		                          <p style={{'display':orderList[i].loanMoney>0?'block':'none'}}>放款金额 <span>¥{loanMoney}</span></p>
+		                    </div>
 	                        <div className="listFoot">
 	                            <span className="status">{nextRepay}</span>
 	                            <span data-id={that.state.status[applyStatus][status].dataId} onClick={that.showAlert.bind(that,orderList[i].applyId)} className='statusBtn' >

@@ -58,22 +58,59 @@
 .list_title .p_name{
     float: right;
 }
+.infoContainer{
+    @include clear_float;
+    ul{
+        float: left;
+    }
+    p{
+        font-size: 0.26rem;
+        float: right;
+       span{ 
+           color: red; 
+           font-size: 0.3rem;
+           font-weight: 600;
+           margin-left: 0.1rem;
+           }
+        padding-top:0.2rem;
+        
+    }
+}
 .container{
-    width: 5rem;
+    width: 4rem;
     display: flex;
+    @include only_display;
     flex-wrap:  wrap;
+    -webkit-flex-wrap: wrap;
     font-size: 0.22rem;
     color: #666;
 }
 .orderCon .container li,.orderDetailCon .container li{
+    line-height: 0.4rem;
     padding-left:0 ;
     padding-right: 0.56rem;
+    &:nth-child(even){
+        padding-right: 0;
+    }
 }
 .listFoot{
-    border-top: 1px solid #f5f5f5;
     padding: 0.2rem 0;
-    display: flex;
+   @include border_Bot;
+    @include only_display;
+    -webkit-justify-content: space-between;
     justify-content: space-between;
+}
+.listDetailFoot{
+    width: 100%;
+    background: #FFFFFF;
+    position: absolute;
+    bottom: 0;
+    height: 1.2rem;
+    .statusBtn{
+        float: right;
+        margin: 0.3rem 0.35rem 0;
+        
+    }
 }
 .status{
     width: 3.1rem;
@@ -89,4 +126,18 @@
     text-align: center;
     color: #fff;
      background: #53a6ff;
+}
+.repayList {
+    .am-list-item .am-list-line .am-list-content,.am-list-item .am-list-line .am-list-extra {
+        font-size: 0.24rem;
+    }
+    .am-list-header{
+        background: #FFFFFF;
+        
+    }
+    .repayWay{
+        .am-list-line .am-list-content{
+            color: #888888;
+        }
+    }
 }
