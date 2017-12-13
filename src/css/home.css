@@ -15,6 +15,9 @@
 .homeHeader {
   background: #FFFFFF; }
 
+.newsCon .am-carousel-wrap-dot-active > span {
+  background: #53a6ff; }
+
 .home {
   background: #f3f3f3; }
   .home .loanTab {
@@ -227,6 +230,8 @@
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     position: relative; }
+  .saveCon .capitalBox .capitalList {
+    padding-bottom: 0; }
 
 .newsCon {
   display: -webkit-box;

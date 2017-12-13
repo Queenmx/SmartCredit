@@ -3,6 +3,22 @@
         "react",
         "es2015",
         "stage-0",
+    ],
+    "plugins": [
+        "transform-decorators-legacy",
+        "transform-class-properties",
+        [
+            "import",
+            {libraryName: "antd-mobile", style: "css"}
+        ],
+        [
+            "transform-runtime",
+            {
+                "helpers": false,
+                "polyfill": false,
+                "regenerator": true,
+                "moduleName": "babel-runtime"
+            }
+        ]
     ]
-   
 }

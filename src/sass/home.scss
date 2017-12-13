@@ -3,6 +3,9 @@
 .homeHeader{
       background: #FFFFFF;      
 }
+.newsCon .am-carousel-wrap-dot-active > span{
+    background: $blue ;
+}
 .home{
     background: #f3f3f3;
     .loanTab{
@@ -204,6 +207,9 @@
             overflow-x:hidden ;
             -webkit-overflow-scrolling: touch;
             position: relative;
+        }
+        .capitalBox .capitalList{
+            padding-bottom: 0;
         }
     }
    

@@ -608,5 +608,42 @@ module.exports.processDetail = function (applyId, cb1, cb2) {
     http(`${globalData.path}/zndai/loan/apply/process/detail`, {
         params: str
     }, cb1, cb2);
+    delete data.applyId;
+    delete data.userId;
+}
+//还款H5
+module.exports.h5applyrepay= function (capitalId,loanId,orderSn, cb1, cb2) {
+    var data = globalData.requestData;
+    data.capitalId = capitalId;
+    data.loanId = loanId;
+    data.orderSn = orderSn;
+    data.userId = globalData.userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    console.log(param);
+    http.get(`${globalData.path}/zndai/capital/h5applyrepay`, {
+        params: str
+    }, cb1, cb2);
+    delete data.capitalId;
+    delete data.loanId;
+    delete data.orderSn;
+    delete data.userId;
+}
+//H5绑卡跳转
+module.exports.h5bindcard= function (capitalId,loanId,orderSn, cb1, cb2) {
+    var data = globalData.requestData;
+    data.capitalId = "1510675466";
+    data.loanId = loanId;
+    data.orderSn = orderSn;
+    data.userId = globalData.userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    console.log(param);
+    http(`${globalData.path}/zndai/capital/h5bindcard`, {
+        params: str
+    }, cb1, cb2);
+    delete data.capitalId;
+    delete data.loanId;
+    delete data.orderSn;
     delete data.userId;
 }

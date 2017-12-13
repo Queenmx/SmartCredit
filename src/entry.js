@@ -2,7 +2,7 @@
 
 
 //引入样式文件
-import 'antd-mobile/dist/antd-mobile.css'; 
+//import 'antd-mobile/dist/antd-mobile.css'; 
 import './css/clear.css';
 import './css/app.css';
 //import 'flex.css/dist/data-flex.css';
