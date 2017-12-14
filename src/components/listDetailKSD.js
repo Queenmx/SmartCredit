@@ -131,9 +131,14 @@ var ListDetailKSD = React.createClass({
     toApplyInfo: function (event) {
         var that = this;
         var key1 = globalData.key;
+        var result //申请结果
         // let toast = globalData.toast;
         if (that.state.isLogin) {
             const { value2, limitType, loanId, value1 } = that.state;
+            // isCarify = true
+            // that.setState({
+            //     isLoan: false
+            // })
             if (!isCarify) {
                 // Toast.info("请先完成认证", 2);
                 Toast.info("请先完成认证", 2);
@@ -142,19 +147,26 @@ var ListDetailKSD = React.createClass({
                 Toast.info("您已申请了该产品，不能重复申请", 2);
             } else {
                 var queryData = {
+                    limitDay: value2,
+                    limitType: limitType,
                     loanId: loanId,
-                    applyQuery: {
-                        limitDay: value2,
-                        limitType: limitType,
-                        loanId: loanId,
-                        money: value1
-                    }
-                };
-                var path = {
-                    pathname: '/SubmitResult',
-                    state: queryData,
+                    money: value1,
                 }
-                hashHistory.push(path);
+                api.qualifyList(loanId, '095c2c011ef740508bf27785e0ffe8f1', function (res) {
+                    if (res.code === '0000') {
+                        api.applyLoan(value2, limitType, loanId, value1, res.data.qualifyList, function (ret) {
+                            result = { ret }
+                            var path = {
+                                pathname: '/SubmitResult',
+                                state: { ret },
+                            }
+                            console.log(path)
+                            hashHistory.push(path);
+                        })
+                    } else {
+                        Toast.info(res.msg, 2);
+                    }
+                })
             }
         } else {
             var path = {
