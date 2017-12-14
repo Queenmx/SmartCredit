@@ -405,7 +405,7 @@ var ListDetailKSD = React.createClass({
     },
     statusToChinese: function (status) {
         var that = this
-        if (status === 0) {
+        if (status === 0 || !status) {
             return '去认证'
         } else if (status > 0) {
             return '已认证'
@@ -516,9 +516,17 @@ var ListDetailKSD = React.createClass({
     },
     toAuthInfo: function (btnStatus, toAuthTap) {
         //if(btnStatus==="0"){
-        var path = {
-            pathname: `${toAuthTap}`,
-            query: { loanId: this.state.loanId }
+        var user = localStorage.getItem('user')
+        var path
+        if (!user) {
+            path = {
+                pathname: '/Login'
+            }
+        } else {
+            path = {
+                pathname: `${toAuthTap}`,
+                query: { loanId: this.state.loanId }
+            }
         }
         hashHistory.push(path);
         //}
