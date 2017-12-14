@@ -137,6 +137,20 @@ var orderDetail = React.createClass({
                         "btnTwo": false,
                         "text": "放款成功"
                     }
+                },
+                "":{
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnTwo":false,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",
+                		"btnTwo":false,
+                		"text": "已取消"
+                	}
                 }
             },
             lixiType: {
@@ -268,50 +282,6 @@ var orderDetail = React.createClass({
     },
 
 
-    getDateDiff: function (dateStr) {
-        if (dateStr) {
-            var publishTime = dateStr / 1000,
-                d_seconds,
-                d_minutes,
-                d_hours,
-                d_days,
-                timeNow = parseInt(new Date().getTime() / 1000),
-                d,
-
-                date = new Date(publishTime * 1000),
-                Y = date.getFullYear(),
-                M = date.getMonth() + 1,
-                D = date.getDate(),
-                H = date.getHours(),
-                m = date.getMinutes(),
-                s = date.getSeconds();
-            //小于10的在前面补0
-            if (M < 10) {
-                M = '0' + M;
-            }
-            if (D < 10) {
-                D = '0' + D;
-            }
-            if (H < 10) {
-                H = '0' + H;
-            }
-            if (m < 10) {
-                m = '0' + m;
-            }
-            if (s < 10) {
-                s = '0' + s;
-            }
-
-            d = timeNow - publishTime;
-            d_days = parseInt(d / 86400);
-            d_hours = parseInt(d / 3600);
-            d_minutes = parseInt(d / 60);
-            d_seconds = parseInt(d);
-            return Y + '-' + M + '-' + D + ' ' + H + ':' + m;
-        } else {
-            return ""
-        }
-    },
     //字符串转换为时间戳
 
     getDateDiff: function (dateStr) {
@@ -363,14 +333,6 @@ var orderDetail = React.createClass({
         let that = this;
         let orderDetail = that.state.orderDetail;
 
-        // var addTime = orderDetail.addTime || "";
-        var nextRepay;
-        if (orderDetail.nextNo > 0) {
-            const nextRepayTime = orderDetail.nextRepayDate || "";
-            nextRepay = orderDetail.nextNo + "期还款时间：" + that.getDateDiff(nextRepayTime.time);
-        } else {
-            nextRepay = "你的贷款申请已提交,3个工作日内完成";
-        }
         var repayList = orderDetail.repayList || [];
         var loanMoney = (orderDetail.loanMoney) * 100 || "";
         var repayWay = orderDetail.repayWay;
@@ -379,7 +341,6 @@ var orderDetail = React.createClass({
                 <Header title="订单详情" />
                 <Loading flag={that.state.flag} />
                 <div className="content orderDetailCon">
-                    <p className="note">{nextRepay}</p>
                     <div className="orderDetailInfo">
                         <div className="orderNum">
                             <span>订单号：{orderDetail.applyNo}</span>

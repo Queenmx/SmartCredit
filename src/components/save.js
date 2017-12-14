@@ -230,11 +230,22 @@ var Save = React.createClass({
 	},
 	toLoanDetail:function(event){
 		var detailId=event.currentTarget.getAttribute("data-id");
+		 var type = event.currentTarget.getAttribute("data-type");
+		 
 		var data = {loanId:detailId};
-		var path = {
-		  pathname:'/ListDetail',
-		  query:data,
-		}
+		if (type == "JZD") {
+                var path = {
+                    pathname: '/ListDetail',
+                    query: data,
+                }
+            } else if (type == "KSD") {
+                var path = {
+                    pathname: '/ListDetailKSD',
+                    query: data,
+                }
+            } else {
+                Toast.info("数据错误", 2)
+            }
 		hashHistory.push(path);
 	},
 	toZiDetail:function(event){
@@ -312,7 +323,7 @@ var Save = React.createClass({
 					console.log(data);
 					for(var i in loanList){
 						//arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndLoan}>
-						arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId}  key={Math.random()} onClick={that.toLoanDetail}>
+						arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId} data-type={loanList[i].type}  key={Math.random()} onClick={that.toLoanDetail}>
 		        				<h3>
 		        					<img src={loanList[i].logo} onError={that.logoError} />
 		        					<span>{loanList[i].loanName}</span>

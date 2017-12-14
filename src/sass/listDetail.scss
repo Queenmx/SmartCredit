@@ -237,11 +237,12 @@
       .applyBtnBox{
           width: 100%;
         height: 0.95rem;
+        background: #FFFFFF;
         //@include only_display;
         .applySaveBtn{
             width:2rem;
             float: left;
-            background: #ffffff;
+            //background: #ffffff;
             img{
                 width:0.45rem ;
                 height: 0.45rem;

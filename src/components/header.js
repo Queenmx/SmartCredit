@@ -12,7 +12,10 @@ var Header = React.createClass({
     toHuanKuan: function () {
         var path = {
             pathname: '/Order',
-            // query:data,
+            state: {
+                    title: "待还款订单",
+                    statusType: "REPAY"
+                }
         }
         hashHistory.push(path);
 
