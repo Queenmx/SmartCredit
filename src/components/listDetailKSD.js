@@ -6,10 +6,12 @@ import { globalData } from './global.js';
 import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
+import '../sass/listDetail.scss';
 import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 // 引入 ECharts 主模块
 import echarts from "echarts";
 var isCarify//是否通过全部验证
+var index = 0//记录那一项需要认证
 var appBasePath = globalData.appBasePath;
 var ListDetailKSD = React.createClass({
     getInitialState: function () {
@@ -28,7 +30,10 @@ var ListDetailKSD = React.createClass({
             limitType: "",
             theDateTxt: "",
             rate: "",
-            isLoan: ""
+            isLoan: "",
+            errorMeses: "",
+            zmmes: "",
+            idmes: ""
         }
     },
 
@@ -46,6 +51,8 @@ var ListDetailKSD = React.createClass({
                 loanId: loanId
             })
         }
+        this.getErrorMeses()
+
     },
 
 
@@ -235,7 +242,7 @@ var ListDetailKSD = React.createClass({
             if (res.code == "0000") {
                 var data = res.data;
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                // console.log(data);
+                console.log("贷款详情" + JSON.stringify(data));
 
                 var moneyMin = data.moneyMin;
                 var limitMin = data.limitMin;
@@ -405,6 +412,7 @@ var ListDetailKSD = React.createClass({
     },
     statusToChinese: function (status) {
         var that = this
+        console.log("==========" + status)
         if (status === 0 || !status) {
             return '去认证'
         } else if (status > 0) {
@@ -453,7 +461,7 @@ var ListDetailKSD = React.createClass({
                     if (res.code == "0000") {
                         var data = res.data;
                         var data = JSON.parse(strDec(res.data, key1, "", ""));
-                        //console.log(data);
+                        console.log(data);
                         that.setState({
                             markId: data.markId
                         }, function () {
@@ -514,7 +522,51 @@ var ListDetailKSD = React.createClass({
 
 
     },
-    toAuthInfo: function (btnStatus, toAuthTap) {
+    getErrorMeses: function () {
+        var that = this
+        var user = localStorage.getItem('user')
+        var key1 = globalData.key;
+        if (!user) {
+            return
+        }
+        var errormes = {
+            'ZM': "",
+            'IDCARD': ""
+        }
+        api.certCheck('ZM', function (res) {
+            res.data = JSON.parse(strDec(res.data, key1, "", ""))
+            // res.data.status = '-2'
+            // res.msg = "错误"
+            if (res.data.status === '-2') {
+                that.setState({
+                    zmmes: res.msg
+                })
+            }
+        })
+        api.certCheck('IDCARD', function (res) {
+            res.data = JSON.parse(strDec(res.data, key1, "", ""))
+            // res.data.status = '-2'
+            // res.msg = "错误"
+            if (res.data.status === '-2') {
+                that.setState({
+                    idmes: res.msg
+                })
+            }
+        })
+    },
+    toChain: function (toAuthTap) {
+        if (toAuthTap === 'Operator') {
+            toAuthTap = `https://api.51datakey.com/h5/importV3/#/carrier?userId=${globalData.userId}&apiKey=ac251813e8d54e5db9ae86d38472fa44&backUrl=http://h5.xinyzx.com/smartcreditCtest/#/ListDetailKSD?loanId=${this.state.loanId}`
+            // toAuthTap = "http://www.baidu.com"
+            window.location.href = toAuthTap
+        } else if (toAuthTap === 'Operator') {
+
+        }
+    },
+    toAuthInfo: function (btnStatus, toAuthTap, id) {
+        var key1 = globalData.key;
+        var that = this
+        index = 4
         //if(btnStatus==="0"){
         var user = localStorage.getItem('user')
         var path
@@ -522,13 +574,52 @@ var ListDetailKSD = React.createClass({
             path = {
                 pathname: '/Login'
             }
+            hashHistory.push(path);
+        } else if (id > index) {
+            Toast.info('请按顺序认证', 2);
         } else {
-            path = {
-                pathname: `${toAuthTap}`,
-                query: { loanId: this.state.loanId }
+            if (toAuthTap === 'Operator') {
+                // toAuthTap = `https://api.51datakey.com/h5/importV3/#/carrier?userId=${globalData.userId}&apiKey=ac251813e8d54e5db9ae86d38472fa44&backUrl=http://h5.xinyzx.com/smartcreditCtest/#/ListDetailKSD?loanId=${this.state.loanId}`
+                // window.location.href = toAuthTap
+                // phoneCert
+                console.log(9999)
+                api.phoneCert(that.state.loanId, function (res) {
+                    if (res.code == "0000") {
+                        // console.log(data.authInfoUrl)
+                        var data = JSON.parse(strDec(res.data, key1, "", ""));
+                        console.log(data.authInfoUrl)
+                        window.location.href = data.authInfoUrl
+                    } else {
+                        // Toast.info(res.msg, 2);
+                        Toast.info(res.msg, 2);
+                    }
+                }, function () {
+                    // Toast.info("连接错误", 2);
+                    Toast.info("连接错误", 2);
+                })
+            } else if (toAuthTap === 'zmrz') {
+                api.zmCert(that.state.loanId, function (res) {
+                    if (res.code == "0000") {
+                        // console.log(data.authInfoUrl)
+                        var data = JSON.parse(strDec(res.data, key1, "", ""));
+                        console.log(data.authInfoUrl)
+                        window.location.href = data.authInfoUrl
+                    } else {
+                        // Toast.info(res.msg, 2);
+                        Toast.info(res.msg, 2);
+                    }
+                }, function () {
+                    // Toast.info("连接错误", 2);
+                    Toast.info("连接错误", 2);
+                })
+            } else {
+                path = {
+                    pathname: `${toAuthTap}`,
+                    query: { loanId: this.state.loanId }
+                }
+                hashHistory.push(path);
             }
         }
-        hashHistory.push(path);
         //}
 
     },
@@ -541,6 +632,17 @@ var ListDetailKSD = React.createClass({
         var myRateMoney = Number(that.state.myRateMoney);
         var myTotalMoney = (loanDetail.fee + myRateMoney + value1).toFixed(2) || "";
         var userCertInfo = loanDetail.userCertInfo || "";
+        if (userCertInfo) {
+            console.log(userCertInfo)
+            let userCertInfoArr = ['qualify', 'idcard', 'phone', 'zm', 'info']
+            for (var i = 0; i < userCertInfoArr.length; i++) {
+                if (!(userCertInfo[userCertInfoArr[i]] > 0)) {
+                    index = i
+                    break;
+                }
+            }
+        }
+
         // if (userCertInfo) {
         //     console.log(userCertInfo)
         //     userCertInfo.idcard = 1
@@ -591,11 +693,19 @@ var ListDetailKSD = React.createClass({
                     <div className="authBox">
                         <h2>基本材料</h2>
                         <ul className="authTap">
-                            <li className={userCertInfo.qualify > 0 ? "activeAuthLi" : ""} onClick={that.toAuthInfo.bind(that, userCertInfo.qualify, "BaseInfo")}><i className="iconfont authIcon">&#xe647;</i>基本信息<div className="goAuth"><span>{that.statusToChinese(userCertInfo.qualify)}</span><i className="iconfont">&#xe60b;</i></div></li>
-                            <li className={userCertInfo.idcard > 0 ? "activeAuthLi" : ""} onClick={that.toAuthInfo.bind(that, userCertInfo.idcard, "IdCard")}><i className="iconfont authIcon">&#xe604;</i>身份证<div className="goAuth"><span>{that.statusToChinese(userCertInfo.idcard)}</span><i className="iconfont">&#xe60b;</i></div></li>
-                            <li className={userCertInfo.phone > 0 ? "activeAuthLi" : ""} onClick={that.toAuthInfo.bind(that, userCertInfo.phone, "Operator")}><i className="iconfont authIcon">&#xe60a;</i>手机运营商<div className="goAuth"><span>{that.statusToChinese(userCertInfo.phone)}</span><i className="iconfont">&#xe60b;</i></div></li>
-                            <li className={userCertInfo.zm > 0 ? "activeAuthLi" : ""} onClick={that.toAuthInfo.bind(that, userCertInfo.zm, "LoanFeedback")}><i className="iconfont authIcon">&#xe645;</i>芝麻认证<div className="goAuth"><span>{that.statusToChinese(userCertInfo.zm)}</span><i className="iconfont">&#xe60b;</i></div></li>
-                            <li className={userCertInfo.info > 0 ? "activeAuthLi" : ""} onClick={that.toAuthInfo.bind(that, userCertInfo.info, "OtherInfo")}><i className="iconfont authIcon">&#xe61e;</i>其他信息<div className="goAuth"><span>{that.statusToChinese(userCertInfo.info)}</span><i className="iconfont">&#xe60b;</i></div></li>
+                            <li className={(userCertInfo.qualify > 0 || index === 0) ? "activeAuthLi" : ""} onClick={that.toAuthInfo.bind(that, userCertInfo.qualify, "BaseInfo", 0)}><i className="iconfont authIcon">&#xe647;</i>基本信息<div className="goAuth"><span>{that.statusToChinese(userCertInfo.qualify)}</span><i className="iconfont">&#xe60b;</i></div></li>
+
+                            <li className={(userCertInfo.idcard > 0 || index === 1) ? "activeAuthLi" : ""} onClick={that.toAuthInfo.bind(that, userCertInfo.idcard, "IdCard", 1)}><i className="iconfont authIcon">&#xe604;</i>身份证
+                            {/* <span className="meserror">{that.state.idmes}</span> */}
+                                <div className="goAuth"><span>{that.statusToChinese(userCertInfo.idcard)}</span><i className="iconfont">&#xe60b;</i></div></li>
+
+                            <li className={(userCertInfo.phone > 0 || index === 2) ? "activeAuthLi" : ""} onClick={that.toAuthInfo.bind(that, userCertInfo.idcard, "Operator", 2)}><i className="iconfont authIcon">&#xe60a;</i>手机运营商<div className="goAuth"><span>{that.statusToChinese(userCertInfo.phone)}</span><i className="iconfont">&#xe60b;</i></div></li>
+
+                            <li className={(userCertInfo.zm > 0 || index === 3) ? "activeAuthLi" : ""} onClick={that.toAuthInfo.bind(that, userCertInfo.zm, "zmrz", 3)}><i className="iconfont authIcon">&#xe645;</i>芝麻认证
+                            {/* <span className="meserror">{that.state.zmmes}</span> */}
+                                <div className="goAuth"><span>{that.statusToChinese(userCertInfo.zm)}</span><i className="iconfont">&#xe60b;</i></div></li>
+
+                            <li className={(userCertInfo.info > 0 || index === 4) ? "activeAuthLi" : ""} onClick={that.toAuthInfo.bind(that, userCertInfo.info, "OtherInfo", 4)}><i className="iconfont authIcon">&#xe61e;</i>其他信息<div className="goAuth"><span>{that.statusToChinese(userCertInfo.info)}</span><i className="iconfont">&#xe60b;</i></div></li>
                         </ul>
                     </div>
                 </div>

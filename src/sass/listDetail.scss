@@ -2,6 +2,9 @@
 @import "common" ;
 .listDetail{
   background: $grey;  
+  .red{
+      color:$red;
+  }
   .rangeInfo{
       background: #ffffff;
       @include only_display;
@@ -200,6 +203,10 @@
                           background: $blue;
                       }
                   }
+                    .meserror{
+                        color: $red;
+                        margin-left:3px;
+                    }
               }
               height: 1rem;
               line-height: 1rem;

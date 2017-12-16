@@ -230,9 +230,10 @@ module.exports.identityUserCert = function (backPic, frontPic, cb1, cb2) {
     //data.frontPic = frontPic;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
+    console.log(backPic, frontPic)
     //console.log(param)
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/identityUserCert`, { params: str, backPic: backPic, frontPic: frontPic }, cb1, cb2);
+    http(`http://wanghu.free.ngrok.cc/zndai/user/cert/identity`, { params: str, backPic: backPic, frontPic: frontPic }, cb1, cb2);
     delete data.userId;
     delete data.backPic;
     delete data.frontPic;
@@ -520,7 +521,7 @@ module.exports.orderList = function (pageNum, pageSize, flag, cb1, cb2) {
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-     console.log(param);
+    console.log(param);
     http(`${globalData.path}/zndai/loan/apply/list/c`, { params: str }, cb1, cb2);
     delete data.pageNum;
     delete data.pageSize;
@@ -534,11 +535,11 @@ module.exports.orderList = function (pageNum, pageSize, flag, cb1, cb2) {
  * @param {String} userId
  * ACTION
  */
-module.exports.cancleOrder = function (applyId,flag ,cb1, cb2) {
+module.exports.cancleOrder = function (applyId, flag, cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     data.applyId = applyId;
-     data.flag = flag;
+    data.flag = flag;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
@@ -546,7 +547,7 @@ module.exports.cancleOrder = function (applyId,flag ,cb1, cb2) {
     // console.log(userId);
     http(`${globalData.path}/zndai/loan/apply/cancel`, { params: str }, cb1, cb2);
     delete data.applyId;
-     delete data.flag;
+    delete data.flag;
     delete data.userId;
 }
 
@@ -612,7 +613,7 @@ module.exports.processDetail = function (applyId, cb1, cb2) {
     delete data.userId;
 }
 //还款H5
-module.exports.h5applyrepay= function (capitalId,loanId,orderSn, cb1, cb2) {
+module.exports.h5applyrepay = function (capitalId, loanId, orderSn, cb1, cb2) {
     var data = globalData.requestData;
     data.capitalId = capitalId;
     data.loanId = loanId;
@@ -630,7 +631,7 @@ module.exports.h5applyrepay= function (capitalId,loanId,orderSn, cb1, cb2) {
     delete data.userId;
 }
 //H5绑卡跳转
-module.exports.h5bindcard= function (capitalId,loanId,orderSn, cb1, cb2) {
+module.exports.h5bindcard = function (capitalId, loanId, orderSn, cb1, cb2) {
     var data = globalData.requestData;
     data.capitalId = "1510675466";
     data.loanId = loanId;
@@ -645,5 +646,44 @@ module.exports.h5bindcard= function (capitalId,loanId,orderSn, cb1, cb2) {
     delete data.capitalId;
     delete data.loanId;
     delete data.orderSn;
+    delete data.userId;
+}
+//H5绑卡跳转
+module.exports.certCheck = function (tag, cb1, cb2) {
+    var data = globalData.requestData;
+    data.type = tag
+    data.userId = globalData.userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/user/cert/check`, {
+        params: str
+    }, cb1, cb2);
+    delete data.userId;
+}
+
+//运营商认证
+module.exports.phoneCert = function (loanId, cb1, cb2) {
+    var data = globalData.requestData;
+    data.loanId = loanId
+    data.userId = globalData.userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`http://wanghu.free.ngrok.cc/zndai/user/cert/authorizationPhone`, {
+        params: str
+    }, cb1, cb2);
+    delete data.userId;
+}
+
+//芝麻认证
+module.exports.zmCert = function (loanId, cb1, cb2) {
+    var data = globalData.requestData;
+    data.loanId = loanId
+    data.userId = globalData.userId;
+    var param = JSON.stringify(data);
+    console.log("=======" + param)
+    var str = strEnc(param, key1);
+    http(`http://wanghu.free.ngrok.cc/zndai/user/cert/authorizationZm`, {
+        params: str
+    }, cb1, cb2);
     delete data.userId;
 }

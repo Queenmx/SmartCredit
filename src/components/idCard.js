@@ -28,8 +28,8 @@ var IdCard = React.createClass({
     },
     finishID: function () {
         var that = this;
-        var certStatus = that.state.certStatus * 1;
-        //  console.log(typeof certStatus);
+        var certStatus = that.state.certStatus;
+        console.log(certStatus);
         if (certStatus == 1) {
             Toast.info("认证已通过，无需重复上传", 2);
         } else if (certStatus === 0) {
