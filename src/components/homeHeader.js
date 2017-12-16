@@ -4,7 +4,7 @@ import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
 import { Router, Route, Link } from 'react-router';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 import MyMap from './myMap';
 //import BMap from 'BMap';
 

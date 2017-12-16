@@ -2,7 +2,7 @@
 import React from "react";
 import ReactDom from 'react-dom';
 import { Router, Route, Link } from 'react-router';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import {Toast } from 'antd-mobile';
 var Footer = React.createClass({
     getInitialState: function () {
         return {

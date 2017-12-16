@@ -6,7 +6,7 @@ import api from './api';
 import Loading from './loading';
 import { globalData } from './global.js';
 import { hashHistory, Link } from 'react-router';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 var imgPath = globalData.imgPath;
 class processList extends Component {
     constructor() {

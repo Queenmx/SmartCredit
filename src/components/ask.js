@@ -6,7 +6,7 @@ import { globalData } from './global.js';
 import Header from './header';
 import { hashHistory, Link } from 'react-router';
 import '../css/problem.css';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 
 // var toast=globalData.toast;
 var key1 = globalData.key;

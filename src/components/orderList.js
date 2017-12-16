@@ -139,7 +139,21 @@ var OrderList = React.createClass({
                 		"btnTxt":"删除订单",
                 		"dataId":"2",
                 		"btnTwo":false,
-                		"text": "放款成功"
+                		"text": "还款结束"
+                	}
+                },
+                "":{
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnTwo":false,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",
+                		"btnTwo":false,
+                		"text": "已取消"
                 	}
                 },
                 "":{
@@ -274,21 +288,36 @@ showAlert :function (applyId,capitalId,loanId,applyNo,e) {
         	api.h5bindcard(capitalId,loanId,applyNo,function(res){
 	        		console.log(res)
 	        		 if (res.code == "0000") {
-	        		 	 let data = strDec(res.data, key1, "", "");
-	        		 	 console.log(data);
-		                }else{
+	        		 	  let data = strDec(res.data, key1, "", "");
+		                    const dataObj=JSON.parse(data);
+		                    console.log(dataObj);
+		                    const url=dataObj.url;
+		                    if(url){
+		                    	 window.location.href=url;
+		                    }else{
+		                    	Toast.info("跳转地址出错", 2);
+		                    }
+		             }else{
 		                	Toast.info(res.msg,2);
-		                }
-	        	}, function () {
+		                }       
+	        	},function () {
 		            Toast.info("连接错误", 2);
 		        })
+        	
         }else if(id=="4"){
         	console.log("放宽");
         		api.h5applyrepay(capitalId,loanId,applyNo,function(res){
 	        		console.log(res)
 	        		 if (res.code == "0000") {
-	        		 	 let data = strDec(res.data, key1, "", "");
-	        		 	 console.log(data);
+	        		 	let data = strDec(res.data, key1, "", "");
+		                    const dataObj=JSON.parse(data);
+		                    console.log(dataObj);
+		                    const url=dataObj.url;
+		                    if(url){
+		                    	 window.location.href=url;
+		                    }else{
+		                    	Toast.info("跳转地址出错", 2);
+		                    }
 		                }else{
 		                	Toast.info(res.msg,2);
 		                }
@@ -393,12 +422,16 @@ showAlert :function (applyId,capitalId,loanId,applyNo,e) {
 	                    var status = orderList[i].status;
 	                    var applyStatus=orderList[i].applyStatus;
 	                    var nextRepay;
-	                     if(orderList[i].nextNo>0){
-				        	 const nextRepayTime=orderList[i].nextRepayDate||"";
-				       		nextRepay=orderList[i].nextNo+"期还款时间："+that.getDateDiff(nextRepayTime.time);
-				        }else{
-				        	nextRepay="你的贷款申请已提交,3个工作日内完成"
-				        }
+	                    if(applyStatus!="REPAYYES"){
+		                     if(orderList[i].nextNo>0){
+					        	 const nextRepayTime=orderList[i].nextRepayDate||"";
+					       		nextRepay=orderList[i].nextNo+"期还款时间："+that.getDateDiff(nextRepayTime.time);
+					        }else{
+					        	nextRepay="你的贷款申请已提交,3个工作日内完成"
+					        }
+				         }else{
+				         	nextRepay="已结清"
+				         }
 				        const loanMoney=(orderList[i].loanMoney)*100||"";
 	                    arr.push(<li key={Math.random()} data-applyId={orderList[i].applyId} onClick={that.toOrderDetail}>
 	                        <div className="orderNum">

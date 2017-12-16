@@ -8,7 +8,7 @@ import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../sass/progress.scss';
 import Processlist from './processList';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 var imgPath = globalData.imgPath;
 var Progress = React.createClass({
     getInitialState: function () {

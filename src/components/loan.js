@@ -5,6 +5,7 @@ import api from './api';
 import { globalData } from './global.js';
 import Header from './header';
 import Loading from './loading';
+import Footer from './footer';
 import { hashHistory, Link } from 'react-router';
 import '../css/home.css';
 import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
@@ -82,6 +83,8 @@ var Loan = React.createClass({
             that.setState({
                 activeLoanId: activeLoanId
             }, () => { that.loadData(); })
+        }else{
+        	that.ksd()
         }
 
         var homeTag = sessionStorage.getItem("homeTag");
@@ -392,6 +395,7 @@ var Loan = React.createClass({
 
                     <Loading flag={that.state.isLoading} />
                 </div>
+                <Footer activeIndex="0" />
             </div>
         )
     }

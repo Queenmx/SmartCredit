@@ -7,7 +7,7 @@ import HomeHeader from './homeHeader';
 import Footer from './footer';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 import '../css/home.css';
 
 var imgPath = globalData.imgPath;

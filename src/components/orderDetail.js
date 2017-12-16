@@ -135,22 +135,22 @@ var orderDetail = React.createClass({
                         "btnTxt": "删除订单",
                         "dataId": "2",
                         "btnTwo": false,
-                        "text": "放款成功"
+                        "text": "还款结束"
                     }
                 },
-                "": {
-                    "-2": {
-                        "btnTxt": "删除订单",
-                        "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
-                        "btnTwo": false,
-                        "text": "已取消",
-                    },
-                    "1": {
-                        "btnTxt": "删除订单",
-                        "dataId": "2",
-                        "btnTwo": false,
-                        "text": "已取消"
-                    }
+                "":{
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnTwo":false,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",
+                		"btnTwo":false,
+                		"text": "已取消"
+                	}
                 }
             },
             lixiType: {

@@ -6,7 +6,7 @@ import Loading from './loading';
 import { globalData } from './global.js';
 import { hashHistory, Link } from 'react-router';
 import Header from './header';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 var NewsDetail = React.createClass({
     getInitialState: function () {
         return {

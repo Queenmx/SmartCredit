@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import { hashHistory } from 'react-router';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 var Header = React.createClass({
     getInitialState: function () {
         return {
@@ -10,6 +10,8 @@ var Header = React.createClass({
         }
     },
     toHuanKuan: function () {
+    	var user = localStorage.getItem("user");
+       if (user) {
         var path = {
             pathname: '/Order',
             state: {
@@ -17,8 +19,13 @@ var Header = React.createClass({
                     statusType: "REPAY"
                 }
         }
-        hashHistory.push(path);
-
+	        hashHistory.push(path);
+		}else{
+			var path = {
+	                pathname: '/Login'
+	            }
+	            hashHistory.push(path);
+		}
     },
     toShare: function () {
         //console.log("share")

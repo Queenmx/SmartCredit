@@ -18,15 +18,6 @@ var SubmitResult = React.createClass({
         }
     },
     componentWillMount: function () {
-        var user = globalData.user;
-        var userObj = JSON.parse(user);
-        this.setState({
-            userObj: userObj,
-            certStatus: userObj.certStatus,
-            backPic: userObj.backPic,
-            frontPic: userObj.frontPic
-        })
-
     },
     saveResult: function () {
         var that = this
@@ -64,7 +55,8 @@ var SubmitResult = React.createClass({
     goOrderDetail: function () {
         var that = this
         console.log(that.props.location.state.ret)
-        var applyId = that.props.location.state.ret.data.applyId
+        var retObj=JSON.parse(strDec(that.props.location.state.ret.data, key1, "", ""));
+        var applyId = retObj.applyId
         // var applyId = 'a86cfe9120434ce4a98e598bfba7c2ea'
         console.log(applyId)
         var path = {
@@ -79,7 +71,6 @@ var SubmitResult = React.createClass({
     render: function () {
         var imgPath = globalData.imgPath;
         var that = this;
-        var ret = that.props.location.state.ret
         var btns
         return (
             <div className="app_Box submitResult">

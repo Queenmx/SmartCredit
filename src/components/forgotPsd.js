@@ -5,7 +5,7 @@ import api from './api';
 import { globalData } from './global.js';
 import Header from './header';
 import { hashHistory } from 'react-router';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 // var toast=globalData.toast;
 var key1 = globalData.key;
 var ForgotPsd = React.createClass({

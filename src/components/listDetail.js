@@ -6,7 +6,7 @@ import { globalData } from './global.js';
 import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import {Toast } from 'antd-mobile';
 import '../css/listDetail.css';
 // 引入 ECharts 主模块
 import echarts from "echarts";
@@ -135,22 +135,27 @@ var ListDetail = React.createClass({
         var that = this;
         var key1 = globalData.key;
         if (that.state.isLogin) {
-            const { value2, limitType, loanId, value1 } = that.state;
-            //console.log(that.state);
-            var queryData = {
-                loanId: loanId,
-                applyQuery: {
-                    limitDay: value2,
-                    limitType: limitType,
-                    loanId: loanId,
-                    money: value1
-                }
-            };
-            var path = {
-                pathname: '/ApplyInfo',
-                state: queryData,
-            }
-            hashHistory.push(path);
+        	if(that.state.isLoan>0){
+        		Toast.info('你有未完成的订单',2);
+        	}else{
+        		 const { value2, limitType, loanId, value1 } = that.state;
+	            //console.log(that.state);
+	            var queryData = {
+	                loanId: loanId,
+	                applyQuery: {
+	                    limitDay: value2,
+	                    limitType: limitType,
+	                    loanId: loanId,
+	                    money: value1
+	                }
+	            };
+	            var path = {
+	                pathname: '/ApplyInfo',
+	                state: queryData,
+	            }
+	            hashHistory.push(path);
+        	}
+           
         } else {
             var path = {
                 pathname: '/Login',
@@ -302,7 +307,8 @@ var ListDetail = React.createClass({
                     rateType: data.rateType,
                     markId: data.markId,
                     fee: data.fee,
-                    isMark: data.isMark//1已收藏
+                    isMark: data.isMark,//1已收藏,
+                    isLoan:data.isLoan
                 }, () => {
                     that.lixi();
                     that.setState({

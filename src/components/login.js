@@ -7,7 +7,7 @@ import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../css/login.css';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 // var toast = globalData.toast;
 var key1 = globalData.key;
 var Login = React.createClass({

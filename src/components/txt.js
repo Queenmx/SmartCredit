@@ -4,7 +4,7 @@ import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
 import Header from './header';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import {  Toast } from 'antd-mobile';
 
 var appBasePath = globalData.appBasePath;
 var Txt = React.createClass({

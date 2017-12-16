@@ -7,7 +7,7 @@ import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import LevelList from './levelList';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 // var toast = new Toast();
 var ApplyLevel = React.createClass({
     getInitialState: function () {

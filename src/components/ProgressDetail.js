@@ -8,7 +8,7 @@ import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import ProgressStep from './ProgressStep';
 import '../sass/progressDetail.scss';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import {  Toast } from 'antd-mobile';
 // var appBasePath = globalData.appBasePath;
 var imgPath = globalData.imgPath;
 var ProgressDetail = React.createClass({
@@ -32,6 +32,7 @@ var ProgressDetail = React.createClass({
                     flag: false
                 })
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
+                console.log(data);
                 var flow = {}
                 var type = data.type; //KSD快速贷 JZD精准贷
                 if (type === 'KSD') {
@@ -75,7 +76,7 @@ var ProgressDetail = React.createClass({
                     y++
                 }
                 if (type === 'JZD' && data.apiWay === 'TEL') {
-                    if (data.logList[i - 1].opinion === 'N') {
+                    if (data.logList.length>0&&data.logList[i - 1].opinion === 'N') {
                         obj.time = ''
                     } else {
                         obj.time = arr[y - 1].time

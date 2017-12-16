@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import Header from './header';
 import OrderList from './orderList';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 var Order = React.createClass({
     getInitialState: function () {
         return {

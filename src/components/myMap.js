@@ -5,7 +5,7 @@ import { globalData } from './global.js';
 import Header from './header';
 import { hashHistory } from 'react-router';
 import '../css/map.css';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 var MyMap = React.createClass({
     getInitialState: function () {
         return {

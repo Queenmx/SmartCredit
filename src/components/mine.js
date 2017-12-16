@@ -8,7 +8,7 @@ import Footer from './footer';
 import Set from './set';
 import Login from './login';
 import '../css/mine.css';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 var appBasePath = globalData.appBasePath;
 var Mine = React.createClass({
     getInitialState: function () {

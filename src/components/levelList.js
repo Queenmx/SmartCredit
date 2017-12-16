@@ -5,7 +5,7 @@ import api from './api';
 import { globalData } from './global.js';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 // var toast = new Toast();
 var levelList = React.createClass({
     getInitialState: function () {

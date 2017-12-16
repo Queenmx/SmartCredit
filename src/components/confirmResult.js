@@ -6,12 +6,10 @@ import { globalData } from './global.js';
 import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
-import '../sass/submitResult.scss';
-import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
-import { Icon } from 'antd-mobile';
+import { Icon, Toast } from 'antd-mobile';
 var key1 = globalData.key;
 // var toast = globalData.toast;
-var SubmitResult = React.createClass({
+var ConfirmResult = React.createClass({
     getInitialState: function () {
         return {
             flag: false
@@ -106,6 +104,6 @@ var SubmitResult = React.createClass({
 });
 
 
-export default SubmitResult;
+export default ConfirmResult;
 
 
