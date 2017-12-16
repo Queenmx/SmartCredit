@@ -233,7 +233,7 @@ module.exports.identityUserCert = function (backPic, frontPic, cb1, cb2) {
     console.log(backPic, frontPic)
     //console.log(param)
     var str = strEnc(param, key1);
-    http(`http://wanghu.free.ngrok.cc/zndai/user/cert/identity`, { params: str, backPic: backPic, frontPic: frontPic }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/cert/identity`, { params: str, backPic: backPic, frontPic: frontPic }, cb1, cb2);
     delete data.userId;
     delete data.backPic;
     delete data.frontPic;
@@ -668,7 +668,7 @@ module.exports.phoneCert = function (loanId, cb1, cb2) {
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`http://wanghu.free.ngrok.cc/zndai/user/cert/authorizationPhone`, {
+    http(`${globalData.path}/zndai/user/cert/authorizationPhone`, {
         params: str
     }, cb1, cb2);
     delete data.userId;
@@ -682,7 +682,20 @@ module.exports.zmCert = function (loanId, cb1, cb2) {
     var param = JSON.stringify(data);
     console.log("=======" + param)
     var str = strEnc(param, key1);
-    http(`http://wanghu.free.ngrok.cc/zndai/user/cert/authorizationZm`, {
+    http(`${globalData.path}/zndai/user/cert/authorizationZm`, {
+        params: str
+    }, cb1, cb2);
+    delete data.userId;
+}
+
+//申请单号获取订单号
+module.exports.getApplyId = function (orderId, cb1, cb2) {
+    var data = globalData.requestData;
+    data.loanId = orderId
+    data.userId = globalData.userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/user/cert/authorizationZm`, {
         params: str
     }, cb1, cb2);
     delete data.userId;
