@@ -10,7 +10,7 @@ import { Toast } from 'antd-mobile';
 // 引入 ECharts 主模块
 import echarts from "echarts";
 var isCarify//是否通过全部验证
-var index = 0//记录那一项需要认证
+//var index = 0//记录那一项需要认证
 var appBasePath = globalData.appBasePath;
 var ListDetailKSD = React.createClass({
     getInitialState: function () {
@@ -32,7 +32,8 @@ var ListDetailKSD = React.createClass({
             isLoan: "",
             errorMeses: "",
             zmmes: "",
-            idmes: ""
+            idmes: "",
+            index:0
         }
     },
 
@@ -287,7 +288,35 @@ var ListDetailKSD = React.createClass({
                 } else {
                     limitType = "M"
                 }
-
+				 if (that.state.isLogin) {
+                 	var userCertInfo = data.userCertInfo || "";
+			        if (userCertInfo) {
+			            console.log(userCertInfo)
+			            let userCertInfoArr = ['qualify', 'idcard', 'phone', 'zm', 'info']
+			            for (var i = 0; i < userCertInfoArr.length; i++) {
+			                if (!(userCertInfo[userCertInfoArr[i]] > 0)) {
+			                     that.setState({
+					             	index : i
+					             })
+			                    break;
+			                }else{
+			                	that.setState({
+					             	index : 4
+					             })
+			                }
+			            }
+			            
+			            
+			        }else{
+			        	that.setState({
+			             	index : 0
+			             })
+			        }
+                 }else{
+                 	that.setState({
+			             	index : 0
+			             })
+                 }
 
                 //var rateMoney=
                 that.setState({
@@ -313,6 +342,8 @@ var ListDetailKSD = React.createClass({
                         flag: false
                     })
                 })
+                
+                
             } else {
                 that.setState({
                     flag: false
@@ -426,14 +457,19 @@ var ListDetailKSD = React.createClass({
     },
     statusToChinese: function (status) {
         var that = this
-        console.log("==========" + status)
-        if (status === 0 || !status) {
-            return '去认证'
-        } else if (status > 0) {
-            return '已认证'
-        } else {
-            return '重新认证'
+        //console.log("==========" + status)
+        if(!that.state.isLogin){
+        	return '去认证'
+        }else{
+        	if (status === 0 || !status) {
+	            return '去认证'
+	        } else if (status > 0) {
+	            return '已认证'
+	        } else {
+	            return '重新认证'
+	        }
         }
+        
     },
     checkSteps: function (userCertInfo) {
         var length = 0, totalLength = 5
@@ -589,7 +625,7 @@ var ListDetailKSD = React.createClass({
                 pathname: '/Login'
             }
             hashHistory.push(path);
-        } else if (id > index) {
+        } else if (id > that.state.index) {
             Toast.info('请按顺序认证', 2);
         } else {
             if (toAuthTap === 'Operator') {
@@ -646,7 +682,7 @@ var ListDetailKSD = React.createClass({
         var myRateMoney = Number(that.state.myRateMoney);
         var myTotalMoney = (loanDetail.fee + myRateMoney + value1).toFixed(2) || "";
         var userCertInfo = loanDetail.userCertInfo || "";
-        if (userCertInfo) {
+        /*if (userCertInfo) {
             console.log(userCertInfo)
             let userCertInfoArr = ['qualify', 'idcard', 'phone', 'zm', 'info']
             for (var i = 0; i < userCertInfoArr.length; i++) {
@@ -658,7 +694,7 @@ var ListDetailKSD = React.createClass({
                 }
             }
             console.log('index',index)
-        }
+        }*/
 
         // if (userCertInfo) {
         //     console.log(userCertInfo)
@@ -668,6 +704,7 @@ var ListDetailKSD = React.createClass({
         //     userCertInfo.qualify = 1
         //     userCertInfo.zm = 1
         // }
+        var index=that.state.index;
         return (
             <div className="app_Box listDetail">
                 <Header title={loanDetail.loanName} />
