@@ -233,7 +233,7 @@ module.exports.identityUserCert = function (backPic, frontPic, cb1, cb2) {
     var param = JSON.stringify(data);
     //console.log(param)
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/identityUserCert`, { params: str, backPic: backPic, frontPic: frontPic }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/cert/identity`, { params: str, backPic: backPic, frontPic: frontPic }, cb1, cb2);
     delete data.userId;
     delete data.backPic;
     delete data.frontPic;

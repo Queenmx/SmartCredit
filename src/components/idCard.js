@@ -39,14 +39,14 @@ var IdCard = React.createClass({
             var backImgData = that.state.backImg;
             if (faceImgData && backImgData) {
                 api.identityUserCert(backImgData, faceImgData, function (res) {
-                    //  console.log(res);
+                      console.log(res);
                     if (res.code == "0000") {
                         Toast.info("上传成功，等待审核", 2);
                         that.setState({
                             flag: false
                         })
                         var data = JSON.parse(strDec(res.data, key1, "", ""));
-                        //  console.log(data);
+                          console.log(data);
                         var userObj = that.state.userObj;
                         userObj.backPic = data.backPic;
                         userObj.frontPic = data.frontPic;
