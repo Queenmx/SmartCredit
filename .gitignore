@@ -1,5 +1,5 @@
 *.swp
 *.map
 *.log
-dist/
+
 node_modules/
