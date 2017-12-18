@@ -33,7 +33,8 @@ var ListDetailKSD = React.createClass({
             errorMeses: "",
             zmmes: "",
             idmes: "",
-            index:0
+            index:0,
+            fee:0
         }
     },
 
@@ -150,9 +151,11 @@ var ListDetailKSD = React.createClass({
                 //var qualifyList = that.state.valSelect;
                 var money1 = parseFloat(value1) * 100;
                 api.qualifyList(loanId, '095c2c011ef740508bf27785e0ffe8f1', function (res) {
+                	//console.log(res)
                     if (res.code === '0000') {
                     	var qualifyList = JSON.parse(strDec(res.data, key1, "", ""));
                         api.applyLoan(value2, limitType, loanId, money1, qualifyList, function (ret) {
+                        	console.log(res)
                         	that.setState({
 					                flag: false
 					            })
@@ -239,7 +242,7 @@ var ListDetailKSD = React.createClass({
             ////console.log(res);
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log("贷款详情" + JSON.stringify(data));
+                console.log(data);
 
                 var moneyMin = data.moneyMin;
                 var limitMin = data.limitMin;
@@ -300,7 +303,6 @@ var ListDetailKSD = React.createClass({
 			             	index : 0
 			             })
                  }
-
                 //var rateMoney=
                 that.setState({
                     loanName: data.loanName,
@@ -316,7 +318,7 @@ var ListDetailKSD = React.createClass({
                     rate: rate,
                     rateType: data.rateType,
                     markId: data.markId,
-                    fee: data.fee,
+                    fee: that.formateMoney(data.fee),
                     isMark: data.isMark,//1已收藏
                     isLoan: data.isLoan//大于0不可申请贷款
                 }, () => {
@@ -595,9 +597,9 @@ var ListDetailKSD = React.createClass({
                 pathname: '/Login'
             }
             hashHistory.push(path);
-        } else if (id > that.state.index) {
+        //} else if (id > that.state.index) {
             //Toast.info('请按顺序认证', 2);
-            console.log('不能点击')
+        //    console.log('不能点击')
         } else {
         	switch (id){//基本信息
 				case 0:
@@ -666,13 +668,12 @@ var ListDetailKSD = React.createClass({
 
     },
     render: function () {
-        //console.log(this.state.myRateMoney);
         var that = this;
         var loanDetail = that.state.loanDetail;
         var value1 = that.state.value1 * 1;
         var value2 = that.state.value2 * 1;
         var myRateMoney = Number(that.state.myRateMoney);
-        var myTotalMoney = (loanDetail.fee + myRateMoney + value1).toFixed(2) || "";
+        var myTotalMoney = ((Number(that.state.fee)+ myRateMoney + value1)).toFixed(2)||"";
         var userCertInfo = loanDetail.userCertInfo || "";
         /*if (userCertInfo) {
             console.log(userCertInfo)

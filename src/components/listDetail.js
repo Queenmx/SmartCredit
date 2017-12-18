@@ -31,7 +31,8 @@ var ListDetail = React.createClass({
             limitType: "",
             theDateTxt: "",
             rate: "",
-            isDownImg: true
+            isDownImg: true,
+            fee:0
         }
     },
 
@@ -290,7 +291,6 @@ var ListDetail = React.createClass({
                                 default:
                                     break;
                             }*/
-
                 //var rateMoney=
                 that.setState({
                     loanName: data.loanName,
@@ -306,7 +306,7 @@ var ListDetail = React.createClass({
                     rate: rate,
                     rateType: data.rateType,
                     markId: data.markId,
-                    fee: data.fee,
+                    fee: that.formateMoney(data.fee),
                     isMark: data.isMark,//1已收藏,
                     isLoan:data.isLoan
                 }, () => {
@@ -558,7 +558,7 @@ var ListDetail = React.createClass({
         //var myFeeMoney=myRateMoney+value1;
 
         var myRateMoney = Number(that.state.myRateMoney);
-        var myTotalMoney = (loanDetail.fee + myRateMoney + value1).toFixed(2) || "";
+        var myTotalMoney = Number((Number(that.state.fee)+ myRateMoney + value1)).toFixed(2)||"";
         return (
             <div className="app_Box listDetail">
                 <Header title={loanDetail.loanName} />

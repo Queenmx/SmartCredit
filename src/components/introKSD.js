@@ -188,6 +188,8 @@ var introKSD = React.createClass({
                 <div className="listDetailCon content">
                     <Loading flag={that.state.flag} />
                     <div className="flowBox">
+                    	<h2>利率详情</h2>
+                        <div className="application" dangerouslySetInnerHTML={{ __html: loanDetail.loanIntro }}></div>
                         <h2>办理流程</h2>
                         <div className="flowPic" dangerouslySetInnerHTML={{ __html: loanDetail.loanFlow }}>
                         </div>

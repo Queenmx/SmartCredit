@@ -127,6 +127,21 @@ class ProList extends Component {
                             default:
                                 break;
                         }
+                         var theDateRate = loanList[i].rateType;
+                var theDateRateTxt;
+                switch (theDateRate) {
+                    case "Y":
+                        theDateRateTxt = "年"
+                        break;
+                    case "M":
+                        theDateRateTxt = "月"
+                        break;
+                    case "D":
+                        theDateRateTxt = "日"
+                        break;
+                    default:
+                        break;
+                }
                         arr.push(<div className="capitalList" key={Math.random()} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
                             <h3>
                                 <img src={loanList[i].logo} onError={that.logoError} />
@@ -139,7 +154,7 @@ class ProList extends Component {
                                 </div>
                                 <ul className="special">
                                     <li>{loanList[i].loanTime}</li>
-                                    <li>{theDateTxt}费率{loanList[i].rate}%</li>
+                                    <li>{theDateRateTxt}费率{loanList[i].rate}%</li>
                                     <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
                                 </ul>
                                 <div className="apply">

@@ -22,7 +22,8 @@ var SubmitResult = React.createClass({
     saveResult: function () {
         var that = this
         var ret = that.props.location.state.ret
-        var resobj = {}
+        var resobj = {};
+        console.log(ret)
         var btns
         if (ret.code === '0000') {
             resobj.text = '提交成功'

@@ -107,7 +107,7 @@ var ProgressDetail = React.createClass({
     render: function () {
         var that = this;
         var progressItem = that.props.location.state.progressItem;
-        var theDate = progressItem.rateType;
+        var theDate = progressItem.limitType;
         var theDateTxt;
         switch (theDate) {
             case "Y":
@@ -122,6 +122,21 @@ var ProgressDetail = React.createClass({
             default:
                 break;
         }
+          var theDateRate =progressItem.rateType;
+                var theDateRateTxt;
+                switch (theDateRate) {
+                    case "Y":
+                        theDateRateTxt = "年"
+                        break;
+                    case "M":
+                        theDateRateTxt = "月"
+                        break;
+                    case "D":
+                        theDateRateTxt = "日"
+                        break;
+                    default:
+                        break;
+                }
         return (
             <div className="app_Box progressDetail">
                 <Header title='借款进度' />
@@ -138,7 +153,7 @@ var ProgressDetail = React.createClass({
                             </div>
                             <ul className="special">
                                 <li>{progressItem.loanTime}</li>
-                                <li>{theDateTxt}利率{progressItem.rate}%</li>
+                                <li>{theDateRateTxt}利率{progressItem.rate}%</li>
                                 <li>贷款期限{progressItem.limitMin}-{progressItem.limitMax}{theDateTxt}</li>
                             </ul>
                         </div>

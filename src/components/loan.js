@@ -136,7 +136,7 @@ var Loan = React.createClass({
             var arr = [];
             //console.log(loanList)
             for (var i in loanList) {
-                var theDate = loanList[i].rateType;
+                var theDate = loanList[i].limitType;
                 var theDateTxt;
                 switch (theDate) {
                     case "Y":
@@ -147,6 +147,21 @@ var Loan = React.createClass({
                         break;
                     case "D":
                         theDateTxt = "日"
+                        break;
+                    default:
+                        break;
+                }
+                 var theDateRate = loanList[i].rateType;
+                var theDateRateTxt;
+                switch (theDateRate) {
+                    case "Y":
+                        theDateRateTxt = "年"
+                        break;
+                    case "M":
+                        theDateRateTxt = "月"
+                        break;
+                    case "D":
+                        theDateRateTxt = "日"
                         break;
                     default:
                         break;
@@ -163,7 +178,7 @@ var Loan = React.createClass({
                         </div>
                         <ul className="special">
                             <li>{loanList[i].loanTime}</li>
-                            <li>{theDateTxt}费率{loanList[i].rate}%</li>
+                            <li>{theDateRateTxt}费率{loanList[i].rate}%</li>
                             <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
                         </ul>
                         <div className="apply">
@@ -183,11 +198,11 @@ var Loan = React.createClass({
                     var data = JSON.parse(strDec(res.data, key1, "", ""));
                     //var data=res.data;
                     var loanList = data.list;
-
+					//console.log(loanList)
                     sessionStorage.setItem("homeLoanJZD", JSON.stringify(loanList));
                     var arr = [];
                     for (var i in loanList) {
-                        var theDate = loanList[i].rateType;
+                        var theDate = loanList[i].limitType;
                         var theDateTxt;
                         switch (theDate) {
                             case "Y":
@@ -202,6 +217,21 @@ var Loan = React.createClass({
                             default:
                                 break;
                         }
+                          var theDateRate = loanList[i].rateType;
+                var theDateRateTxt;
+                switch (theDateRate) {
+                    case "Y":
+                        theDateRateTxt = "年"
+                        break;
+                    case "M":
+                        theDateRateTxt = "月"
+                        break;
+                    case "D":
+                        theDateRateTxt = "日"
+                        break;
+                    default:
+                        break;
+                }
                         arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
                             <h3>
                                 <img src={imgPath + loanList[i].logo} onError={that.logoError} />
@@ -214,7 +244,7 @@ var Loan = React.createClass({
                                 </div>
                                 <ul className="special">
                                     <li>{loanList[i].loanTime}</li>
-                                    <li>{theDateTxt}利率{loanList[i].rate}%</li>
+                                    <li>{theDateRateTxt}利率{loanList[i].rate}%</li>
                                     <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
                                 </ul>
                                 <div className="apply">
@@ -247,9 +277,9 @@ var Loan = React.createClass({
         if (homeLoanKSD) {
             var loanList = JSON.parse(homeLoanKSD);
             var arr = [];
-            //console.log(loanList)
+           // console.log(loanList)
             for (var i in loanList) {
-                var theDate = loanList[i].rateType;
+                var theDate = loanList[i].limitType;
                 var theDateTxt;
                 switch (theDate) {
                     case "Y":
@@ -260,6 +290,21 @@ var Loan = React.createClass({
                         break;
                     case "D":
                         theDateTxt = "日"
+                        break;
+                    default:
+                        break;
+                }
+                 var theDateRate = loanList[i].rateType;
+                var theDateRateTxt;
+                switch (theDateRate) {
+                    case "Y":
+                        theDateRateTxt = "年"
+                        break;
+                    case "M":
+                        theDateRateTxt = "月"
+                        break;
+                    case "D":
+                        theDateRateTxt = "日"
                         break;
                     default:
                         break;
@@ -276,7 +321,7 @@ var Loan = React.createClass({
                         </div>
                         <ul className="special">
                             <li>{loanList[i].loanTime}</li>
-                            <li>{theDateTxt}费率{loanList[i].rate}%</li>
+                            <li>{theDateRateTxt}费率{loanList[i].rate}%</li>
                             <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
                         </ul>
                         <div className="apply">
@@ -296,11 +341,11 @@ var Loan = React.createClass({
                     var data = JSON.parse(strDec(res.data, key1, "", ""));
                     //var data=res.data;
                     var loanList = data.list;
-
+					//console.log(loanList);
                     sessionStorage.setItem("homeLoanKSD", JSON.stringify(loanList));
                     var arr = [];
                     for (var i in loanList) {
-                        var theDate = loanList[i].rateType;
+                        var theDate = loanList[i].limitType;
                         var theDateTxt;
                         switch (theDate) {
                             case "Y":
@@ -315,6 +360,22 @@ var Loan = React.createClass({
                             default:
                                 break;
                         }
+                        
+                         var theDateRate = loanList[i].rateType;
+                var theDateRateTxt;
+                switch (theDateRate) {
+                    case "Y":
+                        theDateRateTxt = "年"
+                        break;
+                    case "M":
+                        theDateRateTxt = "月"
+                        break;
+                    case "D":
+                        theDateRateTxt = "日"
+                        break;
+                    default:
+                        break;
+                }
                         arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
                             <h3>
                                 <img src={imgPath + loanList[i].logo} onError={that.logoError} />
@@ -327,7 +388,7 @@ var Loan = React.createClass({
                                 </div>
                                 <ul className="special">
                                     <li>{loanList[i].loanTime}</li>
-                                    <li>{theDateTxt}利率{loanList[i].rate}%</li>
+                                    <li>{theDateRateTxt}利率{loanList[i].rate}%</li>
                                     <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
                                 </ul>
                                 <div className="apply">

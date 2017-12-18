@@ -44,9 +44,10 @@ var Progress = React.createClass({
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
                 var progressList = data.list;
+                console.log(progressList);
                 var arr = [];
                 for (var i in progressList) {
-                    var theDate = progressList[i].rateType;
+                    var theDate = progressList[i].limitType;
                     var theDateTxt;
                     switch (theDate) {
                         case "Y":
@@ -61,6 +62,21 @@ var Progress = React.createClass({
                         default:
                             break;
                     }
+                    var theDateRate = progressList[i].rateType;
+                var theDateRateTxt;
+                switch (theDateRate) {
+                    case "Y":
+                        theDateRateTxt = "年"
+                        break;
+                    case "M":
+                        theDateRateTxt = "月"
+                        break;
+                    case "D":
+                        theDateRateTxt = "日"
+                        break;
+                    default:
+                        break;
+                }
                     arr.push(<div className="capitalList" key={i} onClick={that.toProgressDetail.bind(null, progressList[i])}>
                         <h3>
                             <img src={imgPath + progressList[i].logo} onError={that.logoError} />
@@ -73,7 +89,7 @@ var Progress = React.createClass({
                             </div>
                             <ul className="special">
                                 <li>{progressList[i].loanTime}</li>
-                                <li>{theDateTxt}利率{progressList[i].rate}%</li>
+                                <li>{theDateRateTxt}利率{progressList[i].rate}%</li>
                                 <li>贷款期限{progressList[i].limitMin}-{progressList[i].limitMax}{theDateTxt}</li>
                             </ul>
                             <div className="detail">

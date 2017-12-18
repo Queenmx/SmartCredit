@@ -119,6 +119,21 @@ class processList extends Component {
                             default:
                                 break;
                         }
+                              var theDateRate = progressList[i].rateType;
+                var theDateRateTxt;
+                switch (theDateRate) {
+                    case "Y":
+                        theDateRateTxt = "年"
+                        break;
+                    case "M":
+                        theDateRateTxt = "月"
+                        break;
+                    case "D":
+                        theDateRateTxt = "日"
+                        break;
+                    default:
+                        break;
+                }
                         arr.push(<div className="capitalList" key={Math.random()} onClick={that.toProgressDetail.bind(this, progressList[i])}>
                             <h3>
                                 <img src={imgPath + progressList[i].logo} onError={that.logoError} />
@@ -131,7 +146,7 @@ class processList extends Component {
                                 </div>
                                 <ul className="special">
                                     <li>{progressList[i].loanTime}</li>
-                                    <li>{theDateTxt}利率{progressList[i].rate}%</li>
+                                    <li>{theDateRateTxt}利率{progressList[i].rate}%</li>
                                     <li>贷款期限{progressList[i].limitMin}-{progressList[i].limitMax}{theDateTxt}</li>
                                 </ul>
                                 <div className="detail">

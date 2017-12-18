@@ -22,6 +22,141 @@ var OrderList = React.createClass({
 	      	lastPage: false,
 			pageSize:10,
 			scrollShow:false,
+			statusJZD:{
+				"PENDING": {
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnOne":true,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"取消借款",
+                		"dataId":"1",
+                		"btnOne":true,
+                		"text": "待处理"
+                	}
+                },
+                 "APRING": {
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnOne":true,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"取消借款",
+                		"dataId":"1",
+                		"btnOne":true,
+                		"text": "待审核"
+                	}
+                },
+                 "APRNO": {//审核不通过
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnOne":true,
+                		"text": "审核不通过",
+                	},
+                	"1":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",
+                		"btnOne":true,
+                		"text": "审核不通过"
+                	}
+                },
+                "APRYES": {//审核通过 ，就是待签合同
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnOne":true,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnOne":false,
+                		"text": "",
+                	},
+                	"2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnOne":false,
+                		"text": "",
+                	}
+                },
+                "CONYES":{//已签合同 就是等待放款
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnOne":true,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"取消借款",
+                		"dataId":"1",
+                		"btnOne":false,
+                		"text": ""
+                	}
+                },
+                "LOANNO":{// 放款失败
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnOne":true,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"删除订单",
+                		"dataId":"1",
+                		"btnOne":false,
+                		"text": ""
+                	}
+                },
+                "LOANYES":{//放款成功
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnOne":true,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"立即还款",
+                		"dataId":"4",
+                		"btnOne":false,
+                		"text": ""
+                	}
+                
+                },
+                "REPAYYES":{// 还款结束
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnOne":true,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",
+                		"btnOne":false,
+                		"text": ""
+                	}
+                },
+                "":{
+                	"-2":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnOne":true,
+                		"text": "已取消",
+                	},
+                	"1":{
+                		"btnTxt":"删除订单",
+                		"dataId":"2",
+                		"btnOne":false,
+                		"text": ""
+                	}
+                }
+			},
 			status: {
                 "PENDING": {
                 	"-2":{
@@ -155,21 +290,8 @@ var OrderList = React.createClass({
                 		"btnTwo":false,
                 		"text": "已取消"
                 	}
-                },
-                "":{
-                	"-2":{
-                		"btnTxt":"删除订单",
-                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
-                		"btnTwo":false,
-                		"text": "已取消",
-                	},
-                	"1":{
-                		"btnTxt":"删除订单",
-                		"dataId":"2",
-                		"btnTwo":false,
-                		"text": "已取消"
-                	}
                 }
+              
             },
            
             rate: {
@@ -436,7 +558,7 @@ showAlert :function (applyId,capitalId,loanId,applyNo,e) {
 	                    arr.push(<li key={Math.random()} data-applyId={orderList[i].applyId} onClick={that.toOrderDetail}>
 	                        <div className="orderNum">
 	                            <span>订单号：{orderList[i].applyNo}</span>
-	                            <span  className="order_n">{that.state.status[applyStatus][status].text}</span>
+	                            <span  className="order_n">{orderList[i].type=='JZD'?that.state.statusJZD[applyStatus][status].text:that.state.status[applyStatus][status].text}</span>
 	                        </div>
 	                        <h3 className="list_title">
 	                            <img src={'http://xrjf.oss-cn-shanghai.aliyuncs.com/' + orderList[i].logo} onError={that.logoError}/>
@@ -448,16 +570,16 @@ showAlert :function (applyId,capitalId,loanId,applyNo,e) {
 		                            <li>借款金额 {that.formateMoney(orderList[i].money)}元</li>
 		                            <li>期限{orderList[i].limitDay}{that.state.rate[orderList[i].limitType]}</li>
 		                            <li>利息{that.formateMoney(orderList[i].interest)}元</li>
-		                            <li>费用{orderList[i].fee}元</li>
+		                            <li>费用{that.formateMoney(orderList[i].fee)}元</li>
 		                        </ul>
 		                          <p style={{'display':orderList[i].loanMoney>0?'block':'none'}}>放款金额 <span>¥{loanMoney}</span></p>
 		                    </div>
 	                        <div className="listFoot">
 	                            <span className="status">{nextRepay}</span>
-	                            <span data-id={that.state.status[applyStatus][status].dataId} onClick={that.showAlert.bind(that,orderList[i].applyId,orderList[i].capitalId,orderList[i].loanId,orderList[i].applyNo)} className='statusBtn' >
-	                            	{that.state.status[applyStatus][status].btnTxt}
+	                            <span data-id={orderList[i].type=='JZD'?that.state.statusJZD[applyStatus][status].dataId:that.state.status[applyStatus][status].dataId} onClick={that.showAlert.bind(that,orderList[i].applyId,orderList[i].capitalId,orderList[i].loanId,orderList[i].applyNo)} className='statusBtn' style={{"display":orderList[i].type=='KSD'||that.state.statusJZD[applyStatus][status].btnOne? 'block':'none'}}  >
+	                            	{orderList[i].type=='JZD'?that.state.statusJZD[applyStatus][status].btnTxt:that.state.status[applyStatus][status].btnTxt}
 	                            </span>
-	                             <span data-id="3" onClick={that.showAlert.bind(that,orderList[i].applyId,orderList[i].capitalId,orderList[i].loanId,orderList[i].applyNo)} className='statusBtn'  style={{"display":that.state.status[applyStatus][status].btnTwo? 'block':'none'}}>
+	                             <span data-id="3" onClick={that.showAlert.bind(that,orderList[i].applyId,orderList[i].capitalId,orderList[i].loanId,orderList[i].applyNo)} className='statusBtn'  style={{"display":orderList[i].type=='KSD'&&that.state.status[applyStatus][status].btnTwo? 'block':'none'}}>
 	                            	绑卡签约
 	                            </span>
 	                        </div>

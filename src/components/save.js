@@ -322,6 +322,36 @@ var Save = React.createClass({
 					var total=data.total;
 					console.log(data);
 					for(var i in loanList){
+						var theDateTxt;
+						 var theDate = loanList[i].limitType;
+		                switch (theDate) {
+		                    case "Y":
+		                        theDateTxt = "年"
+		                        break;
+		                    case "M":
+		                        theDateTxt = "月"
+		                        break;
+		                    case "D":
+		                        theDateTxt = "日"
+		                        break;
+		                    default:
+		                        break;
+		                }
+		                 var theDateRate = loanList[i].rateType;
+		                var theDateRateTxt;
+		                switch (theDateRate) {
+		                    case "Y":
+		                        theDateRateTxt = "年"
+		                        break;
+		                    case "M":
+		                        theDateRateTxt = "月"
+		                        break;
+		                    case "D":
+		                        theDateRateTxt = "日"
+		                        break;
+		                    default:
+		                        break;
+		                }
 						//arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndLoan}>
 						arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId} data-type={loanList[i].type}  key={Math.random()} onClick={that.toLoanDetail}>
 		        				<h3>
@@ -335,8 +365,8 @@ var Save = React.createClass({
 		        					</div>
 		        					<ul className="special">
 		        						<li>{loanList[i].loanTime}</li>
-		        						<li>日费率{loanList[i].rate}%</li>
-		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}天</li>
+		        						<li>{theDateRateTxt}费率{loanList[i].rate}%</li>
+		        						<li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
 		        					</ul>
 		        					<div className="apply">
 		        						<a  data-loanId={loanList[i].loanId}>申请贷款</a>

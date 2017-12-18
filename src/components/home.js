@@ -51,34 +51,8 @@ var Home = React.createClass({
         //console.log(event.target.src);
     },
 
-    toList: function (event) {
-        const tag = event.currentTarget.getAttribute("data-tag");
-        const txt = event.currentTarget.getAttribute("data-txt");
-        const tagId = event.currentTarget.getAttribute("data-tagId");
-        const data = { tag: tagId, tagId: tagId, txt: txt };
-        const path = {
-            pathname: '/List',
-            state: data
-        }
-        hashHistory.push(path);
-    },
-    toNewsDetail: function (event) {
-        var articleId = event.currentTarget.getAttribute("data-articleid");
-        //console.log(articleId);
-        var data = { articleId: articleId };
-        var path = {
-            pathname: '/NewsDetail',
-            query: data,
-        }
-        hashHistory.push(path);
-    },
 
-    toLoan: function () {
-        var path = {
-            pathname: '/Loan',
-        }
-        hashHistory.push(path);
-    },
+    
     toProgress: function () {
         var path
         var user = localStorage.getItem("user");
@@ -93,169 +67,7 @@ var Home = React.createClass({
         }
         hashHistory.push(path);
     },
-    componentDidMount: function () {
-        var key1 = globalData.key;
-        var toast = globalData.toast;
-        var that = this;
 
-        var homeLoan = sessionStorage.getItem("homeLoan");
-        if (homeLoan) {
-            var loanList = JSON.parse(homeLoan);
-            var arr = [];
-
-            for (var i in loanList) {
-                var theDate = loanList[i].rateType;
-                var theDateTxt;
-                switch (theDate) {
-                    case "Y":
-                        theDateTxt = "年"
-                        break;
-                    case "M":
-                        theDateTxt = "月"
-                        break;
-                    case "D":
-                        theDateTxt = "日"
-                        break;
-                    default:
-                        break;
-                }
-                arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
-                    <h3>
-                        <img src={imgPath + loanList[i].logo} onError={that.logoError} />
-                        <span>{loanList[i].loanName}</span>
-                    </h3>
-                    <div className="capitalInfo">
-                        <div className="limit">
-                            <h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
-                            <p>额度范围(元)</p>
-                        </div>
-                        <ul className="special">
-                            <li>{loanList[i].loanTime}</li>
-                            <li>{theDateTxt}费率{loanList[i].rate}%</li>
-                            <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
-                        </ul>
-                        <div className="apply">
-                            <a href="javascript:;" >申请贷款</a>
-                        </div>
-                    </div>
-
-                </div>)
-            }
-
-            that.setState({
-                list: arr
-            })
-        } else {
-            api.loanList(1, 5, "", function (res) {
-
-                if (res.code == "0000") {
-                    var data = JSON.parse(strDec(res.data, key1, "", ""));
-                    //var data=res.data;
-                    var loanList = data.list;
-                    sessionStorage.setItem("homeLoan", JSON.stringify(loanList));
-                    var arr = [];
-                    for (var i in loanList) {
-                        var theDate = loanList[i].rateType;
-                        var theDateTxt;
-                        switch (theDate) {
-                            case "Y":
-                                theDateTxt = "年"
-                                break;
-                            case "M":
-                                theDateTxt = "月"
-                                break;
-                            case "D":
-                                theDateTxt = "日"
-                                break;
-                            default:
-                                break;
-                        }
-                        arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
-                            <h3>
-                                <img src={imgPath + loanList[i].logo} onError={that.logoError} />
-                                <span>{loanList[i].loanName}</span>
-                            </h3>
-                            <div className="capitalInfo">
-                                <div className="limit">
-                                    <h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
-                                    <p>额度范围(元)</p>
-                                </div>
-                                <ul className="special">
-                                    <li>{loanList[i].loanTime}</li>
-                                    <li>{theDateTxt}利率{loanList[i].rate}%</li>
-                                    <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
-                                </ul>
-                                <div className="apply">
-                                    <a href="javascript:;">申请贷款</a>
-                                </div>
-                            </div>
-
-                        </div>)
-                    }
-
-                    that.setState({
-                        list: arr
-                    })
-
-                } else {
-                    Toast.info("连接错误", 2);
-                }
-            }, function () {
-                Toast.info("连接错误", 2);
-            })
-        }
-
-        var homeArticle = sessionStorage.getItem("homeArticle");
-        if (homeArticle) {
-            var articleList = JSON.parse(homeArticle);
-            var articleArr = [];
-            for (var i in articleList) {
-                articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
-                    <dd>
-                        <h4>{articleList[i].articleTitle}</h4>
-                        <p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
-                    </dd>
-                    <dt>
-                        <img src={imgPath + articleList[i].imgUrl} onError={that.logoError} />
-                    </dt>
-                </dl>)
-            }
-            that.setState({
-                articleArr: articleArr
-            })
-        } else {
-            api.articleList(1, 3, function (res) {
-                //console.log(res);
-                if (res.code == "0000") {
-                    var data = JSON.parse(strDec(res.data, key1, "", ""));
-                    //var data =JSON.parse(res.data);
-                    //console.log(data);
-                    var articleList = data.list;
-                    sessionStorage.setItem("homeArticle", JSON.stringify(articleList));
-                    var articleArr = [];
-                    for (var i in articleList) {
-                        articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
-                            <dd>
-                                <h4>{articleList[i].articleTitle}</h4>
-                                <p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
-                            </dd>
-                            <dt>
-                                <img src={imgPath + articleList[i].imgUrl} onError={that.logoError} />
-                            </dt>
-                        </dl>)
-                    }
-                    that.setState({
-                        articleArr: articleArr
-                    })
-
-                } else {
-                    Toast.info(res.msg, 2);
-                }
-            }, function () {
-                Toast.info("连接错误", 2);
-            })
-        }
-    },
 
     toList: function (event) {
         const tag = event.currentTarget.getAttribute("data-tag");
@@ -297,7 +109,7 @@ var Home = React.createClass({
             var arr = [];
             //console.log(loanList)
             for (var i in loanList) {
-                var theDate = loanList[i].rateType;
+                var theDate = loanList[i].limitType;
                 var theDateTxt;
                 switch (theDate) {
                     case "Y":
@@ -308,6 +120,21 @@ var Home = React.createClass({
                         break;
                     case "D":
                         theDateTxt = "日"
+                        break;
+                    default:
+                        break;
+                }
+                 var theDateRate = loanList[i].rateType;
+                var theDateRateTxt;
+                switch (theDateRate) {
+                    case "Y":
+                        theDateRateTxt = "年"
+                        break;
+                    case "M":
+                        theDateRateTxt = "月"
+                        break;
+                    case "D":
+                        theDateRateTxt = "日"
                         break;
                     default:
                         break;
@@ -324,7 +151,7 @@ var Home = React.createClass({
                         </div>
                         <ul className="special">
                             <li>{loanList[i].loanTime}</li>
-                            <li>{theDateTxt}费率{loanList[i].rate}%</li>
+                            <li>{theDateRateTxt}费率{loanList[i].rate}%</li>
                             <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
                         </ul>
                         <div className="apply">
@@ -348,7 +175,7 @@ var Home = React.createClass({
                     sessionStorage.setItem("homeLoan", JSON.stringify(loanList));
                     var arr = [];
                     for (var i in loanList) {
-                        var theDate = loanList[i].rateType;
+                        var theDate = loanList[i].limitType;
                         var theDateTxt;
                         switch (theDate) {
                             case "Y":
@@ -363,6 +190,22 @@ var Home = React.createClass({
                             default:
                                 break;
                         }
+                        
+                        var theDateRate = loanList[i].rateType;
+                var theDateRateTxt;
+                switch (theDateRate) {
+                    case "Y":
+                        theDateRateTxt = "年"
+                        break;
+                    case "M":
+                        theDateRateTxt = "月"
+                        break;
+                    case "D":
+                        theDateRateTxt = "日"
+                        break;
+                    default:
+                        break;
+                }
                         arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
                             <h3>
                                 <img src={imgPath + loanList[i].logo} onError={that.logoError} />
@@ -375,7 +218,7 @@ var Home = React.createClass({
                                 </div>
                                 <ul className="special">
                                     <li>{loanList[i].loanTime}</li>
-                                    <li>{theDateTxt}利率{loanList[i].rate}%</li>
+                                    <li>{theDateRateTxt}利率{loanList[i].rate}%</li>
                                     <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
                                 </ul>
                                 <div className="apply">

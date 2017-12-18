@@ -63,24 +63,14 @@ var repayResult = React.createClass({
     },
     goOrderDetail: function () {
         var that = this
-        var orderId = that.props.location.query.order_sn
+        var orderId = that.props.location.query.order_sn;
+        console.log(orderId);
         var key1 = globalData.key;
-        //获取订单号
-        api.getApplyId(orderId, function (res) {
-            if (res.code == "0000") {
-                var data = JSON.parse(strDec(res.data, key1, "", ""));
-                var applyId = data.applyId
-                var path = {
-                    pathname: '/OrderDetail',
-                    query: { applyId: applyId }
-                }
-                hashHistory.push(path);
-            } else {
-                Toast.info(res.msg, 2);
-            }
-        }, function () {
-            Toast.info("连接错误", 2);
-        })
+        var path = {
+            pathname: '/OrderDetail',
+            query: { applyId: that.props.location.query.order_sn }
+        }
+        hashHistory.push(path);
 
     },
     componentDidMount: function () {
