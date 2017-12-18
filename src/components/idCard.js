@@ -20,7 +20,7 @@ var IdCard = React.createClass({
         var userObj = JSON.parse(user);
         this.setState({
             userObj: userObj,
-            certStatus: userObj.certStatus,
+            certStatus: this.props.location.query.certStatus,
             backPic: userObj.backPic,
             frontPic: userObj.frontPic
         })
@@ -29,11 +29,8 @@ var IdCard = React.createClass({
     finishID: function () {
         var that = this;
         var certStatus = that.state.certStatus;
-        console.log(certStatus);
-        if (certStatus == 1) {
+        if (certStatus >0) {
             Toast.info("认证已通过，无需重复上传", 2);
-        } else if (certStatus === 0) {
-            Toast.info("正在审核中，无需重复上传", 2);
         } else {
             that.setState({
                 flag: true
@@ -177,7 +174,7 @@ var IdCard = React.createClass({
                         <p>身份证反面照,图片清晰,边缘完整</p>
                     </div>
                 </div>
-                <div className="botBtn" onClick={that.finishID}>完成身份验证</div>
+                <div className="botBtn" onClick={that.finishID}>{that.state.certStatus>0?'认证已通过，无需上传':'完成身份验证'}</div>
             </div>
         )
     }
