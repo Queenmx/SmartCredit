@@ -73,10 +73,10 @@ var OrderList = React.createClass({
                 		"text": "已取消",
                 	},
                 	"1":{
-                		"btnTxt":"删除订单",
-                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnTxt":"取消订单",
+                		"dataId":"1",//1取消贷款，2删除订单，3签约，4立即还款
                 		"btnOne":false,
-                		"text": "",
+                		"text": "审核通过",
                 	},
                 	"2":{
                 		"btnTxt":"删除订单",

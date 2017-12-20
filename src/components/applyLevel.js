@@ -35,6 +35,11 @@ var ApplyLevel = React.createClass({
             window.history.back()
         }
     },
+    getQualit:function(qualifySelect){
+    	this.setState({
+    		valSelect:qualifySelect
+    	})
+    },
     toApplyResult: function () {
         var that = this;
         ////console.log(that.state.valSelect);
@@ -143,7 +148,7 @@ var ApplyLevel = React.createClass({
 								{that.state.qualifyListArr}
 							</ul>
 						</form>*/}
-                        <LevelList objId={that.state.loanId} ref="toChildSaveBtn" />
+                        <LevelList objId={that.state.loanId} getQualit={that.getQualit} ref="toChildSaveBtn" />
                         <div className="rule">
                             <input className="magic-checkbox" type="checkbox" id="ruleCheck" checked={that.state.checked} onChange={that.agreeRule} />
                             <label htmlFor="ruleCheck">我已同意</label>

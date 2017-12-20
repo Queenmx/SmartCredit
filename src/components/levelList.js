@@ -51,6 +51,7 @@ var levelList = React.createClass({
                         flag: false
                     })
                     //window.history.back();
+                    that.props.getQualit(qualifySelect);
                     callback();
                 } else if (res.code == "5555") {
                     Toast.info("登录过时，请重新登录", 2);
@@ -181,11 +182,11 @@ var levelList = React.createClass({
         //获取资质列表
         var objId = that.props.objId;
         api.qualifyList(objId, "095c2c011ef740508bf27785e0ffe8f1", function (res) {
-            console.log(res);
+            //console.log(res);
 
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log(data);
+                //console.log(data);
                 that.setState({
                     flag: false,
                     qualifyList: data
