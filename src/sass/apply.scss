@@ -90,6 +90,32 @@
             margin-left: 0.3rem;
         }
     }
+    .realName{
+       
+        height: 1rem;
+        line-height: 1rem;
+        @include border_Bot;
+        font-size: 0.28rem;
+        background: #FFFFFF;
+        padding: 0 0.5rem;
+        color: #333333;
+        label{
+            width: 1.6rem;
+            margin-right: 0.8rem;
+        }
+        input{
+             float: right;
+            text-align: right;
+            border: 0;
+            color: rgb(51, 51, 51);
+            background: transparent;
+            font-size: 0.24rem;
+            width:3.4rem;
+            height: 0.6rem;
+           line-height: 0.6rem;
+           margin-top: 0.2rem;
+           }
+      }
 }
     .magic-checkbox {
           position: absolute;

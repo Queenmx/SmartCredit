@@ -25,9 +25,9 @@ var ApplyResult = React.createClass({
         //console.log(hashHistory);
         //var apiWay=this.props.location.state.apiWey;
         //var apiUrl=this.props.location.state.apiUrl;
-        const { apiWay, apiUrl } = this.props.location.state;
+        const { apiWay, apiUrl ,tapNum} = this.props.location.state;
         //console.log(this.props.location.state);
-        this.setState({ apiWay: apiWay, apiUrl: apiUrl })
+        this.setState({ apiWay: apiWay, apiUrl: apiUrl ,tapNum:tapNum})
     },
 
     toBack: function () {
@@ -53,12 +53,12 @@ var ApplyResult = React.createClass({
 			  //query:data,
 			}
 			hashHistory.push(path);*/
-            history.go(-3);
+            history.go(this.state.tapNum);
         } else if (apiWay == "H5") {//url
             window.location.href = this.state.apiUrl;
             //this.setState({iframeShow:true,frameSrc:this.state.apiUrl})
         } else {
-            history.go(-3);
+            history.go(this.state.tapNum);
             Toast.info("参数为空", 2)
         }
     },

@@ -119,6 +119,42 @@
   position: relative; }
   .applyLevel .rule a {
     margin-left: 0.3rem; }
+.applyLevel .realName {
+  height: 1rem;
+  line-height: 1rem;
+  position: relative;
+  font-size: 0.28rem;
+  background: #FFFFFF;
+  padding: 0 0.5rem;
+  color: #333333; }
+  .applyLevel .realName:after {
+    pointer-events: none;
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    content: "";
+    -webkit-transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+    border-bottom: 1px solid #f3f3f3; }
+  .applyLevel .realName label {
+    width: 1.6rem;
+    margin-right: 0.8rem; }
+  .applyLevel .realName input {
+    float: right;
+    text-align: right;
+    border: 0;
+    color: #333333;
+    background: transparent;
+    font-size: 0.24rem;
+    width: 3.4rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    margin-top: 0.2rem; }
 
 .magic-checkbox {
   position: absolute;

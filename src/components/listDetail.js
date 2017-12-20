@@ -41,11 +41,13 @@ var ListDetail = React.createClass({
         var loanId = this.props.location.query.loanId;
         if (user) {
             this.setState({
+            	realName:(JSON.parse(user)).realName,
                 isLogin: true,
                 loanId: loanId
             })
         } else {
             this.setState({
+            	realName:'',
                 isLogin: false,
                 loanId: loanId
             })
@@ -141,19 +143,40 @@ var ListDetail = React.createClass({
         	}else{
         		 const { value2, limitType, loanId, value1 } = that.state;
 	            //console.log(that.state);
-	            var queryData = {
-	                loanId: loanId,
-	                applyQuery: {
-	                    limitDay: value2,
-	                    limitType: limitType,
-	                    loanId: loanId,
-	                    money: value1
-	                }
-	            };
-	            var path = {
-	                pathname: '/ApplyInfo',
-	                state: queryData,
+	            
+	            console.log(that.state.realName);
+	            if(that.state.realName){
+	            	var queryData = {
+		                loanId: loanId,
+		                tapNum:-2,
+		                applyQuery: {
+		                    limitDay: value2,
+		                    limitType: limitType,
+		                    loanId: loanId,
+		                    money: value1
+		                }
+		            };
+	            	var path = {
+		                pathname: '/ApplyLevel',
+		                state: queryData,
+		            }
+	            }else{
+	            	var queryData = {
+		                loanId: loanId,
+		                tapNum:-3,
+		                applyQuery: {
+		                    limitDay: value2,
+		                    limitType: limitType,
+		                    loanId: loanId,
+		                    money: value1
+		                }
+		            };
+	            	var path = {
+		                pathname: '/ApplyInfo',
+		                state: queryData,
+		            }
 	            }
+	            
 	            hashHistory.push(path);
         	}
            
@@ -306,7 +329,7 @@ var ListDetail = React.createClass({
                     rate: rate,
                     rateType: data.rateType,
                     markId: data.markId,
-                    fee: that.formateMoney(data.fee),
+                    fee: data.fee,
                     isMark: data.isMark,//1已收藏,
                     isLoan:data.isLoan
                 }, () => {

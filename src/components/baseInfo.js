@@ -39,6 +39,7 @@ var BaseInfo = React.createClass({
     componentWillMount: function () {
         //var authTap=this.props.location.query.authTap;
         //console.log(authTap);
+         var userStr = globalData.user;
     },
     agreeRule: function (event) {
         //console.log(event.target.checked);
@@ -46,7 +47,9 @@ var BaseInfo = React.createClass({
             checked: event.target.checked
         })
     },
-
+	getQualit:function(){
+    	console.log('子传父')
+    },
     render: function () {
         var that = this;
         var objId = this.props.location.query.loanId;
@@ -55,7 +58,8 @@ var BaseInfo = React.createClass({
             <div className="app_Box personalLevel">
                 <Header title="基本信息认证" />
                 <div className="applyLevel content">
-                    <LevelList objId={objId} ref="toChildSaveBtn" />
+                	
+                    <LevelList objId={objId} ref="toChildSaveBtn" getQualit={that.getQualit} loanType='KSD'/>
                     <div className="rule">
                         <input className="magic-checkbox" type="checkbox" id="ruleCheck" checked={that.state.checked} onChange={that.agreeRule} />
                         <label htmlFor="ruleCheck">我已同意</label>

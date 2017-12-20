@@ -42,7 +42,6 @@ var RealName = React.createClass({
         var idCartReg = /(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/;
         var user = that.state.user;
         let idCard = that.state.idCard;
-        var toast = globalData.toast;
         // console.log(idCard);
         if (idCartReg.test(idCard)) {
             api.edit(idCard, that.state.located, user.realName, function (res) {
@@ -92,7 +91,7 @@ var RealName = React.createClass({
                 <div className="setPsdCon">
                     <div className="realName">
                         <label htmlFor="realName">请输入身份证号码</label>
-                        <input id="realName" type="number" name="idCard" placeholder="" onChange={that.vauleChange} />
+                        <input id="realName" type="text" name="idCard" placeholder="" onChange={that.vauleChange} />
                     </div>
 
                     <div className="psdLogin" onClick={that.saveId}>保存</div>

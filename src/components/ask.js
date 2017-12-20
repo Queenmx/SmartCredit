@@ -4,6 +4,7 @@ import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
 import Header from './header';
+import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../css/problem.css';
 import { Toast } from 'antd-mobile';
@@ -14,7 +15,8 @@ var Ask = React.createClass({
     getInitialState: function () {
         return {
             content: '',
-            title: ""
+            title: "",
+             flag: false
         }
     },
 
@@ -42,31 +44,53 @@ var Ask = React.createClass({
     submitAsk: function () {
         var content = this.state.content;
         //var content=$("textarea").val().trim();
+        var that=this;
         if (content.length > 0) {
+        	that.setState({
+                    flag: true
+                })
             if (this.state.fromWho == "help") {//反馈建议
                 api.feedBackAdd(content, function (res) {
-                    //console.log(res);
+                    console.log('feedBackAdd',res);
                     if (res.code == "0000") {
+                    	that.setState({
+		                    flag: false
+		                })
                         Toast.info("提交成功", 2);
                         window.history.back();
                     } else {
+                    	that.setState({
+		                    flag: false
+		                })
                         Toast.info(res.msg, 2);
                     }
                 }, function () {
+                	that.setState({
+		                    flag: false
+		                })
                     Toast.info("连接错误", 2);
                 })
             } else {//提问问题
                 var objId = this.props.location.query.objId;
                 var objType = this.props.location.query.objType;
                 api.questionAdd(content, objId, objType, function (res) {
-                    //console.log(res);
+                    console.log('questionAdd',res);
                     if (res.code == "0000") {
+                    	that.setState({
+		                    flag: false
+		                })
                         Toast.info("提交成功", 2);
                         window.history.back();
                     } else {
+                    	that.setState({
+		                    flag: false
+		                })
                         Toast.info(res.msg, 2);
                     }
                 }, function () {
+                	that.setState({
+		                    flag: false
+		                })
                     Toast.info("连接错误", 2);
                 })
             }
@@ -74,6 +98,7 @@ var Ask = React.createClass({
 
 
         } else {
+        	
             Toast.info("请输入内容", 2);
         }
 
@@ -97,6 +122,7 @@ var Ask = React.createClass({
         return (
             <div className="app_Box ask">
                 <Header title={that.state.title} />
+                <Loading flag={that.state.flag} />
                 <div className="askCon content">
                     <p>{that.state.head}</p>
                     <textarea type="text" cols="50" rows="10" placeholder="描述(200个字以内)" onChange={that.upText}></textarea>

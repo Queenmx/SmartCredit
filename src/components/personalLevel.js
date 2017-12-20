@@ -30,7 +30,9 @@ var PersonalLevel = React.createClass({
     componentWillMount: function () {
 
     },
-
+	getQualit:function(){
+    	console.log('子传父')
+    },
     render: function () {
         var that = this;
         return (
@@ -43,7 +45,7 @@ var PersonalLevel = React.createClass({
 							{that.state.qualifyListArr}
 						</ul>
 					</form>*/}
-                    <LevelList objId="" ref="toChildSaveBtn" />
+                    <LevelList objId="" ref="toChildSaveBtn" getQualit={that.getQualit} loanType='' />
                 </div>
 
                 <div className="botBtn footer" onClick={that.toChildSaveBtn}>保存</div>

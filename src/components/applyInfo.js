@@ -73,7 +73,7 @@ var ApplyInfo = React.createClass({
                     Toast.info("连接错误", 2);
                 })
             }
-            var queryData = { applyNumber: applyNumber, applyName: applyName, loanId: loanId, applyQuery: applyQuery };
+            var queryData = { loanId: loanId, applyQuery: applyQuery };
             that.setState({
                 flag: false
             })

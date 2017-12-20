@@ -365,6 +365,7 @@ module.exports.feedBackAdd = function (content, cb1, cb2) {
     data.content = content;
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
+    console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/feedBack/add`, { params: str }, cb1, cb2);
     delete data.content;

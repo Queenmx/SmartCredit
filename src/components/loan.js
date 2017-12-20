@@ -193,7 +193,7 @@ var Loan = React.createClass({
                 listJZD: arr
             })
         } else {
-            api.loanList(1, 10, "", "JZD", function (res) {
+            api.loanList(1, 30, "", "JZD", function (res) {
                 if (res.code == "0000") {
                     var data = JSON.parse(strDec(res.data, key1, "", ""));
                     //var data=res.data;
@@ -336,7 +336,7 @@ var Loan = React.createClass({
                 listKSD: arr
             })
         } else {
-            api.loanList(1, 10, "", "KSD", function (res) {
+            api.loanList(1, 30, "", "KSD", function (res) {
                 if (res.code == "0000") {
                     var data = JSON.parse(strDec(res.data, key1, "", ""));
                     //var data=res.data;

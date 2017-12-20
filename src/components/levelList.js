@@ -13,12 +13,25 @@ var levelList = React.createClass({
             flag: false,
             valSelect: [],
             qualifyListArr: [],
-            second: []
+            second: [],
+            loanType:this.props.loanType
         }
     },
 
     componentWillMount: function () {
-
+		var userStr = globalData.user;
+        //console.log(userStr);
+        if (!userStr) {
+            var path = {
+                pathname: '/Login',
+            }
+            hashHistory.push(path);
+        } else {
+            var user = JSON.parse(userStr);//必须登录才能看到本页面
+            var located = localStorage.getItem("dingwei") || "";
+             var { realName, idCard } = user;
+            this.setState({ located: located, user: user ,realName:realName,idCard:idCard});
+        }
 
     },
 
@@ -27,62 +40,165 @@ var levelList = React.createClass({
         that.setState({
             flag: true
         })
-        var isOver;
-        var qualifySelect = that.state.valSelect;
-        for (var i in qualifySelect) {
-            if (qualifySelect[i].selectName == "") {
-                Toast.info(qualifySelect[i].dictionaryName + '必填', 2);
-                isOver = false;
-                that.setState({
-                    flag: false
-                })
-                break;
-
-            } else {
-                isOver = true;
-            }
+        var isOver,canFlow;
+        
+        if(that.state.loanType==='KSD'){
+        	console.log('KSD');
+        	if(that.testName()&&that.testId()){
+        		canFlow=true;
+        	}else{
+        		canFlow=false;
+        	}
+        }else{
+        	canFlow=true;
+        	console.log('jzd');
         }
-        if (isOver) {
-            //console.log(qualifySelect);
-            api.qualifyListSave(qualifySelect, function (res) {
+        if(canFlow){
+	        var qualifySelect = that.state.valSelect;
+	        for (var i in qualifySelect) {
+	            if (qualifySelect[i].selectName == "") {
+	                Toast.info(qualifySelect[i].dictionaryName + '必填', 2);
+	                isOver = false;
+	                that.setState({
+	                    flag: false
+	                })
+	                break;
+	
+	            } else {
+	                isOver = true;
+	            }
+	        }
+	        if (isOver) {
+	        	that.saveInfo();
+	            //console.log(qualifySelect);
+	            api.qualifyListSave(qualifySelect, function (res) {
+	                //console.log(res);
+	                if (res.code == "0000") {
+	                    that.setState({
+	                        flag: false
+	                    })
+	                    //window.history.back();
+	                    that.props.getQualit(qualifySelect);
+	                    callback();
+	                } else if (res.code == "5555") {
+	                    Toast.info("登录过时，请重新登录", 2);
+	                    that.setState({
+	                        flag: false
+	                    })
+	                    var path = {
+	                        pathname: '/Login',
+	                    }
+	                    hashHistory.push(path);
+	                } else {
+	                    that.setState({
+	                        flag: false
+	                    })
+	                    Toast.info(res.msg, 2);
+	                }
+	            }, function () {
+	                that.setState({
+	                    flag: false
+	                })
+	                Toast.info("连接错误", 2);
+	            })
+	        }
+        }else{
+        	console.log('信息不完善')
+        }
+    },
+     vauleChange: function (e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    },
+    saveInfo:function(){
+    	 var that = this;
+        let user = that.state.user;
+        let realName = that.state.realName;
+        let idCard = that.state.idCard;
+            api.edit(idCard, that.state.located, realName, function (res) {
                 //console.log(res);
                 if (res.code == "0000") {
-                    that.setState({
-                        flag: false
-                    })
-                    //window.history.back();
-                    that.props.getQualit(qualifySelect);
-                    callback();
+                    user.realName = realName;
+                    user.idCard = idCard;
+                    user.located = that.state.located;
+                    localStorage.setItem("user", JSON.stringify(user));
+                    globalData.user = JSON.stringify(user);
                 } else if (res.code == "5555") {
-                    Toast.info("登录过时，请重新登录", 2);
                     that.setState({
                         flag: false
                     })
+                    Toast.info("登录过时，请重新登录", 2);
                     var path = {
                         pathname: '/Login',
                     }
                     hashHistory.push(path);
+                    return false;
                 } else {
                     that.setState({
                         flag: false
                     })
-                    Toast.info(res.msg, 2);
+                    Toast.info(res.msg, 2)
+                     return false;
                 }
             }, function () {
-                that.setState({
-                    flag: false
-                })
-                Toast.info("连接错误", 2);
+	                that.setState({
+	                    flag: false
+	                })
+	                Toast.info("连接错误", 2);
+	                return false;
+	            });
+    },
+    testName: function () {
+        var that = this;
+        let user = that.state.user;
+        let realName = that.state.realName;
+        if (realName) {
+        	return true
+        } else {
+            that.setState({
+                flag: false
             })
+            Toast.info("请输入真实姓名", 2);
+             return false;
         }
+
+    },
+	  testId: function () {
+        var that = this;
+      
+        var idCartReg = /(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/;
+        var user = that.state.user;
+        let idCard = that.state.idCard;
+        // console.log(idCard);
+        if (idCartReg.test(idCard)) {
+        	return true;
+        } else {
+            that.setState({
+                flag: false
+            })
+            Toast.info("请输入正确的身份证号", 2);
+            return false;
+        }
+
     },
     render: function () {
         var that = this;
         return (
-
+			
 
             <form className="applyLevel">
                 <Loading flag={that.state.flag} />
+                <div style={{'display':that.state.loanType==='KSD'?'block':'none'}}>
+	                <div className="realName">
+	                    <label htmlFor="realName">真实姓名</label>
+	                    <input id="realName" type="text" name="realName" value={that.state.realName} placeholder="" onChange={that.vauleChange} />
+	                </div>
+	                 <div className="realName">
+	                    <label htmlFor="idCard">身份证号码</label>
+	                    <input id="idCard" type="text" name="idCard" placeholder="" value={that.state.idCard} onChange={that.vauleChange} />
+	                </div>
+                </div>
                 <ul>
                     {that.state.qualifyListArr}
                 </ul>

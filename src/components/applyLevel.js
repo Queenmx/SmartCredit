@@ -24,7 +24,7 @@ var ApplyLevel = React.createClass({
         var loanId = this.props.location.state.loanId;
         var applyQuery = this.props.location.state.applyQuery;
         //console.log(applyQuery);
-        this.setState({ loanId: loanId, applyQuery: applyQuery });
+        this.setState({ loanId: loanId,applyQuery: applyQuery });
 
     },
     toBack: function () {
@@ -71,7 +71,7 @@ var ApplyLevel = React.createClass({
                             })
                             var data = JSON.parse(strDec(res.data, key1, "", ""));
                             // console.log(data);
-                            var queryData = { apiUrl: data.apiUrl, apiWay: data.apiWay, logo: data.logo };
+                            var queryData = { apiUrl: data.apiUrl, apiWay: data.apiWay, logo: data.logo,tapNum:that.props.location.state.tapNum };
                             //Toast.info("申请订单成功",2);
                             var path = {
                                 pathname: '/ApplyResult',
@@ -148,7 +148,7 @@ var ApplyLevel = React.createClass({
 								{that.state.qualifyListArr}
 							</ul>
 						</form>*/}
-                        <LevelList objId={that.state.loanId} getQualit={that.getQualit} ref="toChildSaveBtn" />
+                        <LevelList objId={that.state.loanId} getQualit={that.getQualit} ref="toChildSaveBtn" loanType='JZD'/>
                         <div className="rule">
                             <input className="magic-checkbox" type="checkbox" id="ruleCheck" checked={that.state.checked} onChange={that.agreeRule} />
                             <label htmlFor="ruleCheck">我已同意</label>

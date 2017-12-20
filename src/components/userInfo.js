@@ -28,8 +28,8 @@ var UserInfo = React.createClass({
         } else {
             var user = JSON.parse(userStr);//必须登录才能看到本页面
             var located = localStorage.getItem("dingwei") || "";
-            var { realName, phone, idCard, headPic } = user;
-            this.setState({ headPic: headPic, realName: realName, phone: phone, located: located, user: user, idCard: idCard });
+            var { realName, phone, certStatus, headPic } = user;
+            this.setState({ headPic: headPic, realName: realName, phone: phone, located: located, user: user, certStatus: certStatus });
         }
 
     },
@@ -150,7 +150,7 @@ var UserInfo = React.createClass({
                     <li><span>手机号</span><div className="infoRight"><b>{`${that.state.phone}`.replace(/^(\d{3})\d{4}(\d+)/, "$1****$2")}</b></div></li>
                     <li onClick={that.rePsd}><span>修改密码</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
                     <li onClick={that.realName}><span>真实姓名</span><div className="infoRight"><b>{that.state.realName}</b><img src="src/img/icon/right.png" /></div></li>
-                    <li onClick={that.idNumber}><span>身份证号码</span><div className="infoRight"><b>{that.state.idCard == "" ? "未验证" : "待审核"}</b><img src="src/img/icon/right.png" /></div></li>
+                    <li onClick={that.idNumber}><span>身份证号码</span><div className="infoRight"><b>{that.state.certStatus >0? "已验证" : "待审核"}</b><img src="src/img/icon/right.png" /></div></li>
                     {/*<li className="userInfoLi"><span>关于我们</span><div className="infoRight"><img src="src/img/icon/right.png"/></div></li>*/}
                 </ul>
 
