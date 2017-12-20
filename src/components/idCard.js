@@ -41,7 +41,7 @@ var IdCard = React.createClass({
                 api.identityUserCert(backImgData, faceImgData, function (res) {
                       console.log(res);
                     if (res.code == "0000") {
-                        Toast.info("上传成功，等待审核", 2);
+                        Toast.info("认证成功", 2);
                         that.setState({
                             flag: false
                         })
