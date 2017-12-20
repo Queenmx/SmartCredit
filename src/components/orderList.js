@@ -22,7 +22,7 @@ var OrderList = React.createClass({
 	      	lastPage: false,
 			pageSize:10,
 			scrollShow:false,
-			statusJZD:{
+				statusJZD:{
 				"PENDING": {
                 	"-2":{
                 		"btnTxt":"删除订单",
@@ -33,7 +33,7 @@ var OrderList = React.createClass({
                 	"1":{
                 		"btnTxt":"取消借款",
                 		"dataId":"1",
-                		"btnOne":true,
+                		"btnOne":false,
                 		"text": "待处理"
                 	}
                 },
@@ -47,7 +47,7 @@ var OrderList = React.createClass({
                 	"1":{
                 		"btnTxt":"取消借款",
                 		"dataId":"1",
-                		"btnOne":true,
+                		"btnOne":false,
                 		"text": "待审核"
                 	}
                 },
@@ -157,141 +157,159 @@ var OrderList = React.createClass({
                 	}
                 }
 			},
-			status: {
+            status: {
                 "PENDING": {
-                	"-2":{
-                		"btnTxt":"删除订单",
-                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
-                		"btnTwo":false,
-                		"text": "已取消",
-                	},
-                	"1":{
-                		"btnTxt":"取消借款",
-                		"dataId":"1",
-                		"btnTwo":false,
-                		"text": "待处理"
-                	}
+                    "-2": {
+                        "btnTxt": "删除订单",
+                        "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
+                        "btnTwo": false,
+                        "text": "已取消",
+                    },
+                    "1": {
+                        "btnTxt": "取消借款",
+                        "dataId": "1",
+                        "btnOne":false,
+                        "btnTwo": false,
+                        "text": "待处理"
+                    }
                 },
                 "APRING": {
-                	"-2":{
-                		"btnTxt":"删除订单",
-                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
-                		"btnTwo":false,
-                		"text": "已取消",
-                	},
-                	"1":{
-                		"btnTxt":"取消借款",
-                		"dataId":"1",
-                		"btnTwo":false,
-                		"text": "待审核"
-                	}
+                    "-2": {
+                        "btnTxt": "删除订单",
+                        "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
+                        "btnTwo": false,
+                        "text": "已取消",
+                    },
+                    "1": {
+                        "btnTxt": "取消借款",
+                        "btnOne":false,
+                        "dataId": "1",
+                        "btnTwo": false,
+                        "text": "待审核"
+                    }
                 },
                 "APRNO": {//审核不通过
-                	"-2":{
-                		"btnTxt":"删除订单",
-                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
-                		"btnTwo":false,
-                		"text": "已取消",
-                	},
-                	"1":{
-                		"btnTxt":"取消借款",
-                		"dataId":"1",
-                		"btnTwo":false,
-                		"text": "审核不通过"
-                	}
+                    "-2": {
+                        "btnTxt": "删除订单",
+                        "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
+                        "btnTwo": false,
+                        "text": "已取消",
+                    },
+                    "1": {
+                        "btnTxt": "删除订单",
+                        "dataId": "2",
+                        "btnOne":true,
+                        "btnTwo": false,
+                        "text": "审核不通过"
+                    }
                 },
                 "APRYES": {//审核通过 ，就是待签合同
-                	"-2":{
-                		"btnTxt":"删除订单",
-                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
-                		"btnTwo":false,
-                		"text": "已取消",
-                	},
-                	"1":{
-                		"btnTxt":"取消借款",
-                		"dataId":"1",
-                		"btnTwo":true,
-                		"text": "审核通过"
-                	},
-                	"2":{
-                		"btnTxt":"绑卡签约",
-                		"dataId":"3",
-                		"btnTwo":true,
-                		"text": "审核通过"
-                	}
+                    "-2": {
+                        "btnTxt": "删除订单",
+                        "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
+                        "btnTwo": false,
+                        "text": "已取消",
+                    },
+                    "1": {
+                        "btnTxt": "取消借款",
+                        "dataId": "1",
+                        "btnOne":false,
+                        "btnTwo": true,
+                        "text": "审核通过"
+                    },
+                    "2": {
+                        "btnTxt": "绑卡签约",
+                        "dataId": "3",
+                        "btnOne":true,
+                        "btnTwo": true,
+                        "text": "审核通过"
+                    }
                 },
-                "CONYES":{//已签合同 就是等待放款
-                	"-2":{
-                		"btnTxt":"删除订单",
-                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
-                		"btnTwo":false,
-                		"text": "已取消",
-                	},
-                	"1":{
-                		"btnTxt":"取消借款",
-                		"dataId":"1",
-                		"btnTwo":false,
-                		"text": "等待放款"
-                	}
+                "CONYES": {//已签合同 就是等待放款
+                    "-2": {
+                        "btnTxt": "删除订单",
+                        "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
+                        "btnTwo": false,
+                        "text": "已取消",
+                    },
+                    "1": {
+                        "btnTxt": "取消借款",
+                        "dataId": "1",
+                        "btnOne":false,
+                        "btnTwo": false,
+                        "text": "等待放款"
+                    }
                 },
-                "LOANNO":{// 放款失败
-                	"-2":{
-                		"btnTxt":"删除订单",
-                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
-                		"btnTwo":false,
-                		"text": "放款失败",
-                	},
-                	"1":{
-                		"btnTxt":"删除订单",
-                		"dataId":"1",
-                		"btnTwo":false,
-                		"text": "放款失败"
-                	}
+                "LOANNO": {// 放款失败
+                    "-2": {
+                        "btnTxt": "删除订单",
+                        "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
+                        "btnTwo": false,
+                        "text": "放款失败",
+                    },
+                    "1": {
+                        "btnTxt": "删除订单",
+                        "dataId": "1",
+                        "btnOne":true,
+                        "btnTwo": false,
+                        "text": "放款失败"
+                    }
                 },
-                "LOANYES":{//放款成功
-                	"-2":{
-                		"btnTxt":"删除订单",
-                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
-                		"btnTwo":false,
-                		"text": "已取消",
-                	},
-                	"1":{
-                		"btnTxt":"立即还款",
-                		"dataId":"4",
-                		"btnTwo":false,
-                		"text": "放款成功"
-                	}
-                
+                "LOANYES": {//放款成功
+                    "-2": {
+                        "btnTxt": "删除订单",
+                        "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
+                        "btnTwo": false,
+                        "text": "已取消",
+                    },
+                    "1": {
+                        "btnTxt": "立即还款",
+                        "dataId": "4",
+                        "btnOne":true,
+                        "btnTwo": false,
+                        "text": "放款成功"
+                    }
+
                 },
-                "REPAYYES":{// 还款结束
-                	"-2":{
-                		"btnTxt":"删除订单",
-                		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
-                		"btnTwo":false,
-                		"text": "已取消",
-                	},
-                	"1":{
-                		"btnTxt":"删除订单",
-                		"dataId":"2",
-                		"btnTwo":false,
-                		"text": "还款结束"
-                	}
+                "REPAYYES": {// 还款结束
+                    "-2": {
+                        "btnTxt": "删除订单",
+                        "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
+                        "btnTwo": false,
+                        "text": "已取消",
+                    },
+                    "1": {
+                        "btnTxt": "删除订单",
+                        "dataId": "2",
+                        "btnOne":true,
+                        "btnTwo": false,
+                        "text": "还款结束"
+                    }
                 },
                 "":{
                 	"-2":{
                 		"btnTxt":"删除订单",
                 		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnOne":true,
                 		"btnTwo":false,
                 		"text": "已取消",
                 	},
                 	"1":{
                 		"btnTxt":"删除订单",
                 		"dataId":"2",
+                		"btnOne":true,
                 		"btnTwo":false,
                 		"text": "已取消"
                 	}
                 }
-              
             },
            
             rate: {
@@ -576,7 +594,7 @@ showAlert :function (applyId,capitalId,loanId,applyNo,e) {
 		                    </div>
 	                        <div className="listFoot">
 	                            <span className="status">{nextRepay}</span>
-	                            <span data-id={orderList[i].type=='JZD'?that.state.statusJZD[applyStatus][status].dataId:that.state.status[applyStatus][status].dataId} onClick={that.showAlert.bind(that,orderList[i].applyId,orderList[i].capitalId,orderList[i].loanId,orderList[i].applyNo)} className='statusBtn' style={{"display":orderList[i].type=='KSD'||that.state.statusJZD[applyStatus][status].btnOne? 'block':'none'}}  >
+	                            <span data-id={orderList[i].type=='JZD'?that.state.statusJZD[applyStatus][status].dataId:that.state.status[applyStatus][status].dataId} onClick={that.showAlert.bind(that,orderList[i].applyId,orderList[i].capitalId,orderList[i].loanId,orderList[i].applyNo)} className='statusBtn' style={{"display":(orderList[i].type=='KSD'?that.state.status[applyStatus][status].btnOne:that.state.statusJZD[applyStatus][status].btnOne)? 'block':'none'}}  >
 	                            	{orderList[i].type=='JZD'?that.state.statusJZD[applyStatus][status].btnTxt:that.state.status[applyStatus][status].btnTxt}
 	                            </span>
 	                             <span data-id="3" onClick={that.showAlert.bind(that,orderList[i].applyId,orderList[i].capitalId,orderList[i].loanId,orderList[i].applyNo)} className='statusBtn'  style={{"display":orderList[i].type=='KSD'&&that.state.status[applyStatus][status].btnTwo? 'block':'none'}}>

@@ -29,7 +29,7 @@ var orderDetail = React.createClass({
                 	"1":{
                 		"btnTxt":"取消借款",
                 		"dataId":"1",
-                		"btnOne":true,
+                		"btnOne":false,
                 		"text": "待处理"
                 	}
                 },
@@ -43,7 +43,7 @@ var orderDetail = React.createClass({
                 	"1":{
                 		"btnTxt":"取消借款",
                 		"dataId":"1",
-                		"btnOne":true,
+                		"btnOne":false,
                 		"text": "待审核"
                 	}
                 },
@@ -158,12 +158,14 @@ var orderDetail = React.createClass({
                     "-2": {
                         "btnTxt": "删除订单",
                         "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
                         "btnTwo": false,
                         "text": "已取消",
                     },
                     "1": {
                         "btnTxt": "取消借款",
                         "dataId": "1",
+                        "btnOne":false,
                         "btnTwo": false,
                         "text": "待处理"
                     }
@@ -172,11 +174,13 @@ var orderDetail = React.createClass({
                     "-2": {
                         "btnTxt": "删除订单",
                         "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
                         "btnTwo": false,
                         "text": "已取消",
                     },
                     "1": {
                         "btnTxt": "取消借款",
+                        "btnOne":false,
                         "dataId": "1",
                         "btnTwo": false,
                         "text": "待审核"
@@ -186,12 +190,14 @@ var orderDetail = React.createClass({
                     "-2": {
                         "btnTxt": "删除订单",
                         "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
                         "btnTwo": false,
                         "text": "已取消",
                     },
                     "1": {
                         "btnTxt": "删除订单",
                         "dataId": "2",
+                        "btnOne":true,
                         "btnTwo": false,
                         "text": "审核不通过"
                     }
@@ -200,18 +206,21 @@ var orderDetail = React.createClass({
                     "-2": {
                         "btnTxt": "删除订单",
                         "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
                         "btnTwo": false,
                         "text": "已取消",
                     },
                     "1": {
                         "btnTxt": "取消借款",
                         "dataId": "1",
+                        "btnOne":false,
                         "btnTwo": true,
                         "text": "审核通过"
                     },
                     "2": {
                         "btnTxt": "绑卡签约",
                         "dataId": "3",
+                        "btnOne":true,
                         "btnTwo": true,
                         "text": "审核通过"
                     }
@@ -220,12 +229,14 @@ var orderDetail = React.createClass({
                     "-2": {
                         "btnTxt": "删除订单",
                         "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
                         "btnTwo": false,
                         "text": "已取消",
                     },
                     "1": {
                         "btnTxt": "取消借款",
                         "dataId": "1",
+                        "btnOne":false,
                         "btnTwo": false,
                         "text": "等待放款"
                     }
@@ -234,12 +245,14 @@ var orderDetail = React.createClass({
                     "-2": {
                         "btnTxt": "删除订单",
                         "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
                         "btnTwo": false,
                         "text": "放款失败",
                     },
                     "1": {
                         "btnTxt": "删除订单",
                         "dataId": "1",
+                        "btnOne":true,
                         "btnTwo": false,
                         "text": "放款失败"
                     }
@@ -248,12 +261,14 @@ var orderDetail = React.createClass({
                     "-2": {
                         "btnTxt": "删除订单",
                         "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
                         "btnTwo": false,
                         "text": "已取消",
                     },
                     "1": {
-                        "btnTxt": "立即放款",
+                        "btnTxt": "立即还款",
                         "dataId": "4",
+                        "btnOne":true,
                         "btnTwo": false,
                         "text": "放款成功"
                     }
@@ -263,12 +278,14 @@ var orderDetail = React.createClass({
                     "-2": {
                         "btnTxt": "删除订单",
                         "dataId": "2",//1取消贷款，2删除订单，3签约，4立即还款
+                        "btnOne":true,
                         "btnTwo": false,
                         "text": "已取消",
                     },
                     "1": {
                         "btnTxt": "删除订单",
                         "dataId": "2",
+                        "btnOne":true,
                         "btnTwo": false,
                         "text": "还款结束"
                     }
@@ -277,12 +294,14 @@ var orderDetail = React.createClass({
                 	"-2":{
                 		"btnTxt":"删除订单",
                 		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
+                		"btnOne":true,
                 		"btnTwo":false,
                 		"text": "已取消",
                 	},
                 	"1":{
                 		"btnTxt":"删除订单",
                 		"dataId":"2",
+                		"btnOne":true,
                 		"btnTwo":false,
                 		"text": "已取消"
                 	}
@@ -537,7 +556,7 @@ var orderDetail = React.createClass({
                     orderDetail: orderDetail,
                     statusTxt: orderDetail.type=='KSD'?that.state.status[orderDetail.applyStatus][orderDetail.status].text:that.state.statusJZD[orderDetail.applyStatus][orderDetail.status].text,
                     btnTxt: orderDetail.type=='KSD'?that.state.status[orderDetail.applyStatus][orderDetail.status].btnTxt:that.state.statusJZD[orderDetail.applyStatus][orderDetail.status].btnTxt,
-                    btnOne:orderDetail.type=='KSD'||that.state.statusJZD[orderDetail.applyStatus][orderDetail.status].btnOne,
+                    btnOne:orderDetail.type=='KSD'?that.state.status[orderDetail.applyStatus][orderDetail.status].btnOne:that.state.statusJZD[orderDetail.applyStatus][orderDetail.status].btnOne,
                     btnTwo: orderDetail.type=='KSD'&&that.state.status[orderDetail.applyStatus][orderDetail.status].btnTwo,
                     dataId: that.state.status[orderDetail.applyStatus][orderDetail.status].dataId
                 })

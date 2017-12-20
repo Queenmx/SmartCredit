@@ -597,9 +597,9 @@ var ListDetailKSD = React.createClass({
                 pathname: '/Login'
             }
             hashHistory.push(path);
-        //} else if (id > that.state.index) {
+        } else if (id > that.state.index) {
             //Toast.info('请按顺序认证', 2);
-        //    console.log('不能点击')
+            console.log('不能点击')
         } else {
         	switch (id){//基本信息
 				case 0:
@@ -617,36 +617,45 @@ var ListDetailKSD = React.createClass({
 	                hashHistory.push(path);
 					break;
 				case 2://手机运营商
-					api.phoneCert(that.state.loanId, function (res) {
+					if(that.state.index>2){
+						Toast.info('该认证已通过',1)
+					}else{
+						api.phoneCert(that.state.loanId, function (res) {
 	                    if (res.code == "0000") {
-	                        // console.log(data.authInfoUrl)
-	                        var data = JSON.parse(strDec(res.data, key1, "", ""));
-	                        console.log(data.authInfoUrl)
-	                        window.location.href = data.authInfoUrl
-	                    } else {
-	                        // Toast.info(res.msg, 2);
-	                        Toast.info(res.msg, 2);
-	                    }
-	                }, function () {
-	                    // Toast.info("连接错误", 2);
-	                    Toast.info("连接错误", 2);
-	                })
+		                        // console.log(data.authInfoUrl)
+		                        var data = JSON.parse(strDec(res.data, key1, "", ""));
+		                        console.log(data.authInfoUrl)
+		                        window.location.href = data.authInfoUrl
+		                    } else {
+		                        // Toast.info(res.msg, 2);
+		                        Toast.info(res.msg, 2);
+		                    }
+		                }, function () {
+		                    // Toast.info("连接错误", 2);
+		                    Toast.info("连接错误", 2);
+		                })
+					}
+					
 					break;
 				case 3://芝麻
-					api.zmCert(that.state.loanId, function (res) {
-	                    if (res.code == "0000") {
-	                        // console.log(data.authInfoUrl)
-	                        var data = JSON.parse(strDec(res.data, key1, "", ""));
-	                        console.log(data.authInfoUrl)
-	                        window.location.href = data.authInfoUrl
-	                    } else {
-	                        // Toast.info(res.msg, 2);
-	                        Toast.info(res.msg, 2);
-	                    }
-	                }, function () {
-	                    // Toast.info("连接错误", 2);
-	                    Toast.info("连接错误", 2);
-	                })
+					if(that.state.index>3){
+							Toast.info('该认证已通过',1)
+					}else{
+						api.zmCert(that.state.loanId, function (res) {
+		                    if (res.code == "0000") {
+		                        // console.log(data.authInfoUrl)
+		                        var data = JSON.parse(strDec(res.data, key1, "", ""));
+		                        console.log(data.authInfoUrl)
+		                        window.location.href = data.authInfoUrl
+		                    } else {
+		                        // Toast.info(res.msg, 2);
+		                        Toast.info(res.msg, 2);
+		                    }
+		                }, function () {
+		                    // Toast.info("连接错误", 2);
+		                    Toast.info("连接错误", 2);
+		                })
+					}
 					break;
 				case 4://其他信息
 					var path = {
