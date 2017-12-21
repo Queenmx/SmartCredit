@@ -617,15 +617,15 @@ var ListDetailKSD = React.createClass({
 	                hashHistory.push(path);
 					break;
 				case 2://手机运营商
-					//if(that.state.index>2){
-						//Toast.info('该认证已通过',1)
-					//}else{
+					if(that.state.index>2){
+						Toast.info('该认证已通过',1)
+					}else{
 						api.phoneCert(that.state.loanId, function (res) {
 	                    if (res.code == "0000") {
 		                        // console.log(data.authInfoUrl)
 		                        var data = JSON.parse(strDec(res.data, key1, "", ""));
 		                        console.log(data.authInfoUrl)
-		                       // window.location.href = data.authInfoUrl
+		                        window.location.href = data.authInfoUrl
 		                    } else {
 		                        // Toast.info(res.msg, 2);
 		                        Toast.info(res.msg, 2);
@@ -634,7 +634,7 @@ var ListDetailKSD = React.createClass({
 		                    // Toast.info("连接错误", 2);
 		                    Toast.info("连接错误", 2);
 		                })
-					//}
+					}
 					
 					break;
 				case 3://芝麻
