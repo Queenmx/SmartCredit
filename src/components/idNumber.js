@@ -30,7 +30,7 @@ var RealName = React.createClass({
             var user = JSON.parse(userStr);//必须登录才能看到本页面
             var located = localStorage.getItem("dingwei") || "";
             var { realName, phone, idCard } = user;
-            this.setState({ located: located, user: user });
+            this.setState({ located: located, user: user ,idCard:idCard});
         }
 
     },
@@ -90,8 +90,8 @@ var RealName = React.createClass({
                 <Loading flag={that.state.flag} />
                 <div className="setPsdCon">
                     <div className="realName">
-                        <label htmlFor="realName">请输入身份证号码</label>
-                        <input id="realName" type="text" name="idCard" placeholder="" onChange={that.vauleChange} />
+                        <label htmlFor="idCard">请输入身份证号</label>
+                        <input id="idCard" type="text" name="idCard"  value={that.state.idCard} onChange={that.vauleChange} />
                     </div>
 
                     <div className="psdLogin" onClick={that.saveId}>保存</div>

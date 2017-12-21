@@ -146,8 +146,8 @@ var OrderList = React.createClass({
                 	"-2":{
                 		"btnTxt":"删除订单",
                 		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
-                		"btnOne":true,
-                		"text": "已取消",
+                		"btnOne":false,
+                		"text": "",
                 	},
                 	"1":{
                 		"btnTxt":"删除订单",
@@ -298,16 +298,16 @@ var OrderList = React.createClass({
                 	"-2":{
                 		"btnTxt":"删除订单",
                 		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
-                		"btnOne":true,
+                		"btnOne":false,
                 		"btnTwo":false,
-                		"text": "已取消",
+                		"text": "",
                 	},
                 	"1":{
                 		"btnTxt":"删除订单",
                 		"dataId":"2",
-                		"btnOne":true,
+                		"btnOne":false,
                 		"btnTwo":false,
-                		"text": "已取消"
+                		"text": ""
                 	}
                 }
             },
@@ -425,6 +425,7 @@ showAlert :function (applyId,capitalId,loanId,applyNo,e) {
         	
         }else if(id=="3"){
         	console.log("签约");
+        	const key1 = globalData.key;
         	api.h5bindcard(capitalId,loanId,applyNo,function(res){
 	        		console.log(res)
 	        		 if (res.code == "0000") {
@@ -446,6 +447,7 @@ showAlert :function (applyId,capitalId,loanId,applyNo,e) {
         	
         }else if(id=="4"){
         	console.log("放宽");
+        	const key1 = globalData.key;
         		api.h5applyrepay(capitalId,loanId,applyNo,function(res){
 	        		console.log(res)
 	        		 if (res.code == "0000") {

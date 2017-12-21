@@ -142,8 +142,8 @@ var orderDetail = React.createClass({
                 	"-2":{
                 		"btnTxt":"删除订单",
                 		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
-                		"btnOne":true,
-                		"text": "已取消",
+                		"btnOne":false,
+                		"text": "",
                 	},
                 	"1":{
                 		"btnTxt":"删除订单",
@@ -294,16 +294,16 @@ var orderDetail = React.createClass({
                 	"-2":{
                 		"btnTxt":"删除订单",
                 		"dataId":"2",//1取消贷款，2删除订单，3签约，4立即还款
-                		"btnOne":true,
+                		"btnOne":false,
                 		"btnTwo":false,
-                		"text": "已取消",
+                		"text": "",
                 	},
                 	"1":{
                 		"btnTxt":"删除订单",
                 		"dataId":"2",
-                		"btnOne":true,
+                		"btnOne":false,
                 		"btnTwo":false,
-                		"text": "已取消"
+                		"text": ""
                 	}
                 }
             },
@@ -388,8 +388,14 @@ var orderDetail = React.createClass({
             api.h5bindcard(capitalId, loanId, applyNo, function (res) {
                 console.log(res)
                 if (res.code == "0000") {
-                    let data = strDec(res.data, key1, "", "");
+                    let data = JSON.parse(strDec(res.data, key1, "", ""));
                     console.log(data);
+                    const url=data.url;
+                    if(url){
+                    	 window.location.href=url;
+                    }else{
+                    	Toast.info("跳转地址出错", 2);
+                    }
                 } else {
                     Toast.info(res.msg, 2);
                 }
@@ -407,8 +413,14 @@ var orderDetail = React.createClass({
             api.h5applyrepay(capitalId, loanId, applyNo, function (res) {
                 console.log(res)
                 if (res.code == "0000") {
-                    let data = strDec(res.data, key1, "", "");
+                    let data = JSON.parse(strDec(res.data, key1, "", ""));
                     console.log(data);
+                    const url=data.url;
+                    if(url){
+                    	 window.location.href=url;
+                    }else{
+                    	Toast.info("跳转地址出错", 2);
+                    }
                 } else {
                     Toast.info(res.msg, 2);
                 }
