@@ -536,7 +536,7 @@ var orderDetail = React.createClass({
                                     return <Item key={item.no} multipleLine extra={that.getDateDiff(planRepayTime.time)}>{item.no + "期还款时间"}</Item>
                                 })
                             }
-                            <Item className='repayWay' extra={'不可提前还款'}>{'还款方式:' + repayWay || ""}</Item>
+                            <Item className='repayWay' extra={''}>分{orderDetail.repayNum}期还清</Item>
                         </List>
 
 
