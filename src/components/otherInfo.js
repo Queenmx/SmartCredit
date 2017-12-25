@@ -205,55 +205,57 @@ var OtherInfo1 = React.createClass({
         return (
             <div className="app_Box otherInfo">
                 <Header title="其他信息认证" />
+                <div className="content">
                 <Loading flag={that.state.flag} />
                 <div className="wrap hit">恭喜，您已满足放款要求，完成补充信息立即领取贷款！</div>
                 <ul className="list">
-                    <li className="item">
-                        <lable>公司名称</lable>
-                        <div className="input-wrap">
-                       <input placeholder="请输入内容" name="comp" value={that.state.comp} onChange={that.inputInfo}/>
-                        </div>
-                    </li>
-                   
-                    <Picker
-                    extra={that.state.compAddrThree}
-			          visible={this.state.visible}
-			          data={district}
-			          value={this.state.pickerValue}
-			          onChange={v => this.setState({ pickerValue: v })}
-			          onOk={() => this.setState({ visible: false })}
-			          onDismiss={() => this.setState({ visible: false })}
-			        >
-			          <List.Item extra={this.getSel()} onClick={() => this.setState({ visible: true })}>
-			            公司地址
-			          </List.Item>
-			        </Picker>
-                    <li className="item">
-                        <lable>公司地址</lable>
-                        <div className="input-wrap">
-                        <input placeholder="详细地址" name='compAddrDetail' value={that.state.compAddrDetail}  onChange={that.inputInfo}/>
-                        </div>
-                    </li>
-                    
-                </ul>
-                <ul className="list">
-                    <List.Item extra={this.state.relation||"请选择"} onClick={that.showActionSheet}>
-			            直属联系人关系
-			          </List.Item>
-                    <li className="item">
-                        <lable>直系亲属姓名</lable>
-                        <div className="input-wrap">
-                      <input placeholder="请输入内容" name="name" value={that.state.name}   onChange={that.inputInfo}/>
-                        </div>
-                    </li>
-                    <li className="item">
-                        <lable>直系亲属联系方式</lable>
-                        <div className="input-wrap">
-                        <input placeholder="请输入内容" name="contactWay" value={that.state.contactWay}  onChange={that.inputInfo}/>
-                        </div>
-                    </li>
-                </ul>
-                <div className="footer-btn" onClick={that.otherInfoSave}>提交</div>
+	                    <li className="item">
+	                        <lable>公司名称</lable>
+	                        <div className="input-wrap">
+	                       <input placeholder="请输入内容" name="comp" value={that.state.comp} onChange={that.inputInfo}/>
+	                        </div>
+	                    </li>
+	                   
+	                    <Picker
+	                    extra={that.state.compAddrThree}
+				          visible={this.state.visible}
+				          data={district}
+				          value={this.state.pickerValue}
+				          onChange={v => this.setState({ pickerValue: v })}
+				          onOk={() => this.setState({ visible: false })}
+				          onDismiss={() => this.setState({ visible: false })}
+				        >
+				          <List.Item extra={this.getSel()} onClick={() => this.setState({ visible: true })}>
+				            公司地址
+				          </List.Item>
+				        </Picker>
+	                    <li className="item">
+	                        <lable>公司地址</lable>
+	                        <div className="input-wrap">
+	                        <input placeholder="详细地址" name='compAddrDetail' value={that.state.compAddrDetail}  onChange={that.inputInfo}/>
+	                        </div>
+	                    </li>
+	                    
+	                </ul>
+	                <ul className="list">
+	                    <List.Item extra={this.state.relation||"请选择"} onClick={that.showActionSheet}>
+				            直属联系人关系
+				          </List.Item>
+	                    <li className="item">
+	                        <lable>直系亲属姓名</lable>
+	                        <div className="input-wrap">
+	                      <input placeholder="请输入内容" name="name" value={that.state.name}   onChange={that.inputInfo}/>
+	                        </div>
+	                    </li>
+	                    <li className="item">
+	                        <lable>直系亲属联系方式</lable>
+	                        <div className="input-wrap">
+	                        <input placeholder="请输入内容" name="contactWay" value={that.state.contactWay}  onChange={that.inputInfo}/>
+	                        </div>
+	                    </li>
+	                </ul>
+                </div>
+                <div className="botBtn" onClick={that.otherInfoSave}>提交</div>
             </div>
         )
     }
