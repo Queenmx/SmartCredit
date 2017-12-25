@@ -44,12 +44,13 @@ var ListDetailKSD = React.createClass({
         if (user) {
             this.setState({
                 isLogin: true,
-                loanId: loanId
+                loanId: loanId,
+                idCard:(JSON.parse(user)).idCard
             })
         } else {
             this.setState({
                 isLogin: false,
-                loanId: loanId
+                loanId: loanId,
             })
         }
         //this.getErrorMeses()
@@ -275,10 +276,16 @@ var ListDetailKSD = React.createClass({
                 }
 				 if (that.state.isLogin) {
                  	var userCertInfo = data.userCertInfo || "";
+                 	
 			        if (userCertInfo) {
-			            console.log(userCertInfo)
-			            let userCertInfoArr = [userCertInfo.qualify, userCertInfo.idcard, userCertInfo.phone, userCertInfo.zm, userCertInfo.info];
-			            console.log(userCertInfoArr);
+			           /* var qualify;
+			            if(that.state.certStatus>0){
+			            	qualify=userCertInfo.qualify
+			            }else{
+			            	qualify=0
+			            }*/
+			            let userCertInfoArr = [that.state.idCard!==""?userCertInfo.qualify:0, userCertInfo.idcard, userCertInfo.phone, userCertInfo.zm, userCertInfo.info];
+			           console.log(userCertInfoArr);
 			           //let userCertInfoArr=[1,0,1,1,1]
 			            for (var i = 0; i < userCertInfoArr.length; i++) {
 			                if (!(userCertInfoArr[i] > 0)) {
@@ -485,7 +492,6 @@ var ListDetailKSD = React.createClass({
                     if (res.code == "0000") {
                         var data = res.data;
                         var data = JSON.parse(strDec(res.data, key1, "", ""));
-                        console.log(data);
                         that.setState({
                             markId: data.markId
                         }, function () {
@@ -591,7 +597,7 @@ var ListDetailKSD = React.createClass({
     	console.log(id);
         var key1 = globalData.key;
         var that = this
-        var btnStatus = event.currentTarget.getAttribute("data-btnStatus");
+       
         if (!that.state.isLogin) {
            var path = {
                 pathname: '/Login'
@@ -610,6 +616,7 @@ var ListDetailKSD = React.createClass({
 	                hashHistory.push(path);
 					break;
 				case 1://身份证
+				 var btnStatus = event.currentTarget.getAttribute("data-btnStatus");
 					var path = {
 	                    pathname: '/IdCard',
 	                    query: { certStatus: btnStatus }
@@ -749,11 +756,11 @@ var ListDetailKSD = React.createClass({
                     <div className="authBox">
                         <h2>基本材料</h2>
                         <ul className="authTap">
-                            <li className={(index>=0) ? "activeAuthLi" : ""} data-btnStatus={userCertInfo.qualify}   onClick={that.toAuthInfo.bind(that, 0)}><i className="iconfont authIcon">&#xe647;</i>基本信息<div className="goAuth"><span>{that.statusToChinese(userCertInfo.qualify)}</span><i className="iconfont">&#xe60b;</i></div></li>
+                            <li className="activeAuthLi"  onClick={that.toAuthInfo.bind(that, 0)}><i className="iconfont authIcon">&#xe647;</i>基本信息<div className="goAuth"><span>{that.statusToChinese(that.state.idCard!==""?userCertInfo.qualify:0)}</span><i className="iconfont">&#xe60b;</i></div></li>
                             <li className={(index>0) ? "activeAuthLi" : ""} data-btnStatus={userCertInfo.idcard}    onClick={that.toAuthInfo.bind(that, 1)}><i className="iconfont authIcon">&#xe604;</i>身份证<div className="goAuth"><span>{that.statusToChinese(userCertInfo.idcard)}</span><i className="iconfont">&#xe60b;</i></div></li>
-                            <li className={(index>1) ? "activeAuthLi" : ""} data-btnStatus={userCertInfo.phone}    onClick={that.toAuthInfo.bind(that, 2)}><i className="iconfont authIcon">&#xe60a;</i>手机运营商<div className="goAuth"><span>{that.statusToChinese(userCertInfo.phone)}</span><i className="iconfont">&#xe60b;</i></div></li>
-                            <li className={(index>2) ? "activeAuthLi" : ""} data-btnStatus={userCertInfo.zm}  onClick={that.toAuthInfo.bind(that, 3)}><i className="iconfont authIcon">&#xe645;</i>芝麻认证<div className="goAuth"><span>{that.statusToChinese(userCertInfo.zm)}</span><i className="iconfont">&#xe60b;</i></div></li>
-                            <li className={(index>3) ? "activeAuthLi" : ""} data-btnStatus={userCertInfo.info}  onClick={that.toAuthInfo.bind(that, 4)}><i className="iconfont authIcon">&#xe61e;</i>其他信息<div className="goAuth"><span>{that.statusToChinese(userCertInfo.info)}</span><i className="iconfont">&#xe60b;</i></div></li>
+                            <li className={(index>1) ? "activeAuthLi" : ""}   onClick={that.toAuthInfo.bind(that, 2)}><i className="iconfont authIcon">&#xe60a;</i>手机运营商<div className="goAuth"><span>{that.statusToChinese(userCertInfo.phone)}</span><i className="iconfont">&#xe60b;</i></div></li>
+                            <li className={(index>2) ? "activeAuthLi" : ""}  onClick={that.toAuthInfo.bind(that, 3)}><i className="iconfont authIcon">&#xe645;</i>芝麻认证<div className="goAuth"><span>{that.statusToChinese(userCertInfo.zm)}</span><i className="iconfont">&#xe60b;</i></div></li>
+                            <li className={(index>3) ? "activeAuthLi" : ""} onClick={that.toAuthInfo.bind(that, 4)}><i className="iconfont authIcon">&#xe61e;</i>其他信息<div className="goAuth"><span>{that.statusToChinese(userCertInfo.info)}</span><i className="iconfont">&#xe60b;</i></div></li>
                         </ul>
                     </div>
                 </div>

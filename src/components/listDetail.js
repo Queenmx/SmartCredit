@@ -42,6 +42,7 @@ var ListDetail = React.createClass({
         if (user) {
             this.setState({
             	realName:(JSON.parse(user)).realName,
+            	idCard:(JSON.parse(user)).idCard,
                 isLogin: true,
                 loanId: loanId
             })
@@ -144,8 +145,7 @@ var ListDetail = React.createClass({
         		 const { value2, limitType, loanId, value1 } = that.state;
 	            //console.log(that.state);
 	            
-	            console.log(that.state.realName);
-	            if(that.state.realName){
+	            if(that.state.realName&&that.state.idCard){
 	            	var queryData = {
 		                loanId: loanId,
 		                tapNum:-2,

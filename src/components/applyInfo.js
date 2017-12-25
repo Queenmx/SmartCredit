@@ -16,7 +16,8 @@ var ApplyInfo = React.createClass({
         return {
             flag: false,
             applyName: "",
-            applyNumber: ""
+            applyNumber: "",
+            idCard:""
         }
     },
 
@@ -33,7 +34,7 @@ var ApplyInfo = React.createClass({
             var user = JSON.parse(userStr);//必须登录才能看到本页面
             var located = localStorage.getItem("dingwei") || "";
             var { realName, phone, idCard } = user;
-            this.setState({ applyName: realName, applyNumber: phone, realName: realName, located: located, user: user });
+            this.setState({ applyName: realName, applyNumber: phone, realName: realName,idCard:idCard, located: located, user: user });
         }
 
     },
@@ -43,17 +44,24 @@ var ApplyInfo = React.createClass({
         var that = this;
         var loanId = that.props.location.state.loanId;
         var applyQuery = that.props.location.state.applyQuery;
-        var { realName, applyName, applyNumber, located, user } = that.state;
+        var { realName, applyName, applyNumber, located, user ,idCard} = that.state;
         //console.log(that.state);
-        if (applyName.length > 0) {
-            if (realName == "" || realName == null) {//修改名字
-                api.edit(user.idCard, located, applyName, function (res) {
+         var idCartReg = /(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/;
+        // console.log(idCard);
+        if (applyName.length < 0) {
+        	 Toast.info("请输入姓名", 2);
+        }else if(!idCartReg.test(idCard)){
+			Toast.info("请输入正确的身份证号", 2);
+        } else {
+             if (realName == "" || realName == null) {//修改名字
+                api.edit(idCard, located, applyName, function (res) {
                     //console.log(res);
                     //console.log(applyName);
                     if (res.code == "0000") {
                         //修改信息成功
                         //console.log(applyName)
                         user.realName = applyName;
+                        user.idCard = idCard;
                         //var userObj = { realName: realName, located: located, idCard: user.idCard, certLevel: user.certLevel, phone: user.phone, userName: user.userName, token: user.token, headPic: user.headPic, userId: user.userId }
                         localStorage.setItem("user", JSON.stringify(user));
                         globalData.user = JSON.stringify(user);
@@ -82,51 +90,6 @@ var ApplyInfo = React.createClass({
                 state: queryData,
             }
             hashHistory.push(path);
-
-
-            /*        //获取资质列表
-                    api.qualifyList(loanId, "095c2c011ef740508bf27785e0ffe8f1", function (res) {
-                        //console.log(res);
-                        that.setState({
-                            flag: true
-                        })
-                        if (res.code == "0000") {
-                            var data = JSON.parse(strDec(res.data, key1, "", ""));
-                            //var qualifyList=data.qualifyList;
-                            ////console.log(data);
-                            var queryData = { applyNumber: applyNumber, applyName: applyName, loanId: loanId, applyQuery: applyQuery, qualifyList: data };
-                            that.setState({
-                                flag: false
-                            })
-                            var path = {
-                                pathname: '/ApplyLevel',
-                                state: queryData,
-                            }
-                            hashHistory.push(path);
-                        } else if (res.code == "5555") {
-                            that.setState({
-                                flag: false
-                            })
-                            Toast.info("登录过时，请重新登录", 2);
-                            var path = {
-                                pathname: '/Login',
-                            }
-                            hashHistory.push(path);
-                        } else {
-                            that.setState({
-                                flag: false
-                            })
-                            Toast.info(res.msg, 2);
-                        }
-                    }, function () {
-                        that.setState({
-                            flag: false
-                        })
-                        Toast.info("连接错误", 2);
-                    })*/
-        } else {
-            // Toast.info("请输入姓名", 2);
-            Toast.info("请输入姓名", 2);
         }
 
 
@@ -143,7 +106,10 @@ var ApplyInfo = React.createClass({
             window.history.back()
         }
     },
-    applyNumberHandle: function () {
+    applyIdCardHandle: function (event) {
+        this.setState({
+            idCard: event.target.value
+        })
     },
     applyNameHandle: function (event) {
 
@@ -192,7 +158,11 @@ var ApplyInfo = React.createClass({
                         </div>
                         <div>
                             <span>手机号</span>
-                            <input type="text" id="applyNumber" onChange={that.applyNumberHandle} value={that.state.applyNumber} placeholder="请输入手机号" />
+                            <input type="text" id="applyNumber"  defaultValue={that.state.applyNumber} placeholder="请输入手机号" />
+                        </div>
+                        <div>
+                            <span>身份证号</span>
+                            <input type="text" id="applyIdCard" onChange={that.applyIdCardHandle} value={that.state.idCard} placeholder="身份证号" />
                         </div>
                     </form>
                 </div>
