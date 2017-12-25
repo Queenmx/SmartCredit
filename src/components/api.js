@@ -117,7 +117,7 @@ module.exports.exit = function (cb1, cb2) {
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/exit`, { params: str }, cb1, cb2);
     delete data.userId;
-    globalData.userId="";
+    globalData.userId = "";
 }
 
 //----------------个人中心
@@ -532,11 +532,11 @@ module.exports.orderList = function (pageNum, pageSize, flag, cb1, cb2) {
  * @param {String} userId
  * ACTION
  */
-module.exports.cancleOrder = function (applyId,flag ,cb1, cb2) {
+module.exports.cancleOrder = function (applyId, flag, cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     data.applyId = applyId;
-     data.flag = flag;
+    data.flag = flag;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
@@ -544,7 +544,7 @@ module.exports.cancleOrder = function (applyId,flag ,cb1, cb2) {
     // console.log(userId);
     http(`${globalData.path}/zndai/loan/apply/cancel`, { params: str }, cb1, cb2);
     delete data.applyId;
-     delete data.flag;
+    delete data.flag;
     delete data.userId;
 }
 
@@ -610,7 +610,7 @@ module.exports.processDetail = function (applyId, cb1, cb2) {
     delete data.userId;
 }
 //还款H5
-module.exports.h5applyrepay= function (capitalId,loanId,orderSn, cb1, cb2) {
+module.exports.h5applyrepay = function (capitalId, loanId, orderSn, cb1, cb2) {
     var data = globalData.requestData;
     data.capitalId = capitalId;
     data.loanId = loanId;
@@ -628,7 +628,7 @@ module.exports.h5applyrepay= function (capitalId,loanId,orderSn, cb1, cb2) {
     delete data.userId;
 }
 //H5绑卡跳转
-module.exports.h5bindcard= function (capitalId,loanId,orderSn, cb1, cb2) {
+module.exports.h5bindcard = function (capitalId, loanId, orderSn, cb1, cb2) {
     var data = globalData.requestData;
     data.capitalId = capitalId;
     data.loanId = loanId;
@@ -703,7 +703,7 @@ module.exports.getApplyId = function (orderId, cb1, cb2) {
 }
 
 //联系人关系列表
-module.exports.contact =function ( cb1, cb2) {
+module.exports.contact = function (cb1, cb2) {
     var data = globalData.requestData;
     data.typeCode = 'CONTACT';
     var param = JSON.stringify(data);
@@ -715,7 +715,7 @@ module.exports.contact =function ( cb1, cb2) {
     delete data.typeCode;
 }
 //联系人信息保存
-module.exports.contactSave =function (contactWay,name,relation, cb1, cb2) {
+module.exports.contactSave = function (contactWay, name, relation, cb1, cb2) {
     var data = globalData.requestData;
     data.contactWay = contactWay;
     data.name = name;
@@ -733,7 +733,7 @@ module.exports.contactSave =function (contactWay,name,relation, cb1, cb2) {
     delete data.userId;
 }
 //用户公司信息保存
-module.exports.company =function (comp,compAddr,cb1, cb2) {
+module.exports.company = function (comp, compAddr, cb1, cb2) {
     var data = globalData.requestData;
     data.comp = comp;
     data.compAddr = compAddr;
@@ -749,7 +749,7 @@ module.exports.company =function (comp,compAddr,cb1, cb2) {
     delete data.userId;
 }
 //用户其他信息查询
-module.exports.getCompAndContact =function (cb1, cb2) {
+module.exports.getCompAndContact = function (cb1, cb2) {
     var data = globalData.requestData;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
