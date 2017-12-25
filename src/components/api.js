@@ -186,7 +186,7 @@ module.exports.qualifyList = function (loanId, parentId, cb1, cb2) {
     data.parentId = parentId;
     data.userId = globalData.userId;;
     let param = JSON.stringify(data);
-    console.log(param);
+    //console.log(param);
     let str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/qualify/list`, { params: str }, cb1, cb2);
     delete data.loanId;
@@ -341,7 +341,7 @@ module.exports.applyLoan = function (limitDay, limitType, loanId, money, qualify
     data.qualifyList = qualifyList;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
-    console.log(param)
+    //console.log(param)
     var str = strEnc(param, key1);
     // console.log(str)
     http(`${globalData.path}/zndai/loan/apply/add`, { params: str }, cb1, cb2);
@@ -365,7 +365,7 @@ module.exports.feedBackAdd = function (content, cb1, cb2) {
     data.content = content;
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
-    console.log(param)
+   // console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/feedBack/add`, { params: str }, cb1, cb2);
     delete data.content;
