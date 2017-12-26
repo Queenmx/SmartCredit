@@ -284,6 +284,10 @@
             font-size: 0.24rem;
             display: block;
              @include border_Top;
+             img{
+                 width: 0.15rem;
+                 margin-left: 0.2rem;
+             }
         }
     }
 

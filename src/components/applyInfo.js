@@ -45,7 +45,7 @@ var ApplyInfo = React.createClass({
         var loanId = that.props.location.state.loanId;
         var applyQuery = that.props.location.state.applyQuery;
         var { realName, applyName, applyNumber, located, user ,idCard} = that.state;
-        //console.log(that.state);
+        console.log(that.state);
          var idCartReg = /(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/;
         // console.log(idCard);
         if (applyName.length < 0) {
@@ -53,34 +53,29 @@ var ApplyInfo = React.createClass({
         }else if(!idCartReg.test(idCard)){
 			Toast.info("请输入正确的身份证号", 2);
         } else {
-             if (realName == "" || realName == null) {//修改名字
+             //if (realName == "" || realName == null) {//修改名字
                 api.edit(idCard, located, applyName, function (res) {
                     //console.log(res);
                     //console.log(applyName);
                     if (res.code == "0000") {
                         //修改信息成功
-                        //console.log(applyName)
                         user.realName = applyName;
                         user.idCard = idCard;
-                        //var userObj = { realName: realName, located: located, idCard: user.idCard, certLevel: user.certLevel, phone: user.phone, userName: user.userName, token: user.token, headPic: user.headPic, userId: user.userId }
                         localStorage.setItem("user", JSON.stringify(user));
                         globalData.user = JSON.stringify(user);
                     } else if (res.code == "5555") {
-                        // Toast.info("登录过时，请重新登录", 2);
                         Toast.info('登录过时，请重新登录', 2);
                         var path = {
                             pathname: '/Login',
                         }
                         hashHistory.push(path);
                     } else {
-                        // Toast.info(res.msg, 2);
                         Toast.info(res.msg, 2);
                     }
                 }, function () {
-                    // Toast.info("连接错误", 2);
                     Toast.info("连接错误", 2);
                 })
-            }
+            //}
             var queryData = { loanId: loanId, applyQuery: applyQuery };
             that.setState({
                 flag: false
