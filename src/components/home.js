@@ -306,52 +306,17 @@ var Home = React.createClass({
                         <div onClick={that.toLoan}><img src="src/img/icon/daikuan.png" /><p>我要贷款</p></div>
                         <div onClick={that.toProgress}><img src="src/img/icon/progress.png" /><p>进度查询</p></div>
                     </div>
-                    {/*<ul className="homeTab">
-	        			{that.state.tagArr}
-	        			<li data-tag="SBZ" data-txt="上班族" onClick={that.toList}>
-	        				<img src="src/img/icon/group.png"/>
-	        				<p>上班族</p>
-	        			</li>
-	        			<li data-tag="GTH"  data-txt="个体户" onClick={that.toList}>
-	        				<img src="src/img/icon/personal.png"/>
-	        				<p>个体户</p>
-	        			</li>
-	        			<li data-tag="QY" data-txt="企业主" onClick={that.toList}>
-	        				<img src="src/img/icon/qiye.png"/>
-	        				<p>企业主</p>
-	        			</li>
-	        			<li data-tag="ZYZY" data-txt="自由职业" onClick={that.toList}>
-	        				<img src="src/img/icon/ziyou.png"/>
-	        				<p>自由职业</p>
-	        			</li>
-	        		</ul>*/}
+                  
                     <div className="capitalBox">
                         {that.state.list}
                     </div>
                     <div className="newsBox">
                         <h3>你关心的资讯</h3>
                         <div>
-                            {/*<dl className="newsList" data-articleId="" onClick={that.toNewsDetail}>
-	        							<dd>
-	        								<h4>小呆还不起遇到暴力催收,我该怎么办?</h4>
-	        								<p><span>2017-10-20</span> <span>355阅读</span></p>
-	        							</dd>
-	        							<dt>
-	        								<img src=""/>
-	        							</dt>
-	        					</dl>
-		        				<dl className="newsList" onClick={that.toNewsDetail}>
-	        							<dd>
-	        								<h4>小呆还不起遇到暴力催收,我该怎么办?</h4>
-	        								<p><span>2017-10-20</span> <span>355阅读</span></p>
-	        							</dd>
-	        							<dt>
-	        								<img src=""/>
-	        							</dt>
-	        					</dl>*/}
+                        
                             {that.state.articleArr}
                         </div>
-                        <Link to="/news" className="linkNews">全部热门资讯<img src="" /></Link>
+                        <Link to="/news" className="linkNews">全部热门资讯<img src="src/img/icon/right.png" /></Link>
                     </div>
                     <Loading flag={that.state.isLoading} />
                 </div>

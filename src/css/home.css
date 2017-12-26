@@ -359,5 +359,8 @@
       transform: scale(0.5);
       transform-origin: 0 0;
       border-top: 1px solid #f3f3f3; }
+    .newsBox .linkNews img {
+      width: 0.15rem;
+      margin-left: 0.2rem; }
 
 /*# sourceMappingURL=home.css.map */

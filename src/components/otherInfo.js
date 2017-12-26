@@ -255,7 +255,7 @@ var OtherInfo1 = React.createClass({
 	                    </li>
 	                </ul>
                 </div>
-                <div className="botBtn" onClick={that.otherInfoSave}>提交</div>
+                <div className="botBtn footer" onClick={that.otherInfoSave}>提交</div>
             </div>
         )
     }
