@@ -23,7 +23,8 @@ var PersonalLevel = React.createClass({
         this.refs.toChildSaveBtn.toSaveBtn(
             function () {
                 Toast.info("提交成功", 2)
-                window.history.back()
+                //window.history.back()
+                history.go(-1);
             }
         );
     },
@@ -31,7 +32,7 @@ var PersonalLevel = React.createClass({
 
     },
 	getQualit:function(){
-    	console.log('子传父')
+    	//console.log('子传父')
     },
     render: function () {
         var that = this;

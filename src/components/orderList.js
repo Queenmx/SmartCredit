@@ -384,7 +384,7 @@ showAlert :function (applyId,capitalId,loanId,applyNo,e) {
 			    { text: '取消', onPress: () => console.log('quxiao'), style: 'default' },
 			    { text: '确定', onPress: () => {
 			       api.cancleOrder(applyId,"",function (res) {
-			            	console.log(res);
+			            	//console.log(res);
 			                if (res.code == "0000") {
 			                	Toast.info("取消订单成功",2);
 			                 $($e).parents("li").find(".orderNum span:nth-child(2)").html("已取消");   
@@ -424,14 +424,14 @@ showAlert :function (applyId,capitalId,loanId,applyNo,e) {
 		  }, 500000);*/
         	
         }else if(id=="3"){
-        	console.log("签约");
+        	//console.log("签约");
         	const key1 = globalData.key;
         	api.h5bindcard(capitalId,loanId,applyNo,function(res){
-	        		console.log(res)
+	        		//console.log(res)
 	        		 if (res.code == "0000") {
 	        		 	  let data = strDec(res.data, key1, "", "");
 		                    const dataObj=JSON.parse(data);
-		                    console.log(dataObj);
+		                    //console.log(dataObj);
 		                    const url=dataObj.url;
 		                    if(url){
 		                    	 window.location.href=url;
@@ -446,14 +446,14 @@ showAlert :function (applyId,capitalId,loanId,applyNo,e) {
 		        })
         	
         }else if(id=="4"){
-        	console.log("放宽");
+        	//console.log("放宽");
         	const key1 = globalData.key;
         		api.h5applyrepay(capitalId,loanId,applyNo,function(res){
-	        		console.log(res)
+	        		//console.log(res)
 	        		 if (res.code == "0000") {
 	        		 	let data = strDec(res.data, key1, "", "");
 		                    const dataObj=JSON.parse(data);
-		                    console.log(dataObj);
+		                    //console.log(dataObj);
 		                    const url=dataObj.url;
 		                    if(url){
 		                    	 window.location.href=url;
@@ -548,7 +548,7 @@ showAlert :function (applyId,capitalId,loanId,applyNo,e) {
 				})
                 var data = JSON.parse(strDec(res.data, key1, "", "") || []);
                 var orderList = data.list;
-                    console.log(orderList)
+                    //console.log(orderList)
                 that.orderList = data.list
                 var total=data.total;
 				var totalPage=Math.ceil(total/pageSize);

@@ -47,7 +47,8 @@ var Save = React.createClass({
               })  */
 
         } else {
-            window.history.back()
+            //window.history.back()
+            history.go(-1);
         }
 
 
@@ -320,7 +321,7 @@ var Save = React.createClass({
 					var data =JSON.parse(strDec(res.data,key1,"",""));
 					var loanList=data.list;
 					var total=data.total;
-					console.log(data);
+					//console.log(data);
 					for(var i in loanList){
 						var theDateTxt;
 						 var theDate = loanList[i].limitType;

@@ -45,7 +45,7 @@ var ApplyInfo = React.createClass({
         var loanId = that.props.location.state.loanId;
         var applyQuery = that.props.location.state.applyQuery;
         var { realName, applyName, applyNumber, located, user ,idCard} = that.state;
-        console.log(that.state);
+        //console.log(that.state);
          var idCartReg = /(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/;
         // console.log(idCard);
         if (applyName.length < 0) {
@@ -98,7 +98,8 @@ var ApplyInfo = React.createClass({
         if (backRouter) {
             hashHistory.push(backRouter);
         } else {
-            window.history.back()
+           // window.history.back()
+           history.go(-1);
         }
     },
     applyIdCardHandle: function (event) {

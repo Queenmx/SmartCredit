@@ -112,7 +112,8 @@ var Login = React.createClass({
                                 if (backRouter) {
                                     hashHistory.push(backRouter);
                                 } else {
-                                    window.history.back()
+                                    //window.history.back()
+                                    history.go(-1);
                                 }
 
                             } else {
@@ -166,7 +167,8 @@ var Login = React.createClass({
                                     if (backRouter) {
                                         hashHistory.push(backRouter);
                                     } else {
-                                        window.history.back()
+                                        //window.history.back()
+                                        history.go(-1);
                                     }
                                 } else {
                                     that.setState({

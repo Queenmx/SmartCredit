@@ -32,7 +32,8 @@ var ApplyLevel = React.createClass({
         if (backRouter) {
             hashHistory.push(backRouter);
         } else {
-            window.history.back()
+            //window.history.back()
+            history.go(-1);
         }
     },
     getQualit:function(qualifySelect){
@@ -56,7 +57,7 @@ var ApplyLevel = React.createClass({
                     that.setState({
                         flag: true
                     })
-                    console.log("申请贷款");
+                    //console.log("申请贷款");
                     //申请贷款
                     const { limitDay, limitType, loanId, money } = that.state.applyQuery;
                     var qualifyList = that.state.valSelect;

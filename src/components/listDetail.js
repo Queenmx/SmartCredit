@@ -247,7 +247,7 @@ var ListDetail = React.createClass({
             if (res.code == "0000") {
                 var data = res.data;
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log(data);
+                //console.log(data);
 
                 var moneyMin = data.moneyMin;
                 var limitMin = data.limitMin;

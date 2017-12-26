@@ -35,7 +35,8 @@ var ApplyResult = React.createClass({
         if (backRouter) {
             hashHistory.push(backRouter);
         } else {
-            window.history.back()
+            //window.history.back()
+            history.go(-1);
         }
     },
     logoError: function (event) {

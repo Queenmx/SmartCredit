@@ -24,7 +24,7 @@ class ProList extends Component {
             var loanId = event.currentTarget.getAttribute("data-loanId");
             var type = event.currentTarget.getAttribute("data-type");
             var data = { loanId: loanId };
-            console.log(type);
+            //console.log(type);
             if (type == "JZD") {
                 var path = {
                     pathname: '/ListDetail',
