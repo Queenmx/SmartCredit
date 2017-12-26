@@ -7,7 +7,7 @@ import { hashHistory, Link } from 'react-router';
 import iScroll from 'iscroll/build/iscroll-probe';
 import ReactIScroll from 'reactjs-iscroll';
 import { Modal,Toast } from 'antd-mobile';
-var appBasePath = globalData.appBasePath;
+var imgPath = globalData.imgPath;
 var Save = React.createClass({
 
     getInitialState: function () {
@@ -284,7 +284,7 @@ var Save = React.createClass({
 	    								<p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
 	    							</dd>
 	    							<dt>
-	    								<img src={articleList[i].imgUrl} onError={that.logoError} />
+	    								<img src={imgPath + articleList[i].imgUrl} onError={that.logoError} />
 	    							</dt>
 	    					</dl>)
 					}
@@ -355,7 +355,7 @@ var Save = React.createClass({
 						//arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId} key={Math.random()}  onTouchStart={that.touchStart} onTouchEnd={that.touchEndLoan}>
 						arr.push(<div className="capitalList" data-id={loanList[i].loanId} data-articleid={loanList[i].markId} data-type={loanList[i].type}  key={Math.random()} onClick={that.toLoanDetail}>
 		        				<h3>
-		        					<img src={loanList[i].logo} onError={that.logoError} />
+		        					<img src={imgPath + loanList[i].logo} onError={that.logoError} />
 		        					<span>{loanList[i].loanName}</span>
 		        				</h3>
 		        				<div className="capitalInfo">
