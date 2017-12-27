@@ -512,7 +512,7 @@ var orderDetail = React.createClass({
                     <div className="orderDetailInfo">
                         <div className="orderNum">
                             <span>订单号：{orderDetail.applyNo}</span>
-                            <span className="order_n">{that.state.statusTxt}</span>
+                            <span className="order_n">{orderDetail.apiWay=='H5'?'':that.state.statusTxt}</span>
                         </div>
                         <h3 className="list_title">
                             <img src={'http://xrjf.oss-cn-shanghai.aliyuncs.com/' + orderDetail.logo} onError={that.logoError} />
@@ -563,7 +563,7 @@ var orderDetail = React.createClass({
             if (res.code == "0000") {
                 let data = strDec(res.data, key1, "", "");
                 let orderDetail = JSON.parse(data);
-                //console.log(orderDetail);
+                console.log(orderDetail);
                 that.setState({
                     flag: false,
                     orderDetail: orderDetail,
