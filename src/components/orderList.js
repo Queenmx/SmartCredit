@@ -548,7 +548,7 @@ showAlert :function (applyId,capitalId,loanId,applyNo,e) {
 				})
                 var data = JSON.parse(strDec(res.data, key1, "", "") || []);
                 var orderList = data.list;
-                    //console.log(orderList)
+                    console.log(orderList)
                 that.orderList = data.list
                 var total=data.total;
 				var totalPage=Math.ceil(total/pageSize);
@@ -578,7 +578,7 @@ showAlert :function (applyId,capitalId,loanId,applyNo,e) {
 	                    arr.push(<li key={Math.random()} data-applyId={orderList[i].applyId} onClick={that.toOrderDetail}>
 	                        <div className="orderNum">
 	                            <span>订单号：{orderList[i].applyNo}</span>
-	                            <span  className="order_n">{orderList[i].type=='JZD'?that.state.statusJZD[applyStatus][status].text:that.state.status[applyStatus][status].text}</span>
+	                            <span  className="order_n" style={{'display':orderList[i].apiWay=='H5'?'none':'block'}}>{orderList[i].type=='JZD'?that.state.statusJZD[applyStatus][status].text:that.state.status[applyStatus][status].text}</span>
 	                        </div>
 	                        <h3 className="list_title">
 	                            <img src={'http://xrjf.oss-cn-shanghai.aliyuncs.com/' + orderList[i].logo} onError={that.logoError}/>
