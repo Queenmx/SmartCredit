@@ -39,14 +39,14 @@ var IdCard = React.createClass({
             var backImgData = that.state.backImg;
             if (faceImgData && backImgData) {
                 api.identityUserCert(backImgData, faceImgData, function (res) {
-                      console.log(res);
+                      //console.log(res);
                     if (res.code == "0000") {
                         Toast.info("认证成功", 2);
                         that.setState({
                             flag: false
                         })
                         var data = JSON.parse(strDec(res.data, key1, "", ""));
-                          console.log(data);
+                          //console.log(data);
                         var userObj = that.state.userObj;
                         userObj.backPic = data.backPic;
                         userObj.frontPic = data.frontPic;
@@ -154,7 +154,7 @@ var IdCard = React.createClass({
     },
     render: function () {
         var imgPath = globalData.imgPath;
-        console.log(this.state);
+        //console.log(this.state);
         var that = this;
         return (
             <div className="app_Box idCard">

@@ -32,7 +32,8 @@ var ApplyLevel = React.createClass({
         if (backRouter) {
             hashHistory.push(backRouter);
         } else {
-            window.history.back()
+            //window.history.back()
+            history.go(-1);
         }
     },
     getQualit:function(qualifySelect){
@@ -56,7 +57,7 @@ var ApplyLevel = React.createClass({
                     that.setState({
                         flag: true
                     })
-                    console.log("申请贷款");
+                    //console.log("申请贷款");
                     //申请贷款
                     const { limitDay, limitType, loanId, money } = that.state.applyQuery;
                     var qualifyList = that.state.valSelect;
@@ -72,6 +73,7 @@ var ApplyLevel = React.createClass({
                             var data = JSON.parse(strDec(res.data, key1, "", ""));
                             // console.log(data);
                             var queryData = { apiUrl: data.apiUrl, apiWay: data.apiWay, logo: data.logo,tapNum:that.props.location.state.tapNum };
+                            //console.log(that.props.location.state)
                             //Toast.info("申请订单成功",2);
                             var path = {
                                 pathname: '/ApplyResult',

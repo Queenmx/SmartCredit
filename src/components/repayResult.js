@@ -64,7 +64,7 @@ var repayResult = React.createClass({
     goOrderDetail: function () {
         var that = this
         var orderId = that.props.location.query.order_sn;
-        console.log(orderId);
+        //console.log(orderId);
         var key1 = globalData.key;
         var path = {
             pathname: '/OrderDetail',

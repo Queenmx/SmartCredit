@@ -29,7 +29,7 @@ var BaseInfo = React.createClass({
             this.refs.toChildSaveBtn.toSaveBtn(
                 function () {
                     Toast.info("提交成功", 2)
-                    window.history.back()
+                    //window.history.back()
                 }
 
             );
@@ -48,12 +48,12 @@ var BaseInfo = React.createClass({
         })
     },
 	getQualit:function(){
-    	console.log('子传父')
+    	//console.log('子传父')
     },
     render: function () {
         var that = this;
         var objId = this.props.location.query.loanId;
-        console.log(objId);
+       // console.log(objId);
         return (
             <div className="app_Box personalLevel">
                 <Header title="基本信息认证" />

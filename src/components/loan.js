@@ -104,7 +104,7 @@ var Loan = React.createClass({
                 //console.log(res)
                 if (res.code == "0000") {
                     var tagdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(tagdata);
+                    //console.log(tagdata);
                     sessionStorage.setItem("homeTag", JSON.stringify(tagdata));
                     for (var i in tagdata) {
                         that.state.tagArr.push(
@@ -126,7 +126,7 @@ var Loan = React.createClass({
     },
     //精准贷
     jzd: function () {
-        console.log("精准贷")
+        //console.log("精准贷")
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
@@ -269,7 +269,7 @@ var Loan = React.createClass({
     },
     //快速贷
     ksd: function () {
-        console.log("快速贷")
+        //console.log("快速贷")
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
@@ -420,7 +420,7 @@ var Loan = React.createClass({
         var key1 = globalData.key;
         var toast = globalData.toast;
         var activeLoanId = that.state.activeLoanId;
-        console.log(activeLoanId);
+        //console.log(activeLoanId);
         if (activeLoanId == "1") {//精准贷
             that.jzd()
         } else {//快速贷

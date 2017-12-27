@@ -32,7 +32,7 @@ var ProgressDetail = React.createClass({
                     flag: false
                 })
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log(data);
+                //console.log(data);
                 var flow = {}
                 var type = data.type; //KSD快速贷 JZD精准贷
                 if (type === 'KSD') {

@@ -618,7 +618,7 @@ module.exports.h5applyrepay = function (capitalId, loanId, orderSn, cb1, cb2) {
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    console.log(param);
+    //console.log(param);
     http.get(`${globalData.path}/zndai/capital/h5applyrepay`, {
         params: str
     }, cb1, cb2);
@@ -636,7 +636,7 @@ module.exports.h5bindcard = function (capitalId, loanId, orderSn, cb1, cb2) {
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    console.log(param);
+    //console.log(param);
     http(`${globalData.path}/zndai/capital/h5bindcard`, {
         params: str
     }, cb1, cb2);
@@ -679,7 +679,7 @@ module.exports.zmCert = function (loanId, cb1, cb2) {
     data.loanId = loanId
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
-    console.log("=======" + param)
+   // console.log("=======" + param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/cert/authorizationZm`, {
         params: str
@@ -708,7 +708,7 @@ module.exports.contact = function (cb1, cb2) {
     data.typeCode = 'CONTACT';
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    console.log(param);
+    //console.log(param);
     http(`${globalData.path}/zndai/dictionary/list`, {
         params: str
     }, cb1, cb2);
@@ -723,7 +723,7 @@ module.exports.contactSave = function (contactWay, name, relation, cb1, cb2) {
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    console.log(param);
+   // console.log(param);
     http(`${globalData.path}/zndai/user/cert/contact`, {
         params: str
     }, cb1, cb2);
@@ -740,7 +740,7 @@ module.exports.company = function (comp, compAddr, cb1, cb2) {
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    console.log(param);
+  //  console.log(param);
     http(`${globalData.path}/zndai/user/cert/company`, {
         params: str
     }, cb1, cb2);
@@ -754,7 +754,7 @@ module.exports.getCompAndContact = function (cb1, cb2) {
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    console.log(param);
+   // console.log(param);
     http(`${globalData.path}/zndai/user/cert/getCompAndContact`, {
         params: str
     }, cb1, cb2);

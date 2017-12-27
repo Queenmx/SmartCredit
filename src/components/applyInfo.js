@@ -45,10 +45,10 @@ var ApplyInfo = React.createClass({
         var loanId = that.props.location.state.loanId;
         var applyQuery = that.props.location.state.applyQuery;
         var { realName, applyName, applyNumber, located, user ,idCard} = that.state;
-        console.log(that.state);
+        //console.log(that.state);
          var idCartReg = /(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/;
         // console.log(idCard);
-        if (applyName.length < 0) {
+        if (applyName.length < 1) {
         	 Toast.info("请输入姓名", 2);
         }else if(!idCartReg.test(idCard)){
 			Toast.info("请输入正确的身份证号", 2);
@@ -76,7 +76,8 @@ var ApplyInfo = React.createClass({
                     Toast.info("连接错误", 2);
                 })
             //}
-            var queryData = { loanId: loanId, applyQuery: applyQuery };
+            var queryData = { loanId: loanId, applyQuery: applyQuery ,tapNum:that.props.location.state.tapNum };
+            //console.log(queryData)
             that.setState({
                 flag: false
             })
@@ -98,7 +99,8 @@ var ApplyInfo = React.createClass({
         if (backRouter) {
             hashHistory.push(backRouter);
         } else {
-            window.history.back()
+           // window.history.back()
+           history.go(-1);
         }
     },
     applyIdCardHandle: function (event) {

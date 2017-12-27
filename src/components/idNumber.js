@@ -57,7 +57,8 @@ var RealName = React.createClass({
                         flag: false
                     })
                     Toast.info("保存成功", 2);
-                    window.history.back();
+                   //window.history.back();
+                   history.go(-1);
                 } else if (res.code == "5555") {
                     that.setState({
                         flag: false
