@@ -107,7 +107,7 @@ var introKSD = React.createClass({
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
                 var problemList = data.list;
                 var total = data.total;
-                console.log(problemList);
+                //console.log(problemList);
                 var arr = [];
                 if (problemList.length > 0) {
                     for (var i in problemList) {

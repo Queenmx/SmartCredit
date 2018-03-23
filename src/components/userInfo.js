@@ -48,15 +48,16 @@ var UserInfo = React.createClass({
             $d = document.querySelector(d),
             myfile = $c.files[0];
         if (myfile) {
-            that.setState({
-                flag: true
-            })
+           
             new html5ImgCompress(myfile, {
                 before: function (myfile) {
                     //console.log('单张: 压缩前...');
+                     that.setState({
+		                flag: true
+		            })
                 },
                 done: function (myfile, base64) {
-                    // console.log('单张: 压缩成功...');
+                     //console.log('单张: 压缩成功...');
                     //Toast.info("单张: 压缩成功...",1000)
                     that.setState({
                         headerPic: base64
@@ -102,15 +103,26 @@ var UserInfo = React.createClass({
                 },
                 fail: function (myfile) {
                     //Toast.info('单张: 压缩失败...');
+                    that.setState({
+                                    flag: false
+                                })
                 },
                 complete: function (myfile) {
                     //console.log('单张: 压缩完成...');
                     //console.log(that.state)
+                    that.setState({
+                                    flag: false
+                                })
                 },
                 notSupport: function (myfile) {
-                    alert('浏览器不支持！');
+                	Toast.info('浏览器不支持',2);
+                    that.setState({
+                                    flag: false
+                                })
                 }
             });
+        }else{
+        Toast.info('你没选择')
         }
     },
     rePsd: function () {

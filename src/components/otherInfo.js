@@ -39,7 +39,7 @@ var OtherInfo1 = React.createClass({
 			  api.getCompAndContact(function (res) {
 	            if (res.code == "0000") {
 	                let data = JSON.parse(strDec(res.data, key1, "", ""));
-	                console.log(data);
+	                //console.log(data);
 	                that.setState({
 	                	comp:data.comp,
 	                	name:(data.userContactList)[0].name||"",
@@ -48,7 +48,7 @@ var OtherInfo1 = React.createClass({
 	                })
 									if(data.compAddr){
 										  const levelArr= data.compAddr.split(',');
-										  console.log(levelArr)
+										  //console.log(levelArr)
 										  if(levelArr.length>2){
 										  	that.setState({
 				                	compAddrThree:levelArr.slice(0,3).join(","),
@@ -75,7 +75,7 @@ var OtherInfo1 = React.createClass({
 	            	var contactArr=[];
 	                let data = JSON.parse(strDec(res.data, key1, "", ""));
 	                 data.map(item => {
-						  //console.log(item);
+						  ////console.log(item);
 						 contactArr.push(item.name)	
 						})
 	                that.setState({
@@ -149,7 +149,7 @@ var OtherInfo1 = React.createClass({
 	 	}else{
 	 		 compAddr=this.state.compAddrDetail;
 	 	}
-	 	console.log(compAddr);
+	 	//console.log(compAddr);
 	 	const contactWay=this.state.contactWay;
 	 	const name=this.state.name;
 	 	const relation=this.state.relation;
@@ -157,7 +157,7 @@ var OtherInfo1 = React.createClass({
 	 		if(compAddr){
 	    		api.company(this.state.comp,compAddr,function (res) {
 	            if (res.code == "0000") {
-	            console.log('公司保存成功')
+	            //console.log('公司保存成功')
 	            }else{
 	            	Toast.info(res.msg,2);
 	            }
@@ -171,7 +171,8 @@ var OtherInfo1 = React.createClass({
 										flag:false
 									})
 	                Toast.info('保存成功',2);
-	                window.history.back();
+	               // window.history.back();
+	               history.go(-1);
 	            }else{
 	            	that.setState({
 										flag:false
@@ -255,7 +256,7 @@ var OtherInfo1 = React.createClass({
 	                    </li>
 	                </ul>
                 </div>
-                <div className="botBtn" onClick={that.otherInfoSave}>提交</div>
+                <div className="botBtn footer" onClick={that.otherInfoSave}>提交</div>
             </div>
         )
     }

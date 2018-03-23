@@ -28,6 +28,7 @@ var ApplyResult = React.createClass({
         const { apiWay, apiUrl ,tapNum} = this.props.location.state;
         //console.log(this.props.location.state);
         this.setState({ apiWay: apiWay, apiUrl: apiUrl ,tapNum:tapNum})
+        console.log(this.props.location.state)
     },
 
     toBack: function () {
@@ -35,7 +36,8 @@ var ApplyResult = React.createClass({
         if (backRouter) {
             hashHistory.push(backRouter);
         } else {
-            window.history.back()
+            //window.history.back()
+            history.go(-1);
         }
     },
     logoError: function (event) {
@@ -53,6 +55,7 @@ var ApplyResult = React.createClass({
 			  //query:data,
 			}
 			hashHistory.push(path);*/
+			console.log(this.state.tapNum);
             history.go(this.state.tapNum);
         } else if (apiWay == "H5") {//url
             window.location.href = this.state.apiUrl;

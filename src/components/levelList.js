@@ -43,7 +43,7 @@ var levelList = React.createClass({
         var isOver,canFlow;
         
         if(that.state.loanType==='KSD'){
-        	console.log('KSD');
+        	//console.log('KSD');
         	if(that.testName()&&that.testId()){
         		canFlow=true;
         	}else{
@@ -51,7 +51,7 @@ var levelList = React.createClass({
         	}
         }else{
         	canFlow=true;
-        	console.log('jzd');
+        	//console.log('jzd');
         }
         if(canFlow){
 	        var qualifySelect = that.state.valSelect;

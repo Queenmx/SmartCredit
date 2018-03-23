@@ -54,8 +54,8 @@ var Header = React.createClass({
 
 
         } else {
-
-            window.history.back()
+        	//window.history.back();
+        	 history.go(-1); 
         }
 
 

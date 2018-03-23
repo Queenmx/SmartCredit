@@ -51,13 +51,14 @@ var Ask = React.createClass({
                 })
             if (this.state.fromWho == "help") {//反馈建议
                 api.feedBackAdd(content, function (res) {
-                    console.log('feedBackAdd',res);
+                    //console.log('feedBackAdd',res);
                     if (res.code == "0000") {
                     	that.setState({
 		                    flag: false
 		                })
                         Toast.info("提交成功", 2);
-                        window.history.back();
+                       // window.history.back();
+                       history.go(-1);
                     } else {
                     	that.setState({
 		                    flag: false
@@ -74,13 +75,14 @@ var Ask = React.createClass({
                 var objId = this.props.location.query.objId;
                 var objType = this.props.location.query.objType;
                 api.questionAdd(content, objId, objType, function (res) {
-                    console.log('questionAdd',res);
+                   // console.log('questionAdd',res);
                     if (res.code == "0000") {
                     	that.setState({
 		                    flag: false
 		                })
                         Toast.info("提交成功", 2);
-                        window.history.back();
+                        //window.history.back();
+                        history.go(-1);
                     } else {
                     	that.setState({
 		                    flag: false

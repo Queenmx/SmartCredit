@@ -156,7 +156,7 @@ var ListDetailKSD = React.createClass({
                     if (res.code === '0000') {
                     	var qualifyList = JSON.parse(strDec(res.data, key1, "", ""));
                         api.applyLoan(value2, limitType, loanId, money1, qualifyList, function (ret) {
-                        	console.log(res)
+                        	//console.log(res)
                         	that.setState({
 					                flag: false
 					            })
@@ -243,7 +243,7 @@ var ListDetailKSD = React.createClass({
             ////console.log(res);
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log(data);
+                //console.log(data);
 
                 var moneyMin = data.moneyMin;
                 var limitMin = data.limitMin;
@@ -285,7 +285,7 @@ var ListDetailKSD = React.createClass({
 			            	qualify=0
 			            }*/
 			            let userCertInfoArr = [that.state.idCard!==""?userCertInfo.qualify:0, userCertInfo.idcard, userCertInfo.phone, userCertInfo.zm, userCertInfo.info];
-			           console.log(userCertInfoArr);
+			           //console.log(userCertInfoArr);
 			           //let userCertInfoArr=[1,0,1,1,1]
 			            for (var i = 0; i < userCertInfoArr.length; i++) {
 			                if (!(userCertInfoArr[i] > 0)) {
@@ -594,7 +594,7 @@ var ListDetailKSD = React.createClass({
         }
     },
     toAuthInfo: function (id,event) {
-    	console.log(id);
+    	//console.log(id);
         var key1 = globalData.key;
         var that = this
        
@@ -629,9 +629,9 @@ var ListDetailKSD = React.createClass({
 					}else{
 						api.phoneCert(that.state.loanId, function (res) {
 	                    if (res.code == "0000") {
-		                        // console.log(data.authInfoUrl)
+		                        // //console.log(data.authInfoUrl)
 		                        var data = JSON.parse(strDec(res.data, key1, "", ""));
-		                        console.log(data.authInfoUrl)
+		                        //console.log(data.authInfoUrl)
 		                        window.location.href = data.authInfoUrl
 		                    } else {
 		                        // Toast.info(res.msg, 2);
@@ -652,7 +652,7 @@ var ListDetailKSD = React.createClass({
 		                    if (res.code == "0000") {
 		                        // console.log(data.authInfoUrl)
 		                        var data = JSON.parse(strDec(res.data, key1, "", ""));
-		                        console.log(data.authInfoUrl)
+		                        //console.log(data.authInfoUrl)
 		                        window.location.href = data.authInfoUrl
 		                    } else {
 		                        // Toast.info(res.msg, 2);

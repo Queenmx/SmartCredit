@@ -24,7 +24,7 @@ var ProgressStep = React.createClass({
             <div className="progressStep">
                 <ul className="step-list">
                     {this.props.steps.map((item, index) =>
-                        <li className="item" key={i}>
+                        <li className="item" key={index}>
                             <p className="left">
                                 <i className={item.time ? 'blue' : 'grey'}>{index + 1}</i>
                                 <span className={item.time ? 'fontblack' : 'fontgrey'}>{item.text}</span>

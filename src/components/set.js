@@ -30,7 +30,8 @@ var Set = React.createClass({
                     localStorage.removeItem("curCity");
                     globalData.user = "",
                         globalData.requestData.token = "",
-                        window.history.back();
+                        //window.history.back();
+                        history.go(-1);
                 } else {
                     that.setState({ isLoading: false })
                     Toast.info(res.msg, 2);

@@ -363,7 +363,8 @@ var orderDetail = React.createClass({
                         api.cancleOrder(applyId, "DELETE", function (res) {
                             if (res.code == "0000") {
                                 Toast.info("删除订单成功", 2);
-                                window.history.back();
+                                //window.history.back();
+                                history.go(-1);
                                 // $($e).parents("li").hide("slow");
                                 // $($e).parents("li").find(".orderNum span:nth-child(2)").html("已取消");                   
                             } else {
@@ -380,16 +381,16 @@ var orderDetail = React.createClass({
           }, 500000);*/
 
         } else if (id == "3") {
-            console.log("签约");
+            //console.log("签约");
             const capitalId = that.state.orderDetail.capitalId;
             const loanId = that.state.orderDetail.loanId;
             const applyNo = that.state.orderDetail.applyNo;
             const key1 = globalData.key;
             api.h5bindcard(capitalId, loanId, applyNo, function (res) {
-                console.log(res)
+                //console.log(res)
                 if (res.code == "0000") {
                     let data = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(data);
+                    //console.log(data);
                     const url=data.url;
                     if(url){
                     	 window.location.href=url;
@@ -404,17 +405,17 @@ var orderDetail = React.createClass({
             })
 
         } else if (id == "4") {
-            console.log("放宽");
+            //console.log("放宽");
             const capitalId = that.state.orderDetail.capitalId;
             const loanId = that.state.orderDetail.loanId;
             const applyNo = that.state.orderDetail.applyNo;
             const key1 = globalData.key;
 
             api.h5applyrepay(capitalId, loanId, applyNo, function (res) {
-                console.log(res)
+                //console.log(res)
                 if (res.code == "0000") {
                     let data = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(data);
+                    //console.log(data);
                     const url=data.url;
                     if(url){
                     	 window.location.href=url;
@@ -433,7 +434,7 @@ var orderDetail = React.createClass({
 
     componentWillMount: function () {
         let applyId = this.props.location.query.applyId;
-        console.log("===" + applyId)
+        //console.log("===" + applyId)
         this.setState({
             applyId: applyId
 
@@ -511,7 +512,7 @@ var orderDetail = React.createClass({
                     <div className="orderDetailInfo">
                         <div className="orderNum">
                             <span>订单号：{orderDetail.applyNo}</span>
-                            <span className="order_n">{that.state.statusTxt}</span>
+                            <span className="order_n">{orderDetail.apiWay=='H5'?'':that.state.statusTxt}</span>
                         </div>
                         <h3 className="list_title">
                             <img src={'http://xrjf.oss-cn-shanghai.aliyuncs.com/' + orderDetail.logo} onError={that.logoError} />

@@ -44,7 +44,7 @@ var Progress = React.createClass({
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
                 var progressList = data.list;
-                console.log(progressList);
+                //console.log(progressList);
                 var arr = [];
                 for (var i in progressList) {
                     var theDate = progressList[i].limitType;

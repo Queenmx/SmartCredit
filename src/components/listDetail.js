@@ -156,6 +156,7 @@ var ListDetail = React.createClass({
 		                    money: value1
 		                }
 		            };
+		           
 	            	var path = {
 		                pathname: '/ApplyLevel',
 		                state: queryData,
@@ -171,6 +172,7 @@ var ListDetail = React.createClass({
 		                    money: value1
 		                }
 		            };
+		            //console.log(queryData)
 	            	var path = {
 		                pathname: '/ApplyInfo',
 		                state: queryData,
@@ -243,12 +245,11 @@ var ListDetail = React.createClass({
         var toast = globalData.toast;
         var loanId = that.state.loanId;
         api.loanDetail(loanId, function (res) {
-            ////console.log(res);
+            console.log(res);
             if (res.code == "0000") {
                 var data = res.data;
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log(data);
-
+               // console.log(data);
                 var moneyMin = data.moneyMin;
                 var limitMin = data.limitMin;
                 var limitMax = data.limitMax;

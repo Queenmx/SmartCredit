@@ -23,7 +23,7 @@ var SubmitResult = React.createClass({
         var that = this
         var ret = that.props.location.state.ret
         var resobj = {};
-        console.log(ret)
+        //console.log(ret)
         var btns
         if (ret.code === '0000') {
             resobj.text = '提交成功'
@@ -55,11 +55,11 @@ var SubmitResult = React.createClass({
     },
     goOrderDetail: function () {
         var that = this
-        console.log(that.props.location.state.ret)
+        //console.log(that.props.location.state.ret)
         var retObj=JSON.parse(strDec(that.props.location.state.ret.data, key1, "", ""));
         var applyId = retObj.applyId
         // var applyId = 'a86cfe9120434ce4a98e598bfba7c2ea'
-        console.log(applyId)
+        //console.log(applyId)
         var path = {
             pathname: '/OrderDetail',
             query: { applyId: applyId }

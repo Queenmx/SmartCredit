@@ -24,7 +24,7 @@ class ProList extends Component {
             var loanId = event.currentTarget.getAttribute("data-loanId");
             var type = event.currentTarget.getAttribute("data-type");
             var data = { loanId: loanId };
-            console.log(type);
+            //console.log(type);
             if (type == "JZD") {
                 var path = {
                     pathname: '/ListDetail',
@@ -86,7 +86,7 @@ class ProList extends Component {
 
     }
     loadData(downOrUp, callback) {
-
+		var imgPath = globalData.imgPath;
         var that = this;
         var key1 = globalData.key;
         // var toast = globalData.toast;
@@ -144,7 +144,7 @@ class ProList extends Component {
                 }
                         arr.push(<div className="capitalList" key={Math.random()} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
                             <h3>
-                                <img src={loanList[i].logo} onError={that.logoError} />
+                                <img src={imgPath + loanList[i].logo} onError={that.logoError} />
                                 <span>{loanList[i].loanName}</span>
                             </h3>
                             <div className="capitalInfo">
