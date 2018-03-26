@@ -9,6 +9,14 @@
 * encrypt the string to string made up of hex
 * return the encrypted string
 */
+function test() {
+    console.log("i am test")
+}
+function strDec(data, key) {
+    console.log("data====:strDec")
+    data = JSON.stringify(data)
+    return data
+}
 function strEnc(data, firstKey, secondKey, thirdKey) {
 
     var leng = data.length;
@@ -172,76 +180,76 @@ function strEnc(data, firstKey, secondKey, thirdKey) {
 *
 * return  the original string  
 */
-function strDec(data, firstKey, secondKey, thirdKey) {
-    var leng = data.length;
-    var decStr = "";
-    var firstKeyBt, secondKeyBt, thirdKeyBt, firstLength, secondLength, thirdLength;
-    if (firstKey != null && firstKey != "") {
-        firstKeyBt = getKeyBytes(firstKey);
-        firstLength = firstKeyBt.length;
-    }
-    if (secondKey != null && secondKey != "") {
-        secondKeyBt = getKeyBytes(secondKey);
-        secondLength = secondKeyBt.length;
-    }
-    if (thirdKey != null && thirdKey != "") {
-        thirdKeyBt = getKeyBytes(thirdKey);
-        thirdLength = thirdKeyBt.length;
-    }
+// function strDec(data, firstKey, secondKey, thirdKey) {
+//     var leng = data.length;
+//     var decStr = "";
+//     var firstKeyBt, secondKeyBt, thirdKeyBt, firstLength, secondLength, thirdLength;
+//     if (firstKey != null && firstKey != "") {
+//         firstKeyBt = getKeyBytes(firstKey);
+//         firstLength = firstKeyBt.length;
+//     }
+//     if (secondKey != null && secondKey != "") {
+//         secondKeyBt = getKeyBytes(secondKey);
+//         secondLength = secondKeyBt.length;
+//     }
+//     if (thirdKey != null && thirdKey != "") {
+//         thirdKeyBt = getKeyBytes(thirdKey);
+//         thirdLength = thirdKeyBt.length;
+//     }
 
-    var iterator = parseInt(leng / 16);
-    var i = 0;
-    for (i = 0; i < iterator; i++) {
-        var tempData = data.substring(i * 16 + 0, i * 16 + 16);
-        var strByte = hexToBt64(tempData);
-        var intByte = new Array(64);
-        var j = 0;
-        for (j = 0; j < 64; j++) {
-            intByte[j] = parseInt(strByte.substring(j, j + 1));
-        }
-        var decByte;
-        if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "" && thirdKey != null && thirdKey != "") {
-            var tempBt;
-            var x, y, z;
-            tempBt = intByte;
-            for (x = thirdLength - 1; x >= 0; x--) {
-                tempBt = dec(tempBt, thirdKeyBt[x]);
-            }
-            for (y = secondLength - 1; y >= 0; y--) {
-                tempBt = dec(tempBt, secondKeyBt[y]);
-            }
-            for (z = firstLength - 1; z >= 0; z--) {
-                tempBt = dec(tempBt, firstKeyBt[z]);
-            }
-            decByte = tempBt;
-        } else {
-            if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "") {
-                var tempBt;
-                var x, y, z;
-                tempBt = intByte;
-                for (x = secondLength - 1; x >= 0; x--) {
-                    tempBt = dec(tempBt, secondKeyBt[x]);
-                }
-                for (y = firstLength - 1; y >= 0; y--) {
-                    tempBt = dec(tempBt, firstKeyBt[y]);
-                }
-                decByte = tempBt;
-            } else {
-                if (firstKey != null && firstKey != "") {
-                    var tempBt;
-                    var x, y, z;
-                    tempBt = intByte;
-                    for (x = firstLength - 1; x >= 0; x--) {
-                        tempBt = dec(tempBt, firstKeyBt[x]);
-                    }
-                    decByte = tempBt;
-                }
-            }
-        }
-        decStr += byteToString(decByte);
-    }
-    return decStr;
-}
+//     var iterator = parseInt(leng / 16);
+//     var i = 0;
+//     for (i = 0; i < iterator; i++) {
+//         var tempData = data.substring(i * 16 + 0, i * 16 + 16);
+//         var strByte = hexToBt64(tempData);
+//         var intByte = new Array(64);
+//         var j = 0;
+//         for (j = 0; j < 64; j++) {
+//             intByte[j] = parseInt(strByte.substring(j, j + 1));
+//         }
+//         var decByte;
+//         if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "" && thirdKey != null && thirdKey != "") {
+//             var tempBt;
+//             var x, y, z;
+//             tempBt = intByte;
+//             for (x = thirdLength - 1; x >= 0; x--) {
+//                 tempBt = dec(tempBt, thirdKeyBt[x]);
+//             }
+//             for (y = secondLength - 1; y >= 0; y--) {
+//                 tempBt = dec(tempBt, secondKeyBt[y]);
+//             }
+//             for (z = firstLength - 1; z >= 0; z--) {
+//                 tempBt = dec(tempBt, firstKeyBt[z]);
+//             }
+//             decByte = tempBt;
+//         } else {
+//             if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "") {
+//                 var tempBt;
+//                 var x, y, z;
+//                 tempBt = intByte;
+//                 for (x = secondLength - 1; x >= 0; x--) {
+//                     tempBt = dec(tempBt, secondKeyBt[x]);
+//                 }
+//                 for (y = firstLength - 1; y >= 0; y--) {
+//                     tempBt = dec(tempBt, firstKeyBt[y]);
+//                 }
+//                 decByte = tempBt;
+//             } else {
+//                 if (firstKey != null && firstKey != "") {
+//                     var tempBt;
+//                     var x, y, z;
+//                     tempBt = intByte;
+//                     for (x = firstLength - 1; x >= 0; x--) {
+//                         tempBt = dec(tempBt, firstKeyBt[x]);
+//                     }
+//                     decByte = tempBt;
+//                 }
+//             }
+//         }
+//         decStr += byteToString(decByte);
+//     }
+//     return decStr;
+// }
 /*
 * chang the string into the bit array
 * 
