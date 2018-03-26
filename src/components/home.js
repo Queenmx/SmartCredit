@@ -52,7 +52,7 @@ var Home = React.createClass({
     },
 
 
-    
+
     toProgress: function () {
         var path
         var user = localStorage.getItem("user");
@@ -105,6 +105,7 @@ var Home = React.createClass({
 
         var homeLoan = sessionStorage.getItem("homeLoan");
         if (homeLoan) {
+            console.log(homeLoan);
             var loanList = JSON.parse(homeLoan);
             var arr = [];
             //console.log(loanList)
@@ -124,7 +125,7 @@ var Home = React.createClass({
                     default:
                         break;
                 }
-                 var theDateRate = loanList[i].rateType;
+                var theDateRate = loanList[i].rateType;
                 var theDateRateTxt;
                 switch (theDateRate) {
                     case "Y":
@@ -168,7 +169,10 @@ var Home = React.createClass({
         } else {
             api.loanList(1, 10, "", "", function (res) {
                 if (res.code == "0000") {
-                    var data = JSON.parse(strDec(res.data, key1, "", ""));
+                    console.log("=====")
+                    // var data = JSON.parse(strDec(res.data, key1, "", ""));
+                    var data = res.data
+                    console.log(data)
                     //var data=res.data;
                     var loanList = data.list;
 
@@ -190,22 +194,22 @@ var Home = React.createClass({
                             default:
                                 break;
                         }
-                        
+
                         var theDateRate = loanList[i].rateType;
-                var theDateRateTxt;
-                switch (theDateRate) {
-                    case "Y":
-                        theDateRateTxt = "年"
-                        break;
-                    case "M":
-                        theDateRateTxt = "月"
-                        break;
-                    case "D":
-                        theDateRateTxt = "日"
-                        break;
-                    default:
-                        break;
-                }
+                        var theDateRateTxt;
+                        switch (theDateRate) {
+                            case "Y":
+                                theDateRateTxt = "年"
+                                break;
+                            case "M":
+                                theDateRateTxt = "月"
+                                break;
+                            case "D":
+                                theDateRateTxt = "日"
+                                break;
+                            default:
+                                break;
+                        }
                         arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
                             <h3>
                                 <img src={imgPath + loanList[i].logo} onError={that.logoError} />
@@ -306,14 +310,14 @@ var Home = React.createClass({
                         <div onClick={that.toLoan}><img src="src/img/icon/daikuan.png" /><p>我要贷款</p></div>
                         <div onClick={that.toProgress}><img src="src/img/icon/progress.png" /><p>进度查询</p></div>
                     </div>
-                  
+
                     <div className="capitalBox">
                         {that.state.list}
                     </div>
                     <div className="newsBox">
                         <h3>你关心的资讯</h3>
                         <div>
-                        
+
                             {that.state.articleArr}
                         </div>
                         <Link to="/news" className="linkNews">全部热门资讯<img src="src/img/icon/right.png" /></Link>

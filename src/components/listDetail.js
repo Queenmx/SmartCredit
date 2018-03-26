@@ -6,7 +6,7 @@ import { globalData } from './global.js';
 import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
-import {Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 import '../css/listDetail.css';
 // 引入 ECharts 主模块
 import echarts from "echarts";
@@ -32,7 +32,7 @@ var ListDetail = React.createClass({
             theDateTxt: "",
             rate: "",
             isDownImg: true,
-            fee:0
+            fee: 0
         }
     },
 
@@ -41,14 +41,14 @@ var ListDetail = React.createClass({
         var loanId = this.props.location.query.loanId;
         if (user) {
             this.setState({
-            	realName:(JSON.parse(user)).realName,
-            	idCard:(JSON.parse(user)).idCard,
+                realName: (JSON.parse(user)).realName,
+                idCard: (JSON.parse(user)).idCard,
                 isLogin: true,
                 loanId: loanId
             })
         } else {
             this.setState({
-            	realName:'',
+                realName: '',
                 isLogin: false,
                 loanId: loanId
             })
@@ -65,7 +65,8 @@ var ListDetail = React.createClass({
         api.lixi(value2, limitType, loanId, value1 * 100, function (res) {
             //console.log(res);
             if (res.code == "0000") {
-                var data = JSON.parse(strDec(res.data, key1, "", ""));
+                var data = res.data
+                // var data = JSON.parse(strDec(res.data, key1, "", ""));
                 that.setState({
                     //myRateMoney: parseFloat(data.lixi) / 100
                     myRateMoney: that.formateMoney(data.lixi)
@@ -139,49 +140,49 @@ var ListDetail = React.createClass({
         var that = this;
         var key1 = globalData.key;
         if (that.state.isLogin) {
-        	if(that.state.isLoan>0){
-        		Toast.info('你有未完成的订单',2);
-        	}else{
-        		 const { value2, limitType, loanId, value1 } = that.state;
-	            //console.log(that.state);
-	            
-	            if(that.state.realName&&that.state.idCard){
-	            	var queryData = {
-		                loanId: loanId,
-		                tapNum:-2,
-		                applyQuery: {
-		                    limitDay: value2,
-		                    limitType: limitType,
-		                    loanId: loanId,
-		                    money: value1
-		                }
-		            };
-		           
-	            	var path = {
-		                pathname: '/ApplyLevel',
-		                state: queryData,
-		            }
-	            }else{
-	            	var queryData = {
-		                loanId: loanId,
-		                tapNum:-3,
-		                applyQuery: {
-		                    limitDay: value2,
-		                    limitType: limitType,
-		                    loanId: loanId,
-		                    money: value1
-		                }
-		            };
-		            //console.log(queryData)
-	            	var path = {
-		                pathname: '/ApplyInfo',
-		                state: queryData,
-		            }
-	            }
-	            
-	            hashHistory.push(path);
-        	}
-           
+            if (that.state.isLoan > 0) {
+                Toast.info('你有未完成的订单', 2);
+            } else {
+                const { value2, limitType, loanId, value1 } = that.state;
+                //console.log(that.state);
+
+                if (that.state.realName && that.state.idCard) {
+                    var queryData = {
+                        loanId: loanId,
+                        tapNum: -2,
+                        applyQuery: {
+                            limitDay: value2,
+                            limitType: limitType,
+                            loanId: loanId,
+                            money: value1
+                        }
+                    };
+
+                    var path = {
+                        pathname: '/ApplyLevel',
+                        state: queryData,
+                    }
+                } else {
+                    var queryData = {
+                        loanId: loanId,
+                        tapNum: -3,
+                        applyQuery: {
+                            limitDay: value2,
+                            limitType: limitType,
+                            loanId: loanId,
+                            money: value1
+                        }
+                    };
+                    //console.log(queryData)
+                    var path = {
+                        pathname: '/ApplyInfo',
+                        state: queryData,
+                    }
+                }
+
+                hashHistory.push(path);
+            }
+
         } else {
             var path = {
                 pathname: '/Login',
@@ -245,11 +246,13 @@ var ListDetail = React.createClass({
         var toast = globalData.toast;
         var loanId = that.state.loanId;
         api.loanDetail(loanId, function (res) {
-            console.log(res);
+            console.log("=======" + res);
             if (res.code == "0000") {
-                var data = res.data;
+                // var data = res.data;
+                test()
+                console.log("0000", strDec(res.data, key1, "", ""))
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-               // console.log(data);
+                // console.log(data);
                 var moneyMin = data.moneyMin;
                 var limitMin = data.limitMin;
                 var limitMax = data.limitMax;
@@ -332,7 +335,7 @@ var ListDetail = React.createClass({
                     markId: data.markId,
                     fee: data.fee,
                     isMark: data.isMark,//1已收藏,
-                    isLoan:data.isLoan
+                    isLoan: data.isLoan
                 }, () => {
                     that.lixi();
                     that.setState({
@@ -582,7 +585,7 @@ var ListDetail = React.createClass({
         //var myFeeMoney=myRateMoney+value1;
 
         var myRateMoney = Number(that.state.myRateMoney);
-        var myTotalMoney = Number((Number(that.state.fee)+ myRateMoney + value1)).toFixed(2)||"";
+        var myTotalMoney = Number((Number(that.state.fee) + myRateMoney + value1)).toFixed(2) || "";
         return (
             <div className="app_Box listDetail">
                 <Header title={loanDetail.loanName} />
