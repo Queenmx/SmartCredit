@@ -170,8 +170,8 @@ var Home = React.createClass({
             api.loanList(1, 10, "", "", function (res) {
                 if (res.code == "0000") {
                     console.log("=====")
-                    // var data = JSON.parse(strDec(res.data, key1, "", ""));
-                    var data = res.data
+                    var data = JSON.parse(strDec(res.data, key1, "", ""));
+                    // var data = res.data
                     console.log(data)
                     //var data=res.data;
                     var loanList = data.list;

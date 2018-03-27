@@ -19,12 +19,19 @@ if (user) {
     var userId = "";
     var token = "";
 }
-
-
+// var key = "ZND171030APIMM"
+// var keyarr = []
+// for (var i in key) {
+//     keyarr.push(key.charCodeAt(i))
+// }
+// console.log(keyarr)
 const globalData = {
     // toast: toast,
     selectedCityName: '',
-    key: "ZND171030APIMM",
+    // key: "ZND171030APIMM",
+    key: '1234567812345678',
+    // key: [Z, N, D, 2, 0, 1, 7, 1, 0, 3, 0, A, P, I, M, M],
+    // key: [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8],
     // appBasePath: "http://www.91ymfq.com/XR/",
     path: "http://xingrongjinfu.iask.in:8886",
     // path: "http://wuhanxingrong.vicp.io:28886/",

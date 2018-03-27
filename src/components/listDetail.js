@@ -63,10 +63,10 @@ var ListDetail = React.createClass({
         const { value2, limitType, loanId, value1 } = that.state;
         //console.log(that.state);
         api.lixi(value2, limitType, loanId, value1 * 100, function (res) {
-            //console.log(res);
+            // console.log("利息", res);
             if (res.code == "0000") {
-                var data = res.data
-                // var data = JSON.parse(strDec(res.data, key1, "", ""));
+                // var data = res.data
+                var data = JSON.parse(strDec(res.data, key1, "", ""));
                 that.setState({
                     //myRateMoney: parseFloat(data.lixi) / 100
                     myRateMoney: that.formateMoney(data.lixi)
@@ -249,7 +249,6 @@ var ListDetail = React.createClass({
             console.log("=======" + res);
             if (res.code == "0000") {
                 // var data = res.data;
-                test()
                 console.log("0000", strDec(res.data, key1, "", ""))
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
                 // console.log(data);

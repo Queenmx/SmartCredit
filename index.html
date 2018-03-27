@@ -7,27 +7,34 @@
     <meta name="screen-orientation" content="portrait">
     <meta name="x5-orientation" content="portrait">
     <meta name="format-detection" content="telephone=no" />
-    <script type="text/javascript" src="src/libs/zepto.min.js"></script>
-    <script src="src/libs/rem.js" type="text/javascript" charset="utf-8"></script>
     <title>万融汇</title>
-    <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
-    <script>
-        if ('addEventListener' in document) {
-            document.addEventListener('DOMContentLoaded', function () {
-                FastClick.attach(document.body);
-            }, false);
-        }
-        if (!window.Promise) {
-            document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"' + '>' + '<' + '/' + 'script>');
-        }
-    </script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2bYPlioCp4ps4ekwY2AcPFdaG11euqlO"></script>
 
     <body>
         <div id="app"></div>
-        <script src="src/libs/des.js" type="text/javascript" charset="utf-8"></script>
+        <!-- <script src="src/libs/aes.js" type="text/javascript" charset="utf-8"></script> -->
         <!--<script src="src/libs/touch.js" type="text/javascript" charset="utf-8"></script>
-   	<script src="src/libs/fx.zepto.animate.js" type="text/javascript" charset="utf-8"></script>-->
+       <script src="src/libs/fx.zepto.animate.js" type="text/javascript" charset="utf-8"></script>-->
+        <!-- <script type="text/javascript" src="https://cdn.rawgit.com/ricmoo/aes-js/e27b99df/index.js"></script> -->
+        <script type="text/javascript" src="src/libs/zepto.min.js"></script>
+        <script src="src/libs/rem.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="src/libs/fastclick.js"></script>
+        <script>
+            if ('addEventListener' in document) {
+                document.addEventListener('DOMContentLoaded', function () {
+                    FastClick.attach(document.body);
+                }, false);
+            }
+            if (!window.Promise) {
+                var scrp = document.createElement("script")
+                scrp.src = "src/libs/promise.min.js"
+                document.body.appendChild(scrp)
+                // document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"' + '>' + '<' + '/' + 'script>');
+            }
+        </script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2bYPlioCp4ps4ekwY2AcPFdaG11euqlO"></script>
+        <script src="src/libs/aesmin.js" type="text/javascript" charset="utf-8"></script>
+        <script src="src/libs/aes.js" type="text/javascript" charset="utf-8"></script>
         <script src="src/libs/html5ImgCompress.min.js" type="text/javascript" charset="utf-8"></script>
 
 </html>
