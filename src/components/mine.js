@@ -1,6 +1,6 @@
 'use strict';
-import React from 'react';
-import ReactDom from 'react-dom';
+// import React from 'react';
+// import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
 import { hashHistory, Link } from 'react-router';
@@ -29,6 +29,7 @@ var Mine = React.createClass({
         //console.log(user);
         if (user) {//已登陆
             var userObj = JSON.parse(user);
+            console.log(userObj)
             that.setState({
                 user: userObj,
                 certStatus: userObj.certStatus,

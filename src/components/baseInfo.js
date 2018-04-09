@@ -1,6 +1,6 @@
 'use strict';
-import React from 'react';
-import ReactDom from 'react-dom';
+// import React from 'react';
+// import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
 import Header from './header';
@@ -8,7 +8,9 @@ import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import LevelList from './levelList';
 import { Toast } from 'antd-mobile';
+import { clearTimeout } from 'timers';
 // var toast = new Toast();
+var timer=null;
 var BaseInfo = React.createClass({
     getInitialState: function () {
         return {
@@ -16,11 +18,11 @@ var BaseInfo = React.createClass({
             flag: false,
             valSelect: [],
             qualifyListArr: [],
-            second: []
+            second: [],
         }
     },
     toChildSaveBtn: function () {
-        var that = this;
+        var that = this;        
         ////console.log(that.state.valSelect);
         if (!this.state.checked) {
             Toast.info("请同意万融汇服务协议", 2);
@@ -29,9 +31,10 @@ var BaseInfo = React.createClass({
             this.refs.toChildSaveBtn.toSaveBtn(
                 function () {
                     Toast.info("提交成功", 2)
-                    //window.history.back()
+                    timer=setTimeout(function(){
+                        window.history.back();
+                    },1000);
                 }
-
             );
         }
 
@@ -86,6 +89,9 @@ var BaseInfo = React.createClass({
     componentDidMount: function () {
 
 
+    },
+    componentWillUnmount(){
+        window.clearTimeout(timer);
     }
 });
 

@@ -1,6 +1,6 @@
 'use strict';
-import React, { Component } from 'react';
-import ReactDom from 'react-dom';
+// import React, { Component } from 'react';
+// import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
 import Header from './header';
@@ -19,14 +19,14 @@ var UserInfo = React.createClass({
     componentWillMount: function () {
         //console.log(globalData.user);
         var userStr = globalData.user;
-        ////console.log(userStr);
+        // console.log(userStr);
         if (!userStr) {
             var path = {
                 pathname: '/Login',
             }
             hashHistory.push(path);
         } else {
-            var user = JSON.parse(userStr);//必须登录才能看到本页面
+            var user = JSON.parse(userStr);//必须登录才能看到本页面           
             var located = localStorage.getItem("dingwei") || "";
             var { realName, phone, certStatus, headPic } = user;
             this.setState({ headPic: headPic, realName: realName, phone: phone, located: located, user: user, certStatus: certStatus });

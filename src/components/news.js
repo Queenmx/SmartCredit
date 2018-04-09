@@ -1,5 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import { render } from 'react-dom';
+// import React, { Component, PropTypes } from 'react';
+import { Component, PropTypes } from 'react';
+
+// import { render } from 'react-dom';
 import iScroll from 'iscroll/build/iscroll-probe';
 import ReactIScroll from 'reactjs-iscroll';
 import api from './api';
@@ -32,7 +34,7 @@ class News extends Component {
 			hashHistory.push(path);
 		}
 	    this.bannerUrl = (event) => {
-	    	var objUrl=event.currentTarget.getAttribute("data-objUrl");
+				var objUrl=event.currentTarget.getAttribute("data-objUrl");
 	    	if(objUrl){
 	    		window.location.href=objUrl;
 	    	}
@@ -91,10 +93,10 @@ class News extends Component {
 	 	const {currentPage,pageSize,list} = that.state;
 	 	var arr=[];
 	 	api.articleList(currentPage,pageSize,function(res){
-			////console.log(res);
+			console.log(res);
 			if(res.code=="0000"){
 				var data =JSON.parse(strDec(res.data,key1,"",""));
-				//console.log(data);
+				// console.log(data);
 				var articleList=data.list;
 				var total=data.total;
 				var totalPage=Math.ceil(total/pageSize);
@@ -159,7 +161,7 @@ class News extends Component {
 	        })
 		}else{
 			api.banner(function(res){
-					//console.log(res);
+					// console.log(res);
 					if(res.code=="0000"){
 						var bannerList =JSON.parse(strDec(res.data,key1,"",""));
 						sessionStorage.setItem("newsArticle",JSON.stringify(bannerList));
@@ -228,7 +230,7 @@ class News extends Component {
 					        <Carousel
 					          autoplay={true}
 					          infinite
-					          selectedIndex={1}>
+					          selectedIndex={0}>
 					        
 					          {this.state.banner.map(ii => (
 					            <a

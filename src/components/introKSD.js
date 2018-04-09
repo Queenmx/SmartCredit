@@ -1,6 +1,7 @@
 'use strict';
-import React, { Component } from 'react';
-import ReactDom from 'react-dom';
+import { Component } from 'react';
+// import React, { Component } from 'react';
+// import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
 import Header from './header';
