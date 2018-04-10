@@ -1,6 +1,6 @@
 'use strict';
-import React from 'react';
-import ReactDom from 'react-dom';
+// import React from 'react';
+// import ReactDom from 'react-dom';
 import api from './api';
 import iScroll from 'iscroll/build/iscroll-probe';
 import ReactIScroll from 'reactjs-iscroll';

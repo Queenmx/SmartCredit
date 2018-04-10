@@ -1,6 +1,6 @@
 'use strict';
-import React from 'react';
-import ReactDom from 'react-dom';
+// import React from 'react';
+// import ReactDom from 'react-dom';
 import { hashHistory } from 'react-router';
 import { Toast } from 'antd-mobile';
 var Header = React.createClass({

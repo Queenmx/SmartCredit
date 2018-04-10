@@ -39,6 +39,7 @@ module.exports = function(env) {
 
     /* return */
     return {
+        devtool: 'eval-source-map',//js定位
         /* entry */
         entry: {
             main: ['whatwg-fetch', './src/entry.js'],
@@ -208,7 +209,10 @@ module.exports = function(env) {
             new HtmlWebpackPlugin({
 	            title: '万融汇',
 	            template: './index.html',
-	        }),
+            }),
+            new webpack.ProvidePlugin({
+                React : "react"
+            })
         ]
     }
 };

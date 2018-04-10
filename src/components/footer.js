@@ -1,6 +1,6 @@
 'use strict';
-import React from "react";
-import ReactDom from 'react-dom';
+// import React from "react";
+// import ReactDom from 'react-dom';
 import { Router, Route, Link } from 'react-router';
 import {Toast } from 'antd-mobile';
 var Footer = React.createClass({

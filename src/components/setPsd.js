@@ -1,6 +1,6 @@
 'use strict';
-import React from 'react';
-import ReactDom from 'react-dom';
+// import React from 'react';
+// import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
 import Header from './header';
@@ -35,7 +35,7 @@ var SetPsd = React.createClass({
             //console.log(that.props.location.state);
             if (fromWhy == "register") {//调注册接口
                 api.register(phoneNum, psd, verifyCode, function (res) {
-                    //console.log(res);
+                    // console.log(res);
                     if (res.code == "0000") {
                         var data = JSON.parse(strDec(res.data, key1, "", ""));
                         //console.log(data);
