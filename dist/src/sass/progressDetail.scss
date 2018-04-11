@@ -1,0 +1,91 @@
+@charset "utf-8";
+@import "common" ;
+.progressDetail{
+    padding-bottom: 1rem;
+    background: #f3f3f3; 
+    .hit{
+        height: .9rem;
+        line-height: .9rem;
+        text-align: center;
+        color: $red;
+        font-size: .24rem;
+    }
+    .step-wrap{
+        margin-top:.3rem;
+        padding-left: .4rem;
+        padding-right: .5rem;
+        background: #FFF;
+    }
+    .capitalBox{
+        background: $blue;
+        .capitalList{
+            background: $blue;
+            margin-top: 0.15rem;
+            padding-bottom: 0.3rem;
+            h3{
+               height: 0.8rem;
+               padding-left: 0.35rem;
+               line-height: 0.8rem;
+               color: #fff; 
+               font-size: 0.28rem;
+               font-weight: 500;
+            //    @include border_Bot;
+               img{
+                  width: 0.41rem;
+                  height: 0.41rem;
+                  vertical-align: middle;
+                  margin-right: 0.2rem;
+                  border-radius: 50%;
+               }
+            }
+            .capitalInfo{
+                margin-left: 0.35rem;
+                @include clear_float;
+                padding-bottom:0.3rem ;
+               .limit{
+                   width: 2.4rem;
+                   height: 1rem;
+                   margin-top: 0.5rem;
+                   float: left;
+                   @include border_Right;
+                   h2{
+                      color: #ffef37; 
+                      font-size: 0.3rem;
+                   }
+                   p{
+                     line-height: 0.4rem;
+                       color: #fff;
+                       font-size: 0.24rem;  
+                   }
+               } 
+               .special{
+                    float: left;
+                   width: 2.8rem;
+                   margin-top: 0.35rem;
+                   li{
+                       line-height: 0.4rem;
+                      // height: 0.4rem;
+                       color: #fff;
+                       font-size: 0.24rem;
+                       padding-left: 0.36rem;
+                   }
+               }
+            }            
+        }
+        
+    }
+    .footer-btn{
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1rem;
+        line-height: 1rem;
+        color:#fff;
+        text-align: center;
+        font-size: .32rem;
+        background: $blue;
+    }
+}
+
+

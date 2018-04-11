@@ -2,5 +2,4 @@
 *.map
 *.log
 
-dist
 node_modules/

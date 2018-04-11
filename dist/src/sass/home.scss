@@ -1,0 +1,294 @@
+@charset "utf-8";
+@import "common" ;
+.homeHeader{
+      background: #FFFFFF;      
+}
+.newsCon .am-carousel-wrap-dot-active > span{
+    background: $blue ;
+}
+.home{
+    background: #f3f3f3;
+    .loanTab{
+        height:2.8rem;
+        background: #FFFFFF;
+        @include only_display;
+        padding:0.5rem 0.5rem 0;
+        div{
+           @include flex_1; 
+           img{
+              width:1.28rem;
+              height:1.28rem;
+              border-radius: 50%;
+              display: block;
+              margin:0 auto;
+            }
+            p{
+              text-align: center;
+              font-size: 0.24rem;
+              margin-top: 0.2rem;
+              color: #666666;
+            }
+        }
+        
+    }
+    .empty{
+        height: 1.4rem;
+    }
+    .loankind{
+        width: 7.5rem;
+        padding: 0.4rem 0;
+        background: #FFFFFF;
+        position: fixed;
+        z-index: 5;
+       border-bottom: 1px solid $grey;
+        .loankindTab{
+            margin:auto;
+            width: 4.4rem;
+            height: 0.6rem;
+            border: 0.02rem solid $blue;
+            border-radius: 3px;
+            p{
+                width: 50%;
+                line-height: 0.58rem;
+                color: $blue;
+                float: left;
+                font-size: 0.24rem;
+                text-align: center;
+                &.activeLoan{
+                    color: #FFFFFF;
+                    background: $blue;
+                }
+            }
+        }
+        
+    }
+    .homeTab{
+        height: 2.3rem;
+        background: #FFFFFF;
+        margin-top: 0.15rem;
+        padding: 0 0.2rem;
+        @include only_display;
+        li{
+            @include flex_1;
+            //float: left;
+            margin-top: 0.5rem;
+            //width: 25%;
+            img{
+              width:0.9rem;
+              height:0.9rem;
+              border-radius: 50%;
+              display: block;
+              margin:0 auto;
+            }
+            p{
+              text-align: center;
+              font-size: 0.24rem;
+              margin-top: 0.2rem;
+              color: #666666;
+            }
+        }
+    }
+   } 
+    .capitalBox{
+        
+        .capitalList{
+            
+//         .magic-checkbox + label:before {
+//              border: 1px solid #666666;
+//         }
+//         .magic-checkbox:checked + label:before {
+//             border:  #666666;
+//             background: #FFFFFF;
+//         }
+//         .magic-checkbox + label:after {
+//             border-color: #666666 ;
+//         }
+//         .magic-checkbox:checked + label:before {
+//             border-color:#FFFFFF ;
+//         }
+            background: #FFFFFF;
+            margin-top: 0.15rem;
+            padding-bottom: 0.3rem;
+            h3{
+               height: 0.8rem;
+               padding-left: 0.35rem;
+               line-height: 0.8rem;
+               color: #333333; 
+               font-size: 0.28rem;
+               font-weight: 500;
+               @include border_Bot;
+               img{
+                  width: 0.41rem;
+                  height: 0.41rem;
+                  vertical-align: middle;
+                  margin-right: 0.2rem;
+               }
+            }
+            .capitalInfo{
+                margin-left: 0.35rem;
+                @include clear_float;
+                padding-bottom:0.3rem ;
+               .limit{
+                   width: 2.4rem;
+                   height: 1rem;
+                   margin-top: 0.5rem;
+                   float: left;
+                   @include border_Right;
+                   h2{
+                      color: $red; 
+                      font-size: 0.3rem;
+                   }
+                   p{
+                     line-height: 0.4rem;
+                       color: #999999;
+                       font-size: 0.24rem;  
+                   }
+               } 
+               .special{
+                    float: left;
+                   width: 2.8rem;
+                   margin-top: 0.35rem;
+                   li{
+                       line-height: 0.4rem;
+                      // height: 0.4rem;
+                       color: #999999;
+                       font-size: 0.24rem;
+                       padding-left: 0.36rem;
+                   }
+                   //height: ;
+               }
+               .apply{
+                   float: left;
+                   margin-top: 0.7rem;
+                   a{
+                       width: 1.56rem;
+                       border-radius: 3px;
+                       display: block;
+                       background: $red;
+                       color: #FFFFFF;
+                       text-align: center;
+                       line-height: 0.6rem;
+                       height: 0.6rem;
+                       //@include box_Shadow(0 5px 10px rgba(249,75,75,0.3));
+                       box-shadow: 0 5px 10px rgba(249,75,75,0.3);
+                   }
+               }
+            }
+            .care{
+                line-height: 0.36rem;
+                color: #bababa;;
+                font-size: 0.24rem;
+               span{
+                   color: #FFFFFF;
+                   background: #bababa;
+                   border-radius: 3px;
+                   padding:0 0.1rem;
+                   margin-right:0.3rem ;
+                   margin-left: 0.35rem;
+               } 
+            }
+            
+        }
+        
+    }
+    .listWrap{
+        position: relative;
+        //height: 100%;
+        @include flex_1;
+        overflow: auto;
+        overflow-x:hidden ;
+        -webkit-overflow-scrolling: touch;
+    }
+    .saveCon{
+        @include flex_column;
+         .saveConBox{
+            @include flex_1;
+            overflow: auto;
+            overflow-x:hidden ;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+        }
+        .capitalBox .capitalList{
+            padding-bottom: 0;
+        }
+    }
+   
+    .newsCon{
+        @include flex_column;
+          h3{
+             margin-top: 0.15rem;
+            height: .8rem;
+            padding-left: .35rem;
+            line-height: .8rem;
+            color: #333;
+            font-size: .28rem;
+            @include border_Bot;
+            background: #FFFFFF;
+        }
+    }
+    
+    .newsBox{
+        @include flex_1;
+        @include flex_column; 
+       h3{
+            margin-top: 0.15rem;
+            height: .8rem;
+            padding-left: .35rem;
+            line-height: .8rem;
+            color: #333;
+            font-size: .28rem;
+            @include border_Bot;
+            background: #FFFFFF;
+        }
+       // margin-bottom: 0.15rem;
+      
+        .newsList{
+            background: #FFFFFF;
+            padding-left: .35rem;
+            color: #666666;
+            @include clear_float;
+            dd{
+               float: left;
+               width: 4.2rem;
+               margin-top: 0.2rem;
+               h4{
+                   line-height: 0.46rem;
+                   font-size: 0.28rem;
+                   font-weight: 500;
+               } 
+               p{
+                   height: 0.6rem;
+                   line-height: 0.6rem;
+                   font-size: 0.2rem;
+                   span{
+                       margin-right: 0.3rem;
+                   }
+               }
+            }
+            dt{
+                margin-right: 0.35rem;
+                margin-top: 0.3rem;
+               float: right;
+               width: 2.2rem;
+               img{
+                   max-width: 2.2rem;
+                   max-height:1rem;
+               }
+            }
+        }
+        .linkNews{
+            height: 0.9rem;
+            line-height: 0.9rem;
+            color: #666666;
+            text-align: center;
+            font-size: 0.24rem;
+            display: block;
+             @include border_Top;
+             img{
+                 width: 0.15rem;
+                 margin-left: 0.2rem;
+             }
+        }
+    }
+
+

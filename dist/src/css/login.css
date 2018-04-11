@@ -1,0 +1,219 @@
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+
+.ellipsis-2 {
+  display: -webkit-box;
+  overflow: hidden;
+  white-space: normal !important;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; }
+
+.login {
+  width: 100%;
+  height: 100%;
+  background: #f3f3f3;
+  position: relative; }
+  .login .header {
+    background: #f3f3f3; }
+  .login .note {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    font-size: 0.2rem;
+    height: 0.8rem;
+    text-align: center; }
+    .login .note span {
+      margin-right: 0.2rem; }
+    .login .note a {
+      color: #53a6ff; }
+
+.loginCon {
+  border-radius: 5px;
+  box-shadow: 0 12px 15px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 12px 15px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 12px 15px rgba(0, 0, 0, 0.1);
+  margin: 0.7rem;
+  background: #ffffff; }
+  .loginCon .loginWay {
+    font-size: 0.22rem;
+    background: #f3f3f3;
+    height: 0.74rem;
+    line-height: 0.74rem; }
+    .loginCon .loginWay span {
+      background: #f9f9f9;
+      width: 49%;
+      height: 100%;
+      display: block;
+      border-radius: 3px 3px 0px 0px;
+      text-align: center;
+      color: #333333; }
+      .loginCon .loginWay span:nth-child(1) {
+        float: left; }
+      .loginCon .loginWay span:nth-child(2) {
+        float: right; }
+      .loginCon .loginWay span.wayActive {
+        background: #ffffff; }
+  .loginCon .infoBox {
+    margin: 0.35rem 0.6rem 0; }
+    .loginCon .infoBox .inputLine {
+      position: relative;
+      height: 1rem;
+      line-height: 1rem;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      justify-content: space-between;
+      align-items: center; }
+      .loginCon .infoBox .inputLine:after {
+        pointer-events: none;
+        width: 200%;
+        height: 200%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        content: "";
+        -webkit-transform: scale(0.5);
+        -webkit-transform-origin: 0 0;
+        transform: scale(0.5);
+        transform-origin: 0 0;
+        border-bottom: 1px solid #999; }
+      .loginCon .infoBox .inputLine label {
+        font-size: 0.24rem;
+        flex: 0 0 1.2rem;
+        -webkit-flex: 0 0 1.2rem;
+        -webkit-box-flex: 0 0 1.2rem;
+        display: inline-block; }
+      .loginCon .infoBox .inputLine input {
+        width: 100%;
+        border: 0;
+        height: 0.8rem;
+        line-height: 0.8rem; }
+      .loginCon .infoBox .inputLine .flex1 {
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        margin-right: 0.2rem; }
+      .loginCon .infoBox .inputLine .getMsg {
+        display: inline-block;
+        flex: 0 0 1.8rem;
+        -webkit-flex: 0 0 1.8rem;
+        -webkit-box-flex: 0 0 1.8rem;
+        border: 0;
+        border-radius: 3px;
+        font-size: 0.22rem;
+        height: 0.58rem;
+        background: #ffa81e;
+        text-align: center;
+        line-height: 0.58rem;
+        color: #ffffff; }
+      .loginCon .infoBox .inputLine .eyes {
+        flex: 0 0 0.4rem;
+        height: 0.24rem; }
+        .loginCon .infoBox .inputLine .eyes img {
+          float: left;
+          width: 100%;
+          height: 100%; }
+      .loginCon .infoBox .inputLine.hide {
+        display: none; }
+    .loginCon .infoBox .forgotPsd {
+      text-align: right;
+      height: 0.8rem;
+      font-size: 0.2rem; }
+      .loginCon .infoBox .forgotPsd a {
+        color: #53a6ff; }
+  .loginCon .loginBtn {
+    font-size: 0.22rem;
+    display: block;
+    margin: 0.8rem 10% 0.5rem;
+    height: 0.9rem;
+    width: 80%;
+    line-height: 0.9rem;
+    text-align: center;
+    color: #ffffff;
+    background: #53a6ff;
+    border-radius: 3px;
+    box-shadow: 0 5px 20px rgba(83, 166, 255, 0.5);
+    -webkit-box-shadow: 0 5px 20px rgba(83, 166, 255, 0.5);
+    -moz-box-shadow: 0 5px 20px rgba(83, 166, 255, 0.5); }
+
+.setPsd .getMsg, .forgotPsd .getMsg {
+  margin-left: 0.2rem;
+  display: inline-block;
+  width: 1.8rem;
+  border: 0;
+  border-radius: 3px;
+  font-size: 0.22rem;
+  height: 0.58rem;
+  background: #ffa81e;
+  text-align: center;
+  line-height: 0.58rem;
+  color: #ffffff; }
+.setPsd .inputPsd, .setPsd .realName, .forgotPsd .inputPsd, .forgotPsd .realName {
+  height: 1rem;
+  line-height: 1rem;
+  position: relative;
+  font-size: 0.28rem;
+  background: #FFFFFF;
+  padding: 0 0.5rem; }
+  .setPsd .inputPsd:after, .setPsd .realName:after, .forgotPsd .inputPsd:after, .forgotPsd .realName:after {
+    pointer-events: none;
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    content: "";
+    -webkit-transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+    border-bottom: 1px solid #f3f3f3; }
+  .setPsd .inputPsd label, .setPsd .realName label, .forgotPsd .inputPsd label, .forgotPsd .realName label {
+    width: 1.6rem;
+    margin-right: 0.8rem; }
+  .setPsd .inputPsd input, .setPsd .realName input, .forgotPsd .inputPsd input, .forgotPsd .realName input {
+    border: 0;
+    background: transparent;
+    width: 3.4rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    margin-top: 0.2rem; }
+    .setPsd .inputPsd input.shortInput, .setPsd .realName input.shortInput, .forgotPsd .inputPsd input.shortInput, .forgotPsd .realName input.shortInput {
+      width: 2.5rem; }
+    .setPsd .inputPsd input.getMsg, .setPsd .realName input.getMsg, .forgotPsd .inputPsd input.getMsg, .forgotPsd .realName input.getMsg {
+      margin-left: 0.2rem;
+      width: 2rem;
+      border: 0;
+      border-radius: 3px;
+      font-size: 0.22rem;
+      height: 0.6rem;
+      background: #ffa81e;
+      text-align: center;
+      line-height: 0.6rem;
+      color: #ffffff; }
+.setPsd .realName, .forgotPsd .realName {
+  margin-top: 0.2rem; }
+.setPsd .psdLogin, .forgotPsd .psdLogin {
+  height: 0.8rem;
+  line-height: 0.8rem;
+  background: #53a6ff;
+  width: 6rem;
+  border-radius: 3px;
+  margin: 1.1rem auto 0;
+  color: #FFFFFF;
+  text-align: center; }
+
+.forgotPsdCon, .setPsdCon {
+  margin-top: 0.8rem; }
+
+/*# sourceMappingURL=login.css.map */

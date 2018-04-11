@@ -1,0 +1,103 @@
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+
+.ellipsis-2 {
+  display: -webkit-box;
+  overflow: hidden;
+  white-space: normal !important;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; }
+
+.map {
+  background: #f3f3f3; }
+
+.header {
+  background: #ffffff; }
+
+.mapCon {
+  position: relative;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  overflow: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; }
+  .mapCon .greyTitle {
+    text-indent: 0.38rem;
+    font-size: 0.28rem;
+    background: #f3f3f3;
+    height: 0.9rem;
+    line-height: 0.9rem;
+    color: #666666; }
+  .mapCon .currentAddress {
+    text-indent: 0.72rem;
+    font-size: 0.32rem;
+    line-height: 1rem;
+    height: 1rem;
+    background: #ffffff;
+    color: #53a6ff; }
+  .mapCon .hotAddress {
+    font-size: 0.28rem;
+    background: #ffffff; }
+    .mapCon .hotAddress:after {
+      content: "";
+      display: block;
+      height: 0;
+      clear: both; }
+    .mapCon .hotAddress .hotCityLi {
+      float: left;
+      width: 25%;
+      box-sizing: border-box;
+      height: 0.9rem;
+      text-align: center;
+      line-height: 1rem;
+      color: #333333;
+      border-right: 1px solid #f3f3f3;
+      border-bottom: 1px solid #f3f3f3; }
+  .mapCon .cityList .each_main_1 {
+    background: #ffffff;
+    height: 1rem;
+    line-height: 1rem;
+    text-indent: 0.72rem;
+    font-size: 0.28rem;
+    color: #333333;
+    position: relative; }
+    .mapCon .cityList .each_main_1:after {
+      pointer-events: none;
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      content: "";
+      -webkit-transform: scale(0.5);
+      -webkit-transform-origin: 0 0;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+      border-bottom: 1px solid #f3f3f3; }
+  .mapCon .rightLetter {
+    position: fixed;
+    right: 0;
+    bottom: 0.6rem;
+    z-index: 10;
+    border-radius: 3px;
+    background: #cccccc; }
+    .mapCon .rightLetter .louti {
+      margin: 0.54rem 0;
+      width: 0.48rem;
+      color: #ffffff;
+      font-size: 0.28rem; }
+      .mapCon .rightLetter .louti a {
+        color: #666; }
+      .mapCon .rightLetter .louti li {
+        height: 0.38rem;
+        text-align: center; }
+
+/*# sourceMappingURL=map.css.map */

@@ -1,0 +1,191 @@
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+
+.ellipsis-2 {
+  display: -webkit-box;
+  overflow: hidden;
+  white-space: normal !important;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; }
+
+.orderCon ul li {
+  background: #FFFFFF;
+  padding: 0 0.35rem;
+  margin-bottom: 0.12rem; }
+  .orderCon ul li .orderNum {
+    font-size: 0.24rem;
+    line-height: 0.85rem;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between; }
+    .orderCon ul li .orderNum:after {
+      pointer-events: none;
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      content: "";
+      -webkit-transform: scale(0.5);
+      -webkit-transform-origin: 0 0;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+      border-bottom: 1px solid #f3f3f3; }
+    .orderCon ul li .orderNum span.order_n {
+      color: red;
+      font-size: 0.26rem; }
+
+.orderDetailInfo {
+  background: #FFFFFF;
+  padding: 0 0.35rem 0.35rem;
+  margin-bottom: 0.12rem; }
+  .orderDetailInfo .orderNum {
+    font-size: 0.24rem;
+    line-height: 0.85rem;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between; }
+    .orderDetailInfo .orderNum:after {
+      pointer-events: none;
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      content: "";
+      -webkit-transform: scale(0.5);
+      -webkit-transform-origin: 0 0;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+      border-bottom: 1px solid #f3f3f3; }
+    .orderDetailInfo .orderNum span.order_n {
+      color: red;
+      font-size: 0.26rem; }
+
+.note {
+  line-height: 0.8rem;
+  text-align: center;
+  color: red;
+  font-size: 0.22rem; }
+
+.list_title {
+  font-size: 0.28rem;
+  line-height: 1rem;
+  font-weight: 100; }
+
+.list_title img {
+  width: 0.42rem;
+  height: 0.42rem;
+  vertical-align: middle;
+  margin-right: 0.2rem; }
+
+.list_title .p_name {
+  float: right; }
+
+.infoContainer:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both; }
+.infoContainer ul {
+  float: left; }
+.infoContainer p {
+  font-size: 0.26rem;
+  float: right;
+  padding-top: 0.2rem; }
+  .infoContainer p span {
+    color: red;
+    font-size: 0.3rem;
+    font-weight: 600;
+    margin-left: 0.1rem; }
+
+.container {
+  width: 4rem;
+  display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  font-size: 0.22rem;
+  color: #666; }
+
+.orderCon .container li, .orderDetailCon .container li {
+  line-height: 0.4rem;
+  padding-left: 0;
+  padding-right: 0.56rem; }
+  .orderCon .container li:nth-child(even), .orderDetailCon .container li:nth-child(even) {
+    padding-right: 0; }
+
+.listFoot {
+  padding: 0.2rem 0;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between; }
+  .listFoot:after {
+    pointer-events: none;
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    content: "";
+    -webkit-transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+    border-bottom: 1px solid #f3f3f3; }
+
+.listDetailFoot {
+  width: 100%;
+  background: #FFFFFF;
+  position: absolute;
+  bottom: 0;
+  height: 1.2rem; }
+  .listDetailFoot .statusBtn {
+    float: right;
+    margin: 0.3rem 0.35rem 0; }
+
+.status {
+  width: 3.1rem;
+  color: red;
+  font-size: 0.22rem;
+  line-height: 0.38rem; }
+
+.statusBtn {
+  width: 1.52rem;
+  height: 0.56rem;
+  line-height: 0.56rem;
+  border-radius: 0.1rem;
+  text-align: center;
+  color: #fff;
+  background: #53a6ff; }
+
+.repayList .am-list-item .am-list-line .am-list-content, .repayList .am-list-item .am-list-line .am-list-extra {
+  font-size: 0.24rem; }
+.repayList .am-list-header {
+  background: #FFFFFF; }
+.repayList .repayWay .am-list-line .am-list-content {
+  color: #888888; }
+
+/*# sourceMappingURL=order.css.map */
