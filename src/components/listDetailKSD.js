@@ -652,8 +652,8 @@ var ListDetailKSD = React.createClass({
 		                    if (res.code == "0000") {
 		                        // console.log(data.authInfoUrl)
 		                        var data = JSON.parse(strDec(res.data, key1, "", ""));
-		                        //console.log(data.authInfoUrl)
-		                        window.location.href = data.authInfoUrl
+		                        //console.log(data)
+		                        window.location.href = data.url;
 		                    } else {
 		                        // Toast.info(res.msg, 2);
 		                        Toast.info(res.msg, 2);
