@@ -183,6 +183,9 @@ module.exports = {
             title: '万融汇',
             template: './index.html',
         }),
+        new webpack.ProvidePlugin({
+                React: 'react'
+            }),
         // 公共文件提取.
         new webpack.optimize.CommonsChunkPlugin({
             name: ['vendor', 'manifest']
