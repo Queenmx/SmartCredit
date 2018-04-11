@@ -1,9 +1,6 @@
 *.swp
 *.map
 *.log
-<<<<<<< HEAD
 
 dist
-=======
->>>>>>> ab2e95c02381d5e99262a74c004a41544a2d2497
 node_modules/
