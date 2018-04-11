@@ -1,6 +1,6 @@
 'use strict';
-import React from 'react';
-import ReactDom from 'react-dom';
+// import React from 'react';
+// import ReactDom from 'react-dom';
 import { hashHistory, Link } from 'react-router';
 import { formateTime } from './util'
 import '../sass/progressStep.scss';

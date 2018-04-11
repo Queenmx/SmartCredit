@@ -44,7 +44,7 @@ import SubmitResult from './submitResult';
 import BaseInfo from './baseInfo';
 import Operator from './operator';
 import RepayResult from './repayResult';
-import ConfirmResult from './ConfirmResult';
+import ConfirmResult from './confirmResult';
 //<Route path='/detail/:id' component={Detail} />
 
 

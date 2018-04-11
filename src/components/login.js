@@ -1,6 +1,6 @@
 'use strict';
-import React from 'react';
-import ReactDom from 'react-dom';
+// import React from 'react';
+// import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
 import Header from './header';
@@ -88,7 +88,7 @@ var Login = React.createClass({
                             flag: true
                         })
                         api.login("PWD", phoneNum, psd, "", function (res) {
-                            //console.log(res);
+                            // console.log(res);
                             that.setState({
                                 flag: false
                             })
@@ -151,7 +151,7 @@ var Login = React.createClass({
                                         flag: false
                                     })
                                     var data = strDec(res.data, key1, "", "");
-                                    //console.log(data);
+                                    // console.log(data);
                                     //成功后
                                     localStorage.setItem("user", data);
                                     localStorage.setItem("isLogin", true);

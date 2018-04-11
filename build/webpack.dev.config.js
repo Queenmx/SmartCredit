@@ -4,7 +4,6 @@ var webpack = require('webpack');
 var path = require('path');
 
 const paths = require('./paths');
-
 /* 将css提取成单独文件 */
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 // const extractGlobalSass = new ExtractTextPlugin({
@@ -33,12 +32,13 @@ var definePluginConfig = new webpack.DefinePlugin({
     '__PROD__': JSON.stringify('dev')
 });
 
-module.exports = function(env) {
+module.exports = function (env) {
     // publicPath
     // var publicPath = (env == 'dev') ? 'http://react.noah.com/' : 'http://localhost:8001/';
 
     /* return */
     return {
+        devtool: 'eval-source-map',//js定位
         /* entry */
         entry: {
             main: ['whatwg-fetch', './src/entry.js'],
@@ -65,9 +65,9 @@ module.exports = function(env) {
         },
 
         /* 设置模块如何解析 */
-        resolve:  {
+        resolve: {
             /* 自动解析确定的扩展。默认值为：extensions: [".js", ".json"] */
-            extensions: [".js", ".jsx", ".json", ".scss", ".css"] // 在js中不用写前面所列出的文件后缀, 例如：1.scss就可以去掉.scss了.
+            extensions: [".js", ".jsx", ".json", ".scss", ".css"], // 在js中不用写前面所列出的文件后缀, 例如：1.scss就可以去掉.scss了.
         },
 
         /* 外部扩展(防止将某些 import 的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖(external dependencies)。) */
@@ -79,7 +79,7 @@ module.exports = function(env) {
         module: {
             rules: [
                 // css.
-               {
+                {
                     test: /\.css$/,
                     use: extractCss.extract({
                         use: [
@@ -129,14 +129,14 @@ module.exports = function(env) {
                             },
                             // {loader: "resolve-url-loader"}, // 放在此处是转换css中的路径为绝对路径.
                             // {loader: "sass-loader"}
-                            {loader: "sass-loader?sourceMap&includePaths[]=" + path.resolve(__dirname, "../node_modules/compass-mixins/lib")}
+                            { loader: "sass-loader?sourceMap&includePaths[]=" + path.resolve(__dirname, "../node_modules/compass-mixins/lib") }
                         ],
                         // 在开发环境使用 style-loader
                         fallback: "style-loader"
                     })
                 },
 
-              
+
 
                 // file-loader(将项目目录下assets/images/的目录结构及文件拷贝到输出目录下)
                 {
@@ -146,9 +146,9 @@ module.exports = function(env) {
                     // use:  "file-loader?name=[hash].[name].[ext]&publicPath=assets/images/&outputPath=assets/images/"
                     // use:  "file-loader?name=[hash].[name].[ext]&publicPath=http://hl.webpack-office-case.com/&outputPath=assets/images/"
                     // use:  "file-loader?name=[hash].[name].[ext]&outputPath=assets/images/"
-                    use:  "file-loader?name=[hash].[ext]&outputPath=assets/images/"
+                    use: "file-loader?name=[hash].[ext]&outputPath=assets/images/"
                 },
-				// svg.
+                // svg.
                 {
                     test: /\.svg$/,
                     use: [
@@ -156,7 +156,7 @@ module.exports = function(env) {
                         // {loader: 'svg-url-loader?limit=10240&name=assets/images/[hash].[name].[ext]'}
                         // {loader: 'svg-url-loader?limit=10240&name=assets/images/[hash].[name].[ext]'}
                         // {loader: 'svg-url-loader?limit=1&name=assets/images/[hash].[name].[ext]'}
-                        {loader: 'svg-url-loader?limit=1&name=assets/images/[hash].[ext]'}
+                        { loader: 'svg-url-loader?limit=1&name=assets/images/[hash].[ext]' }
                     ]
                 },
 
@@ -173,18 +173,18 @@ module.exports = function(env) {
                     test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
                     use: 'file-loader?outputPath=assets/font/'
                 },
-              
+
                 // js.
                 {
-                    test: /\.js$/, 
-                    exclude: /node_modules/, 
+                    test: /\.js$/,
+                    exclude: /node_modules/,
                     use: [
-                        {loader: 'babel-loader'},
-                       // {loader: 'eslint-loader'}
+                        { loader: 'babel-loader' },
+                        // {loader: 'eslint-loader'}
                     ]
                 },
 
-               
+
             ]
         },
 
@@ -193,12 +193,12 @@ module.exports = function(env) {
             // source map,//(方便排查、定位javascript问题)
             new webpack.SourceMapDevToolPlugin({
                 filename: 'map/[name].js.map', // 输出到map目录下
-               // exclude: ['vendor.js'] // 排除vendor.js
+                // exclude: ['vendor.js'] // 排除vendor.js
             }),
 
             // DefinePlugin 允许创建一个在编译时可以配置的全局常量。这可能会对开发模式和发布模式的构建允许不同的行为非常有用。
             definePluginConfig,
-			//["import", { libraryName: "antd-mobile", style: "css" }] ,// `style: true` 会加载 less 文件
+            //["import", { libraryName: "antd-mobile", style: "css" }] ,// `style: true` 会加载 less 文件
             // 提取成单独的css文件.
             // extractGlobalSass,
             extractSass,
@@ -206,9 +206,12 @@ module.exports = function(env) {
 
             // 生成html.
             new HtmlWebpackPlugin({
-	            title: '万融汇',
-	            template: './index.html',
-	        }),
+                title: '万融汇',
+                template: './index.html',
+            }),
+            new webpack.ProvidePlugin({
+                React: 'react'
+            })
         ]
     }
 };

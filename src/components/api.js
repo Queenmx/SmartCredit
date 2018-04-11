@@ -271,7 +271,7 @@ module.exports.articleDetail = function (articleId, cb1, cb2) {
     data.articleId = articleId;
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
-    //console.log(param);
+    // console.log(param);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/article/detail`, { params: str }, cb1, cb2);
     delete data.articleId;

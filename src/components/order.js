@@ -1,6 +1,6 @@
 'use strict';
-import React from 'react';
-import ReactDom from 'react-dom';
+// import React from 'react';
+// import ReactDom from 'react-dom';
 import Header from './header';
 import OrderList from './orderList';
 import { Toast } from 'antd-mobile';
