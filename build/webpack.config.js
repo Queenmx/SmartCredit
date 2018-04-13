@@ -187,5 +187,8 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: ['vendor', 'manifest']
         }),
+        new webpack.ProvidePlugin({
+            React : "react"
+        })
     ]
 };

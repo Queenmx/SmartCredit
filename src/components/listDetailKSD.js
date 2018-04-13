@@ -243,7 +243,7 @@ var ListDetailKSD = React.createClass({
             ////console.log(res);
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                //console.log(data);
+                console.log(data);
 
                 var moneyMin = data.moneyMin;
                 var limitMin = data.limitMin;
@@ -449,7 +449,7 @@ var ListDetailKSD = React.createClass({
     },
     statusToChinese: function (status) {
         var that = this
-        //console.log("==========" + status)
+        // console.log("==========" + status)
         if(!that.state.isLogin){
         	return '去认证'
         }else{
@@ -683,6 +683,12 @@ var ListDetailKSD = React.createClass({
         //}
 
     },
+    toBack(){
+        var path = {
+            pathname: '/'
+        }
+        hashHistory.push(path);
+    },
     render: function () {
         var that = this;
         var loanDetail = that.state.loanDetail;
@@ -716,7 +722,12 @@ var ListDetailKSD = React.createClass({
         var index=that.state.index;
         return (
             <div className="app_Box listDetail">
-                <Header title={loanDetail.loanName} />
+                {/* <Header title={loanDetail.loanName} /> */}
+                <div className="header">
+                    <div className="toBack" onClick={this.toBack}><img src="src/img/icon/back.png" /></div>
+                    <p className="title">{loanDetail.loanName}</p>
+                    <div className="headerLinkBtn"></div>       
+                </div>
                 <div className="listDetailCon content">
                     <Loading flag={that.state.flag} />
                     <ul className="rangeInfo">
