@@ -45,7 +45,7 @@ const globalData = {
     //path:"http://101.132.32.72:8102/",
     // path:"http://192.168.1.17:8886",
     imgPath: "http://xrjf.oss-cn-shanghai.aliyuncs.com/",
-
+    backPath:"http://h5.xinyzx.com:82/SmartCredit/index.html#/",//信息认证页的返回
     user: localStorage.getItem("user") || "",
     // userObj:JSON.parse(this.user);
     //userId: this.userObj.userId || "",

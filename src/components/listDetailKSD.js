@@ -684,10 +684,11 @@ var ListDetailKSD = React.createClass({
 
     },
     toBack(){
-        var path = {
-            pathname: '/'
-        }
-        hashHistory.push(path);
+        console.log("aa")
+        // var path = {
+        //     pathname: '/'
+        // }
+        window.location.href =globalData.backPath;
     },
     render: function () {
         var that = this;
