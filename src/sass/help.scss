@@ -36,19 +36,16 @@
             background: #FFFFFF;
             padding:0 0.3rem;            
             font-size: 0.28rem;
-            p{
+            &>div{
                 @include only_display;
-                span{
-
+                p{
+                    &:first-child{
+                        @include icon(0.3rem,0.36rem);
+                    }
                 }
-            }
-            p>span:first-child{
-                display: inline-block;
-                @include icon(0.3rem,0.36rem);
-            }
-            p:first-child{
-                color: $blue;
-               
+                &:first-child{
+                    color: $blue;
+                }
             }
             img{
                 width: 0.2rem;

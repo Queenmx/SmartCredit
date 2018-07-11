@@ -47,14 +47,14 @@ var Help = React.createClass({
                 <div className="askCon content">                   
                     <ul className="helpList">
                         <li>
-                            <p>
-                               <span style={{backgroundImage:"url('src/img/icon/help-icon2.png')"}}></span>
-                               <span>如何借款</span>    
-                            </p>
-                            <p>
-                               <span style={{backgroundImage:"url('src/img/icon/help-icon1.png')"}}></span>
-                               <span>点击借贷款->获取额度-->借出，绑定一张银行信用卡，输入借出金额，比如2000，点击确定即可 </span>   
-                            </p>
+                            <div>
+                               <p style={{backgroundImage:"url('src/img/icon/help-icon2.png')"}}></p>
+                               <p>如何借款</p>    
+                            </div>
+                            <div>
+                               <p style={{backgroundImage:"url('src/img/icon/help-icon1.png')"}}></p>
+                               <p>点击借贷款->获取额度-->借出，绑定一张银行信用卡，输入借出金额，比如2000，点击确定即可 </p>   
+                            </div>
                         </li>
                     </ul>
                 </div>
