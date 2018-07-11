@@ -1,5 +1,5 @@
 $grey:#f3f3f3;
-$blue:#53a6ff;
+$blue:#508aff;
 $red:#f94b4b;
 .ellipsis {
     overflow: hidden;
@@ -15,8 +15,14 @@ $red:#f94b4b;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
-
-
+@mixin icon($w, $h) {
+    display: inline-block;
+    width: $w;
+    height:$h;
+    vertical-align: middle;
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
 @mixin clear_float{
     &:after{
         content: "";

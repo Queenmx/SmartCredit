@@ -7,7 +7,7 @@ import HomeHeader from './homeHeader';
 import Footer from './footer';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
-import { Toast } from 'antd-mobile';
+import { Toast,Carousel } from 'antd-mobile';
 import '../css/home.css';
 
 var imgPath = globalData.imgPath;
@@ -19,7 +19,9 @@ var Home = React.createClass({
             activeIndex: 0,
             pageNum: 1,
             pageSize: 10,
-            list: []
+            list: [],
+            banner: [],
+            imgHeight: 447,
         }
     },
 
@@ -53,17 +55,9 @@ var Home = React.createClass({
 
 
 
-    toProgress: function () {
-        var path
-        var user = localStorage.getItem("user");
-        if (user) {
-            path = {
-                pathname: '/Progress',
-            }
-        } else {
-            path = {
-                pathname: '/Login'
-            }
+    tolicai(){
+        var path = {
+            pathname: '/licai',
         }
         hashHistory.push(path);
     },
@@ -93,11 +87,28 @@ var Home = React.createClass({
 
     toLoan: function () {
         var path = {
-            pathname: '/Loan',
+            pathname: '/loanList',
         }
         hashHistory.push(path);
     },
-
+    toCard(){
+        var path = {
+            pathname: '/creditCard',
+        }
+        hashHistory.push(path);
+    },
+    toTask(){
+        var path = {
+            pathname: '/task',
+        }
+        hashHistory.push(path);
+    },
+    newsAll(){
+        var path = {
+            pathname: '/news',
+        }
+        hashHistory.push(path);
+    },
     componentDidMount: function () {
         var key1 = globalData.key;
         var toast = globalData.toast;
@@ -306,22 +317,207 @@ var Home = React.createClass({
             <div className="app_Box home">
                 <HomeHeader curCity={curCity} />
                 <div className="content">
-                    <div className="loanTab">
-                        <div onClick={that.toLoan}><img src="src/img/icon/daikuan.png" /><p>我要贷款</p></div>
-                        <div onClick={that.toProgress}><img src="src/img/icon/progress.png" /><p>进度查询</p></div>
+                    <div className="bannernews"> 
+                        <Carousel
+                            autoplay={true}
+                            infinite
+                            selectedIndex={0}
+                            dotStyle={{"backgroundColor":"#fff",'width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem','marginRright':'0.18rem'}}
+                            dotActiveStyle={{"backgroundColor":'#4374ff','width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem'}}
+                        >
+                                
+                            {/* {this.state.banner.map(ii => (
+                                <a
+                                    key={ii}
+                                    href={ii.objUrl}
+                                    style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                                >
+                                    <img
+                                        src={imgPath + ii.imgUrl}
+                                        alt=""
+                                        style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
+                                        onLoad={() => {
+                                            window.dispatchEvent(new Event('resize'));
+                                            this.setState({ imgHeight: 'auto' });
+                                        }}
+                                    />
+                                </a>
+                            ))} */}
+                            <a
+                                    
+                                    style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                                >
+                                    <img
+                                        // src={imgPath + ii.imgUrl}
+                                        src="src/img/banner.png"
+                                        alt=""
+                                        style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
+                                        onLoad={() => {
+                                            window.dispatchEvent(new Event('resize'));
+                                            this.setState({ imgHeight: 'auto' });
+                                        }}
+                                    />
+                                </a>
+                                <a
+                                    
+                                    style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                                >
+                                    <img
+                                        // src={imgPath + ii.imgUrl}
+                                        src="src/img/back.png"
+                                        alt=""
+                                        style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
+                                        onLoad={() => {
+                                            window.dispatchEvent(new Event('resize'));
+                                            this.setState({ imgHeight: 'auto' });
+                                        }}
+                                    />
+                                </a>                               
+                            </Carousel>
+                            <ul className="news">
+                                <li className="newvoice">
+                                    <img src="src/img/icon/voice.png" />
+                                </li>
+                                <li>贷款资讯：</li>
+                                <li>
+                                    <Carousel 
+                                        vertical
+                                        dots={false}
+                                        dragging={false}
+                                        swiping={false}
+                                        autoplay
+                                        infinite
+                                        >
+                                        <div className="v-item">的发送到发水电费范德萨地方斯蒂芬三</div>
+                                        <div className="v-item">carousel 2</div>
+                                        <div className="v-item">carousel 3</div>
+                                    </Carousel>
+                                </li>
+                                <li className="newsgo" onClick={this.newsAll}>
+                                    <img src="src/img/icon/go1.png" />
+                                </li>
+                            </ul>           
+                            
+                        </div>
+                    <div className="product">
+                        <p>
+                            <span></span>
+                            <i className="pro-icon" style={{backgroundImage:"url('src/img/icon/pro-icon1.png')"}}></i>
+                            产品概要
+                            <span></span>
+                        </p>
+                        <ul className="loanTab loanTan1">                           
+                            <li onClick={that.toLoan}>
+                                <img src="src/img/icon/product1.png" />
+                                <div>
+                                    <p>借款</p>
+                                    <p>海量产品任你选</p>
+                                </div>
+                                
+                            </li>
+                            <li onClick={that.tolicai}>
+                                <img src="src/img/icon/product2.png" />
+                                <div>
+                                    <p>理财</p>
+                                    <p>优质的理财产品</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul className="loanTab loanTab2">                           
+                            <li onClick={that.toCard}>
+                                <img src="src/img/icon/product1.png" />
+                                <div>
+                                    <p>信用卡</p>
+                                    <p>快卡通道</p>
+                                </div>                                
+                            </li>
+                            <li onClick={that.toTask}>
+                                <img src="src/img/icon/product2.png" />
+                                <div>
+                                    <p>任务</p>
+                                    <p>做任务&nbsp;拿现金</p>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-
-                    <div className="capitalBox">
+                    <div className="product loan">
+                        <p>
+                            <span></span>
+                            <i className="pro-icon" style={{backgroundImage:"url('src/img/icon/pro-icon2.png')"}}></i>
+                            热门借款产品
+                            <span></span>
+                        </p>
+                        <ul>
+                            <li>
+                                <img src="src/img/icon/product1.png" />
+                                <div className="loanTitle">
+                                    <p>点点贷-大额低息贷</p>
+                                    <p>适用人群：上班族，企业主</p>
+                                </div>
+                                <div className="high">
+                                    <p>
+                                        <span>5</span>万    
+                                    </p>
+                                    <p>最高额度</p>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="src/img/icon/product1.png" />
+                                <div className="loanTitle">
+                                    <p>点点贷-大额低息贷</p>
+                                    <p>适用人群：上班族，企业主</p>
+                                </div>
+                                <div className="high">
+                                    <p>
+                                        <span>5</span>万    
+                                    </p>
+                                    <p>最高额度</p>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                    <div className="product loan credit">
+                        <p>
+                            <span></span>
+                            <i className="pro-icon" style={{backgroundImage:"url('src/img/icon/pro-icon3.png')"}}></i>
+                            热门信用卡
+                            <span></span>
+                        </p>
+                        <ul>
+                            <li>
+                                <img src="src/img/icon/product1.png" />
+                                <div className="loanTitle">
+                                    <p>点点贷-大额低息贷</p>
+                                    <p>卡种：上班族，企业主</p>
+                                </div>
+                                <div className="high">
+                                    <img src="src/img/icon/product5.png" />
+                                </div>
+                            </li>
+                            <li>
+                                <img src="src/img/icon/product1.png" />
+                                <div className="loanTitle">
+                                    <p>点点贷-大额低息贷</p>
+                                    <p>适用人群：上班族，企业主</p>
+                                </div>
+                                <div className="high">
+                                <img src="src/img/icon/product6.png" />
+                                </div>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                    {/* <div className="capitalBox">
                         {that.state.list}
-                    </div>
-                    <div className="newsBox">
+                    </div> */}
+                    {/* <div className="newsBox">
                         <h3>你关心的资讯</h3>
                         <div>
-
                             {that.state.articleArr}
                         </div>
                         <Link to="/news" className="linkNews">全部热门资讯<img src="src/img/icon/right.png" /></Link>
-                    </div>
+                    </div> */}
                     <Loading flag={that.state.isLoading} />
                 </div>
                 <Footer activeIndex="0" />

@@ -14,8 +14,15 @@
     background: $grey;
    
    .userHeader{
-       height: 2rem;
-       background: $blue;
+       height: 2.65rem;
+        background: -webkit-linear-gradient(left, #5197fb ,#3a80f2, #1e63e8); /* Safari 5.1 - 6.0 */
+        background: -o-linear-gradient(right, #5197fb ,#3a80f2, #1e63e8); /* Opera 11.1 - 12.0 */
+        background: -moz-linear-gradient(right, #5197fb ,#3a80f2, #1e63e8); /* Firefox 3.6 - 15 */
+        background: linear-gradient(to right, #5197fb ,#3a80f2, #1e63e8); /* 标准的语法 */
+
+       &>p{
+           font-size:0.36rem;color:#fff;text-align: center;height: 0.96rem;line-height: 0.96rem;
+       }
        .userImg{
            float: left;
            margin-top: 0.4rem;

@@ -164,7 +164,7 @@ var levelList = React.createClass({
         }
 
     },
-	  testId: function () {
+	testId: function () {
         var that = this;
       
         var idCartReg = /(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/;

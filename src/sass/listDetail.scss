@@ -167,25 +167,20 @@
 //        }
       }
   }
-  h2{
+  h2{   
      height: 0.8rem;
      line-height: 0.8rem;
-     color: #333333;
+     color: $blue;
      font-size: 0.28rem;
       text-indent: 0.5rem;
       @include border_Bot;
       margin-top: 0.12rem;
       background: #ffffff;
       font-weight: 500;
+      border-bottom: 0.02rem solid #eee;
       span{
-          font-size: 0.2rem;
-          float: right;
-          margin-right: 0.5rem;
-          img{
-              width: 0.1rem;
-              height: 0.2rem;
-              margin-left: 0.2rem;
-          }
+        @include icon(0.36rem,0.36rem);
+          margin-right: 0.2rem;
       }
   }
   .authBox{
@@ -241,10 +236,8 @@
   
   
   
-      .applyBtnBox{
-          width: 100%;
-        height: 0.95rem;
-        background: #FFFFFF;
+    .applyBtnBox{
+        padding:0.4rem 0.48rem;
         //@include only_display;
         .applySaveBtn{
             width:2rem;
@@ -257,19 +250,116 @@
                 margin:0.12rem auto 0;
             }
             p{
-             text-align: center;
-             color: #aaaaaa;   
-             font-size: 0.24rem;
+                text-align: center;
+                color: #aaaaaa;   
+                font-size: 0.24rem;
             }
         }
         .applyBtn{
-            width: 5.5rem;
-            float: right;
-            background: $blue;
+            border-radius:0.2rem;
+            background:#508aff;;
             color: #ffffff;
             line-height: 0.95rem;
             font-size: 0.28rem;
             text-align: center;
+        }
+    }
+    .content .loan-list{
+        background: #fff;
+        padding:0.48rem 0.25rem 0;
+        margin-bottom:0.3rem;
+        li:not(.spe){
+            @include only_display;
+            padding: 0.4rem 0;
+            &>img{
+                display: inline-block;
+                width: 1.1rem;
+                height:1.1rem;
+                margin-right: 0.24rem;
+            }
+            &>div{
+                display: inline-block;
+                
+            }           
+            .loanTitle{@include flex_x(2);
+                p{
+                    height: 0.38rem;line-height:0.38rem; 
+                    &:nth-child(2){
+                        font-size: 0.22rem;  
+                        width: 2.9rem;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    &:first-child{
+                        font-size: 0.3rem;
+                        color: #2b2b2b;
+                        font-weight: bold;
+                    }
+                    &:last-child{
+                        font-size: 0.22rem;
+                        color:#666666;
+                        .totalpel{
+                            color:$blue;
+                        }
+                    }
+                }
+            }
+            .high{@include flex_x(1);text-align: center;margin-top:0.2rem;
+                p{height: 0.48rem;line-height:0.48rem;
+                   &:first-child{
+                       color:#ff8d31;
+                       font-size: 0.24rem;
+                       margin-bottom:0.1rem;
+                        span{font-size:0.32rem;font-weight:bold;}
+                    }
+                   &:last-child{
+                       color:#ff801a;
+                       border:0.02rem solid #ffd230;
+                       border-radius:0.24rem;
+                    //    border-image: -webkit-linear-gradient(#ffd94f,#ffa60b)1 1;
+                    //     border-image: -moz-linear-gradient(#ffd94f,#ffa60b)1 1;
+                    //     border-image: linear-gradient(#ffd94f,#ffa60b)1 1;
+                    }
+                }
+            }
+        }
+        .numdetail{
+            border-top:0.02rem solid #eeeeee;
+            &>div{
+                @include flex_1;
+                text-align: center;
+                border-right:0.02rem solid #eeeeee;
+                &:last-child{border-right: none;}
+                &>p{
+                    
+                    height: 0.4rem;
+                    line-height: 0.4rem;
+                    &:first-child{
+                        font-size: 0.2rem;
+                        color: $blue;
+                        &>span{
+                            font-size: 0.28rem;
+                            
+                        }
+                    }
+                    &:last-child{color:#666666;}
+                }
+            }
+            .must{color:#666666;font-size: 0.24rem;height: 0.9rem;line-height: 0.9rem;text-align: center;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+        li:last-child{
+            height: 2.08rem;line-height: 2.08rem;
+            text-align: center;
+            img{
+                vertical-align: middle;
+                width: 6.56rem;
+                height: 1.14rem;
+            }
         }
     }
 }

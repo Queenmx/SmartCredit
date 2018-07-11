@@ -3,7 +3,7 @@
 // import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
-import { Router, Route, Link } from 'react-router';
+import { Router, Route, Link,hashHistory } from 'react-router';
 import { Toast } from 'antd-mobile';
 import MyMap from './myMap';
 //import BMap from 'BMap';
@@ -64,7 +64,12 @@ var HomeHeader = React.createClass({
         //}
 
     },
-
+    goMessage(){
+        var path = {
+            pathname: '/messages',
+        }
+        hashHistory.push(path);
+    },
     /* toAddress:function(){
      	hashHistory.push({  
 		        pathname: '/myMap',  
@@ -78,11 +83,14 @@ var HomeHeader = React.createClass({
         return (
             <div className="homeHeader">
                 <div className="dingwei">
-                    <img src="src/img/icon/map.jpg" />
+                    <img src="src/img/icon/map1.png" />
                     <Link to="/myMap">{this.state.address}</Link>
                 </div>
                 <p className="title">万融汇</p>
-                <p className="headerLinkBtn"></p>
+                <p className="headerLinkBtn" onClick={this.goMessage}>
+                    <img src="src/img/icon/message.png" alt=""/>
+                    <span></span>
+                </p>
             </div>
         )
     }

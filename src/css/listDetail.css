@@ -14,6 +14,8 @@
 
 .listDetail {
   background: #f3f3f3; }
+  .listDetail .red {
+    color: #f94b4b; }
   .listDetail .rangeInfo {
     background: #ffffff;
     display: -webkit-box;
@@ -63,7 +65,7 @@
             background: transparent;
             margin-left: 0.15rem;
             width: 1rem;
-            color: #53a6ff;
+            color: #508aff;
             text-align: center; }
           .listDetail .rangeInfo li .numBox div span {
             position: absolute;
@@ -164,13 +166,14 @@
   .listDetail h2 {
     height: 0.8rem;
     line-height: 0.8rem;
-    color: #333333;
+    color: #508aff;
     font-size: 0.28rem;
     text-indent: 0.5rem;
     position: relative;
     margin-top: 0.12rem;
     background: #ffffff;
-    font-weight: 500; }
+    font-weight: 500;
+    border-bottom: 0.02rem solid #eee; }
     .listDetail h2:after {
       pointer-events: none;
       width: 200%;
@@ -186,13 +189,13 @@
       transform-origin: 0 0;
       border-bottom: 1px solid #f3f3f3; }
     .listDetail h2 span {
-      font-size: 0.2rem;
-      float: right;
-      margin-right: 0.5rem; }
-      .listDetail h2 span img {
-        width: 0.1rem;
-        height: 0.2rem;
-        margin-left: 0.2rem; }
+      display: inline-block;
+      width: 0.36rem;
+      height: 0.36rem;
+      vertical-align: middle;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      margin-right: 0.2rem; }
   .listDetail .authBox {
     margin-bottom: 0.15rem; }
     .listDetail .authBox .authTap {
@@ -209,7 +212,10 @@
           .listDetail .authBox .authTap li.activeAuthLi .authIcon {
             color: #fa5d5d; }
           .listDetail .authBox .authTap li.activeAuthLi .goAuth span {
-            background: #53a6ff; }
+            background: #508aff; }
+          .listDetail .authBox .authTap li.activeAuthLi .meserror {
+            color: #f94b4b;
+            margin-left: 3px; }
         .listDetail .authBox .authTap li:after {
           pointer-events: none;
           width: 200%;
@@ -241,9 +247,7 @@
             font-size: 0.34rem;
             margin-left: 0.26rem; }
   .listDetail .applyBtnBox {
-    width: 100%;
-    height: 0.95rem;
-    background: #FFFFFF; }
+    padding: 0.4rem 0.48rem; }
     .listDetail .applyBtnBox .applySaveBtn {
       width: 2rem;
       float: left; }
@@ -257,12 +261,113 @@
         color: #aaaaaa;
         font-size: 0.24rem; }
     .listDetail .applyBtnBox .applyBtn {
-      width: 5.5rem;
-      float: right;
-      background: #53a6ff;
+      border-radius: 0.2rem;
+      background: #508aff;
       color: #ffffff;
       line-height: 0.95rem;
       font-size: 0.28rem;
       text-align: center; }
+  .listDetail .content .loan-list {
+    background: #fff;
+    padding: 0.48rem 0.25rem 0;
+    margin-bottom: 0.3rem; }
+    .listDetail .content .loan-list li:not(.spe) {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      padding: 0.4rem 0; }
+      .listDetail .content .loan-list li:not(.spe) > img {
+        display: inline-block;
+        width: 1.1rem;
+        height: 1.1rem;
+        margin-right: 0.24rem; }
+      .listDetail .content .loan-list li:not(.spe) > div {
+        display: inline-block; }
+      .listDetail .content .loan-list li:not(.spe) .loanTitle {
+        -webkit-box-flex: 2;
+        -moz-box-flex: 2;
+        -webkit-flex: 2;
+        -ms-flex: 2;
+        flex: 2; }
+        .listDetail .content .loan-list li:not(.spe) .loanTitle p {
+          height: 0.38rem;
+          line-height: 0.38rem; }
+          .listDetail .content .loan-list li:not(.spe) .loanTitle p:nth-child(2) {
+            font-size: 0.22rem;
+            width: 2.9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap; }
+          .listDetail .content .loan-list li:not(.spe) .loanTitle p:first-child {
+            font-size: 0.3rem;
+            color: #2b2b2b;
+            font-weight: bold; }
+          .listDetail .content .loan-list li:not(.spe) .loanTitle p:last-child {
+            font-size: 0.22rem;
+            color: #666666; }
+            .listDetail .content .loan-list li:not(.spe) .loanTitle p:last-child .totalpel {
+              color: #508aff; }
+      .listDetail .content .loan-list li:not(.spe) .high {
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        text-align: center;
+        margin-top: 0.2rem; }
+        .listDetail .content .loan-list li:not(.spe) .high p {
+          height: 0.48rem;
+          line-height: 0.48rem; }
+          .listDetail .content .loan-list li:not(.spe) .high p:first-child {
+            color: #ff8d31;
+            font-size: 0.24rem;
+            margin-bottom: 0.1rem; }
+            .listDetail .content .loan-list li:not(.spe) .high p:first-child span {
+              font-size: 0.32rem;
+              font-weight: bold; }
+          .listDetail .content .loan-list li:not(.spe) .high p:last-child {
+            color: #ff801a;
+            border: 0.02rem solid #ffd230;
+            border-radius: 0.24rem; }
+    .listDetail .content .loan-list .numdetail {
+      border-top: 0.02rem solid #eeeeee; }
+      .listDetail .content .loan-list .numdetail > div {
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        text-align: center;
+        border-right: 0.02rem solid #eeeeee; }
+        .listDetail .content .loan-list .numdetail > div:last-child {
+          border-right: none; }
+        .listDetail .content .loan-list .numdetail > div > p {
+          height: 0.4rem;
+          line-height: 0.4rem; }
+          .listDetail .content .loan-list .numdetail > div > p:first-child {
+            font-size: 0.2rem;
+            color: #508aff; }
+            .listDetail .content .loan-list .numdetail > div > p:first-child > span {
+              font-size: 0.28rem; }
+          .listDetail .content .loan-list .numdetail > div > p:last-child {
+            color: #666666; }
+      .listDetail .content .loan-list .numdetail .must {
+        color: #666666;
+        font-size: 0.24rem;
+        height: 0.9rem;
+        line-height: 0.9rem;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+    .listDetail .content .loan-list li:last-child {
+      height: 2.08rem;
+      line-height: 2.08rem;
+      text-align: center; }
+      .listDetail .content .loan-list li:last-child img {
+        vertical-align: middle;
+        width: 6.56rem;
+        height: 1.14rem; }
 
 /*# sourceMappingURL=listDetail.css.map */

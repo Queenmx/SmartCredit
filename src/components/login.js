@@ -346,7 +346,11 @@ var Login = React.createClass({
                             </div>
                             <a className="loginBtn" onClick={that.submitHandler}>登录</a>
                         </form>
-
+                        {/* <p className="forgotPsd register">
+                            <Link to="" >
+                                注册
+							</Link>
+                        </p> */}
                         <p className="forgotPsd">
                             <Link to="/ForgotPsd" >
                                 忘记密码

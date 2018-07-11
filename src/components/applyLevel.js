@@ -122,7 +122,7 @@ var ApplyLevel = React.createClass({
         return (
             <div className="app_Box applyFlow">
                 <div className="header">
-                    <div className="toBack" onClick={that.toBack}><img src="src/img/icon/backWhite.png" /></div>
+                    <div className="toBack" onClick={that.toBack}><img src="src/img/icon/back2.png" /></div>
                     <p className="title">申请人资质</p>
                     <div className="headerLinkBtn"></div>
                 </div>

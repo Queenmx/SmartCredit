@@ -55,10 +55,14 @@ var SetPsd = React.createClass({
                                 globalData.userId = user.userId;
                                 globalData.requestData.token = user.token;
                                 Toast.info("登录成功", 2);
+                                // var path = {
+                                //     pathname: '/',
+                                // }
                                 var path = {
-                                    pathname: '/',
+                                    pathname: '/Authname',
                                 }
                                 hashHistory.push(path);
+                               
                             } else {
                                 that.setState({ isLoading: false })
                                 Toast.info(res.msg, 2);

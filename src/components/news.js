@@ -5,7 +5,7 @@ import { Component, PropTypes } from 'react';
 import iScroll from 'iscroll/build/iscroll-probe';
 import ReactIScroll from 'reactjs-iscroll';
 import api from './api';
-import Footer from './footer';
+import Header from './header';
 import { globalData } from './global.js';
 import { hashHistory, Link } from 'react-router';
 import { Toast, Carousel } from 'antd-mobile';
@@ -111,7 +111,7 @@ class News extends Component {
                         articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
                             <dd>
                                 <h4>{articleList[i].articleTitle}</h4>
-                                <p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
+                                <p><span>{articleList[i].addTime}</span> <span><img src="src/img/icon/new-icon.png" alt="" />{articleList[i].readerNum}阅读</span></p>
                             </dd>
                             <dt>
                                 <img src={imgPath + articleList[i].imgUrl} onError={that.logoError} />
@@ -308,7 +308,8 @@ class News extends Component {
         }
         return (
             <div className="app_Box news">
-                <header>资讯中心</header>
+                {/* <header>资讯中心</header> */}
+                <Header title="资讯中心"/>
                 <div className="newsCon content">
                     {/*<div className="swiper-container" id="bannerList">
 					    <div className="swiper-wrapper">
@@ -318,7 +319,7 @@ class News extends Component {
 					    
 					    </div>*/}
 
-                    <Carousel
+                    {/* <Carousel
                         autoplay={true}
                         infinite
                         selectedIndex={0}>
@@ -340,18 +341,23 @@ class News extends Component {
                                 />
                             </a>
                         ))}
-                    </Carousel>
-
-
-
-                    <h3>你关心的资讯</h3>
+                    </Carousel> */}
+                    {/* <h3>你关心的资讯</h3> */}
                     <div className="newsBox">
                         <div className="listWrap">
                             {scollTxt}
+                            <dl className="newsList"  onClick={that.toNewsDetail}>
+                                <dd>
+                                    <h4>东方时尚发的方式发生三顿饭电费水费达</h4>
+                                    <p><span>2018-07-09</span> <span><img src="src/img/icon/new-icon.png" alt="" />36阅读</span></p>
+                                </dd>
+                                <dt>
+                                    <img src="" onError={that.logoError} />
+                                </dt>
+                            </dl>
                         </div>
                     </div>
                 </div>
-                <Footer activeIndex="1" />
             </div>
         )
     }

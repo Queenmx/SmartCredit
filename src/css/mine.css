@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .ellipsis {
   overflow: hidden;
   white-space: nowrap;
@@ -25,8 +26,21 @@
 .mine {
   background: #f3f3f3; }
   .mine .userHeader {
-    height: 2rem;
-    background: #53a6ff; }
+    height: 2.65rem;
+    background: -webkit-linear-gradient(left, #5197fb, #3a80f2, #1e63e8);
+    /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
+    /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
+    /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #5197fb, #3a80f2, #1e63e8);
+    /* 标准的语法 */ }
+    .mine .userHeader > p {
+      font-size: 0.36rem;
+      color: #fff;
+      text-align: center;
+      height: 0.96rem;
+      line-height: 0.96rem; }
     .mine .userHeader .userImg {
       float: left;
       margin-top: 0.4rem;
@@ -50,7 +64,7 @@
         background: #ffffff;
         padding: 0 0.1rem;
         border-radius: 3px;
-        color: #53a6ff; }
+        color: #508aff; }
     .mine .userHeader .goLogin {
       margin-top: 0.8rem;
       margin-right: 0.3rem;
@@ -67,7 +81,7 @@
       float: left;
       color: #333333; }
       .mine .creditLevel p b {
-        color: #53a6ff; }
+        color: #508aff; }
     .mine .creditLevel span {
       margin-right: 0.4rem;
       float: right;
@@ -81,7 +95,6 @@
     .mine .userOrder ul {
       margin-top: 0.28rem;
       display: -webkit-box;
-      display: -moz-box;
       display: -ms-flexbox;
       display: -webkit-flex;
       display: flex;
@@ -204,7 +217,7 @@
   margin: 1.3rem auto 0;
   color: #FFFFFF;
   font-size: 0.28rem;
-  background: #53a6ff;
+  background: #508aff;
   border-radius: 3px; }
 
 .txtCon {

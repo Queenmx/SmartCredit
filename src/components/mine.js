@@ -179,11 +179,12 @@ var Mine = React.createClass({
         var imgPath = globalData.imgPath;
         var userObj = that.state.user;
         return (
-            <div className="app_Box mine">
-                <div className="mineContent content">
+            <div className="app_Box mine">                
+                <div className="mineContent content">                    
                     <div className="userHeader" onClick={that.goLogin}>
-                        <div className="userImg"><img src={imgPath + userObj.headPic} onError={that.imgError} /></div>
-                        <div className="userInfo"><p>{userObj.userName}</p><span>{userObj.certStatus == 1 ? "已认证" : "未认证"}</span></div>
+                        <p>个人中心</p>
+                        {/* <div className="userImg"><img src={imgPath + userObj.headPic} onError={that.imgError} /></div> */}
+                        <div className="userInfo"><p>ID:{userObj.userName}</p><span>{userObj.certStatus == 1 ? "已认证" : "未认证"}</span></div>
                         <div className="goLogin"><img src="src/img/icon/go.png" /></div>
                     </div>
                     <div className="creditLevel"><p>我的信用等级:<b>{userObj.certLevel}</b></p>{/*<span>去提升,5000轻松拿<img src="src/img/icon/right.png" /></span>*/}</div>
@@ -202,7 +203,7 @@ var Mine = React.createClass({
                         <div className="toSet"><Link to="/Set">设置</Link></div>
                     </div>
                 </div>
-                <Footer activeIndex="2" />
+                <Footer activeIndex="4" />
             </div>
         )
     },

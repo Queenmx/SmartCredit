@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .ellipsis {
   overflow: hidden;
   white-space: nowrap;
@@ -13,190 +14,135 @@
   -webkit-box-orient: vertical; }
 
 .homeHeader {
-  background: #FFFFFF; }
+  background: #508aff;
+  color: #fff; }
 
 .newsCon .am-carousel-wrap-dot-active > span {
-  background: #53a6ff; }
+  background: #508aff; }
 
 .home {
   background: #f3f3f3; }
-  .home .loanTab {
-    height: 2.8rem;
+  .home .product {
     background: #FFFFFF;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    padding: 0.5rem 0.5rem 0; }
-    .home .loanTab div {
-      -webkit-box-flex: 1;
-      -moz-box-flex: 1;
-      -webkit-flex: 1;
-      -ms-flex: 1;
-      flex: 1; }
-      .home .loanTab div img {
-        width: 1.28rem;
-        height: 1.28rem;
-        border-radius: 50%;
-        display: block;
-        margin: 0 auto; }
-      .home .loanTab div p {
-        text-align: center;
-        font-size: 0.24rem;
-        margin-top: 0.2rem;
-        color: #666666; }
-  .home .empty {
-    height: 1.4rem; }
-  .home .loankind {
-    width: 7.5rem;
-    padding: 0.4rem 0;
-    background: #FFFFFF;
-    position: fixed;
-    z-index: 5;
-    border-bottom: 1px solid #f3f3f3; }
-    .home .loankind .loankindTab {
-      margin: auto;
-      width: 4.4rem;
-      height: 0.6rem;
-      border: 0.02rem solid #53a6ff;
-      border-radius: 3px; }
-      .home .loankind .loankindTab p {
-        width: 50%;
-        line-height: 0.58rem;
-        color: #53a6ff;
-        float: left;
-        font-size: 0.24rem;
-        text-align: center; }
-        .home .loankind .loankindTab p.activeLoan {
-          color: #FFFFFF;
-          background: #53a6ff; }
-  .home .homeTab {
-    height: 2.3rem;
-    background: #FFFFFF;
-    margin-top: 0.15rem;
-    padding: 0 0.2rem;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex; }
-    .home .homeTab li {
-      -webkit-box-flex: 1;
-      -moz-box-flex: 1;
-      -webkit-flex: 1;
-      -ms-flex: 1;
-      flex: 1;
-      margin-top: 0.5rem; }
-      .home .homeTab li img {
-        width: 0.9rem;
-        height: 0.9rem;
-        border-radius: 50%;
-        display: block;
-        margin: 0 auto; }
-      .home .homeTab li p {
-        text-align: center;
-        font-size: 0.24rem;
-        margin-top: 0.2rem;
-        color: #666666; }
-
-.capitalBox .capitalList {
-  background: #FFFFFF;
-  margin-top: 0.15rem;
-  padding-bottom: 0.3rem; }
-  .capitalBox .capitalList h3 {
-    height: 0.8rem;
-    padding-left: 0.35rem;
-    line-height: 0.8rem;
-    color: #333333;
-    font-size: 0.28rem;
-    font-weight: 500;
-    position: relative; }
-    .capitalBox .capitalList h3:after {
-      pointer-events: none;
-      width: 200%;
-      height: 200%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-      content: "";
-      -webkit-transform: scale(0.5);
-      -webkit-transform-origin: 0 0;
-      transform: scale(0.5);
-      transform-origin: 0 0;
-      border-bottom: 1px solid #f3f3f3; }
-    .capitalBox .capitalList h3 img {
-      width: 0.41rem;
-      height: 0.41rem;
+    padding-top: 0.46rem;
+    padding-bottom: 0.50rem;
+    margin-bottom: 0.32rem; }
+    .home .product > p {
+      text-align: center;
+      margin-bottom: 0.48rem; }
+      .home .product > p span {
+        display: inline-block;
+        width: 0.62rem;
+        height: 0.02rem;
+        background-color: #e7e4e4;
+        vertical-align: middle; }
+        .home .product > p span:first-child {
+          margin-right: 0.24rem; }
+        .home .product > p span:last-child {
+          margin-left: 0.24rem; }
+    .home .product .pro-icon {
+      display: inline-block;
+      display: inline-block;
+      width: 0.28rem;
+      height: 0.26rem;
       vertical-align: middle;
-      margin-right: 0.2rem; }
-  .capitalBox .capitalList .capitalInfo {
-    margin-left: 0.35rem;
-    padding-bottom: 0.3rem; }
-    .capitalBox .capitalList .capitalInfo:after {
-      content: "";
-      display: block;
-      height: 0;
-      clear: both; }
-    .capitalBox .capitalList .capitalInfo .limit {
-      width: 2.4rem;
-      height: 1rem;
-      margin-top: 0.5rem;
-      float: left;
-      position: relative; }
-      .capitalBox .capitalList .capitalInfo .limit:after {
-        pointer-events: none;
-        width: 200%;
-        height: 200%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        content: "";
-        -webkit-transform: scale(0.5);
-        -webkit-transform-origin: 0 0;
-        transform: scale(0.5);
-        transform-origin: 0 0;
-        border-right: 1px solid #ddd; }
-      .capitalBox .capitalList .capitalInfo .limit h2 {
-        color: #f94b4b;
-        font-size: 0.3rem; }
-      .capitalBox .capitalList .capitalInfo .limit p {
-        line-height: 0.4rem;
-        color: #999999;
-        font-size: 0.24rem; }
-    .capitalBox .capitalList .capitalInfo .special {
-      float: left;
-      width: 2.8rem;
-      margin-top: 0.35rem; }
-      .capitalBox .capitalList .capitalInfo .special li {
-        line-height: 0.4rem;
-        color: #999999;
-        font-size: 0.24rem;
-        padding-left: 0.36rem; }
-    .capitalBox .capitalList .capitalInfo .apply {
-      float: left;
-      margin-top: 0.7rem; }
-      .capitalBox .capitalList .capitalInfo .apply a {
-        width: 1.56rem;
-        border-radius: 3px;
-        display: block;
-        background: #f94b4b;
-        color: #FFFFFF;
-        text-align: center;
-        line-height: 0.6rem;
-        height: 0.6rem;
-        box-shadow: 0 5px 10px rgba(249, 75, 75, 0.3); }
-  .capitalBox .capitalList .care {
-    line-height: 0.36rem;
-    color: #bababa;
-    font-size: 0.24rem; }
-    .capitalBox .capitalList .care span {
-      color: #FFFFFF;
-      background: #bababa;
-      border-radius: 3px;
-      padding: 0 0.1rem;
-      margin-right: 0.3rem;
-      margin-left: 0.35rem; }
+      background-size: 100%;
+      background-repeat: no-repeat;
+      margin-right: 0.1rem; }
+    .home .product .loanTab {
+      border-bottom: 0.02rem solid #eeeeee;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex; }
+      .home .product .loanTab li {
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        padding-left: 0.3rem;
+        border-right: 0.02rem solid #eeeeee; }
+        .home .product .loanTab li:last-child {
+          border-right: none; }
+        .home .product .loanTab li img {
+          width: 0.96rem;
+          height: 0.96rem;
+          display: inline-block;
+          margin-right: 0.24rem;
+          float: left; }
+      .home .product .loanTab div {
+        float: left; }
+        .home .product .loanTab div p {
+          height: 0.48rem;
+          line-height: 0.48rem; }
+          .home .product .loanTab div p:first-child {
+            font-size: 0.26rem;
+            color: #2b2b2b; }
+          .home .product .loanTab div p:last-child {
+            font-size: 0.24rem;
+            color: #666666; }
+    .home .product .loanTab2 {
+      border-bottom: none; }
+      .home .product .loanTab2 li {
+        padding-top: 0.43rem; }
+    .home .product .loanTan1 li {
+      padding-bottom: 0.42rem; }
+  .home .loan {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem; }
+    .home .loan ul li {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      margin-bottom: 0.52rem; }
+      .home .loan ul li > img {
+        display: inline-block;
+        width: 0.96rem;
+        height: 0.96rem;
+        margin-right: 0.24rem; }
+      .home .loan ul li > div {
+        display: inline-block; }
+        .home .loan ul li > div > p {
+          height: 0.48rem;
+          line-height: 0.48rem; }
+          .home .loan ul li > div > p:first-child {
+            font-size: 0.26rem;
+            color: #2b2b2b; }
+          .home .loan ul li > div > p:last-child {
+            font-size: 0.24rem;
+            color: #666666; }
+      .home .loan ul li:last-child {
+        margin-bottom: 0; }
+      .home .loan ul li .loanTitle {
+        -webkit-box-flex: 2;
+        -moz-box-flex: 2;
+        -webkit-flex: 2;
+        -ms-flex: 2;
+        flex: 2; }
+      .home .loan ul li .high {
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        text-align: center; }
+        .home .loan ul li .high p:first-child {
+          color: #ff8d31; }
+          .home .loan ul li .high p:first-child span {
+            font-size: 0.3rem;
+            font-weight: bold; }
+        .home .loan ul li .high p:last-child {
+          color: #ff801a;
+          border: 0.02rem solid #ffd230;
+          border-radius: 0.24rem; }
+  .home .credit ul li div > img {
+    width: 0.68rem;
+    height: 0.56rem;
+    vertical-align: middle; }
+  .home .credit ul li .high {
+    line-height: 0.96rem; }
 
 .listWrap {
   position: relative;
@@ -243,7 +189,8 @@
   -moz-flex-direction: column;
   -ms-flex-direction: column;
   -o-flex-direction: column;
-  flex-direction: column; }
+  flex-direction: column;
+  background: #fff; }
   .newsCon h3 {
     margin-top: 0.15rem;
     height: .8rem;
@@ -310,7 +257,8 @@
   .newsBox .newsList {
     background: #FFFFFF;
     padding-left: .35rem;
-    color: #666666; }
+    color: #666666;
+    border-bottom: 0.02rem solid #eeeeee; }
     .newsBox .newsList:after {
       content: "";
       display: block;
@@ -327,17 +275,29 @@
       .newsBox .newsList dd p {
         height: 0.6rem;
         line-height: 0.6rem;
-        font-size: 0.2rem; }
-        .newsBox .newsList dd p span {
-          margin-right: 0.3rem; }
+        font-size: 0.2rem;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex; }
+        .newsBox .newsList dd p span:first-child {
+          -webkit-box-flex: 1;
+          -moz-box-flex: 1;
+          -webkit-flex: 1;
+          -ms-flex: 1;
+          flex: 1; }
+        .newsBox .newsList dd p span:last-child img {
+          width: 0.3rem;
+          height: 0.2rem;
+          margin-right: 0.08rem; }
     .newsBox .newsList dt {
       margin-right: 0.35rem;
       margin-top: 0.3rem;
       float: right;
       width: 2.2rem; }
       .newsBox .newsList dt img {
-        max-width: 2.2rem;
-        max-height: 1rem; }
+        max-width: 2.3rem;
+        max-height: 1.54rem; }
   .newsBox .linkNews {
     height: 0.9rem;
     line-height: 0.9rem;
@@ -362,5 +322,608 @@
     .newsBox .linkNews img {
       width: 0.15rem;
       margin-left: 0.2rem; }
+
+.slider-decorator-0 {
+  bottom: 1rem !important; }
+
+.bannernews {
+  position: relative;
+  margin-bottom: 0.32rem; }
+  .bannernews .news {
+    height: 0.88rem;
+    line-height: 0.88rem;
+    background: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 0 0.36rem 0 0.32rem; }
+    .bannernews .news li {
+      float: left; }
+      .bannernews .news li:nth-child(3) {
+        width: 2.8rem; }
+        .bannernews .news li:nth-child(3) .v-item {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap; }
+      .bannernews .news li:last-child {
+        float: right; }
+    .bannernews .news .newvoice {
+      margin-right: 0.28rem; }
+      .bannernews .news .newvoice img {
+        width: 0.36rem;
+        height: 0.36rem;
+        vertical-align: middle; }
+    .bannernews .news .newsgo img {
+      width: 0.16rem;
+      height: 0.28rem;
+      vertical-align: middle; }
+
+.loanlist .content .selection .am-accordion {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex; }
+  .loanlist .content .selection .am-accordion .am-accordion-item {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1; }
+    .loanlist .content .selection .am-accordion .am-accordion-item .am-accordion-header {
+      background: #508aff;
+      color: #fff;
+      font-size: 0.28rem; }
+.loanlist .content .selection .my-list .selecticon {
+  display: inline-block;
+  width: 0.32rem;
+  height: 0.24rem;
+  vertical-align: middle;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  float: right;
+  margin-top: 0.16rem; }
+.loanlist .content .selection .my-list .am-list-item .am-list-line .am-list-content {
+  font-size: 0.28rem; }
+.loanlist .content .selection .my-list .am-list-body {
+  z-index: 2; }
+.loanlist .content .selection .menu-mask {
+  content: ' ';
+  position: absolute;
+  top: 0.87rem;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.4;
+  z-index: 1; }
+.loanlist .content .loan-list {
+  background: #fff;
+  padding: 0.48rem 0.3rem;
+  margin-bottom: 0.3rem; }
+  .loanlist .content .loan-list li {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    margin-bottom: 0.52rem; }
+    .loanlist .content .loan-list li > img {
+      display: inline-block;
+      width: 2.18rem;
+      height: 1.62rem;
+      margin-right: 0.24rem; }
+    .loanlist .content .loan-list li > div {
+      display: inline-block; }
+      .loanlist .content .loan-list li > div > p {
+        height: 0.48rem;
+        line-height: 0.48rem; }
+        .loanlist .content .loan-list li > div > p:first-child {
+          font-size: 0.26rem;
+          color: #2b2b2b;
+          font-weight: bold; }
+        .loanlist .content .loan-list li > div > p:nth-child(2) {
+          font-size: 0.24rem; }
+        .loanlist .content .loan-list li > div > p:last-child {
+          font-size: 0.24rem;
+          color: #676767; }
+    .loanlist .content .loan-list li:last-child {
+      margin-bottom: 0; }
+    .loanlist .content .loan-list li .loanTitle {
+      -webkit-box-flex: 2;
+      -moz-box-flex: 2;
+      -webkit-flex: 2;
+      -ms-flex: 2;
+      flex: 2; }
+      .loanlist .content .loan-list li .loanTitle p:nth-child(2) {
+        width: 2.9rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+    .loanlist .content .loan-list li .high {
+      -webkit-box-flex: 1;
+      -moz-box-flex: 1;
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      text-align: center;
+      margin-top: 0.65rem; }
+      .loanlist .content .loan-list li .high p:first-child {
+        color: #ff8d31; }
+        .loanlist .content .loan-list li .high p:first-child span {
+          font-size: 0.3rem;
+          font-weight: bold; }
+      .loanlist .content .loan-list li .high p:last-child {
+        color: #ff801a;
+        border: 0.02rem solid #ffd230;
+        border-radius: 0.24rem; }
+  .loanlist .content .loan-list .numdetail > div {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    text-align: center;
+    border-right: 0.02rem solid #eeeeee; }
+    .loanlist .content .loan-list .numdetail > div:last-child {
+      border-right: none; }
+    .loanlist .content .loan-list .numdetail > div > p {
+      height: 0.4rem;
+      line-height: 0.4rem; }
+      .loanlist .content .loan-list .numdetail > div > p:first-child {
+        font-size: 0.2rem; }
+        .loanlist .content .loan-list .numdetail > div > p:first-child > span {
+          font-size: 0.28rem; }
+
+.licai .content {
+  background: #FFF; }
+.licai .notPro {
+  text-align: center;
+  margin-top: 2.52rem; }
+  .licai .notPro img {
+    width: 2.9rem;
+    height: 1.8rem;
+    margin-bottom: 0.68rem; }
+.licai .update {
+  color: #999999; }
+
+.task .content {
+  background: #fff; }
+.task .loankind {
+  width: 7.5rem;
+  padding: 0.48rem 0;
+  background: #FFFFFF;
+  position: fixed;
+  z-index: 5; }
+  .task .loankind .loankindTab {
+    margin: auto;
+    width: 5.34rem;
+    height: 0.86rem;
+    border: 0.02rem solid #999999;
+    border-radius: 0.44rem; }
+    .task .loankind .loankindTab p {
+      width: 50%;
+      line-height: 0.82rem;
+      color: #508aff;
+      float: left;
+      font-size: 0.28rem;
+      text-align: center;
+      border-radius: 0.44rem; }
+      .task .loankind .loankindTab p.activeLoan {
+        color: #FFFFFF;
+        background: #508aff; }
+.task .empty {
+  height: 1.4rem; }
+.task .homeTab {
+  height: 2.3rem;
+  background: #FFFFFF;
+  margin-top: 0.15rem;
+  padding: 0 0.2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex; }
+  .task .homeTab li {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    margin-top: 0.5rem; }
+    .task .homeTab li img {
+      width: 0.9rem;
+      height: 0.9rem;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto; }
+    .task .homeTab li p {
+      text-align: center;
+      font-size: 0.24rem;
+      margin-top: 0.2rem;
+      color: #666666; }
+.task .capitalBox .capitalList {
+  background: #FFFFFF;
+  margin-top: 0.15rem;
+  padding-bottom: 0.3rem; }
+  .task .capitalBox .capitalList h3 {
+    height: 0.8rem;
+    padding-left: 0.35rem;
+    line-height: 0.8rem;
+    color: #333333;
+    font-size: 0.28rem;
+    font-weight: 500;
+    position: relative; }
+    .task .capitalBox .capitalList h3:after {
+      pointer-events: none;
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      content: "";
+      -webkit-transform: scale(0.5);
+      -webkit-transform-origin: 0 0;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+      border-bottom: 1px solid #f3f3f3; }
+    .task .capitalBox .capitalList h3 img {
+      width: 0.41rem;
+      height: 0.41rem;
+      vertical-align: middle;
+      margin-right: 0.2rem; }
+  .task .capitalBox .capitalList .capitalInfo {
+    margin-left: 0.35rem;
+    padding-bottom: 0.3rem; }
+    .task .capitalBox .capitalList .capitalInfo:after {
+      content: "";
+      display: block;
+      height: 0;
+      clear: both; }
+    .task .capitalBox .capitalList .capitalInfo .limit {
+      width: 2.4rem;
+      height: 1rem;
+      margin-top: 0.5rem;
+      float: left;
+      position: relative; }
+      .task .capitalBox .capitalList .capitalInfo .limit:after {
+        pointer-events: none;
+        width: 200%;
+        height: 200%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        content: "";
+        -webkit-transform: scale(0.5);
+        -webkit-transform-origin: 0 0;
+        transform: scale(0.5);
+        transform-origin: 0 0;
+        border-right: 1px solid #ddd; }
+      .task .capitalBox .capitalList .capitalInfo .limit h2 {
+        color: #f94b4b;
+        font-size: 0.3rem; }
+      .task .capitalBox .capitalList .capitalInfo .limit p {
+        line-height: 0.4rem;
+        color: #999999;
+        font-size: 0.24rem; }
+    .task .capitalBox .capitalList .capitalInfo .special {
+      float: left;
+      width: 2.8rem;
+      margin-top: 0.35rem; }
+      .task .capitalBox .capitalList .capitalInfo .special li {
+        line-height: 0.4rem;
+        color: #999999;
+        font-size: 0.24rem;
+        padding-left: 0.36rem; }
+    .task .capitalBox .capitalList .capitalInfo .apply {
+      float: left;
+      margin-top: 0.7rem; }
+      .task .capitalBox .capitalList .capitalInfo .apply a {
+        width: 1.56rem;
+        border-radius: 3px;
+        display: block;
+        background: #f94b4b;
+        color: #FFFFFF;
+        text-align: center;
+        line-height: 0.6rem;
+        height: 0.6rem;
+        box-shadow: 0 5px 10px rgba(249, 75, 75, 0.3); }
+  .task .capitalBox .capitalList .care {
+    line-height: 0.36rem;
+    color: #bababa;
+    font-size: 0.24rem; }
+    .task .capitalBox .capitalList .care span {
+      color: #FFFFFF;
+      background: #bababa;
+      border-radius: 3px;
+      padding: 0 0.1rem;
+      margin-right: 0.3rem;
+      margin-left: 0.35rem; }
+.task .tasklist {
+  margin-top: 0.5rem;
+  padding: 0 0.28rem; }
+  .task .tasklist li {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    margin-bottom: 0.12rem;
+    border: 0.02rem solid #eef2f8;
+    padding: 0.2rem;
+    border-radius: 0.1rem; }
+    .task .tasklist li > div > p {
+      height: 0.5rem;
+      line-height: 0.5rem; }
+    .task .tasklist li > img {
+      display: inline-block;
+      width: 1.1rem;
+      height: 1.1rem;
+      margin-right: 0.2rem; }
+    .task .tasklist li:last-child {
+      margin-bottom: 0; }
+    .task .tasklist li .loanTitle {
+      -webkit-box-flex: 2;
+      -moz-box-flex: 2;
+      -webkit-flex: 2;
+      -ms-flex: 2;
+      flex: 2; }
+      .task .tasklist li .loanTitle > p:first-child {
+        font-size: 0.28rem;
+        color: #2b2b2b; }
+      .task .tasklist li .loanTitle > p:last-child {
+        font-size: 0.24rem;
+        color: #666666; }
+        .task .tasklist li .loanTitle > p:last-child > span {
+          color: #508aff; }
+        .task .tasklist li .loanTitle > p:last-child > span:last-child {
+          font-size: 0.28rem; }
+    .task .tasklist li .high {
+      text-align: center; }
+      .task .tasklist li .high p {
+        width: 1.2rem;
+        color: #fff;
+        border-radius: 0.1rem;
+        font-size: 0.24rem; }
+        .task .tasklist li .high p:first-child {
+          background: #508aff;
+          margin-bottom: 0.2rem; }
+        .task .tasklist li .high p:last-child {
+          background: #666666; }
+.task .notask {
+  text-align: center; }
+  .task .notask img {
+    width: 1.43rem;
+    height: 2.61rem;
+    margin: 1.38rem 0 0.3rem; }
+  .task .notask p {
+    color: #666666;
+    font-size: 0.36rem; }
+
+.taskDetail .time {
+  padding-top: 0.6rem;
+  padding-bottom: 0.42rem;
+  background: #508aff;
+  background: -webkit-linear-gradient(left, #5197fb, #3a80f2, #1e63e8);
+  /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
+  /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
+  /* Firefox 3.6 - 15 */
+  background: linear-gradient(to right, #5197fb, #3a80f2, #1e63e8);
+  /* 标准的语法 */
+  color: #fff;
+  text-align: center;
+  font-size: 0.24rem; }
+  .taskDetail .time p {
+    margin-bottom: 0.24rem; }
+    .taskDetail .time p:nth-child(2) {
+      width: 4.56rem;
+      background: #fff;
+      height: 0.74rem;
+      line-height: 0.74rem;
+      color: #5095fb;
+      margin: 0 auto 0.24rem;
+      border-radius: 0.1rem; }
+      .taskDetail .time p:nth-child(2) span {
+        color: #2266e9;
+        font-size: 0.38rem; }
+.taskDetail .detail {
+  background: #fff;
+  padding: 0 0.3rem 0.5rem;
+  margin-top: 0.16rem; }
+  .taskDetail .detail li {
+    padding-top: 0.2rem; }
+    .taskDetail .detail li > p {
+      font-size: 0.3rem;
+      text-align: center;
+      margin-bottom: 0.14rem; }
+      .taskDetail .detail li > p span {
+        display: inline-block;
+        width: 0.15rem;
+        height: 0.15rem;
+        border-radius: 50%; }
+      .taskDetail .detail li > p i {
+        font-style: normal;
+        margin: 0 0.3rem; }
+    .taskDetail .detail li .info {
+      background: #ecf2ff;
+      padding-left: 0.24rem;
+      border-radius: 0.1rem; }
+    .taskDetail .detail li:first-child .info {
+      text-align: center;
+      padding: 0.22rem 0; }
+      .taskDetail .detail li:first-child .info .ftcolor {
+        color: #508aff; }
+      .taskDetail .detail li:first-child .info .progress-container {
+        width: 2.7rem;
+        margin: 0.18rem  auto 0; }
+      .taskDetail .detail li:first-child .info .am-progress-bar {
+        border: none;
+        background: #a0dc49;
+        height: 0.12rem !important;
+        border-radius: 0.2rem; }
+      .taskDetail .detail li:first-child .info .am-progress-outer {
+        background: #999999;
+        border-radius: 0.2rem; }
+    .taskDetail .detail li:nth-child(2) > p span, .taskDetail .detail li:nth-child(4) > p span {
+      background: #ffb216; }
+    .taskDetail .detail li:nth-child(2) > div, .taskDetail .detail li:nth-child(4) > div {
+      height: 0.78rem;
+      line-height: 0.78rem; }
+    .taskDetail .detail li:nth-child(3) > p span {
+      background: #3e83f4; }
+    .taskDetail .detail li:nth-child(3) > .info > p {
+      height: 0.78rem;
+      line-height: 0.78rem; }
+    .taskDetail .detail li:nth-child(3) > .info > .step {
+      overflow: hidden; }
+      .taskDetail .detail li:nth-child(3) > .info > .step span {
+        float: left; }
+      .taskDetail .detail li:nth-child(3) > .info > .step dl {
+        float: left; }
+        .taskDetail .detail li:nth-child(3) > .info > .step dl dd {
+          margin-bottom: 0.18rem; }
+    .taskDetail .detail li:last-child > p {
+      color: #ff0000; }
+
+.myTask .tasklist {
+  margin-top: 0.14rem;
+  padding: 0 0.28rem; }
+  .myTask .tasklist li {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    margin-bottom: 0.12rem;
+    border: 0.02rem solid #eef2f8;
+    padding: 0.2rem;
+    border-radius: 0.1rem;
+    background-color: #fff; }
+    .myTask .tasklist li > div > p {
+      height: 0.5rem;
+      line-height: 0.5rem; }
+    .myTask .tasklist li > img {
+      display: inline-block;
+      width: 1.1rem;
+      height: 1.1rem;
+      margin-right: 0.2rem; }
+    .myTask .tasklist li:last-child {
+      margin-bottom: 0; }
+    .myTask .tasklist li .loanTitle {
+      -webkit-box-flex: 2;
+      -moz-box-flex: 2;
+      -webkit-flex: 2;
+      -ms-flex: 2;
+      flex: 2; }
+      .myTask .tasklist li .loanTitle > p:first-child {
+        font-size: 0.28rem;
+        color: #2b2b2b; }
+      .myTask .tasklist li .loanTitle > p:last-child {
+        font-size: 0.24rem;
+        color: #666666; }
+        .myTask .tasklist li .loanTitle > p:last-child > span {
+          color: #508aff; }
+        .myTask .tasklist li .loanTitle > p:last-child > span:last-child {
+          font-size: 0.28rem; }
+    .myTask .tasklist li .high {
+      text-align: center; }
+      .myTask .tasklist li .high p {
+        width: 1.2rem;
+        color: #fff;
+        border-radius: 0.1rem;
+        font-size: 0.24rem;
+        background: #508aff;
+        margin-bottom: 0.2rem; }
+      .myTask .tasklist li .high .nopass {
+        margin-top: 0.3rem;
+        background: #ff801a !important; }
+      .myTask .tasklist li .high .hasPass {
+        margin-top: 0.3rem;
+        background: #04c926 !important; }
+.myTask .menu-mask {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.4;
+  z-index: 1; }
+.myTask .upphone {
+  position: absolute;
+  top: 30%;
+  left: 24%;
+  z-index: 2;
+  background: #fff;
+  padding: 0.3rem 0.38rem;
+  text-align: center;
+  font-size: 0.28rem; }
+  .myTask .upphone input {
+    border: 0.01rem solid #999999;
+    padding: 0.12rem 0 0.12rem 0.2rem; }
+  .myTask .upphone p {
+    height: 0.7rem;
+    line-height: 0.7rem; }
+  .myTask .upphone p:last-child {
+    display: inline-block;
+    width: 0.44rem;
+    height: 0.44rem;
+    vertical-align: middle;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: -0.1rem;
+    right: -0.1rem; }
+  .myTask .upphone p:nth-child(3), .myTask .upphone p:nth-child(5) {
+    background: #508aff;
+    color: #fff;
+    border-radius: 0.1rem;
+    margin-top: 0.26rem;
+    position: relative; }
+    .myTask .upphone p:nth-child(3) input, .myTask .upphone p:nth-child(5) input {
+      position: absolute;
+      left: 0;
+      opacity: 0; }
+  .myTask .upphone p:nth-child(4) {
+    color: #666666; }
+  .myTask .upphone p:nth-child(5) {
+    width: 1.2rem;
+    margin: 0.26rem auto; }
+
+.creditcard .loan ul li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  margin-bottom: 0.3rem;
+  padding: 0.42rem;
+  background: #FFF; }
+  .creditcard .loan ul li > img {
+    display: inline-block;
+    width: 2.3rem;
+    height: 1.44rem;
+    margin-right: 0.3rem; }
+  .creditcard .loan ul li > div {
+    display: inline-block; }
+    .creditcard .loan ul li > div > p {
+      height: 0.48rem;
+      line-height: 0.48rem; }
+      .creditcard .loan ul li > div > p:first-child {
+        font-size: 0.3rem;
+        color: #020202; }
+      .creditcard .loan ul li > div > p:nth-child(2) {
+        font-size: 0.28rem;
+        color: #2b2b2b; }
+      .creditcard .loan ul li > div > p:last-child {
+        font-size: 0.24rem;
+        color: #666666; }
+        .creditcard .loan ul li > div > p:last-child span {
+          color: #ff811c; }
+  .creditcard .loan ul li:last-child {
+    margin-bottom: 0; }
+  .creditcard .loan ul li .loanTitle {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1; }
 
 /*# sourceMappingURL=home.css.map */

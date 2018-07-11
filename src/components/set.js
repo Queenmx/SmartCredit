@@ -60,6 +60,12 @@ var Set = React.createClass({
         }
         hashHistory.push(path);
     },
+    rePsd: function () {//修改登录密码
+        var path = {
+            pathname: '/RePsd',
+        }
+        hashHistory.push(path);
+    },
     render: function () {
         var that = this;
         return (
@@ -68,7 +74,10 @@ var Set = React.createClass({
                 <Loading flag={that.state.isLoading} />
                 <div className="userInfoCon">
                     <ul className="setLi">
+                        <li><span>消息推送</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                        
                         <li onClick={that.clearCache}><span>清空缓存</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
+                        <li ><span>当前版本</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li> 
+                        <li onClick={that.rePsd}><span>修改登录密码</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                                               
                         <li onClick={that.aboutUs}><span>关于万融汇</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
                     </ul>
                     <div className="quit" onClick={that.quitLogin}>退出当前帐号</div>

@@ -123,9 +123,9 @@ var NewsDetail = React.createClass({
         var addTimeArr = addTime.split(" ");
         return (
             <div className="app_Box newsDetail">
-                <Header title="" />
+                <Header title="资讯小条" />
                 <Loading flag={that.state.flag} />
-                <div className="content newsDetailCon">
+                {/* <div className="content newsDetailCon">
                     <h1>{articleDetail.articleTitle}</h1>
                     <div className="newsDetailInfo">
                         <span>媒体来源:{articleDetail.mediaSource}</span>
@@ -134,8 +134,26 @@ var NewsDetail = React.createClass({
                     </div>
                     <div className="newsArticleCon" dangerouslySetInnerHTML={{ __html: articleDetail.content }}>
                     </div>
+                </div> */}
+                <div className="content newsDetailCon">
+                    
+                    <div className="newsDetailInfo">
+                        <span><img src="src/img/icon/new-icon1.png" alt=""/>的方式是否</span>                        
+                        <span>2018-06-07</span>
+                    </div>
+                    <div className="newsArticleCon">
+                        <h3>只有杨过的电风扇</h3>
+                        <p>
+                            <img src="src/img/icon/new-icon.png" alt=""/>
+                            33阅读
+                        </p>
+                        <p>打法撒旦法师打法撒旦法师</p>
+                        <div>
+                            <img src="src/img/icon/new-icon2.png" alt=""/>
+                        </div>
+                    </div>
                 </div>
-                <div className="botBtn" data-markId={articleDetail.markId} onClick={that.saveHandle}>{that.state.isMark == 1 ? "取消收藏" : "收藏"}</div>
+                {/* <div className="botBtn" data-markId={articleDetail.markId} onClick={that.saveHandle}>{that.state.isMark == 1 ? "取消收藏" : "收藏"}</div> */}
             </div>
         )
     },

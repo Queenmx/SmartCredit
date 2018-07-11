@@ -725,7 +725,7 @@ var ListDetailKSD = React.createClass({
             <div className="app_Box listDetail">
                 {/* <Header title={loanDetail.loanName} /> */}
                 <div className="header">
-                    <div className="toBack" onClick={this.toBack}><img src="src/img/icon/back.png" /></div>
+                    <div className="toBack" onClick={this.toBack}><img src="src/img/icon/back2.png" /></div>
                     <p className="title">{loanDetail.loanName}</p>
                     <div className="headerLinkBtn"></div>       
                 </div>

@@ -45,6 +45,17 @@ import BaseInfo from './baseInfo';
 import Operator from './operator';
 import RepayResult from './repayResult';
 import ConfirmResult from './ConfirmResult';
+import Authname from './Authname';
+import loanList from './loanList';
+import licai from './licai';
+import task from './task';
+import messages from './messages';
+import msgDetail from './msgDetail';
+import taskDetail from './taskDetail';
+import taskMy from './taskMy';
+import creditCard from './creditCard';
+
+
 //<Route path='/detail/:id' component={Detail} />
 
 
@@ -90,5 +101,15 @@ ReactDom.render((
         <Route path='/BaseInfo' component={BaseInfo} />
         <Route path='/repayResult' component={RepayResult} />
         <Route path='/confirmResult' component={ConfirmResult} />
+        <Route path='/Authname' component={Authname} />
+        <Route path='/loanList' component={loanList} />
+        <Route path='/licai' component={licai} />
+        <Route path='/task' component={task} />
+        <Route path='/messages' component={messages} />
+        <Route path='/msgDetail' component={msgDetail} />
+        <Route path='/taskDetail' component={taskDetail} />
+        <Route path='/taskMy' component={taskMy} />
+        <Route path='/creditCard' component={creditCard} />
+        
     </Router >
 ), document.getElementById('app'));

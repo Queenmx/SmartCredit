@@ -62,7 +62,8 @@ module.exports = function(env) {
             contentBase: paths.DIST_PATH,
             compress: true,
             port: 8009,
-            historyApiFallback: true
+            historyApiFallback: true,
+            inline:true,
         },
 
         /* 设置模块如何解析 */
