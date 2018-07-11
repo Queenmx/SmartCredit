@@ -18,7 +18,7 @@
   .help .askBtn {
     width: 1.6rem;
     height: 0.82rem;
-    background: #53a6ff;
+    background: #508aff;
     color: #ffffff;
     font-size: 0.3rem;
     text-align: center;
@@ -28,15 +28,38 @@
     bottom: 0.7rem;
     right: 0.5rem;
     box-shadow: 0 3px 10px rgba(83, 166, 255, 0.5); }
+  .help .footer {
+    background: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-around; }
+    .help .footer div {
+      width: 3rem; }
+  .help .askCon {
+    background: #fff; }
 
 .helpList li {
   margin-top: 0.12rem;
-  height: 1rem;
-  line-height: 1rem;
   background: #FFFFFF;
-  padding: 0 0.5rem;
-  color: #53a6ff;
+  padding: 0 0.3rem;
   font-size: 0.28rem; }
+  .helpList li p {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex; }
+  .helpList li p > span:first-child {
+    display: inline-block;
+    display: inline-block;
+    width: 0.3rem;
+    height: 0.36rem;
+    vertical-align: middle;
+    background-size: 100%;
+    background-repeat: no-repeat; }
+  .helpList li p:first-child {
+    color: #508aff; }
   .helpList li img {
     width: 0.2rem;
     height: 0.4rem;
@@ -61,7 +84,7 @@
     .helpDetail .helpDetailTxt .solve span {
       margin-top: 0.8rem;
       float: left;
-      color: #53a6ff;
+      color: #508aff;
       font-size: 0.28rem; }
       .helpDetail .helpDetailTxt .solve span img {
         width: 0.64rem;

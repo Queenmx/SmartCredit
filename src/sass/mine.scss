@@ -11,15 +11,14 @@
     opacity: 0;
 }
 .mine{
-    background: $grey;
-   
+    background: $grey;   
    .userHeader{
-       height: 2.65rem;
-        background: -webkit-linear-gradient(left, #5197fb ,#3a80f2, #1e63e8); /* Safari 5.1 - 6.0 */
-        background: -o-linear-gradient(right, #5197fb ,#3a80f2, #1e63e8); /* Opera 11.1 - 12.0 */
-        background: -moz-linear-gradient(right, #5197fb ,#3a80f2, #1e63e8); /* Firefox 3.6 - 15 */
-        background: linear-gradient(to right, #5197fb ,#3a80f2, #1e63e8); /* 标准的语法 */
-
+        background: -webkit-linear-gradient(left, #559afd ,#3f84f4, #2d72ee); /* Safari 5.1 - 6.0 */
+        background: -o-linear-gradient(right, #559afd ,#3f84f4, #2d72ee); /* Opera 11.1 - 12.0 */
+        background: -moz-linear-gradient(right, #559afd ,#3f84f4, #2d72ee); /* Firefox 3.6 - 15 */
+        background: linear-gradient(to right, #559afd ,#3f84f4, #2d72ee); /* 标准的语法 */
+        overflow: hidden;
+        padding-bottom: 0.24rem;
        &>p{
            font-size:0.36rem;color:#fff;text-align: center;height: 0.96rem;line-height: 0.96rem;
        }
@@ -87,31 +86,8 @@
        
    }
    .userOrder{
-       margin-top: 0.12rem;
-       
-//     .orderNav{
-//         @include only_display;
-//         li{
-//              @include flex_1;
-//              box-sizing: border-box;
-//             @include border-Right;
-//             height: 2.05rem;
-//             img{
-//                 display: block;
-//                 width:0.6rem;
-//                 height:0.6rem;
-//                 margin: 0.66rem auto 0.26rem;
-//             }
-//         p{
-//             text-align: center;
-//             font-size: 0.28rem;
-//             color: #666666;
-//         }
-//         }
-//         
-//     }
        ul{
-           margin-top: 0.28rem;
+           margin-bottom: 0.16rem;
             @include only_display;
             flex-wrap: wrap;
             -ms-flex-wrap: wrap;
@@ -125,7 +101,8 @@
                background: #ffffff;
                img{
                    display: block;
-                   max-height:0.5rem;
+                   width: 0.78rem;
+                   height: 0.78rem;
                    margin: 0.66rem auto 0.26rem;
                }
            p{
@@ -147,6 +124,18 @@
                color: #666666;
            }
        }
+       .am-list:nth-child(2),.am-list:nth-child(4){
+           margin-bottom: 0.16rem;
+       }
+    }
+    .am-list-item{height: 1rem;line-height: 1rem;       
+    }
+    .am-list-item img{
+        width: 0.4rem;
+        height: 0.36rem;        
+    }
+    .am-list-item .am-list-line .am-list-content{
+        font-size: 0.26rem;
     }
 }
 .idCard{

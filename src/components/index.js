@@ -54,6 +54,8 @@ import msgDetail from './msgDetail';
 import taskDetail from './taskDetail';
 import taskMy from './taskMy';
 import creditCard from './creditCard';
+import myWallet from './myWallet';
+import lookques from './lookques';
 
 
 //<Route path='/detail/:id' component={Detail} />
@@ -110,6 +112,8 @@ ReactDom.render((
         <Route path='/taskDetail' component={taskDetail} />
         <Route path='/taskMy' component={taskMy} />
         <Route path='/creditCard' component={creditCard} />
+        <Route path='/myWallet' component={myWallet} />
+        <Route path='/lookques' component={lookques} />
         
     </Router >
 ), document.getElementById('app'));

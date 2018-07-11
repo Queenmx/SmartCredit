@@ -25,7 +25,7 @@ var Ask = React.createClass({
 
         if (fromWho == "help") {//反馈建议
             this.setState({
-                title: "我要反馈",
+                title: "反馈问题",
                 head: "感谢您宝贵的建议，我们将为您提供更优质的服务",
                 placeholder: "反馈",
                 fromWho: "help"
@@ -125,11 +125,13 @@ var Ask = React.createClass({
             <div className="app_Box ask">
                 <Header title={that.state.title} />
                 <Loading flag={that.state.flag} />
-                <div className="askCon content">
-                    <p>{that.state.head}</p>
+                <div className="askCon content">                   
                     <textarea type="text" cols="50" rows="10" placeholder="描述(200个字以内)" onChange={that.upText}></textarea>
+                    <p>{that.state.head}</p>
                 </div>
-                <div className="botBtn" onClick={that.submitAsk}>提交</div>
+                <div className="footer">
+                    <div className="applyBtn" onClick={that.submitAsk}>提交</div>
+                </div>
             </div>
         )
     }

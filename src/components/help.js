@@ -43,12 +43,25 @@ var Help = React.createClass({
         return (
             <div className="app_Box help">
                 <Header title="帮助与反馈" />
-                <ul className="helpList">
-                    <li onClick={that.helpDetail}>如何贷款<img src="src/img/icon/right.png" /></li>
-                    {/*<li onClick={that.helpDetail}>申请贷款<img src="src/img/icon/right.png"/></li>
-	        			<li onClick={that.helpDetail}>付款异常<img src="src/img/icon/right.png"/></li>*/}
-                </ul>
-                <div className="askBtn" onClick={this.toAsk}>反馈</div>
+                
+                <div className="askCon content">                   
+                    <ul className="helpList">
+                        <li>
+                            <p>
+                               <span style={{backgroundImage:"url('src/img/icon/help-icon2.png')"}}></span>
+                               <span>如何借款</span>    
+                            </p>
+                            <p>
+                               <span style={{backgroundImage:"url('src/img/icon/help-icon1.png')"}}></span>
+                               <span>点击借贷款->获取额度-->借出，绑定一张银行信用卡，输入借出金额，比如2000，点击确定即可 </span>   
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div className="footer">
+                    <div className="applyBtn" onClick={that.toAsk}>反馈问题</div>
+                    <div className="applyBtn" onClick={that.toAsk}>查看问题</div>
+                </div>
             </div>
         )
     }
