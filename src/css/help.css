@@ -50,16 +50,15 @@
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex; }
-  .helpList li p > span:first-child {
-    display: inline-block;
-    display: inline-block;
-    width: 0.3rem;
-    height: 0.36rem;
-    vertical-align: middle;
-    background-size: 100%;
-    background-repeat: no-repeat; }
-  .helpList li p:first-child {
-    color: #508aff; }
+    .helpList li p span:first-child {
+      display: inline-block;
+      width: 0.3rem;
+      height: 0.36rem;
+      vertical-align: middle;
+      background-size: 100%;
+      background-repeat: no-repeat; }
+    .helpList li p::first-child {
+      color: #508aff; }
   .helpList li img {
     width: 0.2rem;
     height: 0.4rem;
