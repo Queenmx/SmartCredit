@@ -73,25 +73,26 @@ var LoanList = React.createClass({
                     类型3
                     <span className="selecticon" style={{backgroundImage:"url('src/img/icon/proselect-icon1.png')"}}></span>  
                 </List.Item>
-                    
+                   
             </List>
         )
-
         return (
             <div className="app_Box loanlist">
-                 <header>贷款产品列表</header>
-                 <Loading flag={that.state.flag} />
-                 <div className="content">
-                    <div className="selection">
-                        <Accordion  className="my-accordion" onChange={this.onChange}>
+                 <div className="hed">
+                    <p>贷款产品列表</p>
+                   
+                        <Accordion  accordion className="my-accordion" onChange={this.onChange}>
                             <Accordion.Panel header="类型"></Accordion.Panel>
                             <Accordion.Panel header="金额" className="pad"></Accordion.Panel>
                             <Accordion.Panel header="期限" className="pad"></Accordion.Panel>
                             <Accordion.Panel header="征信" className="pad"></Accordion.Panel>                            
                         </Accordion>
-                        {show ? menuEl : null}
-                        {show ? <div className="menu-mask" onClick={this.onMaskClick} /> : null}                        
-                    </div>
+                                            
+                    
+                </div>
+                 <Loading flag={that.state.flag} />
+                 <div className="content">
+                    
                     <ul className="loan-list" onClick={this.goDetail}>
                         <li>
                             <img src="src/img/icon/product1.png" />
@@ -161,7 +162,44 @@ var LoanList = React.createClass({
                             </div>
                               
                         </li> 
+                    </ul>
+                    <ul className="loan-list">
+                        <li>
+                            <img src="src/img/icon/product1.png" />
+                            <div className="loanTitle">
+                                <p>产品名称</p>
+                                <p>适用人群：上班族，企业主</p>
+                                <p>申请人数：2356人</p>
+                            </div>
+                            <div className="high">
+                                <p>
+                                    <span>5</span>万    
+                                </p>
+                                <p>最高额度</p>
+                            </div>
+                        </li>   
+                        <li className="numdetail">
+                            <div>
+                                <p><span>18</span>月</p>
+                                <p>平均期限</p>
+                            </div>
+                            <div>
+                                <p><span>18</span>万</p>
+                                <p>平均期限</p>
+                            </div>
+                            <div>
+                                <p><span>18</span>天</p>
+                                <p>平均期限</p>
+                            </div>
+                            <div>
+                                <p><span>18</span>%</p>
+                                <p>年利率</p>
+                            </div>
+                              
+                        </li> 
                     </ul> 
+                    {show ? menuEl : null}
+                        {show ? <div className="menu-mask" onClick={this.onMaskClick} /> : null} 
                  </div>
                 <Footer activeIndex="1" />
             </div>

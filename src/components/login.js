@@ -24,12 +24,19 @@ var Login = React.createClass({
             flag: false,
             getMsg: {
                 style: {
-                    backgroundColor: "#ffa81e",
-                    color: "#ffffff"
+                    backgroundColor: "#e6e6e6",
+                    color: "#666666"
                 }
             },
             display: {
                 display: "none"
+            },
+            btnstyle:{
+                style:{
+                    backgroundColor:"#e6e6e6",color:"#2b2b2b"
+                }
+                
+                
             }
         }
     },
@@ -38,6 +45,21 @@ var Login = React.createClass({
         //localStorage.removeItem("isLogin");
         var phoneNum = localStorage.getItem("phoneNum") || "";
         this.setState({ phoneNum: phoneNum })
+    },
+    componentDidUpdate(){
+        var that=this;
+        if((that.state.yzCode&&that.state.phoneNum)||(that.state.password&&that.state.phoneNum)){
+        //     this.setState({
+        //         btnstyle:{
+        //             style: {
+        //                 backgroundColor: "#aaaaaa",
+        //                 color: "#ffffff"
+        //             },
+        //         }
+        // })
+        }else{
+            // console.log("nn")
+        }
     },
     checkWay: function (e) {
         var id = e.target.id * 1;
@@ -79,7 +101,6 @@ var Login = React.createClass({
         } else {
             switch (wayNum) {
                 case 1:
-
                     var psd = that.state.password;
                     if (psd == "" || psd == null) {
                         Toast.info("请输入密码", 2);
@@ -318,49 +339,53 @@ var Login = React.createClass({
         var text = this.state.liked ? '获取验证码' : this.state.count + '秒后重发';
         return (
             <div className="login">
-                <Header title="登录" backRouter={backRouter} />
-                <div className="loginCon">
+                {/* <Header title="登录" backRouter={backRouter} /> */}
+                <div className="head" style={{backgroundImage:"url('src/img/login-icon1.png')"}}>
+                    <p>万融汇</p>
+                </div>
+                <div className="loginCon">                   
                     <div className="loginWay">
                         <span className={that.state.wayNum == 1 ? "wayActive" : ''} onClick={that.checkWay} id="1">密码登录</span>
                         <span className={that.state.wayNum == 2 ? "wayActive" : ''} onClick={that.checkWay} id="2">验证码登录</span>
                     </div>
                     <div className="infoBox">
-
                         <form>
                             <div className="inputLine">
-                                <label htmlFor="phoneNum">手机号</label>
-                                <input id="phoneNum" type="number" onChange={that.changeInputTxt} value={that.state.phoneNum} className="flex1" name="phoneNum" placeholder="请输入手机号" />
+                                <label htmlFor="phoneNum" style={{backgroundImage:"url('src/img/icon/login-icon2.png')"}}></label>
+                                <input id="phoneNum" type="number" onChange={that.changeInputTxt} value={that.state.phoneNum} className="flex1" name="phoneNum" placeholder="请输入您的手机号" />
                             </div>
                             <div className="inputLine" id="psdBox">
-                                <label htmlFor="psd">密码</label>
-                                <span className="flex1 psdInput"><input id="psd" type={that.state.inputType} onChange={that.changeInputTxt} name="password" placeholder="请输入密码" /></span>
+                                <label htmlFor="psd" style={{backgroundImage:"url('src/img/icon/login-icon3.png')"}}></label>
+                                <span className="flex1 psdInput"><input id="psd" type={that.state.inputType} onChange={that.changeInputTxt} name="password" placeholder="请输入您的登录密码" /></span>
                                 <span className="eyes" id="eyes" onClick={that.eyesHandle}>
                                     {that.state.eyeImg}
                                 </span>
                             </div>
                             <div className="inputLine" id="yzBox" style={display}>
-                                <label htmlFor="yzCode">验证码</label>
-                                <input className="flex1" id="yzCode" type="text" name="yzCode" placeholder="请输入验证码" onChange={that.changeInputTxt} />
+                                <label htmlFor="yzCode" style={{backgroundImage:"url('src/img/icon/login-icon4.png')"}}></label>
+                                <input className="flex1" id="yzCode" type="text" name="yzCode" placeholder="请输入您的短信验证码" onChange={that.changeInputTxt} />
                                 <span onClick={that.getMsg} style={getMsgStyle} className="getMsg">{text}</span>
                                 {/*<input type="text" onClick={that.getMsg} placeholder="获取验证码" readOnly="readOnly" disabled={disabled} style={getMsgStyle} className="getMsg" id="getMsg"  value={getMsgTxt} onChange={that.changeMsgTxt}/>*/}
                             </div>
-                            <a className="loginBtn" onClick={that.submitHandler}>登录</a>
-                        </form>
-                        {/* <p className="forgotPsd register">
-                            <Link to="" >
+                            
+                        </form>                      
+                    </div>
+                    <a className="loginBtn" style={this.state.btnstyle.style} onClick={that.submitHandler}>登录</a>
+                    <div className="btn">                         
+                        <p className="forgotPsd register">
+                            <Link to={{pathname:"/ForgotPsd",query:{fromWhere:'rgs'}} }>
                                 注册
-							</Link>
-                        </p> */}
-                        <p className="forgotPsd">
-                            <Link to="/ForgotPsd" >
-                                忘记密码
-							</Link>
+                            </Link>
                         </p>
-
+                        <p className="forgotPsd">
+                            <Link to={{pathname:"/ForgotPsd",query:{fromWhere:'forget'}}}>
+                                忘记密码?
+                            </Link>
+                        </p>
                     </div>
                 </div>
                 <Loading flag={that.state.flag} />
-                <p className="note footer">
+                {/* <p className="note footer">
                     <span>登录即表示您同意</span>
                     <Link to={
                         {
@@ -372,7 +397,7 @@ var Login = React.createClass({
                     } >
                         万融汇协议
 							</Link>
-                </p>
+                </p> */}
             </div>
         )
     }

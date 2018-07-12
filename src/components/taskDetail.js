@@ -112,7 +112,17 @@ var ListDetail = React.createClass({
         }
         this.setState({ percent: p });
     },
+    toBack: function () {
+        const backRouter = this.props.backRouter;
+        //console.log(backRouter);
+        if (backRouter) {
+            hashHistory.push(backRouter);
+        } else {
+        	 history.go(-1); 
+        }
 
+
+    },
 
     formateMoney: function (money) {
         if (money % 100 === 0) {

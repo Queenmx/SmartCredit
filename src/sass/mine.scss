@@ -177,12 +177,25 @@
 }
 .userInfo{
    .userInfoCon{
+       .setLi{
+           margin-top:0.2rem;
+       }
        li{
            height: 1rem;
            line-height: 1rem;
            @include border_Bot;
            background: #FFFFFF;
            padding: 0 0.45rem;
+           &:first-child,&:nth-child(3),&:nth-child(4){
+               margin-bottom: 0.2rem;
+           }
+           &:nth-child(2){
+               border-bottom:0.02rem solid #eeeeee;
+           }
+           i{
+               @include icon(0.37rem,0.37rem);
+               margin-right: 0.16rem; 
+           }
            span{
                font-size: 0.26rem;
                color: #333333;

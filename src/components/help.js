@@ -38,6 +38,14 @@ var Help = React.createClass({
             hashHistory.push(path);
         }
     },
+    toLook(){
+       
+        var path = {
+            pathname: '/lookques',
+            
+        }
+        hashHistory.push(path);
+    },
     render: function () {
         var that = this;
         return (
@@ -56,11 +64,31 @@ var Help = React.createClass({
                                <p>点击借贷款->获取额度-->借出，绑定一张银行信用卡，输入借出金额，比如2000，点击确定即可 </p>   
                             </div>
                         </li>
+                        <li>
+                            <div>
+                               <p style={{backgroundImage:"url('src/img/icon/help-icon2.png')"}}></p>
+                               <p>如何审核</p>    
+                            </div>
+                            <div>
+                               <p style={{backgroundImage:"url('src/img/icon/help-icon1.png')"}}></p>
+                               <p>点击借贷款->获取额度-->借出，绑定一张银行信用卡，输入借出金额，比如2000，点击确定即可 </p>   
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                               <p style={{backgroundImage:"url('src/img/icon/help-icon2.png')"}}></p>
+                               <p>如何还款</p>    
+                            </div>
+                            <div>
+                               <p style={{backgroundImage:"url('src/img/icon/help-icon1.png')"}}></p>
+                               <p>点击借贷款->获取额度-->借出，绑定一张银行信用卡，输入借出金额，比如2000，点击确定即可 </p>   
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <div className="footer">
                     <div className="applyBtn" onClick={that.toAsk}>反馈问题</div>
-                    <div className="applyBtn" onClick={that.toAsk}>查看问题</div>
+                    <div className="applyBtn" onClick={that.toLook}>查看问题</div>
                 </div>
             </div>
         )

@@ -40,30 +40,42 @@
   .help .askCon {
     background: #fff; }
 
-.helpList li {
-  margin-top: 0.12rem;
-  background: #FFFFFF;
-  padding: 0 0.3rem;
-  font-size: 0.28rem; }
-  .helpList li > div {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex; }
-    .helpList li > div p:first-child {
-      display: inline-block;
-      width: 0.3rem;
-      height: 0.36rem;
-      vertical-align: middle;
-      background-size: 100%;
-      background-repeat: no-repeat; }
-    .helpList li > div:first-child {
-      color: #508aff; }
-  .helpList li img {
-    width: 0.2rem;
-    height: 0.4rem;
-    margin-top: 0.3rem;
-    float: right; }
+.helpList {
+  padding: 0.3rem  0.3rem 0; }
+  .helpList li {
+    margin-top: 0.16rem;
+    background: #FFFFFF;
+    padding-bottom: 0.18rem;
+    font-size: 0.28rem;
+    border-bottom: 0.01rem dashed #d9e5ff; }
+    .helpList li > div {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex; }
+      .helpList li > div:first-child {
+        margin-bottom: 0.28rem; }
+      .helpList li > div p:first-child {
+        margin-right: 0.16rem;
+        display: inline-block;
+        width: 0.3rem;
+        height: 0.36rem;
+        vertical-align: middle;
+        background-size: 100%;
+        background-repeat: no-repeat; }
+      .helpList li > div p:last-child {
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1; }
+      .helpList li > div:first-child {
+        color: #508aff; }
+    .helpList li img {
+      width: 0.2rem;
+      height: 0.4rem;
+      margin-top: 0.3rem;
+      float: right; }
 
 .helpDetail .helpDetailTxt {
   margin: 0.5rem; }
@@ -94,5 +106,24 @@
         margin-left: 1.4rem; }
       .helpDetail .helpDetailTxt .solve span:nth-child(2) {
         margin-left: 1rem; }
+
+.lookques .footer {
+  background: #fff; }
+.lookques .helpList li div p:first-child {
+  display: inline-block;
+  width: 0.32rem;
+  height: 0.31rem;
+  vertical-align: middle;
+  background-size: 100%;
+  background-repeat: no-repeat; }
+.lookques .helpList li div:first-child {
+  color: #2b2b2b;
+  margin-bottom: 0.2rem; }
+.lookques .helpList li div:last-child p:last-child {
+  font-size: 0.32rem; }
+.lookques .helpList .answer div:last-child p:last-child {
+  font-size: 0.28rem; }
+.lookques .askCon {
+  background: #fff; }
 
 /*# sourceMappingURL=help.css.map */

@@ -34,7 +34,8 @@ var Ask = React.createClass({
             var loanName = this.props.location.query.loanName;
             this.setState({
                 title: "我要提问",
-                head: "向" + loanName + "提问",
+                // head: "向" + loanName + "提问",
+                head: "感谢您宝贵的建议，我们将为您提供更优质的服务",                
                 placeholder: "问题",
                 fromWho: "problem"
             })

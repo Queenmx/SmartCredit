@@ -358,43 +358,6 @@
       height: 0.28rem;
       vertical-align: middle; }
 
-.loanlist .content .selection .am-accordion {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex; }
-  .loanlist .content .selection .am-accordion .am-accordion-item {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1; }
-    .loanlist .content .selection .am-accordion .am-accordion-item .am-accordion-header {
-      background: #508aff;
-      color: #fff;
-      font-size: 0.28rem; }
-.loanlist .content .selection .my-list .selecticon {
-  display: inline-block;
-  width: 0.32rem;
-  height: 0.24rem;
-  vertical-align: middle;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  float: right;
-  margin-top: 0.16rem; }
-.loanlist .content .selection .my-list .am-list-item .am-list-line .am-list-content {
-  font-size: 0.28rem; }
-.loanlist .content .selection .my-list .am-list-body {
-  z-index: 2; }
-.loanlist .content .selection .menu-mask {
-  content: ' ';
-  position: absolute;
-  top: 0.87rem;
-  width: 100%;
-  height: 100%;
-  background-color: #000;
-  opacity: 0.4;
-  z-index: 1; }
 .loanlist .content .loan-list {
   background: #fff;
   padding: 0.48rem 0.3rem;
@@ -471,6 +434,55 @@
         font-size: 0.2rem; }
         .loanlist .content .loan-list .numdetail > div > p:first-child > span {
           font-size: 0.28rem; }
+.loanlist .content .my-list .selecticon {
+  display: inline-block;
+  width: 0.32rem;
+  height: 0.24rem;
+  vertical-align: middle;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  float: right;
+  margin-top: 0.16rem; }
+.loanlist .content .my-list .am-list-item .am-list-line .am-list-content {
+  font-size: 0.28rem; }
+.loanlist .content .my-list .am-list-body {
+  z-index: 2;
+  top: 0;
+  position: absolute;
+  width: 100%; }
+.loanlist .content .menu-mask {
+  content: ' ';
+  position: fixed;
+  top: 2.2rem;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.4;
+  z-index: 1; }
+.loanlist .am-accordion {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex; }
+  .loanlist .am-accordion .am-accordion-item {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1; }
+    .loanlist .am-accordion .am-accordion-item .am-accordion-header {
+      background: #508aff;
+      color: #fff;
+      font-size: 0.28rem; }
+.loanlist .hed {
+  font-size: 0.3rem;
+  position: relative;
+  text-align: center;
+  background: #508aff;
+  color: #fff; }
+  .loanlist .hed p {
+    height: 0.9rem;
+    line-height: 0.9rem; }
 
 .licai .content {
   background: #FFF; }
@@ -783,6 +795,17 @@
     .taskDetail .detail li:last-child > p {
       color: #ff0000; }
 
+#app .header {
+  position: static;
+  background: -webkit-linear-gradient(left, #5197fb, #3a80f2, #1e63e8);
+  /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
+  /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
+  /* Firefox 3.6 - 15 */
+  background: linear-gradient(to right, #5197fb, #3a80f2, #1e63e8);
+  /* 标准的语法 */ }
+
 .myTask .tasklist {
   margin-top: 0.14rem;
   padding: 0 0.28rem; }
@@ -978,5 +1001,69 @@
       text-align: right; }
       .mywallet .infolist li > div:nth-child(2) > p:first-child {
         color: #666666; }
+
+.insurance .loan ul li {
+  padding: 0.45rem 0 0.28rem 0; }
+  .insurance .loan ul li > img {
+    width: 2.7rem;
+    height: 1.5rem;
+    margin-right: 0.25rem; }
+  .insurance .loan ul li .loanTitle {
+    font-size: 0.24rem; }
+  .insurance .loan ul li > div > p {
+    height: 0.45rem;
+    line-height: 0.45rem; }
+    .insurance .loan ul li > div > p:nth-child(2) {
+      font-size: 0.24rem;
+      color: #666666; }
+    .insurance .loan ul li > div > p:last-child {
+      color: #666; }
+    .insurance .loan ul li > div > p i {
+      color: #e97d13;
+      font-style: normal; }
+    .insurance .loan ul li > div > p > span {
+      display: inline-block;
+      margin-right: 0.4rem; }
+
+.baoxian {
+  background: #fff; }
+  .baoxian .head {
+    display: inline-block;
+    width: 7.5rem;
+    height: 4rem;
+    vertical-align: middle;
+    background-size: 100%;
+    background-repeat: no-repeat; }
+    .baoxian .head p {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      padding-left: 0.28rem; }
+      .baoxian .head p span:first-child {
+        display: inline-block;
+        width: 0.22rem;
+        height: 0.4rem;
+        vertical-align: middle; }
+      .baoxian .head p span:last-child {
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1; }
+      .baoxian .head p span img {
+        width: 100%;
+        height: 100%; }
+  .baoxian .loginCon {
+    background: #fff;
+    padding: 0.4rem 0 0 0.33rem;
+    border-bottom: 0.01rem dashed #b0caff; }
+    .baoxian .loginCon > p {
+      color: #020202;
+      min-height: 0.5rem;
+      line-height: 0.5rem; }
+      .baoxian .loginCon > p:first-child {
+        text-align: center;
+        color: #508aff; }
 
 /*# sourceMappingURL=home.css.map */

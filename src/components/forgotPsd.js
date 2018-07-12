@@ -3,7 +3,7 @@
 // import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
-import Header from './header';
+import Header from './header1';
 import { hashHistory } from 'react-router';
 import { Toast } from 'antd-mobile';
 // var toast=globalData.toast;
@@ -15,11 +15,14 @@ var ForgotPsd = React.createClass({
             liked: true,
             getMsg: {
                 style: {
-                    backgroundColor: "#ffa81e",
-                    color: "#ffffff"
+                    backgroundColor: "#e6e6e6",
+                    color: "#2b2b2b"
                 }
-            }
+            },
         }
+    },
+    componentWillMount(){
+        
     },
 	/*changeMsgTxt:function(e){
 		this.setState({
@@ -144,20 +147,29 @@ var ForgotPsd = React.createClass({
         //var phoneNum=this.props.location.state.phoneNum;
         return (
             <div className="forgotPsd app_Box">
-                <Header title="忘记密码" />
+                <Header title={this.props.location.query.fromWhere=='forget'?"忘记密码":'注册' }/>
                 <div className="forgotPsdCon">
                     <div className="inputPsd">
-                        <label htmlFor="phoneNum">手机号</label>
-                        <input id="phoneNum" type="number" name="phoneNum" placeholder="请输入手机号" onChange={that.vauleChange} />
+                        <label htmlFor="phoneNum" style={{backgroundImage:"url('src/img/icon/login-icon2.png')"}}></label>
+                        <input id="phoneNum" type="number" name="phoneNum" placeholder="请输入手机号码" onChange={that.vauleChange} />
                     </div>
 
                     <div className="inputPsd">
-                        <label htmlFor="yzCode">验证码</label>
+                        <label htmlFor="yzCode" style={{backgroundImage:"url('src/img/icon/login-icon4.png')"}}></label>
                         <input id="yzCode" className="shortInput" type="text" name="yzCode" placeholder="请输入验证码" onChange={that.vauleChange} />
                         {/*<input type="text" onClick={that.getMsg} placeholder="获取验证码" readOnly="readOnly" disabled={disabled} style={getMsgStyle} className="getMsg" id="getMsg"  value={getMsgTxt} onChange={that.changeMsgTxt}/>*/}
                         <span onClick={that.getMsg} style={getMsgStyle} className="getMsg">{text}</span>
                     </div>
-                    <div className="psdLogin" onClick={that.yzHandle}>验证</div>
+                    <div className="psdLogin" onClick={that.yzHandle}>下一步</div>
+                    <div className={this.props.location.query.fromWhere=='forget'?'hide':"agree"}>
+                        <p>
+                            <input type="radio" value="" name="info" defaultChecked/>同意《用户注册协议》&nbsp;《数据解析服务协议》&nbsp;《个人信息使用授权书》
+                        </p>
+                        {/* <p>
+                            <input type="radio" value="" name="info1" defaultChecked/>本人同意领取免费意外保障协议
+                        </p> */}
+                        
+                    </div>
                 </div>
             </div>
         )

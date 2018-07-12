@@ -180,6 +180,8 @@
     text-align: center;
     margin-top: 0.24rem; }
 
+.userInfo .userInfoCon .setLi {
+  margin-top: 0.2rem; }
 .userInfo .userInfoCon li {
   height: 1rem;
   line-height: 1rem;
@@ -200,6 +202,18 @@
     transform: scale(0.5);
     transform-origin: 0 0;
     border-bottom: 1px solid #f3f3f3; }
+  .userInfo .userInfoCon li:first-child, .userInfo .userInfoCon li:nth-child(3), .userInfo .userInfoCon li:nth-child(4) {
+    margin-bottom: 0.2rem; }
+  .userInfo .userInfoCon li:nth-child(2) {
+    border-bottom: 0.02rem solid #eeeeee; }
+  .userInfo .userInfoCon li i {
+    display: inline-block;
+    width: 0.37rem;
+    height: 0.37rem;
+    vertical-align: middle;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin-right: 0.16rem; }
   .userInfo .userInfoCon li span {
     font-size: 0.26rem;
     color: #333333; }

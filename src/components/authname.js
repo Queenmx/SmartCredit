@@ -3,7 +3,7 @@
 // import ReactDom from 'react-dom';
 import api from './api';
 import { globalData } from './global.js';
-import Header from './header';
+import Header from './header1';
 import Loading from './loading';
 import { hashHistory } from 'react-router';
 import {  Toast } from 'antd-mobile';
@@ -46,22 +46,22 @@ var SetPsd = React.createClass({
         var that = this;
        
         return (
-            <div className="setPsd app_Box">
+            <div className="setPsd auth app_Box">
                 <Header title="实名认证" />
                 <Loading flag={that.state.isLoading} />
                 <div className="setPsdCon">
                     <div className="inputPsd">
                         <label htmlFor="realName">真实姓名</label>
-                        <input id="realName" type="text" name="realName" value={that.state.realName} placeholder="请输入" onChange={that.vauleChange} />
+                        <input id="realName" type="text" name="realName" value={that.state.realName} placeholder="请输入真是姓名" onChange={that.vauleChange} />
                     </div>
                     <div className="inputPsd">
                         <label htmlFor="idCard">身份证号</label>
-                        <input id="idCard" type="text" name="idCard" value={that.state.idCard} placeholder="请输入" onChange={that.vauleChange} />
+                        <input id="idCard" type="text" name="idCard" value={that.state.idCard} placeholder="请输入真是身份证号" onChange={that.vauleChange} />
                     </div>
-                    <div className="inputPsd">
+                    {/* <div className="inputPsd">
                         <label htmlFor="surePsd">赠送保险</label>
                         <input id="" type="password" name="surePsd" />
-                    </div>
+                    </div> */}
                     <div className="psdLogin" onClick={that.psdLogin}>提交</div>
                 </div>
             </div>

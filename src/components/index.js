@@ -56,6 +56,9 @@ import taskMy from './taskMy';
 import creditCard from './creditCard';
 import myWallet from './myWallet';
 import lookques from './lookques';
+import btn from './btn';
+import Insurance from './insurance';
+import Getbaoxian from './getbaoxian';
 
 
 //<Route path='/detail/:id' component={Detail} />
@@ -114,6 +117,9 @@ ReactDom.render((
         <Route path='/creditCard' component={creditCard} />
         <Route path='/myWallet' component={myWallet} />
         <Route path='/lookques' component={lookques} />
+        <Route path='/btn' component={btn} />
+        <Route path='/Insurance' component={Insurance} />
+        <Route path='/Getbaoxian' component={Getbaoxian} />
         
     </Router >
 ), document.getElementById('app'));

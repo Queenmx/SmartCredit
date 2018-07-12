@@ -4,17 +4,39 @@
 import api from './api';
 import { globalData } from './global.js';
 import Header from './header';
+import Btn from './btn';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
-import { Toast } from 'antd-mobile';
-// var toast = globalData.toast;
+import { Toast,List, Switch} from 'antd-mobile';
+import { createForm } from 'rc-form';
 var Set = React.createClass({
     getInitialState: function () {
         return {
-            isLoading: false
+            isLoading: false,
         }
     },
-
+    componentWillMount(){
+        // let SwitchExample = (props) => {
+        //     const { getFieldProps } = props.form;
+        //     return (
+               
+        //         <List>
+        //             <List.Item
+        //                 thumb="src/img/icon/set-icon1.png"
+        //                 extra={<Switch
+        //                 {...getFieldProps('Switch1', {
+        //                     initialValue: true,
+        //                     valuePropName: 'checked',
+        //                 })}
+        //                 onClick={(checked) => { console.log(checked); }}
+        //                 />}
+        //             >消息推送</List.Item>
+        //         </List>
+               
+        //     );
+        // };         
+        // SwitchExample = createForm()(SwitchExample);
+    },
     quitLogin: function () {
         var that = this;
         that.setState({ isLoading: true })
@@ -68,20 +90,25 @@ var Set = React.createClass({
     },
     render: function () {
         var that = this;
+        
         return (
             <div className="userInfo app_Box">
                 <Header title="设置" />
                 <Loading flag={that.state.isLoading} />
-                <div className="userInfoCon">
+                <div className="userInfoCon content">
                     <ul className="setLi">
-                        <li><span>消息推送</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                        
-                        <li onClick={that.clearCache}><span>清空缓存</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
-                        <li ><span>当前版本</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li> 
-                        <li onClick={that.rePsd}><span>修改登录密码</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                                               
-                        <li onClick={that.aboutUs}><span>关于万融汇</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
+                    <Btn />
+                        <li><i style={{backgroundImage:"url('src/img/icon/set-icon1.png')"}}></i><span>消息推送</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                        
+                        <li onClick={that.clearCache}><i style={{backgroundImage:"url('src/img/icon/set-icon2.png')"}}></i><span>清空缓存</span><div className="infoRight"></div></li>
+                        <li ><i style={{backgroundImage:"url('src/img/icon/set-icon3.png')"}}></i><span>当前版本</span><div className="infoRight"></div></li> 
+                        <li onClick={that.rePsd}><i style={{backgroundImage:"url('src/img/icon/set-icon4.png')"}}></i><span>修改登录密码</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                                               
+                        <li onClick={that.aboutUs}><i style={{backgroundImage:"url('src/img/icon/set-icon5.png')"}}></i><span>关于万融汇</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
                     </ul>
-                    <div className="quit" onClick={that.quitLogin}>退出当前帐号</div>
+                    {/* <div className="quit" onClick={that.quitLogin}>退出登录</div> */}                   
                 </div>
+                <div className="footer">
+                        <div className="applyBtn" onClick={that.quitLogin}>退出登录</div>
+                    </div>
             </div>
         )
     },
