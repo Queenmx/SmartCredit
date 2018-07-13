@@ -52,7 +52,7 @@ module.exports.login = function (loginType, phone, pwd, verifyCode, cb1, cb2) {
     var param = JSON.stringify(data);
     //console.log(param);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/login`, { params: str }, cb1, cb2);
+    http(`${globalData.path}/zndai/user/login`, { params: str }, cb1, cb2);   
     delete data.loginType;
     delete data.phone;
     delete data.pwd;

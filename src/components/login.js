@@ -112,11 +112,11 @@ var Login = React.createClass({
                             // console.log(res);
                             that.setState({
                                 flag: false
-                            })
+                            });
                             if (res.code == "0000") {
                                 //var data =JSON.stringify(res.data);
                                 var data = strDec(res.data, key1, "", "");
-                                //console.log(data);
+                                console.log(data);
                                 //成功后
                                 localStorage.setItem("user", data);
                                 localStorage.setItem("isLogin", true);
@@ -385,7 +385,7 @@ var Login = React.createClass({
                     </div>
                 </div>
                 <Loading flag={that.state.flag} />
-                <p className="note footer">
+                {/* <p className="note footer">
                     <span>登录即表示您同意</span>
                     <Link to={
                         {
@@ -397,7 +397,7 @@ var Login = React.createClass({
                     } >
                         万融汇协议
 							</Link>
-                </p>
+                </p> */}
             </div>
         )
     }

@@ -11,7 +11,7 @@ const deviceno = request.QueryString("deviceno");
 
 const user = localStorage.getItem("user");
 // console.log(user);
-if (user) {
+if (user&&user!="null") {
     var userObj = JSON.parse(user);
     var userId = userObj.userId;
     var token = userObj.token;

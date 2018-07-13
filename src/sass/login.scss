@@ -162,7 +162,7 @@
 }
 
 #app {
-    .setPsd,.forgotPsd{
+    &>.setPsd,&>.forgotPsd{
         background: #fff;
     .header{
         background: #fff;

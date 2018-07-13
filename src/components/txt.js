@@ -34,8 +34,8 @@ var Txt = React.createClass({
         } else if(fromId == 2){
             //用户注册协议
             txtCon = `
-            <p>
-            <span style="font-size:13px;font-family:黑体;font-weight:bold;text-align:center;">万融汇平台用户注册协议 </span>
+            <p style="text-align:center;">
+            <span style="font-size:13px;font-family:黑体;font-weight:bold;">万融汇平台用户注册协议 </span>
         </p>
             <p>
                 <span style="font-size:13px;font-family:黑体">本平台由陕西万福网络科技有限公司及其关联实体(以下简称“我们”或“陕西万福”)运营，我们依照以下注册协议向您提供本注册协议涉及的相关服务。请您使用万融汇服务前仔细阅读本注册协议。您只有完全同意所有注册协议，才能成为万融汇的用户（"用户"）并使用相应服务。您在注册为万融汇用户过程中点击"同意万融汇用户注册协议"按钮即表示您已仔细阅读并明确同意遵守本注册协议以及经参引而并入其中的所有条款、政策以及指南，并受该等规则的约束（合称"本注册协议"）。我们可能根据法律法规的要求或业务运营的需要，对本注册协议不时进行修改。除非另有规定，否则任何变更或修改将在修订内容于万融汇发布之时立即生效，您对万融汇的使用、继续使用将表明您接受此等变更或修改。如果您不同意本注册协议（包括我们可能不定时对其或其中引述的其他规则所进行的任何修改）的全部规定，则请勿使用万融汇提供的所有服务，或您可以主动取消万融汇提供的服务。 
@@ -286,7 +286,7 @@ var Txt = React.createClass({
         }else if(fromId == 3){
             //数据解析服务协议
             txtCon =`
-            <p>
+            <p style="text-align:center;font-weight:bold;">
                 <span style="font-size:13px;font-family:黑体;">数据解析服务协议 </span>
             </p>
             <p>
@@ -331,12 +331,70 @@ var Txt = React.createClass({
                 </span><br/>
                 <span style="font-size:13px;font-family:黑体;">16.短信记录解析服务，是指本公司在您授权的情况下，通过人工或自动程序获取您手机中目前留存的短信记录，并对该等信息留存、整理加工。 
                 </span><br/>
-                <span style="font-size:13px;font-family:黑体;">17.通讯录解析服务，是指本公司在您授权的情况下，通过人工或自动程序获取您手机中目前留存的通讯录，并对该等信息留存、整理加工。 
-                </span><br/>
-
+                <span style="font-size:13px;font-family:黑体;">17.通讯录解析服务，是指本公司在您授权的情况下，通过人工或自动程序获取您手机中目前留存的通讯录，并对该等信息留存、整理加工。                </span><br/>
             </p>
+            <p>
+                <span style="font-size:13px;font-family:黑体;">（三）结合上述服务所输出的结果与其他因素，本公司将判断您的资信水平和相关风险，从而决定相关产品与您的交易条件或者其他相关的决策。 
+                </span><br/>
+                <span style="font-size:13px;font-family:黑体;">（四）本公司承诺尽商业上的合理努力采用安全技术和程序保障用户信息安全，且上述技术和程序不低于国家法律法规的要求，以防信息的丢失、不当使用等情况的发生。 
+                </span><br/>
+                <span style="font-size:13px;font-family:黑体;">（五）为有效保障您使用本服务时的合法权益，您理解并同意接受以下规则： 
+                </span><br/>
+                <span style="font-size:13px;font-family:黑体;">1.本公司可能会以电话、电子邮件、短信、客户端通知等方式就某项服务的变更或增设对您进行通知，或提示您下一步的操作，但本公司不保证您能够收到或者及时收到该等通知，且不对此承担任何后果。 
 
+                </span><br/>
+                <span style="font-size:13px;font-family:黑体;">2.您同意并理解，基于运行和交易安全的需要，本公司可以暂时停止提供本服务的全部或部分功能，或提供新的功能，在任何服务功能减少、增加或者变化时，只要您仍然使用本功能，表示您仍然同意本协议或者变更后的协议。 
+            </p>
+            <p>
+            <span style="font-size:13px;font-family:黑体;text-decoration:underline;font-weight:bold;">第二条 授权条款</span><br/>
+            <span style="font-size:13px;font-family:黑体;text-decoration:underline;font-weight:bold;">（一）您不可撤销地授权本公司可按照本协议载明的任一数据解析服务条款调取您的对应信息。</span><br/>
+            <span style="font-size:13px;font-family:黑体;text-decoration:underline;font-weight:bold;">（二）您不可撤销地授权本公司利用您留存的基本信息，调取您在其他机构留存/生成的相关信息，同时对该等信息加以留存、分析、整理及加工。
+            </span><br/>
+            <span style="font-size:13px;font-family:黑体;text-decoration:underline;font-weight:bold;">（三）您不可撤销地授权本公司可将上述信息用于您的本次借款审批服务及其他关联服务（包括但不限于您注册本平台/APP时同意的《用户注册协议》第二条项下约定的用途）中。
+            </span><br/>
+            <span style="font-size:13px;font-family:黑体;text-decoration:underline;font-weight:bold;">（四）在为您提供服务的过程中，因某种原因导致本公司无法通过您留存的基本信息获取到完成借款审批服务必要的信息，您同意并授权本公司运用曾经（如有）为您提供服务时所留存的信息来完成本次服务。如果本公司留存的关于您的信息不足以支持本公司完成本次服务，本公司有权拒绝向您提供服务，并不承担由此给您造成的损失。
+            </span><br/>
+            <span style="font-size:13px;font-family:黑体;text-decoration:underline;font-weight:bold;">（五）上述条款中涉及的“采集、整理与加工”包括但不限于对用户信息的内容和/或形式进行重新排序、结构化、格式化、标准化等方法。
+            </span><br/>
+            <span style="font-size:13px;font-family:黑体;text-decoration:underline;font-weight:bold;">（六）为更好地为您提供服务，您同意并授权本公司可与其合作的第三方进行联合研究，并可将通过本协议获得的您的信息投入到该等联合研究中。但本公司与其合作的第三方在开展上述联合研究前，应要求其合作的第三方对在联合研究中所获取的您的信息予以保密。</span><br/>
+            <span style="font-size:13px;font-family:黑体;text-decoration:underline;font-weight:bold;">（七）您在本协议项下对本公司的授权将视为对本公司及本公司之关联公司的授权。本公司及本公司关联公司均可凭借您的授权及本协议约定执行相关操作。另外，在签署保密协议的情况下，您在本协议中的相关授权可延伸到本公司指定的第三方公司。
+            第三条 您的权利与义务</span><br/>
+            <span style="font-size:13px;font-family:黑体;font-weight:bold;">第三条 您的权利与义务     </span><br/>
+            <span style="font-size:13px;font-family:黑体;">（一）您必须为年满18岁并具有完全民事行为能力的自然人。 </span><br/>
+            <span style="font-size:13px;font-family:黑体;">（二）您点击“同意”或“勾选”，即视为同意本协议全部内容，本公司亦即视为该等操作是证明、声明和保证您为接受服务的主体，并应遵守本协议的相关规定。 </span><br/>
+            <span style="font-size:13px;font-family:黑体;">（三）您只能通过本公司软件获取自己的信息，不得在他人未知情的情况下获取他人的信息。  </span><br/>
+            <span style="font-size:13px;font-family:黑体;">（四）您应妥善保管好登录本公司软件的账户名、密码等信息，并对以您名义进行的申请、查询等所有操作行为承担所有法律责任。  </span><br/>
+            <span style="font-size:13px;font-family:黑体;font-weight:bold;">（五）您应妥善保管本人信息，包括并不限于用户名、账号、手机号码、密码、验证码。如因您本人保管个人信息不善，或因您不慎登录“钓鱼”平台、互联网邮箱系统出现安全问题，导致他人获得您的个人信息，或因此导致个人信息被他人取得可能导致用户遭受损失的后果由您自行承担。
+            </span><br/>
+            <span style="font-size:13px;font-family:黑体;">（六）查询获得的信息仅供本公司审批您的借款申请。查询相关信息的数据来源均为第三方服务提供商，如有与第三方服务提供商所提供的信息存在差异，应以第三方服务提供商信息为准。您不应将其作为针对本手机客户端任何投诉、起诉、要求或者其他法律程序的依据。  </span><br/>
+            <span style="font-size:13px;font-family:黑体;">（七）您不得传送任何包含病毒、木马、蠕虫等可能破坏、感染、密码拦截任何系统，数据和信息的程序，不得通过黑客、密码破译等方式违法侵入计算机和网络系统，他人账户。  </span><br/>
+            <span style="font-size:13px;font-family:黑体;font-weight:bold;">第四条 不可抗力条款 </span><br/>            
+            <span style="font-size:13px;font-family:黑体;"> 因台风、地震、海啸、洪水、战争、计算机病毒感染、黑客攻击、网络通信故障等不能预见、不能控制的不可抗力因素，造成本公司不能正常向您提供服务而可能导致的损失，本公司不承担责任。 </span><br/>
+            <span style="font-size:13px;font-family:黑体;font-weight:bold;">第五条 特殊情形</span><br/> 
+            <span style="font-size:13px;font-family:黑体;">您理解并同意，鉴于网络服务的特殊性，信息来源提供方随时可能变更、暂停、中止或者终止部分或全部的查询服务。本协议中的相关条款根据该变更而自动做相应修改，双方无须另行签订协议，本公司也无需就上述服务的变更、暂停、中止或者终止向您承担任何责任。
+            </span><br/>
+            <span style="font-size:13px;font-family:黑体;">本协议可在您接受本公司提供服务的过程中多次使用，未来为您提供服务时再次涉及到本协议服务内容时无需您另行签署。
+            </span><br/>
+            <span style="font-size:13px;font-family:黑体;font-weight:bold;">第六条 知识产权
+            </span><br/> 
+            <span style="font-size:13px;font-family:黑体;">本公司是提供信息服务的第三方，与本软件相关的任何内容和资源（包括但不限于文字、图案、图表、色彩、动画、声音、页面设计）的知识产权均属于本公司所有，受《著作权法》、《商标法》《专利法》、《反不正当竞争法》及其他相关法律法规的保护。未经本公司书面明确许可，任何单位和个人不得以任何方式将平台之内容和相关资源作全部或部分复制、转载、引用、编辑和建立本手机客户端的镜像。
+            </span><br/>
+            <span style="font-size:13px;font-family:黑体;font-weight:bold;">第七条 网络传输风险 </span><br/>
+            <span style="font-size:13px;font-family:黑体;">您理解并同意，由于本协议所列服务涉及个人隐私，通过网络提供和传输存在特定的泄密风险，用户一经充分考虑到该风险，并愿意承担该风险通过网络的方式完成本项服务，如果因网络传输导致个人隐私泄露等后果，将由用户自行承担。
+            </span><br/>
+            <span style="font-size:13px;font-family:黑体;font-weight:bold;">第八条 法律适用条款以及争议解决方式 </span><br/>
+            <span style="font-size:13px;font-family:黑体;">本协议的解释、履行及争议的解决均适用中华人民共和国法律。在协议履行期间，凡由本协议引起的或与本协议有关的一切争议、纠纷，当事人应首先协商解决。协商不成，可向本公司所在地法院提起诉讼。
+            </span><br/>
+            <span style="font-size:13px;font-family:黑体;font-weight:bold;">第九条 附则
+            </span><br/>
 
+            <span style="font-size:13px;font-family:黑体;">（一）若本协议中的任何条文无论因何种原因完全或部分无效或不具有执行力，本协议的其他条款仍继续有效。
+            </span><br/>
+            <span style="font-size:13px;font-family:黑体;">（二）本协议未尽事宜，根据我国相关法律、法规、各信息提供方相关业务规定及您注册本平台/APP时同意的《用户注册协议》办理。如需制定补充协议，其法律效力同本协议。  </span><br/>
+            <span style="font-size:13px;font-family:黑体;">（三）若非本公司更新本协议，您再确认同意、签署本协议后，其效力将及于您此时及未来所有操作。
+            </span><br/>
+            <span style="font-size:13px;font-family:黑体;">（四）本协议将使用电子签署的方式完成签署，自您点击“同意”或“勾选”并进行下一步操作后则协议生效。 </span><br/>               
+            </p>
         `
         }else if(fromId == 4){
             //个人信息使用授权
