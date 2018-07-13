@@ -1039,12 +1039,18 @@
       display: -ms-flexbox;
       display: -webkit-flex;
       display: flex;
-      padding-left: 0.28rem; }
+      padding-left: 0.28rem;
+      text-align: left; }
       .baoxian .head p span:first-child {
         display: inline-block;
-        width: 0.22rem;
-        height: 0.4rem;
-        vertical-align: middle; }
+        width: 0.8rem;
+        height: 0.8rem;
+        vertical-align: middle;
+        -webkit-box-flex: 0.7;
+        -moz-box-flex: 0.7;
+        -webkit-flex: 0.7;
+        -ms-flex: 0.7;
+        flex: 0.7; }
       .baoxian .head p span:last-child {
         -webkit-box-flex: 1;
         -moz-box-flex: 1;
@@ -1052,12 +1058,11 @@
         -ms-flex: 1;
         flex: 1; }
       .baoxian .head p span img {
-        width: 100%;
-        height: 100%; }
+        width: 0.22rem;
+        height: 0.4rem; }
   .baoxian .loginCon {
     background: #fff;
-    padding: 0.4rem 0 0 0.33rem;
-    border-bottom: 0.01rem dashed #b0caff; }
+    padding: 0.4rem 0 0 0.33rem; }
     .baoxian .loginCon > p {
       color: #020202;
       min-height: 0.5rem;
@@ -1065,5 +1070,95 @@
       .baoxian .loginCon > p:first-child {
         text-align: center;
         color: #508aff; }
+    .baoxian .loginCon .btninfo {
+      border-top: 0.01rem dashed #b0caff;
+      padding-top: 0.3rem;
+      margin-top: 3.06rem; }
+      .baoxian .loginCon .btninfo p {
+        color: #666666; }
+        .baoxian .loginCon .btninfo p > span {
+          display: inline-block;
+          width: 0.24rem;
+          height: 0.24rem;
+          vertical-align: middle;
+          background-size: 100%;
+          background-repeat: no-repeat;
+          margin-right: 0.16rem; }
+        .baoxian .loginCon .btninfo p a {
+          color: #508aff; }
+        .baoxian .loginCon .btninfo p .am-button {
+          display: inline-block;
+          font-size: 0.28rem;
+          height: 0.4rem;
+          line-height: 0.4rem;
+          vertical-align: middle; }
+          .baoxian .loginCon .btninfo p .am-button:before {
+            border: none; }
+      .baoxian .loginCon .btninfo .loginBtn {
+        width: 2.9rem;
+        border-radius: 1.2rem;
+        background: #44c6ec;
+        color: #fff;
+        margin: 0.3rem auto; }
+
+.am-modal-transparent {
+  width: 90%;
+  height: 6rem; }
+
+.am-modal-transparent .am-modal-content .am-modal-body {
+  padding: 0 0.2rem;
+  font-size: 0.28rem;
+  color: #020202; }
+  .am-modal-transparent .am-modal-content .am-modal-body > div {
+    height: 4.6rem; }
+  .am-modal-transparent .am-modal-content .am-modal-body .hide {
+    display: none; }
+  .am-modal-transparent .am-modal-content .am-modal-body .survey p {
+    color: #020202;
+    font-weight: bold;
+    margin-bottom: 0.1rem; }
+  .am-modal-transparent .am-modal-content .am-modal-body .survey ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 0.1rem; }
+    .am-modal-transparent .am-modal-content .am-modal-body .survey ul li {
+      width: 1.36rem;
+      border: 0.02rem solid #b0caff;
+      border-radius: 0.2rem;
+      text-align: center;
+      height: 0.5rem;
+      line-height: 0.5rem;
+      margin-right: 0.3rem; }
+    .am-modal-transparent .am-modal-content .am-modal-body .survey ul .active {
+      background: #b0caff; }
+    .am-modal-transparent .am-modal-content .am-modal-body .survey ul .long {
+      -webkit-box-flex: 0.6;
+      -moz-box-flex: 0.6;
+      -webkit-flex: 0.6;
+      -ms-flex: 0.6;
+      flex: 0.6; }
+  .am-modal-transparent .am-modal-content .am-modal-body .survey .subtn {
+    background: #508aff;
+    width: 1.8rem;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    border-radius: 0.3rem;
+    color: #fff;
+    margin: 0.3rem auto 0;
+    text-align: center; }
+
+.am-modal-title {
+  font-size: 0.28rem;
+  color: #508aff; }
+
+.am-modal-content {
+  text-align: left;
+  padding-top: 0.1rem; }
+
+.am-modal-header {
+  padding: 0.06rem 0; }
 
 /*# sourceMappingURL=home.css.map */

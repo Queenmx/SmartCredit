@@ -258,6 +258,8 @@
   font-size: 0.24rem;
   padding: 0 0.08rem;
   margin-top: 0.38rem; }
+  #app .agree p a {
+    color: #666666; }
   #app .agree p:first-child {
     margin-bottom: 0.22rem; }
   #app .agree p input {

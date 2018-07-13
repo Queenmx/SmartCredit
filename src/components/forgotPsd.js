@@ -4,7 +4,7 @@
 import api from './api';
 import { globalData } from './global.js';
 import Header from './header1';
-import { hashHistory } from 'react-router';
+import { hashHistory,Link } from 'react-router';
 import { Toast } from 'antd-mobile';
 // var toast=globalData.toast;
 var key1 = globalData.key;
@@ -163,7 +163,31 @@ var ForgotPsd = React.createClass({
                     <div className="psdLogin" onClick={that.yzHandle}>下一步</div>
                     <div className={this.props.location.query.fromWhere=='forget'?'hide':"agree"}>
                         <p>
-                            <input type="radio" value="" name="info" defaultChecked/>同意《用户注册协议》&nbsp;《数据解析服务协议》&nbsp;《个人信息使用授权书》
+                            <input type="radio" value="" name="info" defaultChecked/>同意
+                            <Link to={
+                        {
+                            pathname: "/txt",
+                            //hash:'#ahash',    
+                            state: { title: '用户注册协议', fromId: 2 }
+                            //state:{data:'hello'}     
+                        }
+                    } >《用户注册协议》	</Link>
+                    <Link to={
+                        {
+                            pathname: "/txt",
+                            //hash:'#ahash',    
+                            state: { title: '数据解析服务协议', fromId: 3 }
+                            //state:{data:'hello'}     
+                        }
+                    } >《数据解析服务协议》</Link>
+                    <Link to={
+                        {
+                            pathname: "/txt",
+                            //hash:'#ahash',    
+                            state: { title: '个人信息使用授权书', fromId:4 }
+                            //state:{data:'hello'}     
+                        }
+                    } >《个人信息使用授权书》</Link>
                         </p>
                         {/* <p>
                             <input type="radio" value="" name="info1" defaultChecked/>本人同意领取免费意外保障协议

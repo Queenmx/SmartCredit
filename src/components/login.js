@@ -385,7 +385,7 @@ var Login = React.createClass({
                     </div>
                 </div>
                 <Loading flag={that.state.flag} />
-                {/* <p className="note footer">
+                <p className="note footer">
                     <span>登录即表示您同意</span>
                     <Link to={
                         {
@@ -397,7 +397,7 @@ var Login = React.createClass({
                     } >
                         万融汇协议
 							</Link>
-                </p> */}
+                </p>
             </div>
         )
     }

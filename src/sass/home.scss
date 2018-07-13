@@ -1028,28 +1028,70 @@
         p{
             @include only_display;
             padding-left: 0.28rem;
+            text-align: left;
             span{
                 
                 &:first-child{
                     display: inline-block;
-                    width: 0.22rem;height: 0.4rem;
+                    width: 0.8rem;
+                    height: 0.8rem;
                     vertical-align: middle;
+                    @include flex_x(0.7);
                 }
                 &:last-child{
                     @include flex_1;
                 }
-                img{width: 100%;height: 100%;}
+                img{ width: 0.22rem;height: 0.4rem;}
             }
         }
     }
     .loginCon{
         background: #fff;
         padding:0.4rem 0 0 0.33rem;
-        border-bottom: 0.01rem dashed #b0caff;
+        
         &>p{
             color:#020202;min-height: 0.5rem;
             line-height: 0.5rem;
             &:first-child{text-align: center;color:#508aff;}
         }
+        .btninfo{
+            border-top: 0.01rem dashed #b0caff;
+            padding-top: 0.3rem;
+            margin-top: 3.06rem;
+            p{
+                &>span{
+                    @include icon(0.24rem,0.24rem);margin-right: 0.16rem;
+                }
+                color:#666666;
+                a{color:#508aff;}
+                .am-button{display: inline-block;font-size: 0.28rem;height:0.4rem;line-height:0.4rem;vertical-align: middle;
+                    &:before{
+                        border:none;
+                    }
+                }
+            }
+            .loginBtn{width: 2.9rem;border-radius:1.2rem;background: #44c6ec;color: #fff;margin:0.3rem auto;}
+            
+        }
     }
 }
+.am-modal-transparent{width:90%;height: 6rem;}
+.am-modal-transparent .am-modal-content .am-modal-body{padding:0 0.2rem;font-size: 0.28rem;color: #020202;
+    &>div{height: 4.6rem;}
+    .hide{display: none;}
+    .survey{
+        p{color:#020202;font-weight: bold;margin-bottom: 0.1rem;}
+        ul{
+            @include only_display;
+            justify-content:  flex-start;
+            margin-bottom: 0.1rem;
+            li{width: 1.36rem;border:0.02rem solid #b0caff;border-radius:0.2rem;text-align: center;height: 0.5rem;line-height: 0.5rem;margin-right: 0.3rem;}
+            .active{background:#b0caff;}
+            .long{@include flex_x(0.6);}
+        }
+        .subtn{background:$blue;width:1.8rem;height: 0.5rem;line-height: 0.5rem;border-radius: 0.3rem;color:#fff;margin:0.3rem auto 0; text-align: center;}
+    }
+}
+.am-modal-title{font-size:0.28rem;color:#508aff;}
+.am-modal-content{text-align:left;padding-top:0.1rem;}
+.am-modal-header{padding:0.06rem 0;}
