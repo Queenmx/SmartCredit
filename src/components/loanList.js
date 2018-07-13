@@ -8,22 +8,9 @@ import Footer from './footer';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import '../css/home.css';
-import { Toast,Accordion, List,Menu, ActivityIndicator, NavBar } from 'antd-mobile';
+import { Toast,Accordion, List,Menu, ActivityIndicator, NavBar,Radio } from 'antd-mobile';
 
-const data = [
-    {
-      value: '1',
-      label: 'Food',
-    }, {
-      value: '2',
-      label: 'Supermarket',
-    },
-    {
-      value: '3',
-      label: 'Extra',
-      isLeaf: true,
-    },
-  ];
+const RadioItem = Radio.RadioItem;
 // var toast=globalData.toast;
 var key1 = globalData.key;
 var LoanList = React.createClass({
@@ -31,21 +18,55 @@ var LoanList = React.createClass({
         return {
             initData: '',
             show: false,
+            jiantou:false,
             flag: false,
+            selectData:[],
+            value:0,
         }
     },
     
     onChange (arr){        
         console.log(arr);
+        switch(arr){
+            case "0":
+                this.setState({
+                    selectData:[
+                        { value: 0, label: '类型' },
+                        { value: 1, label: '小额零用贷' },
+                        { value: 2, label: '大额低息贷' },
+                        { value: 3, label: '工薪贷' },
+                        { value: 4, label: '车辆贷' },
+                    ]
+                });
+                break;
+            case "1":
+                
+                break;
+            default:
+                break;    
+        }
         
-        this.setState({
-            show: !this.state.show,
-        });
+        if(arr==undefined){
+            this.setState({
+                show: false,
+            });
+        }else{
+            this.setState({
+                show: true,
+            });
+        }
         
     },
-   
+    onSelected (item) {
+        this.setState({
+            value:item,
+            show: false,
+            jiantou:true
+        });
+
+    },
     onMaskClick(e){
-        console.log(e)
+        // console.log(e)
         this.setState({
         show: false,
         });
@@ -59,40 +80,29 @@ var LoanList = React.createClass({
     render(){
         var that=this;
         const { initData, show } = this.state;
+        const data = this.state.selectData;        
         const menuEl = (
             <List className="my-list">
-                <List.Item onClick={this.onMaskClick}>
-                    类型
-                    <span className="selecticon" style={{backgroundImage:"url('src/img/icon/proselect-icon1.png')"}}></span>  
-                </List.Item>
-                <List.Item onClick={this.onMaskClick}>
-                    类型2
-                    <span className="selecticon" style={{backgroundImage:"url('src/img/icon/proselect-icon1.png')"}}></span>  
-                </List.Item>
-                <List.Item onClick={this.onMaskClick}>
-                    类型3
-                    <span className="selecticon" style={{backgroundImage:"url('src/img/icon/proselect-icon1.png')"}}></span>  
-                </List.Item>
-                   
+                  {data.map(i => (
+                    <RadioItem key={i.value} checked={this.state.value === i.value} onChange={() => this.onSelected(i.value)}>
+                        {i.label}
+                    </RadioItem>
+                    ))}
             </List>
         )
         return (
             <div className="app_Box loanlist">
                  <div className="hed">
-                    <p>贷款产品列表</p>
-                   
-                        <Accordion  accordion className="my-accordion" onChange={this.onChange}>
-                            <Accordion.Panel header="类型"></Accordion.Panel>
+                    <p>贷款产品列表</p>                   
+                        <Accordion  accordion className="my-accordion" onChange={this.onChange} >
+                            <Accordion.Panel header="类型" className={this.state.jiantou?"down":''}></Accordion.Panel>
                             <Accordion.Panel header="金额" className="pad"></Accordion.Panel>
                             <Accordion.Panel header="期限" className="pad"></Accordion.Panel>
                             <Accordion.Panel header="征信" className="pad"></Accordion.Panel>                            
-                        </Accordion>
-                                            
-                    
+                        </Accordion>                    
                 </div>
                  <Loading flag={that.state.flag} />
-                 <div className="content">
-                    
+                 <div className="content">                    
                     <ul className="loan-list" onClick={this.goDetail}>
                         <li>
                             <img src="src/img/icon/product1.png" />
@@ -199,7 +209,7 @@ var LoanList = React.createClass({
                         </li> 
                     </ul> 
                     {show ? menuEl : null}
-                        {show ? <div className="menu-mask" onClick={this.onMaskClick} /> : null} 
+                    {show ? <div className="menu-mask" onClick={this.onMaskClick} /> : null} 
                  </div>
                 <Footer activeIndex="1" />
             </div>
@@ -209,105 +219,7 @@ var LoanList = React.createClass({
 });
 
 
-//面板
-// class LoanList extends Component {
-//     constructor(...args) {
-//       super(...args);
-//       this.state = {
-//         initData: '',
-//         show: false,
-//         flag: false
-//       };
-//     }
-//     onChange = (value) => {
-//       let label = '';
-//       data.forEach((dataItem) => {
-//         if (dataItem.value === value[0]) {
-//           label = dataItem.label;
-//           if (dataItem.children && value[1]) {
-//             dataItem.children.forEach((cItem) => {
-//               if (cItem.value === value[1]) {
-//                 label += ` ${cItem.label}`;
-//               }
-//             });
-//           }
-//         }
-//       });
-//       console.log(label);
-//     }
-//     handleClick = (e) => {
-//       e.preventDefault(); // Fix event propagation on Android
-//       this.setState({
-//         show: !this.state.show,
-//       });
-//       // mock for async data loading
-//       if (!this.state.initData) {
-//         setTimeout(() => {
-//           this.setState({
-//             initData: data,
-//           });
-//         }, 500);
-//       }
-//     }
-  
-//     onMaskClick = () => {
-//       this.setState({
-//         show: false,
-//       });
-//     }
-  
-//     render() {
-//         var that=this;
-//         const { initData, show } = this.state;
-//         const menuEl = (
-//             <Menu
-//             className="single-foo-menu"
-//             data={initData}
-//             value={['1']}
-//             level={1}
-//             onChange={this.onChange}
-//             height={document.documentElement.clientHeight * 0.6}
-//             />
-//         );
-//         const loadingEl = (
-//             <div style={{ position: 'absolute', width: '100%', height: document.documentElement.clientHeight * 0.6, display: 'flex', justifyContent: 'center' }}>
-//             <ActivityIndicator size="large" />
-//             </div>
-//         );
-//         return (
-//             <div className="app_Box loanlist">
-//                 <header>贷款产品列表</header>
-//                 <Loading flag={that.state.flag} />
-//                 <div className="content">
-//                     <div className={show ? 'single-menu-active' : ''}>
-//                         <div>
-//                             <NavBar
-//                                 leftContent="类型"
-//                                 mode="light"
-//                                 onLeftClick={this.handleClick}
-//                                 className="single-top-nav-bar"
-//                                 >
-//                             </NavBar>
-//                             <NavBar
-//                                 leftContent="金额"
-//                                 mode="light"
-//                                 onLeftClick={this.handleClick}
-//                                 className="single-top-nav-bar"
-//                                 >                               
-//                             </NavBar>
-//                         </div>
-//                         {show ? initData ? menuEl : loadingEl : null}
-//                         {show ? <div className="menu-mask" onClick={this.onMaskClick} /> : null}
-//                     </div>
-//                     的防晒霜代发发的
-//                 </div>
-//                 <Footer activeIndex="1" />
-//             </div>
-            
-//         );
-//     }
-// }
-  
+
 
 
 

@@ -16,6 +16,12 @@ var SetPsd = React.createClass({
             flag: false,
         }
     },
+    componentWillMount() {
+        var user =JSON.parse(localStorage.getItem("user"));
+        this.setState({
+            userId: user.userId,
+        })
+    },
     vauleChange: function (e) {
         this.setState({
             [e.target.name]: e.target.value
@@ -31,11 +37,30 @@ var SetPsd = React.createClass({
             Toast.info("姓名至少2个字符,最多4个中文字符");
             return false;
         }else if(idCartReg.test(idCard)) {
-            var path={
-                pathname: '/myMap', 
+            var data={
+                userId:this.state.userId,
+                idCard:idCard,
+                name:realName,
             }
-            hashHistory.push(path);
-            console.log("3333")
+            console.log(data);
+            api.authName(data,function(res){
+                if(res.code=="0000"){
+                    var path={
+                        pathname: '/insurance', 
+                    }
+                    var user =JSON.parse(localStorage.getItem("user"));
+                    Object.assign(user,{realName:realName,idCard:idCard});
+                    localStorage.setItem("user",JSON.stringify(user));
+                }else{
+                    Toast.info(res.msg, 2);    
+                }
+                hashHistory.push(path);
+            })
+            // var path={
+            //     pathname: '/myMap', 
+            // }
+            
+           
         } else {
             Toast.info("请输入正确的身份证号", 2);                
            

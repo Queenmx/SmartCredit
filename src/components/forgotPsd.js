@@ -36,7 +36,6 @@ var ForgotPsd = React.createClass({
 
         //input在disable且readonly之后，onClick会在iOS上触发不起来，onTouchEnd又会在Android上把键盘弹出来，这边笔者做了个Hack，ios下用onTouchEnd，android下用onClick，就正常了。
         var phoneNum = that.state.phoneNum;
-
         if (!(/^1[34578]\d{9}$/.test(phoneNum))) {
             //console.log(phoneNum);
             Toast.info("请输入正确格式的手机号码", 2);
@@ -60,8 +59,8 @@ var ForgotPsd = React.createClass({
                             liked: true,
                             getMsg: {
                                 style: {
-                                    backgroundColor: "#ffa81e",
-                                    color: "#ffffff"
+                                    backgroundColor: "#e6e6e6",
+                                    color: "#2b2b2b"
                                 },
                             }
                         });
@@ -74,9 +73,10 @@ var ForgotPsd = React.createClass({
                 }.bind(that), 1000);
 
                 //发送短信验证码
-                api.verifyCode(phoneNum, "FPWD", function (res) {
+                api.verifyCode(phoneNum, "", function (res) {
                     //console.log(res);
                     if (res.code == "0000") {
+                        Toast.info('发送成功', 2);
                         var data = JSON.parse(strDec(res.data, key1, "", ""));
                         //console.log(data);
                         var reg = data.reg;

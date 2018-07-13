@@ -295,6 +295,9 @@
     }
 }
 //贷款产品列表
+#app{
+
+
 .loanlist{
     .content{
         
@@ -401,22 +404,28 @@
             z-index: 1;
           }
     }
-   
-        .am-accordion{
-            @include only_display;
-            .am-accordion-item{
-                @include flex_1;
-                .am-accordion-header{
-                    background:#508aff;
-                    color:#fff;
-                    font-size: 0.28rem;
-                    i{
+    .am-accordion{
+        @include only_display;
+        .am-accordion-item{
+            @include flex_1;
+            .am-accordion-header{
+                background:#508aff;
+                color:#fff;
+                font-size: 0.28rem;
+                i{
 
-                    }
                 }
-                
+            }
+            
+        }
+        .down{
+            .am-accordion-header i{
+                // -webkit-transform: rotate(270deg);
+                // -ms-transform: rotate(270deg);
+                // transform: rotate(270deg);
             }
         }
+    }
         
         
     
@@ -431,6 +440,7 @@
             line-height: 0.9rem;
         }
     }
+}
 }
 //理财页
 .licai{

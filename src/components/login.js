@@ -34,10 +34,9 @@ var Login = React.createClass({
             btnstyle:{
                 style:{
                     backgroundColor:"#e6e6e6",color:"#2b2b2b"
-                }
-                
-                
-            }
+                }               
+            },
+
         }
     },
     componentWillMount: function () {
@@ -49,13 +48,13 @@ var Login = React.createClass({
     componentDidUpdate(){
         var that=this;
         if((that.state.yzCode&&that.state.phoneNum)||(that.state.password&&that.state.phoneNum)){
-        //     this.setState({
-        //         btnstyle:{
-        //             style: {
-        //                 backgroundColor: "#aaaaaa",
-        //                 color: "#ffffff"
-        //             },
-        //         }
+            // this.setState({
+            //     btnstyle:{
+            //         style: {
+            //             backgroundColor: "#44c7ee",
+            //             color: "#ffffff"
+            //         },
+            //     }
         // })
         }else{
             // console.log("nn")
@@ -88,15 +87,6 @@ var Login = React.createClass({
         var phoneNum = that.state.phoneNum;
 
         if (!(/^1[34578]\d{9}$/.test(phoneNum))) {
-            /*			this.setState({
-                            selecthint:1,
-                            hint:"请输入正确格式的手机号码"
-                        })
-                        setTimeout(() => {
-                            this.setState({
-                                selecthint:0				
-                            })
-                        }, 2);*/
             Toast.info("请输入正确格式的手机号码", 2);
         } else {
             switch (wayNum) {
@@ -116,7 +106,6 @@ var Login = React.createClass({
                             if (res.code == "0000") {
                                 //var data =JSON.stringify(res.data);
                                 var data = strDec(res.data, key1, "", "");
-                                console.log(data);
                                 //成功后
                                 localStorage.setItem("user", data);
                                 localStorage.setItem("isLogin", true);
@@ -130,14 +119,27 @@ var Login = React.createClass({
                                 //window.history.back();
                                 const backRouter = that.props.params.backRouter;
                                 //console.log(backRouter);
-                                if (backRouter) {
-                                    hashHistory.push(backRouter);
-                                } else {
-                                    //window.history.back()
-                                    history.go(-1);
+                                // if (backRouter) {
+                                //     hashHistory.push(backRouter);
+                                // } else {
+                                //     //window.history.back()
+                                //     history.go(-1);
+                                // }
+                                var path={
+                                    pathname:'/insurance'//去往保险列表页
                                 }
-
-                            } else {
+                                hashHistory.push(path);
+                            } else if(res.code=='1006'){
+                                Toast.info(res.msg, 2);
+                                var path={
+                                    pathname:'ForgotPsd',
+                                    query:{fromWhere:'rgs'}
+                                }
+                                setTimeout(function(){
+                                    hashHistory.push(path);
+                                },2000)
+                                
+                            }else{
                                 Toast.info(res.msg, 2);
                             }
 
@@ -147,8 +149,6 @@ var Login = React.createClass({
                             })
                             Toast.info("连接错误", 2);
                         })
-
-
                     }
                     break;
                 case 2:
@@ -185,12 +185,16 @@ var Login = React.createClass({
                                     // window.history.back();
                                     const backRouter = that.props.params.backRouter;
                                     //console.log(backRouter);
-                                    if (backRouter) {
-                                        hashHistory.push(backRouter);
-                                    } else {
-                                        //window.history.back()
-                                        history.go(-1);
+                                    // if (backRouter) {
+                                    //     hashHistory.push(backRouter);
+                                    // } else {
+                                    //     //window.history.back()
+                                    //     history.go(-1);
+                                    // }
+                                    var path={
+                                        pathname:'/insurance'//去往保险列表页
                                     }
+                                    hashHistory.push(path);
                                 } else {
                                     that.setState({
                                         flag: false
@@ -279,8 +283,8 @@ var Login = React.createClass({
                         liked: false,
                         getMsg: {
                             style: {
-                                backgroundColor: "#aaaaaa",
-                                color: "#ffffff"
+                                backgroundColor: "#e6e6e6",
+                                color: "#666666"
                             },
                         }
                     })
@@ -290,8 +294,8 @@ var Login = React.createClass({
                             liked: true,
                             getMsg: {
                                 style: {
-                                    backgroundColor: "#ffa81e",
-                                    color: "#ffffff"
+                                    backgroundColor: "#e6e6e6",
+                                    color: "#666666"
                                 },
                             }
                         });

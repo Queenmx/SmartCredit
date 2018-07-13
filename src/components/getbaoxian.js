@@ -15,18 +15,137 @@ class Login extends React.Component{
             modal:false,
             selectedTab: 'redTab',
             hidden: false,
+            adCode:'',
         };
         this.submitHandler=(e)=>{
             e.preventDefault(); // 修复 Android 上点击穿透
-            this.setState({
-                title:'问卷小调查',
-                modal: true,
-            });
+            var user=JSON.parse(localStorage.getItem("user"));
+            var data={};
+            var info=[];
+            
+            if(this.state.adCode=="ca80a044"||this.state.adCode=="d6dbecc6"){
+                this.setState({
+                    title:'问卷小调查',
+                    hidden: true,
+                    modal:true
+                });
+                
+            }else{
+                data={
+                    adCode:'1ae265f6',
+                    activityConfigNum:0,
+                    policyHolderName:user.realName,
+                    mobile:user.phone,
+                    policyHolderIdCard:user.idCard,
+                    fromIp:'431.249.135.118',
+                    userAgent:"Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1",
+                    premiumInfo: {
+                        "sumInsured": 10000000
+                    }
+                }
+                this.ajax(data);
+            }
+           
+            
         };
-        this.select=(e)=>{
-            console.log(e.target.value);
-            this.setState({
-                currentId:e.target.value
+        this.select=(e)=>{            
+            var title=e.target.getAttribute("data-Title");  
+            var arr1=[];
+            var arr2=[];
+            var arr3=[];
+            var arr4=[];        
+            // this.setState({
+            //     hasChild:
+            // })
+            switch(e.target.getAttribute("data-index")){
+                case 'child':
+                    arr1.push(title);
+                    this.setState({
+                        currentId1:e.target.value,  
+                        arr1:arr1
+                    })
+                    break;
+                case 'travel':
+                    arr2.push(title);
+                    this.setState({
+                        currentId2:e.target.value,  
+                        arr2:arr2
+                    })
+                    break;
+                case 'security':
+                    arr3.push(title);
+                    this.setState({
+                        currentId3:e.target.value,  
+                        arr3:arr3
+                    })
+                    break;
+                case 'money':
+                    arr1.push(title);
+                    this.setState({
+                        currentId4:e.target.value,  
+                        arr4:arr4
+                    })
+                    break;
+            }
+        }
+        this.subtn=()=>{
+            var user=JSON.parse(localStorage.getItem("user"));
+            var data={
+                adCode:'1ae265f6',
+                activityConfigNum:0,
+                policyHolderName:user.realName,
+                mobile:user.phone,
+                policyHolderIdCard:user.idCard,
+                fromIp:'431.249.135.118',
+                userAgent:"Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1",
+                premiumInfo: {
+                    "sumInsured": 10000000
+                },
+                 "questionnaire": [
+                    {
+                        "question": "请问您是否有子女？",
+                        "answers": this.state.arr1
+                    },
+                    {
+                        "question": "请问您和家人常以哪种方式出游？",
+                        "answers": this.state.arr2
+                    },
+                    {
+                        "question": "请问您更倾向于哪种商业保障？",
+                        "answers": this.state.arr3
+                    },
+                    {
+                        "question": "您期望的保障金额是多少？",
+                        "answers": this.state.arr4
+                    }
+                ],
+                tag: {
+                    "hasCar":"有",
+                    "hasHouse":"没有",
+                    "income":"9999",
+                    "loanAmount":100000,
+                    "paymentType":"ANNUAL",
+                    "searchWord":"阳光保险",
+                    "keyWord":"保险"
+                }
+            }
+            if(this.state.arr1&&this.state.arr2&&this.state.arr3&&this.state.arr4){
+                this.ajax(data);
+            }else{
+                Toast.info("请选择完",2);
+            }
+            
+            
+        }
+        this.ajax=(item)=>{
+            console.log(item)
+            api.getInsurance(item,function(res){
+                if (res.code == "0000") {
+                    Toast.info("领取成功",2);
+                }else{
+                    Toast.info(res.msg,2);
+
+                }
             })
         }
     }
@@ -39,13 +158,13 @@ class Login extends React.Component{
         }
         this.setState({
             modal: true,
+            hidden:false
         });
         
         // console.log(key)
     }
     onClose = key => () => {
-        this.setState({
-            
+        this.setState({            
             modal: false,            
         });
     }
@@ -60,6 +179,10 @@ class Login extends React.Component{
         }   
     }
     componentWillMount() {
+        // console.log(this.props.location.query.adCode);
+        this.setState({
+            adCode:this.props.location.query.adCode
+        })
     }
     componentDidUpdate(){
         var that=this;
@@ -91,23 +214,6 @@ class Login extends React.Component{
                         <p>
                             <span style={{backgroundImage:"url('src/img/icon/bao-icon6.png')"}}></span>
                             本人已知<Button onClick={this.showModal('modal1')}>《投保条款》</Button>及
-                            {/* <Link to={
-                        {
-                            pathname: "/txt",
-                            //hash:'#ahash',    
-                            state: { title: '投保规则', fromId: 3 }
-                            //state:{data:'hello'}     
-                        }
-                    } >《投保规则》</Link>
-                    及
-                    <Link to={
-                        {
-                            pathname: "/txt",
-                            //hash:'#ahash',    
-                            state: { title: '信息安全说明', fromId: 3 }
-                            //state:{data:'hello'}     
-                        }
-                    } >《信息安全说明》 </Link> */}
                                         
                         <Button onClick={this.showModal('modal2')}>《信息安全说明》</Button>并同意领取免费保险
                         </p>                        
@@ -143,34 +249,34 @@ class Login extends React.Component{
                             &nbsp;&nbsp; &nbsp;&nbsp;本人授权保险公司，除法律另有规定之外，基于为本人提供更优质服务和产品的目的，向保险公司因服务必要开展合作的伙伴提供、查询、收集本人的信息。为确保本人信息的安全，保险公司及其合作伙伴对上述信息负有保密义务，并采取各种措施保证信息安全。 <br />
                             &nbsp;&nbsp; &nbsp;&nbsp;本条款自本〔单证〕签署时生效，具有独立法律效力 , 不受合同成立与否及效力状态变化的影响。<br/>                              
                             </div>
-                            <div className="survey">
+                            <div className={this.state.hidden?"survey":'hide'}>
                                 <p>1.请问您是否有子女？</p>
                                 <ul>
-                                    <li onClick={this.select} value="1" className={this.state.currentId=='1'?'active':''}>0-3岁</li>
-                                    <li onClick={this.select} value="2" className={this.state.currentId=='2'?'active':''}>6-13岁</li>
-                                    <li>13岁以上</li>
-                                    <li>无子女</li>
+                                    <li onClick={this.select} value="1" className={this.state.currentId1=='1'?'active':''} data-index="child" data-title="0-3岁">0-3岁</li>
+                                    <li onClick={this.select} value="2" className={this.state.currentId1=='2'?'active':''} data-index="child" data-title="6-13岁">6-13岁</li>
+                                    <li onClick={this.select} value="3" className={this.state.currentId1=='3'?'active':''} data-index="child" data-title="13岁以上">13岁以上</li>
+                                    <li onClick={this.select} value="4" className={this.state.currentId1=='4'?'active':''} data-index="child" data-title="无子女"> 无子女</li>
                                 </ul>
                                 <p>2.请问您和家人常以哪种方式出游？</p>
                                 <ul>
-                                    <li>自驾车</li>
-                                    <li className="long">火车或公交</li>
-                                    <li>飞机</li>
+                                    <li onClick={this.select} value="4" className={this.state.currentId2=='4'?'active':''} data-index="travel" data-title="自驾车">自驾车</li>
+                                    <li className="long" onClick={this.select} value="6" className={this.state.currentId2=='6'?'active':''} data-index="travel" data-title="火车或公交">火车或公交</li>
+                                    <li onClick={this.select} value="7" className={this.state.currentId2=='7'?'active':''} data-index="travel" data-title="飞机">飞机</li>
                                 </ul>
                                 <p>3.请问您更倾向于哪种商业保障？ </p>
                                 <ul>
-                                    <li>意外保障</li>
-                                    <li>重疾保障</li>
-                                    <li>医疗保障</li>
+                                    <li onClick={this.select} value="8" className={this.state.currentId3=='8'?'active':''} data-index="security" data-title="意外保障">意外保障</li>
+                                    <li onClick={this.select} value="9" className={this.state.currentId3=='9'?'active':''} data-index="security" data-title="重疾保障">重疾保障</li>
+                                    <li onClick={this.select} value="10" className={this.state.currentId3=='10'?'active':''} data-index="security" data-title="医疗保障">医疗保障</li>
                                 </ul>
                                 <p>4.您期望的保障金额是多少？ </p>
                                 <ul>
-                                    <li>10万</li>
-                                    <li>20万</li>
-                                    <li>30万</li>
-                                    <li>50万</li>
+                                    <li onClick={this.select} value="11" className={this.state.currentId4=='11'?'active':''} data-index="money" data-title="10万">10万</li>
+                                    <li onClick={this.select} value="12" className={this.state.currentId4=='12'?'active':''} data-index="money" data-title="20万">20万</li>
+                                    <li onClick={this.select} value="13" className={this.state.currentId4=='13'?'active':''} data-index="money" data-title="30万">30万</li>
+                                    <li onClick={this.select} value="14" className={this.state.currentId4=='14'?'active':''} data-index="money" data-title="50万">50万</li>
                                 </ul>
-                                <div className="subtn">提交</div>
+                                <div className="subtn" onClick={this.subtn}>提交</div>
                             </div>
                         </Modal>
                         <a className="loginBtn" onClick={that.submitHandler}>立即领取</a>

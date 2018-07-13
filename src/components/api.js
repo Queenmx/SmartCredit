@@ -100,8 +100,10 @@ module.exports.verifyCode = function (phone, type, cb1, cb2) {
     // data.token=token;
     data.phone = phone;
     data.type = type;//REG 注册 ，FPWD忘记密码
+    
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
+    console.log(data)
     //console.log(param);
     http(`${globalData.path}/zndai/user/verifyCode`, { params: str }, cb1, cb2);
     delete data.phone;
@@ -119,7 +121,26 @@ module.exports.exit = function (cb1, cb2) {
     delete data.userId;
     globalData.userId = "";
 }
-
+//领取保险
+module.exports.getInsurance = function (item,cb1, cb2) {
+    var data = globalData.requestData;  
+    Object.assign(data,item);
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // http(`${globalData.path}/insurance/insuranceDoPost`, { params: str }, cb1, cb2);
+    delete data.userId;
+    globalData.userId = "";
+}
+//实名认证
+module.exports.authName = function (item,cb1, cb2) {
+    var data = globalData.requestData;  
+    Object.assign(data,item);
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/user/idCard`, { params: str }, cb1, cb2);
+    delete data.userId;
+    globalData.userId = "";
+}
 //----------------个人中心
 
 //个人信息修改

@@ -358,49 +358,49 @@
       height: 0.28rem;
       vertical-align: middle; }
 
-.loanlist .content .loan-list {
+#app .loanlist .content .loan-list {
   background: #fff;
   padding: 0.48rem 0.3rem;
   margin-bottom: 0.3rem; }
-  .loanlist .content .loan-list li {
+  #app .loanlist .content .loan-list li {
     display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
     margin-bottom: 0.52rem; }
-    .loanlist .content .loan-list li > img {
+    #app .loanlist .content .loan-list li > img {
       display: inline-block;
       width: 2.18rem;
       height: 1.62rem;
       margin-right: 0.24rem; }
-    .loanlist .content .loan-list li > div {
+    #app .loanlist .content .loan-list li > div {
       display: inline-block; }
-      .loanlist .content .loan-list li > div > p {
+      #app .loanlist .content .loan-list li > div > p {
         height: 0.48rem;
         line-height: 0.48rem; }
-        .loanlist .content .loan-list li > div > p:first-child {
+        #app .loanlist .content .loan-list li > div > p:first-child {
           font-size: 0.26rem;
           color: #2b2b2b;
           font-weight: bold; }
-        .loanlist .content .loan-list li > div > p:nth-child(2) {
+        #app .loanlist .content .loan-list li > div > p:nth-child(2) {
           font-size: 0.24rem; }
-        .loanlist .content .loan-list li > div > p:last-child {
+        #app .loanlist .content .loan-list li > div > p:last-child {
           font-size: 0.24rem;
           color: #676767; }
-    .loanlist .content .loan-list li:last-child {
+    #app .loanlist .content .loan-list li:last-child {
       margin-bottom: 0; }
-    .loanlist .content .loan-list li .loanTitle {
+    #app .loanlist .content .loan-list li .loanTitle {
       -webkit-box-flex: 2;
       -moz-box-flex: 2;
       -webkit-flex: 2;
       -ms-flex: 2;
       flex: 2; }
-      .loanlist .content .loan-list li .loanTitle p:nth-child(2) {
+      #app .loanlist .content .loan-list li .loanTitle p:nth-child(2) {
         width: 2.9rem;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap; }
-    .loanlist .content .loan-list li .high {
+    #app .loanlist .content .loan-list li .high {
       -webkit-box-flex: 1;
       -moz-box-flex: 1;
       -webkit-flex: 1;
@@ -408,16 +408,16 @@
       flex: 1;
       text-align: center;
       margin-top: 0.65rem; }
-      .loanlist .content .loan-list li .high p:first-child {
+      #app .loanlist .content .loan-list li .high p:first-child {
         color: #ff8d31; }
-        .loanlist .content .loan-list li .high p:first-child span {
+        #app .loanlist .content .loan-list li .high p:first-child span {
           font-size: 0.3rem;
           font-weight: bold; }
-      .loanlist .content .loan-list li .high p:last-child {
+      #app .loanlist .content .loan-list li .high p:last-child {
         color: #ff801a;
         border: 0.02rem solid #ffd230;
         border-radius: 0.24rem; }
-  .loanlist .content .loan-list .numdetail > div {
+  #app .loanlist .content .loan-list .numdetail > div {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     -webkit-flex: 1;
@@ -425,16 +425,16 @@
     flex: 1;
     text-align: center;
     border-right: 0.02rem solid #eeeeee; }
-    .loanlist .content .loan-list .numdetail > div:last-child {
+    #app .loanlist .content .loan-list .numdetail > div:last-child {
       border-right: none; }
-    .loanlist .content .loan-list .numdetail > div > p {
+    #app .loanlist .content .loan-list .numdetail > div > p {
       height: 0.4rem;
       line-height: 0.4rem; }
-      .loanlist .content .loan-list .numdetail > div > p:first-child {
+      #app .loanlist .content .loan-list .numdetail > div > p:first-child {
         font-size: 0.2rem; }
-        .loanlist .content .loan-list .numdetail > div > p:first-child > span {
+        #app .loanlist .content .loan-list .numdetail > div > p:first-child > span {
           font-size: 0.28rem; }
-.loanlist .content .my-list .selecticon {
+#app .loanlist .content .my-list .selecticon {
   display: inline-block;
   width: 0.32rem;
   height: 0.24rem;
@@ -443,14 +443,14 @@
   background-repeat: no-repeat;
   float: right;
   margin-top: 0.16rem; }
-.loanlist .content .my-list .am-list-item .am-list-line .am-list-content {
+#app .loanlist .content .my-list .am-list-item .am-list-line .am-list-content {
   font-size: 0.28rem; }
-.loanlist .content .my-list .am-list-body {
+#app .loanlist .content .my-list .am-list-body {
   z-index: 2;
   top: 0;
   position: absolute;
   width: 100%; }
-.loanlist .content .menu-mask {
+#app .loanlist .content .menu-mask {
   content: ' ';
   position: fixed;
   top: 2.2rem;
@@ -459,28 +459,28 @@
   background-color: #000;
   opacity: 0.4;
   z-index: 1; }
-.loanlist .am-accordion {
+#app .loanlist .am-accordion {
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex; }
-  .loanlist .am-accordion .am-accordion-item {
+  #app .loanlist .am-accordion .am-accordion-item {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1; }
-    .loanlist .am-accordion .am-accordion-item .am-accordion-header {
+    #app .loanlist .am-accordion .am-accordion-item .am-accordion-header {
       background: #508aff;
       color: #fff;
       font-size: 0.28rem; }
-.loanlist .hed {
+#app .loanlist .hed {
   font-size: 0.3rem;
   position: relative;
   text-align: center;
   background: #508aff;
   color: #fff; }
-  .loanlist .hed p {
+  #app .loanlist .hed p {
     height: 0.9rem;
     line-height: 0.9rem; }
 
