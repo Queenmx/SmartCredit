@@ -225,7 +225,7 @@ class Login extends React.Component{
                                         
                         <Button onClick={this.showModal('modal2')}>《信息安全说明》</Button>并同意领取免费保险
                         </p>                        
-                        <Modal
+                        <Modal className="bx"
                             visible={this.state.modal}
                             closable={true}
                             transparent
