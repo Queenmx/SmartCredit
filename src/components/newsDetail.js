@@ -135,17 +135,16 @@ var NewsDetail = React.createClass({
                     <div className="newsArticleCon" dangerouslySetInnerHTML={{ __html: articleDetail.content }}>
                     </div>
                 </div>
-                {/* <div className="content newsDetailCon">
-                    
+                {/* <div className="content newsDetailCon">                    
                     <div className="newsDetailInfo">
-                        <span><img src="src/img/icon/new-icon1.png" alt=""/>的方式是否</span>                        
-                        <span>2018-06-07</span>
+                        <span><img src="src/img/icon/new-icon1.png" alt=""/>{articleDetail.mediaSource}</span>                        
+                        <span>{addTimeArr[0]}</span>
                     </div>
                     <div className="newsArticleCon">
-                        <h3>只有杨过的电风扇</h3>
+                        <h3>{articleDetail.articleTitle}</h3>
                         <p>
                             <img src="src/img/icon/new-icon.png" alt=""/>
-                            33阅读
+                            {articleDetail.readerNum}阅读
                         </p>
                         <p>打法撒旦法师打法撒旦法师</p>
                         <div>
