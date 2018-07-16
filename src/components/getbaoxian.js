@@ -7,6 +7,8 @@ import { hashHistory, Link } from 'react-router';
 import '../css/login.css';
 import { Toast,Modal, Button,TabBar } from 'antd-mobile';
 var key1 = globalData.key;
+var ip = returnCitySN["cip"];
+
 // var Login = React.createClass({
 class Login extends React.Component{
     constructor(props) {
@@ -16,35 +18,40 @@ class Login extends React.Component{
             selectedTab: 'redTab',
             hidden: false,
             adCode:'',
+            allow:true
         };
         this.submitHandler=(e)=>{
             e.preventDefault(); // 修复 Android 上点击穿透
             var user=JSON.parse(localStorage.getItem("user"));
             var data={};
             var info=[];
-            
-            if(this.state.adCode=="ca80a044"||this.state.adCode=="d6dbecc6"){
-                this.setState({
-                    title:'问卷小调查',
-                    hidden: true,
-                    modal:true
-                });
-                
-            }else{
-                data={
-                    adCode:'1ae265f6',
-                    activityConfigNum:0,
-                    policyHolderName:user.realName,
-                    mobile:user.phone,
-                    policyHolderIdCard:user.idCard,
-                    fromIp:'431.249.135.118',
-                    userAgent:"Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1",
-                    premiumInfo: {
-                        "sumInsured": 10000000
+            if(this.state.allow){
+                if(this.state.adCode=="ca80a044"||this.state.adCode=="d6dbecc6"){
+                    this.setState({
+                        title:'问卷小调查',
+                        hidden: true,
+                        modal:true
+                    });
+                    
+                }else{
+                    data={
+                        adCode:'1ae265f6',
+                        activityConfigNum:0,
+                        policyHolderName:user.realName,
+                        mobile:user.phone,
+                        policyHolderIdCard:user.idCard,
+                        fromIp:ip,
+                        userAgent:navigator.userAgent,
+                        premiumInfo: {
+                            "sumInsured": 10000000
+                        }
                     }
+                    this.ajax(data);
                 }
-                this.ajax(data);
+            }else{
+                Toast.info("已领取",2);
             }
+            
            
             
         };
@@ -53,10 +60,7 @@ class Login extends React.Component{
             var arr1=[];
             var arr2=[];
             var arr3=[];
-            var arr4=[];        
-            // this.setState({
-            //     hasChild:
-            // })
+            var arr4=[];  
             switch(e.target.getAttribute("data-index")){
                 case 'child':
                     arr1.push(title);
@@ -80,7 +84,7 @@ class Login extends React.Component{
                     })
                     break;
                 case 'money':
-                    arr1.push(title);
+                    arr4.push(title);
                     this.setState({
                         currentId4:e.target.value,  
                         arr4:arr4
@@ -96,8 +100,8 @@ class Login extends React.Component{
                 policyHolderName:user.realName,
                 mobile:user.phone,
                 policyHolderIdCard:user.idCard,
-                fromIp:'431.249.135.118',
-                userAgent:"Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1",
+                fromIp:ip,
+                userAgent:navigator.userAgent,
                 premiumInfo: {
                     "sumInsured": 10000000
                 },
@@ -132,7 +136,7 @@ class Login extends React.Component{
             if(this.state.arr1&&this.state.arr2&&this.state.arr3&&this.state.arr4){
                 this.ajax(data);
             }else{
-                Toast.info("请选择完",2);
+                Toast.info("请填写问卷信息！",2);
             }
             
             
@@ -142,6 +146,9 @@ class Login extends React.Component{
             api.getInsurance(item,function(res){
                 if (res.code == "0000") {
                     Toast.info("领取成功",2);
+                    this.setState({
+                        allow:false
+                    })
                 }else{
                     Toast.info(res.msg,2);
 
@@ -183,6 +190,7 @@ class Login extends React.Component{
         this.setState({
             adCode:this.props.location.query.adCode
         })
+        
     }
     componentDidUpdate(){
         var that=this;
@@ -217,7 +225,7 @@ class Login extends React.Component{
                                         
                         <Button onClick={this.showModal('modal2')}>《信息安全说明》</Button>并同意领取免费保险
                         </p>                        
-                        <Modal
+                        <Modal className="bx"
                             visible={this.state.modal}
                             closable={true}
                             transparent

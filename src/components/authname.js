@@ -33,8 +33,8 @@ var SetPsd = React.createClass({
         let realName = this.state.realName;
         var idCartReg = /(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/;
         let idCard = that.state.idCard;
-        if (!(/^[\u4e00-\u9fa5]{2,4}$/.test(realName))) {
-            Toast.info("姓名至少2个字符,最多4个中文字符");
+        if (!(/^[\u4e00-\u9fa5]{2,10}$/.test(realName))) {
+            Toast.info("姓名至少2个字符,最多10个中文字符");
             return false;
         }else if(idCartReg.test(idCard)) {
             var data={

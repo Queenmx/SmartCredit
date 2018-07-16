@@ -123,12 +123,11 @@ module.exports.exit = function (cb1, cb2) {
 }
 //领取保险
 module.exports.getInsurance = function (item,cb1, cb2) {
-    var data = globalData.requestData;  
-    Object.assign(data,item);
-    var param = JSON.stringify(data);
+    // var data = globalData.requestData;  
+    // Object.assign(data,item);
+    var param = JSON.stringify(item);
     var str = strEnc(param, key1);
-    // http(`${globalData.path}/insurance/insuranceDoPost`, { params: str }, cb1, cb2);
-    delete data.userId;
+    http(`${globalData.path}/insurance/insuranceDoPost`, { params: str }, cb1, cb2);
     globalData.userId = "";
 }
 //实名认证
