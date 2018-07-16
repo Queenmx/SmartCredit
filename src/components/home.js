@@ -261,39 +261,34 @@ var Home = React.createClass({
             var articleList = JSON.parse(homeArticle);
             var articleArr = [];
             for (var i in articleList) {
-                articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
-                    <dd>
-                        <h4>{articleList[i].articleTitle}</h4>
-                        <p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
-                    </dd>
-                    <dt>
-                        <img src={imgPath + articleList[i].imgUrl} onError={that.logoError} />
-                    </dt>
-                </dl>)
+                articleArr.push(
+                    <div className="v-item" key={i} onClick={that.newsAll}>{articleList[i].articleTitle}</div>
+                )
             }
             that.setState({
                 articleArr: articleArr
             })
         } else {
-            api.articleList(1, 3, function (res) {
-                //console.log(res);
-                if (res.code == "0000") {
-                    var data = JSON.parse(strDec(res.data, key1, "", ""));
-                    //var data =JSON.parse(res.data);
-                    //console.log(data);
-                    var articleList = data.list;
+            api.articleList("1", "10", function (res) {
+                console.log(res);
+                if (res.code = "0000") {
+                    console.log(res.data)
+                    var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
+                    console.log(Decdata)
+                    // var Decdata =JSON.parse(res.data);
+                //    console.log(Decdata)
+                    var articleList = Decdata.list;
+                   console.log(articleList)
                     sessionStorage.setItem("homeArticle", JSON.stringify(articleList));
                     var articleArr = [];
                     for (var i in articleList) {
-                        articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
-                            <dd>
-                                <h4>{articleList[i].articleTitle}</h4>
-                                <p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
-                            </dd>
-                            <dt>
-                                <img src={imgPath + articleList[i].imgUrl} onError={that.logoError} />
-                            </dt>
-                        </dl>)
+                       
+                        articleArr.push(
+                            
+
+                                        <div className="v-item" key={i} onClick={that.newsAll}>{homeArticle[i].articleTitle}</div>
+                                       )
+                            //  console.log(articleArr[i].articleTitle)
                     }
                     that.setState({
                         articleArr: articleArr
@@ -306,6 +301,8 @@ var Home = React.createClass({
                 Toast.info("连接错误", 2);
             })
         }
+      
+
     },
 
 
@@ -374,7 +371,7 @@ var Home = React.createClass({
                                     />
                                 </a>                               
                             </Carousel>
-                            <ul className="news">
+                             <ul className="news" onClick={this.newsAll}>
                                 <li className="newvoice">
                                     <img src="src/img/icon/voice.png" />
                                 </li>
@@ -388,15 +385,16 @@ var Home = React.createClass({
                                         autoplay
                                         infinite
                                         >
-                                        <div className="v-item">的发送到发水电费范德萨地方斯蒂芬三</div>
-                                        <div className="v-item">carousel 2</div>
-                                        <div className="v-item">carousel 3</div>
+                                     {this.state.articleArr}
+                                     <div className="v-item" onClick={that.newsAll}></div>
+                                     <div className="v-item" onClick={that.newsAll}></div>   
+                                   
                                     </Carousel>
                                 </li>
                                 <li className="newsgo" onClick={this.newsAll}>
                                     <img src="src/img/icon/go1.png" />
                                 </li>
-                            </ul>           
+                            </ul>             
                             
                         </div>
                     <div className="product">

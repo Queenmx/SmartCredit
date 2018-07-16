@@ -19,10 +19,10 @@ class News extends Component {
             list: [],
             imgHeight: 176,
             scrollShow: false,
-            currentPage: 1,
+            currentPage: "1",
             lastPage: false,
             banner: [],
-            pageSize: 10
+            pageSize: "10"
         };
         this.toNewsDetail = (event) => {
             var articleId = event.currentTarget.getAttribute("data-articleid");
@@ -76,7 +76,7 @@ class News extends Component {
             }
         } else { // 刷新
             lastPage = false;
-            currentPage = 1;
+            currentPage = "1";
             that.setState({
                 currentPage,
                 lastPage
@@ -202,7 +202,7 @@ class News extends Component {
                         articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
                             <dd>
                                 <h4>{articleList[i].articleTitle}</h4>
-                                <p><span>{articleList[i].addTime}</span> <span>{articleList[i].readerNum}阅读</span></p>
+                                <p><span>{articleList[i].addTime}</span> <span><img src="src/img/icon/new-icon.png" alt="" />{articleList[i].readerNum}阅读</span></p>
                             </dd>
                             <dt>
                                 <img src={imgPath + articleList[i].imgUrl} onError={that.logoError} />
@@ -346,7 +346,7 @@ class News extends Component {
                     <div className="newsBox">
                         <div className="listWrap">
                             {scollTxt}
-                            <dl className="newsList"  onClick={that.toNewsDetail}>
+                            {/* <dl className="newsList"  onClick={that.toNewsDetail}>
                                 <dd>
                                     <h4>东方时尚发的方式发生三顿饭电费水费达</h4>
                                     <p><span>2018-07-09</span> <span><img src="src/img/icon/new-icon.png" alt="" />36阅读</span></p>
@@ -354,7 +354,7 @@ class News extends Component {
                                 <dt>
                                     <img src="" onError={that.logoError} />
                                 </dt>
-                            </dl>
+                            </dl> */}
                         </div>
                     </div>
                 </div>

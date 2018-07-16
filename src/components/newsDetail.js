@@ -125,7 +125,7 @@ var NewsDetail = React.createClass({
             <div className="app_Box newsDetail">
                 <Header title="资讯小条" />
                 <Loading flag={that.state.flag} />
-                {/* <div className="content newsDetailCon">
+                <div className="content newsDetailCon">
                     <h1>{articleDetail.articleTitle}</h1>
                     <div className="newsDetailInfo">
                         <span>媒体来源:{articleDetail.mediaSource}</span>
@@ -134,8 +134,8 @@ var NewsDetail = React.createClass({
                     </div>
                     <div className="newsArticleCon" dangerouslySetInnerHTML={{ __html: articleDetail.content }}>
                     </div>
-                </div> */}
-                <div className="content newsDetailCon">
+                </div>
+                {/* <div className="content newsDetailCon">
                     
                     <div className="newsDetailInfo">
                         <span><img src="src/img/icon/new-icon1.png" alt=""/>的方式是否</span>                        
@@ -152,7 +152,7 @@ var NewsDetail = React.createClass({
                             <img src="src/img/icon/new-icon2.png" alt=""/>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* <div className="botBtn" data-markId={articleDetail.markId} onClick={that.saveHandle}>{that.state.isMark == 1 ? "取消收藏" : "收藏"}</div> */}
             </div>
         )
@@ -166,7 +166,7 @@ var NewsDetail = React.createClass({
             if (res.code == "0000") {
                 let data = strDec(res.data, key1, "", "");
                 let articleDetail = JSON.parse(data);
-                // console.log(articleDetail);
+                console.log(articleDetail);
                 that.setState({
                     flag: false,
                     articleDetail: articleDetail,

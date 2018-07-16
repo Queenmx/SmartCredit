@@ -279,12 +279,25 @@ module.exports.articleList = function (pageNum, pageSize, cb1, cb2) {
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     var param = JSON.stringify(data);
+    // console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/article/list`, { params: str }, cb1, cb2);
     delete data.pageNum;
     delete data.pageSize;
 }
-
+//信用卡列表
+module.exports.creditCardList = function (pageNum, pageSize, cb1, cb2) {
+    var data = globalData.requestData;
+    //data.token=token;
+    data.pageNum = pageNum;
+    data.pageSize = pageSize;
+    var param = JSON.stringify(data);
+    console.log(param)
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/credit/list`, { params: str }, cb1, cb2);
+    // delete data.pageNum;
+    // delete data.pageSize;
+}
 //资讯详情
 module.exports.articleDetail = function (articleId, cb1, cb2) {
     var data = globalData.requestData;

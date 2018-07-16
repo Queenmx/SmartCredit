@@ -12,6 +12,7 @@ import { Toast } from 'antd-mobile';
 
 // var toast=globalData.toast;
 var key1 = globalData.key;
+var imgPath = globalData.imgPath;
 var Ask = React.createClass({
     getInitialState: function () {
         return {
@@ -43,7 +44,41 @@ var Ask = React.createClass({
             hashHistory.push(path);
         }
     },
-   
+    componentDidMount: function () {
+        var key1 = globalData.key;
+        var toast = globalData.toast;
+        var that = this;
+        api.creditCardList("1", "20",  function (res) {
+                if(res.code == "0000"){
+                    var data = JSON.parse(strDec(res.data, key1, "", ""));
+                    // console.log(data);
+                    var creditCardList = data.list;
+                    console.log(creditCardList);
+                    var creditCardArr = [];
+                    for (var i in creditCardList) {
+                       
+                        creditCardArr.push(
+                            <a key={i} href={creditCardList[i].apiUrl} data-creditCardId ={creditCardList[i].identifier}>
+                                <img src={imgPath + creditCardList[i].logo}  />
+                                <div className="loanTitle">
+                                    <p>{creditCardList[i].cardName}</p>
+                                    <p>适用人群：上班族，企业主</p>
+                                    <p><span>{creditCardList[i].applyCount}</span>本月申请</p>                                    
+                                </div>
+                            </a>
+
+                                      
+                                       )
+                            //  console.log(articleArr[i].articleTitle)
+                    }
+                    that.setState({
+                        creditCardArr: creditCardArr
+                    })
+                    console.log(that.state.creditCardArr)
+                }
+               
+        })
+    },
     render: function () {
         var that = this;
         //console.log("cityId",cityId);
@@ -55,7 +90,8 @@ var Ask = React.createClass({
                 <div className="content">
                     <div className="loan">
                         <ul>
-                            <li onClick={this.goDetail}>
+                            {this.state.creditCardArr}
+                            {/* <li onClick={this.goDetail}>
                                 <img src="src/img/icon/product1.png" />
                                 <div className="loanTitle">
                                     <p>点点贷-大额低息贷</p>
@@ -70,7 +106,7 @@ var Ask = React.createClass({
                                     <p>适用人群：上班族，企业主</p>
                                     <p><span>100万人</span>本月申请</p> 
                                 </div>
-                            </li>
+                            </li> */}
                         </ul> 
                     </div>                 
                 </div>
