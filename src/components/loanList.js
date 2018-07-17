@@ -85,11 +85,11 @@ var LoanList = React.createClass({
             case "0":
                 this.setState({
                     selectData:[
-                        { value: 0, label: '全部' },
-                        { value: 1, label: '小额零用贷' },
-                        { value: 2, label: '大额低息贷' },
-                        { value: 3, label: '工薪贷' },
-                        { value: 4, label: '车辆贷' },
+                        { value: 19, label: '全部' },
+                        { value: 15, label: '小额零用贷' },
+                        { value: 16, label: '大额低息贷' },
+                        { value: 17, label: '工薪贷' },
+                        { value: 18, label: '车辆贷' },
                     ]
                 });
                 break;
@@ -111,16 +111,17 @@ var LoanList = React.createClass({
                         { value: 11, label: '1~6个月' },
                         { value: 12, label: '6~12个月' },
                         { value: 13, label: '12个月' },
-                        { value: 14, label: '24~12个月' },
+                        { value: 14, label: '24个月' },
                     ]
                 });
                 break;
             case "3":
                 this.setState({
                     selectData:[
-                        { value: 15, label: '芝麻信用' },
-                        { value: 16, label: '电商账号' },
-                        { value: 17, label: '征信报告' },
+                        { value: 123, label: '全部' },                        
+                        { value: 1, label: '芝麻信用' },
+                        { value: 2, label: '电商账号' },
+                        { value: 3, label: '征信报告' },
                     ]
                 });
                 break;
@@ -141,6 +142,7 @@ var LoanList = React.createClass({
     },
     onSelected (item) {
         var data={
+            categoryName:'',
             loanTermStart:'',
             loanTermEnd:'',
             miniScope:'',
@@ -148,21 +150,84 @@ var LoanList = React.createClass({
             creditReport:''
         }
         switch(item){
-            case 6:
-                this.setState({
-
-                });
+            case 123:
+                data.creditReport=123;
+                break;
+            case 1:
+                data.creditReport=1;
+                break;
+            case 2:
+                data.creditReport=2;
+                break;
+            case 3:
+                data.creditReport=3;
+                break;
+            case 4:
                 data.miniScope=1000;
                 data.maxScope=5000;
                 break;
+            case 5:
+                data.miniScope=0;
+                break;
+            case 6:
+                data.miniScope=1000;
+                data.maxScope=5000;
+                break;
+            case 7:
+                data.miniScope=5000;
+                data.maxScope=10000;
+                break;
+            case 8:
+                data.miniScope=10000;
+                break;
+            case 9:
+                data.loanTermStart=0;
+                break;
+            case 10:
+                data.loanTermStart=1;
+                break;
+            case 11:
+                data.loanTermStart=1;
+                data.loanTermEnd=6;
+                break;
+            case 12:
+                data.loanTermStart=6;
+                data.loanTermEnd=12;
+                break;
+            case 13:
+                data.loanTermStart=12;
+                data.loanTermEnd=13;
+                break;
+            case 14:
+                data.loanTermStart=24;
+                data.loanTermEnd=25;
+                break;
+            case 15:
+                data.categoryName="小额零用贷";
+                break;
+            case 16:
+                data.categoryName="大额低息贷";
+                break;
+            case 17:
+                data.categoryName="工薪贷";
+                break;
+            case 18:
+                data.categoryName="车辆贷";
+                break;
+            case 19:
+                data.categoryName="贷";
+                break;
+            default:
+                break;
+
         }
+        console.log(data)
         this.getInit(data);
         this.setState({
             value:item,
             show: false,
             jiantou:true
         });
-        console.log(data);
     },
     onMaskClick(e){
         // console.log(e)
@@ -179,10 +244,54 @@ var LoanList = React.createClass({
         hashHistory.push(path);
     },
     getInit(item){
+        var that=this;
         api.findProduct(item,function (res) {
             if(res.code=='0000'){                
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log(data);                
+                console.log(data);  
+                var arr=[];
+                for(var i in data){
+                    arr.push(
+                        <ul className="loan-list" onClick={that.goDetail.bind(that,data[i].id)} key={i}>
+                            <li>
+                                <img src={imgPath + data[i].logo} />
+                                <div className="loanTitle">
+                                    <p>{data[i].name}</p>
+                                    <p>适用人群：{data[i].intendedFor}</p>
+                                    <p>申请人数：{data[i].totalNum}人</p>
+                                </div>
+                                <div className="high">
+                                    <p>
+                                        <span>{data[i].maximumAmount}</span>万    
+                                    </p>
+                                    <p>最高额度</p>
+                                </div>
+                            </li>   
+                            <li className="numdetail">
+                                <div>
+                                    <p><span>{data[i].timeLimit}</span>月</p>
+                                    <p>平均期限</p>
+                                </div>
+                                <div>
+                                    <p><span>{data[i].averageAmount}</span>万</p>
+                                    <p>平均额度</p>
+                                </div>
+                                <div>
+                                    <p><span>{data[i].meanTime}</span>天</p>
+                                    <p>平均用时</p>
+                                </div>
+                                <div>
+                                    <p><span>{data[i].annualRate}</span>%</p>
+                                    <p>年利率</p>
+                                </div>                                
+                            </li> 
+                        </ul>
+                        
+                    )
+                }
+                that.setState({
+                    productList:arr
+                })              
             }else {
                 Toast.info("连接错误", 2);
             }
