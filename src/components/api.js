@@ -444,7 +444,7 @@ module.exports.applyLoan = function (limitDay, limitType, loanId, money, qualify
 //------------------------问题
 
 //提交反馈
-module.exports.feedBackAdd = function (content, cb1, cb2) {
+module.exports.feedBackAdd = function (content, userId,cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.content = content;
@@ -452,7 +452,7 @@ module.exports.feedBackAdd = function (content, cb1, cb2) {
     var param = JSON.stringify(data);
     // console.log(param)
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/feedBack/add`, { params: str }, cb1, cb2);
+    http(`${globalData.path}/zndai/backQuestion/add`, { params: str }, cb1, cb2);
     delete data.content;
     delete data.userId;
 }
@@ -475,34 +475,24 @@ module.exports.questionAdd = function (content, objId, objType, cb1, cb2) {
 }
 
 //问题列表
-module.exports.questionList = function (objId, pageNum, pageSize, cb1, cb2) {
+module.exports.questionList = function ( cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
-    data.objId = objId;
-    data.pageNum = pageNum;
-    data.pageSize = pageSize;
+  
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/question/list`, { params: str }, cb1, cb2);
-    delete data.objId;
-    delete data.pageNum;
-    delete data.pageSize;
+    http(`${globalData.path}/zndai/sysQuestion/list`, { params: str }, cb1, cb2);
+  
 }
-//问题列表
+//我的问题列表
 
-module.exports.questionAdd = function (content, objId, objType, cb1, cb2) {
+module.exports.myQuestion = function (userId , cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
-    data.objId = objId;
-    data.content = content;
-    data.objType = objType;
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/question/add`, { params: str }, cb1, cb2);
-    delete data.objId;
-    delete data.content;
-    delete data.objType;
+    http(`${globalData.path}/zndai/backQuestion/show`, { params: str }, cb1, cb2);
     delete data.userId;
 }
 

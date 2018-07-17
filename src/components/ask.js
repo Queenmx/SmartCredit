@@ -42,8 +42,10 @@ var Ask = React.createClass({
         }
     },
 
+
     submitAsk: function () {
         var content = this.state.content;
+        var userId = localStorage.getItem("user").userId
         //var content=$("textarea").val().trim();
         var that=this;
         if (content.length > 0) {
@@ -51,15 +53,17 @@ var Ask = React.createClass({
                     flag: true
                 })
             if (this.state.fromWho == "help") {//反馈建议
-                api.feedBackAdd(content, function (res) {
+                api.feedBackAdd(content,userId, function (res) {
                     //console.log('feedBackAdd',res);
                     if (res.code == "0000") {
                     	that.setState({
 		                    flag: false
-		                })
+                        });
+                        // var data = JSON.parse(strDec(res.data, key1, "", ""));
+                        // console.log(data)
                         Toast.info("提交成功", 2);
-                       // window.history.back();
-                       history.go(-1);
+                       window.history.back();
+                    //    history.go(-1);
                     } else {
                     	that.setState({
 		                    flag: false
@@ -73,17 +77,17 @@ var Ask = React.createClass({
                     Toast.info("连接错误", 2);
                 })
             } else {//提问问题
-                var objId = this.props.location.query.objId;
-                var objType = this.props.location.query.objType;
-                api.questionAdd(content, objId, objType, function (res) {
-                   // console.log('questionAdd',res);
+                api.feedBackAdd(content,userId, function (res) {
+                    //console.log('feedBackAdd',res);
                     if (res.code == "0000") {
                     	that.setState({
 		                    flag: false
-		                })
+                        });
+                        // var data = JSON.parse(strDec(res.data, key1, "", ""));
+                        // console.log(data)
                         Toast.info("提交成功", 2);
-                        //window.history.back();
-                        history.go(-1);
+                       window.history.back();
+                    //    history.go(-1);
                     } else {
                     	that.setState({
 		                    flag: false
@@ -96,6 +100,29 @@ var Ask = React.createClass({
 		                })
                     Toast.info("连接错误", 2);
                 })
+                // var objId = this.props.location.query.objId;
+                // var objType = this.props.location.query.objType;
+                // api.questionAdd(content, objId, objType, function (res) {
+                //    // console.log('questionAdd',res);
+                //     if (res.code == "0000") {
+                //     	that.setState({
+		        //             flag: false
+		        //         })
+                //         Toast.info("提交成功", 2);
+                //         //window.history.back();
+                //         history.go(-1);
+                //     } else {
+                //     	that.setState({
+		        //             flag: false
+		        //         })
+                //         Toast.info(res.msg, 2);
+                //     }
+                // }, function () {
+                // 	that.setState({
+		        //             flag: false
+		        //         })
+                //     Toast.info("连接错误", 2);
+                // })
             }
 
 
@@ -118,6 +145,8 @@ var Ask = React.createClass({
 
 
     },
+
+   
     render: function () {
         var that = this;
         //console.log("cityId",cityId);

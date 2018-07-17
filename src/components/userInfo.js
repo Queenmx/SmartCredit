@@ -132,16 +132,16 @@ var UserInfo = React.createClass({
     //     hashHistory.push(path);
     // },
     realName: function () {
-        var path = {
-            pathname: '/RealName',
-        }
-        hashHistory.push(path);
+        // var path = {
+        //     pathname: '/RealName',
+        // }
+        // hashHistory.push(path);
     },
     idNumber: function () {
-        var path = {
-            pathname: '/IdNumber'
-        }
-        hashHistory.push(path);
+        // var path = {
+        //     pathname: '/IdNumber'
+        // }
+        // hashHistory.push(path);
     },
     logoError: function (event) {
         event.target.src = "src/img/icon/tx.png";
@@ -161,8 +161,8 @@ var UserInfo = React.createClass({
                         <img id="headImg" src={imgPath + that.state.headPic} onError={that.logoError} /><div className="infoRight"><img src="src/img/icon/right.png" /></div></li> */}
                     <li><span>手机号</span><div className="infoRight"><b>{`${that.state.phone}`.replace(/^(\d{3})\d{4}(\d+)/, "$1****$2")}</b></div></li>
                     {/* <li onClick={that.rePsd}><span>修改密码</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li> */}
-                    <li onClick={that.realName}><span>真实姓名</span><div className="infoRight"><b>{that.state.realName}</b><img src="src/img/icon/right.png" /></div></li>
-                    <li onClick={that.idNumber}><span>身份证号码</span><div className="infoRight"><b>{that.state.certStatus >0? "已验证" : "待审核"}</b><img src="src/img/icon/right.png" /></div></li>
+                    <li onClick={that.realName}><span>真实姓名</span><div className="infoRight"><b>{that.state.realName}</b></div></li>
+                    <li onClick={that.idNumber}><span>身份证号码</span><div className="infoRight"><b>{that.state.certStatus >0? "已验证" : "待审核"}</b></div></li>
                     {/*<li className="userInfoLi"><span>关于我们</span><div className="infoRight"><img src="src/img/icon/right.png"/></div></li>*/}
                 </ul>
 
