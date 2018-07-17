@@ -464,6 +464,8 @@
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex; }
+  #app .loanlist .am-accordion::before {
+    height: 0; }
   #app .loanlist .am-accordion .am-accordion-item {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
@@ -910,7 +912,7 @@
     width: 1.2rem;
     margin: 0.26rem auto; }
 
-.creditcard .loan ul li {
+.creditcard .loan ul a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -918,30 +920,30 @@
   margin-bottom: 0.3rem;
   padding: 0.42rem;
   background: #FFF; }
-  .creditcard .loan ul li > img {
+  .creditcard .loan ul a > img {
     display: inline-block;
     width: 2.3rem;
     height: 1.44rem;
     margin-right: 0.3rem; }
-  .creditcard .loan ul li > div {
+  .creditcard .loan ul a > div {
     display: inline-block; }
-    .creditcard .loan ul li > div > p {
+    .creditcard .loan ul a > div > p {
       height: 0.48rem;
       line-height: 0.48rem; }
-      .creditcard .loan ul li > div > p:first-child {
+      .creditcard .loan ul a > div > p:first-child {
         font-size: 0.3rem;
         color: #020202; }
-      .creditcard .loan ul li > div > p:nth-child(2) {
+      .creditcard .loan ul a > div > p:nth-child(2) {
         font-size: 0.28rem;
         color: #2b2b2b; }
-      .creditcard .loan ul li > div > p:last-child {
+      .creditcard .loan ul a > div > p:last-child {
         font-size: 0.24rem;
         color: #666666; }
-        .creditcard .loan ul li > div > p:last-child span {
+        .creditcard .loan ul a > div > p:last-child span {
           color: #ff811c; }
-  .creditcard .loan ul li:last-child {
+  .creditcard .loan ul a:last-child {
     margin-bottom: 0; }
-  .creditcard .loan ul li .loanTitle {
+  .creditcard .loan ul a .loanTitle {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     -webkit-flex: 1;
@@ -1149,7 +1151,7 @@
       margin: 0.3rem auto 0;
       text-align: center; }
   .bx .am-modal-title {
-    font-size: 0.32rem;
+    font-size: 0.28rem;
     color: #508aff; }
   .bx .am-modal-content {
     text-align: left;

@@ -406,6 +406,9 @@
     }
     .am-accordion{
         @include only_display;
+        &::before{
+            height: 0;
+        }
         .am-accordion-item{
             @include flex_1;
             .am-accordion-header{

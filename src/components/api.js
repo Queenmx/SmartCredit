@@ -332,6 +332,25 @@ module.exports.loanDetail = function (loanId, cb1, cb2) {
     http(`${globalData.path}/loan/product/productDetails`, { params: str }, cb1, cb2);
     delete data.loanId;
 }
+//模糊查询
+module.exports.findProduct = function (item, cb1, cb2) {
+    var data = globalData.requestData;
+    data.loanTermStart = item.loanTermStart;
+    data.loanTermEnd=item.loanTermEnd;
+    data.miniScope=item.miniScope;
+    data.maxScope=item.maxScope;
+    data.creditReport=item.creditReport;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/loan/product/findProduct`, { params: str }, cb1, cb2);
+    delete data.loanTermStart;
+    delete data.loanTermEnd;
+    delete data.miniScope;
+    delete data.maxScope;
+    delete data.creditReport;   
+}
+
+
 //精准贷
 //列表
 module.exports.loanList = function (pageNum, pageSize, tag, type, cb1, cb2) {
