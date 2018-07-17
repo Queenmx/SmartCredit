@@ -103,21 +103,20 @@ var Login = React.createClass({
                                 globalData.user = data;
                                 globalData.userId = user.userId;
                                 globalData.requestData.token = user.token;
-                                Toast.info("登录成功", 2);
-                                //location.reload();
-                                //window.history.back();
-                                const backRouter = that.props.params.backRouter;
-                                //console.log(backRouter);
-                                // if (backRouter) {
-                                //     hashHistory.push(backRouter);
-                                // } else {
-                                //     //window.history.back()
-                                //     history.go(-1);
-                                // }
-                                var path={
-                                    pathname:'/'//去往首页
-                                }
-                                hashHistory.push(path);
+                                console.log(user.idCert)
+                                if(user.idCert==0||user.idCert==2){//未验证或不通过
+                                    var path={
+                                        pathname:'/Authname'
+                                    }
+                                    hashHistory.push(path);
+                                }else{                                 
+                                    Toast.info("登录成功", 2);
+                                    const backRouter = that.props.params.backRouter;
+                                    var path={
+                                        pathname:'/'//
+                                    }
+                                    hashHistory.push(path);
+                                }                                
                             } else if(res.code=='1006'){
                                 Toast.info(res.msg, 2);
                                 var path={
@@ -181,7 +180,7 @@ var Login = React.createClass({
                                     //     history.go(-1);
                                     // }
                                     var path={
-                                        pathname:'/'//去往首页
+                                        pathname:'/insurance'//去往保险列表页
                                     }
                                     hashHistory.push(path);
                                 } else {

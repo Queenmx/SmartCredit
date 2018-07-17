@@ -80,11 +80,18 @@ var ListDetail = React.createClass({
             Toast.info("连接错误", 2);
         })
     },
-    toApplyInfo: function (event) {
+    toApplyInfo: function (item) {
         var that = this;
         var key1 = globalData.key;
         if (that.state.isLogin) {
-            window.location.href=that.state.loanDetail.loanLink;//去往第3方页面
+            api.setProductNum(item,function(res){
+                if(res.code=="0000"){
+                    window.location.href=that.state.loanDetail.loanLink;//去往第3方页面
+                }else{
+                    Toast.info(res.msg, 2);
+                }
+            })
+            
         } else {
             var path = {
                 pathname: '/Login',
@@ -177,12 +184,12 @@ var ListDetail = React.createClass({
         var myTotalMoney = Number((Number(that.state.fee) + myRateMoney + value1)).toFixed(2) || "";
         return (
             <div className="app_Box listDetail">
-                <Header title={loanDetail.loanName} />
+                <Header title={loanDetail.name} />
                 <div className="listDetailCon content">
                     <Loading flag={that.state.flag} />                                     
                     <ul className="loan-list">
                         <li>
-                            <img src={imgPath+loanDetail.logn} />
+                            <img src={imgPath+loanDetail.logo} />
                             <div className="loanTitle">
                                 <p>{loanDetail.categoryName}</p>
                                 <p>{loanDetail.intendedFor}</p>
@@ -258,7 +265,7 @@ var ListDetail = React.createClass({
                 </div>
                 <div className="footer">
                     {/* <div className="applySaveBtn" onClick={that.saveThis} data-markId={loanDetail.markId}><img src={that.state.isMark == 1 ? "src/img/icon/sc2.png" : "src/img/icon/sc1.png"} /><p>{that.state.isMark == 1 ? "取消收藏" : "收藏"}</p></div> */}
-                    <div className="applyBtn" onClick={that.toApplyInfo}>申请借款</div>
+                    <div className="applyBtn" onClick={that.toApplyInfo.bind(that,loanDetail.totalNum)}>申请借款</div>
                 </div>
             </div>
         )
