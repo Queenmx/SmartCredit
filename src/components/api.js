@@ -297,6 +297,7 @@ module.exports.creditCardList = function (pageNum, pageSize, cb1, cb2) {
     // delete data.pageNum;
     // delete data.pageSize;
 }
+
 //资讯详情
 module.exports.articleDetail = function (articleId, cb1, cb2) {
     var data = globalData.requestData;
