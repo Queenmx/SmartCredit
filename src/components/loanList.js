@@ -30,7 +30,7 @@ var LoanList = React.createClass({
         api.productList(function (res) {
             if(res.code=='0000'){                
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                // console.log(data);
+                console.log(data);
                 var arr=[];
                 for(var i in data){
                     arr.push(

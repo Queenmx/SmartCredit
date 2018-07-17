@@ -2,6 +2,7 @@ var http = require("./http");
 import { globalData } from './global.js';
 
 var key1 = globalData.key;
+var ip = returnCitySN["cip"];
 
 
 //标签
@@ -68,14 +69,16 @@ module.exports.register = function (phone, pwd, verifyCode, cb1, cb2) {
     data.pwd = pwd;
     data.type = "C";
     data.verifyCode = verifyCode;
+    data.ip=ip;
     var param = JSON.stringify(data);
-    //console.log(param);
+    console.log(param);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/add`, { params: str }, cb1, cb2);
     delete data.phone;
     delete data.pwd;
     delete data.type;
     delete data.verifyCode;
+    delete data.ip;
 }
 
 //忘记密码，重置密码
