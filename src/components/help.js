@@ -46,6 +46,37 @@ var Help = React.createClass({
         }
         hashHistory.push(path);
     },
+    componentDidMount: function () {
+        var key1 = globalData.key;
+        var toast = globalData.toast;
+        var that = this;
+        api.questionList(function (res) {
+                if(res.code == "0000"){
+                    var data = JSON.parse(strDec(res.data, key1, "", ""));
+                    console.log(data);
+                    var questionArr = [];
+                    for (var i in data) {
+                        questionArr.push(
+                            <li key={i}>
+                                <div>
+                                    <p style={{backgroundImage:"url('src/img/icon/help-icon2.png')"}}></p>
+                                    <p>{data[i].content}</p>    
+                                </div>
+                                <div>
+                                    <p style={{backgroundImage:"url('src/img/icon/help-icon1.png')"}}></p>
+                                    <p>{data[i].answer}</p>   
+                                </div>
+                            </li>
+                        )
+                    }
+                    that.setState({
+                        questionArr: questionArr
+                    })
+                    // console.log(that.state.creditCardArr)
+                }
+               
+        })
+    },
     render: function () {
         var that = this;
         return (
@@ -54,7 +85,8 @@ var Help = React.createClass({
                 
                 <div className="askCon content">                   
                     <ul className="helpList">
-                        <li>
+                        {that.state.questionArr}
+                        {/* <li>
                             <div>
                                <p style={{backgroundImage:"url('src/img/icon/help-icon2.png')"}}></p>
                                <p>如何借款</p>    
@@ -83,7 +115,7 @@ var Help = React.createClass({
                                <p style={{backgroundImage:"url('src/img/icon/help-icon1.png')"}}></p>
                                <p>点击借贷款->获取额度-->借出，绑定一张银行信用卡，输入借出金额，比如2000，点击确定即可 </p>   
                             </div>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
                 <div className="footer">

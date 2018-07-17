@@ -38,6 +38,38 @@ var Help = React.createClass({
             hashHistory.push(path);
         }
     },
+    componentDidMount: function () {
+        var key1 = globalData.key;
+        var toast = globalData.toast;
+        var that = this;
+        var userId = localStorage.getItem("user").userId
+        api.myQuestion(userId,function (res) {
+                if(res.code == "0000"){
+                    var data = JSON.parse(strDec(res.data, key1, "", ""));
+                    console.log(data);
+                    var questionArr = [];
+                    for (var i in data) {
+                        questionArr.push(
+                          <li key={i}>
+                            <div>
+                               <p style={{backgroundImage:"url('src/img/icon/help-icon3.png')"}}></p>
+                               <p>{data[i].addTime}</p>    
+                            </div>
+                            <div>
+                               <p></p>
+                               <p>{data[i].content}</p>   
+                            </div>
+                        </li>
+                        )
+                    }
+                    that.setState({
+                        questionArr: questionArr
+                    })
+                    // console.log(that.state.creditCardArr)
+                }
+               
+        })
+    },
     render: function () {
         var that = this;
         return (
@@ -45,7 +77,8 @@ var Help = React.createClass({
                 <Header title="查看问题" />               
                 <div className="askCon content">                   
                     <ul className="helpList">
-                        <li>
+                    {that.state.questionArr}
+                        {/* <li>
                             <div>
                                <p style={{backgroundImage:"url('src/img/icon/help-icon3.png')"}}></p>
                                <p>提问时间：2018-02-02</p>    
@@ -64,7 +97,7 @@ var Help = React.createClass({
                                <p></p>
                                <p>点击借贷款->获取额度-->借出，绑定一张银行信用卡，输入借出金额，比如2000，点击确定即可?</p>   
                             </div>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
                 <div className="footer">
