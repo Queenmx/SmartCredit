@@ -61,9 +61,9 @@ var Ask = React.createClass({
                             <a key={i} href={creditCardList[i].apiUrl} data-creditCardId ={creditCardList[i].identifier}>
                                 <img src={imgPath + creditCardList[i].logo}  />
                                 <div className="loanTitle">
-                                    <p>{creditCardList[i].cardName}</p>
+                                    <p>{creditCardList[i].name}</p>
                                     <p>适用人群：上班族，企业主</p>
-                                    <p><span>{creditCardList[i].applyCount}</span>本月申请</p>                                    
+                                    <p><span>{creditCardList[i].totalNum}</span>本月申请</p>                                    
                                 </div>
                             </a>
 

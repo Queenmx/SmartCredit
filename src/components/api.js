@@ -284,6 +284,17 @@ module.exports.articleList = function (pageNum, pageSize, cb1, cb2) {
     delete data.pageNum;
     delete data.pageSize;
 }
+//热门借款产品
+module.exports.hotLoanList = function (hot, cb1, cb2) {
+    var data = globalData.requestData;
+    //data.token=token;
+    var param = JSON.stringify(data);
+    // console.log(param)
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/loan/product/viewProducts`, { params: str }, cb1, cb2);
+   
+}
+
 //信用卡列表
 module.exports.creditCardList = function (pageNum, pageSize, cb1, cb2) {
     var data = globalData.requestData;

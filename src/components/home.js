@@ -31,19 +31,10 @@ var Home = React.createClass({
         var loanId = event.currentTarget.getAttribute("data-loanId");
         var type = event.currentTarget.getAttribute("data-type");
         var data = { loanId: loanId };
-        if (type == "JZD") {
             var path = {
                 pathname: '/ListDetail',
                 query: data,
             }
-        } else if (type == "KSD") {
-            var path = {
-                pathname: '/ListDetailKSD',
-                query: data,
-            }
-        } else {
-            Toast.info("数据错误", 2)
-        }
         hashHistory.push(path);
     },
 
@@ -114,147 +105,7 @@ var Home = React.createClass({
         var toast = globalData.toast;
         var that = this;
 
-        // var homeLoan = sessionStorage.getItem("homeLoan");
-        // if (homeLoan) {
-        //     console.log(homeLoan);
-        //     var loanList = JSON.parse(homeLoan);
-        //     var arr = [];
-        //     //console.log(loanList)
-        //     for (var i in loanList) {
-        //         var theDate = loanList[i].limitType;
-        //         var theDateTxt;
-        //         switch (theDate) {
-        //             case "Y":
-        //                 theDateTxt = "年"
-        //                 break;
-        //             case "M":
-        //                 theDateTxt = "月"
-        //                 break;
-        //             case "D":
-        //                 theDateTxt = "日"
-        //                 break;
-        //             default:
-        //                 break;
-        //         }
-        //         var theDateRate = loanList[i].rateType;
-        //         var theDateRateTxt;
-        //         switch (theDateRate) {
-        //             case "Y":
-        //                 theDateRateTxt = "年"
-        //                 break;
-        //             case "M":
-        //                 theDateRateTxt = "月"
-        //                 break;
-        //             case "D":
-        //                 theDateRateTxt = "日"
-        //                 break;
-        //             default:
-        //                 break;
-        //         }
-        //         arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
-        //             <h3>
-        //                 <img src={imgPath + loanList[i].logo} onError={that.logoError} />
-        //                 <span>{loanList[i].loanName}</span>
-        //             </h3>
-        //             <div className="capitalInfo">
-        //                 <div className="limit">
-        //                     <h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
-        //                     <p>额度范围(元)</p>
-        //                 </div>
-        //                 <ul className="special">
-        //                     <li>{loanList[i].loanTime}</li>
-        //                     <li>{theDateRateTxt}费率{loanList[i].rate}%</li>
-        //                     <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
-        //                 </ul>
-        //                 <div className="apply">
-        //                     <a href="javascript:;" >申请贷款</a>
-        //                 </div>
-        //             </div>
-
-        //         </div>)
-        //     }
-
-        //     that.setState({
-        //         list: arr
-        //     })
-        // } else {
-        //     api.loanList(1, 10, "", "", function (res) {
-        //         if (res.code == "0000") {
-        //             console.log("=====")
-        //             var data = JSON.parse(strDec(res.data, key1, "", ""));
-        //             // var data = res.data
-        //             console.log(data)
-        //             //var data=res.data;
-        //             var loanList = data.list;
-
-        //             sessionStorage.setItem("homeLoan", JSON.stringify(loanList));
-        //             var arr = [];
-        //             for (var i in loanList) {
-        //                 var theDate = loanList[i].limitType;
-        //                 var theDateTxt;
-        //                 switch (theDate) {
-        //                     case "Y":
-        //                         theDateTxt = "年"
-        //                         break;
-        //                     case "M":
-        //                         theDateTxt = "月"
-        //                         break;
-        //                     case "D":
-        //                         theDateTxt = "日"
-        //                         break;
-        //                     default:
-        //                         break;
-        //                 }
-
-        //                 var theDateRate = loanList[i].rateType;
-        //                 var theDateRateTxt;
-        //                 switch (theDateRate) {
-        //                     case "Y":
-        //                         theDateRateTxt = "年"
-        //                         break;
-        //                     case "M":
-        //                         theDateRateTxt = "月"
-        //                         break;
-        //                     case "D":
-        //                         theDateRateTxt = "日"
-        //                         break;
-        //                     default:
-        //                         break;
-        //                 }
-        //                 arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
-        //                     <h3>
-        //                         <img src={imgPath + loanList[i].logo} onError={that.logoError} />
-        //                         <span>{loanList[i].loanName}</span>
-        //                     </h3>
-        //                     <div className="capitalInfo">
-        //                         <div className="limit">
-        //                             <h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
-        //                             <p>额度范围(元)</p>
-        //                         </div>
-        //                         <ul className="special">
-        //                             <li>{loanList[i].loanTime}</li>
-        //                             <li>{theDateRateTxt}利率{loanList[i].rate}%</li>
-        //                             <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
-        //                         </ul>
-        //                         <div className="apply">
-        //                             <a href="javascript:;">申请贷款</a>
-        //                         </div>
-        //                     </div>
-
-        //                 </div>)
-        //             }
-
-        //             that.setState({
-        //                 list: arr
-        //             })
-
-        //         } else {
-        //             Toast.info("连接错误", 2);
-        //         }
-        //     }, function () {
-        //         Toast.info("连接错误", 2);
-        //     })
-        // }
+        //轮播图
         var banner = sessionStorage.getItem("banner");
         if (banner) {
             var bannerList = JSON.parse(banner);
@@ -323,6 +174,7 @@ var Home = React.createClass({
                 Toast.info("连接错误", 2);
             })
         }
+        //咨询
         var homeArticle = sessionStorage.getItem("homeArticle");
         if (homeArticle) {
             var articleList = JSON.parse(homeArticle);
@@ -368,19 +220,87 @@ var Home = React.createClass({
                 Toast.info("连接错误", 2);
             })
         }
+        //热门借款产品
+        var hotLoanList = sessionStorage.getItem("hotLoanList");
+        if(hotLoanList){
+            var hotLoanList = JSON.parse(hotLoanList);
+            var hotLoanArr = [];
+            for (var i in hotLoanList ) {
+                if(hotLoanList[i].hot == 0){
+                    console.log("11111")
+                    hotLoanArr.push(
+                        <li key={i} data-loanId={hotLoanList[i].id} onClick={that.toListDetail}>
+                            <img src={imgPath + hotLoanList[i].logo} />
+                            <div className="loanTitle">
+                                <p>{hotLoanList[i].categoryName}</p>
+                                <p>{hotLoanList[i].intendedFor}</p>
+                            </div>
+                            <div className="high">
+                                <p>
+                                    <span>{hotLoanList[i].maximumAmount}</span>万    
+                                </p>
+                                <p>最高额度</p>
+                            </div>
+                        </li>    
+                 )
+                }
+                that.setState({
+                    hotLoanArr: hotLoanArr
+                })
+                 
+             }
+        }else{
+            api.hotLoanList("0", function (res) { 
+                if(res.code == "0000"){
+                    var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
+                    console.log(Decdata);
+                    // var hotLoanList = Decdata.list;
+                    sessionStorage.setItem("hotLoanList", JSON.stringify(Decdata));
+                    var hotLoanArr = [];
+                    for (var i in Decdata) {
+                       if(Decdata[i].hot == 0){
+                           console.log("abch")
+                           hotLoanArr.push(
+                            <li key={i} data-loanId={Decdata[i].id}>
+                            <img src={imgPath + Decdata[i].logo} />
+                            <div className="loanTitle">
+                                <p>{Decdata[i].categoryName}</p>
+                                <p>{Decdata[i].intendedFor}</p>
+                            </div>
+                            <div className="high">
+                                <p>
+                                    <span>{Decdata[i].maximumAmount}</span>万    
+                                </p>
+                                <p>最高额度</p>
+                            </div>
+                        </li>    
+                                      
+                        )
+                       }
+                        
+                    }
+                    that.setState({
+                        hotLoanArr: hotLoanArr
+                    })
+                  
+                }
+            })
+        }
+
+        //热门信用卡
         var creditCardList = sessionStorage.getItem("creditCardList");
         if(creditCardList){
             var creditCardList = JSON.parse(creditCardList);
             var creditCardArr = [];
             for (var i in creditCardList ) {
-                if(creditCardList[i].hotFlag == "Y"){
+                if(creditCardList[i].hot == 0){
                     console.log("11111")
                  creditCardArr.push(
                      <li key={i}>
                         <img src={imgPath + creditCardList[i].logo}  />
                          <div className="loanTitle">
-                             <p>{creditCardList[i].cardName}</p>
-                             <p>{creditCardList[i].cardType}</p>
+                             <p>{creditCardList[i].name}</p>
+                             <p>{creditCardList[i].describeTion}</p>
                          </div>
                          <div className="high">
                              <img src="src/img/icon/product5.png" />
@@ -403,14 +323,14 @@ var Home = React.createClass({
                     sessionStorage.setItem("creditCardList", JSON.stringify(creditCardList));
                     var creditCardArr = [];
                     for (var i in creditCardList ) {
-                       if(creditCardList[i].hotFlag == "Y"){
+                       if(creditCardList[i].hot == 0){
                            console.log("11111")
                         creditCardArr.push(
                             <li key={i}>
                                 <img src={imgPath + creditCardList[i].logo}  />
                                 <div className="loanTitle">
-                                    <p>{creditCardList[i].cardName}</p>
-                                    <p>{creditCardList[i].cardType}</p>
+                                    <p>{creditCardList[i].name}</p>
+                                    <p>{creditCardList[i].describeTion}</p>
                                 </div>
                                 <div className="high">
                                     <img src="src/img/icon/product5.png" />
@@ -449,55 +369,9 @@ var Home = React.createClass({
                             dotStyle={{"backgroundColor":"#fff",'width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem','marginRright':'0.18rem'}}
                             dotActiveStyle={{"backgroundColor":'#4374ff','width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem'}}
                         >
-                                
-                            {/* {this.state.banner.map(ii => (
-                                <a
-                                    key={ii}
-                                    href={ii.objUrl}
-                                    style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-                                >
-                                    <img
-                                        src={imgPath + ii.imgUrl}
-                                        alt=""
-                                        style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
-                                        onLoad={() => {
-                                            window.dispatchEvent(new Event('resize'));
-                                            this.setState({ imgHeight: 'auto' });
-                                        }}
-                                    />
-                                </a>
-                            ))} */}
+                           
                             {this.state.bannerArr}
-                            {/* <a
-                                    
-                                    style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-                                >
-                                    <img
-                                        // src={imgPath + ii.imgUrl}
-                                        src="src/img/banner.png"
-                                        alt=""
-                                        style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
-                                        onLoad={() => {
-                                            window.dispatchEvent(new Event('resize'));
-                                            this.setState({ imgHeight: 'auto' });
-                                        }}
-                                    />
-                                </a> */}
-                                {/* <a
-                                    
-                                    style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-                                >
-                                    <img
-                                        // src={imgPath + ii.imgUrl}
-                                        src="src/img/back.png"
-                                        alt=""
-                                        style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
-                                        onLoad={() => {
-                                            window.dispatchEvent(new Event('resize'));
-                                            this.setState({ imgHeight: 'auto' });
-                                        }}
-                                    />
-                                </a>                    */}
+                          
                             </Carousel>
                              <ul className="news" onClick={this.newsAll}>
                                 <li className="newvoice">
@@ -574,7 +448,9 @@ var Home = React.createClass({
                             <span></span>
                         </p>
                         <ul>
-                            <li>
+                            {that.state.hotLoanArr}  
+                            
+                            {/* <li>
                                 <img src="src/img/icon/product1.png" />
                                 <div className="loanTitle">
                                     <p>点点贷-大额低息贷</p>
@@ -586,20 +462,7 @@ var Home = React.createClass({
                                     </p>
                                     <p>最高额度</p>
                                 </div>
-                            </li>
-                            <li>
-                                <img src="src/img/icon/product1.png" />
-                                <div className="loanTitle">
-                                    <p>点点贷-大额低息贷</p>
-                                    <p>适用人群：上班族，企业主</p>
-                                </div>
-                                <div className="high">
-                                    <p>
-                                        <span>5</span>万    
-                                    </p>
-                                    <p>最高额度</p>
-                                </div>
-                            </li>
+                            </li> */}
                         </ul>
                         
                     </div>
@@ -612,40 +475,9 @@ var Home = React.createClass({
                         </p>
                         <ul>
                             {that.state.creditCardArr}
-                            {/* <li>
-                                <img src="src/img/icon/product1.png" />
-                                <div className="loanTitle">
-                                    <p>点点贷-大额低息贷</p>
-                                    <p>卡种：上班族，企业主</p>
-                                </div>
-                                <div className="high">
-                                    <img src="src/img/icon/product5.png" />
-                                </div>
-                            </li>
-                            <li>
-                                <img src="src/img/icon/product1.png" />
-                                <div className="loanTitle">
-                                    <p>点点贷-大额低息贷</p>
-                                    <p>适用人群：上班族，企业主</p>
-                                </div>
-                                <div className="high">
-                                <img src="src/img/icon/product6.png" />
-                                </div>
-                            </li> */}
                         </ul>
                         
                     </div>
-                    {/* <div className="capitalBox">
-                        {that.state.list}
-                    </div> */}
-                    {/* <div className="newsBox">
-                        <h3>你关心的资讯</h3>
-                        <div>
-                            {that.state.articleArr}
-                        </div>
-                        <Link to="/news" className="linkNews">全部热门资讯<img src="src/img/icon/right.png" /></Link>
-                    </div> */}
-                    <Loading flag={that.state.isLoading} />
                 </div>
                 <Footer activeIndex="0" />
             </div>
