@@ -13,19 +13,19 @@ var SetPsd = React.createClass({
 
     getInitialState: function () {
         var eyeImg = [<img src="src/img/icon/by.png" key={"by"} />];
-        var eyeImg1 = [<img src="src/img/icon/by.png" key={"by"} />];
+        // var eyeImg1 = [<img src="src/img/icon/by.png" key={"by"} />];
         
         return {
             isLoading: false,
             eyeImg: eyeImg,
             inputType: "password",
             inputType1: "password",
-            eyeImg1: eyeImg1,
+            eyeImg1: eyeImg,
             isshow:false
         }
     },
     componentWillMount(){
-        console.log(this.props.location.state.fromWhy)
+        // console.log(this.props.location.state.fromWhy)
     },
     eyesHandle: function () {
         var type = $("#psd")[0].type;
@@ -46,7 +46,7 @@ var SetPsd = React.createClass({
         }
     },
     eyesHandle1: function () {
-        var type = $("#psd")[0].type;
+        var type = $("#surePsd")[0].type;
         var eyeImg = [];
         if (type == "password") {
             eyeImg.push(<img src="src/img/icon/zy.png" key={"zy"} />);
@@ -68,12 +68,18 @@ var SetPsd = React.createClass({
             [e.target.name]: e.target.value
         })
     },
+    vauleChange1: function (e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    },
     psdLogin: function () {
         var that = this;
         let psd = that.state.psd;
         let surePsd = that.state.surePsd;
         // var toast = new Toast();
-        var reg = /^([a-z0-9\.\@\!\#\$\%\^\&\*\(\)]){6,20}$/i;
+        var reg = /(?!^(\d+|[a-zA-Z]+|[~!@#$%^&*?]+)$)^[\w~!@#$%\^&*?]{6,20}$/i;
+        
         if (reg.test(psd)&&reg.test(surePsd)) {
             this.setState({
                 isshow:false
@@ -114,9 +120,6 @@ var SetPsd = React.createClass({
                                 globalData.userId = user.userId;
                                 globalData.requestData.token = user.token;
                                 Toast.info("登录成功", 2);
-                                // var path = {
-                                //     pathname: '/',
-                                // }
                                 var path = {
                                     pathname: '/Authname',
                                 }
@@ -130,7 +133,11 @@ var SetPsd = React.createClass({
                             that.setState({ isLoading: false })
                             Toast.info("连接错误", 2);
                         })
-                    } else {
+                    } else if(res.code=="1014"){
+                        that.setState({ isLoading: false })
+                        Toast.info(res.msg, 2);
+                        hashHistory.go(-1);
+                    }else{
                         that.setState({ isLoading: false })
                         Toast.info(res.msg, 2);
                     }
@@ -151,7 +158,11 @@ var SetPsd = React.createClass({
                             pathname: '/Login',
                         }
                         hashHistory.push(path);
-                    } else {
+                    } else if(res.code=="1008"){//验证码过期
+                        that.setState({ isLoading: false })
+                        Toast.info(res.msg, 2);
+                        hashHistory.go(-1);
+                    }else{
                         that.setState({ isLoading: false })
                         Toast.info(res.msg, 2);
                     }
@@ -178,9 +189,9 @@ var SetPsd = React.createClass({
                         </span>
                     </div>
                     <div className="inputPsd">
-                        <p className={this.state.isshow?"tips":'hide'}><span style={{backgroundImage:"url('src/img/icon/login-icon7.png')"}}></span>请使用6-20位字母、数字、特殊字符的组合</p>
+                        <p className={this.state.isshow?"tips":'hide'}><span style={{backgroundImage:"url('src/img/icon/login-icon7.png')"}}></span>请使用6-20位数字和字母（包含特殊字符）</p>
                         <label htmlFor="surePsd" style={{backgroundImage:"url('src/img/icon/login-icon6.png')"}}></label>
-                        <input id="surePsd" type={that.state.inputType1} name="surePsd" placeholder="请确认登录密码" onChange={that.vauleChange} />
+                        <input id="surePsd" type={that.state.inputType1} name="surePsd" placeholder="请确认登录密码" onChange={that.vauleChange1} />
                         <span className="eyes" id="eyes" onClick={that.eyesHandle1}>
                             {that.state.eyeImg1}
                         </span>
