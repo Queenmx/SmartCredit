@@ -13,6 +13,7 @@ import { Toast,Accordion, List,Menu, ActivityIndicator, NavBar,Radio } from 'ant
 const RadioItem = Radio.RadioItem;
 // var toast=globalData.toast;
 var key1 = globalData.key;
+var imgPath = globalData.imgPath;
 var LoanList = React.createClass({
     getInitialState: function () {
         return {
@@ -24,7 +25,60 @@ var LoanList = React.createClass({
             value:0,
         }
     },
-    
+    componentDidMount() {
+        var that=this;
+        api.productList(function (res) {
+            if(res.code=='0000'){                
+                var data = JSON.parse(strDec(res.data, key1, "", ""));
+                console.log(data);
+                var arr=[];
+                for(var i in data){
+                    arr.push(
+                        <ul className="loan-list" onClick={that.goDetail.bind(that,data[i].id)} key={i}>
+                            <li>
+                                <img src={imgPath + data[i].logo} />
+                                <div className="loanTitle">
+                                    <p>{data[i].name}</p>
+                                    <p>适用人群：{data[i].intendedFor}</p>
+                                    <p>申请人数：{data[i].totalNum}人</p>
+                                </div>
+                                <div className="high">
+                                    <p>
+                                        <span>{data[i].maximumAmount}</span>万    
+                                    </p>
+                                    <p>最高额度</p>
+                                </div>
+                            </li>   
+                            <li className="numdetail">
+                                <div>
+                                    <p><span>{data[i].timeLimit}</span>月</p>
+                                    <p>平均期限</p>
+                                </div>
+                                <div>
+                                    <p><span>{data[i].averageAmount}</span>万</p>
+                                    <p>平均额度</p>
+                                </div>
+                                <div>
+                                    <p><span>{data[i].meanTime}</span>天</p>
+                                    <p>平均用时</p>
+                                </div>
+                                <div>
+                                    <p><span>{data[i].annualRate}</span>%</p>
+                                    <p>年利率</p>
+                                </div>                                
+                            </li> 
+                        </ul>
+                        
+                    )
+                }
+                that.setState({
+                    productList:arr
+                }) 
+            }else {
+                Toast.info("连接错误", 2);
+            }
+        })
+    },
     onChange (arr){        
         console.log(arr);
         switch(arr){
@@ -71,9 +125,11 @@ var LoanList = React.createClass({
         show: false,
         });
     },
-    goDetail(){       
+    goDetail(item,name){    
+        console.log(item)   
         var path = {
             pathname: '/ListDetail',
+            query:{id:item}
         }
         hashHistory.push(path);
     },
@@ -102,8 +158,9 @@ var LoanList = React.createClass({
                         </Accordion>                    
                 </div>
                  <Loading flag={that.state.flag} />
-                 <div className="content">                    
-                    <ul className="loan-list" onClick={this.goDetail}>
+                 <div className="content">   
+                    {this.state.productList}                 
+                    {/* <ul className="loan-list" onClick={this.goDetail}>
                         <li>
                             <img src="src/img/icon/product1.png" />
                             <div className="loanTitle">
@@ -207,7 +264,7 @@ var LoanList = React.createClass({
                             </div>
                               
                         </li> 
-                    </ul> 
+                    </ul>  */}
                     {show ? menuEl : null}
                     {show ? <div className="menu-mask" onClick={this.onMaskClick} /> : null} 
                  </div>
