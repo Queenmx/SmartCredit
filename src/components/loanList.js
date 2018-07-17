@@ -22,7 +22,14 @@ var LoanList = React.createClass({
             jiantou:false,
             flag: false,
             selectData:[],
-            value:0,
+            value:19,
+            checkData:[
+                {name:'类型',value:0},
+                {name:'金额',value:1},
+                {name:'期限',value:2},
+                {name:'征信',value:3},
+            ],
+            checkedItem:10
         }
     },
     componentDidMount() {
@@ -229,6 +236,65 @@ var LoanList = React.createClass({
             jiantou:true
         });
     },
+    checked(temp){
+        console.log(temp);
+        
+        if(!this.state.show){
+            switch(temp){
+                case 0:
+                    this.setState({
+                        selectData:[
+                            { value: 19, label: '全部' },
+                            { value: 15, label: '小额零用贷' },
+                            { value: 16, label: '大额低息贷' },
+                            { value: 17, label: '工薪贷' },
+                            { value: 18, label: '车辆贷' },
+                        ]
+                    });
+                    break;
+                case 1:
+                    this.setState({
+                        selectData:[
+                            { value: 5, label: '全部' },
+                            { value: 6, label: '1000~5000' },
+                            { value: 7, label: '5000~10000' },
+                            { value: 8, label: '1万元以上' },
+                        ]
+                    });
+                    break;
+                case 2:
+                    this.setState({
+                        selectData:[
+                            { value: 9, label: '全部' },
+                            { value: 10, label: '1个月以下' },
+                            { value: 11, label: '1~6个月' },
+                            { value: 12, label: '6~12个月' },
+                            { value: 13, label: '12个月' },
+                            { value: 14, label: '24个月' },
+                        ]
+                    });
+                    break;
+                case 3:
+                    this.setState({
+                        selectData:[
+                            { value: 123, label: '全部' },                        
+                            { value: 1, label: '芝麻信用' },
+                            { value: 2, label: '电商账号' },
+                            { value: 3, label: '征信报告' },
+                        ]
+                    });
+                    break;
+                default:
+                    break;    
+            }
+            this.setState({
+                show:true,
+                checkedItem:temp
+                
+            })
+        }
+        
+    },
     onMaskClick(e){
         // console.log(e)
         this.setState({
@@ -310,16 +376,31 @@ var LoanList = React.createClass({
                     ))}
             </List>
         )
+        const accordion=(
+            this.state.checkData.map(function(item,i){
+                return(
+                    <div className="am-accordion-item" role="tablist" key={i} onClick={that.checked.bind(that,item.value)} >                
+                        <div className="am-accordion-header" role="tab" aria-expanded={that.state.show}>
+                            <span className={that.state.checkedItem==i?"showbottom":''}>{item.name}</span>
+                            <i className="arrow" style={{backgroundImage:"url('src/img/icon/loanlist-icon1.png')"}}></i>
+                        </div>
+                    </div>  
+                ) 
+            })            
+        )
         return (
             <div className="app_Box loanlist">
                  <div className="hed">
                     <p>贷款产品列表</p>                   
-                        <Accordion  accordion className="my-accordion" onChange={this.onChange} >
+                        {/* <Accordion  accordion className="my-accordion" onChange={this.onChange} >
                             <Accordion.Panel header="类型" className={this.state.jiantou?"down":''}></Accordion.Panel>
                             <Accordion.Panel header="金额" className="pad"></Accordion.Panel>
                             <Accordion.Panel header="期限" className="pad"></Accordion.Panel>
                             <Accordion.Panel header="征信" className="pad"></Accordion.Panel>                            
-                        </Accordion>                    
+                        </Accordion>       */}
+                        <div className="am-accordion my-accordion">
+                            {accordion}
+                        </div>
                 </div>
                  <Loading flag={that.state.flag} />
                  <div className="content">   

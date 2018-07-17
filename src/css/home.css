@@ -460,6 +460,7 @@
   opacity: 0.4;
   z-index: 1; }
 #app .loanlist .am-accordion {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -473,9 +474,38 @@
     -ms-flex: 1;
     flex: 1; }
     #app .loanlist .am-accordion .am-accordion-item .am-accordion-header {
+      position: relative;
+      height: 0.88rem;
+      line-height: 0.88rem;
+      box-sizing: content-box;
+      padding-left: 0.15rem;
+      padding-right: 0.3rem;
+      width: 0.57rem;
       background: #508aff;
       color: #fff;
       font-size: 0.28rem; }
+      #app .loanlist .am-accordion .am-accordion-item .am-accordion-header i {
+        position: absolute;
+        display: block;
+        top: 0.35rem;
+        right: -0.15rem;
+        width: 0.28rem;
+        height: 0.16rem;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        -webkit-transition: -webkit-transform .2s ease;
+        transition: -webkit-transform .2s ease;
+        transition: transform .2s ease;
+        transition: transform .2s ease, -webkit-transform .2s ease; }
+      #app .loanlist .am-accordion .am-accordion-item .am-accordion-header span {
+        padding-bottom: 0.1rem; }
+      #app .loanlist .am-accordion .am-accordion-item .am-accordion-header .showbottom {
+        border-bottom: 0.04rem solid #fff; }
+    #app .loanlist .am-accordion .am-accordion-item .am-accordion-header[aria-expanded~="true"] i {
+      -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+      transform: rotate(180deg); }
 #app .loanlist .hed {
   font-size: 0.3rem;
   position: relative;

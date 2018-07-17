@@ -405,6 +405,7 @@
           }
     }
     .am-accordion{
+        position: relative; 
         @include only_display;
         &::before{
             height: 0;
@@ -412,13 +413,51 @@
         .am-accordion-item{
             @include flex_1;
             .am-accordion-header{
+                position: relative; 
+                height: 0.88rem;
+                line-height: 0.88rem;
+                box-sizing: content-box;
+                padding-left: 0.15rem;
+                padding-right: 0.3rem;
+                width: 0.57rem;
+                
+               
+                
                 background:#508aff;
                 color:#fff;
                 font-size: 0.28rem;
+               
                 i{
-
+                    position: absolute;
+                    display: block;
+                    top: 0.35rem;
+                    right: -0.15rem;
+                    width: 0.28rem;
+                    height: 0.16rem;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: 50% 50%;
+                    // -webkit-transform: rotate(90deg);
+                    // -ms-transform: rotate(90deg);
+                    // transform: rotate(90deg);
+                    -webkit-transition: -webkit-transform .2s ease;
+                    transition: -webkit-transform .2s ease;
+                    transition: transform .2s ease;
+                    transition: transform .2s ease, -webkit-transform .2s ease;
+                }
+                span{
+                    padding-bottom: 0.1rem;
+                }
+                .showbottom{
+                    border-bottom: 0.04rem solid #fff;
                 }
             }
+            
+            .am-accordion-header[aria-expanded~="true"] i {
+                -webkit-transform: rotate(180deg);
+                    -ms-transform: rotate(180deg);
+                        transform: rotate(180deg);
+              }
             
         }
         .down{
