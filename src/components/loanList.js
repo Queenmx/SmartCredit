@@ -13,6 +13,7 @@ import { Toast,Accordion, List,Menu, ActivityIndicator, NavBar,Radio } from 'ant
 const RadioItem = Radio.RadioItem;
 // var toast=globalData.toast;
 var key1 = globalData.key;
+var imgPath = globalData.imgPath;
 var LoanList = React.createClass({
     getInitialState: function () {
         return {
@@ -24,14 +25,67 @@ var LoanList = React.createClass({
             value:0,
         }
     },
-    
+    componentDidMount() {
+        var that=this;
+        api.productList(function (res) {
+            if(res.code=='0000'){                
+                var data = JSON.parse(strDec(res.data, key1, "", ""));
+                console.log(data);
+                var arr=[];
+                for(var i in data){
+                    arr.push(
+                        <ul className="loan-list" onClick={that.goDetail.bind(that,data[i].id)} key={i}>
+                            <li>
+                                <img src={imgPath + data[i].logo} />
+                                <div className="loanTitle">
+                                    <p>{data[i].name}</p>
+                                    <p>适用人群：{data[i].intendedFor}</p>
+                                    <p>申请人数：{data[i].totalNum}人</p>
+                                </div>
+                                <div className="high">
+                                    <p>
+                                        <span>{data[i].maximumAmount}</span>万    
+                                    </p>
+                                    <p>最高额度</p>
+                                </div>
+                            </li>   
+                            <li className="numdetail">
+                                <div>
+                                    <p><span>{data[i].timeLimit}</span>月</p>
+                                    <p>平均期限</p>
+                                </div>
+                                <div>
+                                    <p><span>{data[i].averageAmount}</span>万</p>
+                                    <p>平均额度</p>
+                                </div>
+                                <div>
+                                    <p><span>{data[i].meanTime}</span>天</p>
+                                    <p>平均用时</p>
+                                </div>
+                                <div>
+                                    <p><span>{data[i].annualRate}</span>%</p>
+                                    <p>年利率</p>
+                                </div>                                
+                            </li> 
+                        </ul>
+                        
+                    )
+                }
+                that.setState({
+                    productList:arr
+                }) 
+            }else {
+                Toast.info("连接错误", 2);
+            }
+        })
+    },
     onChange (arr){        
-        console.log(arr);
+        // console.log(arr);
         switch(arr){
             case "0":
                 this.setState({
                     selectData:[
-                        { value: 0, label: '类型' },
+                        { value: 0, label: '全部' },
                         { value: 1, label: '小额零用贷' },
                         { value: 2, label: '大额低息贷' },
                         { value: 3, label: '工薪贷' },
@@ -40,7 +94,35 @@ var LoanList = React.createClass({
                 });
                 break;
             case "1":
-                
+                this.setState({
+                    selectData:[
+                        { value: 5, label: '全部' },
+                        { value: 6, label: '1000~5000' },
+                        { value: 7, label: '5000~10000' },
+                        { value: 8, label: '1万元以上' },
+                    ]
+                });
+                break;
+            case "2":
+                this.setState({
+                    selectData:[
+                        { value: 9, label: '全部' },
+                        { value: 10, label: '1个月以下' },
+                        { value: 11, label: '1~6个月' },
+                        { value: 12, label: '6~12个月' },
+                        { value: 13, label: '12个月' },
+                        { value: 14, label: '24~12个月' },
+                    ]
+                });
+                break;
+            case "3":
+                this.setState({
+                    selectData:[
+                        { value: 15, label: '芝麻信用' },
+                        { value: 16, label: '电商账号' },
+                        { value: 17, label: '征信报告' },
+                    ]
+                });
                 break;
             default:
                 break;    
@@ -58,12 +140,29 @@ var LoanList = React.createClass({
         
     },
     onSelected (item) {
+        var data={
+            loanTermStart:'',
+            loanTermEnd:'',
+            miniScope:'',
+            maxScope:'',
+            creditReport:''
+        }
+        switch(item){
+            case 6:
+                this.setState({
+
+                });
+                data.miniScope=1000;
+                data.maxScope=5000;
+                break;
+        }
+        this.getInit(data);
         this.setState({
             value:item,
             show: false,
             jiantou:true
         });
-
+        console.log(data);
     },
     onMaskClick(e){
         // console.log(e)
@@ -71,11 +170,23 @@ var LoanList = React.createClass({
         show: false,
         });
     },
-    goDetail(){       
+    goDetail(item,name){    
+        console.log(item)   
         var path = {
             pathname: '/ListDetail',
+            query:{id:item}
         }
         hashHistory.push(path);
+    },
+    getInit(item){
+        api.findProduct(item,function (res) {
+            if(res.code=='0000'){                
+                var data = JSON.parse(strDec(res.data, key1, "", ""));
+                console.log(data);                
+            }else {
+                Toast.info("连接错误", 2);
+            }
+        }) 
     },
     render(){
         var that=this;
@@ -102,8 +213,9 @@ var LoanList = React.createClass({
                         </Accordion>                    
                 </div>
                  <Loading flag={that.state.flag} />
-                 <div className="content">                    
-                    <ul className="loan-list" onClick={this.goDetail}>
+                 <div className="content">   
+                    {this.state.productList}                 
+                    {/* <ul className="loan-list" onClick={this.goDetail}>
                         <li>
                             <img src="src/img/icon/product1.png" />
                             <div className="loanTitle">
@@ -207,7 +319,7 @@ var LoanList = React.createClass({
                             </div>
                               
                         </li> 
-                    </ul> 
+                    </ul>  */}
                     {show ? menuEl : null}
                     {show ? <div className="menu-mask" onClick={this.onMaskClick} /> : null} 
                  </div>

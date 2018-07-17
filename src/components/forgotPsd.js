@@ -117,7 +117,7 @@ var ForgotPsd = React.createClass({
             } else {//号码还没注册过
                 fromWhy = "register";
             }
-            //console.log(fromWhy);
+            console.log(fromWhy);
             if (phoneNum && yzCode) {
                 if (yzCode == verifyCode) {
                     var data = { fromWhy: fromWhy, phoneNum: phoneNum, verifyCode: yzCode };
@@ -163,7 +163,8 @@ var ForgotPsd = React.createClass({
                     <div className="psdLogin" onClick={that.yzHandle}>下一步</div>
                     <div className={this.props.location.query.fromWhere=='forget'?'hide':"agree"}>
                         <p>
-                            <input type="radio" value="" name="info" defaultChecked/>同意
+                            {/* <input type="radio" value="" name="info" defaultChecked/> */}
+                            <span className="checkicon" style={{backgroundImage:"url('src/img/icon/login-icon8.png')"}}></span>同意
                             <Link to={
                         {
                             pathname: "/txt",

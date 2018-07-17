@@ -464,6 +464,8 @@
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex; }
+  #app .loanlist .am-accordion::before {
+    height: 0; }
   #app .loanlist .am-accordion .am-accordion-item {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;

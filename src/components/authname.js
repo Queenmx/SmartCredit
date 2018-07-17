@@ -46,7 +46,7 @@ var SetPsd = React.createClass({
             api.authName(data,function(res){
                 if(res.code=="0000"){
                     var path={
-                        pathname: '/insurance', 
+                        pathname: '/', 
                     }
                     var user =JSON.parse(localStorage.getItem("user"));
                     Object.assign(user,{realName:realName,idCard:idCard});

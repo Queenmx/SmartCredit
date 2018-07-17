@@ -2,6 +2,7 @@ var http = require("./http");
 import { globalData } from './global.js';
 
 var key1 = globalData.key;
+var ip = returnCitySN["cip"];
 
 
 //标签
@@ -68,14 +69,16 @@ module.exports.register = function (phone, pwd, verifyCode, cb1, cb2) {
     data.pwd = pwd;
     data.type = "C";
     data.verifyCode = verifyCode;
+    data.ip=ip;
     var param = JSON.stringify(data);
-    //console.log(param);
+    console.log(param);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/add`, { params: str }, cb1, cb2);
     delete data.phone;
     delete data.pwd;
     delete data.type;
     delete data.verifyCode;
+    delete data.ip;
 }
 
 //忘记密码，重置密码
@@ -325,6 +328,43 @@ module.exports.articleDetail = function (articleId, cb1, cb2) {
 
 
 //---------------------贷款产品
+//借款列表
+module.exports.productList = function (cb1, cb2) {
+    var data = globalData.requestData;
+    //data.token=token;    
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/loan/product/viewProducts`, { params: str }, cb1, cb2);
+   
+}
+//详情
+module.exports.loanDetail = function (loanId, cb1, cb2) {
+    var data = globalData.requestData;
+    data.id = loanId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/loan/product/productDetails`, { params: str }, cb1, cb2);
+    delete data.loanId;
+}
+//模糊查询
+module.exports.findProduct = function (item, cb1, cb2) {
+    var data = globalData.requestData;
+    data.loanTermStart = item.loanTermStart;
+    data.loanTermEnd=item.loanTermEnd;
+    data.miniScope=item.miniScope;
+    data.maxScope=item.maxScope;
+    data.creditReport=item.creditReport;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/loan/product/findProduct`, { params: str }, cb1, cb2);
+    delete data.loanTermStart;
+    delete data.loanTermEnd;
+    delete data.miniScope;
+    delete data.maxScope;
+    delete data.creditReport;   
+}
+
+
 //精准贷
 //列表
 module.exports.loanList = function (pageNum, pageSize, tag, type, cb1, cb2) {
@@ -342,18 +382,7 @@ module.exports.loanList = function (pageNum, pageSize, tag, type, cb1, cb2) {
     delete data.tag;
     delete data.type;
 }
-//详情
-module.exports.loanDetail = function (loanId, cb1, cb2) {
-    var data = globalData.requestData;
-    // data.token=token;
-    data.loanId = loanId;
-    data.userId = globalData.userId;
-    var param = JSON.stringify(data);
-    var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/loan/detail`, { params: str }, cb1, cb2);
-    delete data.loanId;
-    delete data.userId;
-}
+
 //利息
 module.exports.lixi = function (limitDay, limitType, loanId, money, cb1, cb2) {
     var data = globalData.requestData;

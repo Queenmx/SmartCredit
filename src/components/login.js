@@ -47,18 +47,7 @@ var Login = React.createClass({
     },
     componentDidUpdate(){
         var that=this;
-        if((that.state.yzCode&&that.state.phoneNum)||(that.state.password&&that.state.phoneNum)){
-            // this.setState({
-            //     btnstyle:{
-            //         style: {
-            //             backgroundColor: "#44c7ee",
-            //             color: "#ffffff"
-            //         },
-            //     }
-        // })
-        }else{
-            // console.log("nn")
-        }
+        
     },
     checkWay: function (e) {
         var id = e.target.id * 1;
@@ -126,7 +115,7 @@ var Login = React.createClass({
                                 //     history.go(-1);
                                 // }
                                 var path={
-                                    pathname:'/insurance'//去往保险列表页
+                                    pathname:'/'//去往首页
                                 }
                                 hashHistory.push(path);
                             } else if(res.code=='1006'){
@@ -192,7 +181,7 @@ var Login = React.createClass({
                                     //     history.go(-1);
                                     // }
                                     var path={
-                                        pathname:'/insurance'//去往保险列表页
+                                        pathname:'/'//去往首页
                                     }
                                     hashHistory.push(path);
                                 } else {
@@ -341,6 +330,17 @@ var Login = React.createClass({
         let disabled = that.state.getMsg.disabled;
         let changeMsgTxt = that.state.changeMsgTxt;
         var text = this.state.liked ? '获取验证码' : this.state.count + '秒后重发';
+        var btnstyle={
+            backgroundColor: "#44c7ee",
+            color: "#ffffff"
+        }
+        // if(that.state.phoneNum&that.state.password){
+        //     btnstyle={
+        //         backgroundColor: "#44c7ee",
+        //         color: "#ffffff"
+        //     }
+        // }
+        
         return (
             <div className="login">
                 {/* <Header title="登录" backRouter={backRouter} /> */}
@@ -374,7 +374,7 @@ var Login = React.createClass({
                             
                         </form>                      
                     </div>
-                    <a className="loginBtn" style={this.state.btnstyle.style} onClick={that.submitHandler}>登录</a>
+                    <a className="loginBtn" style={btnstyle} onClick={that.submitHandler}>登录</a>
                     <div className="btn">                         
                         <p className="forgotPsd register">
                             <Link to={{pathname:"/ForgotPsd",query:{fromWhere:'rgs'}} }>
