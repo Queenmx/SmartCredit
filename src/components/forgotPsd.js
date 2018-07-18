@@ -22,7 +22,16 @@ var ForgotPsd = React.createClass({
         }
     },
     componentWillMount(){
-        
+        var phoneNum = localStorage.getItem("phoneNum") || "";
+        this.setState({ 
+            phoneNum: phoneNum,
+        })
+       
+    },
+    componentWillReceiveProps(nextProps){
+        if(nextProps.location.query.state=="rgs"){
+            location.reload();
+        }
     },
 	/*changeMsgTxt:function(e){
 		this.setState({
@@ -111,22 +120,50 @@ var ForgotPsd = React.createClass({
         if (!(/^1[34578]\d{9}$/.test(phoneNum))) {
             ////console.log(phoneNum);
             Toast.info("请输入正确格式的手机号码", 2);
-        } else {
-            if (that.state.reg) {//注册了,忘记密码
-                fromWhy = "forgetPsd";
-            } else {//号码还没注册过
-                fromWhy = "register";
-            }
-            console.log(fromWhy);
+        } else {           
             if (phoneNum && yzCode) {
                 if (yzCode == verifyCode) {
-                    var data = { fromWhy: fromWhy, phoneNum: phoneNum, verifyCode: yzCode };
-                    let path = {
-                        pathname: '/SetPsd',
-                        state: data
+                    if(this.props.location.query.fromWhere=='forget'){//忘记密码页面
+                        if (that.state.reg) {//注册了,忘记密码
+                            fromWhy = "forgetPsd";
+                            var data = { fromWhy: fromWhy, phoneNum: phoneNum, verifyCode: yzCode };                       
+                            var path = {
+                                pathname: '/SetPsd',
+                                state: data
+                            }                           
+                            Toast.info("验证通过", 2);
+                        } else {//号码还没注册过
+                            fromWhy = "register";
+                            Toast.info("手机号未注册", 2);
+                            var path = {
+                                pathname: '/ForgotPsd',
+                                query:{fromWhere:'rgs',state:'rgs'}
+                            }
+                        }
+                    }else{//注册页面
+                        if (that.state.reg) {//注册了
+                            fromWhy = "forgetPsd";
+                            Toast.info("手机号已注册，请先登录", 2);
+                            var path = {
+                                pathname: '/',
+                            }
+                                                       
+                        } else {//号码还没注册过
+                            fromWhy = "register";
+                            var data = { fromWhy: fromWhy, phoneNum: phoneNum, verifyCode: yzCode };                       
+                            var path = {
+                                pathname: '/SetPsd',
+                                state: data
+                            }
+                            Toast.info("验证通过", 2);
+                        }                        
                     }
-                    hashHistory.push(path);
-                    Toast.info("验证通过", 2);
+                    localStorage.setItem("phoneNum",phoneNum)
+                    setTimeout(function(){
+                        hashHistory.push(path);
+                    },2000) 
+                    console.log(fromWhy);
+                    
                 } else {
                     Toast.info("验证码不正确", 2);
                 }
@@ -142,16 +179,14 @@ var ForgotPsd = React.createClass({
         let display = that.state.display;
         let getMsgTxt = that.state.getMsg.getMsgTxt;
         let disabled = that.state.getMsg.disabled;
-        //let changeMsgTxt=that.state.changeMsgTxt;
         var text = this.state.liked ? '获取验证码' : this.state.count + '秒后重发';
-        //var phoneNum=this.props.location.state.phoneNum;
         return (
             <div className="forgotPsd app_Box">
                 <Header title={this.props.location.query.fromWhere=='forget'?"忘记密码":'注册' }/>
                 <div className="forgotPsdCon">
                     <div className="inputPsd">
                         <label htmlFor="phoneNum" style={{backgroundImage:"url('src/img/icon/login-icon2.png')"}}></label>
-                        <input id="phoneNum" type="number" name="phoneNum" placeholder="请输入手机号码" onChange={that.vauleChange} />
+                        <input id="phoneNum" type="number" name="phoneNum" placeholder="请输入手机号码" onChange={that.vauleChange} value={that.state.phoneNum}/>
                     </div>
 
                     <div className="inputPsd">
@@ -164,7 +199,7 @@ var ForgotPsd = React.createClass({
                     <div className={this.props.location.query.fromWhere=='forget'?'hide':"agree"}>
                         <p>
                             {/* <input type="radio" value="" name="info" defaultChecked/> */}
-                            <span className="checkicon" style={{backgroundImage:"url('src/img/icon/login-icon8.png')"}}></span>同意
+                            <span className="checkicon" style={{backgroundImage:"url('src/img/icon/bao-icon6.png')"}}></span>同意
                             <Link to={
                         {
                             pathname: "/txt",

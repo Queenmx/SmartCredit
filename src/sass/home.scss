@@ -405,60 +405,38 @@
           }
     }
     .am-accordion{
-        position: relative; 
         @include only_display;
-        &::before{
-            height: 0;
-        }
         .am-accordion-item{
-            @include flex_1;
+            width:24%;
             .am-accordion-header{
-                position: relative; 
-                height: 0.88rem;
-                line-height: 0.88rem;
-                box-sizing: content-box;
-                padding-left: 0.15rem;
-                padding-right: 0.3rem;
-                width: 0.57rem;
-                
-               
-                
                 background:#508aff;
                 color:#fff;
                 font-size: 0.28rem;
-               
+                position: relative;
+                height: 0.8rem;
+                line-height: 0.8rem;
                 i{
+                    @include icon(0.28rem,0.16rem);
                     position: absolute;
-                    display: block;
-                    top: 0.35rem;
-                    right: -0.15rem;
-                    width: 0.28rem;
-                    height: 0.16rem;
+                    top: 0.31rem;
+                    right: 0.2rem;
                     background-size: contain;
                     background-repeat: no-repeat;
                     background-position: 50% 50%;
-                    // -webkit-transform: rotate(90deg);
-                    // -ms-transform: rotate(90deg);
-                    // transform: rotate(90deg);
                     -webkit-transition: -webkit-transform .2s ease;
                     transition: -webkit-transform .2s ease;
                     transition: transform .2s ease;
                     transition: transform .2s ease, -webkit-transform .2s ease;
                 }
-                span{
-                    padding-bottom: 0.1rem;
-                }
                 .showbottom{
                     border-bottom: 0.04rem solid #fff;
                 }
             }
-            
             .am-accordion-header[aria-expanded~="true"] i {
                 -webkit-transform: rotate(180deg);
                     -ms-transform: rotate(180deg);
                         transform: rotate(180deg);
               }
-            
         }
         .down{
             .am-accordion-header i{
@@ -952,9 +930,11 @@
 }
 //信用卡
 .creditcard{
+
+
     .loan{
         ul{           
-            a{
+            li{
                 @include only_display;
                 margin-bottom: 0.3rem;
                 padding: 0.42rem;
@@ -1107,7 +1087,7 @@
         .btninfo{
             border-top: 0.01rem dashed #b0caff;
             padding-top: 0.3rem;
-            margin-top: 3.06rem;
+            margin-top:1.2rem;
             p{
                 &>span{
                     @include icon(0.24rem,0.24rem);margin-right: 0.16rem;
@@ -1120,13 +1100,15 @@
                     }
                 }
             }
-            .loginBtn{width: 2.9rem;border-radius:1.2rem;background: #44c6ec;color: #fff;margin:0.3rem auto;}
+            .loginBtn{width: 2.9rem;border-radius:1.2rem;background: #508aff;color: #fff;margin:0.3rem auto;}
             
         }
     }
+    
 }
 .bx{width:90% !important;height: 6rem;
-     .am-modal-content .am-modal-body{padding:0 0.2rem;font-size: 0.28rem;color: #020202;
+    .am-modal-content .am-modal-body{
+        padding:0 0.2rem;font-size: 0.28rem;color: #020202;
         &>div{height: 4.6rem;}
         .hide{display: none;}
         .survey{
@@ -1142,7 +1124,18 @@
             .subtn{background:$blue;width:1.8rem;height: 0.5rem;line-height: 0.5rem;border-radius: 0.3rem;color:#fff;margin:0.3rem auto 0; text-align: center;}
         }
     }
-    .am-modal-title{font-size:0.28rem;color:#508aff;}
+    .am-modal-title{font-size:0.32rem;color:#508aff;}
     .am-modal-content{text-align:left;padding-top:0.1rem;}
     .am-modal-header{padding:0.06rem 0;}
+}
+//协议
+#app {
+    .txt{
+        .header{
+            background: #fff;
+            color:black;
+        }
+        .txtCon{background: #fff;}
+    }
+
 }

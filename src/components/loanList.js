@@ -148,6 +148,7 @@ var LoanList = React.createClass({
         
     },
     onSelected (item) {
+        var active=this.state.checkedItem;
         var data={
             categoryName:'',
             loanTermStart:'',
@@ -228,17 +229,15 @@ var LoanList = React.createClass({
                 break;
 
         }
-        console.log(data)
         this.getInit(data);
         this.setState({
             value:item,
             show: false,
-            jiantou:true
+            checkedItem:22,
         });
     },
     checked(temp){
-        console.log(temp);
-        
+        // console.log(temp);        
         if(!this.state.show){
             switch(temp){
                 case 0:
@@ -289,8 +288,7 @@ var LoanList = React.createClass({
             }
             this.setState({
                 show:true,
-                checkedItem:temp
-                
+                checkedItem:temp,               
             })
         }
         
@@ -380,7 +378,7 @@ var LoanList = React.createClass({
             this.state.checkData.map(function(item,i){
                 return(
                     <div className="am-accordion-item" role="tablist" key={i} onClick={that.checked.bind(that,item.value)} >                
-                        <div className="am-accordion-header" role="tab" aria-expanded={that.state.show}>
+                        <div className="am-accordion-header" role="tab" aria-expanded={that.state.checkedItem==i?"true":'false'}>
                             <span className={that.state.checkedItem==i?"showbottom":''}>{item.name}</span>
                             <i className="arrow" style={{backgroundImage:"url('src/img/icon/loanlist-icon1.png')"}}></i>
                         </div>

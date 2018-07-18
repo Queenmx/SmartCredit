@@ -16,6 +16,9 @@ var Txt = React.createClass({
     componentDidMount: function () {
 
     },
+    back(){
+        history.go(-1);
+    },
     render: function () {
         var txtData = this.props.location;
         var title = txtData.state.title;
@@ -34,9 +37,6 @@ var Txt = React.createClass({
         } else if(fromId == 2){
             //用户注册协议
             txtCon = `
-            <p style="text-align:center;">
-            <span style="font-size:13px;font-family:黑体;font-weight:bold;">万融汇平台用户注册协议 </span>
-        </p>
             <p>
                 <span style="font-size:13px;font-family:黑体">本平台由陕西万福网络科技有限公司及其关联实体(以下简称“我们”或“陕西万福”)运营，我们依照以下注册协议向您提供本注册协议涉及的相关服务。请您使用万融汇服务前仔细阅读本注册协议。您只有完全同意所有注册协议，才能成为万融汇的用户（"用户"）并使用相应服务。您在注册为万融汇用户过程中点击"同意万融汇用户注册协议"按钮即表示您已仔细阅读并明确同意遵守本注册协议以及经参引而并入其中的所有条款、政策以及指南，并受该等规则的约束（合称"本注册协议"）。我们可能根据法律法规的要求或业务运营的需要，对本注册协议不时进行修改。除非另有规定，否则任何变更或修改将在修订内容于万融汇发布之时立即生效，您对万融汇的使用、继续使用将表明您接受此等变更或修改。如果您不同意本注册协议（包括我们可能不定时对其或其中引述的其他规则所进行的任何修改）的全部规定，则请勿使用万融汇提供的所有服务，或您可以主动取消万融汇提供的服务。 
             </p>
@@ -286,9 +286,6 @@ var Txt = React.createClass({
         }else if(fromId == 3){
             //数据解析服务协议
             txtCon =`
-            <p style="text-align:center;font-weight:bold;">
-                <span style="font-size:13px;font-family:黑体;">数据解析服务协议 </span>
-            </p>
             <p>
                 <span style="font-size:13px;font-family:黑体;">本协议由陕西万福网络科技有限公司（以下简称“本公司”）和您签订。为明确用户在接受本公司服务过程中的权利义务，特制订本协议。您在通过本软件使用本公司提供的服务前，请仔细阅读以下的全部条款，一经点击“同意”或“勾选”后完成下一步操作，即视为您同意了本协议全部条款。所以，若您对本协议任何条款有异议的，请不要操作下一步或点击“同意”或“勾选”。
                 </span>
@@ -731,7 +728,14 @@ var Txt = React.createClass({
             }*/
         return (
             <div className="txt app_Box">
-                <Header title={title} />
+                {/* <Header title={title} /> */}
+                <div className="header">
+                    <div className="toBack" onClick={this.back}>
+                        <img src="src/img/icon/back3.png" />
+                    </div>
+                    <p className="title">{title}</p>
+                    <div className="headerLinkBtn"></div>
+                </div>
                 <div className="content txtCon" dangerouslySetInnerHTML={{ __html: txtCon }}>
                 </div>
 

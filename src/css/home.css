@@ -460,37 +460,29 @@
   opacity: 0.4;
   z-index: 1; }
 #app .loanlist .am-accordion {
-  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex; }
-  #app .loanlist .am-accordion::before {
-    height: 0; }
   #app .loanlist .am-accordion .am-accordion-item {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1; }
+    width: 24%; }
     #app .loanlist .am-accordion .am-accordion-item .am-accordion-header {
-      position: relative;
-      height: 0.88rem;
-      line-height: 0.88rem;
-      box-sizing: content-box;
-      padding-left: 0.15rem;
-      padding-right: 0.3rem;
-      width: 0.57rem;
       background: #508aff;
       color: #fff;
-      font-size: 0.28rem; }
+      font-size: 0.28rem;
+      position: relative;
+      height: 0.8rem;
+      line-height: 0.8rem; }
       #app .loanlist .am-accordion .am-accordion-item .am-accordion-header i {
-        position: absolute;
-        display: block;
-        top: 0.35rem;
-        right: -0.15rem;
+        display: inline-block;
         width: 0.28rem;
         height: 0.16rem;
+        vertical-align: middle;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 0.31rem;
+        right: 0.2rem;
         background-size: contain;
         background-repeat: no-repeat;
         background-position: 50% 50%;
@@ -498,8 +490,6 @@
         transition: -webkit-transform .2s ease;
         transition: transform .2s ease;
         transition: transform .2s ease, -webkit-transform .2s ease; }
-      #app .loanlist .am-accordion .am-accordion-item .am-accordion-header span {
-        padding-bottom: 0.1rem; }
       #app .loanlist .am-accordion .am-accordion-item .am-accordion-header .showbottom {
         border-bottom: 0.04rem solid #fff; }
     #app .loanlist .am-accordion .am-accordion-item .am-accordion-header[aria-expanded~="true"] i {
@@ -942,7 +932,7 @@
     width: 1.2rem;
     margin: 0.26rem auto; }
 
-.creditcard .loan ul a {
+.creditcard .loan ul li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -950,30 +940,30 @@
   margin-bottom: 0.3rem;
   padding: 0.42rem;
   background: #FFF; }
-  .creditcard .loan ul a > img {
+  .creditcard .loan ul li > img {
     display: inline-block;
     width: 2.3rem;
     height: 1.44rem;
     margin-right: 0.3rem; }
-  .creditcard .loan ul a > div {
+  .creditcard .loan ul li > div {
     display: inline-block; }
-    .creditcard .loan ul a > div > p {
+    .creditcard .loan ul li > div > p {
       height: 0.48rem;
       line-height: 0.48rem; }
-      .creditcard .loan ul a > div > p:first-child {
+      .creditcard .loan ul li > div > p:first-child {
         font-size: 0.3rem;
         color: #020202; }
-      .creditcard .loan ul a > div > p:nth-child(2) {
+      .creditcard .loan ul li > div > p:nth-child(2) {
         font-size: 0.28rem;
         color: #2b2b2b; }
-      .creditcard .loan ul a > div > p:last-child {
+      .creditcard .loan ul li > div > p:last-child {
         font-size: 0.24rem;
         color: #666666; }
-        .creditcard .loan ul a > div > p:last-child span {
+        .creditcard .loan ul li > div > p:last-child span {
           color: #ff811c; }
-  .creditcard .loan ul a:last-child {
+  .creditcard .loan ul li:last-child {
     margin-bottom: 0; }
-  .creditcard .loan ul a .loanTitle {
+  .creditcard .loan ul li .loanTitle {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     -webkit-flex: 1;
@@ -1105,7 +1095,7 @@
     .baoxian .loginCon .btninfo {
       border-top: 0.01rem dashed #b0caff;
       padding-top: 0.3rem;
-      margin-top: 3.06rem; }
+      margin-top: 1.2rem; }
       .baoxian .loginCon .btninfo p {
         color: #666666; }
         .baoxian .loginCon .btninfo p > span {
@@ -1129,7 +1119,7 @@
       .baoxian .loginCon .btninfo .loginBtn {
         width: 2.9rem;
         border-radius: 1.2rem;
-        background: #44c6ec;
+        background: #508aff;
         color: #fff;
         margin: 0.3rem auto; }
 
@@ -1181,12 +1171,18 @@
       margin: 0.3rem auto 0;
       text-align: center; }
   .bx .am-modal-title {
-    font-size: 0.28rem;
+    font-size: 0.32rem;
     color: #508aff; }
   .bx .am-modal-content {
     text-align: left;
     padding-top: 0.1rem; }
   .bx .am-modal-header {
     padding: 0.06rem 0; }
+
+#app .txt .header {
+  background: #fff;
+  color: black; }
+#app .txt .txtCon {
+  background: #fff; }
 
 /*# sourceMappingURL=home.css.map */
