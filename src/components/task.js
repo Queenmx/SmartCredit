@@ -100,7 +100,7 @@ var Loan = React.createClass({
             // }
             // that.setState({ tagArr: that.state.tagArr })
         } else {
-            api.
+        
         }
 
     },
