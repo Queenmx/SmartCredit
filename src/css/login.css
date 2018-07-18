@@ -246,11 +246,11 @@
   #app > .setPsd .psdLogin, #app > .forgotPsd .psdLogin {
     height: 0.8rem;
     line-height: 0.8rem;
-    background: #e6e6e6;
+    background: #508aff;
     width: 6.5rem;
     border-radius: 3px;
     margin: 1.1rem auto 0;
-    color: #2b2b2b;
+    color: #fff;
     text-align: center; }
 #app .agree {
   color: #666666;
@@ -258,18 +258,18 @@
   padding: 0 0.08rem;
   margin-top: 0.38rem; }
   #app .agree p a {
-    color: #44c7ee; }
+    color: #508aff; }
   #app .agree p:first-child {
     margin-bottom: 0.22rem; }
   #app .agree p .checkicon {
     display: inline-block;
-    width: 0.2rem;
-    height: 0.2rem;
+    width: 0.24rem;
+    height: 0.24rem;
     vertical-align: middle;
     background-size: 100%;
     background-repeat: no-repeat;
     margin-right: 0.1rem;
-    vertical-align: inherit; }
+    vertical-align: top; }
 #app .hide {
   display: none; }
 

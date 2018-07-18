@@ -75,7 +75,7 @@ var Login = React.createClass({
         var wayNum = this.state.wayNum;
         var phoneNum = that.state.phoneNum;
 
-        if (!(/^1[34578]\d{9}$/.test(phoneNum))) {
+        if (!(/^1[345678]\d{9}$/.test(phoneNum))) {
             Toast.info("请输入正确格式的手机号码", 2);
         } else {
             switch (wayNum) {
@@ -113,7 +113,7 @@ var Login = React.createClass({
                                     Toast.info("登录成功", 2);
                                     const backRouter = that.props.params.backRouter;
                                     var path={
-                                        pathname:'/'//
+                                        pathname:'/'//去往保险列表页
                                     }
                                     hashHistory.push(path);
                                 }                                
@@ -180,7 +180,7 @@ var Login = React.createClass({
                                     //     history.go(-1);
                                     // }
                                     var path={
-                                        pathname:'/insurance'//去往保险列表页
+                                        pathname:'/'//去往保险列表页
                                     }
                                     hashHistory.push(path);
                                 } else {
@@ -259,7 +259,7 @@ var Login = React.createClass({
         //input在disable且readonly之后，onClick会在iOS上触发不起来，onTouchEnd又会在Android上把键盘弹出来，这边笔者做了个Hack，ios下用onTouchEnd，android下用onClick，就正常了。
         var phoneNum = that.state.phoneNum;
 
-        if (!(/^1[34578]\d{9}$/.test(phoneNum))) {
+        if (!(/^1[345678]\d{9}$/.test(phoneNum))) {
             //console.log(phoneNum);
             Toast.info("请输入正确格式的手机号码", 2);
         } else {
@@ -330,7 +330,7 @@ var Login = React.createClass({
         let changeMsgTxt = that.state.changeMsgTxt;
         var text = this.state.liked ? '获取验证码' : this.state.count + '秒后重发';
         var btnstyle={
-            backgroundColor: "#44c7ee",
+            backgroundColor: "#508aff",
             color: "#ffffff"
         }
         // if(that.state.phoneNum&that.state.password){

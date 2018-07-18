@@ -226,22 +226,21 @@
     .psdLogin{
             height: 0.8rem;
             line-height: 0.8rem;
-            background:#e6e6e6;
+            background:#508aff;
             width:6.5rem ;
             border-radius: 3px;
             margin: 1.1rem auto 0;
-            color: #2b2b2b;
+            color: #fff;
             text-align: center;
         }
     }
     .agree{
         color:#666666;font-size: 0.24rem;padding:0 0.08rem;margin-top:0.38rem;
         p{
-            a{color:#44c7ee;}
+            a{color:#508aff;}
             &:first-child{margin-bottom:0.22rem;}
-            // input{vertical-align: middle;    margin-right: 0.1rem;}
             .checkicon{
-                @include icon(0.2rem,0.2rem);margin-right: 0.1rem;vertical-align: inherit;
+                @include icon(0.24rem,0.24rem);margin-right: 0.1rem;vertical-align: top;
             }
         }
     }

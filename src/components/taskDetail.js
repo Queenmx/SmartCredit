@@ -14,12 +14,11 @@ var appBasePath = globalData.appBasePath;
 var ListDetail = React.createClass({
     getInitialState: function () {
         return {
-            percent: 50,
         }
     },
 
     componentWillMount: function () {
-        var user = localStorage.getItem("user");       
+        var user = localStorage.getItem("user");     
         if (user) {
             this.setState({                
                 isLogin: true,                
@@ -29,6 +28,75 @@ var ListDetail = React.createClass({
                 isLogin: false,               
             })
         }
+    },
+    componentDidMount:function(){
+        var key1 = globalData.key;        
+        var info=this.props.location.query;
+        var that=this;
+        api.viewTask(info.id*1,info.taskName,function(res){
+            if(res.code=="0000"){
+                var result = JSON.parse(strDec(res.data, key1, "", ""));
+                console.log(result);
+                var time=result.effectiveTime.time-result.releaseTime.time;
+                console.log(time)
+                var arr=[];
+                arr.push(
+                    <div key={result.id}>
+                         <div className="time">
+                            <p>剩余时间</p>
+                            <p>
+                                <span>2&nbsp;</span>天
+                                <span>&nbsp;2&nbsp;</span>时
+                                <span>&nbsp;2&nbsp;</span>分
+                                <span>&nbsp;2&nbsp;</span>秒
+                            </p>
+                            <p>任务时间：{result.releaseTime.year}年{result.releaseTime.month+1}月{result.releaseTime.day}日起</p>
+                        </div>
+                        <ul className="detail">
+                            <li>
+                                <div className="info">
+                                    <p>当前剩余任务总数&nbsp;<span className="ftcolor">{result.count}</span>/100</p>
+                                    <div className="progress-container">                            
+                                        <Progress percent={result.count} position="normal" unfilled={false} appearTransition />                                    
+                                    </div>
+                                </div>                            
+                            </li>
+                            <li>
+                                <p><span></span><i>任务详情</i><span></span></p>
+                                <div className="info">
+                                    <p>奖励要求：{result.taskDetails}</p>
+                                    
+                                </div>                            
+                            </li>
+                            <li>
+                                <p><span></span><i>任务规则</i><span></span></p>
+                                <div className="info">
+                                {result.taskRule}
+                                    {/* <p>任务时间：2018年6月32日起</p>
+                                    <div className="step">
+                                        <span>任务步骤：</span>
+                                        <dl>                                   
+                                            <dd>1.沙发垫</dd>
+                                            <dd>2.沙发垫</dd>
+                                            <dd>3.沙发垫</dd>
+                                        </dl>
+                                    </div>                                 */}
+                                </div>                            
+                            </li>
+                            <li>
+                                <p><span></span><i>任务奖励</i><span></span></p>
+                                <div className="info">
+                                    <p>任务奖励：<span>{result.taskMoney}</span>元（任务奖励按照每投资100递增）</p>                                
+                                </div>                            
+                            </li>
+                        </ul>
+                    </div>
+                )
+                that.setState({
+                    taskInfo:arr
+                })
+            }
+        })
     },
     getTask(){
         if (this.state.isLogin) {
@@ -91,13 +159,7 @@ var ListDetail = React.createClass({
             return ""
         }
     },
-
-
-    componentDidMount: function () {
-
-    },
-
-   
+ 
 
 
     logoError: function (event) {
@@ -139,53 +201,7 @@ var ListDetail = React.createClass({
                 <Header title="任务详情" />
                 <div className="listDetailCon content">
                     <Loading flag={that.state.flag} />                                     
-                    <div className="time">
-                        <p>剩余时间</p>
-                        <p>
-                            <span>2&nbsp;</span>天
-                            <span>&nbsp;2&nbsp;</span>时
-                            <span>&nbsp;2&nbsp;</span>分
-                            <span>&nbsp;2&nbsp;</span>秒
-                        </p>
-                        <p>任务时间：2018年2月12日起</p>
-                    </div>
-                    <ul className="detail">
-                        <li>
-                            <div className="info">
-                                <p>当前剩余任务总数&nbsp;<span className="ftcolor">2</span>/100</p>
-                                <div className="progress-container">                            
-                                    <Progress percent={this.state.percent} position="normal" unfilled={false} appearTransition />                                    
-                                </div>
-                            </div>                            
-                        </li>
-                        <li>
-                            <p><span></span><i>任务详情</i><span></span></p>
-                            <div className="info">
-                                <p>奖励要求：首次充值电风扇</p>
-                                
-                            </div>                            
-                        </li>
-                        <li>
-                            <p><span></span><i>任务规则</i><span></span></p>
-                            <div className="info">
-                                <p>任务时间：2018年6月32日起</p>
-                                <div className="step">
-                                    <span>任务步骤：</span>
-                                    <dl>                                   
-                                        <dd>1.沙发垫</dd>
-                                        <dd>2.沙发垫</dd>
-                                        <dd>3.沙发垫</dd>
-                                    </dl>
-                                </div>                                
-                            </div>                            
-                        </li>
-                        <li>
-                            <p><span></span><i>任务奖励</i><span></span></p>
-                            <div className="info">
-                                <p>任务奖励：<span>1</span>元</p>                                
-                            </div>                            
-                        </li>
-                    </ul>
+                    {this.state.taskInfo}
                     
                 </div>
                 <div className="footer">

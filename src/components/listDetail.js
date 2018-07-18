@@ -189,7 +189,7 @@ var ListDetail = React.createClass({
                     <Loading flag={that.state.flag} />                                     
                     <ul className="loan-list">
                         <li>
-                            <img src={imgPath+loanDetail.logo} />
+                            <img src={imgPath+loanDetail.logo}/>
                             <div className="loanTitle">
                                 <p>{loanDetail.categoryName}</p>
                                 <p>{loanDetail.intendedFor}</p>
@@ -222,7 +222,7 @@ var ListDetail = React.createClass({
                         </li> 
                         <li className="numdetail">
                             <div>
-                                <p><span>{loanDetail.loanTermStart}-{loanDetail.loanTermEnd}</span>{loanDetail.loanTermEnd}</p>
+                                <p><span>{loanDetail.loanTermStart}-{loanDetail.loanTermEnd}</span>{loanDetail.loanTermUnit}</p>
                                 <p>货款期限</p>
                             </div>
                             <div>

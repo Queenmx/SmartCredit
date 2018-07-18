@@ -848,3 +848,29 @@ module.exports.getCompAndContact = function (cb1, cb2) {
     }, cb1, cb2);
     delete data.userId;
 }
+// 任务中心
+module.exports.taskcenter = function (phone,cb1, cb2) {
+    var data = globalData.requestData;
+    data.appId =phone;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // console.log(param);
+    http(`${globalData.path}/task/missionCenter/list`, {
+        params: str
+    }, cb1, cb2);
+    delete data.appId;
+}
+//任务详情
+module.exports.viewTask = function (id,taskName,cb1, cb2) {
+    var data = globalData.requestData;
+    data.id =id;
+    data.taskName=taskName;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // console.log(param);
+    http(`${globalData.path}/task/missionCenter/viewTask`, {
+        params: str
+    }, cb1, cb2);
+    delete data.id;
+    delete data.taskName;
+}

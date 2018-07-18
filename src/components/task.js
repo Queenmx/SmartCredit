@@ -19,8 +19,8 @@ var Loan = React.createClass({
             pageNum: 1,
             pageSize: 10,
             // tagArr: [],
-            listKSD: [],
-            listJZD: []
+            listKSD: [],//贷款任务
+            listJZD: []//理财任务
         }
     },
 
@@ -76,9 +76,109 @@ var Loan = React.createClass({
     componentDidMount: function () {
         var key1 = globalData.key;
         var toast = globalData.toast;
+        var phone=JSON.parse(localStorage.getItem("user")).phone;
         var that = this;
 
-        var activeLoanId = localStorage.getItem("activeLoanId");
+        var activeLoanId = localStorage.getItem("activeLoanId");       
+        api.taskcenter(phone,function(res){
+            if(res.code=='0000'){
+                var result= JSON.parse(strDec(res.data, key1, "", ""));                
+                that.setState({
+                    tasks:result.tasks,//未领取理财任务
+                    myTasks:result.myTasks,//已领取理财任务
+                    tasksLoan:result.tasksLoan,// 未领取贷款
+                    myTasksLoan:result.myTasksLoan//已领取贷款
+                })
+                console.log(result)
+                var arr1=result.tasks.map(function(item,i){//未领取理财任务
+                        return (
+                            <li key={item.id}>
+                                <img src={imgPath+item.url} />
+                                <div className="loanTitle">
+                                    <p>{item.taskName}</p>
+                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                </div>
+                                <div className="high">
+                                    <p onClick={that.goTask.bind(that,item.id,item.taskName)}>查看任务</p>
+                                    <p className="geting">未领取</p>
+                                </div>
+                            </li>
+                        )
+                })
+                var arr2=result.myTasks.map(function(item,i){//已领取理财任务
+                    return (
+                        <li key={item.id}>
+                                <img src={imgPath+item.url} />
+                                <div className="loanTitle">
+                                    <p>{item.taskName}</p>
+                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                </div>
+                                <div className="high">
+                                    <p onClick={that.goTask.bind(that,item.id,item.taskName)}>查看任务</p>
+                                    <p>已领取</p>
+                                </div>
+                            </li>
+                    )
+                })
+                var daikuan1=result.tasksLoan.map(function(item,i){//贷款未领取
+                    return (
+                        <li key={item.id}>
+                            <img src={imgPath+item.url} />
+                            <div className="loanTitle">
+                                <p>{item.taskName}</p>
+                                <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                            </div>
+                            <div className="high">
+                                <p onClick={that.goTask.bind(that,item.id,item.taskName)}>查看任务</p>
+                                <p className="geting">未领取</p>
+                            </div>
+                        </li>
+                    )
+                })
+                var daikuan2=result.myTasksLoan.map(function(item,i){//贷款已领取
+                    return (
+                        <li key={item.id}>
+                            <img src={imgPath+item.url} />
+                            <div className="loanTitle">
+                                <p>{item.taskName}</p>
+                                <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                            </div>
+                            <div className="high">
+                                <p onClick={that.goTask.bind(that,item.id,item.taskName)}>查看任务</p>
+                                <p>已领取</p>
+                            </div>
+                        </li>
+                    )
+                })
+                const notask=(
+                    <div className="notask">
+                        <img src="src/img/icon/task-icon1.png" alt=""/> 
+                        <p>暂无任务</p>
+                    </div>
+                )
+                if(result.tasks.length||result.myTasks.length){
+                    that.setState({                        
+                        listJZD:arr1.concat(arr2),
+                    })    
+                }else{
+                    that.setState({                        
+                        listJZD:notask
+                    })
+                }
+                if(result.tasksLoan.length||result.myTasksLoan.length){
+                    that.setState({                        
+                        listKSD:daikuan1.concat(daikuan2),
+                    })    
+                }else{
+                    that.setState({                        
+                        listKSD:notask
+                    })
+                }
+                
+            }else{
+                Toast.info(res.msg,2);
+            }
+        })
         if (activeLoanId) {
             that.setState({
                 activeLoanId: activeLoanId
@@ -86,6 +186,7 @@ var Loan = React.createClass({
         }else{
         	that.ksd()
         }
+<<<<<<< HEAD
 
         var homeTag = sessionStorage.getItem("homeTag");
         if (homeTag) {
@@ -103,13 +204,18 @@ var Loan = React.createClass({
         
         }
 
+=======
+>>>>>>> be3696872d318247c9a46ac4ca4677b37aee2c76
     },
-    goTask(){
+    goTask(id,name){
+        // console.log(id,name)
         var path = {
             pathname: '/taskDetail',
+            query:{id:id,taskName:name}
         }
         hashHistory.push(path);
     },
+<<<<<<< HEAD
     //（理财任务）
     jzd: function () {
         var key1 = globalData.key;
@@ -128,10 +234,20 @@ var Loan = React.createClass({
        
     },
     //（贷款任务）
+=======
+    //理财任务
+    jzd: function () {
+        var key1 = globalData.key;
+        var toast = globalData.toast;
+        var that = this;     
+    },
+    //贷款任务
+>>>>>>> be3696872d318247c9a46ac4ca4677b37aee2c76
     ksd: function () {
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
+<<<<<<< HEAD
         var homeLoanKSD = sessionStorage.getItem("homeLoanKSD");
         if (homeLoanKSD) {
             var loanList = JSON.parse(homeLoanKSD);
@@ -177,6 +293,8 @@ var Loan = React.createClass({
         }
 
 
+=======
+>>>>>>> be3696872d318247c9a46ac4ca4677b37aee2c76
     },
 
 
@@ -186,9 +304,9 @@ var Loan = React.createClass({
         var toast = globalData.toast;
         var activeLoanId = that.state.activeLoanId;
         //console.log(activeLoanId);
-        if (activeLoanId == "1") {//精准贷
+        if (activeLoanId == "1") {//理财任务
             that.jzd()
-        } else {//快速贷
+        } else {//贷款任务
             that.ksd()
         }
 
@@ -217,7 +335,9 @@ var Loan = React.createClass({
                         </ul>
                     </div> */}
                     <div className="capitalBox">
-                        {activeLoanId == "0" ? that.state.listKSD : that.state.listJZD}
+                        <ul className="tasklist">
+                            {activeLoanId == "0" ? that.state.listKSD : that.state.listJZD}
+                        </ul>
                     </div>
                     <Loading flag={that.state.isLoading} />
                 </div>
