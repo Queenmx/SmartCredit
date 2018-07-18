@@ -848,8 +848,7 @@ module.exports.taskcenter = function (phone,cb1, cb2) {
     delete data.appId;
 }
 //任务详情
-
-module.exports.taskcenter = function (id,taskName,cb1, cb2) {
+module.exports.viewTask = function (id,taskName,cb1, cb2) {
     var data = globalData.requestData;
     data.id =id;
     data.taskName=taskName;
