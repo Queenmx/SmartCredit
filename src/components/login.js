@@ -75,7 +75,7 @@ var Login = React.createClass({
         var wayNum = this.state.wayNum;
         var phoneNum = that.state.phoneNum;
 
-        if (!(/^1[34578]\d{9}$/.test(phoneNum))) {
+        if (!(/^1[345678]\d{9}$/.test(phoneNum))) {
             Toast.info("请输入正确格式的手机号码", 2);
         } else {
             switch (wayNum) {
@@ -259,7 +259,7 @@ var Login = React.createClass({
         //input在disable且readonly之后，onClick会在iOS上触发不起来，onTouchEnd又会在Android上把键盘弹出来，这边笔者做了个Hack，ios下用onTouchEnd，android下用onClick，就正常了。
         var phoneNum = that.state.phoneNum;
 
-        if (!(/^1[34578]\d{9}$/.test(phoneNum))) {
+        if (!(/^1[345678]\d{9}$/.test(phoneNum))) {
             //console.log(phoneNum);
             Toast.info("请输入正确格式的手机号码", 2);
         } else {

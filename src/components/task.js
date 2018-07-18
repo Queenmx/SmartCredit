@@ -19,8 +19,8 @@ var Loan = React.createClass({
             pageNum: 1,
             pageSize: 10,
             // tagArr: [],
-            listKSD: [],
-            listJZD: []
+            listKSD: [],//贷款任务
+            listJZD: []//理财任务
         }
     },
 
@@ -76,9 +76,109 @@ var Loan = React.createClass({
     componentDidMount: function () {
         var key1 = globalData.key;
         var toast = globalData.toast;
+        var phone=JSON.parse(localStorage.getItem("user")).phone;
         var that = this;
 
-        var activeLoanId = localStorage.getItem("activeLoanId");
+        var activeLoanId = localStorage.getItem("activeLoanId");       
+        api.taskcenter(phone,function(res){
+            if(res.code=='0000'){
+                var result= JSON.parse(strDec(res.data, key1, "", ""));                
+                that.setState({
+                    tasks:result.tasks,//未领取理财任务
+                    myTasks:result.myTasks,//已领取理财任务
+                    tasksLoan:result.tasksLoan,// 未领取贷款
+                    myTasksLoan:result.myTasksLoan//已领取贷款
+                })
+                console.log(result)
+                var arr1=result.tasks.map(function(item,i){//未领取理财任务
+                        return (
+                            <li key={item.id}>
+                                <img src={imgPath+item.url} />
+                                <div className="loanTitle">
+                                    <p>{item.taskName}</p>
+                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                </div>
+                                <div className="high">
+                                    <p onClick={that.goTask.bind(that,item.id,item.taskName)}>查看任务</p>
+                                    <p className="geting">未领取</p>
+                                </div>
+                            </li>
+                        )
+                })
+                var arr2=result.myTasks.map(function(item,i){//已领取理财任务
+                    return (
+                        <li key={item.id}>
+                                <img src={imgPath+item.url} />
+                                <div className="loanTitle">
+                                    <p>{item.taskName}</p>
+                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                </div>
+                                <div className="high">
+                                    <p onClick={that.goTask.bind(that,item.id,item.taskName)}>查看任务</p>
+                                    <p>已领取</p>
+                                </div>
+                            </li>
+                    )
+                })
+                var daikuan1=result.tasksLoan.map(function(item,i){//贷款未领取
+                    return (
+                        <li key={item.id}>
+                            <img src={imgPath+item.url} />
+                            <div className="loanTitle">
+                                <p>{item.taskName}</p>
+                                <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                            </div>
+                            <div className="high">
+                                <p onClick={that.goTask.bind(that,item.id,item.taskName)}>查看任务</p>
+                                <p className="geting">未领取</p>
+                            </div>
+                        </li>
+                    )
+                })
+                var daikuan2=result.myTasksLoan.map(function(item,i){//贷款已领取
+                    return (
+                        <li key={item.id}>
+                            <img src={imgPath+item.url} />
+                            <div className="loanTitle">
+                                <p>{item.taskName}</p>
+                                <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                            </div>
+                            <div className="high">
+                                <p onClick={that.goTask.bind(that,item.id,item.taskName)}>查看任务</p>
+                                <p>已领取</p>
+                            </div>
+                        </li>
+                    )
+                })
+                const notask=(
+                    <div className="notask">
+                        <img src="src/img/icon/task-icon1.png" alt=""/> 
+                        <p>暂无任务</p>
+                    </div>
+                )
+                if(result.tasks.length||result.myTasks.length){
+                    that.setState({                        
+                        listJZD:arr1.concat(arr2),
+                    })    
+                }else{
+                    that.setState({                        
+                        listJZD:notask
+                    })
+                }
+                if(result.tasksLoan.length||result.myTasksLoan.length){
+                    that.setState({                        
+                        listKSD:daikuan1.concat(daikuan2),
+                    })    
+                }else{
+                    that.setState({                        
+                        listKSD:notask
+                    })
+                }
+                
+            }else{
+                Toast.info(res.msg,2);
+            }
+        })
         if (activeLoanId) {
             that.setState({
                 activeLoanId: activeLoanId
@@ -86,377 +186,27 @@ var Loan = React.createClass({
         }else{
         	that.ksd()
         }
-
-        var homeTag = sessionStorage.getItem("homeTag");
-        if (homeTag) {
-            var tagdata = JSON.parse(homeTag);
-            //console.log(tagdata);
-            // for (var i in tagdata) {
-            //     that.state.tagArr.push(
-            //         <li key={i} data-tag={tagdata[i].tagNo} data-txt={tagdata[i].tagName} data-tagId={tagdata[i].tagId} onClick={that.toList}>
-            //             <img src={imgPath + tagdata[i].tagPic} />
-            //             <p>{tagdata[i].tagName}</p>
-            //         </li>)
-            // }
-            // that.setState({ tagArr: that.state.tagArr })
-        } else {
-            api.tag("BQ", function (res) {
-                //console.log(res)
-                if (res.code == "0000") {
-                    var tagdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    //console.log(tagdata);
-                    sessionStorage.setItem("homeTag", JSON.stringify(tagdata));
-                    // for (var i in tagdata) {
-                    //     that.state.tagArr.push(
-                    //         <li key={i} data-tag={tagdata[i].tagNo} data-txt={tagdata[i].tagName} data-tagId={tagdata[i].tagId} onClick={that.toList}>
-                    //             <img src={imgPath + tagdata[i].tagPic} />
-                    //             <p>{tagdata[i].tagName}</p>
-                    //         </li>)
-                    // }
-                    // that.setState({ tagArr: that.state.tagArr })
-                } else {
-                    Toast.info(res.msg, 2);
-                }
-
-            }, function () {
-                Toast.info("连接错误", 2);
-            })
-        }
-
     },
-    goTask(){
+    goTask(id,name){
+        // console.log(id,name)
         var path = {
             pathname: '/taskDetail',
+            query:{id:id,taskName:name}
         }
         hashHistory.push(path);
     },
-    //精准贷（理财任务）
+    //理财任务
     jzd: function () {
-        //console.log("精准贷")
         var key1 = globalData.key;
         var toast = globalData.toast;
-        var that = this;
-        var homeLoanJZD = sessionStorage.getItem("homeLoanJZD");
-        const arr=(
-            <div className="notask">
-                <img src="src/img/icon/task-icon1.png" alt=""/> 
-                <p>暂无任务</p>
-            </div>
-        )
-        that.setState({
-            listJZD: arr
-        })
-        // if (homeLoanJZD) {
-        //     var loanList = JSON.parse(homeLoanJZD);
-        //     var arr = [];
-        //     //console.log(loanList)
-        //     for (var i in loanList) {
-        //         var theDate = loanList[i].limitType;
-        //         var theDateTxt;
-        //         switch (theDate) {
-        //             case "Y":
-        //                 theDateTxt = "年"
-        //                 break;
-        //             case "M":
-        //                 theDateTxt = "月"
-        //                 break;
-        //             case "D":
-        //                 theDateTxt = "日"
-        //                 break;
-        //             default:
-        //                 break;
-        //         }
-        //          var theDateRate = loanList[i].rateType;
-        //         var theDateRateTxt;
-        //         switch (theDateRate) {
-        //             case "Y":
-        //                 theDateRateTxt = "年"
-        //                 break;
-        //             case "M":
-        //                 theDateRateTxt = "月"
-        //                 break;
-        //             case "D":
-        //                 theDateRateTxt = "日"
-        //                 break;
-        //             default:
-        //                 break;
-        //         }
-        //         arr.push(
-        //             // <div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
-        //             //     <h3>
-        //             //         <img src={imgPath + loanList[i].logo} onError={that.logoError} />
-        //             //         <span>{loanList[i].loanName}</span>
-        //             //     </h3>
-        //             //     <div className="capitalInfo">
-        //             //         <div className="limit">
-        //             //             <h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
-        //             //             <p>额度范围(元)</p>
-        //             //         </div>
-        //             //         <ul className="special">
-        //             //             <li>{loanList[i].loanTime}</li>
-        //             //             <li>{theDateRateTxt}费率{loanList[i].rate}%</li>
-        //             //             <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
-        //             //         </ul>
-        //             //         <div className="apply">
-        //             //             <a href="javascript:;" >申请贷款</a>
-        //             //         </div>
-        //             //     </div>
-        //             // </div>
-                   
-
-        //         )
-        //     }
-
-        //     that.setState({
-        //         listJZD: arr
-        //     })
-        // } else {
-        //     api.loanList(1, 30, "", "JZD", function (res) {
-        //         if (res.code == "0000") {
-        //             var data = JSON.parse(strDec(res.data, key1, "", ""));
-        //             //var data=res.data;
-        //             var loanList = data.list;
-		// 			//console.log(loanList)
-        //             sessionStorage.setItem("homeLoanJZD", JSON.stringify(loanList));
-        //             var arr = [];
-        //             for (var i in loanList) {
-        //                 var theDate = loanList[i].limitType;
-        //                 var theDateTxt;
-        //                 switch (theDate) {
-        //                     case "Y":
-        //                         theDateTxt = "年"
-        //                         break;
-        //                     case "M":
-        //                         theDateTxt = "月"
-        //                         break;
-        //                     case "D":
-        //                         theDateTxt = "日"
-        //                         break;
-        //                     default:
-        //                         break;
-        //                 }
-        //                   var theDateRate = loanList[i].rateType;
-        //         var theDateRateTxt;
-        //         switch (theDateRate) {
-        //             case "Y":
-        //                 theDateRateTxt = "年"
-        //                 break;
-        //             case "M":
-        //                 theDateRateTxt = "月"
-        //                 break;
-        //             case "D":
-        //                 theDateRateTxt = "日"
-        //                 break;
-        //             default:
-        //                 break;
-        //         }
-        //                 arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
-        //                     <h3>
-        //                         <img src={imgPath + loanList[i].logo} onError={that.logoError} />
-        //                         <span>{loanList[i].loanName}</span>
-        //                     </h3>
-        //                     <div className="capitalInfo">
-        //                         <div className="limit">
-        //                             <h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
-        //                             <p>额度范围(元)</p>
-        //                         </div>
-        //                         <ul className="special">
-        //                             <li>{loanList[i].loanTime}</li>
-        //                             <li>{theDateRateTxt}利率{loanList[i].rate}%</li>
-        //                             <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
-        //                         </ul>
-        //                         <div className="apply">
-        //                             <a href="javascript:;">申请贷款</a>
-        //                         </div>
-        //                     </div>
-
-        //                 </div>)
-        //             }
-
-        //             that.setState({
-        //                 listJZD: arr
-        //             })
-
-        //         } else {
-        //             Toast.info("连接错误", 2);
-        //         }
-        //     }, function () {
-        //         Toast.info("连接错误", 2);
-        //     })
-        // }
+        var that = this;     
     },
-    //快速贷（贷款任务）
+    //贷款任务
     ksd: function () {
         //console.log("快速贷")
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
-        var homeLoanKSD = sessionStorage.getItem("homeLoanKSD");
-        if (homeLoanKSD) {
-            var loanList = JSON.parse(homeLoanKSD);
-            var arr = [];
-           // console.log(loanList)
-            for (var i in loanList) {
-                var theDate = loanList[i].limitType;
-                var theDateTxt;
-                switch (theDate) {
-                    case "Y":
-                        theDateTxt = "年"
-                        break;
-                    case "M":
-                        theDateTxt = "月"
-                        break;
-                    case "D":
-                        theDateTxt = "日"
-                        break;
-                    default:
-                        break;
-                }
-                 var theDateRate = loanList[i].rateType;
-                var theDateRateTxt;
-                switch (theDateRate) {
-                    case "Y":
-                        theDateRateTxt = "年"
-                        break;
-                    case "M":
-                        theDateRateTxt = "月"
-                        break;
-                    case "D":
-                        theDateRateTxt = "日"
-                        break;
-                    default:
-                        break;
-                }
-                arr.push(
-                    // <div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
-                    //     <h3>
-                    //         <img src={imgPath + loanList[i].logo} onError={that.logoError} />
-                    //         <span>{loanList[i].loanName}</span>
-                    //     </h3>
-                    //     <div className="capitalInfo">
-                    //         <div className="limit">
-                    //             <h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
-                    //             <p>额度范围(元)</p>
-                    //         </div>
-                    //         <ul className="special">
-                    //             <li>{loanList[i].loanTime}</li>
-                    //             <li>{theDateRateTxt}费率{loanList[i].rate}%</li>
-                    //             <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
-                    //         </ul>
-                    //         <div className="apply">
-                    //             <a href="javascript:;" >申请贷款</a>
-                    //         </div>
-                    //     </div>
-                    // </div>
-                    <ul className="tasklist">
-                        <li>
-                            <img src="src/img/icon/product1.png" />
-                            <div className="loanTitle">
-                                <p>任务名称</p>
-                                <p><span>任务奖励</span>：完成任务可获得<span>500</span>积分</p>
-                            </div>
-                            <div className="high">
-                                <p onClick={this.goTask}>查看任务  </p>
-                                <p>已领取</p>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="src/img/icon/product1.png" />
-                            <div className="loanTitle">
-                                <p>任务名称</p>
-                                <p><span>任务奖励</span>：完成任务可获得<span>500</span>积分</p>
-                            </div>
-                            <div className="high">
-                                <p>
-                                    查看任务    
-                                </p>
-                                <p>未领取</p>
-                            </div>
-                        </li>
-                    </ul>
-                )
-            }
-
-            that.setState({
-                listKSD: arr
-            })
-        } else {
-            api.loanList(1, 30, "", "KSD", function (res) {
-                if (res.code == "0000") {
-                    var data = JSON.parse(strDec(res.data, key1, "", ""));
-                    //var data=res.data;
-                    var loanList = data.list;
-					//console.log(loanList);
-                    sessionStorage.setItem("homeLoanKSD", JSON.stringify(loanList));
-                    var arr = [];
-                    for (var i in loanList) {
-                        var theDate = loanList[i].limitType;
-                        var theDateTxt;
-                        switch (theDate) {
-                            case "Y":
-                                theDateTxt = "年"
-                                break;
-                            case "M":
-                                theDateTxt = "月"
-                                break;
-                            case "D":
-                                theDateTxt = "日"
-                                break;
-                            default:
-                                break;
-                        }
-                        
-                         var theDateRate = loanList[i].rateType;
-                var theDateRateTxt;
-                switch (theDateRate) {
-                    case "Y":
-                        theDateRateTxt = "年"
-                        break;
-                    case "M":
-                        theDateRateTxt = "月"
-                        break;
-                    case "D":
-                        theDateRateTxt = "日"
-                        break;
-                    default:
-                        break;
-                }
-                        arr.push(<div className="capitalList" key={i} data-loanId={loanList[i].loanId} data-type={loanList[i].type} onClick={that.toListDetail}>
-                            <h3>
-                                <img src={imgPath + loanList[i].logo} onError={that.logoError} />
-                                <span>{loanList[i].loanName}</span>
-                            </h3>
-                            <div className="capitalInfo">
-                                <div className="limit">
-                                    <h2>{loanList[i].moneyMin}~{loanList[i].moneyMax}</h2>
-                                    <p>额度范围(元)</p>
-                                </div>
-                                <ul className="special">
-                                    <li>{loanList[i].loanTime}</li>
-                                    <li>{theDateRateTxt}利率{loanList[i].rate}%</li>
-                                    <li>贷款期限{loanList[i].limitMin}-{loanList[i].limitMax}{theDateTxt}</li>
-                                </ul>
-                                <div className="apply">
-                                    <a href="javascript:;">申请贷款</a>
-                                </div>
-                            </div>
-
-                        </div>)
-                    }
-
-                    that.setState({
-                        listKSD: arr
-                    })
-
-                } else {
-                    Toast.info("连接错误", 2);
-                }
-            }, function () {
-                Toast.info("连接错误", 2);
-            })
-        }
-
-
     },
 
 
@@ -466,9 +216,9 @@ var Loan = React.createClass({
         var toast = globalData.toast;
         var activeLoanId = that.state.activeLoanId;
         //console.log(activeLoanId);
-        if (activeLoanId == "1") {//精准贷
+        if (activeLoanId == "1") {//理财任务
             that.jzd()
-        } else {//快速贷
+        } else {//贷款任务
             that.ksd()
         }
 
@@ -497,7 +247,9 @@ var Loan = React.createClass({
                         </ul>
                     </div> */}
                     <div className="capitalBox">
-                        {activeLoanId == "0" ? that.state.listKSD : that.state.listJZD}
+                        <ul className="tasklist">
+                            {activeLoanId == "0" ? that.state.listKSD : that.state.listJZD}
+                        </ul>
                     </div>
                     <Loading flag={that.state.isLoading} />
                 </div>

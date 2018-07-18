@@ -719,8 +719,8 @@
         .task .tasklist li .high p:first-child {
           background: #508aff;
           margin-bottom: 0.2rem; }
-        .task .tasklist li .high p:last-child {
-          background: #666666; }
+      .task .tasklist li .high .geting {
+        background: #666666; }
 .task .notask {
   text-align: center; }
   .task .notask img {
