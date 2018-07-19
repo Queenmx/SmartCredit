@@ -50,26 +50,48 @@ var Help = React.createClass({
                     var questionArr = [];
                     for (var i in data) {
                         questionArr.push(
-                          <li key={i}>
-                            <div>
-                               <p style={{backgroundImage:"url('src/img/icon/help-icon3.png')"}}></p>
-                               提问时间：
-                               <p>{data[i].addTime}</p>    
-                            </div>
-                            <div>
-                               <p></p>
-                               <p>{data[i].content}</p>   
-                            </div>
-                            <div>
-                               <p style={{backgroundImage:"url('src/img/icon/help-icon4.png')"}}></p>
-                               回答时间：
-                               <p>{data[i].addTime}</p>   
-                            </div>
-                            <div>
-                               <p></p>
-                               <p>{data[i].answer}</p>   
-                            </div>
-                        </li>
+                            <ul className="helpList" key={i}>                    
+                                <li>
+                                    <div>
+                                    <p style={{backgroundImage:"url('src/img/icon/help-icon3.png')"}}></p>
+                                    <p>提问时间：{data[i].addTime}</p>    
+                                    </div>
+                                    <div>
+                                    <p></p>
+                                    <p>{data[i].content}</p>   
+                                    </div>
+                                </li>
+                                <li className="answer">
+                                    <div>
+                                    <p style={{backgroundImage:"url('src/img/icon/help-icon4.png')"}}></p>
+                                    <p>回答时间：{data[i].addTime}</p>    
+                                    </div>
+                                    <div>
+                                    <p></p>
+                                    <p>{data[i].answer}</p>   
+                                    </div>
+                                </li>
+                            </ul>
+                        //   <li key={i}>
+                        //     <div>
+                        //        <p style={{backgroundImage:"url('src/img/icon/help-icon3.png')"}}></p>
+                        //        提问时间：
+                        //        <p>{data[i].addTime}</p>    
+                        //     </div>
+                        //     <div>
+                        //        <p></p>
+                        //        <p>{data[i].content}</p>   
+                        //     </div>
+                        //     <div>
+                        //        <p style={{backgroundImage:"url('src/img/icon/help-icon4.png')"}}></p>
+                        //        回答时间：
+                        //        <p>{data[i].addTime}</p>   
+                        //     </div>
+                        //     <div>
+                        //        <p></p>
+                        //        <p>{data[i].answer}</p>   
+                        //     </div>
+                        // </li>
                         )
                     }
                     that.setState({
@@ -85,10 +107,10 @@ var Help = React.createClass({
         return (
             <div className="app_Box lookques">
                 <Header title="查看问题" />               
-                <div className="askCon content">                   
-                    <ul className="helpList">
-                    {that.state.questionArr}
-                        {/* <li>
+                <div className="askCon content">    
+                {that.state.questionArr}               
+                    {/* <ul className="helpList">                    
+                        <li>
                             <div>
                                <p style={{backgroundImage:"url('src/img/icon/help-icon3.png')"}}></p>
                                <p>提问时间：2018-02-02</p>    
@@ -107,8 +129,8 @@ var Help = React.createClass({
                                <p></p>
                                <p>点击借贷款->获取额度-->借出，绑定一张银行信用卡，输入借出金额，比如2000，点击确定即可?</p>   
                             </div>
-                        </li> */}
-                    </ul>
+                        </li>
+                    </ul> */}
                 </div>
                 <div className="footer">
                     <div className="applyBtn" onClick={that.toAsk}>继续提问</div>
