@@ -51,7 +51,7 @@ var Set = React.createClass({
                     localStorage.removeItem("phoneNum");
                     localStorage.removeItem("curCity");
                     globalData.user = "",
-                        globalData.requestData.token = "",
+                    globalData.requestData.token = "",
                         //window.history.back();
                         history.go(-1);
                 } else {
@@ -98,7 +98,7 @@ var Set = React.createClass({
                 <div className="userInfoCon content">
                     <ul className="setLi">
                     <Btn />
-                        <li><i style={{backgroundImage:"url('src/img/icon/set-icon1.png')"}}></i><span>消息推送</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                        
+                        {/* <li><i style={{backgroundImage:"url('src/img/icon/set-icon1.png')"}}></i><span>消息推送</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                         */}
                         <li onClick={that.clearCache}><i style={{backgroundImage:"url('src/img/icon/set-icon2.png')"}}></i><span>清空缓存</span><div className="infoRight"></div></li>
                         <li ><i style={{backgroundImage:"url('src/img/icon/set-icon3.png')"}}></i><span>当前版本</span><div className="infoRight"></div></li> 
                         <li onClick={that.rePsd}><i style={{backgroundImage:"url('src/img/icon/set-icon4.png')"}}></i><span>修改登录密码</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                                               
