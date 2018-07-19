@@ -13,8 +13,12 @@ var key1 = globalData.key;
 var appBasePath = globalData.appBasePath;
 var Repsd = React.createClass({
     getInitialState: function () {
-        var eyeImg = [<img src="src/img/icon/by.png" key={"by"} />];
+        // var eyeImg = [<img src="src/img/icon/by.png" key={"by"} />];
+        // var type = "password";
         return {
+            inputType:"password",
+            inputType1:"password",
+            inputType2:"password",
             isLoading: false,
             phoneNum: "",
             liked: true,
@@ -241,7 +245,7 @@ var Repsd = React.createClass({
                         <label htmlFor="psd" style={{backgroundImage:"url('src/img/icon/login-icon5.png')"}}></label>
                         <input id="psd" type={that.state.inputType} name="psd" placeholder="请输入原密码" onChange={that.vauleChange} />
                         <span className="eyes" id="eyes" onClick={that.eyesHandle}>
-                        <img src="src/img/icon/zy.png" key={"zy"}  className="img"/>
+                        <img src="src/img/icon/by.png" key={"by"}  className="img"/>
                             {that.state.eyeImg}
                         </span>
                     </div>
@@ -250,7 +254,7 @@ var Repsd = React.createClass({
                         <label htmlFor="surePsd" style={{backgroundImage:"url('src/img/icon/login-icon6.png')"}}></label>
                         <input id="surePsd" type={that.state.inputType1} name="surePsd" placeholder="请输入新密码" onChange={that.vauleChange1} />
                         <span className="eyes" id="eyes" onClick={that.eyesHandle1}>
-                            <img src="src/img/icon/zy.png" key={"zy"} className="img1"/>
+                            <img src="src/img/icon/by.png" key={"by"} className="img1"/>
                             {that.state.eyeImg1}
                         </span>
                     </div>
@@ -259,7 +263,7 @@ var Repsd = React.createClass({
                         <label htmlFor="surePsd1" style={{backgroundImage:"url('src/img/icon/login-icon6.png')"}}></label>
                         <input id="surePsd1" type={that.state.inputType2} name="surePsd1" placeholder="请输入新密码" onChange={that.vauleChange2} />
                         <span className="eyes" id="eyes" onClick={that.eyesHandle2}>
-                            <img src="src/img/icon/zy.png" key={"zy"} className="img2"/>
+                            <img src="src/img/icon/by.png" key={"by"} className="img2"/>
                             {that.state.eyeImg2}
                         </span>
                     </div>
