@@ -124,7 +124,7 @@ var NewsDetail = React.createClass({
         return (
             <div className="app_Box newsDetail">
                 <Header title="资讯小条" />
-                <Loading flag={that.state.flag} />
+                {/* <Loading flag={that.state.flag} />
                 <div className="content newsDetailCon">
                     <h1>{articleDetail.articleTitle}</h1>
                     <div className="newsDetailInfo">
@@ -134,8 +134,8 @@ var NewsDetail = React.createClass({
                     </div>
                     <div className="newsArticleCon" dangerouslySetInnerHTML={{ __html: articleDetail.content }}>
                     </div>
-                </div>
-                {/* <div className="content newsDetailCon">                    
+                </div> */}
+                <div className="content newsDetailCon">                    
                     <div className="newsDetailInfo">
                         <span><img src="src/img/icon/new-icon1.png" alt=""/>{articleDetail.mediaSource}</span>                        
                         <span>{addTimeArr[0]}</span>
@@ -146,12 +146,12 @@ var NewsDetail = React.createClass({
                             <img src="src/img/icon/new-icon.png" alt=""/>
                             {articleDetail.readerNum}阅读
                         </p>
-                        <p>打法撒旦法师打法撒旦法师</p>
+                        <p dangerouslySetInnerHTML={{ __html: articleDetail.content }}></p>
                         <div>
                             <img src="src/img/icon/new-icon2.png" alt=""/>
                         </div>
                     </div>
-                </div> */}
+                </div>
                 {/* <div className="botBtn" data-markId={articleDetail.markId} onClick={that.saveHandle}>{that.state.isMark == 1 ? "取消收藏" : "收藏"}</div> */}
             </div>
         )

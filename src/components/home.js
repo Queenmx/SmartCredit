@@ -174,14 +174,14 @@ var Home = React.createClass({
                 Toast.info("连接错误", 2);
             })
         }
-        //咨询
+        //咨讯
         var homeArticle = sessionStorage.getItem("homeArticle");
         if (homeArticle) {
             var articleList = JSON.parse(homeArticle);
             var articleArr = [];
             for (var i in articleList) {
                 articleArr.push(
-                    <div className="v-item" key={i} onClick={that.newsAll}>{articleList[i].articleTitle}</div>
+                    <div className="v-item" key={i} onClick={that.toNewsDetail} data-articleid={articleList[i].articleId}>{articleList[i].articleTitle}</div>
                 )
             }
             that.setState({
@@ -205,7 +205,7 @@ var Home = React.createClass({
                         articleArr.push(
                             
 
-                                        <div className="v-item" key={i} onClick={that.newsAll}>{articleList[i].articleTitle}</div>
+                                        <div className="v-item" key={i} onClick={that.toNewsDetail}  data-articleid={articleList[i].articleId}>{articleList[i].articleTitle}</div>
                                        )
                             //  console.log(articleArr[i].articleTitle)
                     }
@@ -303,7 +303,7 @@ var Home = React.createClass({
                              <p>{creditCardList[i].describeTion}</p>
                          </div>
                          <div className="high">
-                             <img src="src/img/icon/product5.png" />
+                            <img src={creditCardList[i].hotImg}/>
                          </div>
                      </li>
                                
@@ -315,7 +315,7 @@ var Home = React.createClass({
                  
              }
         }else{
-            api.creditCardList("1", "10", function (res) { 
+            api.hotCreditCardList(function (res) { 
                 if(res.code == "0000"){
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
                     console.log(Decdata);
@@ -333,7 +333,7 @@ var Home = React.createClass({
                                     <p>{creditCardList[i].describeTion}</p>
                                 </div>
                                 <div className="high">
-                                    <img src="src/img/icon/product5.png" />
+                                    <img src={creditCardList[i].hotImg}/>
                                 </div>
                             </li>
                                       
@@ -388,8 +388,8 @@ var Home = React.createClass({
                                         infinite
                                         >
                                      {this.state.articleArr}
-                                     <div className="v-item" onClick={that.newsAll}></div>
-                                     <div className="v-item" onClick={that.newsAll}></div>   
+                                     <div className="v-item" onClick={that.toNewsDetail}></div>
+                                     <div className="v-item" onClick={that.toNewsDetail}></div>   
                                    
                                     </Carousel>
                                 </li>

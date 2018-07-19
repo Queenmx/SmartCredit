@@ -311,6 +311,18 @@ module.exports.creditCardList = function (pageNum, pageSize, cb1, cb2) {
     // delete data.pageNum;
     // delete data.pageSize;
 }
+//热门信用卡列表
+module.exports.hotCreditCardList = function (cb1, cb2) {
+    var data = globalData.requestData;
+    //data.token=token;
+    var param = JSON.stringify(data);
+    console.log(param)
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/credit/hot`, { params: str }, cb1, cb2);
+    // delete data.pageNum;
+    // delete data.pageSize;
+}
+
 
 //资讯详情
 module.exports.articleDetail = function (articleId, cb1, cb2) {
