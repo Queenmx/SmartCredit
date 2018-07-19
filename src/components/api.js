@@ -495,7 +495,20 @@ module.exports.myQuestion = function (userId , cb1, cb2) {
     http(`${globalData.path}/zndai/backQuestion/show`, { params: str }, cb1, cb2);
     delete data.userId;
 }
-
+//个人中心设置修改密码
+module.exports.resetPsd = function (userId,oldPwd,newPwd, cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    // console.log(data.token)
+    data.userId = globalData.userId;
+    data.oldPwd = oldPwd;
+    data.newPwd = newPwd
+    var param = JSON.stringify(data);
+    console.log(param)
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/user/pwd/edit`, { params: str }, cb1, cb2);
+    delete data.userId;
+}
 
 //收藏——————————————————————————
 //添加收藏

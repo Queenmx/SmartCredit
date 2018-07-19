@@ -26,25 +26,25 @@ var Loan = React.createClass({
 
     componentWillMount: function () {
     },
-    toListDetail: function (event) {
-        var loanId = event.currentTarget.getAttribute("data-loanId");
-        var type = event.currentTarget.getAttribute("data-type");
-        var data = { loanId: loanId };
-        if (type == "JZD") {
-            var path = {
-                pathname: '/ListDetail',
-                query: data,
-            }
-        } else if (type == "KSD") {
-            var path = {
-                pathname: '/ListDetailKSD',
-                query: data,
-            }
-        } else {
-            Toast.info("数据错误", 2)
-        }
-        hashHistory.push(path);
-    },
+    // toListDetail: function (event) {
+    //     var loanId = event.currentTarget.getAttribute("data-loanId");
+    //     var type = event.currentTarget.getAttribute("data-type");
+    //     var data = { loanId: loanId };
+    //     if (type == "JZD") {
+    //         var path = {
+    //             pathname: '/ListDetail',
+    //             query: data,
+    //         }
+    //     } else if (type == "KSD") {
+    //         var path = {
+    //             pathname: '/ListDetailKSD',
+    //             query: data,
+    //         }
+    //     } else {
+    //         Toast.info("数据错误", 2)
+    //     }
+    //     hashHistory.push(path);
+    // },
 
     logoError: function (event) {
         event.target.src = "src/img/icon/logo.png";
@@ -186,6 +186,26 @@ var Loan = React.createClass({
         }else{
         	that.ksd()
         }
+<<<<<<< HEAD
+
+        var homeTag = sessionStorage.getItem("homeTag");
+        if (homeTag) {
+            var tagdata = JSON.parse(homeTag);
+            //console.log(tagdata);
+            // for (var i in tagdata) {
+            //     that.state.tagArr.push(
+            //         <li key={i} data-tag={tagdata[i].tagNo} data-txt={tagdata[i].tagName} data-tagId={tagdata[i].tagId} onClick={that.toList}>
+            //             <img src={imgPath + tagdata[i].tagPic} />
+            //             <p>{tagdata[i].tagName}</p>
+            //         </li>)
+            // }
+            // that.setState({ tagArr: that.state.tagArr })
+        } else {
+        
+        }
+
+=======
+>>>>>>> be3696872d318247c9a46ac4ca4677b37aee2c76
     },
     goTask(id,name){
         // console.log(id,name)
@@ -195,6 +215,26 @@ var Loan = React.createClass({
         }
         hashHistory.push(path);
     },
+<<<<<<< HEAD
+    //（理财任务）
+    jzd: function () {
+        var key1 = globalData.key;
+        var toast = globalData.toast;
+        var that = this;
+        var homeLoanJZD = sessionStorage.getItem("homeLoanJZD");
+        const arr=(
+            <div className="notask">
+                <img src="src/img/icon/task-icon1.png" alt=""/> 
+                <p>暂无任务</p>
+            </div>
+        )
+        that.setState({
+            listJZD: arr
+        })
+       
+    },
+    //（贷款任务）
+=======
     //理财任务
     jzd: function () {
         var key1 = globalData.key;
@@ -202,11 +242,59 @@ var Loan = React.createClass({
         var that = this;     
     },
     //贷款任务
+>>>>>>> be3696872d318247c9a46ac4ca4677b37aee2c76
     ksd: function () {
-        //console.log("快速贷")
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
+<<<<<<< HEAD
+        var homeLoanKSD = sessionStorage.getItem("homeLoanKSD");
+        if (homeLoanKSD) {
+            var loanList = JSON.parse(homeLoanKSD);
+            var arr = [];
+           // console.log(loanList)
+            for (var i in loanList) {
+                arr.push(
+                  
+                    <ul className="tasklist">
+                        <li>
+                            <img src="src/img/icon/product1.png" />
+                            <div className="loanTitle">
+                                <p>任务名称</p>
+                                <p><span>任务奖励</span>：完成任务可获得<span>500</span>积分</p>
+                            </div>
+                            <div className="high">
+                                <p onClick={this.goTask}>查看任务  </p>
+                                <p>已领取</p>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="src/img/icon/product1.png" />
+                            <div className="loanTitle">
+                                <p>任务名称</p>
+                                <p><span>任务奖励</span>：完成任务可获得<span>500</span>积分</p>
+                            </div>
+                            <div className="high">
+                                <p>
+                                    查看任务    
+                                </p>
+                                <p>未领取</p>
+                            </div>
+                        </li>
+                    </ul>
+                )
+            }
+
+            that.setState({
+                listKSD: arr
+            })
+        } else {
+           
+        }
+
+
+=======
+>>>>>>> be3696872d318247c9a46ac4ca4677b37aee2c76
     },
 
 

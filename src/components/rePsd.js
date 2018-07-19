@@ -6,19 +6,16 @@ import { globalData } from './global.js';
 import Header from './header';
 import Loading from './loading';
 import { hashHistory } from 'react-router';
-import { Toast,Tabs} from 'antd-mobile';
+import { Toast} from 'antd-mobile';
 
-const tabs = [
-    { title:'密码验证' },
-    { title:'短信验证'},
-];
+
 var key1 = globalData.key;  
 var appBasePath = globalData.appBasePath;
 var Repsd = React.createClass({
     getInitialState: function () {
+        var eyeImg = [<img src="src/img/icon/by.png" key={"by"} />];
         return {
             isLoading: false,
-
             phoneNum: "",
             liked: true,
             count: 60,
@@ -30,17 +27,85 @@ var Repsd = React.createClass({
             },
         }
     },
+     eyesHandle: function () {
+        var type = $("#psd")[0].type;
+        console.log(type)
+        var eyeImg = [];
+        if (type == "password") {
+            eyeImg.push(<img src="src/img/icon/zy.png" key={"zy"} />);
+            this.setState({
+                inputType: "text",
+                eyeImg: eyeImg
+            })
+
+        } else {
+            eyeImg.push(<img src="src/img/icon/by.png" key={"by"} />);
+            this.setState({
+                inputType: "password",
+                eyeImg: eyeImg
+            })
+        }
+    },
+    eyesHandle1: function () {
+        var type = $("#surePsd")[0].type;
+        var eyeImg = [];
+        if (type == "password") {
+            eyeImg.push(<img src="src/img/icon/zy.png" key={"zy"} />);
+            this.setState({
+                inputType1: "text",
+                eyeImg1: eyeImg
+            })
+
+        } else {
+            eyeImg.push(<img src="src/img/icon/by.png" key={"by"} />);
+            this.setState({
+                inputType1: "password",
+                eyeImg1: eyeImg
+            })
+        }
+    },
+    eyesHandle2: function () {
+        var type = $("#surePsd1")[0].type;
+        var eyeImg = [];
+        if (type == "password") {
+            eyeImg.push(<img src="src/img/icon/zy.png" key={"zy"} />);
+            this.setState({
+                inputType2: "text",
+                eyeImg2: eyeImg
+            })
+
+        } else {
+            eyeImg.push(<img src="src/img/icon/by.png" key={"by"} />);
+            this.setState({
+                inputType2: "password",
+                eyeImg2: eyeImg
+            })
+        }
+    },
     vauleChange: function (e) {
         this.setState({
             [e.target.name]: e.target.value
         })
+        console.log(this.state)
     },
-    savePsd: function () {
+    vauleChange1: function (e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+        console.log(this.state)
+    },
+    vauleChange2: function (e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+        console.log(this.state)
+    },
+    psdConfirm: function () {
 
         var that = this;
-        let oldPsd = that.state.oldPsd;
-        let newPsd = that.state.newPsd;
-        let surePsd = that.state.surePsd;
+        let oldPsd = that.state.psd;
+        let newPsd = that.state.surePsd;
+        let surePsd = that.state.surePsd1;
         var userId = localStorage.getItem("userId");
         // var toast = new Toast();
         if (oldPsd && newPsd && surePsd) {
@@ -50,11 +115,11 @@ var Repsd = React.createClass({
                 Toast.info("新密码不能与近期用过密码相同", 2);
             } else {
                 that.setState({ isLoading: true })
-                api.updatePsd(newPsd, oldPsd, function (res) {
+                api.resetPsd(userId,oldPsd,newPsd,function (res) {
                     //console.log(res);
                     if (res.code == "0000") {
                         that.setState({ isLoading: false })
-                        Toast.info("修改成功,请重新登录", 2);
+                        Toast.info("修改成功", 2);
                         localStorage.removeItem("user");
                         localStorage.removeItem("isLogin");
                         globalData.user = "";
@@ -135,38 +200,72 @@ var Repsd = React.createClass({
                     });
                 }.bind(that), 1000);
 
-                //发送短信验证码
-                api.verifyCode(phoneNum, "REG", function (res) {
-                    //console.log(res);
-                    if (res.code == "0000") {
-                        var data = JSON.parse(strDec(res.data, key1, "", ""));
-                        //console.log(data);
-                        var reg = data.reg;
-                        var verifyCode = data.verify;
-                        that.setState({
-                            reg: reg,
-                            verifyCode: verifyCode
-                        })
-                    } else {
-                        Toast.info(res.msg, 2);
-                    }
-                }, function () {
-                    Toast.info("连接错误", 2);
-                })
+              
+              
 
             }
         }
     },
+    toBack: function () {
+        const backRouter = this.props.backRouter;
+        //console.log(backRouter);
+        if (backRouter) {
+            hashHistory.push(backRouter);
+         
+        } else {
+        
+        	 history.go(-1); 
+        }
+
+
+    },
     render: function () {
         var that = this;
-        let getMsgStyle = that.state.getMsg.style;
-        var text = this.state.liked ? '获取验证码' : this.state.count + '秒后重发';
+        // let getMsgStyle = that.state.getMsg.style;
+        // var text = this.state.liked ? '获取验证码' : this.state.count + '秒后重发';
         return (
-            // <div className="setPsd app_Box">
+            <div className="setPsd app_Box">
+                {/* <Header title={'修改登录密码'} /> */}
+                <div className="header">
+                    <div className="toBack" onClick={this.toBack}><img src="src/img/icon/back3.png"/></div>
+                    <p className="title">修改登录密码</p>
+                    <div className="headerLinkBtn"></div>
+                </div>
+           
+                {/* <Loading flag={that.state.isLoading} /> */}
+                <div className="setPsdCon">
+                    <div className="inputPsd">
+                        <label htmlFor="psd" style={{backgroundImage:"url('src/img/icon/login-icon5.png')"}}></label>
+                        <input id="psd" type={that.state.inputType} name="psd" placeholder="请输入原密码" onChange={that.vauleChange} />
+                        <span className="eyes" id="eyes" onClick={that.eyesHandle}>
+                            {that.state.eyeImg}
+                        </span>
+                    </div>
+                    <div className="inputPsd">
+                        <p className={this.state.isshow?"tips":'hide'}><span style={{backgroundImage:"url('src/img/icon/login-icon7.png')"}}></span>请使用6-20位数字和字母（包含特殊字符）</p>
+                        <label htmlFor="surePsd" style={{backgroundImage:"url('src/img/icon/login-icon6.png')"}}></label>
+                        <input id="surePsd" type={that.state.inputType1} name="surePsd" placeholder="请输入新密码" onChange={that.vauleChange1} />
+                        <span className="eyes" id="eyes" onClick={that.eyesHandle1}>
+                            {that.state.eyeImg1}
+                        </span>
+                    </div>
+                    <div className="inputPsd">
+                        <p className={this.state.isshow?"tips":'hide'}><span style={{backgroundImage:"url('src/img/icon/login-icon7.png')"}}></span>请使用6-20位数字和字母（包含特殊字符）</p>
+                        <label htmlFor="surePsd1" style={{backgroundImage:"url('src/img/icon/login-icon6.png')"}}></label>
+                        <input id="surePsd1" type={that.state.inputType2} name="surePsd1" placeholder="请输入新密码" onChange={that.vauleChange2} />
+                        <span className="eyes" id="eyes" onClick={that.eyesHandle2}>
+                            {that.state.eyeImg2}
+                        </span>
+                    </div>
+                    <div className="psdLogin" onClick={that.psdConfirm}>下一步</div>
+                </div>
+            </div>
+            // <div className="setPsd app_Box rePsd">
             //     <Header title="修改密码" />
-            //     <Loading flag={that.state.isLoading} />
+            //     {/* <Loading flag={that.state.isLoading} /> */}
             //     <div className="setPsdCon">
             //         <div className="inputPsd">
+            //             <img src=""/>
             //             <label htmlFor="oldPsd">请输入旧密码</label>
             //             <input id="oldPsd" type="password" name="oldPsd" placeholder="" onChange={that.vauleChange} />
             //         </div>
@@ -181,48 +280,48 @@ var Repsd = React.createClass({
             //         <div className="psdLogin" onClick={that.savePsd}>保存</div>
             //     </div>
             // </div>
-            <div>
-                <Header title="修改密码" />
-                <Loading flag={that.state.isLoading} />
-                <Tabs tabs={tabs} initialPage={0} onChange={(tab, index) => { console.log('onChange', index, tab); }} onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
-                        <div className="setPsd app_Box">                           
-                            <div className="setPsdCon">
-                                <div className="inputPsd">
-                                    <label htmlFor="oldPsd">请输入旧密码</label>
-                                    <input id="oldPsd" type="password" name="oldPsd" placeholder="" onChange={that.vauleChange} />
-                                </div>
-                                <div className="inputPsd">
-                                    <label htmlFor="psd">请输入新密码</label>
-                                    <input id="psd" type="password" name="newPsd" placeholder="" onChange={that.vauleChange} />
-                                </div>
-                                <div className="inputPsd">
-                                    <label htmlFor="surePsd">请确认新密码</label>
-                                    <input id="surePsd" type="password" name="surePsd" placeholder="" onChange={that.vauleChange} />
-                                </div>
-                                <div className="psdLogin" onClick={that.savePsd}>保存</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
-                        <div className="setPsd app_Box">                           
-                            <div className="setPsdCon">
-                                <div className="inputPsd">
-                                    <label htmlFor="phoneNum">手机号</label>
-                                    <input id="phoneNum" type="password" name="phoneNum" onChange={that.changeInputTxt} value={that.state.phoneNum} placeholder="请输入手机号"  />
-                                </div>
-                                <div className="inputPsd inputLine">
-                                    <label htmlFor="psd">验证码</label>
-                                    <input  type="password"  placeholder="请输入验证码" />
-                                    <span onClick={that.getMsg} style={getMsgStyle} className="getMsg">{text}</span>
-                                </div>                                
-                                <div className="psdLogin" >下一步</div>
-                            </div>
-                        </div>
-                    </div>
-                </Tabs>
+            // <div>
+            //     <Header title="修改密码" />
+            //     <Loading flag={that.state.isLoading} />
+            //     <Tabs tabs={tabs} initialPage={0} onChange={(tab, index) => { console.log('onChange', index, tab); }} onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}>
+            //         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
+            //             <div className="setPsd app_Box">                           
+            //                 <div className="setPsdCon">
+            //                     <div className="inputPsd">
+            //                         <label htmlFor="oldPsd">请输入旧密码</label>
+            //                         <input id="oldPsd" type="password" name="oldPsd" placeholder="" onChange={that.vauleChange} />
+            //                     </div>
+            //                     <div className="inputPsd">
+            //                         <label htmlFor="psd">请输入新密码</label>
+            //                         <input id="psd" type="password" name="newPsd" placeholder="" onChange={that.vauleChange} />
+            //                     </div>
+            //                     <div className="inputPsd">
+            //                         <label htmlFor="surePsd">请确认新密码</label>
+            //                         <input id="surePsd" type="password" name="surePsd" placeholder="" onChange={that.vauleChange} />
+            //                     </div>
+            //                     <div className="psdLogin" onClick={that.savePsd}>保存</div>
+            //                 </div>
+            //             </div>
+            //         </div>
+            //         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
+            //             <div className="setPsd app_Box">                           
+            //                 <div className="setPsdCon">
+            //                     <div className="inputPsd">
+            //                         <label htmlFor="phoneNum">手机号</label>
+            //                         <input id="phoneNum" type="password" name="phoneNum" onChange={that.changeInputTxt} value={that.state.phoneNum} placeholder="请输入手机号"  />
+            //                     </div>
+            //                     <div className="inputPsd inputLine">
+            //                         <label htmlFor="psd">验证码</label>
+            //                         <input  type="password"  placeholder="请输入验证码" />
+            //                         <span onClick={that.getMsg} style={getMsgStyle} className="getMsg">{text}</span>
+            //                     </div>                                
+            //                     <div className="psdLogin" >下一步</div>
+            //                 </div>
+            //             </div>
+            //         </div>
+                // </Tabs>
            
-          </div>
+        //   </div>
         )
     }
 
