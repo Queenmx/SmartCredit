@@ -932,7 +932,7 @@
 
     .loan{
         ul{           
-            li{
+            a{
                 @include only_display;
                 margin-bottom: 0.3rem;
                 padding: 0.42rem;
