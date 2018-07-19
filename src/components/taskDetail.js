@@ -50,8 +50,8 @@ var ListDetail = React.createClass({
             if(res.code=="0000"){
                 var result = JSON.parse(strDec(res.data, key1, "", ""));
                 // console.log(result);
-                // var time=result.effectiveTime.time-result.releaseTime.time;
-                var time=10000;
+                var time=result.effectiveTime.time-result.releaseTime.time;
+                // var time=10000;
                 // console.log(time);
                 var timeArr;
                 that.getCountDown(time); 
@@ -118,6 +118,9 @@ var ListDetail = React.createClass({
                 Toast.info(res.msg,2);
             }
         })
+    },
+    componentWillUnmount() {
+        clearInterval(this.timer);
     },
     getTask(){  
         var info=this.props.location.query;      
