@@ -715,10 +715,9 @@
         width: 1.2rem;
         color: #fff;
         border-radius: 0.1rem;
-        font-size: 0.24rem; }
-        .task .tasklist li .high p:first-child {
-          background: #508aff;
-          margin-bottom: 0.2rem; }
+        font-size: 0.24rem;
+        background: #508aff;
+        margin-bottom: 0.2rem; }
       .task .tasklist li .high .geting {
         background: #666666; }
 .task .notask {
@@ -829,6 +828,8 @@
           margin-bottom: 0.18rem; }
     .taskDetail .detail li:last-child > p {
       color: #ff0000; }
+.taskDetail .footer .hide {
+  display: none; }
 
 #app .header {
   position: static;

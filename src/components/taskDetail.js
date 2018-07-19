@@ -29,7 +29,8 @@ var ListDetail = React.createClass({
         // },1000);
     },
     componentWillMount: function () {
-        var user = localStorage.getItem("user");    
+        var user = localStorage.getItem("user");  
+        var isGet=this.props.location.query.isGet;  
         if (user) {
             this.setState({                
                 isLogin: true,  
@@ -40,7 +41,11 @@ var ListDetail = React.createClass({
                 isLogin: false,               
             })
         }
-        
+        if(isGet=="got"){//已领取了
+            this.setState({                
+                isGet: true,               
+            })
+        }
     },
     componentDidMount:function(){
               
@@ -49,11 +54,16 @@ var ListDetail = React.createClass({
         api.viewTask(info.id*1,info.taskName,function(res){
             if(res.code=="0000"){
                 var result = JSON.parse(strDec(res.data, key1, "", ""));
+                var timestamp =(new Date()).valueOf();
                 // console.log(result);
-                var time=result.effectiveTime.time-result.releaseTime.time;
+                var time=result.effectiveTime.time-timestamp;
                 // var time=10000;
                 // console.log(time);
-                var timeArr;
+                if(result.count=="100"){
+                    that.setState({
+                        isGet:true
+                    })
+                }
                 that.getCountDown(time); 
                 that.timer=setInterval(function(){	
                     time-=1000;
@@ -88,16 +98,17 @@ var ListDetail = React.createClass({
                             <li>
                                 <p><span></span><i>任务规则</i><span></span></p>
                                 <div className="info">
-                                {result.taskRule}
-                                    {/* <p>任务时间：2018年6月32日起</p>
+                                
+                                    <p>任务时间：{result.releaseTime.year+1900}年{result.releaseTime.month+1}月{result.releaseTime.day}日起</p>
                                     <div className="step">
                                         <span>任务步骤：</span>
-                                        <dl>                                   
-                                            <dd>1.沙发垫</dd>
+                                        <dl>       
+                                        {result.taskRule}                            
+                                            {/* <dd>1.沙发垫</dd>
                                             <dd>2.沙发垫</dd>
-                                            <dd>3.沙发垫</dd>
+                                            <dd>3.沙发垫</dd> */}
                                         </dl>
-                                    </div>                                 */}
+                                    </div>                                
                                 </div>                            
                             </li>
                             <li>
@@ -262,6 +273,7 @@ var ListDetail = React.createClass({
     render: function () {
         var that = this;
         const result = that.state.result;
+       
         return (
             <div className="app_Box taskDetail">
                 <Header title="任务详情" />
@@ -280,7 +292,7 @@ var ListDetail = React.createClass({
                     
                 </div>
                 <div className="footer">
-                    <div className="applyBtn" onClick={this.getTask}>领取任务</div>
+                    <div className={"applyBtn"+" "+(this.state.isGet?"hide":'')} onClick={this.getTask}>领取任务</div>
                 </div>
             </div>
         )

@@ -682,10 +682,10 @@
                     color:#fff;
                     border-radius:0.1rem;
                     font-size: 0.24rem;
-                   &:first-child{
+                  
                        background:$blue; 
                        margin-bottom: 0.2rem;                      
-                    }
+                   
                 }
                 .geting{background: #666666;}
             }
@@ -813,6 +813,9 @@
             }
         }
     }    
+    .footer{
+        .hide{display:none;}
+    }
 }
 #app .header{
     position:static;

@@ -130,6 +130,7 @@ var Loan = React.createClass({
     componentDidMount: function () {
         var key1 = globalData.key;
         var toast = globalData.toast;
+        var that=this;
         var item={
             userId:this.state.user.userId,
             phone:this.state.user.phone,
@@ -138,9 +139,58 @@ var Loan = React.createClass({
             if(res.code=="0000"){
                 var result = JSON.parse(strDec(res.data, key1, "", ""));
                 var arr=result.list.map(function(item,i){
-                    
+                    switch(item.auditStatus){
+                        case ""://去第3方
+                        return (                        
+                            <li key={i}>
+                                <img src={imgPath+item.taskUrl} />
+                                <div className="loanTitle">
+                                    <p>{item.taskName}</p>
+                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                </div>
+                                <div className="high">
+                                    <p onClick={this.goTask}>进入任务</p>
+                                    <p onClick={this.subTk}> 提交任务</p>                               
+                                </div>
+                            </li>
+                        );
+                        break;
+                        case "2"://审核通过
+                        return (
+                        
+                            <li key={i}>
+                                <img src={imgPath+item.taskUrl} />
+                                <div className="loanTitle">
+                                    <p>{item.taskName}</p>
+                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                </div>
+                                <div className="high">
+                                    <p className="hasPass">通过</p>                                
+                                </div>
+                            </li>
+                        );
+                        break;
+                        case "3"://审核不通过
+                        return (
+                        
+                            <li key={i}>
+                                <img src={imgPath+item.taskUrl} />
+                                <div className="loanTitle">
+                                    <p>{item.taskName}</p>
+                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                </div>
+                                <div className="high">
+                                    <p className="noPass">未通过</p>                                
+                                </div>
+                            </li>
+                        );
+                        break;
+                    }
+                   
                 })
-                
+                that.setState({
+                    listinfo:arr
+                })
                 console.log(result);
             }else{
                 Toast.info(res.msg,2);
@@ -178,7 +228,8 @@ var Loan = React.createClass({
                 <div className="content">
                     <Loading flag={that.state.isLoading} />
                     <ul className="tasklist">
-                        <li>
+                        {this.state.listinfo}
+                        {/* <li>
                             <img src="src/img/icon/product1.png" />
                             <div className="loanTitle">
                                 <p>任务名称</p>
@@ -221,7 +272,7 @@ var Loan = React.createClass({
                                 </p>
                                 <p>未领取</p>
                             </div>
-                        </li>
+                        </li> */}
                     </ul>
                     {show ? menuEl : null}
                     {show ? <div className="menu-mask" onClick={this.onMaskClick} /> : null}   
