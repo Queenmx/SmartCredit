@@ -49,29 +49,27 @@ var ListDetail = React.createClass({
         api.viewTask(info.id*1,info.taskName,function(res){
             if(res.code=="0000"){
                 var result = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log(result);
-                var time=result.effectiveTime.time-result.releaseTime.time;
-                console.log(time);
+                // console.log(result);
+                // var time=result.effectiveTime.time-result.releaseTime.time;
+                var time=10000;
+                // console.log(time);
+                var timeArr;
                 that.getCountDown(time); 
-                // setInterval(function(){	
-                //     time-=1000;
-                //     that.getCountDown(time);  	                                	
-                //   },1000);   
-                // console.log(that.state.s)           
+                that.timer=setInterval(function(){	
+                    time-=1000;
+                    that.getCountDown(time);   
+                    if(time<=0){
+                        clearInterval(that.timer);
+                    }                             	                                	
+                }.bind(that),1000);  
+                                             
                 var arr=[];
                 arr.push(
                     <div key={result.id}>
-                         <div className="time">
-                            <p>剩余时间</p>
-                            <p>
-                                <span>{that.state.d}&nbsp;</span>天
-                                <span>&nbsp;{that.state.h}&nbsp;</span>时
-                                <span>&nbsp;{that.state.m}&nbsp;</span>分
-                                <span>&nbsp;{that.state.s}&nbsp;</span>秒
-                            </p>
-                            <p>任务时间：{result.releaseTime.year}年{result.releaseTime.month+1}月{result.releaseTime.day}日起</p>
-                        </div>
-                        <ul className="detail">
+                        <div className="stime">
+                        <p>任务时间：{result.releaseTime.year+1900}年{result.releaseTime.month+1}月{result.releaseTime.day}日起</p>
+                    </div> 
+                        <ul className="detail" >
                             <li>
                                 <div className="info">
                                     <p>当前剩余任务总数&nbsp;<span className="ftcolor">{result.count}</span>/100</p>
@@ -109,7 +107,7 @@ var ListDetail = React.createClass({
                                 </div>                            
                             </li>
                         </ul>
-                    </div>
+                        </div>
                 )
                 that.setState({
                     taskInfo:arr,
@@ -125,7 +123,7 @@ var ListDetail = React.createClass({
         var info=this.props.location.query;      
         if (this.state.isLogin) {
             var item={
-                productName:this.state.user.idCard,
+                identity:this.state.user.idCard,
                 realName:this.state.user.realName,
                 phone:this.state.user.phone,
                 taskId:info.id*1
@@ -260,12 +258,21 @@ var ListDetail = React.createClass({
     },
     render: function () {
         var that = this;
-        const percent = this.state.percent;
+        const result = that.state.result;
         return (
             <div className="app_Box taskDetail">
                 <Header title="任务详情" />
                 <div className="listDetailCon content">
-                    <Loading flag={that.state.flag} />                                     
+                    <Loading flag={that.state.flag} /> 
+                    <div className="time">
+                        <p>剩余时间</p>
+                        <p>
+                            <span>{that.state.d}&nbsp;</span>天
+                            <span>&nbsp;{that.state.h}&nbsp;</span>时
+                            <span>&nbsp;{that.state.m}&nbsp;</span>分
+                            <span>&nbsp;{that.state.s}&nbsp;</span>秒
+                        </p>
+                    </div>                                    
                     {this.state.taskInfo}
                     
                 </div>

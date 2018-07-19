@@ -80,7 +80,6 @@ var ForgotPsd = React.createClass({
                         count: count
                     });
                 }.bind(that), 1000);
-
                 //发送短信验证码
                 api.verifyCode(phoneNum, "", function (res) {
                     //console.log(res);
