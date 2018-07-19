@@ -112,10 +112,16 @@ var Login = React.createClass({
                                 }else{                                 
                                     Toast.info("登录成功", 2);
                                     const backRouter = that.props.params.backRouter;
-                                    var path={
-                                        pathname:'/'//去往保险列表页
+                                    if (backRouter) {
+                                        hashHistory.push(backRouter);
+                                    } else {
+                                        //window.history.back()
+                                        history.go(-1);
                                     }
-                                    hashHistory.push(path);
+                                    // var path={
+                                    //     pathname:'/'//去往保险列表页
+                                    // }
+                                    // hashHistory.push(path);
                                 }                                
                             } else if(res.code=='1006'){
                                 Toast.info(res.msg, 2);
@@ -173,16 +179,16 @@ var Login = React.createClass({
                                     // window.history.back();
                                     const backRouter = that.props.params.backRouter;
                                     //console.log(backRouter);
-                                    // if (backRouter) {
-                                    //     hashHistory.push(backRouter);
-                                    // } else {
-                                    //     //window.history.back()
-                                    //     history.go(-1);
-                                    // }
-                                    var path={
-                                        pathname:'/'//去往保险列表页
+                                    if (backRouter) {
+                                        hashHistory.push(backRouter);
+                                    } else {
+                                        //window.history.back()
+                                        history.go(-1);
                                     }
-                                    hashHistory.push(path);
+                                    // var path={
+                                    //     pathname:'/'//去往保险列表页
+                                    // }
+                                    // hashHistory.push(path);
                                 } else {
                                     that.setState({
                                         flag: false
