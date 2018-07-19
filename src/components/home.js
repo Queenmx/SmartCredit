@@ -28,9 +28,9 @@ var Home = React.createClass({
     componentWillMount: function () {
     },
     toListDetail: function (event) {
-        var loanId = event.currentTarget.getAttribute("data-loanId");
+        var id = event.currentTarget.getAttribute("data-id");
         var type = event.currentTarget.getAttribute("data-type");
-        var data = { loanId: loanId };
+        var data = { id: id };
             var path = {
                 pathname: '/ListDetail',
                 query: data,
@@ -229,7 +229,7 @@ var Home = React.createClass({
                 if(hotLoanList[i].hot == 0){
                     console.log("11111")
                     hotLoanArr.push(
-                        <li key={i} data-loanId={hotLoanList[i].id} onClick={that.toListDetail}>
+                        <li key={i} data-id={hotLoanList[i].id} onClick={that.toListDetail}>
                             <img src={imgPath + hotLoanList[i].logo} />
                             <div className="loanTitle">
                                 <p>{hotLoanList[i].categoryName}</p>
@@ -261,7 +261,7 @@ var Home = React.createClass({
                        if(Decdata[i].hot == 0){
                            console.log("abch")
                            hotLoanArr.push(
-                            <li key={i} data-loanId={Decdata[i].id}>
+                            <li key={i} id={Decdata[i].id}>
                             <img src={imgPath + Decdata[i].logo} />
                             <div className="loanTitle">
                                 <p>{Decdata[i].categoryName}</p>

@@ -7,6 +7,7 @@ import { globalData } from './global.js';
 import { hashHistory, Link } from 'react-router';
 import Header from './header';
 import { Toast } from 'antd-mobile';
+var imgPath = globalData.imgPath;
 var NewsDetail = React.createClass({
     getInitialState: function () {
         return {
@@ -148,7 +149,8 @@ var NewsDetail = React.createClass({
                         </p>
                         <p dangerouslySetInnerHTML={{ __html: articleDetail.content }}></p>
                         <div>
-                            <img src="src/img/icon/new-icon2.png" alt=""/>
+                            {/* <img src="src/img/icon/new-icon2.png" alt=""/> */}
+                            <img src={imgPath + articleDetail.imgUrl}/>
                         </div>
                     </div>
                 </div>
