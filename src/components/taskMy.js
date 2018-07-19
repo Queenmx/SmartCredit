@@ -21,6 +21,10 @@ var Loan = React.createClass({
     },
 
     componentWillMount: function () {
+        var user = localStorage.getItem("user"); 
+        this.setState({
+            user:JSON.parse(user)
+        })
     },
 
 
@@ -116,12 +120,32 @@ var Loan = React.createClass({
             });
         }
     },
-
+    toBack(){
+        var path = {
+            pathname: '/mine',                
+        }
+        hashHistory.push(path);
+    },
 
     componentDidMount: function () {
         var key1 = globalData.key;
         var toast = globalData.toast;
-
+        var item={
+            userId:this.state.user.userId,
+            phone:this.state.user.phone,
+        }
+        api.myTask(item,function(res){
+            if(res.code=="0000"){
+                var result = JSON.parse(strDec(res.data, key1, "", ""));
+                var arr=result.list.map(function(item,i){
+                    
+                })
+                
+                console.log(result);
+            }else{
+                Toast.info(res.msg,2);
+            }
+        })
 
     },
 
@@ -145,7 +169,12 @@ var Loan = React.createClass({
         
         return (
             <div className="app_Box myTask">
-                <Header title="我的任务" />
+                {/* <Header title="我的任务" /> */}
+                <div className="header">
+                <div className="toBack" onClick={this.toBack}><img src="src/img/icon/back2.png"/></div>
+                <p className="title">我的任务</p>
+                <div className="headerLinkBtn"></div>
+            </div>
                 <div className="content">
                     <Loading flag={that.state.isLoading} />
                     <ul className="tasklist">

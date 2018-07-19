@@ -76,10 +76,22 @@ var Loan = React.createClass({
     componentDidMount: function () {
         var key1 = globalData.key;
         var toast = globalData.toast;
-        var phone=JSON.parse(localStorage.getItem("user")).phone;
         var that = this;
-
-        var activeLoanId = localStorage.getItem("activeLoanId");       
+        var activeLoanId = localStorage.getItem("activeLoanId"); 
+        if(!localStorage.getItem("user")){//如果没登录        
+            const notask=(
+                <div className="notask">
+                    <img src="src/img/icon/task-icon1.png" alt=""/> 
+                    <p>暂无任务</p>
+                </div>
+            )
+            this.setState({                        
+                listJZD:notask,
+                listKSD:notask
+            })
+            return false;
+        } 
+        var phone=JSON.parse(localStorage.getItem("user")).phone;           
         api.taskcenter(phone,function(res){
             if(res.code=='0000'){
                 var result= JSON.parse(strDec(res.data, key1, "", ""));                

@@ -889,18 +889,34 @@ module.exports.viewTask = function (id,taskName,cb1, cb2) {
 //领取任务
 module.exports.recieveTask = function (item,cb1, cb2) {
     var data = globalData.requestData;
-    data.productName=item.productName;
+    data.identity=item.identity;
     data.appName=item.realName;
     data.appId=item.phone;
-    data.taskName=item.taskName;
+    data.taskId=item.taskId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     // console.log(param);
     http(`${globalData.path}/task/missionCenter/recieveTask`, {
         params: str
     }, cb1, cb2);
-    delete data.productName;
+    delete data.identity;
     delete data.appName;
     delete data.appId;
-    delete data.taskName;
+    delete data.taskId;
+}
+//我的任务
+module.exports.myTask = function (item,cb1, cb2) {
+    var data = globalData.requestData;
+    data.userId=item.userId;
+    data.appId=item.phone;
+    data.appFlag="C";
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // console.log(param);
+    http(`${globalData.path}/zndai/user/task/myTask`, {
+        params: str
+    }, cb1, cb2);
+    delete data.userId;
+    delete data.appId;
+    delete data.appFlag;
 }

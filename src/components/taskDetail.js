@@ -11,6 +11,7 @@ import '../css/home.css';
 
 
 var appBasePath = globalData.appBasePath;
+var key1 = globalData.key;  
 var ListDetail = React.createClass({
     getInitialState: function () {
         return {
@@ -42,7 +43,7 @@ var ListDetail = React.createClass({
         
     },
     componentDidMount:function(){
-        var key1 = globalData.key;        
+              
         var info=this.props.location.query;
         var that=this;
         api.viewTask(info.id*1,info.taskName,function(res){
@@ -116,36 +117,38 @@ var ListDetail = React.createClass({
                     result:result
                 })
             }else{
-                Toast.info(res.msg,2)
+                Toast.info(res.msg,2);
             }
         })
     },
-    getTask(){        
+    getTask(){  
+        var info=this.props.location.query;      
         if (this.state.isLogin) {
             var item={
-                productName:this.state.result.productNameId,
+                productName:this.state.user.idCard,
                 realName:this.state.user.realName,
                 phone:this.state.user.phone,
-                taskName:this.state.result.taskName
+                taskId:info.id*1
             }
             console.log(item)
             api.recieveTask(item,function(res){
                 if(res.code=="0000"){
-                    var result = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(result)
+                    Toast.info("领取成功",2);
+                    var path = {
+                        pathname: '/taskMy',                
+                    }
+                    hashHistory.push(path);
                 }else{
                     Toast.info(res.msg,2)
                 }
-            })
-            // var path = {
-            //     pathname: '/taskMy',                
-            // }
+            })           
         }else{
             var path = {
                 pathname: '/Login',                
             }
+            hashHistory.push(path);
         }
-        hashHistory.push(path);
+        
     },
     //倒计时
     getCountDown(leftTime){
