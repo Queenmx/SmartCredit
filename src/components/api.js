@@ -886,3 +886,21 @@ module.exports.viewTask = function (id,taskName,cb1, cb2) {
     delete data.id;
     delete data.taskName;
 }
+//领取任务
+module.exports.recieveTask = function (item,cb1, cb2) {
+    var data = globalData.requestData;
+    data.productName=item.productName;
+    data.appName=item.realName;
+    data.appId=item.phone;
+    data.taskName=item.taskName;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // console.log(param);
+    http(`${globalData.path}/task/missionCenter/recieveTask`, {
+        params: str
+    }, cb1, cb2);
+    delete data.productName;
+    delete data.appName;
+    delete data.appId;
+    delete data.taskName;
+}

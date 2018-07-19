@@ -14,20 +14,32 @@ var appBasePath = globalData.appBasePath;
 var ListDetail = React.createClass({
     getInitialState: function () {
         return {
+
         }
     },
-
+    componentWillUpdate(){
+        var that=this;
+        // setInterval(function(){	  	
+        //     var t=that.state.time;                    
+        //     that.getCountDown(t);	
+        //     that.setState({
+        //         time:t-1000
+        //     })
+        // },1000);
+    },
     componentWillMount: function () {
-        var user = localStorage.getItem("user");     
+        var user = localStorage.getItem("user");    
         if (user) {
             this.setState({                
-                isLogin: true,                
+                isLogin: true,  
+                user:JSON.parse(user)              
             })
         } else {
             this.setState({                
                 isLogin: false,               
             })
         }
+        
     },
     componentDidMount:function(){
         var key1 = globalData.key;        
@@ -38,17 +50,23 @@ var ListDetail = React.createClass({
                 var result = JSON.parse(strDec(res.data, key1, "", ""));
                 console.log(result);
                 var time=result.effectiveTime.time-result.releaseTime.time;
-                console.log(time)
+                console.log(time);
+                that.getCountDown(time); 
+                // setInterval(function(){	
+                //     time-=1000;
+                //     that.getCountDown(time);  	                                	
+                //   },1000);   
+                // console.log(that.state.s)           
                 var arr=[];
                 arr.push(
                     <div key={result.id}>
                          <div className="time">
                             <p>剩余时间</p>
                             <p>
-                                <span>2&nbsp;</span>天
-                                <span>&nbsp;2&nbsp;</span>时
-                                <span>&nbsp;2&nbsp;</span>分
-                                <span>&nbsp;2&nbsp;</span>秒
+                                <span>{that.state.d}&nbsp;</span>天
+                                <span>&nbsp;{that.state.h}&nbsp;</span>时
+                                <span>&nbsp;{that.state.m}&nbsp;</span>分
+                                <span>&nbsp;{that.state.s}&nbsp;</span>秒
                             </p>
                             <p>任务时间：{result.releaseTime.year}年{result.releaseTime.month+1}月{result.releaseTime.day}日起</p>
                         </div>
@@ -93,16 +111,35 @@ var ListDetail = React.createClass({
                     </div>
                 )
                 that.setState({
-                    taskInfo:arr
+                    taskInfo:arr,
+                    time:time,
+                    result:result
                 })
+            }else{
+                Toast.info(res.msg,2)
             }
         })
     },
-    getTask(){
+    getTask(){        
         if (this.state.isLogin) {
-            var path = {
-                pathname: '/taskMy',                
+            var item={
+                productName:this.state.result.productNameId,
+                realName:this.state.user.realName,
+                phone:this.state.user.phone,
+                taskName:this.state.result.taskName
             }
+            console.log(item)
+            api.recieveTask(item,function(res){
+                if(res.code=="0000"){
+                    var result = JSON.parse(strDec(res.data, key1, "", ""));
+                    console.log(result)
+                }else{
+                    Toast.info(res.msg,2)
+                }
+            })
+            // var path = {
+            //     pathname: '/taskMy',                
+            // }
         }else{
             var path = {
                 pathname: '/Login',                
@@ -110,11 +147,36 @@ var ListDetail = React.createClass({
         }
         hashHistory.push(path);
     },
-
+    //倒计时
+    getCountDown(leftTime){
+        var that=this;
+        var days = parseInt(leftTime / 1000 / 60 / 60 / 24 , 10); //计算剩余的天数 
+        var hours = parseInt(leftTime / 1000 / 60 / 60 % 24 , 10); //计算剩余的小时 
+        var minutes = parseInt(leftTime / 1000 / 60 % 60, 10);//计算剩余的分钟 
+        var seconds = parseInt(leftTime / 1000 % 60, 10);//计算剩余的秒数 
+        days = checkTime(days); 
+        hours = checkTime(hours); 
+        minutes = checkTime(minutes); 
+        seconds = checkTime(seconds);         
+        function checkTime(i){ //将0-9的数字前面加上0，例1变为01 
+            if(i<10) 
+            { 
+                i = "0" + i; 
+            } 
+            return i; 
+        } 
+        that.setState({
+            d:days,
+            h:hours,
+            m:minutes,
+            s:seconds
+        })
+        
+        // console.log(that.state.s)
+    },
 
 
     //字符串转换为时间戳
-
     getDateDiff: function (dateStr) {
         if (dateStr) {
             var publishTime = dateStr / 1000,
@@ -159,7 +221,7 @@ var ListDetail = React.createClass({
             return ""
         }
     },
- 
+
 
 
     logoError: function (event) {
@@ -180,7 +242,7 @@ var ListDetail = React.createClass({
         if (backRouter) {
             hashHistory.push(backRouter);
         } else {
-        	 history.go(-1); 
+            history.go(-1); 
         }
 
 
