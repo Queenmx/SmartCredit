@@ -36,6 +36,26 @@ var Set = React.createClass({
         //     );
         // };         
         // SwitchExample = createForm()(SwitchExample);
+
+    },
+    componentDidMount(){
+        var that=this;
+        api.version(function(res){
+            var anversion=res.androidCode;
+            var iosversion=res.iosCode;
+            var u = navigator.userAgent;
+        　　var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            if(isAndroid){
+                that.setState({
+                    version:anversion
+                })
+            }else{
+                that.setState({
+                    version:isiOS
+                })
+            }
+        })
     },
     quitLogin: function () {
         var that = this;
@@ -100,7 +120,7 @@ var Set = React.createClass({
                     <Btn />
                         {/* <li><i style={{backgroundImage:"url('src/img/icon/set-icon1.png')"}}></i><span>消息推送</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                         */}
                         <li onClick={that.clearCache}><i style={{backgroundImage:"url('src/img/icon/set-icon2.png')"}}></i><span>清空缓存</span><div className="infoRight"></div></li>
-                        <li ><i style={{backgroundImage:"url('src/img/icon/set-icon3.png')"}}></i><span>当前版本</span><div className="infoRight"></div></li> 
+                        <li ><i style={{backgroundImage:"url('src/img/icon/set-icon3.png')"}}></i><span>当前版本</span><div className="infoRight">{this.state.version}</div></li> 
                         <li onClick={that.rePsd}><i style={{backgroundImage:"url('src/img/icon/set-icon4.png')"}}></i><span>修改登录密码</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                                               
                         <li onClick={that.aboutUs}><i style={{backgroundImage:"url('src/img/icon/set-icon5.png')"}}></i><span>关于万融汇</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
                     </ul>

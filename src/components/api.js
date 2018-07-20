@@ -929,7 +929,7 @@ module.exports.submitTask = function (item,cb1, cb2) {
     data.submitPic=item.pic;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    console.log(param);
+    // console.log(param);
     http(`${globalData.path}/zndai/user/task/submitTask`, {
         params: str
     }, cb1, cb2);
@@ -937,4 +937,14 @@ module.exports.submitTask = function (item,cb1, cb2) {
     delete data.taskPhone;
     delete data.appFlag;
     delete data.submitPic;
+}
+//当前版本
+module.exports.version= function (cb1, cb2) {
+    var data = globalData.requestData;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // console.log(param);
+    http(`${globalData.path}/zndai/version/versionInfoC`, {
+        params: str
+    }, cb1, cb2);
 }
