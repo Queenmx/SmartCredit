@@ -302,7 +302,11 @@
           .listDetail .content .loan-list li:not(.spe) .loanTitle p:first-child {
             font-size: 0.3rem;
             color: #2b2b2b;
-            font-weight: bold; }
+            font-weight: bold;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 3.6rem; }
           .listDetail .content .loan-list li:not(.spe) .loanTitle p:last-child {
             font-size: 0.22rem;
             color: #666666; }
