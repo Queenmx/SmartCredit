@@ -1,0 +1,46 @@
+
+
+.content{
+    /* height: 100vh; */
+    background: #f1f0f0;
+    
+}
+.promptTitle{
+background: #f1f0f0;
+line-height: 45px;
+height: 45px;
+font-size: 0.3rem; 
+color: #888;
+}
+
+.codeinput{
+    width: 250px;
+}
+.code{
+    position: absolute;
+    float: right;
+    bottom: 0;
+    width: 100px; 
+    line-height: 25px;
+    text-align: center;
+    margin-left: 158px;
+}
+.btncode{
+    border:1px solid #e6e6e6;
+    font-size: 0.25rem;
+    color: #6f6f6f;
+    background: #e6e6e6;
+    margin-left: 100px;
+}
+.supportbank{
+    height:100%;
+    background: #f1f0f0;
+}
+.supportbank .supporttitle{
+    line-height: 60px;
+    height: 60px;
+    color:#ff801a;
+}
+.supportbank .SubmissionContent{
+    
+}

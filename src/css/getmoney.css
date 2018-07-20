@@ -1,0 +1,63 @@
+/*头部颜色*/
+.am-navbar{
+    background: linear-gradient(to right, #5197fb, #3a80f2, #1e63e8);
+    
+}
+/*头部字体*/
+.am-navbar-title{
+    font-size: 0.35rem !important;
+    
+}
+/*left rigth 比例 字体*/
+.addCard :global(.am-list-item .am-list-line .am-list-extra){
+    flex-basis:88% ;
+    text-align: left;
+}
+.addBank :global(.am-list-item .am-list-line .am-list-extra){
+    flex-basis:88% ;
+    text-align: left;
+}
+.procedures :global(.am-list-item.am-input-disabled .am-input-label){
+    color:#000 !important;
+    
+}
+
+
+
+/*提现，手续费字体及加粗*/
+.am-list-item .am-input-label{
+    font-weight: 500;
+    font-size: 0.3rem !important;
+    width: 110px !important;
+}
+
+.mywallet{
+     height: calc(~"100vh - 45px");
+}
+
+.promptNotes div{
+    height: 0.6rem;
+    line-height: 0.6rem;
+}
+.promptContent{
+    height: 44px;
+    line-height: 44px;
+    font-size: 0.25rem;
+    color: #888;
+}
+.displaylastnumber{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100px; 
+    height: 38px;
+    line-height: 20px;
+    text-align: center;
+    margin-right: 150px;
+    color: #888;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}

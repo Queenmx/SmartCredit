@@ -1,0 +1,23 @@
+
+/*list显示*/
+.list :global(.am-list-item .am-list-line .am-list-extra){
+    flex-basis:90% ;
+    text-align: left;
+}
+
+.displaylastnumber{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100px; 
+    height: 38px;
+    line-height: 20px;
+    text-align: center;
+    margin-right: 150px;
+    color: #888;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
