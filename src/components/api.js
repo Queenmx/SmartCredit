@@ -948,3 +948,23 @@ module.exports.version= function (cb1, cb2) {
         params: str
     }, cb1, cb2);
 }
+//消息列表
+module.exports.newsList= function (phone,cb1, cb2) {
+    var data = globalData.requestData;
+    data.phone=phone;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // console.log(param);
+    http(`${globalData.path}/zndai/news/newsList`, {params: str}, cb1, cb2);
+    delete data.phone;
+}
+//消息改状态
+module.exports.modifyStatus= function (id,cb1, cb2) {
+    var data = globalData.requestData;
+    data.id=id;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // console.log(param);
+    http(`${globalData.path}/zndai/news/modifyStatus`, {params: str}, cb1, cb2);
+    delete data.id;
+}

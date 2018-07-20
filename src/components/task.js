@@ -186,7 +186,6 @@ var Loan = React.createClass({
                         listKSD:notask
                     })
                 }
-                
             }else{
                 Toast.info(res.msg,2);
             }

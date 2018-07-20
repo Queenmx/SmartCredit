@@ -425,14 +425,14 @@ var Home = React.createClass({
                         </ul>
                         <ul className="loanTab loanTab2">                           
                             <li onClick={that.toCard}>
-                                <img src="src/img/icon/product1.png" />
+                                <img src="src/img/icon/product3.png" />
                                 <div>
                                     <p>信用卡</p>
                                     <p>快卡通道</p>
                                 </div>                                
                             </li>
                             <li onClick={that.toTask}>
-                                <img src="src/img/icon/product2.png" />
+                                <img src="src/img/icon/product4.png" />
                                 <div>
                                     <p>任务</p>
                                     <p>做任务&nbsp;拿现金</p>

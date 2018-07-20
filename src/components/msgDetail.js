@@ -22,10 +22,20 @@ var Login = React.createClass({
         }
     },
     componentWillMount: function () {
-
+        var msg=JSON.parse(localStorage.getItem("msg"));
+        
+        this.setState({
+            msg:msg
+        })
     },
     componentDidMount(){
-        
+        var id=this.state.msg.id;
+        api.modifyStatus(id,function(res){
+            if(res.code=="0000"){
+            }else{
+                Toast.info(res.msg,2);
+            }
+        })
     },
     componentWillUnmount() {
         
@@ -36,9 +46,9 @@ var Login = React.createClass({
             <div className="app_Box message msg">
                 <Header title="消息"/>
                 <div className="content">
-                    <p>订单支付成功</p>
-                    <p>2018-06-07</p>  
-                    <p>打发打发对方水电费水电费是对方是否单身电风扇的发生范德萨地方电风扇的发生范德萨打发的水电费电风扇是的发的发生大大幅度发地方的反复打</p>
+                    <p>{this.state.msg.title}</p>
+                    <p>{this.state.msg.addTime.year+1900}-{this.state.msg.addTime.month}-{this.state.msg.addTime.day}</p>  
+                    <p>{this.state.msg.content}</p>
                 </div>                                                
             </div>
         )

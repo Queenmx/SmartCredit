@@ -1,11 +1,13 @@
 @charset "utf-8";
 @import "common" ;
 .message{
-    .am-list-item .am-list-line .am-list-content{
-        padding-top:10px;
+    .am-list-content{
+        padding:0.1rem 0.3rem;
+        border-bottom: 0.02rem solid #eeeeee;
+        
     }
     .content{ background: #fff;}
-    .my-list{      
+        
         .title{
            @include clear_float();
            font-size:0.28rem;
@@ -21,6 +23,7 @@
                         vertical-align: top;
                         margin-left: 0.1rem;
                     }
+                    .hide{display:none;}
                 }
                 &:last-child{float:right;}
             }
@@ -42,7 +45,7 @@
                 }
             }
         }
-    }
+    
     .isShow{
         text-align: center;
         margin-top: 2.7rem;
@@ -71,5 +74,5 @@
                 margin-bottom:0.35rem;
             }
         }
-    }
+    }   
 }
