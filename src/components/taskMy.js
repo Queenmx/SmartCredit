@@ -16,7 +16,9 @@ var Loan = React.createClass({
         return {
             isLoading: false,
             show: false,
-            phoneNum:''
+            phoneNum:'',
+            bgcoloe:{backgroundColor:"#44c6ec"},
+            allow:true
         }
     },
 
@@ -41,18 +43,41 @@ var Loan = React.createClass({
     },
     subNum(){        
         var phoneNum = this.state.phoneNum;
+        // console.log(this.state.faceImg);
+        if(!this.state.allow){
+            Toast.info("您已提交，请勿重复", 2);
+            return false;
+        }
         if(!phoneNum){
             Toast.info("请输入手机号", 2);
+            return false;
+        }
+        if(this.state.faceImg==undefined){
+            Toast.info("请上传5M以内的图片", 2);
             return false;
         }
         if (!(/^1[34578]\d{9}$/.test(phoneNum))) {
             //console.log(phoneNum);
             Toast.info("手机号码格式不对", 2);
         }else{
-            this.setState({
-                show: false,
-            });
-            console.log("3434")
+            var item={
+                userId:this.state.user.userId,
+                phone:phoneNum,
+                pic:this.state.faceImg,
+            }
+            // console.log(item)
+            api.submitTask(item,function(res){
+                if(res.code=="0000"){
+                    this.setState({
+                        show: false,
+                        allow:false,
+                        bgcolor:{backgroundColor:"#646666"}
+                    });
+                }else{
+                    Toast.info(res.msg,2);
+                }
+            })
+           
         }
     },
     subTk(){
@@ -86,7 +111,7 @@ var Loan = React.createClass({
         }
         //在此限制图片的大小
         var imgSize = myfile.size;
-         console.log(imgSize);
+        //  console.log(imgSize);
          //35160  计算机存储数据最为常用的单位是字节(B)
          //在此处我们限制图片大小为2M
         if(imgSize>5*1024*1024){
@@ -140,26 +165,39 @@ var Loan = React.createClass({
                 var result = JSON.parse(strDec(res.data, key1, "", ""));
                 var arr=result.list.map(function(item,i){
                     switch(item.auditStatus){
-                        case ""://去第3方
+                        case "0"://去第3方
                         return (                        
                             <li key={i}>
-                                <img src={imgPath+item.taskUrl} />
+                                <img src={imgPath+item.url} />
                                 <div className="loanTitle">
                                     <p>{item.taskName}</p>
                                     <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
                                 </div>
                                 <div className="high">
-                                    <p onClick={this.goTask}>进入任务</p>
-                                    <p onClick={this.subTk}> 提交任务</p>                               
+                                    <a href={item.taskUrl}>进入任务</a>
+                                    <p onClick={that.subTk} style={that.state.bgcolor}> 提交任务</p>                               
+                                </div>
+                            </li>
+                        );
+                        break;
+                        case "1"://审核中
+                        return (                        
+                            <li key={i}>
+                                <img src={imgPath+item.url} />
+                                <div className="loanTitle">
+                                    <p>{item.taskName}</p>
+                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                </div>
+                                <div className="high">
+                                    <p className="noPass">审批中</p>                                
                                 </div>
                             </li>
                         );
                         break;
                         case "2"://审核通过
-                        return (
-                        
+                        return (                        
                             <li key={i}>
-                                <img src={imgPath+item.taskUrl} />
+                                <img src={imgPath+item.url} />
                                 <div className="loanTitle">
                                     <p>{item.taskName}</p>
                                     <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
@@ -174,7 +212,7 @@ var Loan = React.createClass({
                         return (
                         
                             <li key={i}>
-                                <img src={imgPath+item.taskUrl} />
+                                <img src={imgPath+item.url} />
                                 <div className="loanTitle">
                                     <p>{item.taskName}</p>
                                     <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>

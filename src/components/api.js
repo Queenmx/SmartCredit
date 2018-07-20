@@ -920,3 +920,21 @@ module.exports.myTask = function (item,cb1, cb2) {
     delete data.appId;
     delete data.appFlag;
 }
+//提交任务
+module.exports.submitTask = function (item,cb1, cb2) {
+    var data = globalData.requestData;
+    data.userId=item.userId;
+    data.taskPhone=item.phone;
+    data.appFlag="C";
+    data.submitPic=item.pic;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    console.log(param);
+    http(`${globalData.path}/zndai/user/task/submitTask`, {
+        params: str
+    }, cb1, cb2);
+    delete data.userId;
+    delete data.taskPhone;
+    delete data.appFlag;
+    delete data.submitPic;
+}
