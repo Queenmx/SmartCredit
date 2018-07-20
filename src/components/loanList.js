@@ -148,6 +148,7 @@ var LoanList = React.createClass({
         
     },
     onSelected (item) {
+        console.log(item)
         var active=this.state.checkedItem;
         var data={
             categoryName:'',
@@ -229,6 +230,7 @@ var LoanList = React.createClass({
                 break;
 
         }
+        console.log(data)
         this.getInit(data);
         this.setState({
             value:item,
@@ -237,7 +239,7 @@ var LoanList = React.createClass({
         });
     },
     checked(temp){
-        // console.log(temp);        
+        // console.log(temp);           
         if(!this.state.show){
             switch(temp){
                 case 0:
@@ -295,9 +297,9 @@ var LoanList = React.createClass({
     },
     onMaskClick(e){
         // console.log(e)
-        this.setState({
-        show: false,
-        });
+        // this.setState({
+        // show: false,
+        // });
     },
     goDetail(item,name){    
         console.log(item)   
