@@ -136,6 +136,12 @@ var Mine = React.createClass({
         }
         hashHistory.push(path);
     },
+    toShare(){
+        var path = {
+            pathname: '/Sharemoney',
+        }
+        hashHistory.push(path);
+    },
     toIdCard: function () {
         // var toast = globalData.toast;
         //Toast.info("身份证认证功能尚未开放",2);
@@ -230,7 +236,7 @@ var Mine = React.createClass({
                             <Item
                             thumb="src/img/icon/my-icon1.png"
                             arrow="horizontal"
-                            onClick={() => {}}
+                            onClick={that.toShare}
                             >分享赚钱</Item>
                         </List>
                         <List>

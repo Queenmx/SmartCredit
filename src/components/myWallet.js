@@ -33,7 +33,10 @@ var ListDetail = React.createClass({
         }
     },
     getTask(){
-        
+        var path={
+            pathname:"/Getmoney"
+        };
+        hashHistory.push(path);
     },
 
 

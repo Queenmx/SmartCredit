@@ -926,12 +926,12 @@ module.exports.submitTask = function (item,cb1, cb2) {
     data.userId=item.userId;
     data.taskPhone=item.phone;
     data.appFlag="C";
-    data.submitPic=item.pic;
+    // data.submitPic=item.pic;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     // console.log(param);
     http(`${globalData.path}/zndai/user/task/submitTask`, {
-        params: str
+        params: str,submitPic:item.pic
     }, cb1, cb2);
     delete data.userId;
     delete data.taskPhone;

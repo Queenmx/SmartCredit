@@ -59,6 +59,10 @@ import lookques from './lookques';
 import btn from './btn';
 import Insurance from './insurance';
 import Getbaoxian from './getbaoxian';
+import Getmoney from './getmoney';//提现
+import AddBankcard from './addBankcard';//添加银行卡
+import ChoiceBankcard from './choiceBankcard';//选择银行卡
+import Sharemoney from './sharemoney';//选择银行卡
 
 
 //<Route path='/detail/:id' component={Detail} />
@@ -120,6 +124,10 @@ ReactDom.render((
         <Route path='/btn' component={btn} />
         <Route path='/Insurance' component={Insurance} />
         <Route path='/Getbaoxian' component={Getbaoxian} />
+        <Route path='/Getmoney' component={Getmoney} />
+        <Route path='/AddBankcard' component={AddBankcard} />
+        <Route path='/ChoiceBankcard' component={ChoiceBankcard} />
+        <Route path='/Sharemoney' component={Sharemoney} />
         
     </Router >
 ), document.getElementById('app'));
