@@ -339,11 +339,16 @@ var Login = React.createClass({
             backgroundColor: "#508aff",
             color: "#ffffff"
         }
-        // if(that.state.phoneNum&that.state.password){
+        // if(that.state.phoneNum&&that.state.password){
         //     btnstyle={
         //         backgroundColor: "#44c7ee",
         //         color: "#ffffff"
         //     }
+        // }else{
+        //     btnstyle={
+        //         backgroundColor: "red",
+        //         color: "blue"
+        //     } 
         // }
         
         return (
