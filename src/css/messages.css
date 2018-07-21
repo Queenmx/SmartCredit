@@ -12,23 +12,24 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical; }
 
-.message .am-list-item .am-list-line .am-list-content {
-  padding-top: 10px; }
+.message .am-list-content {
+  padding: 0.1rem 0.3rem;
+  border-bottom: 0.02rem solid #eeeeee; }
 .message .content {
   background: #fff; }
-.message .my-list .title {
+.message .title {
   font-size: 0.28rem; }
-  .message .my-list .title:after {
+  .message .title:after {
     content: "";
     display: block;
     height: 0;
     clear: both; }
-  .message .my-list .title p {
+  .message .title p {
     float: left;
     height: 0.42rem;
     line-height: 0.42rem;
     margin-bottom: 0.2rem; }
-    .message .my-list .title p:first-child span {
+    .message .title p:first-child span {
       display: inline-block;
       display: inline-block;
       width: 0.12rem;
@@ -38,16 +39,18 @@
       background-repeat: no-repeat;
       vertical-align: top;
       margin-left: 0.1rem; }
-    .message .my-list .title p:last-child {
+    .message .title p:first-child .hide {
+      display: none; }
+    .message .title p:last-child {
       float: right; }
-  .message .my-list .title .isRead {
+  .message .title .isRead {
     font-weight: bold; }
-.message .my-list .msg-content p:first-child {
+.message .msg-content p:first-child {
   width: 5.96rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; }
-.message .my-list .msg-content p:last-child {
+.message .msg-content p:last-child {
   display: inline-block;
   width: 0.16rem;
   height: 0.28rem;

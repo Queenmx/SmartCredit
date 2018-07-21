@@ -233,6 +233,9 @@
       height: 0.4rem; }
   .userInfo .userInfoCon li.userInfoLi {
     margin-top: 0.12rem; }
+.userInfo .userInfoCon .am-list-item img {
+  width: 0.37rem;
+  height: 0.37rem; }
 .userInfo .quit {
   width: 5.5rem;
   height: 0.8rem;
