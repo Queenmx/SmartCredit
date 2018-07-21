@@ -68,7 +68,7 @@ var Login = React.createClass({
                     )
                 })
                 that.setState({
-                    nwList:arrPrivate.concat()
+                    nwList:arrPrivate.concat(arrPublic)
                 })
             }else{
                 Toast.info(res.msg,2);

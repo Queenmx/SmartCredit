@@ -95,6 +95,7 @@ var Header = React.createClass({
         var title = this.props.title;
         return (
             <div className="header">
+                {/* <div className="iosheight"></div> */}
                 <div className="toBack" onClick={this.toBack}><img src="src/img/icon/back2.png"/></div>
                 <p className="title">{title}</p>
                 {this.state.headerLinkBtn}
