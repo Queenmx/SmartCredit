@@ -108,3 +108,8 @@ li:last-child{
     color: #666666;
     overflow: hidden;
 }
+.modifymodal :global(.am-modal-body) .cancelbtn::before{
+    border:none;
+}
+    
+

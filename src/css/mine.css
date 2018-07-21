@@ -224,7 +224,7 @@
   .userInfo .userInfoCon li .infoRight {
     float: right;
     font-size: 0.22rem;
-    color: #AAAAAA; }
+    color: #2b2b2b; }
     .userInfo .userInfoCon li .infoRight b {
       font-weight: 500; }
     .userInfo .userInfoCon li .infoRight img {
@@ -233,9 +233,37 @@
       height: 0.4rem; }
   .userInfo .userInfoCon li.userInfoLi {
     margin-top: 0.12rem; }
-.userInfo .userInfoCon .am-list-item img {
-  width: 0.37rem;
-  height: 0.37rem; }
+.userInfo .userInfoCon .am-list-item {
+  padding: 0 0.45rem;
+  height: 1rem;
+  line-height: 1rem; }
+  .userInfo .userInfoCon .am-list-item .am-list-thumb:first-child {
+    margin-right: 0.16rem; }
+    .userInfo .userInfoCon .am-list-item .am-list-thumb:first-child img {
+      width: 0.37rem;
+      height: 0.37rem; }
+  .userInfo .userInfoCon .am-list-item .am-list-line {
+    padding-right: 0; }
+    .userInfo .userInfoCon .am-list-item .am-list-line .am-list-content {
+      font-size: 0.26rem;
+      color: #333; }
+    .userInfo .userInfoCon .am-list-item .am-list-line .am-switch .checkbox {
+      height: 0.4rem;
+      width: 0.66rem; }
+      .userInfo .userInfoCon .am-list-item .am-list-line .am-switch .checkbox::after {
+        height: 0.38rem;
+        width: 0.38rem;
+        border-radius: 50%;
+        top: 0; }
+      .userInfo .userInfoCon .am-list-item .am-list-line .am-switch .checkbox::before {
+        height: 0.4rem;
+        width: 0.64rem;
+        top: 0;
+        background: #999999; }
+    .userInfo .userInfoCon .am-list-item .am-list-line .am-switch input[type="checkbox"]:checked + .checkbox:after {
+      -webkit-transform: translateX(20px);
+      -ms-transform: translateX(20px);
+      transform: translateX(12px); }
 .userInfo .quit {
   width: 5.5rem;
   height: 0.8rem;

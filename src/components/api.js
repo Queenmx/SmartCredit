@@ -925,8 +925,6 @@ module.exports.submitTask = function (item,cb1, cb2) {
     var data = globalData.requestData;
     data.userId=item.userId;
     data.taskPhone=item.phone;
-    data.appFlag="C";
-    // data.submitPic=item.pic;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     // console.log(param);
@@ -935,8 +933,6 @@ module.exports.submitTask = function (item,cb1, cb2) {
     }, cb1, cb2);
     delete data.userId;
     delete data.taskPhone;
-    delete data.appFlag;
-    delete data.submitPic;
 }
 //当前版本
 module.exports.version= function (cb1, cb2) {
