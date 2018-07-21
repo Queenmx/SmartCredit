@@ -89,7 +89,7 @@ var HomeHeader = React.createClass({
                 <p className="title">万融汇</p>
                 <p className="headerLinkBtn" onClick={this.goMessage}>
                     <img src="src/img/icon/message.png" alt=""/>
-                    <span></span>
+                    <span className={this.props.hasMsg?"":"hide"}></span>
                 </p>
             </div>
         )

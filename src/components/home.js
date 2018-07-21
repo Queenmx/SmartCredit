@@ -26,6 +26,10 @@ var Home = React.createClass({
     },
 
     componentWillMount: function () {
+        var user = localStorage.getItem("user");
+        this.setState({
+            user:JSON.parse(user)
+        })
     },
     toListDetail: function (event) {
         var id = event.currentTarget.getAttribute("data-id");
@@ -104,7 +108,24 @@ var Home = React.createClass({
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
-
+        var phone=this.state.user.phone;
+        //消息是否有新的
+        api.newsList(phone,function(res){
+            var key1 = globalData.key;
+            if(res.code=="0000"){
+                var temp = JSON.parse(strDec(res.data, key1, "", ""))[0];
+                console.log(temp);
+                for (var i in temp.systemNotices){
+                    if(!(temp.systemNotices[i].status)){
+                        that.setState({
+                            hasMsg:true
+                        })
+                    }
+                }               
+            }else{
+                Toast.info(res.msg,2);
+            }
+        })
         //轮播图
         var banner = sessionStorage.getItem("banner");
         if (banner) {
@@ -359,7 +380,7 @@ var Home = React.createClass({
 
         return (
             <div className="app_Box home">
-                <HomeHeader curCity={curCity} />
+                <HomeHeader curCity={curCity} hasMsg={this.state.hasMsg}/>
                 <div className="content">
                     <div className="bannernews"> 
                         <Carousel
