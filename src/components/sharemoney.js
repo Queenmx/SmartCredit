@@ -158,7 +158,7 @@ class sharemoney extends Component {
                 <div className="content">
                     <div className="time">
                         <p>62,100.365</p>
-                        <p>账户余额<span></span>(元)</p>
+                        <p>累计收益<span></span>(元)</p>
                     </div>
                     <div className="share">
                         <Button type="primary" inline style={{ marginRight: '4px' }} className="sharebtn" onClick={this.showModal('modal2')}> 分享好友,一起赚钱</Button>
