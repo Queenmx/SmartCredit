@@ -16,26 +16,6 @@ var Set = React.createClass({
         }
     },
     componentWillMount(){
-        // let SwitchExample = (props) => {
-        //     const { getFieldProps } = props.form;
-        //     return (
-               
-        //         <List>
-        //             <List.Item
-        //                 thumb="src/img/icon/set-icon1.png"
-        //                 extra={<Switch
-        //                 {...getFieldProps('Switch1', {
-        //                     initialValue: true,
-        //                     valuePropName: 'checked',
-        //                 })}
-        //                 onClick={(checked) => { console.log(checked); }}
-        //                 />}
-        //             >消息推送</List.Item>
-        //         </List>
-               
-        //     );
-        // };         
-        // SwitchExample = createForm()(SwitchExample);
 
     },
     componentDidMount(){
@@ -47,11 +27,13 @@ var Set = React.createClass({
         　　var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
         　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
             var version=1.2;
-        // console.log(anversion,iosversion);       
+            console.log(isAndroid,isiOS);       
             if(isAndroid){                
-                version:anversion               
-            }else{                
-                version:isiOS               
+                version=anversion;              
+            }
+            if(isiOS){                
+                version=iosversion;    
+                $(".header").css({"height":"1.1rem","line-height":"1.1rem"});          
             }
             var arr=(
                 <div className="infoRight">V{version}</div>
