@@ -8,6 +8,7 @@ import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import { Toast } from 'antd-mobile';
 import '../css/home.css';
+import LocaleProvider from 'antd-mobile/lib/locale-provider/locale-provider';
 
 
 var appBasePath = globalData.appBasePath;
@@ -21,7 +22,11 @@ var ListDetail = React.createClass({
     },
 
     componentWillMount: function () {
-        var user = localStorage.getItem("user");       
+    var key1 = globalData.key;
+    var that = this;
+    var user = localStorage.getItem("user");
+    var userId = JSON.parse(localStorage.getItem("user")).userId;
+    var userName =JSON.parse(localStorage.getItem("user")).userName;
         if (user) {
             this.setState({                
                 isLogin: true,                
@@ -31,10 +36,42 @@ var ListDetail = React.createClass({
                 isLogin: false,               
             })
         }
+        api.myWallet(userName,userId,function (res) {
+          
+            if(res.code == "0000"){
+                 let Decdata = strDec(res.data, key1, "", "");
+                let data = JSON.parse(Decdata);
+                console.log(data);
+                var walletArr = [];
+                that.setState({
+                    balance:data.balance
+                })
+                for (var i in data.detaileds) {
+                    walletArr.push(
+                        <ul className="infolist" key={i}>
+                        <li>
+                            <div>
+                                <p>{data.detaileds[i].changeMoney}</p>
+                                <p>{data.detaileds[i].source}</p>
+                            </div>
+                            <div>
+                                <p>{data.detaileds[i].type}</p>
+                                <p>{data.detaileds[i].addTime}</p>
+                            </div>
+                        </li>
+                        </ul>
+                    )
+                }
+                that.setState({
+                    walletArr: walletArr
+                })
+            }
+            })
     },
     getTask(){
         var path={
-            pathname:"/Getmoney"
+            pathname:"/Getmoney",
+            query:{balance:this.state.balance}
         };
         hashHistory.push(path);
     },
@@ -126,112 +163,14 @@ var ListDetail = React.createClass({
                 <div className="listDetailCon content">
                     <Loading flag={that.state.flag} />                                     
                     <div className="time">
-                        <p>62,100.365</p>
+                        <p>{that.state.balance}</p>
                         <p>账户余额<span></span>(元)</p>
                     </div>
                     <p className="account">账户明细</p>
-                    <ul className="infolist">
-                        <li>
-                            <div>
-                                <p>+100</p>
-                                <p>推广奖励</p>
-                            </div>
-                            <div>
-                                <p>转账中</p>
-                                <p>2018-02-02 10:22</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p>+100</p>
-                                <p>推广奖励</p>
-                            </div>
-                            <div>
-                                <p>转账中</p>
-                                <p>2018-02-02 10:22</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p>+100</p>
-                                <p>推广奖励</p>
-                            </div>
-                            <div>
-                                <p>转账中</p>
-                                <p>2018-02-02 10:22</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p>+100</p>
-                                <p>推广奖励</p>
-                            </div>
-                            <div>
-                                <p>转账中</p>
-                                <p>2018-02-02 10:22</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p>+100</p>
-                                <p>推广奖励</p>
-                            </div>
-                            <div>
-                                <p>转账中</p>
-                                <p>2018-02-02 10:22</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p>+100</p>
-                                <p>推广奖励</p>
-                            </div>
-                            <div>
-                                <p>转账中</p>
-                                <p>2018-02-02 10:22</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p>+100</p>
-                                <p>推广奖励</p>
-                            </div>
-                            <div>
-                                <p>转账中</p>
-                                <p>2018-02-02 10:22</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p>+100</p>
-                                <p>推广奖励</p>
-                            </div>
-                            <div>
-                                <p>转账中</p>
-                                <p>2018-02-02 10:22</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p>+100</p>
-                                <p>推广奖励</p>
-                            </div>
-                            <div>
-                                <p>转账中</p>
-                                <p>2018-02-02 10:22</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p>+100</p>
-                                <p>推广奖励</p>
-                            </div>
-                            <div>
-                                <p>转账中</p>
-                                <p>2018-02-02 10:22</p>
-                            </div>
-                        </li>
-                    </ul>
+                    
+                       {that.state.walletArr}
+                        
+                    
                 </div>
                 <div className="footer">
                     <div className="applyBtn" onClick={this.getTask}>申请提现</div>

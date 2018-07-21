@@ -86,7 +86,7 @@ class getmoney extends Component {
                  </NavBar>
                 <div className="content">
                     <div className="time">
-                        <p>62,100.365</p>
+                        <p>{this.props.location.query.balance}</p>
                         <p>账户余额<span></span>(元)</p>
                     </div>
                     <WhiteSpace size="sm" />
