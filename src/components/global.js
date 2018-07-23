@@ -34,6 +34,7 @@ const globalData = {
     // key: [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8],
     // appBasePath: "http://www.91ymfq.com/XR/",
     path: "http://xingrongjinfu.iask.in:8886",//测试地址
+    // path: "http://wrhapi.istarcredit.com:8886",//正式地址
     // path: "http://wuhanxingrong.vicp.io:28886/",
     // path: "http://wrhapi.istarcredit.com:8102/",//正式地址
     // path:"http://192.168.0.111:8886",

@@ -27,9 +27,16 @@ var Home = React.createClass({
 
     componentWillMount: function () {
         var user = localStorage.getItem("user");
-        this.setState({
-            user:JSON.parse(user)
-        })
+        if(user){
+            this.setState({
+                user:JSON.parse(user)
+            })
+        }else{
+            this.setState({
+                user:''
+            })
+        }
+        
     },
     toListDetail: function (event) {
         var id = event.currentTarget.getAttribute("data-id");
@@ -108,7 +115,8 @@ var Home = React.createClass({
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
-        var phone=this.state.user.phone;
+        if(this.state.user){
+            var phone=this.state.user.phone;
         //消息是否有新的
         api.newsList(phone,function(res){
             var key1 = globalData.key;
@@ -126,6 +134,8 @@ var Home = React.createClass({
                 Toast.info(res.msg,2);
             }
         })
+        }
+        
         //轮播图
         var banner = sessionStorage.getItem("banner");
         if (banner) {

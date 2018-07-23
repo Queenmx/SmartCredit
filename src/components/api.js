@@ -922,7 +922,6 @@ module.exports.myTask = function (item,cb1, cb2) {
     var data = globalData.requestData;
     data.userId=item.userId;
     data.appId=item.phone;
-    data.appFlag="C";
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     // console.log(param);
@@ -931,19 +930,20 @@ module.exports.myTask = function (item,cb1, cb2) {
     }, cb1, cb2);
     delete data.userId;
     delete data.appId;
-    delete data.appFlag;
 }
 //提交任务
 module.exports.submitTask = function (item,cb1, cb2) {
     var data = globalData.requestData;
+    data.id=item.id,
     data.userId=item.userId;
     data.taskPhone=item.phone;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    // console.log(param);
+    console.log(param);
     http(`${globalData.path}/zndai/user/task/submitTask`, {
         params: str,submitPic:item.pic
     }, cb1, cb2);
+    delete data.id;
     delete data.userId;
     delete data.taskPhone;
 }
@@ -976,4 +976,16 @@ module.exports.modifyStatus= function (id,cb1, cb2) {
     // console.log(param);
     http(`${globalData.path}/zndai/news/modifyStatus`, {params: str}, cb1, cb2);
     delete data.id;
+}
+//消息推送
+module.exports.whetherMsgPush= function (item,cb1, cb2) {
+    var data = globalData.requestData;
+    data.userId=item.userId;
+    data.whetherMsgPush=item.whetherMsgPush;    
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // console.log(param);
+    http(`${globalData.path}/zndai/user/whetherMsgPush`, {params: str}, cb1, cb2);
+    delete data.userId;
+    delete data.whetherMsgPush;
 }

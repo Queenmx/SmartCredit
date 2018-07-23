@@ -27,13 +27,14 @@ var Set = React.createClass({
         　　var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
         　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
             var version=1.2;
-            console.log(isAndroid,isiOS);       
+            // console.log(isAndroid,isiOS);       
             if(isAndroid){                
                 version=anversion;              
             }
             if(isiOS){                
                 version=iosversion;    
-                $(".header").css({"height":"1.1rem","line-height":"1.1rem"});          
+                $(".header").css({"height":"1.3rem","line-height":"1.3rem"});    
+                $(".toBack img").css({"marginTop":"0.5rem"});     
             }
             var arr=(
                 <div className="infoRight">V{version}</div>
@@ -88,6 +89,9 @@ var Set = React.createClass({
         }
         hashHistory.push(path);
     },
+    version(){
+        Toast.info("当前是最新版本",2);
+    },
     rePsd: function () {//修改登录密码
         var path = {
             pathname: '/RePsd',
@@ -105,7 +109,7 @@ var Set = React.createClass({
                     <Btn />
                         {/* <li><i style={{backgroundImage:"url('src/img/icon/set-icon1.png')"}}></i><span>消息推送</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                         */}
                         <li onClick={that.clearCache}><i style={{backgroundImage:"url('src/img/icon/set-icon2.png')"}}></i><span>清空缓存</span><div className="infoRight"></div></li>
-                        <li ><i style={{backgroundImage:"url('src/img/icon/set-icon3.png')"}}></i><span>当前版本</span>{this.state.versionArr}</li> 
+                        <li onClick={that.version}><i style={{backgroundImage:"url('src/img/icon/set-icon3.png')"}}></i><span>当前版本</span>{this.state.versionArr}</li> 
                         <li onClick={that.rePsd}><i style={{backgroundImage:"url('src/img/icon/set-icon4.png')"}}></i><span>修改登录密码</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                                               
                         <li onClick={that.aboutUs}><i style={{backgroundImage:"url('src/img/icon/set-icon5.png')"}}></i><span>关于万融汇</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>
                     </ul>

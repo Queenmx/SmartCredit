@@ -95,6 +95,8 @@ var Login = React.createClass({
                             if (res.code == "0000") {
                                 //var data =JSON.stringify(res.data);
                                 var data = strDec(res.data, key1, "", "");
+                                var itemUser=JSON.parse(data);
+                                console.log(itemUser.userId);
                                 //成功后
                                 localStorage.setItem("user", data);
                                 localStorage.setItem("isLogin", true);
@@ -118,6 +120,8 @@ var Login = React.createClass({
                                         //window.history.back()
                                         history.go(-1);
                                     }
+                                     that.start1("1",phoneNum);//别名设置
+                                     that.start("3",phoneNum,itemUser.userId);//登录设置
                                     // var path={
                                     //     pathname:'/'//去往保险列表页
                                     // }
@@ -166,7 +170,8 @@ var Login = React.createClass({
                                         flag: false
                                     })
                                     var data = strDec(res.data, key1, "", "");
-                                    // console.log(data);
+                                    var itemUser=JSON.parse(data);
+                                    console.log(itemUser.userId);
                                     //成功后
                                     localStorage.setItem("user", data);
                                     localStorage.setItem("isLogin", true);
@@ -185,6 +190,9 @@ var Login = React.createClass({
                                         //window.history.back()
                                         history.go(-1);
                                     }
+                                    that.start1("1",phoneNum);//别名设置
+                                    that.start("3",phoneNum,itemUser.userId);//登录设置
+                                    
                                     // var path={
                                     //     pathname:'/'//去往保险列表页
                                     // }
@@ -325,6 +333,60 @@ var Login = React.createClass({
     },
     componentWillUnmount() {
         clearInterval(this.timer);
+    },
+    setupWebViewJavascriptBridge: function (callback) {
+        // console.log("3333");
+        if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+        if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+        window.WVJBCallbacks = [callback];
+        var WVJBIframe = document.createElement('iframe');
+        WVJBIframe.style.display = 'none';
+        WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+        document.documentElement.appendChild(WVJBIframe);
+        setTimeout(function () { document.documentElement.removeChild(WVJBIframe) }, 0)
+    },
+    start: function (type,phonenum,userId) {
+        // console.log(userId)
+        var data={
+            type:type,
+            phonenum:phonenum,
+            userId:userId
+        };
+        var native = function (data) {
+            // console.log(111)
+        }
+        return this.nativeInteractive(native,data);//登录设置
+    },
+    start1(type,phonenum){
+        var data={
+            type:type,
+            phonenum:phonenum,
+        };
+        var native = function (data) {
+            // console.log(111)
+        }
+        return this.nativeInteractive(native,data);//别名设置
+    },
+    nativeInteractive: function (fn, obj) {
+        // console.log(123);
+        var self = this;
+        self.setupWebViewJavascriptBridge(function (bridge) {
+            if (obj) {
+                bridge.callHandler('webview_call_native', obj, function (response) { });
+            }
+            bridge.registerHandler('native_call_webview', function (data, response) {
+                fn(data);
+            })
+        });
+        if (window.start && obj) {
+            var str = JSON.stringify(obj);
+            window.start.webview_call_native(str);
+        }
+
+        window.native_call_webview = function (data) {
+            var obj = eval('(' + data + ')');
+            fn(obj);
+        }
     },
     render: function () {
         var that = this;
