@@ -989,3 +989,14 @@ module.exports.whetherMsgPush= function (item,cb1, cb2) {
     delete data.userId;
     delete data.whetherMsgPush;
 }
+module.exports.shareDetail= function (userName,cb1, cb2) {
+    var data = globalData.requestData;
+    data.userId=globalData.userId;
+    data.userName = userName
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // console.log(param);
+    http(`${globalData.path}/zndai/share/detailed`, {params: str}, cb1, cb2);
+    delete data.userId;
+    delete data.userName;
+}
