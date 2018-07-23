@@ -32,6 +32,7 @@
     line-height: 40px;
     height: 40px;
     background: #fff;
+    overflow: hidden
 }
 li:last-child{
     color: red;
@@ -45,6 +46,18 @@ li:last-child{
     line-height: 40px;
     height: 40px;
     background: #fff ;
+}
+.extract .listitem li{
+    width: 33.33%;
+    float: left;
+    text-align: center;
+    line-height: 40px;
+    height: 40px;
+    background: #fff;
+    overflow: hidden
+}
+li:last-child{
+    color: red;
 }
 .modifymodal :global(.am-modal-content){
     padding-top: 0.2rem;
@@ -111,5 +124,5 @@ li:last-child{
 .modifymodal :global(.am-modal-body) .cancelbtn::before{
     border:none;
 }
-    
+
 
