@@ -225,7 +225,7 @@ var Mine = React.createClass({
                     <div className="userHeader" onClick={that.goLogin}>
                         <p>个人中心</p>
                         {/* <div className="userImg"><img src={imgPath + userObj.headPic} onError={that.imgError} /></div> */}
-                        <div className="userInfo"><p>ID:{userObj.userName}</p><span>{userObj.idCert != 2 && userObj.idCert !="" ? "已认证" : "未认证"}</span></div>
+                        <div className="userInfo"><p>ID:{userObj.userName}</p><span>{userObj.idCert != 2 && userObj.idCert !="" && userObj.idCert? "已认证" : "未认证"}</span></div>
                         <div className="goLogin"><img src="src/img/icon/go.png" /></div>
                     </div>
                     {/* <div className="creditLevel"><p>我的信用等级:<b>{userObj.certLevel}</b></p><span>去提升,5000轻松拿<img src="src/img/icon/right.png" /></span></div> */}
