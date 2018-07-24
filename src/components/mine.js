@@ -86,18 +86,25 @@ var Mine = React.createClass({
         }
     },
     goCredit(){
-        Toast.info("去往第3方了哦")
+        if (this.state.isLogin) {
+            Toast.info("去往第3方了哦");
+        } else {
+            var path = {
+                pathname: '/Login',
+            }      
+            hashHistory.push(path);     
+        }
+        
+        
     },
     goTask(){
         if (this.state.isLogin) {
             var path = {
                 pathname: '/taskMy',
-                //query:data,
             }
         } else {
             var path = {
                 pathname: '/Login',
-                //query:data,
             }           
         }
         hashHistory.push(path);

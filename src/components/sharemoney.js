@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { hashHistory } from 'react-router';
 import { NavBar, Icon, Button, WingBlank, WhiteSpace, Tabs, Modal, List } from 'antd-mobile';
 import "../css/sharemoney.css";
+import api from './api';
+import { globalData } from './global.js';
 
 
 function closest(el, selector) {
@@ -59,6 +61,48 @@ class sharemoney extends Component {
             modal1: false,
             modal2: false
         }
+    }
+
+    componentDidMount(){
+        var key1 = globalData.key;
+        var that = this;
+        var userName = JSON.parse(localStorage.getItem("user")).userName;
+        console.log(userName)
+        api.shareDetail(userName,function(res){
+            if(res.code == "0000"){
+                var data = JSON.parse(strDec(res.data, key1, "", ""));
+                var shareArr = [];
+                var ExtractArr = [];
+                that.setState({
+                    money:data.money
+                })
+                for (var i in data.listShare) {
+                    shareArr.push(
+                        <ul className="listitem" key={i}>
+                            <li>{data.listShare[i].userName}</li>
+                            <li>{data.listShare[i].shareTime}</li>
+                            <li>{data.listShare[i].shareMoney}</li>
+                        </ul>
+                    )
+                }
+                that.setState({
+                    shareArr: shareArr
+                })
+                for (var i in data.listExtract) {
+                    ExtractArr.push(
+                        <ul className="listitem" key={i+1}>
+                        <li>{data.listExtract[i].userName}</li>
+                        <li>{data.listExtract[i].submissionTime}</li>
+                        <li>{data.listExtract[i].extract}</li>
+                    </ul>
+                    )
+                }
+                that.setState({
+                    ExtractArr: ExtractArr
+                })
+                console.log(data)
+            }
+        })
     }
     showModal = key => (e) => {
 
@@ -118,7 +162,7 @@ class sharemoney extends Component {
         }
 
     }
-
+    
     selectImg(level) {
         switch (level) {
             case '微信朋友':
@@ -139,9 +183,8 @@ class sharemoney extends Component {
                 return 'youjian';
         }
     }
-
+    
     render() {
-
         return (
             <div className="mywallet">
                 <NavBar
@@ -157,8 +200,8 @@ class sharemoney extends Component {
                  </NavBar>
                 <div className="content">
                     <div className="time">
-                        <p>62,100.365</p>
-                        <p>账户余额<span></span>(元)</p>
+                        <p>{this.state.money}</p>
+                        <p>累计收益<span></span>(元)</p>
                     </div>
                     <div className="share">
                         <Button type="primary" inline style={{ marginRight: '4px' }} className="sharebtn" onClick={this.showModal('modal2')}> 分享好友,一起赚钱</Button>
@@ -201,11 +244,12 @@ class sharemoney extends Component {
                             <div>分享时间</div>
                             <div>总提成(元)</div>
                         </div>
-                        <ul className="listitem">
+                        {this.state.shareArr}
+                        {/* <ul className="listitem">
                             <li>1</li>
                             <li>2</li>
                             <li>3</li>
-                        </ul>
+                        </ul> */}
                     </div>
                     <div className="extract">
                         <div className="extractnav">
@@ -213,6 +257,7 @@ class sharemoney extends Component {
                             <div>分享时间</div>
                             <div>总提成(元)</div>
                         </div>
+                        {this.state.ExtractArr}
                     </div>
 
                 </Tabs>

@@ -17,7 +17,8 @@ var Loan = React.createClass({
             isLoading: false,
             show: false,
             phoneNum:'',
-            bgcoloe:{backgroundColor:"#44c6ec"},
+            bgcolor:{backgroundColor:"#508aff"},
+            // bgcolor:{backgroundColor:"red"},
             allow:true
         }
     },
@@ -36,18 +37,13 @@ var Loan = React.createClass({
         //console.log(event.target.src);
     },
     onMaskClick(e){
-        console.log(e)
         this.setState({
             show: false,
         });
     },
-    subNum(){        
+    subNum(){       
         var phoneNum = this.state.phoneNum;
-        // console.log(this.state.faceImg);
-        if(!this.state.allow){
-            Toast.info("您已提交，请勿重复", 2);
-            return false;
-        }
+        var that=this;       
         if(!phoneNum){
             Toast.info("请输入手机号", 2);
             return false;
@@ -61,18 +57,22 @@ var Loan = React.createClass({
             Toast.info("手机号码格式不对", 2);
         }else{
             var item={
+                id:this.state.id,
                 userId:this.state.user.userId,
                 phone:phoneNum,
                 pic:this.state.faceImg,
             }
-            // console.log(item)
+            console.log(item)
             api.submitTask(item,function(res){
                 if(res.code=="0000"){
-                    this.setState({
+                    Toast.info(res.msg,2);
+                    
+                    that.setState({
                         show: false,
                         allow:false,
                         bgcolor:{backgroundColor:"#646666"}
                     });
+                    location.reload();
                 }else{
                     Toast.info(res.msg,2);
                 }
@@ -80,9 +80,14 @@ var Loan = React.createClass({
            
         }
     },
-    subTk(){
+    subTk(item){
+        if(!this.state.allow){
+            Toast.info("您已提交，请勿重复", 2);
+            return false;
+        }
         this.setState({
             show: true,
+            id:item,
         });
     },
     changeInputTxt: function (e) {
@@ -175,7 +180,7 @@ var Loan = React.createClass({
                                 </div>
                                 <div className="high">
                                     <a href={item.taskUrl}>进入任务</a>
-                                    <p onClick={that.subTk} style={that.state.bgcolor}> 提交任务</p>                               
+                                    <p onClick={that.subTk.bind(that,item.id)} style={that.state.bgcolor}> 提交任务</p>                               
                                 </div>
                             </li>
                         );
@@ -295,7 +300,18 @@ var Loan = React.createClass({
                             </div>
                             <div className="high">
                                 <p onClick={this.goTask}>进入任务</p>
-                                <p onClick={this.subTk}> 提交任务</p>
+                                <p onClick={this.subTk} style={that.state.bgcolor}> 提交任务</p>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="src/img/icon/product1.png" />
+                            <div className="loanTitle">
+                                <p>任务名称</p>
+                                <p><span>任务奖励</span>：完成任务可获得<span>500</span>积分</p>
+                            </div>
+                            <div className="high">
+                                <p onClick={this.goTask}>进入任务</p>
+                                <p onClick={this.subTk} style={that.state.bgcolor}> 提交任务</p>
                             </div>
                         </li>
                         <li>

@@ -923,6 +923,8 @@ module.exports.myTask = function (item, cb1, cb2) {
     data.userId = item.userId;
     data.appId = item.phone;
     data.appFlag = "C";
+    data.userId=item.userId;
+    data.appId=item.phone;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     // console.log(param);
@@ -931,7 +933,6 @@ module.exports.myTask = function (item, cb1, cb2) {
     }, cb1, cb2);
     delete data.userId;
     delete data.appId;
-    delete data.appFlag;
 }
 //提交任务
 module.exports.submitTask = function (item, cb1, cb2) {
@@ -940,16 +941,18 @@ module.exports.submitTask = function (item, cb1, cb2) {
     data.taskPhone = item.phone;
     data.appFlag = "C";
     // data.submitPic=item.pic;
+    data.id=item.id,
+    data.userId=item.userId;
+    data.taskPhone=item.phone;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    // console.log(param);
+    console.log(param);
     http(`${globalData.path}/zndai/user/task/submitTask`, {
         params: str, submitPic: item.pic
     }, cb1, cb2);
+    delete data.id;
     delete data.userId;
     delete data.taskPhone;
-    delete data.appFlag;
-    delete data.submitPic;
 }
 //当前版本
 module.exports.version = function (cb1, cb2) {
@@ -980,6 +983,7 @@ module.exports.modifyStatus = function (id, cb1, cb2) {
     http(`${globalData.path}/zndai/news/modifyStatus`, { params: str }, cb1, cb2);
     delete data.id;
 }
+<<<<<<< HEAD
 //绑定银行卡
 
 module.exports.addBankcard = function (cardName, idCard, cardNumber, bankName, cardPhone, verifyCode, cb1, cb2) {
@@ -1042,4 +1046,27 @@ module.exports.replacecard = function (bankCardName, cardNumber, cash, serviceCh
     delete data.cardNumber;
     delete data.cash;
     delete data.serviceCharge;
+}
+//消息推送
+module.exports.whetherMsgPush= function (item,cb1, cb2) {
+    var data = globalData.requestData;
+    data.userId=item.userId;
+    data.whetherMsgPush=item.whetherMsgPush;    
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // console.log(param);
+    http(`${globalData.path}/zndai/user/whetherMsgPush`, {params: str}, cb1, cb2);
+    delete data.userId;
+    delete data.whetherMsgPush;
+}
+module.exports.shareDetail= function (userName,cb1, cb2) {
+    var data = globalData.requestData;
+    data.userId=globalData.userId;
+    data.userName = userName
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // console.log(param);
+    http(`${globalData.path}/zndai/share/detailed`, {params: str}, cb1, cb2);
+    delete data.userId;
+    delete data.userName;
 }
