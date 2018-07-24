@@ -23,7 +23,7 @@ var SetPsd = React.createClass({
             inputType2:"password",
             eyeImg1: eyeImg,
             eyeImg2:eyeImg,
-            isshow:true
+            isshow:false
         }
     },
     componentWillMount(){
