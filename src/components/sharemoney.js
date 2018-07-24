@@ -234,6 +234,18 @@ class sharemoney extends Component {
                         </Modal>
 
                     </div>
+                    <div className="-mob-share-ui-button -mob-share-open">分享</div>
+                    <div className="-mob-share-ui -mob-share-ui-theme -mob-share-ui-theme-slide-bottom" style={{display: "none"}}>
+                        <ul className="-mob-share-list">
+                            <li className="-mob-share-weixin"><p>微信</p></li>
+                            <li className="-mob-share-weibo"><p>新浪微博</p></li>
+                            <li className="-mob-share-qzone"><p>QQ空间</p></li>
+                            <li className="-mob-share-qq"><p>QQ好友</p></li>                            
+                            {/* <li className="-mob-share-twitter"><p>Twitter</p></li> */}
+                        </ul>
+                        <div className="-mob-share-close">取消</div>
+                    </div>
+                    <div className="-mob-share-ui-bg"></div>
                 </div>
                 <Tabs tabs={this.state.tabs}
                     initalPage={'t2'}

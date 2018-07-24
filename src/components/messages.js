@@ -53,7 +53,7 @@ var Login = React.createClass({
                                         {item.title}
                                     <span style={{backgroundImage:"url('src/img/icon/redIcon.png')"}} className={item.status?'hide':''}></span>
                                     </p>
-                                    {/* <p>{item.addTime.month}-{item.addTime.day}</p> */}
+                                    <p>{item.addTime.month}-{item.addTime.day}</p>
                                 </div>
                                 <div className="title msg-content">
                                     <p>{item.content}</p>
