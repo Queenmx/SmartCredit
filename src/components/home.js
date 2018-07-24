@@ -119,25 +119,19 @@ var Home = React.createClass({
         if(this.state.user){
             var phone=this.state.user.phone;
         //消息是否有新的
-        api.newsList(phone,function(res){
-            var key1 = globalData.key;
-            if(res.code=="0000"){
-                var temp = JSON.parse(strDec(res.data, key1, "", ""))[0];
-                console.log(temp);
-                var arr=temp.systemNotices.concat(temp.myNews).concat(temp.viewsMyNews).concat(temp.viewsSystemNews)
-                console.log(arr);
-                for(var i in arr){
-                    if(!(arr[i].status)){
+            api.newsList(phone,function(res){
+                var key1 = globalData.key;
+                if(res.code=="0000"){
+                    var temp = JSON.parse(strDec(res.data, key1, "", ""))[0];
+                    console.log(temp);
+                    if(temp.systemNotices.length||temp.viewsMyNews.length)
                         that.setState({
                             hasMsg:true
                         })
-                    }
-                }  
-
-            }else{
-                Toast.info(res.msg,2);
-            }
-        })
+                }else{
+                    Toast.info(res.msg,2);
+                }
+            })
         }
         
         //轮播图
@@ -398,16 +392,15 @@ var Home = React.createClass({
                 <div className="content">
                     <div className="bannernews"> 
                         <Carousel
-                            autoplay={true}
+                            autoplay
                             infinite
-                            selectedIndex={0}
                             dotStyle={{"backgroundColor":"#fff",'width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem','marginRright':'0.18rem'}}
                             dotActiveStyle={{"backgroundColor":'#4374ff','width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem'}}
                         >
                            
                             {this.state.bannerArr}
-                          
-                            </Carousel>
+                        
+                        </Carousel>
                              <ul className="news" onClick={this.newsAll}>
                                 <li className="newvoice">
                                     <img src="src/img/icon/voice.png" />

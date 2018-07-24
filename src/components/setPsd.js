@@ -23,7 +23,7 @@ var SetPsd = React.createClass({
             inputType2:"password",
             eyeImg1: eyeImg,
             eyeImg2:eyeImg,
-            isshow:true
+            isshow:false
         }
     },
     componentWillMount(){
@@ -98,10 +98,15 @@ var SetPsd = React.createClass({
             var phoneNum = that.props.location.state.phoneNum;
             var verifyCode = that.props.location.state.verifyCode;
             var fromWhy = that.props.location.state.fromWhy;
+            var sp=localStorage.getItem("sharePhone");
+            var sharePhone='';
+            if(sp!=null){
+                sharePhone=sp;
+            }
             that.setState({ isLoading: true })
             //console.log(that.props.location.state);
             if (fromWhy == "register") {//调注册接口
-                api.register(phoneNum, psd, verifyCode, function (res) {
+                api.register(phoneNum, psd, verifyCode,sharePhone, function (res) {
                     // console.log(res);
                     if (res.code == "0000") {
                         var data = JSON.parse(strDec(res.data, key1, "", ""));

@@ -151,7 +151,8 @@ body {
       -webkit-transform-origin: 0 0;
       transform: scale(0.5);
       transform-origin: 0 0;
-      border-bottom: 1px solid #f3f3f3; }
+      /* border-bottom: 1px solid #f3f3f3; */
+     }
     #app .header .dingwei, #app .homeHeader .dingwei {
       flex: 1;
       margin-left: 0.32rem;
@@ -196,7 +197,7 @@ body {
         border-radius: 50%;
         background: #ff801a;
         position: absolute;
-        top: 0.28rem;
+        top: 0.48rem;
         right: -0.03rem; }
       #app .header .headerLinkBtn .hide, #app .homeHeader .headerLinkBtn .hide {
         display: none; }
