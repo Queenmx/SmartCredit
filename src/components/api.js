@@ -469,11 +469,11 @@ module.exports.myWallet = function (userName, userId, cb1, cb2) {
     delete data.userId;
 }
 //提交反馈
-module.exports.feedBackAdd = function (content, userId, cb1, cb2) {
+module.exports.feedBackAdd = function (content, userName, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.content = content;
-    data.userId = globalData.userId;;
+    data.userName = userName;;
     var param = JSON.stringify(data);
     // console.log(param)
     var str = strEnc(param, key1);
