@@ -145,15 +145,29 @@ var Mine = React.createClass({
         hashHistory.push(path);
     },
     toHelp: function () {
-        var path = {
-            pathname: '/Help',
+        if (this.state.isLogin) {
+            var path = {
+                pathname: '/Help',
+            }
+        } else {
+            var path = {
+                pathname: '/Login',
+                //query:data,
+            }           
         }
         hashHistory.push(path);
     },
     toShare(){
-        var path = {
-            pathname: '/Sharemoney',
+        if (this.state.isLogin) {
+            var path = {
+                pathname: '/Help',
+            }
+        } else {
+            var path = {
+                pathname: '/Sharemoney',
+            }          
         }
+        
         hashHistory.push(path);
     },
     toIdCard: function () {
