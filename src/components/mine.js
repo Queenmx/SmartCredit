@@ -160,11 +160,11 @@ var Mine = React.createClass({
     toShare(){
         if (this.state.isLogin) {
             var path = {
-                pathname: '/Help',
+                pathname: '/Sharemoney',
             }
         } else {
             var path = {
-                pathname: '/Sharemoney',
+                pathname: '/Login',
             }          
         }
         
