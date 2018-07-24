@@ -45,7 +45,7 @@ var Ask = React.createClass({
 
     submitAsk: function () {
         var content = this.state.content;
-        var userId = localStorage.getItem("user").userId
+        var userName = localStorage.getItem("user").userName
         //var content=$("textarea").val().trim();
         var that=this;
         if (content.length > 0) {
@@ -53,7 +53,7 @@ var Ask = React.createClass({
                     flag: true
                 })
             if (this.state.fromWho == "help") {//反馈建议
-                api.feedBackAdd(content,userId, function (res) {
+                api.feedBackAdd(content,userName, function (res) {
                     //console.log('feedBackAdd',res);
                     if (res.code == "0000") {
                     	that.setState({
