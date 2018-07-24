@@ -48,13 +48,24 @@
         <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
         <script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2704aa6c219a0"></script>
         <script>
+            var phone = JSON.parse(localStorage.getItem("user")).phone
             mobShare.config({
 
                 debug: true, // 开启调试，将在浏览器的控制台输出调试信息
+<<<<<<< HEAD
                 appkey: '2704aa6c219a0', // appkey
                 params: {
                     // url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share="+localStorage.getItem('user'), // 分享链接
                     url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share=13971596229",
+=======
+
+                appkey: '2704aa6c219a0', // appkey
+
+                params: {
+                    url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share="+phone, // 分享链接
+                    // url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share=13260691690",
+
+>>>>>>> ec4ff5ede970e95356969521c940f5d9a8a6be6c
                     title: '11', // 分享标题
                     description: '', // 分享内容
                     pic: '', // 分享图片，使用逗号,隔开
