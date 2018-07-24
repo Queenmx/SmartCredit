@@ -23,11 +23,18 @@ var Mine = React.createClass({
 
     componentDidMount: function () {
         //console.log(this.props.location.query.price);
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
+        if(isiOS){                 
+            $(".userHeader p").css({"height":"1.3rem","line-height":"1.3rem"});      
+        }
     },
     componentWillMount: function () {
         var that = this;
         var user = localStorage.getItem("user");
         //console.log(user);
+       
         if (user) {//已登陆
             var userObj = JSON.parse(user);
             console.log(userObj)
