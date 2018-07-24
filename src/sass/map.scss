@@ -25,11 +25,15 @@
     }
     .currentAddress{
         text-indent: 0.72rem;
-        font-size: 0.32rem;
+        font-size: 0.28rem;
         line-height: 1rem;
         height: 1rem;
         background: #ffffff;
-        color: $blue;
+        color: #ff801a;
+        .location-icon{
+            @include icon(0.28rem,0.32rem);
+            margin-right: 0.14rem;
+        }
     }
     .hotAddress{
         //padding-left: 0.38rem;
