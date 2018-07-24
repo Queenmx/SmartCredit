@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><link href="assets/css/main.cb03aac4b9c0b2c27420d3bafab3222e.css" rel="stylesheet"><link href="assets/css/main.df67e4b312716203887322d6545be452.css" rel="stylesheet"></head>
+<html><head><link href="assets/css/main.6356079226cff5b050b5d3bd0cf13d55.css" rel="stylesheet"><link href="assets/css/main.80de8375a14256282152813856235959.css" rel="stylesheet"></head>
 
 <head>
     <meta charset="UTF-8">
@@ -20,12 +20,12 @@
 
         <script src="src/libs/fastclick.js"></script>
         <script>
-            (function(){
+            (function () {
                 var u = navigator.userAgent;
-            　　var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-            　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-                if(isiOS){
-                    $(".header").css({"height":"1.1rem","line-height":"1.1rem"});
+                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                if (isiOS) {
+                    $(".header").css({ "height": "1.1rem", "line-height": "1.1rem" });
                 }
 
             })()
@@ -47,4 +47,38 @@
         <script src="src/libs/html5ImgCompress.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
         <script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2704aa6c219a0"></script>
-</html><script type="text/javascript" src="assets/js/manifest.59af6766cd6acea6e9b9.js"></script><script type="text/javascript" src="assets/js/vendor.9a45907998603db69f74.js"></script><script type="text/javascript" src="assets/js/main.c6175344ea6907a7647c.js"></script>
+        <script>
+            mobShare.config({
+
+                debug: true, // 开启调试，将在浏览器的控制台输出调试信息
+
+                appkey: '', // appkey
+
+                params: {
+                    // url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share="+localStorage.getItem("user"), // 分享链接
+                    // url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs",
+
+                    title: '11', // 分享标题
+                    description: '', // 分享内容
+                    pic: '', // 分享图片，使用逗号,隔开
+                    reason: '',//自定义评论内容，只应用与QQ,QZone与朋友网
+                },
+
+
+                /**
+                 * 分享时触发的回调函数
+                 * 分享是否成功，目前第三方平台并没有相关接口，因此无法知道分享结果
+                 * 所以此函数只会提供分享时的相关信息
+                 * 
+                 * @param {String} plat 平台名称
+                 * @param {Object} params 实际分享的参数 { url: 链接, title: 标题, description: 内容, pic: 图片连接 }
+                 */
+                callback: function (plat, params) {
+                }
+
+            });
+            console.log(localStorage.getItem("user"))
+        </script>
+
+
+</html><script type="text/javascript" src="assets/js/manifest.59af6766cd6acea6e9b9.js"></script><script type="text/javascript" src="assets/js/vendor.cd8b4a13ffecb75a83d5.js"></script><script type="text/javascript" src="assets/js/main.1d75819ed402f05f3b8e.js"></script>
