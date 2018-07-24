@@ -399,7 +399,7 @@ class sharemoney extends Component {
                 <Header title="分享赚钱" />
                 <div className="content">
                     <div className="time">
-                        <p>{this.state.money}</p>
+                        <p>{this.state.money="null"?0:this.state.money}</p>
                         <p>累计收益<span></span>(元)</p>
                     </div>
 
