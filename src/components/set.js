@@ -31,11 +31,6 @@ var Set = React.createClass({
             if(isAndroid){                
                 version=anversion;              
             }
-            if(isiOS){                
-                version=iosversion;    
-                $(".header").css({"height":"1.3rem","line-height":"1.3rem"});    
-                $(".toBack img").css({"marginTop":"0.5rem"});     
-            }
             var arr=(
                 <div className="infoRight">V{version}</div>
             )

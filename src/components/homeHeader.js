@@ -15,11 +15,21 @@ var HomeHeader = React.createClass({
             address: "其他城市"
         }
     },
-
+    componentWillMount: function () {
+        var that = this;
+        
+    },
     componentDidMount: function () {
         var that = this;
         var dingwei = localStorage.getItem("dingwei");
         //var curCity=localStorage.getItem("curCity");
+        var u = navigator.userAgent;
+    　　var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
+        if(isiOS){                  
+            $(".homeHeader").css({"height":"1.3rem","line-height":"1.3rem"});    
+            $(".dingwei").css({"marginTop":"0.22rem"});     
+        }
         if (!dingwei) {
             //自动定位
             var map = new BMap.Map("allmap");
