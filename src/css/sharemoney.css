@@ -4,17 +4,17 @@
 }
 
 .share{
-   padding: 20px 119px;
+   padding: 20px 100px;
    background: #fff;
 }
 .share :global(.am-button){
-
     font-size: 0.25rem;
     width: 175px;
     border-radius:40px; 
     height: 40px;
     line-height: 40px;
     background: #508aff;
+    font-weight: 700;
 }
 
 .detailed .detailednav div{
@@ -73,6 +73,7 @@ li:last-child{
     /* height: 185px; */
     background: #f8f7f7;
 }
+
 .rendering{
     width: 1.5rem;
     flex-direction: column;
@@ -123,6 +124,16 @@ li:last-child{
 }
 .modifymodal :global(.am-modal-body) .cancelbtn::before{
     border:none;
+}
+.-mob-share-ui-button{
+    font-size: 0.25rem;
+    width: 175px;
+    border-radius:40px; 
+    height: 40px;
+    line-height: 40px;
+    background: #508aff !important;
+    text-align: center;
+    padding: 0 !important;
 }
 
 
