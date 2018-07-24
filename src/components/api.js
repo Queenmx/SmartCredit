@@ -62,7 +62,7 @@ module.exports.login = function (loginType, phone, pwd, verifyCode, cb1, cb2) {
 }
 
 //注册
-module.exports.register = function (phone, pwd, verifyCode, cb1, cb2) {
+module.exports.register = function (phone, pwd, verifyCode,sharePhone, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.phone = phone;
@@ -70,6 +70,7 @@ module.exports.register = function (phone, pwd, verifyCode, cb1, cb2) {
     data.type = "C";
     data.verifyCode = verifyCode;
     data.ip = ip;
+    data.sharePhone=sharePhone;
     var param = JSON.stringify(data);
     console.log(param);
     var str = strEnc(param, key1);
@@ -79,6 +80,7 @@ module.exports.register = function (phone, pwd, verifyCode, cb1, cb2) {
     delete data.type;
     delete data.verifyCode;
     delete data.ip;
+    delete data.sharePhone;
 }
 
 //忘记密码，重置密码
