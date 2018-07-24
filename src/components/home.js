@@ -27,6 +27,7 @@ var Home = React.createClass({
 
     componentWillMount: function () {
         var user = localStorage.getItem("user");
+       
         if(user){
             this.setState({
                 user:JSON.parse(user)
