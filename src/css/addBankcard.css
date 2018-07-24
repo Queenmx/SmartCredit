@@ -36,11 +36,20 @@ color: #888;
     height:100%;
     background: #f1f0f0;
 }
-.supportbank .supporttitle{
+.supporttitle{
     line-height: 60px;
     height: 60px;
     color:#ff801a;
+    padding: 0px 15px;
+}
+.supportbank{
+    padding: 0.4rem 0.48rem;
 }
 .supportbank .SubmissionContent{
-    
+    border-radius: 0.2rem;
+    background: #508aff;
+    color: #ffffff;
+    line-height: 0.95rem;
+    font-size: 0.28rem;
+    text-align: center
 }

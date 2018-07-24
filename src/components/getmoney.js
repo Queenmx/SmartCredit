@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import { hashHistory } from 'react-router';
-import { NavBar, Icon, List, WhiteSpace, InputItem, WingBlank, Button } from 'antd-mobile';
-import { createForm } from 'rc-form';
+import Header from './header';
+import { globalData } from './global.js';
+import { List, WhiteSpace, InputItem, WingBlank } from 'antd-mobile';
+import api from './api';
+var key1 = globalData.key;
 import "../css/getmoney.css";
+
 
 
 class getmoney extends Component {
@@ -11,82 +15,88 @@ class getmoney extends Component {
         this.state = {
             procedurestext: null,
             number: null,
+            display: "none",
+            id: null,
+            bankCardName: '',//银行卡名称
+            cardNumber: '',//银行卡号
+            cash: '',//提现金额
+            serviceCharge: '',//提现手续费
+            showMask: false
         }
     }
+    
     componentDidMount() {
-
-    }
-    // <input onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
-    putforward = (number) => {
-        // console.log(number)
-        // if (number != '' && number.substr(0, 1) == '.') {
-        //     number = '';
-        // }
-        // number = number.replace(/[^\d.]/g, "");  //清除“数字”和“.”以外的字符  
-        // number = number.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的       
-        // number = number.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
-        // number = number.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');//只能输入两个小数   
-        // if (number.indexOf('.') < 0 && number != '') {
-        //     if (number.substr(0, 1) == '0' && number.length == 2) {
-        //         number = number.substr(1, number.length)
-        //     }
-        // }
-        // if (parseFloat(number) >= 0 && parseFloat(number) < 10000) {
-        //     return
-        // } else {
-        //     number = number.substr(0, number.length - 1)
-        // }
-        // let that = this;
-        // console.log(that)
-        // console.log(number)
-        // if (number < 1) {
-        //     console.log('number < 1')
-        //     this.setState({
-        //         number: 1
-        //     },()=>{
-        //         that.setState({
-        //             number: 1
-        //         })
-        //         this.forceUpdate()
-        //         console.log(this.state.number)
-        //     })
-        // }
-
-        if (number < 100 || number) {
-            console.log('手续费2元')
+        // var addBank = document.getElementById("addBank");
+        if (this.props.location.query.id !== undefined) {
             this.setState({
-                procedurestext: 2
+                showMask: true
             })
         }
-        if (number > 100) {
+        this.setState({
+            id: this.props.location.query.id,
+            bankCardName: this.props.location.query.bankName,
+            cardNumber: this.props.location.query.cardNumber
+        })
+        console.log(this.props.location.query.id)
+        console.log(this.props.location.query.cardNumber)
+    }
+    putforward = (cash) => {
+        this.setState({
+            cash: cash,
+            // serviceCharge:serviceCharge
+        })
+        if (cash < 100 || cash) {
+            console.log('手续费2元')
             this.setState({
-                procedurestext: number * 0.05
+                serviceCharge: 2
+            })
+        }
+        if (cash > 100) {
+            this.setState({
+                serviceCharge: cash * 0.05
             })
         }
     }
 
 
     addCard() {
+     
         hashHistory.push('/addBankcard')
     }
+    submissionApply = () => {
+        var bankCardName = this.state.bankCardName;
+        var cardNumber = this.state.cardNumber;
+        var cash = this.state.cash;
+        var serviceCharge = this.state.serviceCharge;
+        console.log(bankCardName)
+        console.log(cardNumber)
+        console.log(cash)
+        console.log(serviceCharge)
+        api.replacecard(bankCardName, cardNumber, cash, serviceCharge, function (res) {
+
+            console.log(res)
+            if (res.code === "0000") {
+                let Decdata = strDec(res.data, key1, "", "");
+                let data = JSON.parse(Decdata);
+
+                // console.log(data)
+            }
+        })
+    }
+
+    // var blance = localStorage.getItem("blance")
+
     render() {
-        // const { getFieldProps } = this.props.form;
+        var that = this;
+
+    
+    var blance = localStorage.getItem("blance")
         return (
             <div className="mywallet">
-                <NavBar
-                    mode="dark"
-                    className="fixed-header"
-                    ref={el => (this.lv = el)}
-                    icon={<Icon type="left" />}
-                    onLeftClick={() => {
-                        hashHistory.goBack();
-                    }}
-                >
-                    申请提现
-                 </NavBar>
+                <Header title="申请提现" />
                 <div className="content">
                     <div className="time">
-                        <p>{this.props.location.query.balance}</p>
+                        <p>{blance}</p>
                         <p>账户余额<span></span>(元)</p>
                     </div>
                     <WhiteSpace size="sm" />
@@ -100,33 +110,31 @@ class getmoney extends Component {
                         </List.Item>
                     </List>
                     <WhiteSpace size="sm" />
-                    <List className="addBank">
-                        <List.Item extra={'招商银行'} style={{ fontSize: "18px" }}>
+                    <List className="addBank" id={`${this.state.showMask == true ? 'downloadPop' : 'hiddenPop'}`}>
+                        <List.Item extra={this.state.bankCardName} style={{ fontSize: "18px" }}>
                             <img src={require('../img/img/web/icon_14@3x.png')} />
                         </List.Item>
-                        <div className="displaylastnumber">尾号 (1225)</div>
+                        <div className="displaylastnumber">尾号 ({this.state.cardNumber.substr(this.state.cardNumber.length - 4)})</div>
                     </List>
                     <WhiteSpace size="sm" />
                     <List >
                         <InputItem
+                            type="text"
                             className="putforward"
-                            // {...getFieldProps('preice')}
                             placeholder="请输入金额(元)"
                             style={{
                                 fontSize: "0.3rem"
                             }}
                             extra="元"
                             onChange={this.putforward}
-                        // onChange={(value) => {
-                        //     this.putforward(value)
-                        // }}
+
                         >提现金额</InputItem>
                     </List>
                     <p></p>
                     <List >
                         <InputItem
                             className="procedures"
-                            placeholder={this.state.procedurestext}
+                            placeholder={this.state.serviceCharge}
                             extra="元"
                             // disabled="disabled"
                             style={{ color: "#fff" }}
@@ -141,16 +149,17 @@ class getmoney extends Component {
                 </div>
                 <WingBlank>
                     <div className="promptNotes">
-                        <div >可提交提现申请时间:工作日09:00-18:00</div>
+                        <div >可提交提现申请时间:工作日 09: 00 一一 18: 00</div>
                         <div >提现手续费费率:5%</div>
                         <div >提现货款额度小于100元固定收取2元手续费</div>
                         <div >提现货款额度大于100元按照手续费费率收取</div>
-                        <div>预计审核时间1-2个工作日</div>
+                        <div className="promptNotestitle">预计审核时间1-2个工作日</div>
                     </div>
                 </WingBlank>
-                <WingBlank className="Submission">
-                    <Button type="primary" >提交申请</Button><WhiteSpace />
-                </WingBlank>
+                <div className="Submission">
+                    <div type="primary" onClick={this.submissionApply} className="buttoncolor" >提交申请</div>
+                </div>
+
 
             </div>
 
