@@ -24,6 +24,7 @@ class getmoney extends Component {
             showMask: false
         }
     }
+    
     componentDidMount() {
         // var addBank = document.getElementById("addBank");
         if (this.props.location.query.id !== undefined) {
@@ -59,6 +60,7 @@ class getmoney extends Component {
 
 
     addCard() {
+     
         hashHistory.push('/addBankcard')
     }
     submissionApply = () => {
@@ -82,14 +84,19 @@ class getmoney extends Component {
         })
     }
 
+    // var blance = localStorage.getItem("blance")
 
     render() {
+        var that = this;
+
+    
+    var blance = localStorage.getItem("blance")
         return (
             <div className="mywallet">
                 <Header title="申请提现" />
                 <div className="content">
                     <div className="time">
-                        <p>{this.props.location.query.balance}</p>
+                        <p>{blance}</p>
                         <p>账户余额<span></span>(元)</p>
                     </div>
                     <WhiteSpace size="sm" />

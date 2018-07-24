@@ -46,6 +46,7 @@ var ListDetail = React.createClass({
                 that.setState({
                     balance:data.balance
                 })
+                localStorage.setItem("blance",data.balance)
                 for (var i in data.detaileds) {
                     walletArr.push(
                         <ul className="infolist" key={i}>
