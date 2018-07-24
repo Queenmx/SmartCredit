@@ -313,7 +313,7 @@ class sharemoney extends Component {
             modal2: false
         }
     }
-
+  
     componentDidMount() {
         var key1 = globalData.key;
         var that = this;
