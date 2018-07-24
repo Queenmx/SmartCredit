@@ -32,28 +32,80 @@ var Login = React.createClass({
         }
         
     },
-    componentDidMount(){
-
-        
+    componentDidMount(){        
         var that=this;
         if(this.state.user){
             var phone=this.state.user.phone;
             api.newsList(phone,function(res){
                 var key1 = globalData.key;
                 if(res.code=="0000"){
-                    var temp = JSON.parse(strDec(res.data, key1, "", ""))[0];
-                    
+                    var temp = JSON.parse(strDec(res.data, key1, "", ""))[0];                    
                     var arr=temp.systemNotices.concat(temp.myNews).concat(temp.viewsMyNews).concat(temp.viewsSystemNews)
-                    console.log(arr);
-                    var arrDom=arr.map(function(item,i){
+                    console.log(temp);
+                    //未读个人消息
+                    var arrDom1=temp.viewsMyNews.map(function(item,i){
+                        return (
+                            <div className="am-list-content" key={item.id} onClick={that.goDetail.bind(that,item)}>
+                                <div className="title">
+                                    <p className="isRead">
+                                        {item.title}
+                                    <span style={{backgroundImage:"url('src/img/icon/redIcon.png')"}}></span>
+                                    </p>
+                                    <p>{item.addTime.month+1}-{item.addTime.day}</p>
+                                </div>
+                                <div className="title msg-content">
+                                    <p>{item.content}</p>
+                                    <p style={{backgroundImage:"url('src/img/icon/go1.png')"}}></p>
+                                </div>
+                            </div>
+                        )
+                    })
+                    //未读系统消息
+                    var arrDom2=temp.systemNotices.map(function(item,i){
+                        return (
+                            <div className="am-list-content" key={item.id} onClick={that.goDetail.bind(that,item)}>
+                                <div className="title">
+                                    <p className="isRead">
+                                        {item.title}
+                                    <span style={{backgroundImage:"url('src/img/icon/redIcon.png')"}}></span>
+                                    </p>
+                                    <p>{item.addTime.month+1}-{item.addTime.day}</p>
+                                </div>
+                                <div className="title msg-content">
+                                    <p>{item.content}</p>
+                                    <p style={{backgroundImage:"url('src/img/icon/go1.png')"}}></p>
+                                </div>
+                            </div>
+                        )
+                    })
+                    //已读个人消息
+                    var arrDom3=temp.myNews.map(function(item,i){
                         return (
                             <div className="am-list-content" key={item.id} onClick={that.goDetail.bind(that,item)}>
                                 <div className="title">
                                     <p className={item.status?"":"isRead"}>
                                         {item.title}
-                                    <span style={{backgroundImage:"url('src/img/icon/redIcon.png')"}} className={item.status?'hide':''}></span>
+                                    <span style={{backgroundImage:"url('src/img/icon/redIcon.png')"}} className='hide'></span>
                                     </p>
-                                    <p>{item.addTime.month}-{item.addTime.day}</p>
+                                    <p>{item.addTime.month+1}-{item.addTime.day}</p>
+                                </div>
+                                <div className="title msg-content">
+                                    <p>{item.content}</p>
+                                    <p style={{backgroundImage:"url('src/img/icon/go1.png')"}}></p>
+                                </div>
+                            </div>
+                        )
+                    })
+                    //已读系统消息
+                    var arrDom4=temp.viewsSystemNews	.map(function(item,i){
+                        return (
+                            <div className="am-list-content" key={item.id} onClick={that.goDetail.bind(that,item)}>
+                                <div className="title">
+                                    <p className={item.status?"":"isRead"}>
+                                        {item.title}
+                                    <span style={{backgroundImage:"url('src/img/icon/redIcon.png')"}} className='hide'></span>
+                                    </p>
+                                    <p>{item.addTime.month+1}-{item.addTime.day}</p>
                                 </div>
                                 <div className="title msg-content">
                                     <p>{item.content}</p>
@@ -63,20 +115,15 @@ var Login = React.createClass({
                         )
                     })
                     that.setState({
-                        nwList:arrDom
+                        nwList:arrDom1.concat(arrDom2).concat(arrDom3).concat(arrDom4)
                     })
                 }else{
                     Toast.info(res.msg,2);
                 }
             })
         }else{
-            var arrDom=(               
-                    <div className="nomsg">
-                        暂无记录
-                    </div>              
-            )
             that.setState({
-                nwList:arrDom
+                isShow:false
             })
         }
         
