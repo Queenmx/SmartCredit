@@ -23,10 +23,27 @@ var ForgotPsd = React.createClass({
     },
     componentWillMount(){
         var phoneNum = localStorage.getItem("phoneNum") || "";
+        var sharePhone=this.getUrlParms("share");
+        console.log(sharePhone);
+        localStorage.setItem("sharePhone",sharePhone);
+        
+        
         this.setState({ 
             phoneNum: phoneNum,
         })
        
+    },
+    //获取地址栏参数，name:参数名称
+    getUrlParms(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r =this.props.location.search.substr(1).match(reg);
+        if(r!=null){
+            return unescape(r[2]);
+        }else{
+            return null;
+        }
+        
+        
     },
     componentWillReceiveProps(nextProps){
         if(nextProps.location.query.state=="rgs"){
