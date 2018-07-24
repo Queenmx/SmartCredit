@@ -1040,13 +1040,14 @@ module.exports.replacecard = function (mainId, selectId, cb1, cb2) {
     delete data.selectId;
 }
 //提现
-module.exports.replacecard = function (bankCardName, cardNumber, cash, serviceCharge, cb1, cb2) {
+module.exports.replacecard = function (bankCardName, cardNumber, cash, serviceCharge,userName, cb1, cb2) {
     var data = globalData.requestData;
     data.userId = globalData.userId;
     data.bankCardName = bankCardName;
     data.cardNumber = cardNumber;
     data.cash = cash;
     data.serviceCharge = serviceCharge;
+    data.userName = userName;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/wallet/submit`, { params: str }, cb1, cb2);
@@ -1055,6 +1056,7 @@ module.exports.replacecard = function (bankCardName, cardNumber, cash, serviceCh
     delete data.cardNumber;
     delete data.cash;
     delete data.serviceCharge;
+    delete data.userName;
 }
 //消息推送
 module.exports.whetherMsgPush= function (item,cb1, cb2) {
