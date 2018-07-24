@@ -96,7 +96,7 @@ var Header = React.createClass({
             version=anversion;              
         }
         if(isiOS){                
-            version=iosversion;    
+            // version=iosversion;    
             $(".header").css({"height":"1.3rem","line-height":"1.3rem"});    
             $(".toBack img").css({"marginTop":"0.5rem"});     
         }
