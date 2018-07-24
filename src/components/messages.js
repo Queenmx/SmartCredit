@@ -21,59 +21,65 @@ var Login = React.createClass({
     },
     componentWillMount: function () {
         var user = localStorage.getItem("user");
-        this.setState({
-            user:JSON.parse(user)
-        })
+        if(user){
+            this.setState({
+                user:JSON.parse(user)
+            })
+        }else{
+            this.setState({
+                user:""
+            })
+        }
+        
     },
     componentDidMount(){
-        var phone=this.state.user.phone;
+
+        
         var that=this;
-        api.newsList(phone,function(res){
-            var key1 = globalData.key;
-            if(res.code=="0000"){
-                var temp = JSON.parse(strDec(res.data, key1, "", ""))[0];
-                console.log(temp);
-                var arrPrivate=temp.myNews.map(function(item,i){
-                    return (
-                        <div className="am-list-content" key={item.id} onClick={that.goDetail.bind(that,item)}>
-                            <div className="title">
-                                <p className={item.status?"":"isRead"}>
-                                    {item.title}
-                                <span style={{backgroundImage:"url('src/img/icon/redIcon.png')"}} className={item.status?'hide':''}></span>
-                                </p>
-                                <p>{item.addTime.month}-{item.addTime.day}</p>
+        if(this.state.user){
+            var phone=this.state.user.phone;
+            api.newsList(phone,function(res){
+                var key1 = globalData.key;
+                if(res.code=="0000"){
+                    var temp = JSON.parse(strDec(res.data, key1, "", ""))[0];
+                    
+                    var arr=temp.systemNotices.concat(temp.myNews).concat(temp.viewsMyNews).concat(temp.viewsSystemNews)
+                    console.log(arr);
+                    var arrDom=arr.map(function(item,i){
+                        return (
+                            <div className="am-list-content" key={item.id} onClick={that.goDetail.bind(that,item)}>
+                                <div className="title">
+                                    <p className={item.status?"":"isRead"}>
+                                        {item.title}
+                                    <span style={{backgroundImage:"url('src/img/icon/redIcon.png')"}} className={item.status?'hide':''}></span>
+                                    </p>
+                                    {/* <p>{item.addTime.month}-{item.addTime.day}</p> */}
+                                </div>
+                                <div className="title msg-content">
+                                    <p>{item.content}</p>
+                                    <p style={{backgroundImage:"url('src/img/icon/go1.png')"}}></p>
+                                </div>
                             </div>
-                            <div className="title msg-content">
-                                <p>{item.content}</p>
-                                <p style={{backgroundImage:"url('src/img/icon/go1.png')"}}></p>
-                            </div>
-                        </div>
-                    )
-                })
-                var arrPublic=temp.systemNotices.map(function(item,i){
-                    return (
-                        <div className="am-list-content" key={item.id} onClick={that.goDetail.bind(that,item)}>
-                            <div className="title">
-                                <p className={item.status?"":"isRead"}>
-                                {item.title}
-                                {/* <span style={{backgroundImage:"url('src/img/icon/redIcon.png')"}} className={item.status?'':'hide'}></span> */}
-                                </p>
-                                <p>{item.addTime.month}-{item.addTime.day}</p>
-                            </div>
-                            <div className="title msg-content">
-                                <p>{item.content}</p>
-                                <p style={{backgroundImage:"url('src/img/icon/go1.png')"}}></p>
-                            </div>
-                        </div>
-                    )
-                })
-                that.setState({
-                    nwList:arrPrivate.concat(arrPublic)
-                })
-            }else{
-                Toast.info(res.msg,2);
-            }
-        })
+                        )
+                    })
+                    that.setState({
+                        nwList:arrDom
+                    })
+                }else{
+                    Toast.info(res.msg,2);
+                }
+            })
+        }else{
+            var arrDom=(               
+                    <div className="nomsg">
+                        暂无记录
+                    </div>              
+            )
+            that.setState({
+                nwList:arrDom
+            })
+        }
+        
     },
     componentWillUnmount() {
         

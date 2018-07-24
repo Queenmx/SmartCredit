@@ -123,13 +123,16 @@ var Home = React.createClass({
             if(res.code=="0000"){
                 var temp = JSON.parse(strDec(res.data, key1, "", ""))[0];
                 console.log(temp);
-                for (var i in temp.systemNotices){
-                    if(!(temp.systemNotices[i].status)){
+                var arr=temp.systemNotices.concat(temp.myNews).concat(temp.viewsMyNews).concat(temp.viewsSystemNews)
+                console.log(arr);
+                for(var i in arr){
+                    if(!(arr[i].status)){
                         that.setState({
                             hasMsg:true
                         })
                     }
-                }               
+                }  
+
             }else{
                 Toast.info(res.msg,2);
             }

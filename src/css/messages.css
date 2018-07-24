@@ -17,6 +17,9 @@
   border-bottom: 0.02rem solid #eeeeee; }
 .message .content {
   background: #fff; }
+  .message .content .nomsg {
+    text-align: center;
+    margin-top: 0.5rem; }
 .message .title {
   font-size: 0.28rem; }
   .message .title:after {

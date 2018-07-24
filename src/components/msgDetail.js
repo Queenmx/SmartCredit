@@ -23,14 +23,20 @@ var Login = React.createClass({
     },
     componentWillMount: function () {
         var msg=JSON.parse(localStorage.getItem("msg"));
-        
+        var user = localStorage.getItem("user");
         this.setState({
-            msg:msg
+            msg:msg,
+            user:JSON.parse(user)
         })
     },
     componentDidMount(){
-        var id=this.state.msg.id;
-        api.modifyStatus(id,function(res){
+        var item={
+            userId:this.state.msg.id,
+            userName:this.state.user.realName,
+            phone:this.state.user.phone,
+            title:this.state.title
+        };
+        api.modifyStatus(item,function(res){
             if(res.code=="0000"){
             }else{
                 Toast.info(res.msg,2);
