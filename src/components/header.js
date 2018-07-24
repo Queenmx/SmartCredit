@@ -91,8 +91,9 @@ var Header = React.createClass({
     　　var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
     　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
         var version=1.2;
-        // console.log(isAndroid,isiOS);     
-        if(isiOS){                 
+        // console.log(isAndroid,isiOS);    
+        if(isiOS){                
+            // version=iosversion;    
             $(".header").css({"height":"1.3rem","line-height":"1.3rem"});    
             $(".toBack img").css({"marginTop":"0.5rem"});     
         }
