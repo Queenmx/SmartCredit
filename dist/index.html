@@ -40,6 +40,15 @@
                 document.body.appendChild(scrp)
                 // document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"' + '>' + '<' + '/' + 'script>');
             }
+            document.addEventListener('touchstart', function (event) {
+                // 判断默认行为是否可以被禁用
+                if (event.cancelable) {
+                    // 判断默认行为是否已经被禁用
+                    if (!event.defaultPrevented) {
+                        event.preventDefault();
+                    }
+                }
+            }, false);
         </script>
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2bYPlioCp4ps4ekwY2AcPFdaG11euqlO"></script>
         <script src="src/libs/aesmin.js" type="text/javascript" charset="utf-8"></script>
@@ -86,4 +95,4 @@
         </script>
 
 
-</html><script type="text/javascript" src="assets/js/manifest.59af6766cd6acea6e9b9.js"></script><script type="text/javascript" src="assets/js/vendor.cd8b4a13ffecb75a83d5.js"></script><script type="text/javascript" src="assets/js/main.af82d7dd7705522ae347.js"></script>
+</html><script type="text/javascript" src="assets/js/manifest.59af6766cd6acea6e9b9.js"></script><script type="text/javascript" src="assets/js/vendor.cd8b4a13ffecb75a83d5.js"></script><script type="text/javascript" src="assets/js/main.553da2035f8e6009c82b.js"></script>
