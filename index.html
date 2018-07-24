@@ -48,7 +48,14 @@
         <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
         <script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2704aa6c219a0"></script>
         <script>
-            var phone = JSON.parse(localStorage.getItem("user")).phone
+            var phone="";
+            window.onload=function(){
+                if(localStorage.getItem("user")){
+                    phone = JSON.parse(localStorage.getItem("user")).phone;
+                }else{
+                    return false;
+                }
+            }
             mobShare.config({
 
                 debug: true, // 开启调试，将在浏览器的控制台输出调试信息
