@@ -257,7 +257,7 @@ var Mine = React.createClass({
                             <Item
                             thumb="src/img/icon/my-icon3.png"
                             arrow="horizontal"
-                            onClick={() => {}}
+                            onClick={() => {window.location.href="https://tb.53kf.com/code/client/10179904/1"}}
                             >在线客服</Item>
                         </List>
                         <List>

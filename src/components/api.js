@@ -975,15 +975,22 @@ module.exports.newsList = function (phone, cb1, cb2) {
     delete data.phone;
 }
 //消息改状态
-module.exports.modifyStatus = function (id, cb1, cb2) {
+module.exports.modifyStatus= function (item,cb1, cb2) {
     var data = globalData.requestData;
-    data.id = id;
+    data.userId=item.userId;
+    data.userName=item.userName;
+    data.phone=item.phone;
+    data.title=item.phone;
+    data.content="";
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/news/modifyStatus`, { params: str }, cb1, cb2);
-    delete data.id;
+    // console.log(param);
+    http(`${globalData.path}/zndai/news/modifyStatus`, {params: str}, cb1, cb2);
+    delete data.userId;
+    delete data.userName;
+    delete data.phone;
+    delete data.title;
 }
-<<<<<<< HEAD
 //绑定银行卡
 
 module.exports.addBankcard = function (cardName, idCard, cardNumber, bankName, cardPhone, verifyCode, cb1, cb2) {

@@ -6,7 +6,9 @@
         border-bottom: 0.02rem solid #eeeeee;
         
     }
-    .content{ background: #fff;}
+    .content{ background: #fff;
+        .nomsg{text-align: center;margin-top:0.5rem;}
+    }
         
         .title{
            @include clear_float();
