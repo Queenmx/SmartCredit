@@ -12,23 +12,41 @@
 .addCard :global(.am-list-item .am-list-line .am-list-extra){
     flex-basis:88% ;
     text-align: left;
+    font-size: 0.28rem;
 }
 .addBank :global(.am-list-item .am-list-line .am-list-extra){
     flex-basis:88% ;
     text-align: left;
+    font-size: 0.28rem;
 }
 .procedures :global(.am-list-item.am-input-disabled .am-input-label){
     color:#000 !important;
-    
+    font-size: 0.25rem;
 }
 
-
+.addBank{
+    display: none
+}
+#hiddenPop{
+    display: none
+}
+#downloadPop{
+    display: block 
+}
 
 /*提现，手续费字体及加粗*/
 .am-list-item .am-input-label{
     font-weight: 500;
-    font-size: 0.3rem !important;
+    font-size: 0.28rem !important;
     width: 110px !important;
+}
+.am-button-primary{
+    border-radius: 0.2rem;
+    background: #508aff;
+    color: #ffffff;
+    line-height: 0.95rem;
+    font-size: 0.28rem;
+    text-align: center;
 }
 
 .mywallet{
@@ -38,19 +56,24 @@
 .promptNotes div{
     height: 0.6rem;
     line-height: 0.6rem;
+    font-size: 0.25rem;
+    color: #666666;
 }
 .promptContent{
     height: 44px;
     line-height: 44px;
-    font-size: 0.25rem;
-    color: #888;
+    font-size: 0.28rem;
+    color: #666666;
+}
+.promptNotes .promptNotestitle{
+    color: #ff801a
 }
 .displaylastnumber{
     position: absolute;
     bottom: 0;
     right: 0;
     width: 100px; 
-    height: 38px;
+    /* height: 38px; */
     line-height: 20px;
     text-align: center;
     margin-right: 150px;
@@ -60,4 +83,15 @@
     white-space: nowrap;
     padding-top: 7px;
     padding-bottom: 7px;
+}
+.Submission{
+    padding: 0.4rem 0.48rem;
+}
+.Submission .buttoncolor{
+    border-radius: 0.2rem;
+    background: #508aff;
+    color: #ffffff;
+    line-height: 0.95rem;
+    font-size: 0.28rem;
+    text-align: center;  
 }

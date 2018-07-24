@@ -53,7 +53,7 @@ module.exports.login = function (loginType, phone, pwd, verifyCode, cb1, cb2) {
     var param = JSON.stringify(data);
     //console.log(param);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/user/login`, { params: str }, cb1, cb2);   
+    http(`${globalData.path}/zndai/user/login`, { params: str }, cb1, cb2);
     delete data.loginType;
     delete data.phone;
     delete data.pwd;
@@ -69,7 +69,7 @@ module.exports.register = function (phone, pwd, verifyCode, cb1, cb2) {
     data.pwd = pwd;
     data.type = "C";
     data.verifyCode = verifyCode;
-    data.ip=ip;
+    data.ip = ip;
     var param = JSON.stringify(data);
     console.log(param);
     var str = strEnc(param, key1);
@@ -103,7 +103,7 @@ module.exports.verifyCode = function (phone, type, cb1, cb2) {
     // data.token=token;
     data.phone = phone;
     data.type = type;//REG 注册 ，FPWD忘记密码
-    
+
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     console.log(data)
@@ -125,7 +125,7 @@ module.exports.exit = function (cb1, cb2) {
     globalData.userId = "";
 }
 //领取保险
-module.exports.getInsurance = function (item,cb1, cb2) {
+module.exports.getInsurance = function (item, cb1, cb2) {
     // var data = globalData.requestData;  
     // Object.assign(data,item);
     var param = JSON.stringify(item);
@@ -134,9 +134,9 @@ module.exports.getInsurance = function (item,cb1, cb2) {
     globalData.userId = "";
 }
 //实名认证
-module.exports.authName = function (item,cb1, cb2) {
-    var data = globalData.requestData;  
-    Object.assign(data,item);
+module.exports.authName = function (item, cb1, cb2) {
+    var data = globalData.requestData;
+    Object.assign(data, item);
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/idCard`, { params: str }, cb1, cb2);
@@ -295,7 +295,7 @@ module.exports.hotLoanList = function (hot, cb1, cb2) {
     // console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/loan/product/viewProducts`, { params: str }, cb1, cb2);
-   
+
 }
 
 //信用卡列表
@@ -347,7 +347,7 @@ module.exports.productList = function (cb1, cb2) {
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/loan/product/viewProducts`, { params: str }, cb1, cb2);
-   
+
 }
 //详情
 module.exports.loanDetail = function (loanId, cb1, cb2) {
@@ -370,12 +370,12 @@ module.exports.setProductNum = function (item, cb1, cb2) {
 //模糊查询
 module.exports.findProduct = function (item, cb1, cb2) {
     var data = globalData.requestData;
-    data.categoryName=item.categoryName;
+    data.categoryName = item.categoryName;
     data.loanTermStart = item.loanTermStart;
-    data.loanTermEnd=item.loanTermEnd;
-    data.miniScope=item.miniScope;
-    data.maxScope=item.maxScope;
-    data.creditReport=item.creditReport;
+    data.loanTermEnd = item.loanTermEnd;
+    data.miniScope = item.miniScope;
+    data.maxScope = item.maxScope;
+    data.creditReport = item.creditReport;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/loan/product/findProduct`, { params: str }, cb1, cb2);
@@ -384,7 +384,7 @@ module.exports.findProduct = function (item, cb1, cb2) {
     delete data.loanTermEnd;
     delete data.miniScope;
     delete data.maxScope;
-    delete data.creditReport;   
+    delete data.creditReport;
 }
 
 
@@ -455,7 +455,7 @@ module.exports.applyLoan = function (limitDay, limitType, loanId, money, qualify
 
 //------------------------问题
 //我的钱包
-module.exports.myWallet = function (userName, userId,cb1, cb2) {
+module.exports.myWallet = function (userName, userId, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.userName = userName;
@@ -463,13 +463,13 @@ module.exports.myWallet = function (userName, userId,cb1, cb2) {
     var param = JSON.stringify(data);
     console.log(param)
     var str = strEnc(param, key1);
-    
+
     http(`${globalData.path}/zndai/wallet/my`, { params: str }, cb1, cb2);
     delete data.userName;
     delete data.userId;
 }
 //提交反馈
-module.exports.feedBackAdd = function (content, userId,cb1, cb2) {
+module.exports.feedBackAdd = function (content, userId, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.content = content;
@@ -500,18 +500,18 @@ module.exports.questionAdd = function (content, objId, objType, cb1, cb2) {
 }
 
 //问题列表
-module.exports.questionList = function ( cb1, cb2) {
+module.exports.questionList = function (cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
-  
+
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/sysQuestion/list`, { params: str }, cb1, cb2);
-  
+
 }
 //我的问题列表
 
-module.exports.myQuestion = function (userId , cb1, cb2) {
+module.exports.myQuestion = function (userId, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.userId = globalData.userId;;
@@ -521,7 +521,7 @@ module.exports.myQuestion = function (userId , cb1, cb2) {
     delete data.userId;
 }
 //个人中心设置修改密码
-module.exports.resetPsd = function (userId,oldPwd,newPwd, cb1, cb2) {
+module.exports.resetPsd = function (userId, oldPwd, newPwd, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     // console.log(data.token)
@@ -874,9 +874,9 @@ module.exports.getCompAndContact = function (cb1, cb2) {
     delete data.userId;
 }
 // 任务中心
-module.exports.taskcenter = function (phone,cb1, cb2) {
+module.exports.taskcenter = function (phone, cb1, cb2) {
     var data = globalData.requestData;
-    data.appId =phone;
+    data.appId = phone;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     // console.log(param);
@@ -886,10 +886,10 @@ module.exports.taskcenter = function (phone,cb1, cb2) {
     delete data.appId;
 }
 //任务详情
-module.exports.viewTask = function (id,taskName,cb1, cb2) {
+module.exports.viewTask = function (id, taskName, cb1, cb2) {
     var data = globalData.requestData;
-    data.id =id;
-    data.taskName=taskName;
+    data.id = id;
+    data.taskName = taskName;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     // console.log(param);
@@ -900,12 +900,12 @@ module.exports.viewTask = function (id,taskName,cb1, cb2) {
     delete data.taskName;
 }
 //领取任务
-module.exports.recieveTask = function (item,cb1, cb2) {
+module.exports.recieveTask = function (item, cb1, cb2) {
     var data = globalData.requestData;
-    data.identity=item.identity;
-    data.appName=item.realName;
-    data.appId=item.phone;
-    data.taskId=item.taskId;
+    data.identity = item.identity;
+    data.appName = item.realName;
+    data.appId = item.phone;
+    data.taskId = item.taskId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     // console.log(param);
@@ -918,11 +918,11 @@ module.exports.recieveTask = function (item,cb1, cb2) {
     delete data.taskId;
 }
 //我的任务
-module.exports.myTask = function (item,cb1, cb2) {
+module.exports.myTask = function (item, cb1, cb2) {
     var data = globalData.requestData;
-    data.userId=item.userId;
-    data.appId=item.phone;
-    data.appFlag="C";
+    data.userId = item.userId;
+    data.appId = item.phone;
+    data.appFlag = "C";
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     // console.log(param);
@@ -934,17 +934,17 @@ module.exports.myTask = function (item,cb1, cb2) {
     delete data.appFlag;
 }
 //提交任务
-module.exports.submitTask = function (item,cb1, cb2) {
+module.exports.submitTask = function (item, cb1, cb2) {
     var data = globalData.requestData;
-    data.userId=item.userId;
-    data.taskPhone=item.phone;
-    data.appFlag="C";
+    data.userId = item.userId;
+    data.taskPhone = item.phone;
+    data.appFlag = "C";
     // data.submitPic=item.pic;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     // console.log(param);
     http(`${globalData.path}/zndai/user/task/submitTask`, {
-        params: str,submitPic:item.pic
+        params: str, submitPic: item.pic
     }, cb1, cb2);
     delete data.userId;
     delete data.taskPhone;
@@ -952,7 +952,7 @@ module.exports.submitTask = function (item,cb1, cb2) {
     delete data.submitPic;
 }
 //当前版本
-module.exports.version= function (cb1, cb2) {
+module.exports.version = function (cb1, cb2) {
     var data = globalData.requestData;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
@@ -962,22 +962,84 @@ module.exports.version= function (cb1, cb2) {
     }, cb1, cb2);
 }
 //消息列表
-module.exports.newsList= function (phone,cb1, cb2) {
+module.exports.newsList = function (phone, cb1, cb2) {
     var data = globalData.requestData;
-    data.phone=phone;
+    data.phone = phone;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     // console.log(param);
-    http(`${globalData.path}/zndai/news/newsList`, {params: str}, cb1, cb2);
+    http(`${globalData.path}/zndai/news/newsList`, { params: str }, cb1, cb2);
     delete data.phone;
 }
 //消息改状态
-module.exports.modifyStatus= function (id,cb1, cb2) {
+module.exports.modifyStatus = function (id, cb1, cb2) {
     var data = globalData.requestData;
-    data.id=id;
+    data.id = id;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    // console.log(param);
-    http(`${globalData.path}/zndai/news/modifyStatus`, {params: str}, cb1, cb2);
+    http(`${globalData.path}/zndai/news/modifyStatus`, { params: str }, cb1, cb2);
     delete data.id;
+}
+//绑定银行卡
+
+module.exports.addBankcard = function (cardName, idCard, cardNumber, bankName, cardPhone, verifyCode, cb1, cb2) {
+    var data = globalData.requestData;
+    data.userId = globalData.userId;
+    data.cardName = cardName;
+    data.idCard = idCard;
+    data.cardNumber = cardNumber;
+    data.bankName = bankName;
+    data.cardPhone = cardPhone;
+    data.verifyCode = verifyCode;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/platform/bankCardFeedback`, { params: str }, cb1, cb2);
+    // delete data.userId;
+    delete data.cardName;
+    delete data.idCard;
+    delete data.cardNumber;
+    delete data.bankName;
+    delete data.cardPhone;
+    delete data.verifyCode;
+}
+//选择银行卡 
+
+module.exports.choiceadd = function (cb1, cb2) {
+    var data = globalData.requestData;
+    data.userId = globalData.userId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/wallet/cardList`, { params: str }, cb1, cb2);
+    delete data.userId;
+}
+
+//更换银行卡
+module.exports.replacecard = function (mainId, selectId, cb1, cb2) {
+    var data = globalData.requestData;
+    data.userId = globalData.userId;
+    data.mainId = mainId;
+    data.selectId = selectId;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/wallet/update`, { params: str }, cb1, cb2);
+    delete data.userId;
+    delete data.cardName;
+    delete data.selectId;
+}
+//提现
+module.exports.replacecard = function (bankCardName, cardNumber, cash, serviceCharge, cb1, cb2) {
+    var data = globalData.requestData;
+    data.userId = globalData.userId;
+    data.bankCardName = bankCardName;
+    data.cardNumber = cardNumber;
+    data.cash = cash;
+    data.serviceCharge = serviceCharge;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/wallet/submit`, { params: str }, cb1, cb2);
+    delete data.userId;
+    delete data.bankCardName;
+    delete data.cardNumber;
+    delete data.cash;
+    delete data.serviceCharge;
 }

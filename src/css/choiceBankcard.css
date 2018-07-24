@@ -1,23 +1,39 @@
 
 /*list显示*/
 .list :global(.am-list-item .am-list-line .am-list-extra){
-    flex-basis:90% ;
+    flex-basis: 90%;
     text-align: left;
+    font-size: 0.3rem;
+    font-weight: 500;
+    color: #020202;
 }
-
+.am-list-item{
+    min-height: 50px;
+}
 .displaylastnumber{
     position: absolute;
     bottom: 0;
-    right: 0;
-    width: 100px; 
+    left: 150px;
+    flex-basis: 20%;
     height: 38px;
     line-height: 20px;
     text-align: center;
-    margin-right: 150px;
+    /* margin-right: 130px !important; */
     color: #888;
     font-size: 14px;
     text-overflow: ellipsis;
     white-space: nowrap;
     padding-top: 7px;
     padding-bottom: 7px;
+}
+.Submission{
+    padding: 0.4rem 0.48rem;
+}
+.Submission .Submissionbtn{
+    border-radius: 0.2rem;
+    background: #508aff;
+    color: #ffffff;
+    line-height: 0.95rem;
+    font-size: 0.28rem;
+    text-align: center;
 }

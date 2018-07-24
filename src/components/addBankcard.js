@@ -12,7 +12,6 @@
 //             timer: 60,
 //             discodeBtn: false,
 //             clearInterval: false
-
 //         }
 //     }
 
@@ -271,31 +270,53 @@
 import React, { Component } from 'react'
 import { hashHistory } from 'react-router';
 import api from './api';
+import Header from './header';
 import { globalData } from './global.js';
-import { NavBar, Icon, List, InputItem, WhiteSpace, Button, WingBlank, Toast } from 'antd-mobile';
+import { List, InputItem, WhiteSpace, Button, WingBlank, Toast } from 'antd-mobile';
 import "../css/addBankcard.css";
 var key1 = globalData.key;
 class addBankcard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            btntext: "获取验证码",
-            timer: 60,
+            btntext: "获取验证码",  //提示
+            timer: 60,          //点击按钮倒计时
+            beoverdueTime: 600,  //最长有效的过期时间
             isClickable: false, //按钮点击初始状态
             clearInterval: true,
             nameError: false,  //持卡人信息 默认为false
             namevalue: '',     //持卡人信息初始值
-            phoneError: false, //预留手机号码 默认为false
-            phonevalue: '',//预留手机号初始值
-            identityError: false, //银行卡 默认为false
-            identityvalue: '',     //银行卡信息初始值
+
+            identityError: false, //身份证 默认为false
+            identityvalue: '',    //身份证信息初始值
+
+            cardError: false,    //卡号默认为false
+            cardnumbervalue: '',      //卡号信息初始值
+
+            bankError: false,    //所属银行默认为false
+            banknamevalue: '',        //所属银行
+
+            phoneError: false,  //预留手机号码 默认为false
+            phonevalue: '',     //预留手机号初始值
+
+            codeError: false,    //验证码 默认未false
+            codevalue: '',            //验证码初始值
+
+            pass: null,          //null 显示的状态  false or true
+            msg: null,           //显示的内容 身份证号格式错误 身份证号地址编码错误 身份证号校验位错误
+
+
+            btnsuccess: null,  //提交成功初始值
+            btnError: null,    //提交失败
+
+            btncount: 0,      //条件正确content++
+            btn: false,
         }
+        // this.btn = this.btn.bind(this);
     }
 
     /**获取持卡人信息**/
     name = (namevalue) => {
-        console.log(namevalue)
-
         if (namevalue.replace(/\s/g, '').length < 2 || namevalue.replace(/\s/g, '').length < 5 || namevalue.length == 0 || namevalue.length == '') {
             this.setState({
                 nameError: true
@@ -307,13 +328,23 @@ class addBankcard extends Component {
         }
         var reg = /^([\u4e00-\u9fa5]){2,5}$/;
         if (!reg.test(namevalue)) {
+            // console.log(reg.test(namevalue))
             this.setState({
                 nameError: true
             })
+            console.log('错误')
         } else {
             this.setState({
-                nameError: false
+                nameError: false,
             })
+            console.log('正确')
+        }
+        if (this.state.nameError == false) {
+            console.log(this.state.nameError)
+            this.setState({
+                btncount: this.state.btncount++
+            })
+            console.log(this.state.btncount)
         }
         this.setState({
             namevalue,
@@ -323,13 +354,13 @@ class addBankcard extends Component {
     /**获取身份证信息**/
     identity = (identityvalue) => {
         console.log(identityvalue)
-        if (identityvalue.replace(/\s/g, '').length < 15 || identityvalue.replace(/\s/g, '').length > 18 || identityvalue.length == 0 && identityvalue.length == '' || !identityvalue || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|[xX])$/) {
+        if ((identityvalue.replace(/\s/g, '').length < 15 || identityvalue.replace(/\s/g, '').length > 18 || identityvalue.length == 0 || identityvalue.length == '') && !identityvalue || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|[xX])$/.test(identityvalue)) {
             this.setState({
                 identityError: true, //显示提示
             });
         } else {
             this.setState({
-                identityError: false
+                identityError: false //不显示提示
             })
         }
         this.setState({
@@ -339,29 +370,23 @@ class addBankcard extends Component {
         //支持15位和18位身份证号
         //支持地址编码、出生日期、校验位验证
         var city = { 11: "北京", 12: "天津", 13: "河北", 14: "山西", 15: "内蒙古", 21: "辽宁", 22: "吉林", 23: "黑龙江 ", 31: "上海", 32: "江苏", 33: "浙江", 34: "安徽", 35: "福建", 36: "江西", 37: "山东", 41: "河南", 42: "湖北 ", 43: "湖南", 44: "广东", 45: "广西", 46: "海南", 50: "重庆", 51: "四川", 52: "贵州", 53: "云南", 54: "西藏 ", 61: "陕西", 62: "甘肃", 63: "青海", 64: "宁夏", 65: "新疆", 71: "台湾", 81: "香港", 82: "澳门", 91: "国外 " };
-        var row = {
-            'pass': true,
-            'msg': '验证成功'
-        };
-        console.log(row)
+
+
+        // console.log(row)
         if (!identityvalue || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|[xX])$/.test(identityvalue)) {
-            row = {
-                'pass': false,
-                'msg': '身份证号格式错误'
-            };
             this.setState({
-                identityError: true
+                identityError: true,
+                pass: false,
+                msg: '身份证号格式错误'
             })
-            console.log(row)
+            console.log(this.state.msg)
         } else if (!city[identityvalue.substr(0, 2)]) {
-            row = {
-                'pass': false,
-                'msg': '身份证号地址编码错误'
-            };
             this.setState({
-                identityError: true
-            })
-            console.log(row)
+                identityError: true, //显示提示
+                pass: false,
+                msg: '身份证号地址编码错误'
+            });
+            console.log(this.state.msg)
         } else {
             //18位身份证需要验证最后一位校验位
             if (identityvalue.length == 18) {
@@ -380,24 +405,35 @@ class addBankcard extends Component {
                     sum += ai * wi;
                 }
                 if (parity[sum % 11] != identityvalue[17].toUpperCase()) {
-                    row = {
-                        'pass': false,
-                        'msg': '身份证号校验位错误'
-                    };
-                    console.log(row)
+                    this.setState({
+                        identityError: true, //显示提示
+                        pass: false,
+                        msg: '身份证号校验位错误'
+                    });
+                    console.log(this.state.msg)
                 }
             }
         }
-        return row;
+        // console.log(identityvalue)
     }
 
     /**获取银行卡卡号**/
-    cardnumber(value) {
-        console.log(value)
+    cardnumber = (cardnumbervalue) => {
+        console.log(cardnumbervalue)
+        this.setState({
+            cardnumbervalue,
+        });
+    }
+    /**获取所属银行**/
+    bankname = (banknamevalue) => {
+        console.log(banknamevalue)
+        this.setState({
+            banknamevalue,
+        });
     }
     /**获取手机号码**/
     phone = (phonevalue) => {
-        console.log(phonevalue)
+        // console.log(phonevalue)
 
         if (phonevalue.replace(/\s/g, '').length < 11 || phonevalue.replace(/\s/g, '').length > 11 || phonevalue.length == 0 && phonevalue.length == '') {
             console.log('点击不了')
@@ -437,13 +473,17 @@ class addBankcard extends Component {
     }
 
     /**获取验证码value**/
-    code(value) {
-        console.log(value)
+    code = (codevalue) => {
+        console.log(codevalue)
+        this.setState({
+            codevalue,
+        });
 
     }
     /**验证码倒计时**/
     btncoke = () => {
         var phonevalue = this.state.phonevalue;
+        console.log(phonevalue)
         if (phonevalue.replace(/\s/g, '').length < 11 || phonevalue.replace(/\s/g, '').length > 11 || phonevalue.length == 0 && phonevalue.length == '') {
             this.setState({
                 isClickable: false,
@@ -476,7 +516,6 @@ class addBankcard extends Component {
                             this.setState({ btntext: '重新发送', discodeBtn: false })
                         }
                     });
-
             }, 1000);
         }
 
@@ -493,25 +532,43 @@ class addBankcard extends Component {
                 console.log(data);
             }
         })
-
     }
-    btn() {
-        hashHistory.push('/choiceBankcard')
+    btn = () => {
+        var cardName = this.state.namevalue;
+        var idCard = this.state.identityvalue;
+        var cardNumber = this.state.cardnumbervalue;
+        var bankName = this.state.banknamevalue;
+        var cardPhone = this.state.phonevalue;
+        var verifyCode = this.state.codevalue
+        console.log(cardName)
+        console.log(idCard)
+        console.log(cardNumber)
+        console.log(bankName)
+        console.log(cardPhone)
+        console.log(verifyCode)
+        api.addBankcard(cardName, idCard, cardNumber, bankName, cardPhone, verifyCode, function (res) {
+            console.log(res)
+            if (res.code === "0000") {
+                let Decdata = strDec(res.data, key1, "", "");
+                let data = JSON.parse(Decdata);
+
+                Toast.info("绑定成功")
+                var path = {
+                    pathname: "/choiceBankcard",
+                    // query: {
+                    //     bankName: this.state.banknamevalue,
+                    //     cardNumber: this.state.cardnumbervalue,
+                    // }
+                };
+                hashHistory.push(path)
+            }
+        })
+
     }
     render() {
         return (
             <div className="mywallet">
-                <NavBar
-                    mode="dark"
-                    className="fixed-header"
-                    ref={el => (this.lv = el)}
-                    icon={<Icon type="left" />}
-                    onLeftClick={() => {
-                        hashHistory.goBack();
-                    }}
-                >
-                    添加银行卡
-                 </NavBar>
+                <Header title="添加银行卡" />
                 <div className="content">
                     <div className="promptTitle">
                         <WingBlank>
@@ -523,7 +580,7 @@ class addBankcard extends Component {
                             type="text"
                             placeholder="张三"
                             style={{
-                                fontSize: "0.3rem"
+                                fontSize: "0.28rem"
                             }}
                             error={this.state.nameError}
                             onChange={this.name}
@@ -536,7 +593,7 @@ class addBankcard extends Component {
                             type="text"
                             placeholder="请输入身份证号"
                             style={{
-                                fontSize: "0.3rem"
+                                fontSize: "0.28rem"
                             }}
                             error={this.state.identityError}
                             onChange={this.identity}
@@ -548,33 +605,38 @@ class addBankcard extends Component {
                     <WhiteSpace size="sm" />
                     <List>
                         <InputItem
-                            type="bankCard"
+                            type="text"
                             placeholder="请输入银行卡号"
                             style={{
-                                fontSize: "0.3rem"
+                                fontSize: "0.28rem"
                             }}
+
+                            error={this.state.cardError}
+                            onChange={this.cardnumber}
+                            value={this.state.cardnumbervalue}
                             clear
-                            onChange={(value) => {
-                                this.cardnumber(value)
-                            }}
                         >银行卡号</InputItem>
                     </List>
                     <List>
                         <InputItem
+                            type="text"
                             placeholder="输入卡号后识别并展示"
                             style={{
-                                fontSize: "0.3rem"
+                                fontSize: "0.28rem"
                             }}
+                            error={this.state.bankError}
+                            onChange={this.bankname}
+                            value={this.state.banknamevalue}
                             clear
                         >所属银行</InputItem>
                     </List>
                     <WhiteSpace size="sm" />
                     <List>
                         <InputItem
-                            type="phone"
+                            type="text"
                             placeholder="请输入手机号码"
                             style={{
-                                fontSize: "0.3rem"
+                                fontSize: "0.28rem"
                             }}
                             error={this.state.phoneError}
                             onChange={this.phone}
@@ -589,12 +651,13 @@ class addBankcard extends Component {
 
                             placeholder="请输入验证码"
                             style={{
-                                fontSize: "0.3rem"
+                                fontSize: "0.28rem"
                             }}
+
+                            error={this.state.codeError}
+                            onChange={this.code}
+                            value={this.state.codevalue}
                             clear
-                            onChange={(value) => {
-                                this.code(value)
-                            }}
                         >
                             <p>验证码</p>
 
@@ -607,16 +670,12 @@ class addBankcard extends Component {
                                 }}>{this.state.btntext}</Button>
                         </div>
                     </List>
+                    <div className="supporttitle">支持银行</div>
                     <div className="supportbank">
-                        <WingBlank> <div className="supporttitle">支持银行</div></WingBlank>
-                        <WingBlank className="SubmissionContent">
-                            <Button type="primary"
-                                onClick={() => {
-                                    this.btn()
-                                }}
-                            >提交</Button><WhiteSpace />
-                        </WingBlank>
 
+                        <div className="SubmissionContent" onClick={this.btn}
+                            disabled={!this.state.isClickable}
+                        >提交</div>
                     </div>
                 </div>
 
