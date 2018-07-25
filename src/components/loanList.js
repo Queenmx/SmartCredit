@@ -165,9 +165,9 @@ var LoanList = React.createClass({
             creditReport:''
         }
         switch(item){
-            case 123:
-                data.creditReport=123;
-                break;
+            // case 123:
+            //     data.creditReport=123;
+            //     break;
             case 1:
                 data.creditReport=1;
                 break;
