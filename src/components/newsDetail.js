@@ -137,15 +137,16 @@ var NewsDetail = React.createClass({
                     </div>
                 </div> */}
                 <div className="content newsDetailCon">                    
-                    <div className="newsDetailInfo">
+                    {/* <div className="newsDetailInfo">
                         <span><img src="src/img/icon/new-icon1.png" alt=""/>{articleDetail.mediaSource}</span>                        
                         <span>{addTimeArr[0]}</span>
-                    </div>
+                    </div> */}
                     <div className="newsArticleCon">
                         <h3>{articleDetail.articleTitle}</h3>
                         <p>
                             <img src="src/img/icon/new-icon.png" alt=""/>
                             {articleDetail.readerNum}阅读
+                            <span className="time">{addTimeArr[0]}</span>
                         </p>
                         <p dangerouslySetInnerHTML={{ __html: articleDetail.content }}></p>
                         <div>

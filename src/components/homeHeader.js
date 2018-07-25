@@ -28,7 +28,8 @@ var HomeHeader = React.createClass({
     　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
         if(isiOS){                  
             $(".homeHeader").css({"height":"1.3rem","line-height":"1.3rem"});    
-            $(".dingwei").css({"marginTop":"0.22rem"});     
+            $(".dingwei").css({"marginTop":"0.22rem"});  
+            $(".headerLinkBtn span").css("top","0.48rem");   
         }
         if (!dingwei) {
             //自动定位

@@ -34,8 +34,9 @@ var Login = React.createClass({
             userId:this.state.msg.id,
             userName:this.state.user.realName,
             phone:this.state.user.phone,
-            title:this.state.title
+            title:this.state.msg.title,
         };
+        console.log(item)
         api.modifyStatus(item,function(res){
             if(res.code=="0000"){
             }else{

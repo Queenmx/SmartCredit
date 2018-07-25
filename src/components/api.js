@@ -307,7 +307,7 @@ module.exports.creditCardList = function (pageNum, pageSize, cb1, cb2) {
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     var param = JSON.stringify(data);
-    console.log(param)
+    // console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/credit/list`, { params: str }, cb1, cb2);
     // delete data.pageNum;
@@ -318,7 +318,7 @@ module.exports.hotCreditCardList = function (cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     var param = JSON.stringify(data);
-    console.log(param)
+    // console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/credit/hot`, { params: str }, cb1, cb2);
     // delete data.pageNum;
@@ -983,7 +983,7 @@ module.exports.modifyStatus= function (item,cb1, cb2) {
     data.userId=item.userId;
     data.userName=item.userName;
     data.phone=item.phone;
-    data.title=item.phone;
+    data.title=item.title;
     data.content="";
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);

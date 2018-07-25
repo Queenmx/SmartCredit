@@ -22,12 +22,12 @@ var Home = React.createClass({
             list: [],
             banner: [],
             imgHeight: 447,
+            autoplay:false
         }
     },
 
     componentWillMount: function () {
         var user = localStorage.getItem("user");
-       
         if(user){
             this.setState({
                 user:JSON.parse(user)
@@ -123,7 +123,7 @@ var Home = React.createClass({
                 var key1 = globalData.key;
                 if(res.code=="0000"){
                     var temp = JSON.parse(strDec(res.data, key1, "", ""))[0];
-                    console.log(temp);
+                    // console.log(temp);
                     if(temp.systemNotices.length||temp.viewsMyNews.length)
                         that.setState({
                             hasMsg:true
@@ -137,19 +137,13 @@ var Home = React.createClass({
         //轮播图
       
             api.banner(function (res) {
-                console.log(res);
                 if (res.code = "0000") {
-                    console.log(res.data)
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(Decdata)
-                    // var Decdata =JSON.parse(res.data);
-                //    console.log(Decdata)
-                   
+                    // console.log(Decdata);
                 //    console.log(articleList)
                     sessionStorage.setItem("banner", JSON.stringify(Decdata));
                     var bannerArr = [];
-                    for (var i in Decdata) {
-                       
+                    for (var i in Decdata) {                       
                         bannerArr.push(
                             <a style={{ display: 'inline-block', width: '100%'}} key={i}>
                             <img
@@ -163,13 +157,10 @@ var Home = React.createClass({
                                 }}
                                 />
                             </a>
-
-                                        // <div className="v-item" key={i} onClick={that.newsAll}>{articleList[i].articleTitle}</div>
                                        )
-                            //  console.log(articleArr[i].articleTitle)
                     }
                     that.setState({
-                        bannerArr: bannerArr
+                        bannerArr: bannerArr,
                     })
 
                 } else {
@@ -186,11 +177,11 @@ var Home = React.createClass({
                 if (res.code = "0000") {
                     // console.log(res.data)
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(Decdata)
+                    // console.log(Decdata)
                     // var Decdata =JSON.parse(res.data);
                 //    console.log(Decdata)
                     var articleList = Decdata.list;
-                   console.log(articleList)
+                //    console.log(articleList)
                     sessionStorage.setItem("homeArticle", JSON.stringify(articleList));
                     var articleArr = [];
                     for (var i in articleList) {
@@ -218,13 +209,13 @@ var Home = React.createClass({
             api.hotLoanList("0", function (res) { 
                 if(res.code == "0000"){
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(Decdata);
+                    // console.log(Decdata);
                     // var hotLoanList = Decdata.list;
                     sessionStorage.setItem("hotLoanList", JSON.stringify(Decdata));
                     var hotLoanArr = [];
                     for (var i in Decdata) {
                        if(Decdata[i].hot == 0){
-                           console.log("abch")
+                        //    console.log("abch")
                            hotLoanArr.push(
                             <li key={i} id={Decdata[i].id}>
                             <img src={imgPath + Decdata[i].logo} />
@@ -257,13 +248,12 @@ var Home = React.createClass({
             api.hotCreditCardList(function (res) { 
                 if(res.code == "0000"){
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(Decdata);
+                    // console.log(Decdata);
                     var creditCardList = Decdata.list;
                     sessionStorage.setItem("creditCardList", JSON.stringify(creditCardList));
                     var creditCardArr = [];
                     for (var i in creditCardList ) {
                        if(creditCardList[i].hot == 0){
-                           console.log("11111")
                         creditCardArr.push(
                             <li key={i}>
                                 <img src={imgPath + creditCardList[i].logo}  />
@@ -286,13 +276,15 @@ var Home = React.createClass({
                   
                 }
             })
-        },
+    },
       
-
+    componentWillUpdate(){
+    },
     
 
 
-    render: function () {
+    
+        render: function () {
         var that = this;
         var curCity = that.props.location.query.cityId;
 
@@ -302,13 +294,33 @@ var Home = React.createClass({
                 <div className="content">
                     <div className="bannernews"> 
                         <Carousel
-                            autoplay={true}
+                            autoplay={this.state.autoplay}
                             infinite={true}
                             dotStyle={{"backgroundColor":"#fff",'width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem','marginRright':'0.18rem'}}
                             dotActiveStyle={{"backgroundColor":'#4374ff','width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem'}}
                         >
                            
-                            {this.state.bannerArr} 
+                            {this.state.bannerArr}
+                            {/* <a style={{ display: 'inline-block', width: '100%'}}>
+                            <img
+                                src="src/img/banner.png"
+                                alt=""
+                                style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
+                                onLoad={() => {
+                                    window.dispatchEvent(new Event('resize'));
+                                }}
+                                />
+                            </a>
+                            <a style={{ display: 'inline-block', width: '100%'}}>
+                            <img
+                                src="src/img/banner.png"
+                                alt=""
+                                style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
+                                onLoad={() => {
+                                    window.dispatchEvent(new Event('resize'));
+                                }}
+                                />
+                            </a> */}
                         </Carousel>
                         <ul className="news" onClick={this.newsAll}>
                             <li className="newvoice">
