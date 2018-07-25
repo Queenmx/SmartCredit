@@ -114,11 +114,11 @@ var Loan = React.createClass({
                                 <img src={imgPath+item.url} />
                                 <div className="loanTitle">
                                     <p>{item.taskName}</p>
-                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
                                 </div>
                                 <div className="high">
                                     <p onClick={that.goTask.bind(that,item.id,item.taskName)}>查看任务</p>
-                                    <p className="geting">未领取</p>
+                                    <p>未领取</p>
                                 </div>
                             </li>
                         )
@@ -129,11 +129,11 @@ var Loan = React.createClass({
                                 <img src={imgPath+item.url} />
                                 <div className="loanTitle">
                                     <p>{item.taskName}</p>
-                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
                                 </div>
                                 <div className="high">
                                     <p onClick={that.goTask.bind(that,item.id,item.taskName,"got")}>查看任务</p>
-                                    <p>已领取</p>
+                                    <p className="geting">已领取</p>
                                 </div>
                             </li>
                     )
@@ -144,11 +144,11 @@ var Loan = React.createClass({
                             <img src={imgPath+item.url} />
                             <div className="loanTitle">
                                 <p>{item.taskName}</p>
-                                <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
                             </div>
                             <div className="high">
                                 <p onClick={that.goTask.bind(that,item.id,item.taskName)}>查看任务</p>
-                                <p className="geting">未领取</p>
+                                <p>未领取</p>
                             </div>
                         </li>
                     )
@@ -159,11 +159,11 @@ var Loan = React.createClass({
                             <img src={imgPath+item.url} />
                             <div className="loanTitle">
                                 <p>{item.taskName}</p>
-                                <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
                             </div>
                             <div className="high">
                                 <p onClick={that.goTask.bind(that,item.id,item.taskName,"got")}>查看任务</p>
-                                <p>已领取</p>
+                                <p className="geting">已领取</p>
                             </div>
                         </li>
                     )

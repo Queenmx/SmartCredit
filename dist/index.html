@@ -39,17 +39,8 @@
                 var scrp = document.createElement("script")
                 scrp.src = "src/libs/promise.min.js"
                 document.body.appendChild(scrp)
-                // document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"' + '>' + '<' + '/' + 'script>');
             }
-            document.addEventListener('touchstart', function (event) {
-                // 判断默认行为是否可以被禁用
-                if (event.cancelable) {
-                    // 判断默认行为是否已经被禁用
-                    if (!event.defaultPrevented) {
-                        event.preventDefault();
-                    }
-                }
-            }, false);
+  
         </script>
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2bYPlioCp4ps4ekwY2AcPFdaG11euqlO"></script>
         <script src="src/libs/aesmin.js" type="text/javascript" charset="utf-8"></script>
@@ -58,7 +49,8 @@
         <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
         <script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2704aa6c219a0"></script>
         <script>
-            var phone="";
+
+            var phone = "";
             window.onload=function(){
                 if(localStorage.getItem("user")){
                     phone = JSON.parse(localStorage.getItem("user")).phone;
@@ -70,13 +62,11 @@
                             // url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share="+phone, // 分享链接
                             // url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share=13260691690",
 
-                            title: '11', // 分享标题
+                            // title: '11', // 分享标题
                             description: '', // 分享内容
                             pic: '', // 分享图片，使用逗号,隔开
                             reason: '',//自定义评论内容，只应用与QQ,QZone与朋友网
                         },
-
-
                         /**
                          * 分享时触发的回调函数
                          * 分享是否成功，目前第三方平台并没有相关接口，因此无法知道分享结果
@@ -89,12 +79,11 @@
                         }
 
                     });
-                }else{
+                } else {
                     return false;
                 }
             }
-            
         </script>
 
 
-</html><script type="text/javascript" src="assets/js/manifest.59af6766cd6acea6e9b9.js"></script><script type="text/javascript" src="assets/js/vendor.8fbf9b923f9d6b7f3caa.js"></script><script type="text/javascript" src="assets/js/main.a597aa86081b98520ef1.js"></script>
+</html><script type="text/javascript" src="assets/js/manifest.59af6766cd6acea6e9b9.js"></script><script type="text/javascript" src="assets/js/vendor.8fbf9b923f9d6b7f3caa.js"></script><script type="text/javascript" src="assets/js/main.09347bbd186fec5e532a.js"></script>

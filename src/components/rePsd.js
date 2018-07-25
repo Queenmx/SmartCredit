@@ -93,19 +93,16 @@ var Repsd = React.createClass({
         this.setState({
             [e.target.name]: e.target.value
         })
-        console.log(this.state)
     },
     vauleChange1: function (e) {
         this.setState({
             [e.target.name]: e.target.value
         })
-        console.log(this.state)
     },
     vauleChange2: function (e) {
         this.setState({
             [e.target.name]: e.target.value
         })
-        console.log(this.state)
     },
     psdConfirm: function () {
 
@@ -114,19 +111,28 @@ var Repsd = React.createClass({
         let newPsd = that.state.surePsd;
         let surePsd = that.state.surePsd1;
         var userId = localStorage.getItem("userId");
+        var reg = /(?!^(\d+|[a-zA-Z]+|[~!@#$%^&*?]+)$)^[\w~!@#$%\^&*?]{6,20}$/i;
         // var toast = new Toast();
+        if(reg.test(newPsd)&&reg.test(surePsd)){
+            
+        }else{
+            Toast.info("请使用6-20位数字和字母", 2);
+            return false;
+        }
         if (oldPsd && newPsd && surePsd) {
             if (newPsd !== surePsd) {
                 Toast.info("两次密码不一致", 2);
-            } else if (newPsd == oldPsd) {
-                Toast.info("新密码不能与近期用过密码相同", 2);
-            } else {
+            } 
+            // else if (newPsd == oldPsd) {
+            //     Toast.info("新密码不能与近期用过密码相同", 2);
+            // } 
+            else {
                 that.setState({ isLoading: true })
                 api.resetPsd(userId,oldPsd,newPsd,function (res) {
                     //console.log(res);
                     if (res.code == "0000") {
                         that.setState({ isLoading: false })
-                        Toast.info("修改成功", 2);
+                        Toast.info("修改密码成功", 2);
                         localStorage.removeItem("user");
                         localStorage.removeItem("isLogin");
                         globalData.user = "";

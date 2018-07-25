@@ -20,7 +20,7 @@ var Home = React.createClass({
             pageNum: 1,
             pageSize: 10,
             list: [],
-            banner: [],
+            banner: [{"imgUrl":"uploadImg/3.jpg"},{"imgUrl":"uploadImg/timg.jpg"}],
             imgHeight: 447,
             autoplay:false
         }
@@ -139,32 +139,30 @@ var Home = React.createClass({
             api.banner(function (res) {
                 if (res.code = "0000") {
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    // console.log(Decdata);
-                //    console.log(articleList)
                     sessionStorage.setItem("banner", JSON.stringify(Decdata));
-                    // that.setState({
-                    //     autoplay:ture
-                    // })
-                    var bannerArr = [];
-                    for (var i in Decdata) {                       
-                        bannerArr.push(
-                            <a style={{ display: 'inline-block', width: '100%'}} key={i}>
-                            <img
-                                src={imgPath + Decdata[i].imgUrl}
-                                // src="src/img/banner.png"
-                                alt=""
-                                style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
-                                onLoad={() => {
-                                    window.dispatchEvent(new Event('resize'));
-                                    // this.setState({ imgHeight: 'auto' });
-                                }}
-                                />
-                            </a>
-                                       )
-                    }
                     that.setState({
-                        bannerArr: bannerArr,
+                        banner:Decdata
                     })
+                    // var bannerArr = [];
+                    // for (var i in Decdata) {                       
+                    //     bannerArr.push(
+                    //         <a style={{ display: 'inline-block', width: '100%'}} key={i}>
+                    //         <img
+                    //             src={imgPath + Decdata[i].imgUrl}
+                    //             // src="src/img/banner.png"
+                    //             alt=""
+                    //             style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
+                    //             onLoad={() => {
+                    //                 window.dispatchEvent(new Event('resize'));
+                    //                 // this.setState({ imgHeight: 'auto' });
+                    //             }}
+                    //             />
+                    //         </a>
+                    //                    )
+                    // }
+                    // that.setState({
+                    //     bannerArr: bannerArr,
+                    // })
 
                 } else {
                     Toast.info(res.msg, 2);
@@ -303,27 +301,23 @@ var Home = React.createClass({
                             dotActiveStyle={{"backgroundColor":'#4374ff','width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem'}}
                         >
                            
-                            {this.state.bannerArr}
-                            {/* <a style={{ display: 'inline-block', width: '100%'}}>
-                            <img
-                                src="src/img/banner.png"
-                                alt=""
-                                style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
-                                onLoad={() => {
-                                    window.dispatchEvent(new Event('resize'));
-                                }}
-                                />
-                            </a>
-                            <a style={{ display: 'inline-block', width: '100%'}}>
-                            <img
-                                src="src/img/banner.png"
-                                alt=""
-                                style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
-                                onLoad={() => {
-                                    window.dispatchEvent(new Event('resize'));
-                                }}
-                                />
-                            </a> */}
+                            {/* {this.state.bannerArr} */}
+                            {this.state.banner.map(function(item,i){
+                                return (
+                                    <a style={{ display: 'inline-block', width: '100%'}} key={i}>
+                                    <img
+                                        src={imgPath+item.imgUrl}
+                                        // src="src/img/banner.png"
+                                        alt=""
+                                        style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
+                                        onLoad={() => {
+                                            window.dispatchEvent(new Event('resize'));
+                                            // this.setState({ imgHeight: 'auto' });
+                                        }}
+                                        />
+                                    </a>
+                                )
+                            })}
                         </Carousel>
                         <ul className="news" onClick={this.newsAll}>
                             <li className="newvoice">
