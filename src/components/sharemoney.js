@@ -69,13 +69,6 @@ class sharemoney extends Component {
             //-mob-share-weixin  -mob-share-qq -mob-share-qzone -mob-share-weibo
         }
     }
-<<<<<<< HEAD
-    componentWillReceiveProps(nextProps) {
-        console.log('nextProps:', nextProps, this);
-    }
-=======
-
->>>>>>> 262384437ffcfea0c2c69416fcbaaed123de3594
     componentDidMount() {
         // debugger;
         var key1 = globalData.key;
@@ -226,49 +219,11 @@ class sharemoney extends Component {
                 <Header title="分享赚钱" />
                 <div className="content">
                     <div className="time">
-<<<<<<< HEAD
                         <p>{this.state.money = "null" ? 0 : this.state.money}</p>
-=======
-                        <p>{this.state.money}</p>
->>>>>>> 262384437ffcfea0c2c69416fcbaaed123de3594
                         <p>累计收益<span></span>(元)</p>
                     </div>
                     <div className="share">
-<<<<<<< HEAD
                         <div className="-mob-share-ui-button -mob-share-open" id="share">分享好友 一起赚钱</div>
-=======
-                        <Button type="primary" inline style={{ marginRight: '4px' }} className="sharebtn" onClick={this.showModal('modal2')}> 分享好友 一起赚钱</Button>
-                        
-                        <Modal
-                            popup
-                            visible={this.state.modal2}
-                            onClose={this.onClose('modal2')}
-                            animationType="slide-up"
-                            className="modifymodal"
-                        >
-                        
-                            {this.state.selectorContent.map((item, index) => (
-                                <div
-                                    key={index}
-                                    className="rendering"
-                                    onClick={() => {
-                                        this.clickshare(item)
-                                    }}
-                                >
-                                    <div className="renderingimg">
-                                        <img src={require(`../img/img/web/${this.selectImg(item.text)}.png`)} />
-                                    </div>
-                                    <div className="renderingtext">{item.text}</div>
-                                </div>
-                            ))}
-                            <div />
-                            <Button type="primary" onClick={this.onClose('modal2')} className="cancelbtn">取消</Button>
-                        </Modal>
-
-                    </div>
-                    {/* <div className="share">
-                        <div className="-mob-share-ui-button -mob-share-open">分享好友 一起赚钱</div>
->>>>>>> 262384437ffcfea0c2c69416fcbaaed123de3594
                         <div className="-mob-share-ui -mob-share-ui-theme -mob-share-ui-theme-slide-bottom" style={{ display: "none" }}>
                             <ul className="-mob-share-list">
                                 <li className="-mob-share-weixin" onClick={this.wx}><p>微信</p></li>
@@ -280,7 +235,6 @@ class sharemoney extends Component {
                             <div className="-mob-share-close">取消</div>
                         </div>
                         <div className="-mob-share-ui-bg"></div>
-<<<<<<< HEAD
 
                     </div>
 
@@ -296,8 +250,6 @@ class sharemoney extends Component {
                             <div className="-mob-share-close">取消</div>
                         </div>
                         <div className="-mob-share-ui-bg"></div>
-=======
->>>>>>> 262384437ffcfea0c2c69416fcbaaed123de3594
                     </div> */}
                 </div>
                 <Tabs tabs={this.state.tabs}
