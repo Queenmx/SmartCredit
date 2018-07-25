@@ -135,31 +135,7 @@ var Home = React.createClass({
         }
         
         //轮播图
-        var banner = sessionStorage.getItem("banner");
-        if (banner) {
-            var bannerList = JSON.parse(banner);
-            var bannerArr = [];
-            for (var i in bannerList) {
-                bannerArr.push(
-                    <a style={{ display: 'inline-block', width: '100%'}} key={i}>
-                            <img
-                                src={imgPath + bannerList[i].imgUrl}
-                                // src="src/img/banner.png"
-                                alt=""
-                                style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
-                                onLoad={() => {
-                                    window.dispatchEvent(new Event('resize'));
-                                    // this.setState({ imgHeight: 'auto' });
-                                }}
-                                />
-                            </a>
-                    // <div className="v-item" key={i} onClick={that.newsAll}>{articleList[i].articleTitle}</div>
-                )
-            }
-            that.setState({
-                bannerArr: bannerArr
-            })
-        } else {
+      
             api.banner(function (res) {
                 console.log(res);
                 if (res.code = "0000") {
@@ -202,21 +178,9 @@ var Home = React.createClass({
             }, function () {
                 Toast.info("连接错误", 2);
             })
-        }
+        
         //咨讯
-        var homeArticle = sessionStorage.getItem("homeArticle");
-        if (homeArticle) {
-            var articleList = JSON.parse(homeArticle);
-            var articleArr = [];
-            for (var i in articleList) {
-                articleArr.push(
-                    <div className="v-item" key={i} onClick={that.toNewsDetail} data-articleid={articleList[i].articleId}>{articleList[i].articleTitle}</div>
-                )
-            }
-            that.setState({
-                articleArr: articleArr
-            })
-        } else {
+      
             api.articleList("1", "10", function (res) {
                 // console.log(res);
                 if (res.code = "0000") {
@@ -248,37 +212,9 @@ var Home = React.createClass({
             }, function () {
                 Toast.info("连接错误", 2);
             })
-        }
+        
         //热门借款产品
-        var hotLoanList = sessionStorage.getItem("hotLoanList");
-        if(hotLoanList){
-            var hotLoanList = JSON.parse(hotLoanList);
-            var hotLoanArr = [];
-            for (var i in hotLoanList ) {
-                if(hotLoanList[i].hot == 0){
-                    console.log("11111")
-                    hotLoanArr.push(
-                        <li key={i} data-id={hotLoanList[i].id} onClick={that.toListDetail}>
-                            <img src={imgPath + hotLoanList[i].logo} />
-                            <div className="loanTitle">
-                                <p>{hotLoanList[i].categoryName}</p>
-                                <p>{hotLoanList[i].intendedFor}</p>
-                            </div>
-                            <div className="high">
-                                <p>
-                                    <span>{hotLoanList[i].maximumAmount}</span>万    
-                                </p>
-                                <p>最高额度</p>
-                            </div>
-                        </li>    
-                 )
-                }
-                that.setState({
-                    hotLoanArr: hotLoanArr
-                })
-                 
-             }
-        }else{
+      
             api.hotLoanList("0", function (res) { 
                 if(res.code == "0000"){
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
@@ -314,36 +250,10 @@ var Home = React.createClass({
                   
                 }
             })
-        }
+        
 
         //热门信用卡
-        var creditCardList = sessionStorage.getItem("creditCardList");
-        if(creditCardList){
-            var creditCardList = JSON.parse(creditCardList);
-            var creditCardArr = [];
-            for (var i in creditCardList ) {
-                if(creditCardList[i].hot == 0){
-                    console.log("11111")
-                 creditCardArr.push(
-                     <li key={i}>
-                        <img src={imgPath + creditCardList[i].logo}  />
-                         <div className="loanTitle">
-                             <p>{creditCardList[i].name}</p>
-                             <p>{creditCardList[i].describeTion}</p>
-                         </div>
-                         <div className="high">
-                            <img src={creditCardList[i].hotImg}/>
-                         </div>
-                     </li>
-                               
-                 )
-                }
-                that.setState({
-                    creditCardArr: creditCardArr
-                })
-                 
-             }
-        }else{
+      
             api.hotCreditCardList(function (res) { 
                 if(res.code == "0000"){
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
@@ -376,10 +286,10 @@ var Home = React.createClass({
                   
                 }
             })
-        }
+        },
       
 
-    },
+    
 
 
     render: function () {

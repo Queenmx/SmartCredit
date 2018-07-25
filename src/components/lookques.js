@@ -42,8 +42,8 @@ var Help = React.createClass({
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
-        var userId = localStorage.getItem("user").userId
-        api.myQuestion(userId,function (res) {
+        var userName = JSON.parse(localStorage.getItem("user")).phone
+        api.myQuestion(userName,function (res) {
                 if(res.code == "0000"){
                     var data = JSON.parse(strDec(res.data, key1, "", ""));
                     console.log(data);
@@ -61,10 +61,10 @@ var Help = React.createClass({
                                     <p>{data[i].content}</p>   
                                     </div>
                                 </li>
-                                <li className="answer">
+                                <li className={"answer"+" "+(data[i].answerTime!=""?"":"hide")}>
                                     <div>
                                     <p style={{backgroundImage:"url('src/img/icon/help-icon4.png')"}}></p>
-                                    <p>回答时间：{data[i].addTime}</p>    
+                                    <p>回答时间：{data[i].answerTime}</p>    
                                     </div>
                                     <div>
                                     <p></p>

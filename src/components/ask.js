@@ -45,7 +45,7 @@ var Ask = React.createClass({
 
     submitAsk: function () {
         var content = this.state.content;
-        var userName = localStorage.getItem("user").userName
+        var userName =JSON.parse(localStorage.getItem("user")).phone
         //var content=$("textarea").val().trim();
         var that=this;
         if (content.length > 0) {
@@ -77,7 +77,7 @@ var Ask = React.createClass({
                     Toast.info("连接错误", 2);
                 })
             } else {//提问问题
-                api.feedBackAdd(content,userId, function (res) {
+                api.feedBackAdd(content,userName, function (res) {
                     //console.log('feedBackAdd',res);
                     if (res.code == "0000") {
                     	that.setState({
