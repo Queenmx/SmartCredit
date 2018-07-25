@@ -137,8 +137,8 @@ class sharemoney extends Component {
         switch (item.text) {
             case '微信':
                 console.log('微信朋友');
-                var qq = mobShare( 'weixin' );
-                qq.send();
+                var weixin = mobShare( 'weixin' );
+                weixin.send();
                 break;
             // case '微信朋友圈':
             //     console.log('微信朋友圈')
@@ -150,13 +150,13 @@ class sharemoney extends Component {
                 break;
             case 'QQ空间':
                 console.log('QQ空间');
-                var qq = mobShare( 'qzone' );
-                qq.send();
+                var qzone = mobShare( 'qzone' );
+                qzone.send();
                 break;
             case '新浪微博':
                 console.log('微博');                
-                var qq = mobShare( 'weibo' );
-                qq.send();
+                var weibo = mobShare( 'weibo' );
+                weibo.send();
                 break;
             // case '二维码':
             //     console.log('二维码')
