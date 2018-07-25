@@ -42,33 +42,33 @@ var Help = React.createClass({
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
-        var userId = localStorage.getItem("user").userId
-        api.myQuestion(userId,function (res) {
+        var userName = JSON.parse(localStorage.getItem("user")).phone
+        api.myQuestion(userName,function (res) {
                 if(res.code == "0000"){
                     var data = JSON.parse(strDec(res.data, key1, "", ""));
                     console.log(data);
                     var questionArr = [];
-                    for (var i in data) {
+                    for (var i in data.list) {
                         questionArr.push(
                             <ul className="helpList" key={i}>                    
                                 <li>
                                     <div>
                                     <p style={{backgroundImage:"url('src/img/icon/help-icon3.png')"}}></p>
-                                    <p>提问时间：{data[i].addTime}</p>    
+                                    <p>提问时间：{data.list[i].addTime}</p>    
                                     </div>
                                     <div>
                                     <p></p>
-                                    <p>{data[i].content}</p>   
+                                    <p>{data.list[i].content}</p>   
                                     </div>
                                 </li>
-                                <li className="answer">
+                                <li className={"answer"+" "+(data.list[i].answerTime!=""?"":"hide")}>
                                     <div>
                                     <p style={{backgroundImage:"url('src/img/icon/help-icon4.png')"}}></p>
-                                    <p>回答时间：{data[i].addTime}</p>    
+                                    <p>回答时间：{data.list[i].answerTime}</p>    
                                     </div>
                                     <div>
                                     <p></p>
-                                    <p>{data[i].answer}</p>   
+                                    <p>{data.list[i].answer}</p>   
                                     </div>
                                 </li>
                             </ul>

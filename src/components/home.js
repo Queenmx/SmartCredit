@@ -22,12 +22,12 @@ var Home = React.createClass({
             list: [],
             banner: [],
             imgHeight: 447,
+            autoplay:false
         }
     },
 
     componentWillMount: function () {
         var user = localStorage.getItem("user");
-       
         if(user){
             this.setState({
                 user:JSON.parse(user)
@@ -123,7 +123,7 @@ var Home = React.createClass({
                 var key1 = globalData.key;
                 if(res.code=="0000"){
                     var temp = JSON.parse(strDec(res.data, key1, "", ""))[0];
-                    console.log(temp);
+                    // console.log(temp);
                     if(temp.systemNotices.length||temp.viewsMyNews.length)
                         that.setState({
                             hasMsg:true
@@ -135,45 +135,18 @@ var Home = React.createClass({
         }
         
         //轮播图
-        var banner = sessionStorage.getItem("banner");
-        if (banner) {
-            var bannerList = JSON.parse(banner);
-            var bannerArr = [];
-            for (var i in bannerList) {
-                bannerArr.push(
-                    <a style={{ display: 'inline-block', width: '100%'}} key={i}>
-                            <img
-                                src={imgPath + bannerList[i].imgUrl}
-                                // src="src/img/banner.png"
-                                alt=""
-                                style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
-                                onLoad={() => {
-                                    window.dispatchEvent(new Event('resize'));
-                                    // this.setState({ imgHeight: 'auto' });
-                                }}
-                                />
-                            </a>
-                    // <div className="v-item" key={i} onClick={that.newsAll}>{articleList[i].articleTitle}</div>
-                )
-            }
-            that.setState({
-                bannerArr: bannerArr
-            })
-        } else {
+      
             api.banner(function (res) {
-                console.log(res);
                 if (res.code = "0000") {
-                    console.log(res.data)
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(Decdata)
-                    // var Decdata =JSON.parse(res.data);
-                //    console.log(Decdata)
-                   
+                    // console.log(Decdata);
                 //    console.log(articleList)
                     sessionStorage.setItem("banner", JSON.stringify(Decdata));
+                    // that.setState({
+                    //     autoplay:ture
+                    // })
                     var bannerArr = [];
-                    for (var i in Decdata) {
-                       
+                    for (var i in Decdata) {                       
                         bannerArr.push(
                             <a style={{ display: 'inline-block', width: '100%'}} key={i}>
                             <img
@@ -187,13 +160,10 @@ var Home = React.createClass({
                                 }}
                                 />
                             </a>
-
-                                        // <div className="v-item" key={i} onClick={that.newsAll}>{articleList[i].articleTitle}</div>
                                        )
-                            //  console.log(articleArr[i].articleTitle)
                     }
                     that.setState({
-                        bannerArr: bannerArr
+                        bannerArr: bannerArr,
                     })
 
                 } else {
@@ -202,31 +172,19 @@ var Home = React.createClass({
             }, function () {
                 Toast.info("连接错误", 2);
             })
-        }
+        
         //咨讯
-        var homeArticle = sessionStorage.getItem("homeArticle");
-        if (homeArticle) {
-            var articleList = JSON.parse(homeArticle);
-            var articleArr = [];
-            for (var i in articleList) {
-                articleArr.push(
-                    <div className="v-item" key={i} onClick={that.toNewsDetail} data-articleid={articleList[i].articleId}>{articleList[i].articleTitle}</div>
-                )
-            }
-            that.setState({
-                articleArr: articleArr
-            })
-        } else {
+      
             api.articleList("1", "10", function (res) {
                 // console.log(res);
                 if (res.code = "0000") {
                     // console.log(res.data)
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(Decdata)
+                    // console.log(Decdata)
                     // var Decdata =JSON.parse(res.data);
                 //    console.log(Decdata)
                     var articleList = Decdata.list;
-                   console.log(articleList)
+                //    console.log(articleList)
                     sessionStorage.setItem("homeArticle", JSON.stringify(articleList));
                     var articleArr = [];
                     for (var i in articleList) {
@@ -248,47 +206,19 @@ var Home = React.createClass({
             }, function () {
                 Toast.info("连接错误", 2);
             })
-        }
+        
         //热门借款产品
-        var hotLoanList = sessionStorage.getItem("hotLoanList");
-        if(hotLoanList){
-            var hotLoanList = JSON.parse(hotLoanList);
-            var hotLoanArr = [];
-            for (var i in hotLoanList ) {
-                if(hotLoanList[i].hot == 0){
-                    console.log("11111")
-                    hotLoanArr.push(
-                        <li key={i} data-id={hotLoanList[i].id} onClick={that.toListDetail}>
-                            <img src={imgPath + hotLoanList[i].logo} />
-                            <div className="loanTitle">
-                                <p>{hotLoanList[i].categoryName}</p>
-                                <p>{hotLoanList[i].intendedFor}</p>
-                            </div>
-                            <div className="high">
-                                <p>
-                                    <span>{hotLoanList[i].maximumAmount}</span>万    
-                                </p>
-                                <p>最高额度</p>
-                            </div>
-                        </li>    
-                 )
-                }
-                that.setState({
-                    hotLoanArr: hotLoanArr
-                })
-                 
-             }
-        }else{
+      
             api.hotLoanList("0", function (res) { 
                 if(res.code == "0000"){
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(Decdata);
+                    // console.log(Decdata);
                     // var hotLoanList = Decdata.list;
                     sessionStorage.setItem("hotLoanList", JSON.stringify(Decdata));
                     var hotLoanArr = [];
                     for (var i in Decdata) {
                        if(Decdata[i].hot == 0){
-                           console.log("abch")
+                        //    console.log("abch")
                            hotLoanArr.push(
                             <li key={i} id={Decdata[i].id}>
                             <img src={imgPath + Decdata[i].logo} />
@@ -314,46 +244,19 @@ var Home = React.createClass({
                   
                 }
             })
-        }
+        
 
         //热门信用卡
-        var creditCardList = sessionStorage.getItem("creditCardList");
-        if(creditCardList){
-            var creditCardList = JSON.parse(creditCardList);
-            var creditCardArr = [];
-            for (var i in creditCardList ) {
-                if(creditCardList[i].hot == 0){
-                    console.log("11111")
-                 creditCardArr.push(
-                     <li key={i}>
-                        <img src={imgPath + creditCardList[i].logo}  />
-                         <div className="loanTitle">
-                             <p>{creditCardList[i].name}</p>
-                             <p>{creditCardList[i].describeTion}</p>
-                         </div>
-                         <div className="high">
-                            <img src={creditCardList[i].hotImg}/>
-                         </div>
-                     </li>
-                               
-                 )
-                }
-                that.setState({
-                    creditCardArr: creditCardArr
-                })
-                 
-             }
-        }else{
+      
             api.hotCreditCardList(function (res) { 
                 if(res.code == "0000"){
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(Decdata);
+                    // console.log(Decdata);
                     var creditCardList = Decdata.list;
                     sessionStorage.setItem("creditCardList", JSON.stringify(creditCardList));
                     var creditCardArr = [];
                     for (var i in creditCardList ) {
                        if(creditCardList[i].hot == 0){
-                           console.log("11111")
                         creditCardArr.push(
                             <li key={i}>
                                 <img src={imgPath + creditCardList[i].logo}  />
@@ -376,13 +279,15 @@ var Home = React.createClass({
                   
                 }
             })
-        }
-      
-
     },
+      
+    componentWillUpdate(){
+    },
+    
 
 
-    render: function () {
+    
+        render: function () {
         var that = this;
         var curCity = that.props.location.query.cityId;
 
@@ -392,40 +297,58 @@ var Home = React.createClass({
                 <div className="content">
                     <div className="bannernews"> 
                         <Carousel
-                            autoplay
-                            infinite
+                            autoplay={true}
+                            infinite={true}
                             dotStyle={{"backgroundColor":"#fff",'width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem','marginRright':'0.18rem'}}
                             dotActiveStyle={{"backgroundColor":'#4374ff','width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem'}}
                         >
                            
                             {this.state.bannerArr}
-                        
+                            {/* <a style={{ display: 'inline-block', width: '100%'}}>
+                            <img
+                                src="src/img/banner.png"
+                                alt=""
+                                style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
+                                onLoad={() => {
+                                    window.dispatchEvent(new Event('resize'));
+                                }}
+                                />
+                            </a>
+                            <a style={{ display: 'inline-block', width: '100%'}}>
+                            <img
+                                src="src/img/banner.png"
+                                alt=""
+                                style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
+                                onLoad={() => {
+                                    window.dispatchEvent(new Event('resize'));
+                                }}
+                                />
+                            </a> */}
                         </Carousel>
-                             <ul className="news" onClick={this.newsAll}>
-                                <li className="newvoice">
-                                    <img src="src/img/icon/voice.png" />
-                                </li>
-                                <li>贷款资讯：</li>
-                                <li>
-                                    <Carousel 
-                                        vertical
-                                        dots={false}
-                                        dragging={false}
-                                        swiping={false}
-                                        autoplay
-                                        infinite
-                                        >
-                                     {this.state.articleArr}
-                                     <div className="v-item" onClick={that.toNewsDetail}></div>
-                                     <div className="v-item" onClick={that.toNewsDetail}></div>   
-                                   
-                                    </Carousel>
-                                </li>
-                                <li className="newsgo" onClick={this.newsAll}>
-                                    <img src="src/img/icon/go1.png" />
-                                </li>
-                            </ul>             
-                            
+                        <ul className="news" onClick={this.newsAll}>
+                            <li className="newvoice">
+                                <img src="src/img/icon/voice.png" />
+                            </li>
+                            <li>贷款资讯：</li>
+                            <li>
+                                <Carousel 
+                                    vertical
+                                    dots={false}
+                                    dragging={false}
+                                    swiping={false}
+                                    autoplay
+                                    infinite
+                                    >
+                                    {this.state.articleArr}
+                                    <div className="v-item" onClick={that.toNewsDetail}></div>
+                                    <div className="v-item" onClick={that.toNewsDetail}></div>   
+                                
+                                </Carousel>
+                            </li>
+                            <li className="newsgo" onClick={this.newsAll}>
+                                <img src="src/img/icon/go1.png" />
+                            </li>
+                        </ul>                                         
                         </div>
                     <div className="product">
                         <p>

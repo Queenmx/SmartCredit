@@ -307,7 +307,7 @@ module.exports.creditCardList = function (pageNum, pageSize, cb1, cb2) {
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     var param = JSON.stringify(data);
-    console.log(param)
+    // console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/credit/list`, { params: str }, cb1, cb2);
     // delete data.pageNum;
@@ -318,7 +318,7 @@ module.exports.hotCreditCardList = function (cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     var param = JSON.stringify(data);
-    console.log(param)
+    // console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/credit/hot`, { params: str }, cb1, cb2);
     // delete data.pageNum;
@@ -477,7 +477,7 @@ module.exports.feedBackAdd = function (content, userName, cb1, cb2) {
     data.content = content;
     data.userName = userName;;
     var param = JSON.stringify(data);
-    // console.log(param)
+    console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/backQuestion/add`, { params: str }, cb1, cb2);
     delete data.content;
@@ -485,13 +485,13 @@ module.exports.feedBackAdd = function (content, userName, cb1, cb2) {
 }
 
 //我要提问
-module.exports.questionAdd = function (content, objId, objType, cb1, cb2) {
+module.exports.questionAdd = function (content, objId, objType,userName, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.content = content;
     data.objId = objId;
     data.objType = objType;
-    data.userId = globalData.userId;;
+    data.userName = userName;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/question/add`, { params: str }, cb1, cb2);
@@ -513,14 +513,15 @@ module.exports.questionList = function (cb1, cb2) {
 }
 //我的问题列表
 
-module.exports.myQuestion = function (userId, cb1, cb2) {
+module.exports.myQuestion = function (userName, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
-    data.userId = globalData.userId;;
+    data.userName = userName;
     var param = JSON.stringify(data);
+    console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/backQuestion/show`, { params: str }, cb1, cb2);
-    delete data.userId;
+    delete data.userName;
 }
 //个人中心设置修改密码
 module.exports.resetPsd = function (userId, oldPwd, newPwd, cb1, cb2) {
@@ -982,7 +983,7 @@ module.exports.modifyStatus= function (item,cb1, cb2) {
     data.userId=item.userId;
     data.userName=item.userName;
     data.phone=item.phone;
-    data.title=item.phone;
+    data.title=item.title;
     data.content="";
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);

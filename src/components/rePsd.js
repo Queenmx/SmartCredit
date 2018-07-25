@@ -261,7 +261,7 @@ var Repsd = React.createClass({
                     <div className="inputPsd">
                         <p className={this.state.isshow?"tips":'hide'}><span style={{backgroundImage:"url('src/img/icon/login-icon7.png')"}}></span>请使用6-20位数字和字母（包含特殊字符）</p>
                         <label htmlFor="surePsd1" style={{backgroundImage:"url('src/img/icon/login-icon6.png')"}}></label>
-                        <input id="surePsd1" type={that.state.inputType2} name="surePsd1" placeholder="请输入新密码" onChange={that.vauleChange2} />
+                        <input id="surePsd1" type={that.state.inputType2} name="surePsd1" placeholder="请确认新密码" onChange={that.vauleChange2} />
                         <span className="eyes" id="eyes" onClick={that.eyesHandle2}>
                             <img src="src/img/icon/by.png" key={"by"} className="img2"/>
                             {that.state.eyeImg2}

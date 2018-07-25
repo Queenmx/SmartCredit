@@ -32,7 +32,10 @@ var MyMap = React.createClass({
                 <div className="mapCon" id="mapCon">
                     <div className="currentAddressBox">
                         <p className="greyTitle">当前定位城市</p>
-                        <div className="currentAddress sendCityId">{this.state.address}</div>
+                        <div className="currentAddress sendCityId">
+                            <span className="location-icon" style={{backgroundImage:"url('src/img/icon/home-icon1.png')"}}></span>
+                        {this.state.address}
+                        </div>
                     </div>
                     <div className="hotAddressBox">
                         <p className="greyTitle">热门城市</p>

@@ -10,21 +10,25 @@ let SwitchExample = (props) => {
  
   var that=this;
   var user=JSON.parse(localStorage.getItem("user"));
+  var open =localStorage.getItem("open")
   return (
     <List>
       <List.Item
         thumb="src/img/icon/set-icon1.png"
         extra={<Switch
           {...getFieldProps('Switch1', {
-            initialValue: true,
+            initialValue:open=="false"?false:true,
             valuePropName: 'checked',
           })}
           onClick={(checked) => { 
             console.log(checked);     
             if(checked){
-              Toast.info("开启消息通知",2);
+              Toast.info("已开启消息通知",2);
+              localStorage.setItem("open",true)
+              // open=true;
             }else{
-              Toast.info("关闭消息通知",2);
+              Toast.info("已关闭消息通知",2);
+              localStorage.setItem("open",false)
             }      
             var item={
               userId:user.userId,

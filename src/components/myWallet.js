@@ -37,7 +37,6 @@ var ListDetail = React.createClass({
             })
         }
         api.myWallet(userName,userId,function (res) {
-          
             if(res.code == "0000"){
                  let Decdata = strDec(res.data, key1, "", "");
                 let data = JSON.parse(Decdata);
@@ -164,7 +163,7 @@ var ListDetail = React.createClass({
                 <div className="listDetailCon content">
                     <Loading flag={that.state.flag} />                                     
                     <div className="time">
-                        <p>{that.state.balance}</p>
+                        <p>{that.state.balance!=""?that.state.balance:"0"}</p>
                         <p>账户余额<span></span>(元)</p>
                     </div>
                     <p className="account">账户明细</p>

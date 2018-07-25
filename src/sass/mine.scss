@@ -245,24 +245,27 @@
                 .am-switch{
                     .checkbox{
                         height: 0.4rem;
-                        width: 0.66rem;
+                        width: 0.7rem;
                         &::after{
                             height: 0.38rem;
                             width:0.38rem;
                             border-radius:50%;
                             top:0;
+                            -webkit-box-shadow:0 0 0; 
+                            box-shadow:0 0 0;
                         }
                         &::before{
                             height: 0.4rem;
-                            width:0.64rem;
+                            width:0.65rem;
                             top:0;
                             background: #999999;
+                            
                         }
                     }
                     input[type="checkbox"]:checked + .checkbox:after {
-                        -webkit-transform: translateX(20px);
-                        -ms-transform: translateX(20px);
-                        transform: translateX(12px);
+                        -webkit-transform: translateX(0.28rem);
+                        -ms-transform: translateX(0.28rem);
+                        transform: translateX(0.28rem);
                     }
                 } 
             }

@@ -191,7 +191,7 @@ var ListDetail = React.createClass({
                         <li>
                             <img src={imgPath+loanDetail.logo}/>
                             <div className="loanTitle">
-                                <p>{loanDetail.categoryName}</p>
+                                <p>{loanDetail.name}</p>
                                 <p>{loanDetail.intendedFor}</p>
                                 <p>申请人数：<span className="totalpel">{loanDetail.totalNum}人</span></p>
                             </div>

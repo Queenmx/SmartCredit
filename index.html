@@ -26,6 +26,7 @@
                 var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
                 if (isiOS) {
                     $(".header").css({ "height": "1.1rem", "line-height": "1.1rem" });
+                    
                 }
 
             })()
@@ -57,6 +58,7 @@
         <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
         <script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2704aa6c219a0"></script>
         <script>
+<<<<<<< HEAD
             // <div className="share">
             //     <div className="-mob-share-ui-button -mob-share-open" >分享好友 一起赚钱</div>
             //     <div className="-mob-share-ui -mob-share-ui-theme -mob-share-ui-theme-slide-bottom" style={{ display: "none" }}>
@@ -78,12 +80,22 @@
             var phone = "";
             window.onload = function () {
                 if (localStorage.getItem("user")) {
+=======
+            var phone="";
+            window.onload=function(){
+                if(localStorage.getItem("user")){
+>>>>>>> 262384437ffcfea0c2c69416fcbaaed123de3594
                     phone = JSON.parse(localStorage.getItem("user")).phone;
                     mobShare.config({
                         debug: true, // 开启调试，将在浏览器的控制台输出调试信息
                         appkey: '2704aa6c219a0', // appkey
                         params: {
+<<<<<<< HEAD
                             url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share=" + phone, // 分享链接
+=======
+                            url: "http://h5.xinyzx.com:82/SmartCreditShare/index.html#/?share="+phone, // 分享链接                            
+                            // url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share="+phone, // 分享链接
+>>>>>>> 262384437ffcfea0c2c69416fcbaaed123de3594
                             // url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share=13260691690",
 
                             title: '分享赚钱，一起赚钱', // 分享标题
