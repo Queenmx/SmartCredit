@@ -31,7 +31,8 @@
     float: left;
     height: 0.42rem;
     line-height: 0.42rem;
-    margin-bottom: 0.2rem; }
+    margin-bottom: 0.2rem;
+    color: black; }
     .message .title p:first-child span {
       display: inline-block;
       display: inline-block;
@@ -52,7 +53,8 @@
   width: 5.96rem;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; }
+  white-space: nowrap;
+  color: #666666; }
 .message .msg-content p:last-child {
   display: inline-block;
   width: 0.16rem;

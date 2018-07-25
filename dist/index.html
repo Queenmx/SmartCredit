@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><link href="assets/css/main.6356079226cff5b050b5d3bd0cf13d55.css" rel="stylesheet"><link href="assets/css/main.cd0ccc748df1c76437cc08b025a526c5.css" rel="stylesheet"></head>
+<html><head><link href="assets/css/main.1ccb31c312a4cdd81b6451aca3dfe1e9.css" rel="stylesheet"><link href="assets/css/main.1341df690f635318f7b4417c51ca33c1.css" rel="stylesheet"></head>
 
 <head>
     <meta charset="UTF-8">
@@ -26,7 +26,7 @@
                 var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
                 if (isiOS) {
                     $(".header").css({ "height": "1.1rem", "line-height": "1.1rem" });
-                    
+
                 }
 
             })()
@@ -40,7 +40,7 @@
                 scrp.src = "src/libs/promise.min.js"
                 document.body.appendChild(scrp)
             }
-  
+
         </script>
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2bYPlioCp4ps4ekwY2AcPFdaG11euqlO"></script>
         <script src="src/libs/aesmin.js" type="text/javascript" charset="utf-8"></script>
@@ -51,39 +51,42 @@
         <script>
 
             var phone = "";
-            window.onload=function(){
-                if(localStorage.getItem("user")){
-                    phone = JSON.parse(localStorage.getItem("user")).phone;
-                    mobShare.config({
-                        debug: true, // 开启调试，将在浏览器的控制台输出调试信息
-                        appkey: '2704aa6c219a0', // appkey
-                        params: {
-                            url: "http://h5.xinyzx.com:82/SmartCreditShare/index.html#/?share="+phone, // 分享链接                            
-                            // url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share="+phone, // 分享链接
-                            // url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share=13260691690",
+            window.onload = function () {
+                if (localStorage.getItem("user")) {
+                    var phone = "";
+                    window.onload = function () {
+                        if (localStorage.getItem("user")) {
+                            phone = JSON.parse(localStorage.getItem("user")).phone;
+                            mobShare.config({
+                                debug: true, // 开启调试，将在浏览器的控制台输出调试信息
+                                appkey: '2704aa6c219a0', // appkey
+                                params: {
+                                    // url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share="+phone, // 分享链接
+                                    url: "http://h5.xinyzx.com:82/SmartCreditShare/index.html#/?share="+phone, // 分享链接                            
+                                    title: '11', // 分享标题
+                                    description: '', // 分享内容
+                                    pic: '', // 分享图片，使用逗号,隔开
+                                    reason: '',//自定义评论内容，只应用与QQ,QZone与朋友网
+                                },
+                                /**
+                                 * 分享时触发的回调函数
+                                 * 分享是否成功，目前第三方平台并没有相关接口，因此无法知道分享结果
+                                 * 所以此函数只会提供分享时的相关信息
+                                 * 
+                                 * @param {String} plat 平台名称
+                                 * @param {Object} params 实际分享的参数 { url: 链接, title: 标题, description: 内容, pic: 图片连接 }
+                                 */
+                                callback: function (plat, params) {
+                                }
 
-                            title: '11', // 分享标题
-                            description: '', // 分享内容
-                            pic: '', // 分享图片，使用逗号,隔开
-                            reason: '',//自定义评论内容，只应用与QQ,QZone与朋友网
-                        },
-                        /**
-                         * 分享时触发的回调函数
-                         * 分享是否成功，目前第三方平台并没有相关接口，因此无法知道分享结果
-                         * 所以此函数只会提供分享时的相关信息
-                         * 
-                         * @param {String} plat 平台名称
-                         * @param {Object} params 实际分享的参数 { url: 链接, title: 标题, description: 内容, pic: 图片连接 }
-                         */
-                        callback: function (plat, params) {
+                            });
+                        } else {
+                            return false;
                         }
-
-                    });
-                } else {
-                    return false;
+                    }
                 }
             }
         </script>
 
 
-</html><script type="text/javascript" src="assets/js/manifest.59af6766cd6acea6e9b9.js"></script><script type="text/javascript" src="assets/js/vendor.8fbf9b923f9d6b7f3caa.js"></script><script type="text/javascript" src="assets/js/main.09347bbd186fec5e532a.js"></script>
+</html><script type="text/javascript" src="assets/js/manifest.59af6766cd6acea6e9b9.js"></script><script type="text/javascript" src="assets/js/vendor.8fbf9b923f9d6b7f3caa.js"></script><script type="text/javascript" src="assets/js/main.03a0dbde52b957c320ff.js"></script>
