@@ -48,27 +48,27 @@ var Help = React.createClass({
                     var data = JSON.parse(strDec(res.data, key1, "", ""));
                     console.log(data);
                     var questionArr = [];
-                    for (var i in data) {
+                    for (var i in data.list) {
                         questionArr.push(
                             <ul className="helpList" key={i}>                    
                                 <li>
                                     <div>
                                     <p style={{backgroundImage:"url('src/img/icon/help-icon3.png')"}}></p>
-                                    <p>提问时间：{data[i].addTime}</p>    
+                                    <p>提问时间：{data.list[i].addTime}</p>    
                                     </div>
                                     <div>
                                     <p></p>
-                                    <p>{data[i].content}</p>   
+                                    <p>{data.list[i].content}</p>   
                                     </div>
                                 </li>
-                                <li className={"answer"+" "+(data[i].answerTime!=""?"":"hide")}>
+                                <li className={"answer"+" "+(data.list[i].answerTime!=""?"":"hide")}>
                                     <div>
                                     <p style={{backgroundImage:"url('src/img/icon/help-icon4.png')"}}></p>
-                                    <p>回答时间：{data[i].answerTime}</p>    
+                                    <p>回答时间：{data.list[i].answerTime}</p>    
                                     </div>
                                     <div>
                                     <p></p>
-                                    <p>{data[i].answer}</p>   
+                                    <p>{data.list[i].answer}</p>   
                                     </div>
                                 </li>
                             </ul>
