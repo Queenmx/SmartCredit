@@ -139,12 +139,7 @@ var Home = React.createClass({
             api.banner(function (res) {
                 if (res.code = "0000") {
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    // console.log(Decdata);
-                //    console.log(articleList)
                     sessionStorage.setItem("banner", JSON.stringify(Decdata));
-                    // that.setState({
-                    //     autoplay:ture
-                    // })
                     var bannerArr = [];
                     for (var i in Decdata) {                       
                         bannerArr.push(
