@@ -16,7 +16,25 @@ var Set = React.createClass({
         }
     },
     componentWillMount(){
-
+        if(!window.localStorage) {
+            console.log('浏览器不支持localStorage');
+        }
+        var size = 0;
+        var size2=0;
+        // for(var item in window.localStorage) {
+        //    if(window.localStorage.hasOwnProperty(item)) {
+        //        size += window.localStorage.getItem(item).length;
+        //     }
+        // }
+        for(var item in window.sessionStorage) {
+            if(window.sessionStorage.hasOwnProperty(item)) {
+                size2 += window.sessionStorage.getItem(item).length;
+             }
+         }
+        this.setState({
+            size:(size2/1024).toFixed(2)+ 'KB'
+        })
+        console.log('当前localStorage剩余容量为' + (size2 / 1024).toFixed(2) + 'KB');
     },
     componentDidMount(){
         var that=this;
@@ -77,7 +95,10 @@ var Set = React.createClass({
 
         localStorage.removeItem("curCity");
         sessionStorage.clear();
-        this.timer = setTimeout(function () { Toast.info("清空缓存成功", 2) }, 500)
+        this.timer = setTimeout(function () { Toast.info("清空缓存成功", 2) }, 500);
+        this.setState({
+            size:'0.00KB'
+        })
     },
     aboutUs: function () {
         let path = {
@@ -105,7 +126,7 @@ var Set = React.createClass({
                     <ul className="setLi">
                     <Btn />
                         {/* <li><i style={{backgroundImage:"url('src/img/icon/set-icon1.png')"}}></i><span>消息推送</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                         */}
-                        <li onClick={that.clearCache}><i style={{backgroundImage:"url('src/img/icon/set-icon2.png')"}}></i><span>清空缓存</span><div className="infoRight"></div></li>
+                        <li onClick={that.clearCache}><i style={{backgroundImage:"url('src/img/icon/set-icon2.png')"}}></i><span>清空缓存</span><div className="infoRight">{that.state.size}</div></li>
                         <li onClick={that.version}><i style={{backgroundImage:"url('src/img/icon/set-icon3.png')"}}></i><span>当前版本</span>{this.state.versionArr}</li> 
                         <li onClick={that.rePsd}><i style={{backgroundImage:"url('src/img/icon/set-icon4.png')"}}></i><span>修改登录密码</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>                                               
                         <li onClick={that.aboutUs}><i style={{backgroundImage:"url('src/img/icon/set-icon5.png')"}}></i><span>关于万融汇</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li>

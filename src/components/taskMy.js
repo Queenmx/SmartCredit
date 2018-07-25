@@ -183,7 +183,7 @@ var Loan = React.createClass({
                                 <img src={imgPath+item.url} />
                                 <div className="loanTitle">
                                     <p>{item.taskName}</p>
-                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
                                 </div>
                                 <div className="high">
                                     <a href={item.taskUrl}>进入任务</a>
@@ -198,7 +198,7 @@ var Loan = React.createClass({
                                 <img src={imgPath+item.url} />
                                 <div className="loanTitle">
                                     <p>{item.taskName}</p>
-                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
                                 </div>
                                 <div className="high">
                                     <p className="noPass">审批中</p>                                
@@ -212,7 +212,7 @@ var Loan = React.createClass({
                                 <img src={imgPath+item.url} />
                                 <div className="loanTitle">
                                     <p>{item.taskName}</p>
-                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
                                 </div>
                                 <div className="high">
                                     <p className="hasPass">通过</p>                                
@@ -227,7 +227,7 @@ var Loan = React.createClass({
                                 <img src={imgPath+item.url} />
                                 <div className="loanTitle">
                                     <p>{item.taskName}</p>
-                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>积分</p>
+                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
                                 </div>
                                 <div className="high">
                                     <p className="noPass">未通过</p>                                
@@ -283,7 +283,7 @@ var Loan = React.createClass({
                             <img src="src/img/icon/product1.png" />
                             <div className="loanTitle">
                                 <p>任务名称</p>
-                                <p><span>任务奖励</span>：完成任务可获得<span>500</span>积分</p>
+                                <p><span>任务奖励</span>：完成任务可获得<span>500</span>元</p>
                             </div>
                             <div className="high">
                                 <p className="nopass">未通过</p>                                
