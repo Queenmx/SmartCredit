@@ -118,7 +118,7 @@ var Loan = React.createClass({
                                 </div>
                                 <div className="high">
                                     <p onClick={that.goTask.bind(that,item.id,item.taskName)}>查看任务</p>
-                                    <p className="geting">未领取</p>
+                                    <p>未领取</p>
                                 </div>
                             </li>
                         )
@@ -133,7 +133,7 @@ var Loan = React.createClass({
                                 </div>
                                 <div className="high">
                                     <p onClick={that.goTask.bind(that,item.id,item.taskName,"got")}>查看任务</p>
-                                    <p>已领取</p>
+                                    <p className="geting">已领取</p>
                                 </div>
                             </li>
                     )
@@ -148,7 +148,7 @@ var Loan = React.createClass({
                             </div>
                             <div className="high">
                                 <p onClick={that.goTask.bind(that,item.id,item.taskName)}>查看任务</p>
-                                <p className="geting">未领取</p>
+                                <p>未领取</p>
                             </div>
                         </li>
                     )
@@ -163,7 +163,7 @@ var Loan = React.createClass({
                             </div>
                             <div className="high">
                                 <p onClick={that.goTask.bind(that,item.id,item.taskName,"got")}>查看任务</p>
-                                <p>已领取</p>
+                                <p className="geting">已领取</p>
                             </div>
                         </li>
                     )

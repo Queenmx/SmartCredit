@@ -142,7 +142,7 @@ var Loan = React.createClass({
                 complete: function (myfile) {
                     //  console.log('单张: 压缩完成...');
                     //  console.log(that.state)
-                    Toast.info('压缩完成');
+                    Toast.info('上传成功');
                 },
                 notSupport: function (myfile) {
                     alert('浏览器不支持！');
