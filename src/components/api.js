@@ -1005,6 +1005,7 @@ module.exports.addBankcard = function (cardName, idCard, cardNumber, bankName, c
     data.cardPhone = cardPhone;
     data.verifyCode = verifyCode;
     var param = JSON.stringify(data);
+    console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/platform/bankCardFeedback`, { params: str }, cb1, cb2);
     // delete data.userId;
@@ -1016,11 +1017,11 @@ module.exports.addBankcard = function (cardName, idCard, cardNumber, bankName, c
     delete data.verifyCode;
 }
 //选择银行卡 
-
 module.exports.choiceadd = function (cb1, cb2) {
     var data = globalData.requestData;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
+    console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/wallet/cardList`, { params: str }, cb1, cb2);
     delete data.userId;

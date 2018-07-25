@@ -25,7 +25,6 @@ class choiceBankcard extends Component {
         let that = this;
         const { value } = this.state;
         api.choiceadd(function (res) {
-
             console.log(res)
             if (res.code === "0000") {
                 let Decdata = strDec(res.data, key1, "", "");

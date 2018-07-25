@@ -8,8 +8,6 @@ import api from './api';
 var key1 = globalData.key;
 import "../css/getmoney.css";
 
-
-
 class getmoney extends Component {
     constructor(props) {
         super(props);
@@ -26,9 +24,7 @@ class getmoney extends Component {
             showMask: false
         }
     }
-
     componentDidMount() {
-        // var addBank = document.getElementById("addBank");
         if (this.props.location.query.id !== undefined) {
             this.setState({
                 showMask: true
@@ -40,96 +36,107 @@ class getmoney extends Component {
             cardNumber: this.props.location.query.cardNumber,
         })
     }
-    //判断是手续费
+    //判断提现金额
     putforward = (cash) => {
         var blance = localStorage.getItem("blance");
-        if (cash < 100 && cash.length !== '') {
-            console.log('手续费2元')
+        var putforward = document.getElementById('putforward').value.length
+        /*
+        * 1. 不能有空格
+        * 2. 开头不能为0
+        * 3. 小于100
+        * 4. 大于等于100
+        * 5. 没有绑定银行卡，点击提交申请，判断DOM节点DIV显示的状态，判断是否能提交
+        * 6. 判断输入后删除数字的长度是否等于0
+        * 7. 判断输入的最大额度,是否大于账户余额
+        */
+        if (/^\s+$/gi.test(document.getElementById('putforward').value)) {
+            Toast.info("不能输入空格", );
+            this.setState({
+                serviceCharge: '',
+                cash: ''
+            }, function () {
+                console.log(this.state.serviceCharge)
+            })
+        } else if (document.getElementById('putforward').value.indexOf('0') == 0) {
+            Toast.info("开头数字不能为0", );
+            this.setState({
+                serviceCharge: '',
+                cash: ''
+            }, function () {
+                console.log(this.state.serviceCharge)
+            })
+        } else if (cash < 100) {
             this.setState({
                 serviceCharge: 2,
                 cash: cash
             }, function () {
-                console.log(this.state.serviceCharge)
             })
-        }
-        if (cash > 100) {
+        } else if (cash >= 100) {
             this.setState({
                 serviceCharge: cash * 0.05,
                 cash: cash
-            })
-        }
-        var putforward = document.getElementById('putforward').value.length
-        console.log(putforward)
-        if (putforward == '' && putforward == 0) {
-            this.setState({
-                serviceCharge: ''
             }, function () {
                 console.log(this.state.serviceCharge)
             })
         }
-        console.log(blance)
-        console.log(cash)
+        if (hiddenPop.style.display == "none") {
+            console.log(hiddenPop.style.display == "none")
+            Toast.info("请先绑定银行卡再进行操作!");
+        }
+        if (putforward == '' && putforward == 0) {
+            console.log(putforward)
+            this.setState({
+                serviceCharge: '',
+                cash: ''
+            }, function () {
+                console.log(this.state.serviceCharge)
+            })
+        }
         if (Number(cash) > Number(blance)) {
             Toast.info("请输入有效的金额", );
-            // console.log('请输入有效的金额')
+            this.setState({
+                serviceCharge: ''
+            })
         }
 
     }
-
-    //失去焦点判断输入的金额是否有效
-    amountofmoney = () => {
-        // var putforward = document.getElementById('putforward').value.length
-        // console.log(putforward)
-        // if (putforward == '' && putforward == 0) {
-        //     this.setState({
-        //         serviceCharge: ''
-        //     }, function () {
-        //         console.log(this.state.serviceCharge)
-        //     })
-        // }
-    }
-
-
+    //添加银行卡
     addCard() {
-
         hashHistory.push('/addBankcard')
     }
     submissionApply = () => {
-
-        var bankCardName = this.state.bankCardName;
-        var cardNumber = this.state.cardNumber;
-        var cash = this.state.cash;
-        var serviceCharge = this.state.serviceCharge;
-        var userName = JSON.parse(localStorage.getItem("user")).realName
-        this.setState({
-            cash: cash
-        })
-        console.log(bankCardName)
-        console.log(cardNumber)
-        console.log(serviceCharge)
-        console.log(cash)
-        console.log(userName)
-        api.replacecard(bankCardName, cardNumber, cash, serviceCharge, userName, function (res) {
-
-            console.log(res)
-            if (res.code === "0000") {
-                let Decdata = strDec(res.data, key1, "", "");
-                let data = JSON.parse(Decdata);
-
-                console.log(data)
-            }
-        })
-    }
-
-    // var blance = localStorage.getItem("blance")
-
-    buttoncolor = () => {
+        //获取DOM节点，判断该DOM节点是在display是不是none
+        //如果display 不是等于none 证明在页面存在，既可调用接口
+        var hiddenPop = document.getElementById("hiddenPop")
+        if (hiddenPop.style.display !== "block") {
+            Toast.info("请先绑定银行卡 !", );
+        } else {
+            var bankCardName = this.state.bankCardName;
+            var cardNumber = this.state.cardNumber;
+            var cash = this.state.cash;
+            var serviceCharge = this.state.serviceCharge;
+            var userName = JSON.parse(localStorage.getItem("user")).realName
+            this.setState({
+                cash: cash
+            })
+            console.log(bankCardName)
+            console.log(cardNumber)
+            console.log(serviceCharge)
+            console.log(cash)
+            console.log(userName)
+            api.replacecard(bankCardName, cardNumber, cash, serviceCharge, userName, function (res) {
+                console.log(res)
+                if (res.code === "0000") {
+                    let Decdata = strDec(res.data, key1, "", "");
+                    let data = JSON.parse(Decdata);
+                    console.log(data)
+                }
+            })
+        }
 
     }
     render() {
         var that = this;
-
-
         var blance = localStorage.getItem("blance")
         return (
             <div className="mywallet">
@@ -167,7 +174,6 @@ class getmoney extends Component {
                                 fontSize: "0.3rem"
                             }}
                             onChange={this.putforward}
-                            onBlur={this.amountofmoney}
                             id='putforward'
                         >提现金额</InputItem>
                     </List>

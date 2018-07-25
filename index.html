@@ -40,15 +40,15 @@
                 document.body.appendChild(scrp)
                 // document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"' + '>' + '<' + '/' + 'script>');
             }
-            document.addEventListener('touchstart', function (event) {
-                // 判断默认行为是否可以被禁用
-                if (event.cancelable) {
-                    // 判断默认行为是否已经被禁用
-                    if (!event.defaultPrevented) {
-                        event.preventDefault();
-                    }
-                }
-            }, false);
+            // document.addEventListener('touchstart', function (event) {
+            //     // 判断默认行为是否可以被禁用
+            //     if (event.cancelable) {
+            //         // 判断默认行为是否已经被禁用
+            //         if (!event.defaultPrevented) {
+            //             event.preventDefault();
+            //         }
+            //     }
+            // }, false);
         </script>
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2bYPlioCp4ps4ekwY2AcPFdaG11euqlO"></script>
         <script src="src/libs/aesmin.js" type="text/javascript" charset="utf-8"></script>
@@ -57,47 +57,40 @@
         <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
         <script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2704aa6c219a0"></script>
         <script>
-<<<<<<< HEAD
-            var phone = JSON.parse(localStorage.getItem("user")).phone
-            mobShare.config({
-                params: {
-                    url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share=" + phone, // 分享链接
-                    // url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share=13260691690",
-                    title: '11', // 分享标题
-                    description: '', // 分享内容
-                    pic: '', // 分享图片，使用逗号,隔开
-                    reason: '',//自定义评论内容，只应用与QQ,QZone与朋友网
-                },
-
-
-                /**
-                 * 分享时触发的回调函数
-                 * 分享是否成功，目前第三方平台并没有相关接口，因此无法知道分享结果
-                 * 所以此函数只会提供分享时的相关信息
-                 * 
-                 * @param {String} plat 平台名称
-                 * @param {Object} params 实际分享的参数 { url: 链接, title: 标题, description: 内容, pic: 图片连接 }
-                 */
-                callback: function (plat, params) {
-=======
-            var phone="";
-            window.onload=function(){
-                if(localStorage.getItem("user")){
+            // <div className="share">
+            //     <div className="-mob-share-ui-button -mob-share-open" >分享好友 一起赚钱</div>
+            //     <div className="-mob-share-ui -mob-share-ui-theme -mob-share-ui-theme-slide-bottom" style={{ display: "none" }}>
+            //         <ul className="-mob-share-list">
+            //             <li className="-mob-share-weixin" ><p>微信</p></li>
+            //             <li className="-mob-share-qq"><p >QQ好友</p></li>
+            //             <li className="-mob-share-qzone" ><p>QQ空间</p></li>
+            //             <li className="-mob-share-weibo" ><p>新浪微博</p></li>
+            //         </ul>
+            //         <div className="-mob-share-close">取消</div>
+            //     </div>
+            //     <div className="-mob-share-ui-bg"></div>
+            // </div>
+            // document.getElementById('share').onclick = function () {
+            //     // weibo.send();
+            //     console.log('123')
+            //     prompt.style.display = "block"
+            // }
+            var phone = "";
+            window.onload = function () {
+                if (localStorage.getItem("user")) {
                     phone = JSON.parse(localStorage.getItem("user")).phone;
                     mobShare.config({
                         debug: true, // 开启调试，将在浏览器的控制台输出调试信息
                         appkey: '2704aa6c219a0', // appkey
                         params: {
-                            url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share="+phone, // 分享链接
+                            url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share=" + phone, // 分享链接
                             // url: "http://h5.xinyzx.com:82/SmartCredit/index.html#/ForgotPsd?fromWhere=rgs&share=13260691690",
 
-                            title: '11', // 分享标题
+                            title: '分享赚钱，一起赚钱', // 分享标题
                             description: '', // 分享内容
                             pic: '', // 分享图片，使用逗号,隔开
                             reason: '',//自定义评论内容，只应用与QQ,QZone与朋友网
                         },
-
-
                         /**
                          * 分享时触发的回调函数
                          * 分享是否成功，目前第三方平台并没有相关接口，因此无法知道分享结果
@@ -110,12 +103,10 @@
                         }
 
                     });
-                }else{
+                } else {
                     return false;
->>>>>>> ddb3a750a7b974da88d1848cdaf13ce2f447e1ae
                 }
             }
-            
         </script>
 
 
