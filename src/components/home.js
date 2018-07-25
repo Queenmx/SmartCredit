@@ -392,40 +392,38 @@ var Home = React.createClass({
                 <div className="content">
                     <div className="bannernews"> 
                         <Carousel
-                            autoplay
-                            infinite
+                            autoplay={true}
+                            infinite={true}
                             dotStyle={{"backgroundColor":"#fff",'width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem','marginRright':'0.18rem'}}
                             dotActiveStyle={{"backgroundColor":'#4374ff','width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem'}}
                         >
                            
-                            {this.state.bannerArr}
-                        
+                            {this.state.bannerArr} 
                         </Carousel>
-                             <ul className="news" onClick={this.newsAll}>
-                                <li className="newvoice">
-                                    <img src="src/img/icon/voice.png" />
-                                </li>
-                                <li>贷款资讯：</li>
-                                <li>
-                                    <Carousel 
-                                        vertical
-                                        dots={false}
-                                        dragging={false}
-                                        swiping={false}
-                                        autoplay
-                                        infinite
-                                        >
-                                     {this.state.articleArr}
-                                     <div className="v-item" onClick={that.toNewsDetail}></div>
-                                     <div className="v-item" onClick={that.toNewsDetail}></div>   
-                                   
-                                    </Carousel>
-                                </li>
-                                <li className="newsgo" onClick={this.newsAll}>
-                                    <img src="src/img/icon/go1.png" />
-                                </li>
-                            </ul>             
-                            
+                        <ul className="news" onClick={this.newsAll}>
+                            <li className="newvoice">
+                                <img src="src/img/icon/voice.png" />
+                            </li>
+                            <li>贷款资讯：</li>
+                            <li>
+                                <Carousel 
+                                    vertical
+                                    dots={false}
+                                    dragging={false}
+                                    swiping={false}
+                                    autoplay
+                                    infinite
+                                    >
+                                    {this.state.articleArr}
+                                    <div className="v-item" onClick={that.toNewsDetail}></div>
+                                    <div className="v-item" onClick={that.toNewsDetail}></div>   
+                                
+                                </Carousel>
+                            </li>
+                            <li className="newsgo" onClick={this.newsAll}>
+                                <img src="src/img/icon/go1.png" />
+                            </li>
+                        </ul>                                         
                         </div>
                     <div className="product">
                         <p>
