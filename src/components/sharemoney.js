@@ -69,12 +69,11 @@ class sharemoney extends Component {
             //-mob-share-weixin  -mob-share-qq -mob-share-qzone -mob-share-weibo
         }
     }
-
     componentDidMount() {
+        // debugger;
         var key1 = globalData.key;
         var that = this;
         var userName = JSON.parse(localStorage.getItem("user")).userName;
-        console.log(userName)
         api.shareDetail(userName, function (res) {
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
@@ -107,10 +106,11 @@ class sharemoney extends Component {
                 that.setState({
                     ExtractArr: ExtractArr
                 })
-                console.log(data)
             }
         })
+
     }
+
     showModal = key => (e) => {
 
         e.preventDefault(); // 修复 Android 上点击穿透
@@ -206,47 +206,24 @@ class sharemoney extends Component {
        
     }
 
+
+    share = () => {
+        // var a = document.getElementById("a");
+        // a.style.display = "block"
+        // console.log(456)
+
+    }
     render() {
         return (
             <div className="mywallet">
                 <Header title="分享赚钱" />
                 <div className="content">
                     <div className="time">
-                        <p>{this.state.money}</p>
+                        <p>{this.state.money = "null" ? 0 : this.state.money}</p>
                         <p>累计收益<span></span>(元)</p>
                     </div>
                     <div className="share">
-                        <Button type="primary" inline style={{ marginRight: '4px' }} className="sharebtn" onClick={this.showModal('modal2')}> 分享好友 一起赚钱</Button>
-                        
-                        <Modal
-                            popup
-                            visible={this.state.modal2}
-                            onClose={this.onClose('modal2')}
-                            animationType="slide-up"
-                            className="modifymodal"
-                        >
-                        
-                            {this.state.selectorContent.map((item, index) => (
-                                <div
-                                    key={index}
-                                    className="rendering"
-                                    onClick={() => {
-                                        this.clickshare(item)
-                                    }}
-                                >
-                                    <div className="renderingimg">
-                                        <img src={require(`../img/img/web/${this.selectImg(item.text)}.png`)} />
-                                    </div>
-                                    <div className="renderingtext">{item.text}</div>
-                                </div>
-                            ))}
-                            <div />
-                            <Button type="primary" onClick={this.onClose('modal2')} className="cancelbtn">取消</Button>
-                        </Modal>
-
-                    </div>
-                    {/* <div className="share">
-                        <div className="-mob-share-ui-button -mob-share-open">分享好友 一起赚钱</div>
+                        <div className="-mob-share-ui-button -mob-share-open" id="share">分享好友 一起赚钱</div>
                         <div className="-mob-share-ui -mob-share-ui-theme -mob-share-ui-theme-slide-bottom" style={{ display: "none" }}>
                             <ul className="-mob-share-list">
                                 <li className="-mob-share-weixin" onClick={this.wx}><p>微信</p></li>
@@ -254,6 +231,21 @@ class sharemoney extends Component {
                                 <li className="-mob-share-qq"><p onClick={this.qqhy}>QQ好友</p></li>
                                 <li className="-mob-share-qzone" onClick={this.qqkj}><p>QQ空间</p></li>
                                 <li className="-mob-share-weibo" onClick={this.xl}><p>新浪微博</p></li>
+                            </ul>
+                            <div className="-mob-share-close">取消</div>
+                        </div>
+                        <div className="-mob-share-ui-bg"></div>
+
+                    </div>
+
+                    {/* <div className="share">
+                        <div className="-mob-share-ui-button -mob-share-open" >分享好友 一起赚钱</div>
+                        <div className="-mob-share-ui -mob-share-ui-theme -mob-share-ui-theme-slide-bottom" style={{ display: "none" }}>
+                            <ul className="-mob-share-list">
+                                <li className="-mob-share-weixin"><p>微信</p></li>
+                                <li className="-mob-share-qq"><p>QQ好友</p></li>
+                                <li className="-mob-share-qzone"><p>QQ空间</p></li>
+                                <li className="-mob-share-weibo"><p>新浪微博</p></li>
                             </ul>
                             <div className="-mob-share-close">取消</div>
                         </div>
