@@ -12,6 +12,10 @@ class choiceBankcard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            oldid: '',       //首选id
+            oldcardNumber: '', //首选银行卡号
+            oldmainCard: '',   //首选 1主卡(首选打勾的) 0副卡
+            oldbankName: '',   //首选银行名称(所属银行)
             id: '',         //银行卡表主键
             cardNumber: '', //银行卡号
             mainCard: '',   //1主卡(首选打勾的) 0副卡
@@ -23,31 +27,31 @@ class choiceBankcard extends Component {
 
     componentDidMount() {
         let that = this;
-        const { value } = this.state;
+        // const { value } = this.state;
         api.choiceadd(function (res) {
             console.log(res)
             if (res.code === "0000") {
                 let Decdata = strDec(res.data, key1, "", "");
                 let data = JSON.parse(Decdata);
+                console.log(data)
                 let basicdataArr = [];
                 that.setState({
                     basicdata: data,
-                    id: data[0].id,
-                    cardNumber: data[0].cardNumber,
-                    mainCard: data[0].mainCard,
-                    bankName: data[0].bankName
+                    oldid: data.list[0].id,
+                    oldcardNumber: data.list[0].cardNumber,
+                    oldmainCard: data.list[0].mainCard,
+                    oldbankName: data.list[0].bankName
                 })
-                console.log(that.state.id)
-                console.log(that.state.cardNumber)
-                console.log(that.state.mainCard)
-                console.log(that.state.bankName)
+                console.log(that.state.oldid)
+                console.log(that.state.oldcardNumber)
+                console.log(that.state.oldmainCard)
+                console.log(that.state.oldbankName)
 
-                let length = data.length;
+                let length = data.list.length;
                 for (let i = 0; i < length; i++) {
                     basicdataArr.push(
-                        <div className="content" key={i} data-id={data[i].id} onClick={() => {
-                            that.choiceadd(data[i].id, data[i].cardNumber, data[i].mainCard, data[i].bankName)
-                            // that.choiceadd(data[i].id)
+                        <div className="content" key={i} data-id={data.list[i].id} onClick={() => {
+                            that.choiceadd(data.list[i].id, data.list[i].cardNumber, data.list[i].mainCard, data.list[i].bankName)
                         }}
                         >
                             {/* <RadioItem
@@ -56,10 +60,10 @@ class choiceBankcard extends Component {
                                 disabled={false}
                             >
                             </RadioItem> */}
-                             <WhiteSpace size="sm" />
+                            <WhiteSpace size="sm" />
                             <List className="list" >
-                                <List.Item extra={data[i].bankName} className="listimg">   <img src={require('../img/img/web/icon_14@3x.png')} /></List.Item>
-                                <div className="displaylastnumber">尾号  ({data[i].cardNumber.substr(data[i].cardNumber.length - 4)})</div>
+                                <List.Item extra={data.list[i].bankName} className="listimg">   <img src={require('../img/img/web/icon_14@3x.png')} /></List.Item>
+                                <div className="displaylastnumber">尾号  ({data.list[i].cardNumber.substr(data.list[i].cardNumber.length - 4)})</div>
                             </List>
                         </div>
                     )
@@ -85,8 +89,20 @@ class choiceBankcard extends Component {
             console.log(this.state.bankName)
         })
 
+
     }
     submissionApply = () => {
+        var mainId = this.state.oldid;
+        var selectId = this.state.id;
+
+        api.update(mainId, selectId, function (res) {
+            console.log(res)
+            if (res.code === "0000") {
+                let Decdata = strDec(res.data, key1, "", "");
+                let data = JSON.parse(Decdata);
+                console.log(data)
+            }
+        })
         let path = {
             pathname: "/getmoney",
             query: {
@@ -94,7 +110,6 @@ class choiceBankcard extends Component {
                 cardNumber: this.state.cardNumber,
                 id: this.state.id
             }
-
         };
         hashHistory.push(path)
     }

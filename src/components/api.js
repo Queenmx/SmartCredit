@@ -1029,7 +1029,7 @@ module.exports.choiceadd = function (cb1, cb2) {
 }
 
 //更换银行卡
-module.exports.replacecard = function (mainId, selectId, cb1, cb2) {
+module.exports.update = function (mainId, selectId, cb1, cb2) {
     var data = globalData.requestData;
     data.userId = globalData.userId;
     data.mainId = mainId;

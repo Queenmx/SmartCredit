@@ -79,10 +79,10 @@ class getmoney extends Component {
                 console.log(this.state.serviceCharge)
             })
         }
-        if (hiddenPop.style.display == "none") {
-            console.log(hiddenPop.style.display == "none")
-            Toast.info("请先绑定银行卡再进行操作!");
-        }
+        // if (hiddenPop.style.display == "none") {
+        //     console.log(hiddenPop.style.display == "none")
+        //     Toast.info("请先绑定银行卡再进行操作!");
+        // }
         if (putforward == '' && putforward == 0) {
             console.log(putforward)
             this.setState({
@@ -105,33 +105,40 @@ class getmoney extends Component {
         hashHistory.push('/addBankcard')
     }
     submissionApply = () => {
+
         //获取DOM节点，判断该DOM节点是在display是不是none
         //如果display 不是等于none 证明在页面存在，既可调用接口
         var hiddenPop = document.getElementById("hiddenPop")
-        if (hiddenPop.style.display !== "block") {
-            Toast.info("请先绑定银行卡 !", );
-        } else {
-            var bankCardName = this.state.bankCardName;
-            var cardNumber = this.state.cardNumber;
-            var cash = this.state.cash;
-            var serviceCharge = this.state.serviceCharge;
-            var userName = JSON.parse(localStorage.getItem("user")).realName
-            this.setState({
-                cash: cash
-            })
-            console.log(bankCardName)
-            console.log(cardNumber)
-            console.log(serviceCharge)
-            console.log(cash)
-            console.log(userName)
-            api.replacecard(bankCardName, cardNumber, cash, serviceCharge, userName, function (res) {
-                console.log(res)
-                if (res.code === "0000") {
-                    let Decdata = strDec(res.data, key1, "", "");
-                    let data = JSON.parse(Decdata);
-                    console.log(data)
-                }
-            })
+        var downloadPop = document.getElementById("downloadPop")
+        if (hiddenPop) {
+            if (hiddenPop.style.display !== "block") {
+                Toast.info("请先绑定银行卡 !", );
+            }
+        }
+        if (downloadPop) {
+            if (downloadPop.style.display !== "none") {
+                var bankCardName = this.state.bankCardName;
+                var cardNumber = this.state.cardNumber;
+                var cash = this.state.cash;
+                var serviceCharge = this.state.serviceCharge;
+                var userName = JSON.parse(localStorage.getItem("user")).realName
+                this.setState({
+                    cash: cash
+                })
+                console.log(bankCardName)
+                console.log(cardNumber)
+                console.log(serviceCharge)
+                console.log(cash)
+                console.log(userName)
+                api.replacecard(bankCardName, cardNumber, cash, serviceCharge, userName, function (res) {
+                    console.log(res)
+                    if (res.code === "0000") {
+                        let Decdata = strDec(res.data, key1, "", "");
+                        let data = JSON.parse(Decdata);
+                        console.log(data)
+                    }
+                })
+            }
         }
 
     }
