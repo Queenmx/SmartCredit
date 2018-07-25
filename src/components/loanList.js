@@ -166,7 +166,7 @@ var LoanList = React.createClass({
         }
         switch(item){
             // case 123:
-            //     data.creditReport=123;
+            //     data.creditReport="";
             //     break;
             case 1:
                 data.creditReport=1;
@@ -320,7 +320,10 @@ var LoanList = React.createClass({
         api.findProduct(item,function (res) {
             if(res.code=='0000'){                
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log(data);  
+                console.log(data);
+                if(!data.length){
+                    Toast.info("未匹配到相关产品！",2);
+                }  
                 var arr=[];
                 for(var i in data){
                     arr.push(
