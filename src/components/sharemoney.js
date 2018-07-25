@@ -326,6 +326,12 @@ class sharemoney extends Component {
     }
     componentWillMount(){
         console.log("a")
+        // location.reload();
+    }
+    componentWillReceiveProps(nextProps){
+        // if(nextProps.location.query.state=="rgs"){
+            location.reload();
+        // }
     }
     componentDidMount() {
         var key1 = globalData.key;

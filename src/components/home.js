@@ -142,6 +142,9 @@ var Home = React.createClass({
                     // console.log(Decdata);
                 //    console.log(articleList)
                     sessionStorage.setItem("banner", JSON.stringify(Decdata));
+                    // that.setState({
+                    //     autoplay:ture
+                    // })
                     var bannerArr = [];
                     for (var i in Decdata) {                       
                         bannerArr.push(
@@ -294,7 +297,7 @@ var Home = React.createClass({
                 <div className="content">
                     <div className="bannernews"> 
                         <Carousel
-                            autoplay={this.state.autoplay}
+                            autoplay={true}
                             infinite={true}
                             dotStyle={{"backgroundColor":"#fff",'width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem','marginRright':'0.18rem'}}
                             dotActiveStyle={{"backgroundColor":'#4374ff','width':'0.28rem','height':'0.04rem','borderRadius':'0.06rem'}}
