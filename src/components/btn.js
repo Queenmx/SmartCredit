@@ -22,9 +22,9 @@ let SwitchExample = (props) => {
           onClick={(checked) => { 
             console.log(checked);     
             if(checked){
-              Toast.info("开启消息通知",2);
+              Toast.info("已开启消息通知",2);
             }else{
-              Toast.info("关闭消息通知",2);
+              Toast.info("已关闭消息通知",2);
             }      
             var item={
               userId:user.userId,

@@ -51,7 +51,7 @@ const globalData = {
     //userId: this.userObj.userId || "",
     userId: userId || "",
     requestData: {
-        "platform": platform || "",
+        "platform":"c",
         "deviceno": deviceno || "",
         "appFlag": "C",
         "token": token

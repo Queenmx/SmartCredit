@@ -31,6 +31,7 @@ var SetPsd = React.createClass({
             var phoneNum = that.props.location.state.phoneNum;
             var verifyCode = that.props.location.state.verifyCode;
             var fromWhy = that.props.location.state.fromWhy;
+           
             that.setState({ isLoading: true })
             //console.log(that.props.location.state);
             if (fromWhy == "register") {//调注册接口

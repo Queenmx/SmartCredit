@@ -195,27 +195,28 @@ var LoanList = React.createClass({
             case 8:
                 data.miniScope=10000;
                 break;
-            case 9:
-                data.loanTermStart=0;
-                break;
+            // case 9://期限9-14
+            //     data.loanTermStart=0;
+            //     break;
             case 10:
-                data.loanTermStart=1;
+                data.loanTermStart="";
+                data.loanTermEnd=1;
                 break;
             case 11:
-                data.loanTermStart=1;
+                data.loanTermStart=2;
                 data.loanTermEnd=6;
                 break;
             case 12:
-                data.loanTermStart=6;
+                data.loanTermStart=7;
                 data.loanTermEnd=12;
                 break;
             case 13:
-                data.loanTermStart=12;
-                data.loanTermEnd=13;
+                data.loanTermStart=13;
+                data.loanTermEnd=24;
                 break;
             case 14:
-                data.loanTermStart=24;
-                data.loanTermEnd=25;
+                data.loanTermStart=25;
+                data.loanTermEnd="";
                 break;
             case 15:
                 data.categoryName="小额零用贷";
