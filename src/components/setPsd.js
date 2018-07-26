@@ -163,7 +163,7 @@ var SetPsd = React.createClass({
                         Toast.info("登录密码重置完成，请妥善保管", 2);
                         localStorage.setItem("phoneNum", phoneNum);
                         var path = {
-                            pathname: '/Login',
+                            pathname: '/Login/Mine',
                         }
                         hashHistory.push(path);
                     } else if(res.code=="1008"){//验证码过期
