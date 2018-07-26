@@ -60,11 +60,11 @@ var Help = React.createClass({
                             <li key={i}>
                                 <div>
                                     <p style={{backgroundImage:"url('src/img/icon/help-icon2.png')"}}></p>
-                                    <p>{data[i].content}</p>    
+                                    <p>{data[i].question}</p>    
                                 </div>
                                 <div>
                                     <p style={{backgroundImage:"url('src/img/icon/help-icon1.png')"}}></p>
-                                    <p>{data[i].answer}</p>   
+                                    <p>{data[i].solve}</p>   
                                 </div>
                             </li>
                         )
