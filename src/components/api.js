@@ -318,7 +318,7 @@ module.exports.hotCreditCardList = function (cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     var param = JSON.stringify(data);
-    // console.log(param)
+    console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/credit/hot`, { params: str }, cb1, cb2);
     // delete data.pageNum;
