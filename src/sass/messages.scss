@@ -18,6 +18,7 @@
                 height: 0.42rem;
                 line-height: 0.42rem;
                 margin-bottom: 0.2rem;
+                color:black;
                 &:first-child{
                     span{
                         display: inline-block;
@@ -40,6 +41,7 @@
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
+                    color:#666666;
                 }
                 &:last-child{
                     @include icon(0.16rem,0.28rem);
