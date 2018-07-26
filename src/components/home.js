@@ -222,7 +222,7 @@ var Home = React.createClass({
                             <img src={imgPath + Decdata[i].logo} />
                             <div className="loanTitle">
                                 <p>{Decdata[i].categoryName}</p>
-                                <p>{Decdata[i].intendedFor}</p>
+                                <p>适用人群：{Decdata[i].intendedFor}</p>
                             </div>
                             <div className="high">
                                 <p>
@@ -260,7 +260,7 @@ var Home = React.createClass({
                                 <img src={imgPath + creditCardList[i].logo}  />
                                 <div className="loanTitle">
                                     <p>{creditCardList[i].name}</p>
-                                    <p>{creditCardList[i].describeTion}</p>
+                                    <p>卡种：{creditCardList[i].describeTion}</p>
                                 </div>
                                 <div className="high">
                                     <img src={creditCardList[i].hotImg}/>
