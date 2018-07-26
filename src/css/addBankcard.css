@@ -16,21 +16,23 @@ color: #888;
 .codeinput{
     width: 250px;
 }
+
 .code{
-    position: absolute;
-    float: right;
-    bottom: 0;
-    width: 100px; 
-    line-height: 25px;
+    width: 100px;
     text-align: center;
-    margin-left: 158px;
+    left: 260px;
+    position: absolute;
+    bottom: 5px;
+    border-radius: 5px;
+    font-size: 0.25rem;
 }
 .btncode{
     border:1px solid #e6e6e6;
     font-size: 0.25rem;
     color: #6f6f6f;
     background: #e6e6e6;
-    margin-left: 100px;
+    /* margin-left: 100px; */
+    /* left: 100px; */
 }
 .supportbank{
     height:100%;
@@ -52,4 +54,7 @@ color: #888;
     line-height: 0.95rem;
     font-size: 0.28rem;
     text-align: center
+}
+.am-list-item.am-input-disabled .am-input-label{
+    color: #000 !important;
 }
