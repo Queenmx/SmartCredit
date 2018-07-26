@@ -152,6 +152,8 @@ body {
       transform: scale(0.5);
       transform-origin: 0 0;
       border-bottom: 1px solid #f3f3f3; }
+    #app .header::after, #app .homeHeader::after {
+      border-bottom: 0; }
     #app .header .dingwei, #app .homeHeader .dingwei {
       flex: 1;
       margin-left: 0.32rem;

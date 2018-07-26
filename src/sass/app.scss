@@ -176,6 +176,9 @@ body {
             justify-content:space-between;
             @include border_Bot;
             //position: relative;
+            &::after{
+                border-bottom: 0;
+            }
             .dingwei{
                 flex: 1;
                 margin-left: 0.32rem;
