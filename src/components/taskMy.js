@@ -162,13 +162,13 @@ var Loan = React.createClass({
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that=this;
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-    　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
-        if(isiOS){                 
-            $(".header").css({"height":"1.3rem","line-height":"1.3rem"});
-            $(".toBack img").css({"marginTop":"0.5rem"});      
-        }
+    //     var u = navigator.userAgent;
+    //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    // 　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
+    //     if(isiOS){                 
+    //         $(".header").css({"height":"1.3rem","line-height":"1.3rem"});
+    //         $(".toBack img").css({"marginTop":"0.5rem"});      
+    //     }
         var item={
             userId:this.state.user.userId,
             phone:this.state.user.phone,
@@ -176,69 +176,77 @@ var Loan = React.createClass({
         api.myTask(item,function(res){
             if(res.code=="0000"){
                 var result = JSON.parse(strDec(res.data, key1, "", ""));
-                var arr=result.list.map(function(item,i){
-                    switch(item.auditStatus){
-                        case "0"://去第3方
-                        return (                        
-                            <li key={i}>
-                                <img src={imgPath+item.url} />
-                                <div className="loanTitle">
-                                    <p>{item.taskName}</p>
-                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
-                                </div>
-                                <div className="high">
-                                    <a href={item.taskUrl}>进入任务</a>
-                                    <p onClick={that.subTk.bind(that,item.id)} style={that.state.bgcolor}> 提交任务</p>                               
-                                </div>
-                            </li>
-                        );
-                        break;
-                        case "1"://审核中
-                        return (                        
-                            <li key={i}>
-                                <img src={imgPath+item.url} />
-                                <div className="loanTitle">
-                                    <p>{item.taskName}</p>
-                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
-                                </div>
-                                <div className="high">
-                                    <p className="noPass">审批中</p>                                
-                                </div>
-                            </li>
-                        );
-                        break;
-                        case "2"://审核通过
-                        return (                        
-                            <li key={i}>
-                                <img src={imgPath+item.url} />
-                                <div className="loanTitle">
-                                    <p>{item.taskName}</p>
-                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
-                                </div>
-                                <div className="high">
-                                    <p className="hasPass">通过</p>                                
-                                </div>
-                            </li>
-                        );
-                        break;
-                        case "3"://审核不通过
-                        return (
-                        
-                            <li key={i}>
-                                <img src={imgPath+item.url} />
-                                <div className="loanTitle">
-                                    <p>{item.taskName}</p>
-                                    <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
-                                </div>
-                                <div className="high">
-                                    <p className="noPass">未通过</p>                                
-                                </div>
-                            </li>
-                        );
-                        break;
-                    }
-                   
-                })
+                var arr=[];
+                if(result.list.length){
+                    arr=result.list.map(function(item,i){
+                        switch(item.auditStatus){
+                            case "0"://去第3方
+                            return (                        
+                                <li key={i}>
+                                    <img src={imgPath+item.url} />
+                                    <div className="loanTitle">
+                                        <p>{item.taskName}</p>
+                                        <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
+                                    </div>
+                                    <div className="high">
+                                        <a href={item.taskUrl}>进入任务</a>
+                                        <p onClick={that.subTk.bind(that,item.id)} style={that.state.bgcolor}> 提交任务</p>                               
+                                    </div>
+                                </li>
+                            );
+                            break;
+                            case "1"://审核中
+                            return (                        
+                                <li key={i}>
+                                    <img src={imgPath+item.url} />
+                                    <div className="loanTitle">
+                                        <p>{item.taskName}</p>
+                                        <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
+                                    </div>
+                                    <div className="high">
+                                        <p className="noPass">审批中</p>                                
+                                    </div>
+                                </li>
+                            );
+                            break;
+                            case "2"://审核通过
+                            return (                        
+                                <li key={i}>
+                                    <img src={imgPath+item.url} />
+                                    <div className="loanTitle">
+                                        <p>{item.taskName}</p>
+                                        <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
+                                    </div>
+                                    <div className="high">
+                                        <p className="hasPass">通过</p>                                
+                                    </div>
+                                </li>
+                            );
+                            break;
+                            case "3"://审核不通过
+                            return (
+                            
+                                <li key={i}>
+                                    <img src={imgPath+item.url} />
+                                    <div className="loanTitle">
+                                        <p>{item.taskName}</p>
+                                        <p><span>任务奖励</span>：完成任务可获得<span>{item.taskMoney}</span>元</p>
+                                    </div>
+                                    <div className="high">
+                                        <p className="noPass">未通过</p>                                
+                                    </div>
+                                </li>
+                            );
+                            break;
+                        }
+                       
+                    })
+                }else{
+                    arr.push(
+                        <div key="afde" style={{"textAlign":"center"}}>您暂未领取任务！</div>
+                    )
+                }
+                
                 that.setState({
                     listinfo:arr
                 })

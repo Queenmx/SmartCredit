@@ -161,7 +161,7 @@ var ForgotPsd = React.createClass({
                             fromWhy = "forgetPsd";
                             Toast.info("手机号已注册，请先登录", 2);
                             var path = {
-                                pathname: '/',
+                                pathname: '/Login',
                             }                                                       
                         } else {//号码还没注册过
                             fromWhy = "register";
