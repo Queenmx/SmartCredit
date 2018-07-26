@@ -143,13 +143,8 @@ class sharemoney extends Component {
         switch (item.text) {
             case '微信':
                 console.log('微信朋友');
-<<<<<<< HEAD
-                var qq = mobShare('weixin');
-                qq.send();
-=======
                 var weixin = mobShare( 'weixin' );
                 weixin.send();
->>>>>>> 9ae450b4bc032b17cfddf6a1aa9178fb9dc71b75
                 break;
             // case '微信朋友圈':
             //     console.log('微信朋友圈')
@@ -161,15 +156,6 @@ class sharemoney extends Component {
                 break;
             case 'QQ空间':
                 console.log('QQ空间');
-<<<<<<< HEAD
-                var qq = mobShare('qzone');
-                qq.send();
-                break;
-            case '新浪微博':
-                console.log('微博');
-                var qq = mobShare('weibo');
-                qq.send();
-=======
                 var qzone = mobShare( 'qzone' );
                 qzone.send();
                 break;
@@ -177,7 +163,6 @@ class sharemoney extends Component {
                 console.log('微博');                
                 var weibo = mobShare( 'weibo' );
                 weibo.send();
->>>>>>> 9ae450b4bc032b17cfddf6a1aa9178fb9dc71b75
                 break;
             // case '二维码':
             //     console.log('二维码')
@@ -272,6 +257,19 @@ class sharemoney extends Component {
                             <Button type="primary" onClick={this.onClose('modal2')} className="cancelbtn">取消</Button>
                         </Modal>
                     </div>
+                    {/* <div className="share">
+                        <div className="-mob-share-ui-button -mob-share-open">分享好友 一起赚钱</div>
+                        <div className="-mob-share-ui -mob-share-ui-theme -mob-share-ui-theme-slide-bottom" style={{ display: "none" }}>
+                             <ul className="-mob-share-list">
+                                <li className="-mob-share-weixin" onClick={this.wx}><p>微信</p></li>
+                                <li className="-mob-share-qq"><p onClick={this.qqhy}>QQ好友</p></li>
+                                <li className="-mob-share-qzone" onClick={this.qqkj}><p>QQ空间</p></li>
+                                <li className="-mob-share-weibo" onClick={this.xl}><p>新浪微博</p></li>
+                            </ul>
+                            <div className="-mob-share-close">取消</div>
+                        </div>
+                        <div className="-mob-share-ui-bg"></div>
+                    </div> */}
                 </div>
                 <Tabs tabs={this.state.tabs}
                     initalPage={'t2'}
@@ -305,178 +303,6 @@ export default sharemoney
 
 
 
-// import React, { Component } from 'react'
-// import { hashHistory } from 'react-router';
-// import { NavBar, Icon, Button, WingBlank, WhiteSpace, Tabs, Modal, List } from 'antd-mobile';
-// import "../css/sharemoney.css";
-// import Header from './header';
-// import api from './api';
-// import { globalData } from './global.js';
 
-
-// function closest(el, selector) {
-//     const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
-//     while (el) {
-//         if (matchesSelector.call(el, selector)) {
-//             return el;
-//         }
-//         el = el.parentElement;
-//     }
-//     return null;
-// }
-// class sharemoney extends Component {
-//     constructor(props) {
-//         super(props)
-//         this.state = {
-//             tabs: [
-//                 { title: '分享明细' },
-//                 { title: '提成明细' },
-//             ],
-
-//             modal1: false,
-//             modal2: false
-//         }
-//     }
-//     componentWillMount(){
-//         console.log("a")
-//         // location.reload();
-//     }
-//     componentWillReceiveProps(nextProps){
-//         // if(nextProps.location.query.state=="rgs"){
-//             // location.reload();
-//         // }
-//     }
-//     componentDidMount() {
-//         var key1 = globalData.key;
-//         var that = this;
-//         var userName = JSON.parse(localStorage.getItem("user")).userName;
-//         console.log(userName)
-//         api.shareDetail(userName, function (res) {
-//             if (res.code == "0000") {
-//                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-//                 var shareArr = [];
-//                 var ExtractArr = [];
-//                 that.setState({
-//                     money: data.money
-//                 })
-//                 for (var i in data.listShare) {
-//                     shareArr.push(
-//                         <ul className="listitem" key={i}>
-//                             <li>{data.listShare[i].userName}</li>
-//                             <li>{data.listShare[i].shareTime}</li>
-//                             <li>{data.listShare[i].shareMoney}</li>
-//                         </ul>
-//                     )
-//                 }
-//                 that.setState({
-//                     shareArr: shareArr
-//                 })
-//                 for (var i in data.listExtract) {
-//                     ExtractArr.push(
-//                         <ul className="listitem" key={i + 1}>
-//                             <li>{data.listExtract[i].userName}</li>
-//                             <li>{data.listExtract[i].submissionTime}</li>
-//                             <li>{data.listExtract[i].extract}</li>
-//                         </ul>
-//                     )
-//                 }
-//                 that.setState({
-//                     ExtractArr: ExtractArr
-//                 })
-//                 console.log(data)
-//             }
-//         })
-//     }
-//     showModal = key => (e) => {
-
-//         e.preventDefault(); // 修复 Android 上点击穿透
-//         this.setState({
-//             [key]: true,
-//         });
-//     }
-//     onClose = key => () => {
-//         this.setState({
-//             [key]: false,
-//         });
-//     }
-//     onWrapTouchStart = (e) => {
-//         // fix touch to scroll background page on iOS
-//         if (!/iPhone|iPod|iPad/i.test(navigator.userAgent)) {
-//             return;
-//         }
-//         const pNode = closest(e.target, '.am-modal-content');
-//         if (!pNode) {
-//             e.preventDefault();
-//         }
-//     }
-
-
-
-//     wx = () => {
-//         console.log('微信')
-//     }
-//     xl = () => {
-//         console.log('新浪')
-//     }
-//     qqkj = () => {
-//         console.log('qq空间')
-//     }
-//     qqhy = () => {
-//         console.log('QQ好友');
-//         var qq = mobShare( 'qq' );
-//         qq.send();
-//     }
-
-//     render() {
-//         return (
-//             <div className="mywallet">
-//                 <Header title="分享赚钱" />
-//                 <div className="content">
-//                     <div className="time">
-//                         <p>{this.state.money="null"?0:this.state.money}</p>
-//                         <p>累计收益<span></span>(元)</p>
-//                     </div>
-
-//                     <div className="share">
-//                         <div className="-mob-share-ui-button -mob-share-open">分享好友 一起赚钱</div>
-//                         <div className="-mob-share-ui -mob-share-ui-theme -mob-share-ui-theme-slide-bottom" style={{ display: "none" }}>
-//                             <ul className="-mob-share-list">
-//                                 <li className="-mob-share-weixin" onClick={this.wx}><p>微信</p></li>
-//                                 <li className="-mob-share-qq"><p onClick={this.qqhy}>QQ好友</p></li>
-//                                 <li className="-mob-share-qzone" onClick={this.qqkj}><p>QQ空间</p></li>
-//                                 <li className="-mob-share-weibo" onClick={this.xl}><p>新浪微博</p></li>
-//                             </ul>
-//                             <div className="-mob-share-close">取消</div>
-//                         </div>
-//                         <div className="-mob-share-ui-bg"></div>
-//                     </div>
-//                 </div>
-//                 <Tabs tabs={this.state.tabs}
-//                     initalPage={'t2'}
-//                 >
-//                     <div className="detailed">
-//                         <div className="detailednav">
-//                             <div onClick={this.qqhy}>用户账号</div>
-//                             <div>分享时间</div>
-//                             <div>总提成(元)</div>
-//                         </div>
-//                         {this.state.shareArr}
-//                     </div>
-//                     <div className="extract">
-//                         <div className="extractnav">
-//                             <div>用户账号</div>
-//                             <div>分享时间</div>
-//                             <div>总提成(元)</div>
-//                         </div>
-//                         {this.state.ExtractArr}
-//                     </div>
-
-//                 </Tabs>
-//             </div>
-//         )
-//     }
-// }
-
-// export default sharemoney
 
 
