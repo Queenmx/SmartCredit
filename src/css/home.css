@@ -1219,7 +1219,7 @@
 
 /*# sourceMappingURL=home.css.map */
 #detail{
-  
+
 }
 .home .loan ul a{
   display: flex;
@@ -1275,4 +1275,5 @@
 }
 .home .loan ul a > div {
   display: inline-block;
+  
 }
