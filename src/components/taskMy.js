@@ -65,14 +65,16 @@ var Loan = React.createClass({
             console.log(item)
             api.submitTask(item,function(res){
                 if(res.code=="0000"){
-                    Toast.info(res.msg,2);
-                    
+                    Toast.info(res.msg,2);                    
                     that.setState({
                         show: false,
                         allow:false,
                         bgcolor:{backgroundColor:"#646666"}
                     });
-                    location.reload();
+                    that.timer=setTimeout(function(){
+                        location.reload();
+                    },2000);
+                    
                 }else{
                     Toast.info(res.msg,2);
                 }

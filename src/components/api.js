@@ -940,11 +940,8 @@ module.exports.myTask = function (item, cb1, cb2) {
 //提交任务
 module.exports.submitTask = function (item, cb1, cb2) {
     var data = globalData.requestData;
-    data.userId = item.userId;
-    data.taskPhone = item.phone;
-    data.appFlag = "C";
     // data.submitPic=item.pic;
-    data.id=item.id,
+    data.reviewId=item.id,
     data.userId=item.userId;
     data.taskPhone=item.phone;
     var param = JSON.stringify(data);
@@ -953,7 +950,7 @@ module.exports.submitTask = function (item, cb1, cb2) {
     http(`${globalData.path}/zndai/user/task/submitTask`, {
         params: str, submitPic: item.pic
     }, cb1, cb2);
-    delete data.id;
+    delete data.reviewId;
     delete data.userId;
     delete data.taskPhone;
 }
