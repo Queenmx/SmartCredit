@@ -108,7 +108,7 @@ var Header = React.createClass({
     render: function () {
         var title = this.props.title;
         return (
-            <div className="header" style={{"padding-top":this.state.topBarHeight+"px"}}>
+            <div className="header" style={{"paddingTop":this.state.topBarHeight+"px"}}>
                 {/* <div className="iosheight"></div> */}
                 <div className="toBack" onClick={this.toBack}><img src="src/img/icon/back2.png"/></div>
                 <p className="title">{title}</p>

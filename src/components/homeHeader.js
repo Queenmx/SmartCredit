@@ -95,7 +95,7 @@ var HomeHeader = React.createClass({
      },*/
     render: function () {
         return (
-            <div className="homeHeader" style={{"padding-top":this.state.topBarHeight+"px"}}>
+            <div className="homeHeader" style={{"paddingTop":this.state.topBarHeight+"px"}}>
                 <div className="dingwei">
                     <img src="src/img/icon/map1.png" />
                     <Link to="/myMap">{this.state.address}</Link>
