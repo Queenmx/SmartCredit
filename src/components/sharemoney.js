@@ -148,7 +148,7 @@ class sharemoney extends Component {
     }
     start() {
         var data={
-            
+            type:"4"
         };
         var native = function (data) {
             // console.log(111)
