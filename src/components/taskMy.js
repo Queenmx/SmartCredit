@@ -190,7 +190,7 @@ var Loan = React.createClass({
                                     </div>
                                     <div className="high">
                                         <a href={item.taskUrl}>进入任务</a>
-                                        <p onClick={that.subTk.bind(that,item.id)} style={that.state.bgcolor}> 提交任务</p>                               
+                                        <p onClick={that.subTk.bind(that,item.reviewId)} style={that.state.bgcolor}> 提交任务</p>                               
                                     </div>
                                 </li>
                             );
