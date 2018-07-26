@@ -176,6 +176,9 @@ body {
             justify-content:space-between;
             @include border_Bot;
             //position: relative;
+            &::after{
+                border-bottom: 0;
+            }
             .dingwei{
                 flex: 1;
                 margin-left: 0.32rem;
@@ -327,7 +330,7 @@ body {
 header{
     height:0.9rem;
     line-height: 0.9rem;
-    font-size: 0.3rem;
+    font-size: 0.35rem;
     @include border_Bot;
     text-align: center;
     background: #508aff;

@@ -87,7 +87,7 @@ var Home = React.createClass({
         }
         hashHistory.push(path);
     },
-
+    
     toLoan: function () {
         var path = {
             pathname: '/loanList',
@@ -218,11 +218,11 @@ var Home = React.createClass({
                        if(Decdata[i].hot == 0){
                         //    console.log("abch")
                            hotLoanArr.push(
-                            <li key={i} id={Decdata[i].id}>
+                            <li key={i} data-id={Decdata[i].id} onClick = {that.toListDetail}>
                             <img src={imgPath + Decdata[i].logo} />
                             <div className="loanTitle">
                                 <p>{Decdata[i].categoryName}</p>
-                                <p>{Decdata[i].intendedFor}</p>
+                                <p>适用人群：{Decdata[i].intendedFor}</p>
                             </div>
                             <div className="high">
                                 <p>
@@ -256,16 +256,16 @@ var Home = React.createClass({
                     for (var i in creditCardList ) {
                        if(creditCardList[i].hot == 0){
                         creditCardArr.push(
-                            <li key={i}>
+                            <a key={i} href={"http://"+creditCardList[i].creditCardLink}>
                                 <img src={imgPath + creditCardList[i].logo}  />
                                 <div className="loanTitle">
                                     <p>{creditCardList[i].name}</p>
-                                    <p>{creditCardList[i].describeTion}</p>
+                                    <p>卡种：{creditCardList[i].describeTion}</p>
                                 </div>
                                 <div className="high">
                                     <img src={creditCardList[i].hotImg}/>
                                 </div>
-                            </li>
+                            </a>
                                       
                         )
                        }

@@ -23,14 +23,17 @@ var HomeHeader = React.createClass({
         var that = this;
         var dingwei = localStorage.getItem("dingwei");
         //var curCity=localStorage.getItem("curCity");
-        var u = navigator.userAgent;
-    　　var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-    　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
-        if(isiOS){                  
-            $(".homeHeader").css({"height":"1.3rem","line-height":"1.3rem"});    
-            $(".dingwei").css({"marginTop":"0.22rem"});  
-            $(".headerLinkBtn span").css("top","0.48rem");   
-        }
+    //     var u = navigator.userAgent;
+    // 　　var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    // 　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
+        // if(isiOS){                  
+            // $(".homeHeader").css({"height":"1.3rem","line-height":"1.3rem"}); 
+            // this.setState({
+            //     topBarHeight:20
+            // })   
+            // $(".dingwei").css({"marginTop":"0.22rem"});  
+            // $(".headerLinkBtn span").css("top","0.48rem");   
+        // }
         if (!dingwei) {
             //自动定位
             var map = new BMap.Map("allmap");
@@ -92,7 +95,7 @@ var HomeHeader = React.createClass({
      },*/
     render: function () {
         return (
-            <div className="homeHeader">
+            <div className="homeHeader" style={{"paddingTop":this.state.topBarHeight+"px"}}>
                 <div className="dingwei">
                     <img src="src/img/icon/map1.png" />
                     <Link to="/myMap">{this.state.address}</Link>

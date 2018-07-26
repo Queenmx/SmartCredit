@@ -318,7 +318,7 @@ module.exports.hotCreditCardList = function (cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     var param = JSON.stringify(data);
-    // console.log(param)
+    console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/credit/hot`, { params: str }, cb1, cb2);
     // delete data.pageNum;
@@ -940,11 +940,8 @@ module.exports.myTask = function (item, cb1, cb2) {
 //提交任务
 module.exports.submitTask = function (item, cb1, cb2) {
     var data = globalData.requestData;
-    data.userId = item.userId;
-    data.taskPhone = item.phone;
-    data.appFlag = "C";
     // data.submitPic=item.pic;
-    data.id=item.id,
+    data.reviewId=item.id,
     data.userId=item.userId;
     data.taskPhone=item.phone;
     var param = JSON.stringify(data);
@@ -953,7 +950,7 @@ module.exports.submitTask = function (item, cb1, cb2) {
     http(`${globalData.path}/zndai/user/task/submitTask`, {
         params: str, submitPic: item.pic
     }, cb1, cb2);
-    delete data.id;
+    delete data.reviewId;
     delete data.userId;
     delete data.taskPhone;
 }

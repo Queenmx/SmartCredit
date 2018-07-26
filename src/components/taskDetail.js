@@ -114,7 +114,7 @@ var ListDetail = React.createClass({
                             <li>
                                 <p><span></span><i>任务奖励</i><span></span></p>
                                 <div className="info">
-                                    <p>任务奖励：<span>{result.taskMoney}</span>元（任务奖励按照每投资100递增）</p>                                
+                                    <p>任务奖励：<span>{result.taskMoney}</span>元</p>                                
                                 </div>                            
                             </li>
                         </ul>

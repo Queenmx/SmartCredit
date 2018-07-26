@@ -51,7 +51,7 @@ var Login = React.createClass({
                                         {item.title}
                                     <span style={{backgroundImage:"url('src/img/icon/redIcon.png')"}}></span>
                                     </p>
-                                    <p>{item.addTime.month+1}-{item.addTime.day}</p>
+                                    <p>{item.addTime.month+1}-{item.addTime.date}</p>
                                 </div>
                                 <div className="title msg-content">
                                     <p>{item.content}</p>
@@ -69,7 +69,7 @@ var Login = React.createClass({
                                         {item.title}
                                     <span style={{backgroundImage:"url('src/img/icon/redIcon.png')"}}></span>
                                     </p>
-                                    <p>{item.addTime.month+1}-{item.addTime.day}</p>
+                                    <p>{item.addTime.month+1}-{item.addTime.date}</p>
                                 </div>
                                 <div className="title msg-content">
                                     <p>{item.content}</p>
@@ -87,7 +87,7 @@ var Login = React.createClass({
                                         {item.title}
                                     <span style={{backgroundImage:"url('src/img/icon/redIcon.png')"}} className='hide'></span>
                                     </p>
-                                    <p>{item.addTime.month+1}-{item.addTime.day}</p>
+                                    <p>{item.addTime.month+1}-{item.addTime.date}</p>
                                 </div>
                                 <div className="title msg-content">
                                     <p>{item.content}</p>
@@ -105,7 +105,7 @@ var Login = React.createClass({
                                         {item.title}
                                     <span style={{backgroundImage:"url('src/img/icon/redIcon.png')"}} className='hide'></span>
                                     </p>
-                                    <p>{item.addTime.month+1}-{item.addTime.day}</p>
+                                    <p>{item.addTime.month+1}-{item.addTime.date}</p>
                                 </div>
                                 <div className="title msg-content">
                                     <p>{item.content}</p>

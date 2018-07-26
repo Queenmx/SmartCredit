@@ -94,18 +94,21 @@ var Header = React.createClass({
         });
     },
     componentDidMount(){
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-    　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
-        if(isiOS){                 
-            $(".header").css({"height":"1.3rem","line-height":"1.3rem"});    
-            $(".toBack img").css({"marginTop":"0.5rem"});     
-        }
+    //     var u = navigator.userAgent;
+    //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    // 　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
+    //     if(isiOS){                 
+    //         // $(".header").css({"height":"1.3rem","line-height":"1.3rem"});   
+    //         this.setState({
+    //             topBarHeight:20
+    //         }) 
+    //         $(".toBack img").css({"marginTop":"0.5rem"});     
+    //     }
     },
     render: function () {
         var title = this.props.title;
         return (
-            <div className="header">
+            <div className="header" style={{"paddingTop":this.state.topBarHeight+"px"}}>
                 {/* <div className="iosheight"></div> */}
                 <div className="toBack" onClick={this.toBack}><img src="src/img/icon/back2.png"/></div>
                 <p className="title">{title}</p>
