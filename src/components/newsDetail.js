@@ -30,8 +30,8 @@ var NewsDetail = React.createClass({
         })
     },
     componentWillMount: function () {
-        let articleId = this.props.location.query.articleId;
-        this.setState({ articleId: articleId });
+        let newsId = this.props.location.query.newsId;
+        this.setState({ newsId: newsId });
         //console.log(articleId);
     },
     saveHandle: function (event) {
@@ -42,7 +42,7 @@ var NewsDetail = React.createClass({
 
         if (user) {
             if (that.state.isMark != 1) {//收藏
-                api.save(that.state.articleId, "ARTICLE", function (res) {
+                api.save(that.state.newsId, "ARTICLE", function (res) {
                     //console.log(res);
                     if (res.code == "0000") {
                         that.setState({
@@ -58,7 +58,7 @@ var NewsDetail = React.createClass({
                 //var markId=event.currentTarget.getAttribute("data-markId");
                 let key1 = globalData.key;
                 // let toast = globalData.toast;
-                api.articleDetail(that.state.articleId, function (res) {
+                api.articleDetail(that.state.newsId, function (res) {
                     ////console.log(res);
                     that.setState({
                         flag: true
@@ -142,16 +142,16 @@ var NewsDetail = React.createClass({
                         <span>{addTimeArr[0]}</span>
                     </div> */}
                     <div className="newsArticleCon">
-                        <h3>{articleDetail.articleTitle}</h3>
+                        <h3>{articleDetail.title}</h3>
                         <p>
                             <img src="src/img/icon/new-icon.png" alt=""/>
                             {articleDetail.readerNum}阅读
-                            <span className="time">{addTimeArr[0]}</span>
+                            <span className="time">{addTime}</span>
                         </p>
                         <p dangerouslySetInnerHTML={{ __html: articleDetail.content }}></p>
                         <div>
                             {/* <img src="src/img/icon/new-icon2.png" alt=""/> */}
-                            <img src={imgPath + articleDetail.imgUrl}/>
+                            <img src={imgPath + articleDetail.logo}/>
                         </div>
                     </div>
                 </div>
@@ -163,8 +163,8 @@ var NewsDetail = React.createClass({
         var that = this;
         let key1 = globalData.key;
         // let toast = globalData.toast;
-        api.articleDetail(that.state.articleId, function (res) {
-            // console.log(res);
+        api.articleDetail(that.state.newsId, function (res) {
+            console.log(res);
             if (res.code == "0000") {
                 let data = strDec(res.data, key1, "", "");
                 let articleDetail = JSON.parse(data);

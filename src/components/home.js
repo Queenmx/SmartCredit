@@ -78,9 +78,9 @@ var Home = React.createClass({
         hashHistory.push(path);
     },
     toNewsDetail: function (event) {
-        var articleId = event.currentTarget.getAttribute("data-articleid");
+        var newsId = event.currentTarget.getAttribute("data-newsId");
         //console.log(articleId);
-        var data = { articleId: articleId };
+        var data = { newsId: newsId };
         var path = {
             pathname: '/NewsDetail',
             query: data,
@@ -190,7 +190,7 @@ var Home = React.createClass({
                         articleArr.push(
                             
 
-                                        <div className="v-item" key={i} onClick={that.toNewsDetail}  data-articleid={articleList[i].articleId}>{articleList[i].articleTitle}</div>
+                                        <div className="v-item" key={i} onClick={that.toNewsDetail}  data-newsId={articleList[i].newsId}>{articleList[i].content}</div>
                                        )
                             //  console.log(articleArr[i].articleTitle)
                     }
