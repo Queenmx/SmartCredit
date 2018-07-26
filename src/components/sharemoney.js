@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { hashHistory } from 'react-router';
-import { NavBar, Icon, Button, WingBlank, WhiteSpace, Tabs, Modal, List } from 'antd-mobile';
+import { Button, Tabs, Modal } from 'antd-mobile';
 import "../css/sharemoney.css";
 import Header from './header';
 import api from './api';
@@ -65,11 +65,17 @@ class sharemoney extends Component {
                 // }
             ],
             modal1: false,
-            modal2: false
+            modal2: false,
+            loading : false
             //-mob-share-weixin  -mob-share-qq -mob-share-qzone -mob-share-weibo
         }
+        this.lock = false;
+    }
+    componentWillMount() {
+        this.lock = true;
     }
     componentDidMount() {
+
         // debugger;
         var key1 = globalData.key;
         var that = this;
@@ -137,7 +143,7 @@ class sharemoney extends Component {
         switch (item.text) {
             case '微信':
                 console.log('微信朋友');
-                var qq = mobShare( 'weixin' );
+                var qq = mobShare('weixin');
                 qq.send();
                 break;
             // case '微信朋友圈':
@@ -145,17 +151,17 @@ class sharemoney extends Component {
             //     break;
             case 'QQ好友':
                 console.log('QQ好友');
-                var qq = mobShare( 'qq' );
+                var qq = mobShare('qq');
                 qq.send();
                 break;
             case 'QQ空间':
                 console.log('QQ空间');
-                var qq = mobShare( 'qzone' );
+                var qq = mobShare('qzone');
                 qq.send();
                 break;
             case '新浪微博':
-                console.log('微博');                
-                var qq = mobShare( 'weibo' );
+                console.log('微博');
+                var qq = mobShare('weibo');
                 qq.send();
                 break;
             // case '二维码':
@@ -203,7 +209,7 @@ class sharemoney extends Component {
     }
     qqhy = () => {
         console.log('QQ好友')
-       
+
     }
 
 
@@ -224,7 +230,7 @@ class sharemoney extends Component {
                     </div>
                     <div className="share">
                         <Button type="primary" inline style={{ marginRight: '4px' }} className="sharebtn" onClick={this.showModal('modal2')}> 分享好友 一起赚钱</Button>
-                        
+
                         <Modal
                             popup
                             visible={this.state.modal2}
@@ -232,7 +238,7 @@ class sharemoney extends Component {
                             animationType="slide-up"
                             className="modifymodal"
                         >
-                        
+
                             {this.state.selectorContent.map((item, index) => (
                                 <div
                                     key={index}
@@ -250,9 +256,7 @@ class sharemoney extends Component {
                             <div />
                             <Button type="primary" onClick={this.onClose('modal2')} className="cancelbtn">取消</Button>
                         </Modal>
-
                     </div>
-
                 </div>
                 <Tabs tabs={this.state.tabs}
                     initalPage={'t2'}
@@ -407,7 +411,7 @@ export default sharemoney
 //         var qq = mobShare( 'qq' );
 //         qq.send();
 //     }
-    
+
 //     render() {
 //         return (
 //             <div className="mywallet">
