@@ -274,6 +274,7 @@ import Header from './header';
 import { globalData } from './global.js';
 import { List, InputItem, WhiteSpace, Button, WingBlank, Toast } from 'antd-mobile';
 import "../css/addBankcard.css";
+import { Item } from '../../node_modules/antd-mobile/lib/tab-bar';
 var key1 = globalData.key;
 class addBankcard extends Component {
     constructor(props) {
@@ -299,9 +300,9 @@ class addBankcard extends Component {
             phoneError: false,  //预留手机号码 默认为false
             phonevalue: '',     //预留手机号初始值
 
-            codeError: false,    //验证码 默认未false
+            codeError: false,    //验证码 默认为false
             codevalue: '',            //验证码初始值
-
+            newcode: '',
             pass: null,          //null 显示的状态  false or true
             msg: null,           //显示的内容 身份证号格式错误 身份证号地址编码错误 身份证号校验位错误
 
@@ -309,12 +310,24 @@ class addBankcard extends Component {
             btnsuccess: null,  //提交成功初始值
             btnError: null,    //提交失败
 
-            btncount: 0,      //条件正确content++
+            namecount: 0,      //条件正确content++
+            cardnumbercount: 0,
+            banknamecount: 0,
+            phonecount: 0,
+            identitycount: 0,
+            btncokecount: 0,
+            codecount: 0,
             btn: false,
+            data: '',
         }
-        // this.btn = this.btn.bind(this);
     }
-
+    //组件将被卸载  
+    componentWillUnmount() {
+        //重写组件的setState方法，直接返回空
+        this.setState = (state, callback) => {
+            return;
+        };
+    }
     /**获取持卡人信息**/
     name = (namevalue) => {
         if (namevalue.replace(/\s/g, '').length < 2 || namevalue.replace(/\s/g, '').length < 5 || namevalue.length == 0 || namevalue.length == '') {
@@ -332,7 +345,7 @@ class addBankcard extends Component {
             this.setState({
                 nameError: true
             })
-            console.log('错误')
+            console.log('持卡人信息有误!')
         } else {
             this.setState({
                 nameError: false,
@@ -340,11 +353,11 @@ class addBankcard extends Component {
             console.log('正确')
         }
         if (this.state.nameError == false) {
-            console.log(this.state.nameError)
+            // console.log(this.state.nameError)
             this.setState({
-                btncount: this.state.btncount++
+                namebtn: this.state.namecount++
             })
-            console.log(this.state.btncount)
+            console.log(this.state.namecount)
         }
         this.setState({
             namevalue,
@@ -360,7 +373,8 @@ class addBankcard extends Component {
             });
         } else {
             this.setState({
-                identityError: false //不显示提示
+                identityError: false, //不显示提示
+                identitybtn: this.state.identitycount++
             })
         }
         this.setState({
@@ -418,23 +432,43 @@ class addBankcard extends Component {
     }
 
     /**获取银行卡卡号**/
+    // 6214 8502 7377 6608 银行卡号
     cardnumber = (cardnumbervalue) => {
-        console.log(cardnumbervalue)
+        let that = this
         this.setState({
-            cardnumbervalue,
-        });
-    }
-    /**获取所属银行**/
-    bankname = (banknamevalue) => {
-        console.log(banknamevalue)
+            cardnumbervalue
+        }, function () {
+            var bankNum = that.state.cardnumbervalue;
+            // console.log(bankNum)
+            api.seebank(bankNum, function (res) {
+                console.log(bankNum)
+                console.log(res)
+                if (res.code === "0000") {
+                    var data = strDec(res.data, key1, "", "");
+                    var newdata =JSON.parse(data)
+                    console.log(newdata)
+                    console.log(newdata.bank)
+                    that.setState({
+                        banknamevalue: newdata.bank
+                    })
+                    console.log(newdata.bank)
+                }
+            })
+
+
+            //banknamevalue 
+        })
+
+
+        // console.log(cardnumbervalue)
         this.setState({
-            banknamevalue,
+            cardnumberbtn: this.state.cardnumbercount++
+        }, function () {
+            console.log(this.state.cardnumbercount)
         });
     }
     /**获取手机号码**/
     phone = (phonevalue) => {
-        // console.log(phonevalue)
-
         if (phonevalue.replace(/\s/g, '').length < 11 || phonevalue.replace(/\s/g, '').length > 11 || phonevalue.length == 0 && phonevalue.length == '') {
             console.log('点击不了')
             this.setState({
@@ -445,7 +479,8 @@ class addBankcard extends Component {
             console.log('可以点击')
             this.setState({
                 phoneError: false, //不显示提示
-                isClickable: true  //改变按钮点击状态 true
+                isClickable: true, //改变按钮点击状态 true
+                phonebtn: this.state.phonecount++
             });
         }
         this.setState({
@@ -456,12 +491,9 @@ class addBankcard extends Component {
         var PATTERN_CHINAMOBILE = /^1(3[4-9]|5[012789]|8[23478]|4[7]|7[8])\d{8}$/; //移动号
         var PATTERN_CHINAUNICOM = /^1(3[0-2]|5[56]|8[56]|4[5]|7[6])\d{8}$/; //联通号
         var PATTERN_CHINATELECOM = /^1((33|53|77|8[019])[0-9]|349)|(700\\d{7}$)/; //电信号
-
-
         if (PATTERN_CHINAMOBILE.test(phonevalue)) {
             console.log("欢迎您移动用户");
         } else if (PATTERN_CHINAUNICOM.test(phonevalue)) {
-
             console.log("欢迎您联通用户");
         } else if (PATTERN_CHINATELECOM.test(phonevalue)) {
             console.log("欢迎您电信用户");
@@ -469,16 +501,27 @@ class addBankcard extends Component {
         this.setState({
             phonevalue,
         });
-
     }
-
     /**获取验证码value**/
     code = (codevalue) => {
-        console.log(codevalue)
+        //判断最大长度输入6位验证码
+        var codeinput = document.getElementById('codeinput').value.length
+        var reg = /^[0-9]+$/ //只能输入数字
+        if (/^\s+$/gi.test(document.getElementById('codeinput').value)) {
+            Toast.info("不能输入空格", );
+            this.setState({
+                codevalue: '',
+            }, function () {
+                console.log(this.state.codevalue)
+            })
+        } else if (!reg.test(codevalue) && codeinput == '' && codeinput == 0) {
+            Toast.info('只能输入数字');
+        } else if (codeinput > 6) {
+            Toast.info('请输入6位数字验证码');
+        }
         this.setState({
             codevalue,
         });
-
     }
     /**验证码倒计时**/
     btncoke = () => {
@@ -518,18 +561,11 @@ class addBankcard extends Component {
                     });
             }, 1000);
         }
-
-
-        /*phonevalue 获取的手机号码
-        * type:''
-        *
-        *
-        */
         api.verifyCode(phonevalue, '', function (res) {
             console.log(res)
             if (res.code === "0000") {
                 var data = strDec(res.data, key1, "", "");
-                console.log(data);
+                console.log(data)
             }
         })
     }
@@ -546,24 +582,22 @@ class addBankcard extends Component {
         console.log(bankName)
         console.log(cardPhone)
         console.log(verifyCode)
-        api.addBankcard(cardName, idCard, cardNumber, bankName, cardPhone, verifyCode, function (res) {
-            console.log(res)
-            if (res.code === "0000") {
-                let Decdata = strDec(res.data, key1, "", "");
-                let data = JSON.parse(Decdata);
-
-                Toast.info("绑定成功")
-                var path = {
-                    pathname: "/choiceBankcard",
-                    // query: {
-                    //     bankName: this.state.banknamevalue,
-                    //     cardNumber: this.state.cardnumbervalue,
-                    // }
-                };
-                hashHistory.push(path)
-            }
-        })
-
+        if (this.state.btncount !== 1 && this.state.cardnumbercount !== 1 && this.state.banknamecount !== 1 && this.state.phonecount !== 1 && this.state.identitycount !== 1 && this.state.codecount !== 1) {
+            Toast.info('请输入完整的信息')
+        } else {
+            api.addBankcard(cardName, idCard, cardNumber, bankName, cardPhone, verifyCode, function (res) {
+                if (res.code === "0000") {
+                    let Decdata = strDec(res.data, key1, "", "");
+                    let data = JSON.parse(Decdata);
+                    console.log(data)
+                    Toast.info("绑定成功")
+                    var path = {
+                        pathname: "/choiceBankcard",
+                    };
+                    hashHistory.push(path)
+                }
+            })
+        }
     }
     render() {
         return (
@@ -620,12 +654,14 @@ class addBankcard extends Component {
                     <List>
                         <InputItem
                             type="text"
+                            disabled
                             placeholder="输入卡号后识别并展示"
                             style={{
                                 fontSize: "0.28rem"
                             }}
+                            // disabled='disabled'
                             error={this.state.bankError}
-                            onChange={this.bankname}
+                            // onChange={this.bankname}
                             value={this.state.banknamevalue}
                             clear
                         >所属银行</InputItem>
@@ -647,13 +683,13 @@ class addBankcard extends Component {
                     </List>
                     <List>
                         <InputItem
+                            type="text"
                             className="codeinput"
-
+                            id="codeinput"
                             placeholder="请输入验证码"
                             style={{
                                 fontSize: "0.28rem"
                             }}
-
                             error={this.state.codeError}
                             onChange={this.code}
                             value={this.state.codevalue}

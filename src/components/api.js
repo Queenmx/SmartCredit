@@ -1014,6 +1014,17 @@ module.exports.addBankcard = function (cardName, idCard, cardNumber, bankName, c
     delete data.cardPhone;
     delete data.verifyCode;
 }
+// 查看所属银行
+module.exports.seebank = function (bankNum,cb1, cb2) {
+    var data = globalData.requestData;
+    data.userId = globalData.userId;
+    data.bankNum = bankNum;
+    var param = JSON.stringify(data);
+    console.log(param)
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/query/bank`, { params: str }, cb1, cb2);
+    delete data.bankNum;
+}
 //选择银行卡 
 module.exports.choiceadd = function (cb1, cb2) {
     var data = globalData.requestData;
