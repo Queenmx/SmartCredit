@@ -23,13 +23,13 @@ var Mine = React.createClass({
 
     componentDidMount: function () {
         //console.log(this.props.location.query.price);
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-    　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
-        if(isiOS){                 
-            $(".userHeader p").css({"height":"1.3rem","line-height":"1.3rem"});  
-            $(".goLogin").css("margin-top","1.1rem");  
-        }
+    //     var u = navigator.userAgent;
+    //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    // 　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
+    //     if(isiOS){                 
+    //         $(".userHeader p").css({"height":"1.3rem","line-height":"1.3rem"});  
+    //         $(".goLogin").css("margin-top","1.1rem");  
+    //     }
     },
     componentWillMount: function () {
         var that = this;

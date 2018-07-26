@@ -78,12 +78,12 @@ var Loan = React.createClass({
         var toast = globalData.toast;
         var that = this;
         var activeLoanId = localStorage.getItem("activeLoanId"); 
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-    　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
-        if(isiOS){                 
-            $("header").css({"height":"1.3rem","line-height":"1.3rem"});      
-        }
+    //     var u = navigator.userAgent;
+    //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    // 　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
+    //     if(isiOS){                 
+    //         $("header").css({"height":"1.3rem","line-height":"1.3rem"});      
+    //     }
         if(!localStorage.getItem("user")){//如果没登录        
             const notask=(
                 <div className="notask">
