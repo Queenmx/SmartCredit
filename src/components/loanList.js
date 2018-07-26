@@ -34,12 +34,12 @@ var LoanList = React.createClass({
     },
     componentDidMount() {
         var that=this;
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-    　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
-        if(isiOS){                 
-            $(".hed p").css({"height":"1.3rem","line-height":"1.3rem"});      
-        }
+    //     var u = navigator.userAgent;
+    //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    // 　　var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
+    //     if(isiOS){                 
+    //         $(".hed p").css({"height":"1.3rem","line-height":"1.3rem"});      
+    //     }
         api.productList(function (res) {
             if(res.code=='0000'){                
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
