@@ -9,7 +9,7 @@ import { hashHistory, Link } from 'react-router';
 import { Toast } from 'antd-mobile';
 import '../css/listDetail.css';
 // 引入 ECharts 主模块
-import echarts from "echarts";
+// import echarts from "echarts";
 
 var appBasePath = globalData.appBasePath;
 var imgPath = globalData.imgPath;
