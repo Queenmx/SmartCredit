@@ -54,7 +54,7 @@ var Login = React.createClass({
                 <Header title="消息"/>
                 <div className="content">
                     <p>{this.state.msg.title}</p>
-                    <p>{this.state.msg.addTime.year+1900}-{this.state.msg.addTime.month+1}-{this.state.msg.addTime.day}</p>  
+                    <p>{this.state.msg.addTime.year+1900}-{this.state.msg.addTime.month+1}-{this.state.msg.addTime.date}</p>  
                     <p>{this.state.msg.content}</p>
                 </div>                                                
             </div>
