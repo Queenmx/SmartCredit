@@ -23,9 +23,12 @@ class choiceBankcard extends Component {
             basicdata: '',  //获取的所有数据
             basicdataArr: [], //新数组
         }
+
     }
 
+
     componentDidMount() {
+
         let that = this;
         // const { value } = this.state;
         api.choiceadd(function (res) {
@@ -92,6 +95,7 @@ class choiceBankcard extends Component {
 
     }
     submissionApply = () => {
+
         var mainId = this.state.oldid;
         var selectId = this.state.id;
 

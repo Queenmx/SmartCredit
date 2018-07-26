@@ -169,7 +169,6 @@ class getmoney extends Component {
                             <img src={require('../img/img/web/icon_14@3x.png')} />
                         </List.Item>
                         <div className="displaylastnumber">尾号 ({this.state.cardNumber ? this.state.cardNumber.substr(this.state.cardNumber.length - 4) : ""})</div>
-                        {/* <div className="displaylastnumber">尾号 ({this.state.cardNumber})</div> */}
                     </List>
                     <WhiteSpace size="sm" />
                     <List >
@@ -213,10 +212,7 @@ class getmoney extends Component {
                 <div className="Submission">
                     <div type="primary" onClick={this.submissionApply} className="buttoncolor" >提交申请</div>
                 </div>
-
-
             </div>
-
         )
     }
 }
