@@ -14,7 +14,7 @@ var KEY = ['Z', 'N', 'D', '2', '0', '1', '7', '1', '0', '3', '0', 'A', 'P', 'I',
 
 
 function strEnc1(text, key) {
-    console.log(key)
+    // console.log(key)
     var textBytes = aesjs.utils.utf8.toBytes(text);
     var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
     var encryptedBytes = aesCtr.encrypt(textBytes);
