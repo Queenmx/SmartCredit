@@ -263,7 +263,7 @@ class sharemoney extends Component {
     }
     render() {
         return (
-            <div className="mywallet">
+            <div className="mywallet shareMoney">
                 <Header title="分享赚钱" />
                 <div className="content">
                     <div className="time">

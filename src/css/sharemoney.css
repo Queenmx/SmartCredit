@@ -34,7 +34,7 @@
     background: #fff;
     overflow: hidden
 }
-li:last-child{
+.shareMoney li:last-child{
     color: red;
 }
 
@@ -56,9 +56,9 @@ li:last-child{
     background: #fff;
     overflow: hidden
 }
-li:last-child{
+/* li:last-child{
     color: red;
-}
+} */
 .modifymodal :global(.am-modal-content){
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;

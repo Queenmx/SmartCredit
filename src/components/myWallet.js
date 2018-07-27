@@ -167,7 +167,7 @@ var ListDetail = React.createClass({
                         <p>账户余额<span></span>(元)</p>
                     </div>
                     <p className="account">账户明细</p>
-                    <div id="detail">{that.state.walletArr!=""?that.state.walletArr:"暂无记录"}</div> 
+                    <div id="detail"><div>{that.state.walletArr!=""?that.state.walletArr:"暂无记录"}</div></div> 
                      
                         
                     
