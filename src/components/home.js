@@ -121,7 +121,7 @@ var Home = React.createClass({
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
-        console.log(this.state.user)
+        // console.log(this.state.user)
         if(this.state.user){
             var phone=this.state.user.phone;
         //消息是否有新的
@@ -129,7 +129,7 @@ var Home = React.createClass({
                 var key1 = globalData.key;
                 if(res.code=="0000"){
                     var temp = JSON.parse(strDec(res.data, key1, "", ""))[0];
-                    console.log("temp");
+                    // console.log("temp");
                     if(temp.systemNotices.length||temp.viewsMyNews.length)
                         that.setState({
                             hasMsg:true
@@ -253,7 +253,7 @@ var Home = React.createClass({
         //热门信用卡
       
             api.hotCreditCardList(function (res) { 
-                console.log(res)
+                // console.log(res)
                 if(res.code == "0000"){
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
                     console.log(Decdata);
