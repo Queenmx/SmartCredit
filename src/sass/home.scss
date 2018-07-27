@@ -1070,7 +1070,10 @@
         }
     }
     #detail{
-        text-align: center;font-size: 0.3rem;
+        &>p{
+            text-align: center;font-size: 0.3rem;
+        }
+        
     }
 }
 //保险列表页

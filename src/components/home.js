@@ -31,7 +31,9 @@ var Home = React.createClass({
     },
 
     componentWillMount: function () {
+        var key1 = globalData.key;
         var user = localStorage.getItem("user");
+        var that=this;
         if(user){
             this.setState({
                 user:JSON.parse(user)
@@ -41,7 +43,22 @@ var Home = React.createClass({
                 user:''
             })
         }
-        
+        //轮播图
+      
+        api.banner(function (res) {
+            if (res.code = "0000") {
+                var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
+                sessionStorage.setItem("banner", JSON.stringify(Decdata));
+                console.log(Decdata)
+                that.setState({
+                    banner:Decdata
+                })
+            } else {
+                Toast.info(res.msg, 2);
+            }
+        }, function () {
+            Toast.info("连接错误", 2);
+        })
     },
     toListDetail: function (event) {
         var id = event.currentTarget.getAttribute("data-id");
@@ -82,9 +99,9 @@ var Home = React.createClass({
         hashHistory.push(path);
     },
     toNewsDetail: function (event) {
-        var newsId = event.currentTarget.getAttribute("data-newsId");
+        var articleId = event.currentTarget.getAttribute("data-articleid");
         //console.log(articleId);
-        var data = { newsId: newsId };
+        var data = { articleId: articleId };
         var path = {
             pathname: '/NewsDetail',
             query: data,
@@ -178,12 +195,12 @@ var Home = React.createClass({
                     //     bannerArr: bannerArr,
                     // })
 
-                } else {
-                    Toast.info(res.msg, 2);
-                }
-            }, function () {
-                Toast.info("连接错误", 2);
-            })
+            } else {
+                Toast.info(res.msg, 2);
+            }
+        }, function () {
+            Toast.info("连接错误", 2);
+        })
         
         //咨讯
       
@@ -295,7 +312,7 @@ var Home = React.createClass({
 
 
     
-        render: function () {
+    render: function () {
         var that = this;
         var curCity = that.props.location.query.cityId;
         return (
