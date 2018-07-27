@@ -24,7 +24,7 @@ var Home = React.createClass({
             imgHeight: 447,
             autoplay:false,
             newsList:[
-                {newsId:"1531485834",title:"4"} ,
+                {newsId:"1531485834",title:"66666"} ,
                 {newsId:"1531485835",title:"555"}
             ]
         }
