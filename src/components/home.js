@@ -43,22 +43,6 @@ var Home = React.createClass({
                 user:''
             })
         }
-        //轮播图
-      
-        api.banner(function (res) {
-            if (res.code = "0000") {
-                var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                sessionStorage.setItem("banner", JSON.stringify(Decdata));
-                console.log(Decdata)
-                that.setState({
-                    banner:Decdata
-                })
-            } else {
-                Toast.info(res.msg, 2);
-            }
-        }, function () {
-            Toast.info("连接错误", 2);
-        })
     },
     toListDetail: function (event) {
         var id = event.currentTarget.getAttribute("data-id");
@@ -133,16 +117,11 @@ var Home = React.createClass({
         }
         hashHistory.push(path);
     },
-    
-        
-    
-    componentWillMount:function(){
-
-    },
     componentDidMount: function () {
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
+        console.log(this.state.user)
         if(this.state.user){
             var phone=this.state.user.phone;
         //消息是否有新的
@@ -150,7 +129,7 @@ var Home = React.createClass({
                 var key1 = globalData.key;
                 if(res.code=="0000"){
                     var temp = JSON.parse(strDec(res.data, key1, "", ""))[0];
-                    // console.log(temp);
+                    console.log("temp");
                     if(temp.systemNotices.length||temp.viewsMyNews.length)
                         that.setState({
                             hasMsg:true

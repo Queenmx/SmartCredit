@@ -83,7 +83,7 @@ var Login = React.createClass({
                         return (
                             <div className="am-list-content" key={item.id} onClick={that.goDetail.bind(that,item)}>
                                 <div className="title">
-                                    <p className={item.status?"":"isRead"}>
+                                    <p>
                                         {item.title}
                                     <span style={{backgroundImage:"url('src/img/icon/redIcon.png')"}} className='hide'></span>
                                     </p>
@@ -97,7 +97,7 @@ var Login = React.createClass({
                         )
                     })
                     //已读系统消息
-                    var arrDom4=temp.viewsSystemNews	.map(function(item,i){
+                    var arrDom4=temp.viewsSystemNews.map(function(item,i){
                         return (
                             <div className="am-list-content" key={item.id} onClick={that.goDetail.bind(that,item)}>
                                 <div className="title">
