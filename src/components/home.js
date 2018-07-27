@@ -20,9 +20,13 @@ var Home = React.createClass({
             pageNum: 1,
             pageSize: 10,
             list: [],
-            // banner: [{"imgUrl":"uploadImg/3.jpg"},{"imgUrl":"uploadImg/timg.jpg"}],
-            banner:[],
+            banner: [{"imgUrl":"uploadImg/3.jpg"},{"imgUrl":"uploadImg/timg.jpg"}],
             imgHeight: 447,
+            autoplay:false,
+            newsList:[
+                {newsId:"1531485834",title:"4"} ,
+                {newsId:"1531485835",title:"555"}
+            ]
         }
     },
 
@@ -129,6 +133,12 @@ var Home = React.createClass({
         }
         hashHistory.push(path);
     },
+    
+        
+    
+    componentWillMount:function(){
+
+    },
     componentDidMount: function () {
         var key1 = globalData.key;
         var toast = globalData.toast;
@@ -144,6 +154,8 @@ var Home = React.createClass({
                     if(temp.systemNotices.length||temp.viewsMyNews.length)
                         that.setState({
                             hasMsg:true
+                        },function(){
+                           console.log(that.state.hasMsg)
                         })
                 }else{
                     Toast.info(res.msg,2);
@@ -153,67 +165,65 @@ var Home = React.createClass({
         
         //轮播图
       
-        // api.banner(function (res) {
-        //     if (res.code = "0000") {
-        //         var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-        //         sessionStorage.setItem("banner", JSON.stringify(Decdata));
-        //         that.setState({
-        //             banner:Decdata
-        //         })
-        //         // var bannerArr = [];
-        //         // for (var i in Decdata) {                       
-        //         //     bannerArr.push(
-        //         //         <a style={{ display: 'inline-block', width: '100%'}} key={i}>
-        //         //         <img
-        //         //             src={imgPath + Decdata[i].imgUrl}
-        //         //             // src="src/img/banner.png"
-        //         //             alt=""
-        //         //             style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
-        //         //             onLoad={() => {
-        //         //                 window.dispatchEvent(new Event('resize'));
-        //         //                 // this.setState({ imgHeight: 'auto' });
-        //         //             }}
-        //         //             />
-        //         //         </a>
-        //         //                    )
-        //         // }
-        //         // that.setState({
-        //         //     bannerArr: bannerArr,
-        //         // })
+            api.banner(function (res) {
+                if (res.code = "0000") {
+                    var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
+                    sessionStorage.setItem("banner", JSON.stringify(Decdata));
+                    that.setState({
+                        banner:Decdata
+                    },function(){
+                       
+                    })
+                    // var bannerArr = [];
+                    // for (var i in Decdata) {                       
+                    //     bannerArr.push(
+                    //         <a style={{ display: 'inline-block', width: '100%'}} key={i}>
+                    //         <img
+                    //             src={imgPath + Decdata[i].imgUrl}
+                    //             // src="src/img/banner.png"
+                    //             alt=""
+                    //             style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
+                    //             onLoad={() => {
+                    //                 window.dispatchEvent(new Event('resize'));
+                    //                 // this.setState({ imgHeight: 'auto' });
+                    //             }}
+                    //             />
+                    //         </a>
+                    //                    )
+                    // }
+                    // that.setState({
+                    //     bannerArr: bannerArr,
+                    // })
 
-        //     } else {
-        //         Toast.info(res.msg, 2);
-        //     }
-        // }, function () {
-        //     Toast.info("连接错误", 2);
-        // })
+            } else {
+                Toast.info(res.msg, 2);
+            }
+        }, function () {
+            Toast.info("连接错误", 2);
+        })
         
         //咨讯
       
             api.articleList("1", "10", function (res) {
-                // console.log(res);
                 if (res.code = "0000") {
-                    // console.log(res.data)
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    // console.log(Decdata)
-                    // var Decdata =JSON.parse(res.data);
-                //    console.log(Decdata)
-                    var articleList = Decdata.list;
-                //    console.log(articleList)
-                    sessionStorage.setItem("homeArticle", JSON.stringify(articleList));
-                    var articleArr = [];
-                    for (var i in articleList) {
-                       
-                        articleArr.push(
-                            
-
-                                        <div className="v-item" key={i} onClick={that.toNewsDetail}  data-articleid={articleList[i].articleId}>{articleList[i].articleTitle}</div>
-                                       )
-                            //  console.log(articleArr[i].articleTitle)
-                    }
                     that.setState({
-                        articleArr: articleArr
+                        newsList:Decdata.list
+                    },function(){
+                       
                     })
+                    // console.log(Decdata.list)
+                    // var articleList = Decdata.list;
+                    // var articleArr = [];
+                    // for (var i in articleList) {
+                    //     articleArr.push(
+                    //                     <div className="v-item" key={i} onClick={that.toNewsDetail}  data-newsId={articleList[i].newsId} >{articleList[i].title}</div>
+                    //                    ) 
+                    // }
+                    // that.setState({
+                    //     articleArr: articleArr,
+                    // })
+                 
 
                 } else {
                     Toast.info(res.msg, 2);
@@ -305,7 +315,6 @@ var Home = React.createClass({
     render: function () {
         var that = this;
         var curCity = that.props.location.query.cityId;
-        console.log(typeof(this.state.banner))
         return (
             <div className="app_Box home">
                 <HomeHeader curCity={curCity} hasMsg={this.state.hasMsg}/>
@@ -350,10 +359,17 @@ var Home = React.createClass({
                                     autoplay
                                     infinite
                                     >
-                                    {this.state.articleArr}
+                                {this.state.newsList.map((item,index)=>{
+                                    return (
+                                        <div className="v-item" key={index} onClick={that.toNewsDetail}  data-newsId={item.newsId} >{item.title}</div>
+                                    )
+                                 })}
+                                     {/* {this.state.articleArr}     */}
+{/* 
                                     <div className="v-item" onClick={that.toNewsDetail}></div>
                                     <div className="v-item" onClick={that.toNewsDetail}></div>   
-                                
+                                    <div className="v-item" onClick={that.toNewsDetail}></div>   
+                                    <div className="v-item" onClick={that.toNewsDetail}></div>  */}
                                 </Carousel>
                             </li>
                             <li className="newsgo" onClick={this.newsAll}>

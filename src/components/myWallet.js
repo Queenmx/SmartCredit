@@ -45,23 +45,29 @@ var ListDetail = React.createClass({
                 that.setState({
                     balance:data.balance
                 })
-                localStorage.setItem("blance",data.balance)
-                for (var i in data.detaileds) {
+                localStorage.setItem("blance",data.balance);
+                if(data.detaileds.length){
+                    for (var i in data.detaileds) {
+                        walletArr.push(
+                            <ul className="infolist" key={i}>
+                            <li>
+                                <div>
+                                    <p>{data.detaileds[i].changeMoney}</p>
+                                    <p>{data.detaileds[i].source}</p>
+                                </div>
+                                <div>
+                                    <p>{data.detaileds[i].type}</p>
+                                    <p>{data.detaileds[i].addTime}</p>
+                                </div>
+                            </li>
+                            </ul>
+                        )
+                    }
+                }else{
                     walletArr.push(
-                        <ul className="infolist" key={i}>
-                        <li>
-                            <div>
-                                <p>{data.detaileds[i].changeMoney}</p>
-                                <p>{data.detaileds[i].source}</p>
-                            </div>
-                            <div>
-                                <p>{data.detaileds[i].type}</p>
-                                <p>{data.detaileds[i].addTime}</p>
-                            </div>
-                        </li>
-                        </ul>
+                        <p key="adf">暂无记录</p>
                     )
-                }
+                }                
                 that.setState({
                     walletArr: walletArr
                 })
@@ -167,7 +173,9 @@ var ListDetail = React.createClass({
                         <p>账户余额<span></span>(元)</p>
                     </div>
                     <p className="account">账户明细</p>
-                    <div id="detail">{that.state.walletArr!=""?that.state.walletArr:"暂无记录"}</div> 
+                    <div id="detail">
+                        {that.state.walletArr }                  
+                    </div> 
                      
                         
                     

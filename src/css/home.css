@@ -1086,7 +1086,7 @@
       text-align: right; }
       .mywallet .infolist li > div:nth-child(2) > p:first-child {
         color: #666666; }
-.mywallet #detail {
+.mywallet #detail > p {
   text-align: center;
   font-size: 0.3rem; }
 
