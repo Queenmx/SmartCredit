@@ -126,7 +126,7 @@ var SetPsd = React.createClass({
                                 globalData.user = data;
                                 globalData.userId = user.userId;
                                 globalData.requestData.token = user.token;
-                                Toast.info("登录成功", 2);
+                                Toast.info("设置成功", 2);
                                 var path = {
                                     pathname: '/Authname',
                                 }
