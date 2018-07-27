@@ -20,14 +20,16 @@ var Home = React.createClass({
             pageNum: 1,
             pageSize: 10,
             list: [],
-            banner: [{"imgUrl":"uploadImg/3.jpg"},{"imgUrl":"uploadImg/timg.jpg"}],
+            // banner: [{"imgUrl":"uploadImg/3.jpg"},{"imgUrl":"uploadImg/timg.jpg"}],
+            banner:[],
             imgHeight: 447,
-            autoplay:false
         }
     },
 
     componentWillMount: function () {
+        var key1 = globalData.key;
         var user = localStorage.getItem("user");
+        var that=this;
         if(user){
             this.setState({
                 user:JSON.parse(user)
@@ -37,7 +39,22 @@ var Home = React.createClass({
                 user:''
             })
         }
-        
+        //轮播图
+      
+        api.banner(function (res) {
+            if (res.code = "0000") {
+                var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
+                sessionStorage.setItem("banner", JSON.stringify(Decdata));
+                console.log(Decdata)
+                that.setState({
+                    banner:Decdata
+                })
+            } else {
+                Toast.info(res.msg, 2);
+            }
+        }, function () {
+            Toast.info("连接错误", 2);
+        })
     },
     toListDetail: function (event) {
         var id = event.currentTarget.getAttribute("data-id");
@@ -136,40 +153,40 @@ var Home = React.createClass({
         
         //轮播图
       
-            api.banner(function (res) {
-                if (res.code = "0000") {
-                    var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    sessionStorage.setItem("banner", JSON.stringify(Decdata));
-                    that.setState({
-                        banner:Decdata
-                    })
-                    // var bannerArr = [];
-                    // for (var i in Decdata) {                       
-                    //     bannerArr.push(
-                    //         <a style={{ display: 'inline-block', width: '100%'}} key={i}>
-                    //         <img
-                    //             src={imgPath + Decdata[i].imgUrl}
-                    //             // src="src/img/banner.png"
-                    //             alt=""
-                    //             style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
-                    //             onLoad={() => {
-                    //                 window.dispatchEvent(new Event('resize'));
-                    //                 // this.setState({ imgHeight: 'auto' });
-                    //             }}
-                    //             />
-                    //         </a>
-                    //                    )
-                    // }
-                    // that.setState({
-                    //     bannerArr: bannerArr,
-                    // })
+        // api.banner(function (res) {
+        //     if (res.code = "0000") {
+        //         var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
+        //         sessionStorage.setItem("banner", JSON.stringify(Decdata));
+        //         that.setState({
+        //             banner:Decdata
+        //         })
+        //         // var bannerArr = [];
+        //         // for (var i in Decdata) {                       
+        //         //     bannerArr.push(
+        //         //         <a style={{ display: 'inline-block', width: '100%'}} key={i}>
+        //         //         <img
+        //         //             src={imgPath + Decdata[i].imgUrl}
+        //         //             // src="src/img/banner.png"
+        //         //             alt=""
+        //         //             style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
+        //         //             onLoad={() => {
+        //         //                 window.dispatchEvent(new Event('resize'));
+        //         //                 // this.setState({ imgHeight: 'auto' });
+        //         //             }}
+        //         //             />
+        //         //         </a>
+        //         //                    )
+        //         // }
+        //         // that.setState({
+        //         //     bannerArr: bannerArr,
+        //         // })
 
-                } else {
-                    Toast.info(res.msg, 2);
-                }
-            }, function () {
-                Toast.info("连接错误", 2);
-            })
+        //     } else {
+        //         Toast.info(res.msg, 2);
+        //     }
+        // }, function () {
+        //     Toast.info("连接错误", 2);
+        // })
         
         //咨讯
       
@@ -285,10 +302,10 @@ var Home = React.createClass({
 
 
     
-        render: function () {
+    render: function () {
         var that = this;
         var curCity = that.props.location.query.cityId;
-
+        console.log(typeof(this.state.banner))
         return (
             <div className="app_Box home">
                 <HomeHeader curCity={curCity} hasMsg={this.state.hasMsg}/>
