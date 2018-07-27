@@ -73,6 +73,10 @@ class sharemoney extends Component {
     }
     componentWillMount() {
         this.lock = true;
+        var user=JSON.parse(localStorage.getItem("user"));
+        this.setState({
+            user:user
+        })
     }
     componentDidMount() {
 
@@ -147,9 +151,14 @@ class sharemoney extends Component {
         }
     }
     start() {
+        var phone=this.state.user.phone;
         var data={
-            type:"4"
+            type:"4",
+            url:"http://h5.xinyzx.com:82/SmartCreditShare/index.html#/?share="+phone,
+            title:"万融汇邀您注册",
+            pic:"src/img/icon/ziyou.png"
         };
+        // console.log(phone)
         var native = function (data) {
             // console.log(111)
         }
