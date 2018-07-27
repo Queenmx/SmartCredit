@@ -274,11 +274,12 @@ var Home = React.createClass({
         //热门信用卡
       
             api.hotCreditCardList(function (res) { 
+                console.log(res)
                 if(res.code == "0000"){
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    // console.log(Decdata);
+                    console.log(Decdata);
                     var creditCardList = Decdata.list;
-                    sessionStorage.setItem("creditCardList", JSON.stringify(creditCardList));
+                    // sessionStorage.setItem("creditCardList", JSON.stringify(creditCardList));
                     var creditCardArr = [];
                     for (var i in creditCardList ) {
                        if(creditCardList[i].hot == 0){
