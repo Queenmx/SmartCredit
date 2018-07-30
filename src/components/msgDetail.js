@@ -31,12 +31,13 @@ var Login = React.createClass({
     },
     componentDidMount(){
         var item={
-            userId:this.state.msg.id,
+            userId:this.state.user.userId,
             userName:this.state.user.realName,
             phone:this.state.user.phone,
             title:this.state.msg.title,
+            id:this.state.msg.id
         };
-        console.log(item)
+        // console.log(item);
         api.modifyStatus(item,function(res){
             if(res.code=="0000"){
             }else{
