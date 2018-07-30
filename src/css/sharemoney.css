@@ -2,11 +2,27 @@
 .share :global(.am-button-primary){
     color: #fff;
 }
+.content{
+    width: 100%;
+    position: absolute
+}
 
 .share{
-   padding: 20px 100px;
-   background: #fff;
+    width: 100%;
+    position: relative;
+    margin: auto;
+    padding: 20px 0px;
+    background: #fff;
 }
+.share .sharebtn{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
 .share :global(.am-button){
     font-size: 0.25rem;
     width: 175px;
