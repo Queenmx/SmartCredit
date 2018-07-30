@@ -21,7 +21,7 @@ var Home = React.createClass({
             pageSize: 10,
             list: [],
             banner: [{"imgUrl":"uploadImg/3.jpg"},{"imgUrl":"uploadImg/timg.jpg"}],
-            imgHeight: 447,
+            // imgHeight: 447,
             autoplay:false,
             newsList:[
                 {newsId:"1531485834",title:"66666"} ,
@@ -310,7 +310,7 @@ var Home = React.createClass({
                             {/* {this.state.bannerArr} */}
                             {this.state.banner.map(function(item,i){
                                 return (
-                                    <a style={{ display: 'inline-block', width: '100%'}} key={i}>
+                                    <a style={{ display: 'inline-block', width: '100%',height: that.state.imgHeight}} key={i}>
                                     <img
                                         src={imgPath+item.imgUrl}
                                         // src="src/img/banner.png"
@@ -318,7 +318,7 @@ var Home = React.createClass({
                                         style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
                                         onLoad={() => {
                                             window.dispatchEvent(new Event('resize'));
-                                            // this.setState({ imgHeight: 'auto' });
+                                            that.setState({ imgHeight: 'auto' });
                                         }}
                                         />
                                     </a>
