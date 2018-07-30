@@ -13,15 +13,9 @@ import Login from './login';
 import Txt from './txt';
 import SetPsd from './setPsd';
 import NewsDetail from './newsDetail';
-import Save from './save';
-import List from './list';
 import ListDetail from './listDetail';
 import Problem from './problem';
-import Order from './order';
 import Ask from './ask';
-import ApplyInfo from './applyInfo';
-import ApplyLevel from './applyLevel';
-import ApplyResult from './applyResult';
 import Help from './help';
 import HelpDetail from './helpDetail';
 import IdCard from './idCard';
@@ -29,22 +23,6 @@ import UserInfo from './userInfo';
 import Set from './set';
 import RePsd from './rePsd';
 import ForgotPsd from './forgotPsd';
-import RealName from './realName';
-import IdNumber from './idNumber';
-import PersonalLevel from './personalLevel';
-import Progress from './Progress';
-import ProgressDetail from './ProgressDetail';
-import Loan from './loan';
-import OrderDetail from './orderDetail';
-import OtherInfo from './otherInfo';
-import LoanFeedback from './loanFeedback';
-import IntroKSD from './introKSD';
-import ListDetailKSD from './listDetailKSD';
-import SubmitResult from './submitResult';
-import BaseInfo from './baseInfo';
-import Operator from './operator';
-import RepayResult from './repayResult';
-import ConfirmResult from './ConfirmResult';
 import Authname from './Authname';
 import loanList from './loanList';
 import licai from './licai';
@@ -71,7 +49,6 @@ import Sharemoney from './sharemoney';//选择银行卡
 ReactDom.render((
     <Router history={hashHistory}>
         <Route path='/' component={Home}></Route>
-        <Route path='/Loan' component={Loan}></Route>
         <Route path='/news' component={News}></Route>
         <Route path='/mine' component={Mine}></Route>
         <Route path='/myMap' component={MyMap}></Route>
@@ -79,37 +56,16 @@ ReactDom.render((
         <Route path='/txt(/:txtData)' component={Txt} />
         <Route path='/SetPsd' component={SetPsd} />
         <Route path='/NewsDetail' component={NewsDetail} />
-        <Route path='/Save' component={Save} />
-        <Route path='/List' component={List} />
         <Route path='/ListDetail' component={ListDetail} />
         <Route path='/Problem' component={Problem} />
-        <Route path='/Order' component={Order} />
         <Route path='/Ask' component={Ask} />
-        <Route path='/ApplyInfo' component={ApplyInfo} />
-        <Route path='/ApplyLevel' component={ApplyLevel} />
-        <Route path='/ApplyResult' component={ApplyResult} />
         <Route path='/Help' component={Help} />
         <Route path='/HelpDetail' component={HelpDetail} />
         <Route path='/IdCard' component={IdCard} />
         <Route path='/UserInfo' component={UserInfo} />
-        <Route path='/PersonalLevel' component={PersonalLevel} />
         <Route path='/Set' component={Set} />
         <Route path='/RePsd' component={RePsd} />
         <Route path='/ForgotPsd' component={ForgotPsd} />
-        <Route path='/RealName' component={RealName} />
-        <Route path='/IdNumber' component={IdNumber} />
-        <Route path='/Loan' component={Loan} />
-        <Route path='/Progress' component={Progress} />
-        <Route path='/ProgressDetail' component={ProgressDetail} />
-        <Route path='/OrderDetail' component={OrderDetail} />
-        <Route path='/OtherInfo' component={OtherInfo} />
-        <Route path='/LoanFeedback' component={LoanFeedback} />
-        <Route path='/IntroKSD' component={IntroKSD} />
-        <Route path='/ListDetailKSD' component={ListDetailKSD} />
-        <Route path='/SubmitResult' component={SubmitResult} />
-        <Route path='/BaseInfo' component={BaseInfo} />
-        <Route path='/repayResult' component={RepayResult} />
-        <Route path='/confirmResult' component={ConfirmResult} />
         <Route path='/Authname' component={Authname} />
         <Route path='/loanList' component={loanList} />
         <Route path='/licai' component={licai} />

@@ -73,6 +73,10 @@ class sharemoney extends Component {
     }
     componentWillMount() {
         this.lock = true;
+        var user=JSON.parse(localStorage.getItem("user"));
+        this.setState({
+            user:user
+        })
     }
     componentDidMount() {
 
@@ -147,9 +151,15 @@ class sharemoney extends Component {
         }
     }
     start() {
+        var phone=this.state.user.phone;
         var data={
-            type:"4"
+            type:"4",
+            url:"http://h5.xinyzx.com:82/SmartCreditShare/index.html#/?share="+phone,
+            title:"万融汇邀您注册",
+            pic:"http://xrjf.oss-cn-shanghai.aliyuncs.com/uploadImg/2.jpg",
+            message:"啦啦啦啦啦啦啦"
         };
+        // console.log(phone)
         var native = function (data) {
             // console.log(111)
         }
@@ -263,7 +273,7 @@ class sharemoney extends Component {
     }
     render() {
         return (
-            <div className="mywallet">
+            <div className="mywallet shareMoney">
                 <Header title="分享赚钱" />
                 <div className="content">
                     <div className="time">

@@ -25,8 +25,8 @@ class News extends Component {
             pageSize: "10"
         };
         this.toNewsDetail = (event) => {
-            var articleId = event.currentTarget.getAttribute("data-articleid");
-            var data = { articleId: articleId };
+            var newsId = event.currentTarget.getAttribute("data-newsId");
+            var data = { newsId: newsId };
             var path = {
                 pathname: '/NewsDetail',
                 query: data,
@@ -92,11 +92,12 @@ class News extends Component {
         //var toast=globalData.toast;
         const { currentPage, pageSize, list } = that.state;
         var arr = [];
-        api.articleList(currentPage, pageSize, function (res) {
+        api.articleList("1","10", function (res) {
             console.log(res);
+            // console.log("11111")
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                // console.log(data);
+                console.log(data);
                 var articleList = data.list;
                 var total = data.total;
                 var totalPage = Math.ceil(total / pageSize);
@@ -108,9 +109,9 @@ class News extends Component {
                     articleArr.push(<div key={Math.random()} style={{ 'textAlign': 'center', 'lineHeight': '1rem' }}>暂无数据</div>)
                 } else {
                     for (var i in articleList) {
-                        articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
+                        articleArr.push(<dl className="newsList" data-newsId={articleList[i].newsId} key={Math.random()} onClick={that.toNewsDetail}>
                             <dd>
-                                <h4>{articleList[i].articleTitle}</h4>
+                                <h4>{articleList[i].title}</h4>
                                 <p><span>{articleList[i].addTime}</span> <span><img src="src/img/icon/new-icon.png" alt="" />{articleList[i].readerNum}阅读</span></p>
                             </dd>
                             <dt>
@@ -199,13 +200,13 @@ class News extends Component {
                     articleArr.push(<div key={Math.random()} style={{ 'textAlign': 'center', 'lineHeight': '1rem' }}>暂无数据</div>)
                 } else {
                     for (var i in articleList) {
-                        articleArr.push(<dl className="newsList" data-articleid={articleList[i].articleId} key={Math.random()} onClick={that.toNewsDetail}>
+                        articleArr.push(<dl className="newsList" data-newsId={articleList[i].newsId} key={Math.random()} onClick={that.toNewsDetail}>
                             <dd>
-                                <h4>{articleList[i].articleTitle}</h4>
+                                <h4>{articleList[i].title}</h4>
                                 <p><span>{articleList[i].addTime}</span> <span><img src="src/img/icon/new-icon.png" alt="" />{articleList[i].readerNum}阅读</span></p>
                             </dd>
                             <dt>
-                                <img src={imgPath + articleList[i].imgUrl} onError={that.logoError} />
+                                <img src={imgPath + articleList[i].logo} onError={that.logoError} />
                             </dt>
                         </dl>)
                     }
@@ -308,82 +309,20 @@ class News extends Component {
         }
         return (
             <div className="app_Box news">
-                {/* <header>资讯中心</header> */}
                 <Header title="资讯中心"/>
                 <div className="newsCon content">
-                    {/*<div className="swiper-container" id="bannerList">
-					    <div className="swiper-wrapper">
-					      	{that.state.banner}
-					    </div>
-					    <div className="swiper-pagination">{that.state.paginationCustomRender}</div>
-					    
-					    </div>*/}
-
-                    {/* <Carousel
-                        autoplay={true}
-                        infinite
-                        selectedIndex={0}>
-
-                        {this.state.banner.map(ii => (
-                            <a
-                                key={ii}
-                                href={ii.objUrl}
-                                style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-                            >
-                                <img
-                                    src={imgPath + ii.imgUrl}
-                                    alt=""
-                                    style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
-                                    onLoad={() => {
-                                        window.dispatchEvent(new Event('resize'));
-                                        this.setState({ imgHeight: 'auto' });
-                                    }}
-                                />
-                            </a>
-                        ))}
-                    </Carousel> */}
-                    {/* <h3>你关心的资讯</h3> */}
                     <div className="newsBox">
                         <div className="listWrap">
                             {scollTxt}
-                            {/* <dl className="newsList"  onClick={that.toNewsDetail}>
-                                <dd>
-                                    <h4>东方时尚发的方式发生三顿饭电费水费达</h4>
-                                    <p><span>2018-07-09</span> <span><img src="src/img/icon/new-icon.png" alt="" />36阅读</span></p>
-                                </dd>
-                                <dt>
-                                    <img src="" onError={that.logoError} />
-                                </dt>
-                            </dl> */}
                         </div>
                     </div>
                 </div>
             </div>
         )
     }
-    componentWillUnmount() {
-        //clearTimeout(this.timeoutId)
-    }
+  
 
-	/*componentDidUpdate(){
-		var current=$(".swiper-slide swiper-slide-active").index();
-		var length=this.state.length;
-		var swiper = new Swiper("#bannerList",{
-			loop:true,
-			autoplay : 3000,
-			speed:500,
-			pagination: '.swiper-pagination',
-			autoplayDisableOnInteraction:false
-			//paginationType : 'custom',
-			 // paginationCustomRender: function (swiper, current, length) {
-			     //this.setState({
-			    // 	paginationCustomRender:{current + ' of ' + length}
-			    // }) 
-			    //console.log( {current + ' of ' + length});
-			    //console.log(current); 
-			 // }
-		});     
-	}*/
+	
 };
 
 export default News;

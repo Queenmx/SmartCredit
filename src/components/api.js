@@ -285,7 +285,7 @@ module.exports.articleList = function (pageNum, pageSize, cb1, cb2) {
     var param = JSON.stringify(data);
     // console.log(param)
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/article/list`, { params: str }, cb1, cb2);
+    http(`${globalData.path}/zndai/news/list`, { params: str }, cb1, cb2);
     delete data.pageNum;
     delete data.pageSize;
 }
@@ -307,7 +307,6 @@ module.exports.creditCardList = function (pageNum, pageSize, cb1, cb2) {
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     var param = JSON.stringify(data);
-    // console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/credit/list`, { params: str }, cb1, cb2);
     // delete data.pageNum;
@@ -318,7 +317,6 @@ module.exports.hotCreditCardList = function (cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     var param = JSON.stringify(data);
-    console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/credit/hot`, { params: str }, cb1, cb2);
     // delete data.pageNum;
@@ -327,16 +325,16 @@ module.exports.hotCreditCardList = function (cb1, cb2) {
 
 
 //资讯详情
-module.exports.articleDetail = function (articleId, cb1, cb2) {
+module.exports.articleDetail = function (newsId, cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
-    data.articleId = articleId;
+    data.newsId = newsId;
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
     // console.log(param);
     var str = strEnc(param, key1);
-    http(`${globalData.path}/zndai/article/detail`, { params: str }, cb1, cb2);
-    delete data.articleId;
+    http(`${globalData.path}/zndai/news/detail`, { params: str }, cb1, cb2);
+    delete data.newId;
     delete data.userId;
 }
 

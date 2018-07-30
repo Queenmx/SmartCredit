@@ -1086,6 +1086,9 @@
       text-align: right; }
       .mywallet .infolist li > div:nth-child(2) > p:first-child {
         color: #666666; }
+.mywallet #detail > p {
+  text-align: center;
+  font-size: 0.3rem; }
 
 .insurance .loan ul li {
   padding: 0.45rem 0 0.28rem 0; }

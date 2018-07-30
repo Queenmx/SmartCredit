@@ -22,12 +22,18 @@ var Home = React.createClass({
             list: [],
             banner: [{"imgUrl":"uploadImg/3.jpg"},{"imgUrl":"uploadImg/timg.jpg"}],
             imgHeight: 447,
-            autoplay:false
+            autoplay:false,
+            newsList:[
+                {newsId:"1531485834",title:"66666"} ,
+                {newsId:"1531485835",title:"555"}
+            ]
         }
     },
 
     componentWillMount: function () {
+        var key1 = globalData.key;
         var user = localStorage.getItem("user");
+        var that=this;
         if(user){
             this.setState({
                 user:JSON.parse(user)
@@ -37,7 +43,6 @@ var Home = React.createClass({
                 user:''
             })
         }
-        
     },
     toListDetail: function (event) {
         var id = event.currentTarget.getAttribute("data-id");
@@ -116,6 +121,7 @@ var Home = React.createClass({
         var key1 = globalData.key;
         var toast = globalData.toast;
         var that = this;
+        // console.log(this.state.user)
         if(this.state.user){
             var phone=this.state.user.phone;
         //消息是否有新的
@@ -123,10 +129,12 @@ var Home = React.createClass({
                 var key1 = globalData.key;
                 if(res.code=="0000"){
                     var temp = JSON.parse(strDec(res.data, key1, "", ""))[0];
-                    // console.log(temp);
+                    // console.log("temp");
                     if(temp.systemNotices.length||temp.viewsMyNews.length)
                         that.setState({
                             hasMsg:true
+                        },function(){
+                           console.log(that.state.hasMsg)
                         })
                 }else{
                     Toast.info(res.msg,2);
@@ -142,6 +150,8 @@ var Home = React.createClass({
                     sessionStorage.setItem("banner", JSON.stringify(Decdata));
                     that.setState({
                         banner:Decdata
+                    },function(){
+                       
                     })
                     // var bannerArr = [];
                     // for (var i in Decdata) {                       
@@ -164,39 +174,35 @@ var Home = React.createClass({
                     //     bannerArr: bannerArr,
                     // })
 
-                } else {
-                    Toast.info(res.msg, 2);
-                }
-            }, function () {
-                Toast.info("连接错误", 2);
-            })
+            } else {
+                Toast.info(res.msg, 2);
+            }
+        }, function () {
+            Toast.info("连接错误", 2);
+        })
         
         //咨讯
       
             api.articleList("1", "10", function (res) {
-                // console.log(res);
                 if (res.code = "0000") {
-                    // console.log(res.data)
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    // console.log(Decdata)
-                    // var Decdata =JSON.parse(res.data);
-                //    console.log(Decdata)
-                    var articleList = Decdata.list;
-                //    console.log(articleList)
-                    sessionStorage.setItem("homeArticle", JSON.stringify(articleList));
-                    var articleArr = [];
-                    for (var i in articleList) {
-                       
-                        articleArr.push(
-                            
-
-                                        <div className="v-item" key={i} onClick={that.toNewsDetail}  data-articleid={articleList[i].articleId}>{articleList[i].articleTitle}</div>
-                                       )
-                            //  console.log(articleArr[i].articleTitle)
-                    }
                     that.setState({
-                        articleArr: articleArr
+                        newsList:Decdata.list
+                    },function(){
+                       
                     })
+                    // console.log(Decdata.list)
+                    // var articleList = Decdata.list;
+                    // var articleArr = [];
+                    // for (var i in articleList) {
+                    //     articleArr.push(
+                    //                     <div className="v-item" key={i} onClick={that.toNewsDetail}  data-newsId={articleList[i].newsId} >{articleList[i].title}</div>
+                    //                    ) 
+                    // }
+                    // that.setState({
+                    //     articleArr: articleArr,
+                    // })
+                 
 
                 } else {
                     Toast.info(res.msg, 2);
@@ -247,11 +253,12 @@ var Home = React.createClass({
         //热门信用卡
       
             api.hotCreditCardList(function (res) { 
+                // console.log(res)
                 if(res.code == "0000"){
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    // console.log(Decdata);
+                    console.log(Decdata);
                     var creditCardList = Decdata.list;
-                    sessionStorage.setItem("creditCardList", JSON.stringify(creditCardList));
+                    // sessionStorage.setItem("creditCardList", JSON.stringify(creditCardList));
                     var creditCardArr = [];
                     for (var i in creditCardList ) {
                        if(creditCardList[i].hot == 0){
@@ -285,10 +292,9 @@ var Home = React.createClass({
 
 
     
-        render: function () {
+    render: function () {
         var that = this;
         var curCity = that.props.location.query.cityId;
-
         return (
             <div className="app_Box home">
                 <HomeHeader curCity={curCity} hasMsg={this.state.hasMsg}/>
@@ -333,10 +339,17 @@ var Home = React.createClass({
                                     autoplay
                                     infinite
                                     >
-                                    {this.state.articleArr}
+                                {this.state.newsList.map((item,index)=>{
+                                    return (
+                                        <div className="v-item" key={index} onClick={that.toNewsDetail}  data-newsId={item.newsId} >{item.title}</div>
+                                    )
+                                 })}
+                                     {/* {this.state.articleArr}     */}
+{/* 
                                     <div className="v-item" onClick={that.toNewsDetail}></div>
                                     <div className="v-item" onClick={that.toNewsDetail}></div>   
-                                
+                                    <div className="v-item" onClick={that.toNewsDetail}></div>   
+                                    <div className="v-item" onClick={that.toNewsDetail}></div>  */}
                                 </Carousel>
                             </li>
                             <li className="newsgo" onClick={this.newsAll}>
