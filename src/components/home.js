@@ -83,9 +83,9 @@ var Home = React.createClass({
         hashHistory.push(path);
     },
     toNewsDetail: function (event) {
-        var articleId = event.currentTarget.getAttribute("data-articleid");
+        var newsId = event.currentTarget.getAttribute("data-newsId");
         //console.log(articleId);
-        var data = { articleId: articleId };
+        var data = { newsId: newsId };
         var path = {
             pathname: '/NewsDetail',
             query: data,
@@ -253,7 +253,7 @@ var Home = React.createClass({
         //热门信用卡
       
             api.hotCreditCardList(function (res) { 
-                // console.log(res)
+                console.log(res)
                 if(res.code == "0000"){
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
                     console.log(Decdata);
