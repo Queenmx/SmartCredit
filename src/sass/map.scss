@@ -24,10 +24,14 @@
        color: #666666;
     }
     .currentAddress{
-        text-indent: 0.72rem;
+        // text-indent: 0.72rem;
+        width: 2rem;
+        margin-left: 0.3rem;
+        border-radius: 0.1rem;
+        text-align: center;
         font-size: 0.28rem;
-        line-height: 1rem;
-        height: 1rem;
+        line-height: 0.6rem;
+        height: 0.6rem;
         background: #ffffff;
         color: #ff801a;
         .location-icon{
@@ -38,15 +42,17 @@
     .hotAddress{
         //padding-left: 0.38rem;
         font-size: 0.28rem;
-        background: #ffffff;
         @include clear_float;
+        padding-left: 0.3rem;
         .hotCityLi{
             float: left;
-            width: 25%;
+            width: 28%;
             box-sizing: border-box;
-            height: 0.9rem;
+            height: 0.6rem;
             text-align: center;
-            line-height: 1rem;
+            line-height: 0.6rem;
+            background: #fff;
+            margin:0 0.2rem 0.2rem 0;
             color:#333333 ;
             border-right: 1px solid #f3f3f3;
             border-bottom: 1px solid #f3f3f3;
