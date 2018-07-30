@@ -55,11 +55,13 @@ var ListDetail = React.createClass({
             if(res.code=="0000"){
                 var result = JSON.parse(strDec(res.data, key1, "", ""));
                 var timestamp =(new Date()).valueOf();
-                // console.log(result);
+                console.log(result);
                 var time=result.effectiveTime.time-timestamp;
+                var taskNum=result.taskNumber-result.count*1;
+                
                 // var time=10000;
                 // console.log(time);
-                if(result.count=="100"){
+                if(result.count=="100"||taskNum<=0){
                     that.setState({
                         isGet:true
                     })
@@ -77,14 +79,14 @@ var ListDetail = React.createClass({
                 arr.push(
                     <div key={result.id}>
                         <div className="stime">
-                        <p>任务时间：{result.releaseTime.year+1900}年{result.releaseTime.month+1}月{result.releaseTime.day}日起</p>
+                        <p>任务时间：{result.releaseTime.year+1900}年{result.releaseTime.month+1}月{result.releaseTime.date}日起</p>
                     </div> 
                         <ul className="detail" >
                             <li>
                                 <div className="info">
-                                    <p>当前剩余任务总数&nbsp;<span className="ftcolor">{result.count}</span>/100</p>
+                                    <p>当前剩余任务总数&nbsp;<span className="ftcolor">{taskNum<=0?0:taskNum}</span>/{result.taskNumber}</p>
                                     <div className="progress-container">                            
-                                        <Progress percent={result.count} position="normal" unfilled={false} appearTransition />                                    
+                                        <Progress percent={(100*result.count*1)/result.taskNumber} position="normal" unfilled={false} appearTransition />                                    
                                     </div>
                                 </div>                            
                             </li>
