@@ -155,9 +155,9 @@ class sharemoney extends Component {
         var data = {
             type: "4",
             url: "http://h5.xinyzx.com:82/SmartCreditShare/index.html#/?share=" + phone,
-            title: "万融汇邀您注册",
+            title: "万融汇邀请注册",
             pic: "http://xrjf.oss-cn-shanghai.aliyuncs.com/uploadImg/2.jpg",
-            message: "啦啦啦啦啦啦啦"
+            message: "有钱一起赚"
         };
         // console.log(phone)
         var native = function (data) {

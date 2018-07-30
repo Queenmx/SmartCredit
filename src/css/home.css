@@ -561,7 +561,6 @@
   width: 7.5rem;
   padding: 0.48rem 0;
   background: #FFFFFF;
-  position: fixed;
   z-index: 5; }
   .task .loankind .loankindTab {
     margin: auto;
@@ -709,7 +708,7 @@
       margin-right: 0.3rem;
       margin-left: 0.35rem; }
 .task .tasklist {
-  margin-top: 0.5rem;
+  margin-top: 0.12rem;
   padding: 0 0.28rem; }
   .task .tasklist li {
     display: -webkit-box;
