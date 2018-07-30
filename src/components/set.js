@@ -121,7 +121,7 @@ var Set = React.createClass({
         return (
             <div className="userInfo app_Box">
                 <Header title="设置" />
-                <Loading flag={that.state.isLoading} />
+                {/* <Loading flag={that.state.isLoading} /> */}
                 <div className="userInfoCon content">
                     <ul className="setLi">
                     <Btn />
