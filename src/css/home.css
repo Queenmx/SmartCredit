@@ -872,17 +872,6 @@
 .taskDetail .footer .hide {
   display: none; }
 
-#app .header {
-  position: static;
-  background: -webkit-linear-gradient(left, #5197fb, #3a80f2, #1e63e8);
-  /* Safari 5.1 - 6.0 */
-  background: -o-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
-  /* Opera 11.1 - 12.0 */
-  background: -moz-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
-  /* Firefox 3.6 - 15 */
-  background: linear-gradient(to right, #5197fb, #3a80f2, #1e63e8);
-  /* 标准的语法 */ }
-
 .myTask .tasklist {
   margin-top: 0.14rem;
   padding: 0 0.28rem; }

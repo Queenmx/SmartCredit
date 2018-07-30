@@ -34,7 +34,7 @@ var Set = React.createClass({
         this.setState({
             size:(size2/1024).toFixed(2)+ 'KB'
         })
-        console.log('当前localStorage剩余容量为' + (size2 / 1024).toFixed(2) + 'KB');
+        // console.log('当前localStorage剩余容量为' + (size2 / 1024).toFixed(2) + 'KB');
     },
     componentDidMount(){
         var that=this;
