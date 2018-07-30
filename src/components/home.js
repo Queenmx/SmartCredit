@@ -253,7 +253,7 @@ var Home = React.createClass({
         //热门信用卡
       
             api.hotCreditCardList(function (res) { 
-                // console.log(res)
+                console.log(res)
                 if(res.code == "0000"){
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
                     console.log(Decdata);
