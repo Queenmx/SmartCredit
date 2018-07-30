@@ -32,9 +32,9 @@ var MyMap = React.createClass({
                 <div className="mapCon" id="mapCon">
                     <div className="currentAddressBox">
                         <p className="greyTitle">当前定位城市</p>
-                        <div className="currentAddress sendCityId" onClick={this.selectCity}>
+                        <div className="currentAddress sendCityId" >
                             <span className="location-icon" style={{backgroundImage:"url('src/img/icon/home-icon1.png')"}}></span>
-                            <span>{this.state.address}</span>                        
+                            <span onClick={this.selectCity}>{this.state.address}</span>                        
                         </div>
                     </div>
                     <div className="hotAddressBox">

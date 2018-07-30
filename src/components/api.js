@@ -979,6 +979,7 @@ module.exports.modifyStatus= function (item,cb1, cb2) {
     data.userName=item.userName;
     data.phone=item.phone;
     data.title=item.title;
+    data.id=item.id,
     data.content="";
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
@@ -988,6 +989,7 @@ module.exports.modifyStatus= function (item,cb1, cb2) {
     delete data.userName;
     delete data.phone;
     delete data.title;
+    delete data.id;
 }
 //绑定银行卡
 
