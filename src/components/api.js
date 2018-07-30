@@ -1036,6 +1036,8 @@ module.exports.choiceadd = function (cb1, cb2) {
 
 //更换银行卡
 module.exports.update = function (mainId, selectId, cb1, cb2) {
+    console.log(mainId)
+    console.log(selectId)
     var data = globalData.requestData;
     data.userId = globalData.userId;
     data.mainId = mainId;
