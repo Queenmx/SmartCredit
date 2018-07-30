@@ -73,10 +73,10 @@
     bottom: 0;
     right: 0;
     width: 100px; 
-    /* height: 38px; */
+    height: 38px;
     line-height: 20px;
     text-align: center;
-    margin-right: 150px;
+    margin-right: 120px;
     color: #888;
     font-size: 14px;
     text-overflow: ellipsis;

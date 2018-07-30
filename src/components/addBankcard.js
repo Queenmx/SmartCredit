@@ -445,7 +445,7 @@ class addBankcard extends Component {
                 console.log(res)
                 if (res.code === "0000") {
                     var data = strDec(res.data, key1, "", "");
-                    var newdata =JSON.parse(data)
+                    var newdata = JSON.parse(data)
                     console.log(newdata)
                     console.log(newdata.bank)
                     that.setState({
@@ -585,16 +585,19 @@ class addBankcard extends Component {
         if (this.state.btncount !== 1 && this.state.cardnumbercount !== 1 && this.state.banknamecount !== 1 && this.state.phonecount !== 1 && this.state.identitycount !== 1 && this.state.codecount !== 1) {
             Toast.info('请输入完整的信息')
         } else {
+            Toast.info("绑定成功")
             api.addBankcard(cardName, idCard, cardNumber, bankName, cardPhone, verifyCode, function (res) {
                 if (res.code === "0000") {
                     let Decdata = strDec(res.data, key1, "", "");
                     let data = JSON.parse(Decdata);
                     console.log(data)
-                    Toast.info("绑定成功")
+
                     var path = {
                         pathname: "/choiceBankcard",
                     };
                     hashHistory.push(path)
+                } else {
+                    Toast.info('银行卡绑定失败')
                 }
             })
         }

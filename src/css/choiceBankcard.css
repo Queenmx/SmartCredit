@@ -7,25 +7,13 @@
     font-weight: 500;
     color: #020202;
 }
-.am-list-item{
+.am-whitespace.am-whitespace-sm{
+    background: #f1f0f0;
+}
+/* .am-list-item{
     min-height: 50px;
-}
-.displaylastnumber{
-    position: absolute;
-    bottom: 0;
-    left: 150px;
-    flex-basis: 20%;
-    height: 38px;
-    line-height: 20px;
-    text-align: center;
-    /* margin-right: 130px !important; */
-    color: #888;
-    font-size: 14px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    padding-top: 7px;
-    padding-bottom: 7px;
-}
+} */
+
 .Submission{
     padding: 0.4rem 0.48rem;
 }
@@ -37,15 +25,32 @@
     font-size: 0.28rem;
     text-align: center;
 }
-/* .checkout{
+.radioItem{
+    padding-left: 0px !important;
+}
+.list{
+    font-size: 0.28rem;
+}
+.list .listimg{
+    float: left;
+    padding-left: 15px;
+}
+.list .listtext{
+    float: left;
+    margin-left: 20px;
+}
+.list .displaylastnumber{
     position: absolute;
-    width: 30px;
-    height: 30px;
-    right: 20px;
-    top: 78px;
-    z-index: 2;
-} */
-/* .showMask{
-    display: block; 
-    z-index: 3;
-} */
+    bottom: 0;
+    left: 150px;
+    flex-basis: 20%;
+    height: 38px;
+    line-height: 20px;
+    text-align: center;
+    color: #888;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
