@@ -42,7 +42,6 @@
 .list .displaylastnumber{
     position: absolute;
     bottom: 0;
-    left: 150px;
     flex-basis: 20%;
     height: 38px;
     line-height: 20px;
