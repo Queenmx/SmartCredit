@@ -37,6 +37,7 @@ var ListDetail = React.createClass({
             })
         }
         api.myWallet(userName,userId,function (res) {
+            console.log(res)
             if(res.code == "0000"){
                  let Decdata = strDec(res.data, key1, "", "");
                 let data = JSON.parse(Decdata);
