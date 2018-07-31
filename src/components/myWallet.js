@@ -76,11 +76,16 @@ var ListDetail = React.createClass({
             })
     },
     getTask(){
-        var path={
-            pathname:"/Getmoney",
-            query:{balance:this.state.balance}
-        };
-        hashHistory.push(path);
+        if(localStorage.getItem("blance")<=0){
+            Toast.info("囊中羞涩，努力完成任务，争取做个有钱人再来！", 2);
+        }else{
+            var path={
+                pathname:"/Getmoney",
+                query:{balance:this.state.balance}
+            };
+            hashHistory.push(path);
+        }
+        
     },
 
 
