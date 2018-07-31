@@ -114,8 +114,8 @@ var LoanList = React.createClass({
                 this.setState({
                     selectData:[
                         { value: 5, label: '全部' },
-                        { value: 6, label: '1000~5000元' },
-                        { value: 7, label: '5000~10000元' },
+                        { value: 6, label: '0.1~0.5万' },
+                        { value: 7, label: '0.5~1万' },
                         { value: 8, label: '1万元以上' },
                     ]
                 });
@@ -264,8 +264,8 @@ var LoanList = React.createClass({
                     this.setState({
                         selectData:[
                             { value: 5, label: '全部' },
-                            { value: 6, label: '1000~5000元' },
-                            { value: 7, label: '5000~10000元' },
+                            { value: 6, label: '0.1~0.5万' },
+                            { value: 7, label: '0.5~1万' },
                             { value: 8, label: '1万元以上' },
                         ]
                     });
