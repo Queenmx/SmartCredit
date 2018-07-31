@@ -57,7 +57,7 @@ var LoanList = React.createClass({
                                 </div>
                                 <div className="high">
                                     <p>
-                                        <span>{data[i].maximumAmount}</span>万    
+                                        <span>{data[i].maximumAmount}</span>元    
                                     </p>
                                     <p>最高额度</p>
                                 </div>
@@ -68,7 +68,7 @@ var LoanList = React.createClass({
                                     <p>平均期限</p>
                                 </div>
                                 <div>
-                                    <p><span>{data[i].averageAmount}</span>万</p>
+                                    <p><span>{data[i].averageAmount}</span>元</p>
                                     <p>平均额度</p>
                                 </div>
                                 <div>
