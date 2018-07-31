@@ -617,6 +617,9 @@ class addBankcard extends Component {
                 } else {
                     Toast.info('银行卡绑定失败')
                 }
+                if(res.code==="1022"){
+                    Toast.info('该卡不能重复绑定')
+                }
             })
         }
     }
