@@ -294,7 +294,7 @@ import { hashHistory } from 'react-router';
 import api from './api';
 import Header from './header';
 import { globalData } from './global.js';
-import { List, WhiteSpace, Radio } from 'antd-mobile';
+import { List, WhiteSpace, Radio, Toast } from 'antd-mobile';
 import '../css/choiceBankcard.css';
 import { Item } from '../../node_modules/antd-mobile/lib/tab-bar';
 var key1 = globalData.key;
@@ -316,35 +316,47 @@ class choiceBankcard extends Component {
             checked: false,
             checkedid: null,
             value: 0,
+            localStorageid: 0,
+            onSelected: false,
+            isLoading: true
         }
     }
 
 
     componentDidMount() {
         let that = this;
-        api.choiceadd(function (res) {
-            console.log(res)
-            if (res.code === "0000") {
-                let Decdata = strDec(res.data, key1, "", "");
-                let data = JSON.parse(Decdata);
-                that.setState({
-                    basicdata: data.list,
-                    oldid: data.list[0].id,
-                    oldcardNumber: data.list[0].cardNumber,
-                    oldmainCard: data.list[0].mainCard,
-                    oldbankName: data.list[0].bankName
-                })
-                // console.log(that.state.oldid)
-                // console.log(that.state.oldcardNumber)
-                // console.log(that.state.oldmainCard)
-                // console.log(that.state.oldbankName)
-            }
-        })
+        if (this.state.isLoading) {
+            api.choiceadd(function (res) {
+                console.log(res)
+                if (res.code === "0000") {
+                    let Decdata = strDec(res.data, key1, "", "");
+                    let data = JSON.parse(Decdata);
+                    // console.log(data)
+                    /*页面第一次加载默认选中第一条*/
+                    that.setState({
+                        basicdata: data.list,
+                        oldid: data.list[0].id,
+                        oldcardNumber: data.list[0].cardNumber,
+                        oldmainCard: data.list[0].mainCard,
+                        oldbankName: data.list[0].bankName,
+                        value: data.list[0].id,
+                    })
+                    console.log(that.state.value)
+                    console.log(that.state.oldid)
+                }
+            })
+        }else{
+            localStorage.get("cardid");
+            localStorage.get("cardNumber");
+            localStorage.get("bankName");
+        }
+
     }
     /*点击该列表对应的对象 
     * 获取 id 银行卡号 主卡或者副卡 所属银行
     */
     choiceadd(id, cardNumber, mainCard, bankName) {
+        // console.log(cardid)
         // console.log(id)
         // console.log(cardNumber)
         // console.log(mainCard)
@@ -355,42 +367,60 @@ class choiceBankcard extends Component {
             mainCard: mainCard,
             bankName: bankName,
         }, function () {
-            // console.log(this.state.id)
-            // console.log(this.state.cardNumber)
-            // console.log(this.state.mainCard)
-            // console.log(this.state.bankName)
+            localStorage.setItem("cardid", this.state.id);
+            localStorage.setItem("cardNumber", this.state.cardNumber);
+            localStorage.setItem("bankName", this.state.bankName);
         })
+
     }
     /*提交申请
     *原首选卡id 
     *现在选中卡id
     */
     submissionApply = () => {
-        var mainId = this.state.oldid;
-        var selectId = this.state.id;
-
-        api.update(mainId, selectId, function (res) {
-            console.log(res)
-            if (res.code === "0000") {
-                let Decdata = strDec(res.data, key1, "", "");
-                let data = JSON.parse(Decdata);
-            }
-        })
-        let path = {
-            pathname: "/getmoney",
-            query: {
-                bankName: this.state.bankName,
-                cardNumber: this.state.cardNumber,
-                id: this.state.id
-            }
-        };
-        hashHistory.push(path)
+        if (this.state.onSelected == true) {
+            var mainId = this.state.oldid;
+            var selectId = this.state.id;
+            api.update(mainId, selectId, function (res) {
+                console.log(res)
+                if (res.code === "0000") {
+                    let Decdata = strDec(res.data, key1, "", "");
+                    let data = JSON.parse(Decdata);
+                }
+            })
+            let path = {
+                pathname: "/getmoney",
+                query: {
+                    bankName: this.state.bankName,
+                    cardNumber: this.state.cardNumber,
+                    id: this.state.id,
+                    onSelected: true
+                }
+            };
+            hashHistory.push(path)
+        }
+        if (this.state.onSelected == false) {
+            Toast.info("请选择银行卡");
+        }
     }
+    /*判断是否选中银行卡*/
     onSelected(item) {
-        console.log(item)
-        this.setState({
-            value: item
-        });
+        if (item == item) {
+            this.setState({
+                value: item,
+                onSelected: true
+            }, function () {
+                console.log(this.state.value)
+                console.log(this.state.onSelected)
+            });
+            console.log(item)
+        }
+        if (item == '') {
+            this.setState({
+                onSelected: false
+            }, function () {
+            });
+        }
     }
     render() {
         let arr = this.state.basicdata
@@ -417,7 +447,7 @@ class choiceBankcard extends Component {
                     </List>
                 ))}
                 <div className="Submission">
-                    <div type="primary" onClick={this.submissionApply} className="Submissionbtn">提交申请</div>
+                    <div type="primary" onClick={this.submissionApply} className="Submissionbtn">确认</div>
                 </div>
 
             </div>

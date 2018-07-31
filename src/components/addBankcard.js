@@ -612,13 +612,17 @@ class addBankcard extends Component {
                     console.log(data)
                     var path = {
                         pathname: "/choiceBankcard",
+                    
                     };
                     hashHistory.push(path)
                 } else {
                     Toast.info('银行卡绑定失败')
                 }
-                if(res.code==="1022"){
+                if (res.code === "1022") {
                     Toast.info('该卡不能重复绑定')
+                }
+                if (res.code === "9999") {
+                    Toast.info('实名认证不通过')
                 }
             })
         }

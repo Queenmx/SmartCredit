@@ -243,20 +243,45 @@ class getmoney extends Component {
             cash: '',//提现金额
             serviceCharge: '',//提现手续费
             userName: '', //用户名
-            showMask: false
+            showMask: false,
+            localStorageid: null,
+            localStoragebankCardName: '',
+            localStoragecardNumber: '',
         }
     }
     componentDidMount() {
+        // var cardid = localStorage.getItem("cardid")
+        // console.log(localStorageid)
         if (this.props.location.query.id !== undefined) {
             this.setState({
-                showMask: true
+                showMask: true,
+                id: this.props.location.query.id,
+                bankCardName: this.props.location.query.bankName,
+                cardNumber: this.props.location.query.cardNumber,
+
+                localStorageid:localStorage.getItem("cardid"),
+                localStoragebankCardName:localStorage.getItem("cardNumber"),
+                localStoragecardNumber:localStorage.getItem("bankName")
+            },function(){
+              
             })
+            console.log(localStorageid)
+            console.log(localStoragebankCardName)
+            console.log(localStoragecardNumber)
         }
-        this.setState({
-            id: this.props.location.query.id,
-            bankCardName: this.props.location.query.bankName,
-            cardNumber: this.props.location.query.cardNumber,
-        })
+
+        // if (cardid == "" || cardid == null) {
+        //     this.setState({
+        //         showMask: false,
+        //     })
+        // } else {
+        //     this.setState({
+        //         showMask: true,
+        //         localStorageid: id,
+        //         localStoragebankCardName: bankCardName,
+        //         localStoragecardNumber: cardNumber,
+        //     })
+        // }
     }
     //判断提现金额
     putforward = (cash) => {
