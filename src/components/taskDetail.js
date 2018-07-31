@@ -59,9 +59,9 @@ var ListDetail = React.createClass({
                 var time=result.effectiveTime.time-timestamp;
                 var taskNum=result.taskNumber-result.count*1;
                 
-                // var time=10000;
+                // var time=1;
                 // console.log(time);
-                if(result.count=="100"||taskNum<=0){
+                if(taskNum<=0){
                     that.setState({
                         isGet:true
                     })
@@ -72,6 +72,9 @@ var ListDetail = React.createClass({
                     that.getCountDown(time);   
                     if(time<=0){
                         clearInterval(that.timer);
+                        that.setState({
+                            isGet:true
+                        })
                     }                             	                                	
                 }.bind(that),1000);  
                                              
@@ -144,18 +147,23 @@ var ListDetail = React.createClass({
                 phone:this.state.user.phone,
                 taskId:info.id*1
             }
-            console.log(item)
-            api.recieveTask(item,function(res){
-                if(res.code=="0000"){
-                    Toast.info("领取成功",2);
-                    var path = {
-                        pathname: '/taskMy',                
+            console.log(item);
+            if(this.state.isGet){//不能领取了
+                Toast.info("当前任务已领取完毕，请领取其他任务",2);
+            }else{
+                api.recieveTask(item,function(res){
+                    if(res.code=="0000"){
+                        Toast.info("领取成功",2);
+                        var path = {
+                            pathname: '/taskMy',                
+                        }
+                        hashHistory.push(path);
+                    }else{
+                        Toast.info(res.msg,2)
                     }
-                    hashHistory.push(path);
-                }else{
-                    Toast.info(res.msg,2)
-                }
-            })           
+                })
+            }
+                       
         }else{
             var path = {
                 pathname: '/Login',                
@@ -294,7 +302,7 @@ var ListDetail = React.createClass({
                     
                 </div>
                 <div className="footer">
-                    <div className={"applyBtn"+" "+(this.state.isGet?"hide":'')} onClick={this.getTask}>领取任务</div>
+                    <div className={"applyBtn"+" "+(this.state.isGet?"gray":'')} onClick={this.getTask}>领取任务</div>
                 </div>
             </div>
         )

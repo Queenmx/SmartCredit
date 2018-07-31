@@ -874,8 +874,8 @@
           margin-bottom: 0.18rem; }
     .taskDetail .detail li:last-child > p {
       color: #ff0000; }
-.taskDetail .footer .hide {
-  display: none; }
+.taskDetail .footer .gray {
+  background: #666666; }
 
 .myTask .tasklist {
   margin-top: 0.14rem;
