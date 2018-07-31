@@ -86,12 +86,15 @@ class sharemoney extends Component {
         var userName = JSON.parse(localStorage.getItem("user")).userName;
         api.shareDetail(userName, function (res) {
             if (res.code == "0000") {
+                console.log(res)
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
+                console.log(data)
                 var shareArr = [];
                 var ExtractArr = [];
                 that.setState({
                     money: data.money
                 })
+                console.log(that.state)
                 for (var i in data.listShare) {
                     shareArr.push(
                         <ul className="listitem" key={i}>
@@ -277,7 +280,7 @@ class sharemoney extends Component {
                 <Header title="分享赚钱" />
                 <div className="content">
                     <div className="time">
-                        <p>{this.state.money = "null" ? 0 : this.state.money}</p>
+                        <p>{this.state.money == "null" ? 0 : this.state.money}</p>
                         <p>累计收益<span></span>(元)</p>
                     </div>
                     <div className="share">
