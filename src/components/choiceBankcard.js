@@ -312,7 +312,6 @@ class choiceBankcard extends Component {
             mainCard: '',   //1主卡(首选打勾的) 0副卡
             bankName: '',   //银行名称(所属银行)
             basicdata: [],  //获取的所有数据
-            basicdataArr: [], //新数组
             btncount: 0,
             checked: false,
             checkedid: null,
@@ -328,7 +327,6 @@ class choiceBankcard extends Component {
             if (res.code === "0000") {
                 let Decdata = strDec(res.data, key1, "", "");
                 let data = JSON.parse(Decdata);
-                let basicdataArr = [];
                 that.setState({
                     basicdata: data.list,
                     oldid: data.list[0].id,
@@ -400,7 +398,7 @@ class choiceBankcard extends Component {
             <div>
                 <Header title="选择银行卡" />
                 {arr.map(item => (
-                    console.log(item),
+                    // console.log(item),
                     <List className="list" key={item.id} data-id={item.id} id="list"
                         onClick={() => {
                             this.choiceadd(item.id, item.cardNumber, item.mainCard, item.bankName, item)
@@ -409,7 +407,7 @@ class choiceBankcard extends Component {
                         <div className="content">
                             <RadioItem checked={this.state.value === item.id} onChange={() => this.onSelected(item.id)}>
                                 <div className="list">
-                                    <div className="listimg"><img src={require('../img/img/web/icon_14@3x.png')} /></div>
+                                    <div className="listimg"><img src={require('../img/img/web/bankcard.png')} /></div>
                                     <div className="listtext">{item.bankName}</div>
                                 </div>
                                 <div className="displaylastnumber">尾号  ({item.cardNumber.substr(item.cardNumber.length - 4)})</div>

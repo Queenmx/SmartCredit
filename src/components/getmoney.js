@@ -380,7 +380,7 @@ class getmoney extends Component {
                     <WhiteSpace size="sm" />
                     <List className="addBank" id={`${this.state.showMask == true ? 'downloadPop' : 'hiddenPop'}`}>
                         <List.Item extra={this.state.bankCardName} style={{ fontSize: "18px" }}>
-                            <img src={require('../img/img/web/icon_14@3x.png')} />
+                            <img src={require('../img/img/web/bankcard.png')} />
                         </List.Item>
                         <div className="displaylastnumber">尾号 ({this.state.cardNumber ? this.state.cardNumber.substr(this.state.cardNumber.length - 4) : ""})</div>
                     </List>

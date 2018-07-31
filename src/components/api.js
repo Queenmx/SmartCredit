@@ -992,7 +992,6 @@ module.exports.modifyStatus= function (item,cb1, cb2) {
     delete data.id;
 }
 //绑定银行卡
-
 module.exports.addBankcard = function (cardName, idCard, cardNumber, bankName, cardPhone, verifyCode, cb1, cb2) {
     var data = globalData.requestData;
     data.userId = globalData.userId;
@@ -1006,7 +1005,6 @@ module.exports.addBankcard = function (cardName, idCard, cardNumber, bankName, c
     console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/platform/bankCardFeedback`, { params: str }, cb1, cb2);
-    // delete data.userId;
     delete data.cardName;
     delete data.idCard;
     delete data.cardNumber;
