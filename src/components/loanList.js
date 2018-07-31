@@ -59,7 +59,8 @@ var LoanList = React.createClass({
                                 </div>
                                 <div className="high">
                                     <p>
-                                    {num > 9999 ? <span>{num/10000}万</span> : <span>{num}元</span>}    
+                                    {/* {num > 9999 ? <span>{num/10000}万</span> : <span>{num}元</span>}   */}
+                                    <span>{num}</span>万
                                     </p>
                                     <p>最高额度</p>
                                 </div>
@@ -70,7 +71,8 @@ var LoanList = React.createClass({
                                     <p>平均期限</p>
                                 </div>
                                 <div>
-                                    <p>{averNum > 9999 ? <span>{averNum/10000}万</span> : <span>{averNum}元</span>}</p>
+                                    {/* <p>{averNum > 9999 ? <span>{averNum/10000}万</span> : <span>{averNum}元</span>}</p> */}
+                                    <p><span>{averNum}</span>万</p>
                                     <p>平均额度</p>
                                 </div>
                                 <div>
@@ -112,8 +114,8 @@ var LoanList = React.createClass({
                 this.setState({
                     selectData:[
                         { value: 5, label: '全部' },
-                        { value: 6, label: '1000~5000' },
-                        { value: 7, label: '5000~10000' },
+                        { value: 6, label: '1000~5000元' },
+                        { value: 7, label: '5000~10000元' },
                         { value: 8, label: '1万元以上' },
                     ]
                 });
@@ -179,23 +181,19 @@ var LoanList = React.createClass({
             case 3:
                 data.creditReport=3;
                 break;
-            case 4:
-                data.miniScope=1000;
-                data.maxScope=5000;
-                break;
             case 5:
                 data.miniScope=0;
                 break;
             case 6:
-                data.miniScope=1000;
-                data.maxScope=5000;
+                data.miniScope=0.1;
+                data.maxScope=0.5;
                 break;
             case 7:
-                data.miniScope=5000;
-                data.maxScope=10000;
+                data.miniScope=0.5;
+                data.maxScope=1;
                 break;
             case 8:
-                data.miniScope=10000;
+                data.miniScope=1;
                 break;
             // case 9://期限9-14
             //     data.loanTermStart=0;
@@ -266,8 +264,8 @@ var LoanList = React.createClass({
                     this.setState({
                         selectData:[
                             { value: 5, label: '全部' },
-                            { value: 6, label: '1000~5000' },
-                            { value: 7, label: '5000~10000' },
+                            { value: 6, label: '1000~5000元' },
+                            { value: 7, label: '5000~10000元' },
                             { value: 8, label: '1万元以上' },
                         ]
                     });
@@ -342,7 +340,8 @@ var LoanList = React.createClass({
                                 </div>
                                 <div className="high">
                                     <p>
-                                        {num > 9999 ? <span>{num/10000}万</span> : <span>{num}元</span>}                                         
+                                        {/* {num > 9999 ? <span>{num/10000}万</span> : <span>{num}元</span>}    */}
+                                        <span>{num}</span>万                                      
                                     </p>
                                     <p>最高额度</p>
                                 </div>
@@ -353,7 +352,8 @@ var LoanList = React.createClass({
                                     <p>平均期限</p>
                                 </div>
                                 <div>                                
-                                    <p>{averNum > 9999 ? <span>{averNum/10000}万</span> : <span>{averNum}元</span>}</p>
+                                    {/* <p>{averNum > 9999 ? <span>{averNum/10000}万</span> : <span>{averNum}元</span>}</p> */}
+                                    <p><span>{averNum}</span>万</p>
                                     <p>平均额度</p>
                                 </div>
                                 <div>
