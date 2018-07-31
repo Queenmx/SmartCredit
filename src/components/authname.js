@@ -49,7 +49,7 @@ var SetPsd = React.createClass({
                         pathname: '/', 
                     }
                     var user =JSON.parse(localStorage.getItem("user"));
-                    Object.assign(user,{realName:realName,idCard:idCard});
+                    Object.assign(user,{realName:realName,idCard:idCard,idCert:1});
                     localStorage.setItem("user",JSON.stringify(user));
                 }else{
                     Toast.info(res.msg, 2);    
