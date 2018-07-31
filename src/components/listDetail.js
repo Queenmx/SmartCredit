@@ -197,7 +197,8 @@ var ListDetail = React.createClass({
                             </div>
                             <div className="high">
                                 <p>
-                                    <span>{loanDetail.maximumAmount}</span>万    
+                                    {/* {loanDetail.maximumAmount>9999?<span>{loanDetail.maximumAmount/10000}万</span>:<span>{loanDetail.maximumAmount}元</span>} */}
+                                    <span>{loanDetail.maximumAmount}</span>万
                                 </p>
                                 <p>最高额度</p>
                             </div>
@@ -208,7 +209,8 @@ var ListDetail = React.createClass({
                                 <p>平均期限</p>
                             </div>
                             <div>
-                                <p><span>{loanDetail.averageAmount}</span>万</p>
+                                {/* <p> {loanDetail.averageAmount>9999?<span>{loanDetail.averageAmount/10000}万</span>:<span>{loanDetail.averageAmount}元</span>}</p> */}
+                                <p> <span>{loanDetail.averageAmount}</span>万</p>
                                 <p>平均额度</p>
                             </div>
                             <div>

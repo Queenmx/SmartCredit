@@ -560,7 +560,7 @@ class addBankcard extends Component {
                     {
                         isClickable: false,
                         timer: times,
-                        btntext: times + "s",
+                        btntext: times + "秒",
                         discodeBtn: false,
                     }, () => {
                         /**恢复状态**/
@@ -605,17 +605,20 @@ class addBankcard extends Component {
             Toast.info("绑定成功")
             /**接口请求**/
             api.addBankcard(cardName, idCard, cardNumber, bankName, cardPhone, verifyCode, function (res) {
+                console.log(res)
                 if (res.code === "0000") {
                     let Decdata = strDec(res.data, key1, "", "");
                     let data = JSON.parse(Decdata);
                     console.log(data)
-
                     var path = {
                         pathname: "/choiceBankcard",
                     };
                     hashHistory.push(path)
                 } else {
                     Toast.info('银行卡绑定失败')
+                }
+                if(res.code==="1022"){
+                    Toast.info('该卡不能重复绑定')
                 }
             })
         }
