@@ -46,6 +46,8 @@ var LoanList = React.createClass({
                 console.log(data);
                 var arr=[];
                 for(var i in data){
+                    var num=data[i].maximumAmount;
+                    var averNum=data[i].averageAmount
                     arr.push(
                         <ul className="loan-list" onClick={that.goDetail.bind(that,data[i].id)} key={i}>
                             <li>
@@ -57,7 +59,7 @@ var LoanList = React.createClass({
                                 </div>
                                 <div className="high">
                                     <p>
-                                        <span>{data[i].maximumAmount}</span>元    
+                                    {num > 9999 ? <span>{num/10000}万</span> : <span>{num}元</span>}    
                                     </p>
                                     <p>最高额度</p>
                                 </div>
@@ -68,7 +70,7 @@ var LoanList = React.createClass({
                                     <p>平均期限</p>
                                 </div>
                                 <div>
-                                    <p><span>{data[i].averageAmount}</span>元</p>
+                                    <p>{averNum > 9999 ? <span>{averNum/10000}万</span> : <span>{averNum}元</span>}</p>
                                     <p>平均额度</p>
                                 </div>
                                 <div>
@@ -327,6 +329,8 @@ var LoanList = React.createClass({
                 }  
                 var arr=[];
                 for(var i in data){
+                    var num=data[i].maximumAmount;
+                    var averNum=data[i].averageAmount
                     arr.push(
                         <ul className="loan-list" onClick={that.goDetail.bind(that,data[i].id)} key={i}>
                             <li>
@@ -338,7 +342,7 @@ var LoanList = React.createClass({
                                 </div>
                                 <div className="high">
                                     <p>
-                                        <span>{data[i].maximumAmount}</span>元   
+                                        {num > 9999 ? <span>{num/10000}万</span> : <span>{num}元</span>}                                         
                                     </p>
                                     <p>最高额度</p>
                                 </div>
@@ -348,8 +352,8 @@ var LoanList = React.createClass({
                                     <p><span>{data[i].timeLimit}</span>月</p>
                                     <p>平均期限</p>
                                 </div>
-                                <div>
-                                    <p><span>{data[i].averageAmount}</span>元</p>
+                                <div>                                
+                                    <p>{averNum > 9999 ? <span>{averNum/10000}万</span> : <span>{averNum}元</span>}</p>
                                     <p>平均额度</p>
                                 </div>
                                 <div>
