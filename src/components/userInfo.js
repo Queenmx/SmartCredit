@@ -151,6 +151,8 @@ var UserInfo = React.createClass({
     render: function () {
         var that = this;
         var imgPath = globalData.imgPath;
+        // console.log(that.state)
+        var user = JSON.parse(localStorage.getItem("user"))
         return (
             <div className="app_Box userInfo">
                 <Header title="个人信息" />
@@ -159,10 +161,10 @@ var UserInfo = React.createClass({
                     {/* <li>
                         <input id="head" type="file" onChange={that.userHead.bind(this, "#head", "#headImg")} accept="image/*" />
                         <img id="headImg" src={imgPath + that.state.headPic} onError={that.logoError} /><div className="infoRight"><img src="src/img/icon/right.png" /></div></li> */}
-                    <li><span>手机号</span><div className="infoRight"><b>{`${that.state.phone}`.replace(/^(\d{3})\d{4}(\d+)/, "$1****$2")}</b></div></li>
+                    <li><span>手机号</span><div className="infoRight"><b>{`${user.phone}`.replace(/^(\d{3})\d{4}(\d+)/, "$1****$2")}</b></div></li>
                     {/* <li onClick={that.rePsd}><span>修改密码</span><div className="infoRight"><img src="src/img/icon/right.png" /></div></li> */}
-                    <li onClick={that.realName}><span>真实姓名</span><div className="infoRight"><b>{that.state.realName}</b></div></li>
-                    <li onClick={that.idNumber}><span>身份证号码</span><div className="infoRight"><b>{that.state.idCert =1? "已验证" : "待审核"}</b></div></li>
+                    <li onClick={that.realName}><span>真实姓名</span><div className="infoRight"><b>{user.realName}</b></div></li>
+                    <li onClick={that.idNumber}><span>身份证号码</span><div className="infoRight"><b>{user.idCert =1? "已验证" : "待审核"}</b></div></li>
                     {/*<li className="userInfoLi"><span>关于我们</span><div className="infoRight"><img src="src/img/icon/right.png"/></div></li>*/}
                 </ul>
 

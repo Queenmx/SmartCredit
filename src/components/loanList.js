@@ -114,8 +114,8 @@ var LoanList = React.createClass({
                 this.setState({
                     selectData:[
                         { value: 5, label: '全部' },
-                        { value: 6, label: '1000~5000元' },
-                        { value: 7, label: '5000~10000元' },
+                        { value: 6, label: '0.1~0.5万' },
+                        { value: 7, label: '0.5~1万' },
                         { value: 8, label: '1万元以上' },
                     ]
                 });
@@ -190,10 +190,10 @@ var LoanList = React.createClass({
                 break;
             case 7:
                 data.miniScope=0.5;
-                data.maxScope=1;
+                data.maxScope=1.0;
                 break;
             case 8:
-                data.miniScope=1;
+                data.miniScope=1.0;
                 break;
             // case 9://期限9-14
             //     data.loanTermStart=0;
@@ -264,8 +264,8 @@ var LoanList = React.createClass({
                     this.setState({
                         selectData:[
                             { value: 5, label: '全部' },
-                            { value: 6, label: '1000~5000元' },
-                            { value: 7, label: '5000~10000元' },
+                            { value: 6, label: '0.1~0.5万' },
+                            { value: 7, label: '0.5~1万' },
                             { value: 8, label: '1万元以上' },
                         ]
                     });
@@ -418,112 +418,7 @@ var LoanList = React.createClass({
                 </div>
                  {/* <Loading flag={that.state.flag} /> */}
                  <div className="content">   
-                    {this.state.productList}                 
-                    {/* <ul className="loan-list" onClick={this.goDetail}>
-                        <li>
-                            <img src="src/img/icon/product1.png" />
-                            <div className="loanTitle">
-                                <p>产品名称</p>
-                                <p>适用人群：上班族，企业主</p>
-                                <p>申请人数：2356人</p>
-                            </div>
-                            <div className="high">
-                                <p>
-                                    <span>5</span>万    
-                                </p>
-                                <p>最高额度</p>
-                            </div>
-                        </li>   
-                        <li className="numdetail">
-                            <div>
-                                <p><span>18</span>月</p>
-                                <p>平均期限</p>
-                            </div>
-                            <div>
-                                <p><span>18</span>万</p>
-                                <p>平均期限</p>
-                            </div>
-                            <div>
-                                <p><span>18</span>天</p>
-                                <p>平均期限</p>
-                            </div>
-                            <div>
-                                <p><span>18</span>%</p>
-                                <p>年利率</p>
-                            </div>
-                              
-                        </li> 
-                    </ul> 
-                    <ul className="loan-list">
-                        <li>
-                            <img src="src/img/icon/product1.png" />
-                            <div className="loanTitle">
-                                <p>产品名称</p>
-                                <p>适用人群：上班族，企业主</p>
-                                <p>申请人数：2356人</p>
-                            </div>
-                            <div className="high">
-                                <p>
-                                    <span>5</span>万    
-                                </p>
-                                <p>最高额度</p>
-                            </div>
-                        </li>   
-                        <li className="numdetail">
-                            <div>
-                                <p><span>18</span>月</p>
-                                <p>平均期限</p>
-                            </div>
-                            <div>
-                                <p><span>18</span>万</p>
-                                <p>平均期限</p>
-                            </div>
-                            <div>
-                                <p><span>18</span>天</p>
-                                <p>平均期限</p>
-                            </div>
-                            <div>
-                                <p><span>18</span>%</p>
-                                <p>年利率</p>
-                            </div>
-                              
-                        </li> 
-                    </ul>
-                    <ul className="loan-list">
-                        <li>
-                            <img src="src/img/icon/product1.png" />
-                            <div className="loanTitle">
-                                <p>产品名称</p>
-                                <p>适用人群：上班族，企业主</p>
-                                <p>申请人数：2356人</p>
-                            </div>
-                            <div className="high">
-                                <p>
-                                    <span>5</span>万    
-                                </p>
-                                <p>最高额度</p>
-                            </div>
-                        </li>   
-                        <li className="numdetail">
-                            <div>
-                                <p><span>18</span>月</p>
-                                <p>平均期限</p>
-                            </div>
-                            <div>
-                                <p><span>18</span>万</p>
-                                <p>平均期限</p>
-                            </div>
-                            <div>
-                                <p><span>18</span>天</p>
-                                <p>平均期限</p>
-                            </div>
-                            <div>
-                                <p><span>18</span>%</p>
-                                <p>年利率</p>
-                            </div>
-                              
-                        </li> 
-                    </ul>  */}
+                    {this.state.productList}   
                     {show ? menuEl : null}
                     {show ? <div className="menu-mask" onClick={this.onMaskClick} /> : null} 
                  </div>

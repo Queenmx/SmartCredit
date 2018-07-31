@@ -21,7 +21,7 @@ var Home = React.createClass({
             pageSize: 10,
             list: [],
             banner: [{"imgUrl":"uploadImg/3.jpg"},{"imgUrl":"uploadImg/timg.jpg"}],
-            // imgHeight: 447,
+            imgHeight: 447,
             autoplay:false,
             newsList:[
                 {newsId:"1531485834",title:"66666"} ,

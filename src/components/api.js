@@ -108,8 +108,8 @@ module.exports.verifyCode = function (phone, type, cb1, cb2) {
 
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    console.log(data)
-    //console.log(param);
+    // console.log(data)
+    // console.log(param);
     http(`${globalData.path}/zndai/user/verifyCode`, { params: str }, cb1, cb2);
     delete data.phone;
     delete data.type;

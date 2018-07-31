@@ -421,6 +421,11 @@
                 }
             }
             .my-list{
+                position: fixed;
+                width: 100%;
+                height: 2rem;
+                z-index: 2;
+                top:1.7rem;
                 .selecticon{
                     @include icon(0.32rem,0.24rem);
                     float: right;
@@ -430,12 +435,14 @@
                 .am-list-item .am-list-line .am-list-content{
                     font-size: 0.28rem;
                 }
-                .am-list-body{z-index:2;top:0;position: absolute;width: 100%;}
+                .am-list-body{
+                    z-index:2;top:0;position: absolute;width: 100%;
+                }
             }
             .menu-mask {
                 content: ' ';
                 position: fixed;
-                top:2.2rem;
+                top:1.7rem;
                 width: 100%;
                 height: 100%;
                 background-color: #000;
@@ -851,7 +858,7 @@
         }
     }    
     .footer{
-        .hide{display:none;}
+        .gray{background: #666666;}
     }
 }
 #app .header{
@@ -940,7 +947,7 @@
     .upphone{
         position: absolute;
         top: 30%;
-        left: 24%;
+        left: 20%;
         z-index: 2;
         background: #fff;
         padding:0.3rem 0.38rem;
