@@ -227,7 +227,7 @@ var Home = React.createClass({
                             <li key={i} data-id={Decdata[i].id} onClick = {that.toListDetail}>
                             <img src={imgPath + Decdata[i].logo} />
                             <div className="loanTitle">
-                                <p>{Decdata[i].categoryName}</p>
+                                <p>{Decdata[i].name}</p>
                                 <p>适用人群：{Decdata[i].intendedFor}</p>
                             </div>
                             <div className="high">
