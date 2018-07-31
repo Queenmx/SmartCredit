@@ -412,7 +412,7 @@ var LoanList = React.createClass({
                             {accordion}
                         </div>
                 </div>
-                 <Loading flag={that.state.flag} />
+                 {/* <Loading flag={that.state.flag} /> */}
                  <div className="content">   
                     {this.state.productList}                 
                     {/* <ul className="loan-list" onClick={this.goDetail}>

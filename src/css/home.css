@@ -561,7 +561,6 @@
   width: 7.5rem;
   padding: 0.48rem 0;
   background: #FFFFFF;
-  position: fixed;
   z-index: 5; }
   .task .loankind .loankindTab {
     margin: auto;
@@ -709,7 +708,7 @@
       margin-right: 0.3rem;
       margin-left: 0.35rem; }
 .task .tasklist {
-  margin-top: 0.5rem;
+  margin-top: 0.12rem;
   padding: 0 0.28rem; }
   .task .tasklist li {
     display: -webkit-box;
@@ -872,17 +871,6 @@
 .taskDetail .footer .hide {
   display: none; }
 
-#app .header {
-  position: static;
-  background: -webkit-linear-gradient(left, #5197fb, #3a80f2, #1e63e8);
-  /* Safari 5.1 - 6.0 */
-  background: -o-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
-  /* Opera 11.1 - 12.0 */
-  background: -moz-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
-  /* Firefox 3.6 - 15 */
-  background: linear-gradient(to right, #5197fb, #3a80f2, #1e63e8);
-  /* 标准的语法 */ }
-
 .myTask .tasklist {
   margin-top: 0.14rem;
   padding: 0 0.28rem; }
@@ -1036,14 +1024,7 @@
 .mywallet .time {
   padding-top: 0.98rem;
   padding-bottom: 0.75rem;
-  background: -webkit-linear-gradient(left, #5197fb, #3a80f2, #1e63e8);
-  /* Safari 5.1 - 6.0 */
-  background: -o-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
-  /* Opera 11.1 - 12.0 */
-  background: -moz-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
-  /* Firefox 3.6 - 15 */
-  background: linear-gradient(to right, #5197fb, #3a80f2, #1e63e8);
-  /* 标准的语法 */
+  background: #508aff;
   color: #fff;
   text-align: center;
   font-size: 0.24rem; }

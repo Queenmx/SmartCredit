@@ -66,16 +66,16 @@ class sharemoney extends Component {
             ],
             modal1: false,
             modal2: false,
-            loading : false
+            loading: false
             //-mob-share-weixin  -mob-share-qq -mob-share-qzone -mob-share-weibo
         }
         this.lock = false;
     }
     componentWillMount() {
         this.lock = true;
-        var user=JSON.parse(localStorage.getItem("user"));
+        var user = JSON.parse(localStorage.getItem("user"));
         this.setState({
-            user:user
+            user: user
         })
     }
     componentDidMount() {
@@ -129,7 +129,7 @@ class sharemoney extends Component {
         // });
         this.start();
     }
-    nativeInteractive(fn, obj){
+    nativeInteractive(fn, obj) {
         // console.log(123);
         var self = this;
         self.setupWebViewJavascriptBridge(function (bridge) {
@@ -151,19 +151,19 @@ class sharemoney extends Component {
         }
     }
     start() {
-        var phone=this.state.user.phone;
-        var data={
-            type:"4",
-            url:"http://h5.xinyzx.com:82/SmartCreditShare/index.html#/?share="+phone,
-            title:"万融汇邀您注册",
-            pic:"http://xrjf.oss-cn-shanghai.aliyuncs.com/uploadImg/2.jpg",
-            message:"啦啦啦啦啦啦啦"
+        var phone = this.state.user.phone;
+        var data = {
+            type: "4",
+            url: "http://h5.xinyzx.com:82/SmartCreditShare/index.html#/?share=" + phone,
+            title: "万融汇邀请注册",
+            pic: "http://h5.xinyzx.com:82/SmartCredit/src/img/logo.png",
+            message: "有钱一起赚"
         };
         // console.log(phone)
         var native = function (data) {
             // console.log(111)
         }
-        return this.nativeInteractive(native,data);//登录设置
+        return this.nativeInteractive(native, data);//登录设置
     }
     setupWebViewJavascriptBridge(callback) {
         // console.log("3333");
@@ -195,7 +195,7 @@ class sharemoney extends Component {
         switch (item.text) {
             case '微信':
                 console.log('微信朋友');
-                var weixin = mobShare( 'weixin' );
+                var weixin = mobShare('weixin');
                 weixin.send();
                 break;
             // case '微信朋友圈':
@@ -208,12 +208,12 @@ class sharemoney extends Component {
                 break;
             case 'QQ空间':
                 console.log('QQ空间');
-                var qzone = mobShare( 'qzone' );
+                var qzone = mobShare('qzone');
                 qzone.send();
                 break;
             case '新浪微博':
-                console.log('微博');                
-                var weibo = mobShare( 'weibo' );
+                console.log('微博');
+                var weibo = mobShare('weibo');
                 weibo.send();
                 break;
             // case '二维码':
@@ -281,8 +281,7 @@ class sharemoney extends Component {
                         <p>累计收益<span></span>(元)</p>
                     </div>
                     <div className="share">
-                        <Button type="primary" inline style={{ marginRight: '4px' }} className="sharebtn" onClick={this.showModal('modal2')}> 分享好友 一起赚钱</Button>
-
+                        <Button type="primary" className="sharebtn" onClick={this.showModal('modal2')}> 分享好友 一起赚钱</Button>
                         <Modal
                             popup
                             visible={this.state.modal2}

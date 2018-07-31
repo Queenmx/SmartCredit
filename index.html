@@ -7,6 +7,8 @@
     <meta name="screen-orientation" content="portrait">
     <meta name="x5-orientation" content="portrait">
     <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="blank" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#508aff" />
     <title>万融汇</title>
 
     <body>
@@ -20,16 +22,19 @@
 
         <script src="src/libs/fastclick.js"></script>
         <script>
-            (function () {
-                var u = navigator.userAgent;
-                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-                var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-                if (isiOS) {
-                    $(".header").css({ "height": "1.1rem", "line-height": "1.1rem" });
+            // (function () {
+            //     var u = navigator.userAgent;
+            //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+            //     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            //     if (isiOS) {
+            //         $(".header").css({ "height": "1.1rem", "line-height": "1.1rem" });
 
-                }
+            //     }
 
-            })()
+            // })()
+            // window.addEventListener('resize', function(){
+                // console.log(window.innerHeight)
+            // })
             if ('addEventListener' in document) {
                 document.addEventListener('DOMContentLoaded', function () {
                     FastClick.attach(document.body);

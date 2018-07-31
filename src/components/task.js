@@ -256,7 +256,7 @@ var Loan = React.createClass({
                             <p data-activeLoanId="1" className={activeLoanId == "1" ? "activeLoan" : ""} onClick={that.loankindHandle}>理财任务</p>
                         </div>
                     </div>
-                    <div className="empty"></div>
+                    {/* <div className="empty"></div> */}
                     {/* <div style={{ "display": activeLoanId == "0" ? "none" : "block" }}>
                         <ul className="homeTab" >
                             {that.state.tagArr}

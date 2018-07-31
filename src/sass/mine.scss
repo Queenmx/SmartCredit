@@ -13,10 +13,11 @@
 .mine{
     background: $grey;   
    .userHeader{
-        background: -webkit-linear-gradient(left, #559afd ,#3f84f4, #2d72ee); /* Safari 5.1 - 6.0 */
-        background: -o-linear-gradient(right, #559afd ,#3f84f4, #2d72ee); /* Opera 11.1 - 12.0 */
-        background: -moz-linear-gradient(right, #559afd ,#3f84f4, #2d72ee); /* Firefox 3.6 - 15 */
-        background: linear-gradient(to right, #559afd ,#3f84f4, #2d72ee); /* 标准的语法 */
+        // background: -webkit-linear-gradient(left, #559afd ,#3f84f4, #2d72ee); /* Safari 5.1 - 6.0 */
+        // background: -o-linear-gradient(right, #559afd ,#3f84f4, #2d72ee); /* Opera 11.1 - 12.0 */
+        // background: -moz-linear-gradient(right, #559afd ,#3f84f4, #2d72ee); /* Firefox 3.6 - 15 */
+        // background: linear-gradient(to right, #559afd ,#3f84f4, #2d72ee); /* 标准的语法 */
+        background:#508aff;
         overflow: hidden;
         padding-bottom: 0.24rem;
        &>p{

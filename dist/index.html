@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><link href="assets/css/main.fe5f5a40323e4e73cd7cf3e14fc03e3e.css" rel="stylesheet"></head>
+<html><head><link href="assets/css/main.163e1918dc582b8c3c768876949b1f31.css" rel="stylesheet"></head>
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,8 @@
     <meta name="screen-orientation" content="portrait">
     <meta name="x5-orientation" content="portrait">
     <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="blank" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#508aff" />
     <title>万融汇</title>
 
     <body>
@@ -20,16 +22,19 @@
 
         <script src="src/libs/fastclick.js"></script>
         <script>
-            (function () {
-                var u = navigator.userAgent;
-                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-                var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-                if (isiOS) {
-                    $(".header").css({ "height": "1.1rem", "line-height": "1.1rem" });
+            // (function () {
+            //     var u = navigator.userAgent;
+            //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+            //     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            //     if (isiOS) {
+            //         $(".header").css({ "height": "1.1rem", "line-height": "1.1rem" });
 
-                }
+            //     }
 
-            })()
+            // })()
+            // window.addEventListener('resize', function(){
+                // console.log(window.innerHeight)
+            // })
             if ('addEventListener' in document) {
                 document.addEventListener('DOMContentLoaded', function () {
                     FastClick.attach(document.body);
@@ -90,4 +95,4 @@
         </script> -->
 
 
-</html><script type="text/javascript" src="assets/js/manifest.59af6766cd6acea6e9b9.js"></script><script type="text/javascript" src="assets/js/vendor.64dbca9727380d2c8f80.js"></script><script type="text/javascript" src="assets/js/main.ff877005e145cbe63370.js"></script>
+</html><script type="text/javascript" src="assets/js/manifest.59af6766cd6acea6e9b9.js"></script><script type="text/javascript" src="assets/js/vendor.64dbca9727380d2c8f80.js"></script><script type="text/javascript" src="assets/js/main.c52bbd06a8b64e2696b7.js"></script>
