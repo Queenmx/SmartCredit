@@ -961,12 +961,13 @@
     .upphone{
         position: absolute;
         top: 30%;
-        left: 22%;
+        left: 20%;
         z-index: 2;
         background: #fff;
         padding:0.3rem 0.38rem;
         text-align: center;
         font-size: 0.28rem;
+        width: 4.8rem;;
         input{
             border:0.01rem solid #999999;
             padding: 0.12rem 0 0.12rem 0.2rem; 
