@@ -12,10 +12,10 @@ const platform = request.QueryString("platform");
 const deviceno = request.QueryString("deviceno");
 
 const user = localStorage.getItem("user");
-const p=JSON.parse(localStorage.getItem("platform"));
+// const p=JSON.parse(localStorage.getItem("platform"));
 
-console.log(p.platform);
-Toast.info("aa和"+p.platform+p.deviceno,2);
+// console.log(p.platform);
+Toast.info("aa和"+platform+deviceno,2);
 if (user&&user!="null") {
     var userObj = JSON.parse(user);
     var userId = userObj.userId;
@@ -57,8 +57,8 @@ const globalData = {
     //userId: this.userObj.userId || "",
     userId: userId || "",
     requestData: {
-        "platform": p.platform,
-        "deviceno": p.deviceno,
+        "platform": platform,
+        "deviceno": deviceno,
         "appFlag": "C",
         "token": token
     }

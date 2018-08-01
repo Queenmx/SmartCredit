@@ -44,7 +44,7 @@ var Home = React.createClass({
         var key1 = globalData.key;
         var platform=this.getUrlParms("platform");
         var deviceno=this.getUrlParms("deviceno");
-        localStorage.setItem("platform",JSON.stringify({"platform":222,"deviceno":deviceno}));
+        localStorage.setItem("platform",JSON.stringify({"platform":platform,"deviceno":deviceno}));
 
         var user = localStorage.getItem("user");
         var that=this;
