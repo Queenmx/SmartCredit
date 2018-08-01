@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .ellipsis {
   overflow: hidden;
   white-space: nowrap;
@@ -779,14 +778,7 @@
 .taskDetail .time {
   padding-top: 0.6rem;
   padding-bottom: 0.1rem;
-  background: -webkit-linear-gradient(left, #5197fb, #3a80f2, #1e63e8);
-  /* Safari 5.1 - 6.0 */
-  background: -o-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
-  /* Opera 11.1 - 12.0 */
-  background: -moz-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
-  /* Firefox 3.6 - 15 */
-  background: linear-gradient(to right, #5197fb, #3a80f2, #1e63e8);
-  /* 标准的语法 */
+  background: #508aff;
   color: #fff;
   text-align: center;
   font-size: 0.24rem; }
@@ -805,14 +797,7 @@
         font-size: 0.38rem; }
 .taskDetail .stime {
   padding-bottom: 0.42rem;
-  background: -webkit-linear-gradient(left, #5197fb, #3a80f2, #1e63e8);
-  /* Safari 5.1 - 6.0 */
-  background: -o-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
-  /* Opera 11.1 - 12.0 */
-  background: -moz-linear-gradient(right, #5197fb, #3a80f2, #1e63e8);
-  /* Firefox 3.6 - 15 */
-  background: linear-gradient(to right, #5197fb, #3a80f2, #1e63e8);
-  /* 标准的语法 */
+  background: #508aff;
   color: #fff;
   text-align: center;
   font-size: 0.24rem; }
@@ -838,6 +823,14 @@
       background: #ecf2ff;
       padding-left: 0.24rem;
       border-radius: 0.1rem; }
+      .taskDetail .detail li .info > p {
+        word-wrap: break-word; }
+      .taskDetail .detail li .info > .jiang {
+        overflow: hidden; }
+        .taskDetail .detail li .info > .jiang > span {
+          float: left; }
+        .taskDetail .detail li .info > .jiang > span:last-child {
+          width: 5.2rem; }
     .taskDetail .detail li:first-child .info {
       text-align: center;
       padding: 0.22rem 0; }
@@ -857,7 +850,7 @@
     .taskDetail .detail li:nth-child(2) > p span, .taskDetail .detail li:nth-child(4) > p span {
       background: #ffb216; }
     .taskDetail .detail li:nth-child(2) > div, .taskDetail .detail li:nth-child(4) > div {
-      height: 0.78rem;
+      min-height: 0.78rem;
       line-height: 0.78rem; }
     .taskDetail .detail li:nth-child(3) > p span {
       background: #3e83f4; }
@@ -869,7 +862,8 @@
       .taskDetail .detail li:nth-child(3) > .info > .step span {
         float: left; }
       .taskDetail .detail li:nth-child(3) > .info > .step dl {
-        float: left; }
+        float: left;
+        width: 5.2rem; }
         .taskDetail .detail li:nth-child(3) > .info > .step dl dd {
           margin-bottom: 0.18rem; }
     .taskDetail .detail li:last-child > p {
@@ -956,7 +950,8 @@
   background: #fff;
   padding: 0.3rem 0.38rem;
   text-align: center;
-  font-size: 0.28rem; }
+  font-size: 0.28rem;
+  width: 4.8rem; }
   .myTask .upphone input {
     border: 0.01rem solid #999999;
     padding: 0.12rem 0 0.12rem 0.2rem; }

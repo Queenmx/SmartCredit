@@ -96,7 +96,13 @@ var ListDetail = React.createClass({
                             <li>
                                 <p><span></span><i>任务详情</i><span></span></p>
                                 <div className="info">
-                                    <p>奖励要求：{result.taskDetails}</p>
+                                    <p className="jiang">
+                                        <span>奖励要求：</span>
+                                        <span>       
+                                            {result.taskDetails}      
+                                        </span>
+                                    
+                                    </p>
                                     
                                 </div>                            
                             </li>

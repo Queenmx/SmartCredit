@@ -1,24 +1,21 @@
-const request = {
-    QueryString: function (val) {
+import { Toast } from 'antd-mobile';
+
+const request = {    
+    QueryString: function (val) {       
         var uri = window.location.search;
         var re = new RegExp("" + val + "=([^&?]*)", "ig");
         return ((uri.match(re)) ? (uri.match(re)[0].substr(val.length + 1)) : null);
-    }
+    }    
+
 }
 const platform = request.QueryString("platform");
 const deviceno = request.QueryString("deviceno");
-//const toast = new Toast();
-// var platform="PC";
-// var u = navigator.userAgent;
-// var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-// var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
-// if(isiOS){ 
-//     platform="iOS"
-// }else{
-//     platform="Android";
-// }
+
 const user = localStorage.getItem("user");
-// console.log(user);
+// const p=JSON.parse(localStorage.getItem("platform"));
+
+// console.log(p.platform);
+Toast.info("aa和"+platform+deviceno,2);
 if (user&&user!="null") {
     var userObj = JSON.parse(user);
     var userId = userObj.userId;
@@ -61,8 +58,8 @@ const globalData = {
     //userId: this.userObj.userId || "",
     userId: userId || "",
     requestData: {
-        "platform": platform || "",
-        "deviceno": deviceno || "",
+        "platform": platform,
+        "deviceno": deviceno,
         "appFlag": "C",
         "token": token
     }

@@ -77,11 +77,11 @@ var SetPsd = React.createClass({
                 <div className="setPsdCon">
                     <div className="inputPsd">
                         <label htmlFor="realName">真实姓名</label>
-                        <input id="realName" type="text" name="realName" value={that.state.realName} placeholder="请输入真是姓名" onChange={that.vauleChange} />
+                        <input id="realName" type="text" name="realName" value={that.state.realName} placeholder="请输入真实姓名" onChange={that.vauleChange} />
                     </div>
                     <div className="inputPsd">
                         <label htmlFor="idCard">身份证号</label>
-                        <input id="idCard" type="text" name="idCard" value={that.state.idCard} placeholder="请输入真是身份证号" onChange={that.vauleChange} />
+                        <input id="idCard" type="text" name="idCard" value={that.state.idCard} placeholder="请输入真实身份证号" onChange={that.vauleChange} />
                     </div>
                     {/* <div className="inputPsd">
                         <label htmlFor="surePsd">赠送保险</label>

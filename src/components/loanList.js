@@ -67,7 +67,7 @@ var LoanList = React.createClass({
                             </li>   
                             <li className="numdetail">
                                 <div>
-                                    <p><span>{data[i].timeLimit}</span>月</p>
+                                    <p><span>{data[i].timeLimit}</span>{data[i].timeLimitUnit}</p>
                                     <p>平均期限</p>
                                 </div>
                                 <div>
@@ -348,7 +348,7 @@ var LoanList = React.createClass({
                             </li>   
                             <li className="numdetail">
                                 <div>
-                                    <p><span>{data[i].timeLimit}</span>月</p>
+                                    <p><span>{data[i].timeLimit}</span>{data[i].timeLimitUnit}</p>
                                     <p>平均期限</p>
                                 </div>
                                 <div>                                

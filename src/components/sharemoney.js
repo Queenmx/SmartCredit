@@ -162,7 +162,7 @@ class sharemoney extends Component {
             pic: "http://h5.xinyzx.com:82/SmartCredit/src/img/logo.png",
             message: "有钱一起赚"
         };
-        // console.log(phone)
+        console.log(data)
         var native = function (data) {
             // console.log(111)
         }
@@ -280,7 +280,7 @@ class sharemoney extends Component {
                 <Header title="分享赚钱" />
                 <div className="content">
                     <div className="time">
-                        <p>{this.state.money == "null" ? 0 : this.state.money}</p>
+                        <p>{this.state.money == null ? 0 : this.state.money}</p>
                         <p>累计收益<span></span>(元)</p>
                     </div>
                     <div className="share">
