@@ -1,15 +1,21 @@
-const request = {
-    QueryString: function (val) {
+import { Toast } from 'antd-mobile';
+
+const request = {    
+    QueryString: function (val) {       
         var uri = window.location.search;
         var re = new RegExp("" + val + "=([^&?]*)", "ig");
         return ((uri.match(re)) ? (uri.match(re)[0].substr(val.length + 1)) : null);
-    }
+    }    
+
 }
 const platform = request.QueryString("platform");
 const deviceno = request.QueryString("deviceno");
 
 const user = localStorage.getItem("user");
-// console.log(user);
+const p=JSON.parse(localStorage.getItem("platform"));
+
+console.log(p.platform);
+Toast.info("aa和"+p.platform+p.deviceno,2);
 if (user&&user!="null") {
     var userObj = JSON.parse(user);
     var userId = userObj.userId;
@@ -51,8 +57,8 @@ const globalData = {
     //userId: this.userObj.userId || "",
     userId: userId || "",
     requestData: {
-        "platform": platform,
-        "deviceno": deviceno,
+        "platform": p.platform,
+        "deviceno": p.deviceno,
         "appFlag": "C",
         "token": token
     }

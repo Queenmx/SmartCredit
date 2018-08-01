@@ -41,9 +41,7 @@ var ForgotPsd = React.createClass({
             return unescape(r[2]);
         }else{
             return null;
-        }
-        
-        
+        }       
     },
     componentWillReceiveProps(nextProps){
         if(nextProps.location.query.state=="rgs"){
