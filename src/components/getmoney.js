@@ -259,15 +259,15 @@ class getmoney extends Component {
                 bankCardName: this.props.location.query.bankName,
                 cardNumber: this.props.location.query.cardNumber,
 
-                localStorageid:localStorage.getItem("cardid"),
-                localStoragebankCardName:localStorage.getItem("cardNumber"),
-                localStoragecardNumber:localStorage.getItem("bankName")
-            },function(){
-              
+                // localStorageid:localStorage.getItem("cardid"),
+                // localStoragebankCardName:localStorage.getItem("cardNumber"),
+                // localStoragecardNumber:localStorage.getItem("bankName")
+            }, function () {
+
             })
-            console.log(localStorageid)
-            console.log(localStoragebankCardName)
-            console.log(localStoragecardNumber)
+            // console.log(localStorageid)
+            // console.log(localStoragebankCardName)
+            // console.log(localStoragecardNumber)
         }
 
         // if (cardid == "" || cardid == null) {
@@ -381,6 +381,12 @@ class getmoney extends Component {
         }
 
     }
+    returnlist() {
+        let path = {
+            pathname: "/choiceBankcard",
+        };
+        hashHistory.push(path)
+    }
     render() {
         var that = this;
         var blance = localStorage.getItem("blance")
@@ -408,6 +414,9 @@ class getmoney extends Component {
                             <img src={require('../img/img/web/bankcard.png')} />
                         </List.Item>
                         <div className="displaylastnumber">尾号 ({this.state.cardNumber ? this.state.cardNumber.substr(this.state.cardNumber.length - 4) : ""})</div>
+                        <div className="arrowimg" onClick={this.returnlist}>
+                            <img src={require('../img/img/web/arrow.png')} />
+                        </div>
                     </List>
                     <WhiteSpace size="sm" />
                     <List >

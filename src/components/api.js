@@ -1068,6 +1068,24 @@ module.exports.replacecard = function (bankCardName, cardNumber, cash, serviceCh
     delete data.serviceCharge;
     delete data.userName;
 }
+//第三方验证
+module.exports.partyverification = function (bankCard, idCard, name,phone, cb1, cb2) {
+    var data = globalData.requestData;
+    data.userId = globalData.userId;
+    data.bankCard = bankCard;
+    data.idCard = idCard;
+    data.name = name;
+    data.phone = phone;
+    var param = JSON.stringify(data);
+    console.log(param)
+    var str = strEnc(param, key1);
+    http(`${globalData.pathone}/zndai/identityCard/identity`, { params: str }, cb1, cb2);
+    delete data.userId;
+    delete data.bankCard;
+    delete data.idCard;
+    delete data.name;
+    delete data.phone;
+}
 //消息推送
 module.exports.whetherMsgPush= function (item,cb1, cb2) {
     var data = globalData.requestData;

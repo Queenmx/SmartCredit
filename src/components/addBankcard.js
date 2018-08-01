@@ -592,6 +592,11 @@ class addBankcard extends Component {
         var bankName = this.state.banknamevalue;
         var cardPhone = this.state.phonevalue;
         var verifyCode = this.state.codevalue
+
+        var bankCard = this.state.cardnumbervalue;
+        var idCard = this.state.identityvalue;
+        var name = this.state.namevalue;
+        var phone = this.state.phonevalue;
         console.log(cardName)
         console.log(idCard)
         console.log(cardNumber)
@@ -602,29 +607,41 @@ class addBankcard extends Component {
         if (this.state.btncount !== 1 && this.state.cardnumbercount !== 1 && this.state.banknamecount !== 1 && this.state.phonecount !== 1 && this.state.identitycount !== 1 && this.state.codecount !== 1) {
             Toast.info('请输入完整的信息')
         } else {
-            Toast.info("绑定成功")
-            /**接口请求**/
-            api.addBankcard(cardName, idCard, cardNumber, bankName, cardPhone, verifyCode, function (res) {
+            api.partyverification(bankCard, idCard, name, phone, function (res) {
+                console.log(phone)
                 console.log(res)
                 if (res.code === "0000") {
                     let Decdata = strDec(res.data, key1, "", "");
                     let data = JSON.parse(Decdata);
-                    console.log(data)
-                    var path = {
-                        pathname: "/choiceBankcard",
-                    
-                    };
-                    hashHistory.push(path)
-                } else {
-                    Toast.info('银行卡绑定失败')
-                }
-                if (res.code === "1022") {
-                    Toast.info('该卡不能重复绑定')
-                }
-                if (res.code === "9999") {
-                    Toast.info('实名认证不通过')
+                    console.log(data.data.matchResult);
+                    if (data.data.matchResult == "MATCH") {
+                        api.addBankcard(cardName, idCard, cardNumber, bankName, cardPhone, verifyCode, function (res) {
+                            console.log(res)
+                            if (res.code === "0000") {
+                                Toast.info("绑定成功")
+                                let Decdata = strDec(res.data, key1, "", "");
+                                let data = JSON.parse(Decdata);
+                                console.log(data)
+                                var path = {
+                                    pathname: "/choiceBankcard",
+
+                                };
+                                hashHistory.push(path)
+                            }
+                            if (res.code === "1022") {
+                                Toast.info('该卡不能重复绑定')
+                            }
+                        })
+                    }
+                    if (data.data.matchResult == "MISMATCH") {
+                        Toast.info('信息验证失败 请核对')
+                    }
                 }
             })
+
+
+            /**接口请求**/
+
         }
     }
     render() {
