@@ -810,7 +810,7 @@
             }
             .info{
                 background: #ecf2ff;
-                padding-left: 0.24rem;
+                padding:0.24rem 0 0.24rem 0.24rem;
                 border-radius: 0.1rem;
                 &>p{
                     word-wrap:break-word;
@@ -843,7 +843,7 @@
                     }
                     
                 }
-                &>div{min-height: 0.78rem;line-height: 0.78rem;}
+                // &>div{min-height: 0.78rem;line-height: 0.78rem;}
             }
             &:nth-child(3){
                 &>p{
@@ -852,6 +852,7 @@
                     }
                 }
                 &>.info{
+                    
                     &>p{
                         height: 0.78rem;line-height: 0.78rem;
                     }

@@ -28,6 +28,7 @@ var SetPsd = React.createClass({
     },
     componentWillMount(){
         // console.log(this.props.location.state.fromWhy)
+      
     },
     eyesHandle: function () {
         var type = $("#psd")[0].type;
@@ -104,7 +105,7 @@ var SetPsd = React.createClass({
                 sharePhone=sp;
             }
             that.setState({ isLoading: true })
-            //console.log(that.props.location.state);
+            Toast.info(platform+deviceno,2);
             if (fromWhy == "register") {//调注册接口
                 api.register(phoneNum, psd, verifyCode,sharePhone, function (res) {
                     // console.log(res);

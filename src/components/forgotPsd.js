@@ -26,10 +26,10 @@ var ForgotPsd = React.createClass({
         var sharePhone=this.getUrlParms("share");
         console.log(sharePhone);
         localStorage.setItem("sharePhone",sharePhone);
-        
+       
         
         this.setState({ 
-            phoneNum: phoneNum,
+            phoneNum: phoneNum
         })
        
     },

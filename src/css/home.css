@@ -821,7 +821,7 @@
         margin: 0 0.3rem; }
     .taskDetail .detail li .info {
       background: #ecf2ff;
-      padding-left: 0.24rem;
+      padding: 0.24rem 0 0.24rem 0.24rem;
       border-radius: 0.1rem; }
       .taskDetail .detail li .info > p {
         word-wrap: break-word; }
@@ -849,9 +849,6 @@
         border-radius: 0.2rem; }
     .taskDetail .detail li:nth-child(2) > p span, .taskDetail .detail li:nth-child(4) > p span {
       background: #ffb216; }
-    .taskDetail .detail li:nth-child(2) > div, .taskDetail .detail li:nth-child(4) > div {
-      min-height: 0.78rem;
-      line-height: 0.78rem; }
     .taskDetail .detail li:nth-child(3) > p span {
       background: #3e83f4; }
     .taskDetail .detail li:nth-child(3) > .info > p {

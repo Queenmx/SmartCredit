@@ -12,10 +12,9 @@ const platform = request.QueryString("platform");
 const deviceno = request.QueryString("deviceno");
 
 const user = localStorage.getItem("user");
-// const p=JSON.parse(localStorage.getItem("platform"));
 
-// console.log(p.platform);
-Toast.info("aa和"+platform+deviceno,2);
+// Toast.info("机型:"+platform+"==号码:"+deviceno,8);
+Toast.info("返回的地址是"+window.location.href,8);
 if (user&&user!="null") {
     var userObj = JSON.parse(user);
     var userId = userObj.userId;
