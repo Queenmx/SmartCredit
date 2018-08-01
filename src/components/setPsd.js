@@ -105,7 +105,6 @@ var SetPsd = React.createClass({
                 sharePhone=sp;
             }
             that.setState({ isLoading: true })
-            Toast.info(platform+deviceno,2);
             if (fromWhy == "register") {//调注册接口
                 api.register(phoneNum, psd, verifyCode,sharePhone, function (res) {
                     // console.log(res);
