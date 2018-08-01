@@ -44,12 +44,13 @@ class choiceBankcard extends Component {
             if (res.code === "0000") {
                 let Decdata = strDec(res.data, key1, "", "");
                 let data = JSON.parse(Decdata);
-                console.log(data);
+                console.log(data.list.length);
                 that.setState({
                     basicdata: data.list,
                 })
                 /*页面第一次加载默认选中第一条*/
                 if (!localStorage.getItem("cardid")) {
+                    /*没有储存过数据 */
                     that.setState({
                         oldid: data.list[0].id,
                         oldcardNumber: data.list[0].cardNumber,
@@ -63,11 +64,11 @@ class choiceBankcard extends Component {
                         isLoading: false,
                         onSelected: true,
                     }, function () {
+                        console.log(this.state.oldid)
                     })
                 }
                 /*有储存过数据 */
                 else {
-                    // console.log(!this.state.isLoading)
                     console.log('有存过数据')
                     that.setState({
                         /*页面加载默认勾选 */
@@ -78,17 +79,16 @@ class choiceBankcard extends Component {
                         onSelected: true,
                         isLoading: true
                     }, function () {
-                        console.log(this.state.cardNumber)
-                        console.log(this.state.mainCard)
-                        console.log(this.state.bankName)
+                        // console.log(localStorage.getItem("oldid"))
                         console.log(localStorage.getItem("cardid"))
+                        console.log(localStorage.getItem("cardNumber"))
+                        console.log(localStorage.getItem("mainCard"))
+                        console.log(localStorage.getItem("bankName"))
                     })
                 }
-             
+
             }
         })
-        /*没有储存过数据 */
-       
     }
     /*点击该列表对应的对象 
     * 获取 id 银行卡号 主卡或者副卡 所属银行
@@ -105,27 +105,27 @@ class choiceBankcard extends Component {
     }
     /*判断是否选中银行卡*/
     onSelected(item, cardNumber, mainCard, bankName) {
-        // console.log(item)
-        // console.log(cardNumber)
-        // console.log(mainCard)
-        // console.log(bankName)
+
         if (item == item) {
             this.setState({
+                oldid:localStorage.getItem("cardid"),
                 id: item,
                 cardNumber: cardNumber,
                 mainCard: mainCard,
                 bankName: bankName,
                 onSelected: true
             }, function () {
+                localStorage.setItem("oldid", this.state.oldid);
                 localStorage.setItem("cardid", this.state.id);
                 localStorage.setItem("cardNumber", this.state.cardNumber);
                 localStorage.setItem("mainCard", this.state.mainCard);
                 localStorage.setItem("bankName", this.state.bankName);
+                console.log(localStorage.getItem("oldid"))
+                console.log(localStorage.getItem("cardid"))
+                console.log(localStorage.getItem("cardNumber"))
+                console.log(localStorage.getItem("mainCard"))
+                console.log(localStorage.getItem("bankName"))
             });
-            console.log(localStorage.getItem("cardid"))
-            console.log(localStorage.getItem("cardNumber"))
-            console.log(localStorage.getItem("mainCard"))
-            console.log(localStorage.getItem("bankName"))
         }
         if (item == '') {
             this.setState({
@@ -141,6 +141,7 @@ class choiceBankcard extends Component {
     submissionApply = () => {
         if (this.state.onSelected == true) {
             var mainId = this.state.oldid;
+            console.log(mainId)
             var selectId = this.state.id;
             api.update(mainId, selectId, function (res) {
                 console.log(res)
@@ -179,7 +180,6 @@ class choiceBankcard extends Component {
                         }}
                     >
                         <div className="content">
-
                             <RadioItem
                                 checked={this.state.id === item.id} onChange={() => this.onSelected(item.id, item.cardNumber, item.mainCard, item.bankName)}>
                                 {/* checked={!this.state.isLoading ? this.state.id === item.id : this.state.id == localStorage.getItem("cardid")} onChange={() => this.onSelected(item.id, item.cardNumber, item.mainCard, item.bankName)}> */}

@@ -252,12 +252,12 @@ class getmoney extends Component {
     componentDidMount() {
         // var cardid = localStorage.getItem("cardid")
         // console.log(localStorageid)
-        if (this.props.location.query.id !== undefined) {
+        if (localStorage.getItem("cardid")) {
             this.setState({
                 showMask: true,
-                id: this.props.location.query.id,
-                bankCardName: this.props.location.query.bankName,
-                cardNumber: this.props.location.query.cardNumber,
+                id: localStorage.getItem("cardid"),
+                bankCardName: localStorage.getItem("bankName"),
+                cardNumber: localStorage.getItem("cardNumber")
 
                 // localStorageid:localStorage.getItem("cardid"),
                 // localStoragebankCardName:localStorage.getItem("cardNumber"),
@@ -318,10 +318,6 @@ class getmoney extends Component {
                 console.log(this.state.serviceCharge)
             })
         }
-        // if (hiddenPop.style.display == "none") {
-        //     console.log(hiddenPop.style.display == "none")
-        //     Toast.info("请先绑定银行卡再进行操作!");
-        // }
         if (putforward == '' && putforward == 0) {
             console.log(putforward)
             this.setState({
@@ -337,14 +333,12 @@ class getmoney extends Component {
                 serviceCharge: ''
             })
         }
-
     }
     //添加银行卡
     addCard() {
         hashHistory.push('/addBankcard')
     }
     submissionApply = () => {
-
         //获取DOM节点，判断该DOM节点是在display是不是none
         //如果display 不是等于none 证明在页面存在，既可调用接口
         var hiddenPop = document.getElementById("hiddenPop")
@@ -360,7 +354,7 @@ class getmoney extends Component {
                 var cardNumber = this.state.cardNumber;
                 var cash = this.state.cash;
                 var serviceCharge = this.state.serviceCharge;
-                var userName = JSON.parse(localStorage.getItem("user")).realName
+                var userName = JSON.parse(localStorage.getItem("user")).userName
                 this.setState({
                     cash: cash
                 })

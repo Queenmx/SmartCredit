@@ -624,7 +624,6 @@ class addBankcard extends Component {
                                 console.log(data)
                                 var path = {
                                     pathname: "/choiceBankcard",
-
                                 };
                                 hashHistory.push(path)
                             }
@@ -638,10 +637,6 @@ class addBankcard extends Component {
                     }
                 }
             })
-
-
-            /**接口请求**/
-
         }
     }
     render() {
