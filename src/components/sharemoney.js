@@ -162,7 +162,7 @@ class sharemoney extends Component {
             pic: "http://h5.xinyzx.com:82/SmartCredit/src/img/logo.png",
             message: "有钱一起赚"
         };
-        // console.log(phone)
+        console.log(data)
         var native = function (data) {
             // console.log(111)
         }

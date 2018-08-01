@@ -32,6 +32,9 @@ var Home = React.createClass({
 
     componentWillMount: function () {
         var key1 = globalData.key;
+        var platform=globalData.platform;
+        var dev=globalData.deviceno;
+        Toast.info(platform,dev);
         var user = localStorage.getItem("user");
         var that=this;
         if(user){
@@ -134,7 +137,7 @@ var Home = React.createClass({
                         that.setState({
                             hasMsg:true
                         },function(){
-                           console.log(that.state.hasMsg)
+                        //    console.log(that.state.hasMsg)
                         })
                 }else{
                     Toast.info(res.msg,2);
