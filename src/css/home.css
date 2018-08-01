@@ -823,6 +823,14 @@
       background: #ecf2ff;
       padding-left: 0.24rem;
       border-radius: 0.1rem; }
+      .taskDetail .detail li .info > p {
+        word-wrap: break-word; }
+      .taskDetail .detail li .info > .jiang {
+        overflow: hidden; }
+        .taskDetail .detail li .info > .jiang > span {
+          float: left; }
+        .taskDetail .detail li .info > .jiang > span:last-child {
+          width: 5.2rem; }
     .taskDetail .detail li:first-child .info {
       text-align: center;
       padding: 0.22rem 0; }
@@ -842,7 +850,7 @@
     .taskDetail .detail li:nth-child(2) > p span, .taskDetail .detail li:nth-child(4) > p span {
       background: #ffb216; }
     .taskDetail .detail li:nth-child(2) > div, .taskDetail .detail li:nth-child(4) > div {
-      height: 0.78rem;
+      min-height: 0.78rem;
       line-height: 0.78rem; }
     .taskDetail .detail li:nth-child(3) > p span {
       background: #3e83f4; }
@@ -854,7 +862,8 @@
       .taskDetail .detail li:nth-child(3) > .info > .step span {
         float: left; }
       .taskDetail .detail li:nth-child(3) > .info > .step dl {
-        float: left; }
+        float: left;
+        width: 5.2rem; }
         .taskDetail .detail li:nth-child(3) > .info > .step dl dd {
           margin-bottom: 0.18rem; }
     .taskDetail .detail li:last-child > p {

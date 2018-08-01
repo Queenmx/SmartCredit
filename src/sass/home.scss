@@ -812,6 +812,18 @@
                 background: #ecf2ff;
                 padding-left: 0.24rem;
                 border-radius: 0.1rem;
+                &>p{
+                    word-wrap:break-word;
+                }
+                &>.jiang{
+                    overflow: hidden;
+                    &>span{
+                        float:left;
+                    }
+                    &>span:last-child{
+                        width: 5.2rem;
+                    }
+                }
             }
             &:first-child{
                
@@ -831,7 +843,7 @@
                     }
                     
                 }
-                &>div{height: 0.78rem;line-height: 0.78rem;}
+                &>div{min-height: 0.78rem;line-height: 0.78rem;}
             }
             &:nth-child(3){
                 &>p{
@@ -846,7 +858,7 @@
                     &>.step{
                         overflow: hidden;
                         span{float: left;}
-                        dl{float:left;
+                        dl{float:left;width: 5.2rem;
                             dd{margin-bottom: 0.18rem;}
                         }
                     }
