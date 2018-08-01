@@ -28,6 +28,10 @@ var SetPsd = React.createClass({
     },
     componentWillMount(){
         // console.log(this.props.location.state.fromWhy)
+        const p=JSON.parse(localStorage.getItem("platform"));
+        this.setState({
+            phoneInfo:p
+        })
     },
     eyesHandle: function () {
         var type = $("#psd")[0].type;
@@ -100,13 +104,15 @@ var SetPsd = React.createClass({
             var fromWhy = that.props.location.state.fromWhy;
             var sp=localStorage.getItem("sharePhone");
             var sharePhone='';
+            var platform=that.state.phoneInfo.platform;
+            var deviceno=that.state.phoneInfo.deviceno;
             if(sp!=null){
                 sharePhone=sp;
             }
             that.setState({ isLoading: true })
-            //console.log(that.props.location.state);
+            Toast.info(platform+deviceno,2);
             if (fromWhy == "register") {//调注册接口
-                api.register(phoneNum, psd, verifyCode,sharePhone, function (res) {
+                api.register(phoneNum, psd, verifyCode,sharePhone,platform,deviceno, function (res) {
                     // console.log(res);
                     if (res.code == "0000") {
                         var data = JSON.parse(strDec(res.data, key1, "", ""));

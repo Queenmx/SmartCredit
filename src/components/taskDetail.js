@@ -110,7 +110,7 @@ var ListDetail = React.createClass({
                                 <p><span></span><i>任务规则</i><span></span></p>
                                 <div className="info">
                                 
-                                    <p>任务时间：{result.releaseTime.year+1900}年{result.releaseTime.month+1}月{result.releaseTime.day}日起</p>
+                                    <p>任务时间：{result.releaseTime.year+1900}年{result.releaseTime.month+1}月{result.releaseTime.date}日起</p>
                                     <div className="step">
                                         <span>任务步骤：</span>
                                         <dl>       

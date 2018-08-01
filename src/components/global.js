@@ -13,9 +13,9 @@ const deviceno = request.QueryString("deviceno");
 
 const user = localStorage.getItem("user");
 // const p=JSON.parse(localStorage.getItem("platform"));
-
-// console.log(p.platform);
-Toast.info("aa和"+platform+deviceno,2);
+Toast.info("global和plat:"+platform+"==dev:"+deviceno,8);
+// Toast.info("返回的地址是"+window.location.href,8);
+// Toast.info("收费的打法撒旦法师点发送都发的发送到发地方大幅度发是打法撒旦法师点发送的发大水发大厦",3);
 if (user&&user!="null") {
     var userObj = JSON.parse(user);
     var userId = userObj.userId;
