@@ -1,20 +1,22 @@
 import { Toast } from 'antd-mobile';
 
-const request = {    
-    QueryString: function (val) {       
-        var uri = window.location.search;
-        var re = new RegExp("" + val + "=([^&?]*)", "ig");
-        return ((uri.match(re)) ? (uri.match(re)[0].substr(val.length + 1)) : null);
-    }    
+const request = {   
+    QueryString: function (name) {       
+        // var uri = window.location.search;
+        // var re = new RegExp("" + val + "=([^&?]*)", "ig");
+        // return ((uri.match(re)) ? (uri.match(re)[0].substr(val.length + 1)) : null);
 
+        let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        let r = window.location.search.substr(1).match(reg);
+        if (r !== null) return unescape(r[2]);
+        return null;
+    },   
 }
 const platform = request.QueryString("platform");
 const deviceno = request.QueryString("deviceno");
-
 const user = localStorage.getItem("user");
-
-// Toast.info("机型:"+platform+"==号码:"+deviceno,8);
-Toast.info("返回的地址是"+window.location.href,8);
+Toast.info("apple:"+platform+"==号码:"+deviceno,8);
+// Toast.info("返回的地址是"+window.location.href,8);
 if (user&&user!="null") {
     var userObj = JSON.parse(user);
     var userId = userObj.userId;
