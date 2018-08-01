@@ -52,7 +52,7 @@ var Loan = React.createClass({
             Toast.info("请上传5M以内的图片", 2);
             return false;
         }
-        if (!(/^1[34578]\d{9}$/.test(phoneNum))) {
+        if (!(/^1[345678]\d{9}$/.test(phoneNum))) {
             //console.log(phoneNum);
             Toast.info("手机号码格式不对", 2);
         }else{
