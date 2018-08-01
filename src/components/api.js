@@ -992,10 +992,11 @@ module.exports.modifyStatus= function (item,cb1, cb2) {
     delete data.id;
 }
 //绑定银行卡
-module.exports.addBankcard = function (cardName, idCard, cardNumber, bankName, cardPhone, verifyCode, cb1, cb2) {
+module.exports.addBankcard = function (cardName, userName,idCard, cardNumber, bankName, cardPhone, verifyCode, cb1, cb2) {
     var data = globalData.requestData;
     data.userId = globalData.userId;
     data.cardName = cardName;
+    data.userName = userName;
     data.idCard = idCard;
     data.cardNumber = cardNumber;
     data.bankName = bankName;
@@ -1006,6 +1007,7 @@ module.exports.addBankcard = function (cardName, idCard, cardNumber, bankName, c
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/platform/bankCardFeedback`, { params: str }, cb1, cb2);
     delete data.cardName;
+    delete data.userName;
     delete data.idCard;
     delete data.cardNumber;
     delete data.bankName;
