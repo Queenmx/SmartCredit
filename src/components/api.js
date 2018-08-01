@@ -62,7 +62,7 @@ module.exports.login = function (loginType, phone, pwd, verifyCode, cb1, cb2) {
 }
 
 //注册
-module.exports.register = function (phone, pwd, verifyCode,sharePhone,platform,deviceno, cb1, cb2) {
+module.exports.register = function (phone, pwd, verifyCode,sharePhone, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.phone = phone;
@@ -71,8 +71,6 @@ module.exports.register = function (phone, pwd, verifyCode,sharePhone,platform,d
     data.verifyCode = verifyCode;
     data.ip = ip;
     data.sharePhone=sharePhone;
-    data.platform=platform;
-    data.deviceno=deviceno;
     var param = JSON.stringify(data);
     console.log(param);
     var str = strEnc(param, key1);

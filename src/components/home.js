@@ -29,28 +29,9 @@ var Home = React.createClass({
             ]
         }
     },
-    //获取地址栏参数，name:参数名称
-    getUrlParms(val){
-        // var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        // var r =window.location.search.substr(1).match(reg);
-        // if(r!=null){
-        //     return unescape(r[2]);
-        // }else{
-        //     return null;
-        // }  
-        
-        var uri = this.props.location.search;
-        var re = new RegExp("" + val + "=([^&?]*)", "ig");
-        return ((uri.match(re)) ? (uri.match(re)[0].substr(val.length + 1)) : null);
-    },
     componentWillMount: function () {
         var that=this;
         var key1 = globalData.key;
-        var platform=this.getUrlParms("platform");
-        var deviceno=this.getUrlParms("deviceno");
-        localStorage.setItem("platform",JSON.stringify({"platform":platform,"deviceno":deviceno}));
-        // Toast.info("home和"+this.props.location.href,2);
-        // Toast.info("haha"+platform+deviceno,5);
         var user = localStorage.getItem("user");
         var that=this;
         if(user){
