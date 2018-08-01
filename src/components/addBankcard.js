@@ -587,6 +587,7 @@ class addBankcard extends Component {
     /**点击提交**/
     btn = () => {
         var cardName = this.state.namevalue;
+        var userName = JSON.parse(localStorage.getItem("user")).userName
         var idCard = this.state.identityvalue;
         var cardNumber = this.state.cardnumbervalue;
         var bankName = this.state.banknamevalue;
@@ -598,6 +599,7 @@ class addBankcard extends Component {
         var name = this.state.namevalue;
         var phone = this.state.phonevalue;
         console.log(cardName)
+        console.log(userName)
         console.log(idCard)
         console.log(cardNumber)
         console.log(bankName)
@@ -615,17 +617,19 @@ class addBankcard extends Component {
                     let data = JSON.parse(Decdata);
                     console.log(data.data.matchResult);
                     if (data.data.matchResult == "MATCH") {
-                        api.addBankcard(cardName, idCard, cardNumber, bankName, cardPhone, verifyCode, function (res) {
+                      
+                        api.addBankcard(cardName, userName, idCard, cardNumber, bankName, cardPhone, verifyCode, function (res) {
+                            console.log(userName)
                             console.log(res)
                             if (res.code === "0000") {
                                 Toast.info("绑定成功")
                                 let Decdata = strDec(res.data, key1, "", "");
                                 let data = JSON.parse(Decdata);
                                 console.log(data)
-                                var path = {
-                                    pathname: "/choiceBankcard",
-                                };
-                                hashHistory.push(path)
+                                // var path = {
+                                //     pathname: "/choiceBankcard",
+                                // };
+                                // hashHistory.push(path)
                             }
                             if (res.code === "1022") {
                                 Toast.info('该卡不能重复绑定')
