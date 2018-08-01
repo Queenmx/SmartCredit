@@ -374,7 +374,11 @@ class getmoney extends Component {
                     if (res.code === "0000") {
                         let Decdata = strDec(res.data, key1, "", "");
                         let data = JSON.parse(Decdata);
-                        console.log(data)
+                        Toast.info("申请已提交",2);
+                        var path = {
+                            pathname: '/myWallet',
+                        }
+                        hashHistory.push(path);
                     }
                 })
             }
