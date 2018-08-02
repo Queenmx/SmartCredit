@@ -350,11 +350,11 @@ class getmoney extends Component {
                     })
                 }
             }
-        }else{
+        } else {
             Toast.info('提现金额不小于100元')
         }
-
     }
+    //去往银行卡列表页面
     returnlist() {
         let path = {
             pathname: "/choiceBankcard",
