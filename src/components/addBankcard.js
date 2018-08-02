@@ -629,8 +629,6 @@ class addBankcard extends Component {
             Toast.info('请输入完整的信息')
         } else {
             api.partyverification(bankCard, idCard, name, phone, function (res) {
-                console.log(phone)
-                console.log(res)
                 if (res.code === "0000") {
                     let Decdata = strDec(res.data, key1, "", "");
                     let data = JSON.parse(Decdata);
@@ -654,7 +652,7 @@ class addBankcard extends Component {
                         })
                     }
                     if (data.data.matchResult == "MISMATCH") {
-                        Toast.info(res.msg)
+                        Toast.info('信息验证错误 请核对信息')
                     }
                 }
             })
