@@ -620,7 +620,7 @@ class addBankcard extends Component {
         console.log(cardPhone)
         console.log(verifyCode)
         /**满足验证条件的 count+1 点击统计满足调接,不满足提示,满足请求接口**/
-        if (this.state.btncount !== 1 && this.state.cardnumbercount !== 1 && this.state.banknamecount !== 1 && this.state.phonecount !== 1 && this.state.identitycount !== 1 && this.state.codecount !== 1) {
+        if (this.state.btncount !== 1 || this.state.cardnumbercount !== 1 || this.state.banknamecount !== 1 || this.state.phonecount !== 1 || this.state.identitycount !== 1 || this.state.codecount !== 1) {
             Toast.info('请输入完整的信息')
         } else {
             api.partyverification(bankCard, idCard, name, phone, function (res) {
