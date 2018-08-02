@@ -250,12 +250,34 @@ class getmoney extends Component {
         }
     }
     componentDidMount() {
+
         if (localStorage.getItem("cardid")) {
             this.setState({
                 showMask: true,
                 id: localStorage.getItem("cardid"),
                 bankCardName: localStorage.getItem("bankName"),
                 cardNumber: localStorage.getItem("cardNumber")
+            })
+        } else {
+            var that = this
+            var userName = JSON.parse(localStorage.getItem("user")).userName
+            api.returnuserName(userName, function (res) {
+                console.log('3213')
+                if (res.code === "0000") {
+                    let Decdata = strDec(res.data, key1, "", "");
+                    let data = JSON.parse(Decdata);
+                    console.log(data)
+                    that.setState({
+                        bankCardName: data.bankCard.bankName,
+                        cardNumber: data.bankCard.cardNumber
+                    }, function () {
+                        var hiddenPop = document.getElementById("hiddenPop")
+                        hiddenPop.style.display = "block"
+                        console.log(that.state.bankCardName)
+                        console.log(that.state.cardNumber)
+                    })
+
+                }
             })
         }
     }
