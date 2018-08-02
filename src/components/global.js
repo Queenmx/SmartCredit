@@ -15,7 +15,7 @@ const request = {
 const platform = request.QueryString("platform");
 const deviceno = request.QueryString("deviceno");
 const user = localStorage.getItem("user");
-Toast.info("apple:"+platform+"==号码:"+deviceno,4);
+// Toast.info("apple:"+platform+"==号码:"+deviceno,4);
 // Toast.info("返回的地址是"+window.location.href,8);
 if (user&&user!="null") {
     var userObj = JSON.parse(user);
@@ -44,8 +44,8 @@ const globalData = {
     // path: "http://wrhapi.istarcredit.com:8886",//正式地址
     imgPath: "http://xrjf.oss-cn-shanghai.aliyuncs.com/",
     backPath:"http://h5.xinyzx.com:82/SmartCredit/index.html#/",//信息认证页的返回
-    // urlPath:"http://h5.xinyzx.com:82/",//测试分享地址
-    urlPath:"http://wrh.istarcredit.com:8104/",//正式分享地址
+    urlPath:"http://h5.xinyzx.com:82/",//测试分享地址
+    // urlPath:"http://wrh.istarcredit.com:8104/",//正式分享地址
     user: localStorage.getItem("user") || "",
     // userObj:JSON.parse(this.user);
     //userId: this.userObj.userId || "",
