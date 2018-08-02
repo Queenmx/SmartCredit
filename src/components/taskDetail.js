@@ -60,7 +60,10 @@ var ListDetail = React.createClass({
                 var taskNum=result.taskNumber-result.count*1;
                 
                 // var time=1;
-                // console.log(time);
+                console.log(result.effectiveTime.time,timestamp);
+                if(time<=0){
+                    time=1;
+                }
                 if(taskNum<=0){
                     that.setState({
                         isGet:true
