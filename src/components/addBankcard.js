@@ -651,13 +651,10 @@ class addBankcard extends Component {
                             }else{
                                 Toast.info(res.msg) 
                             }
-                            // if (res.code === "1022") {
-                            //     Toast.info('该卡不能重复绑定')
-                            // }
                         })
                     }
                     if (data.data.matchResult == "MISMATCH") {
-                        Toast.info('信息验证失败 请核对')
+                        Toast.info(res.msg)
                     }
                 }
             })

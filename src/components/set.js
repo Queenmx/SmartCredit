@@ -68,6 +68,11 @@ var Set = React.createClass({
                 //console.log(res);
                 if (res.code == "0000") {
                     that.setState({ isLoading: false })
+                    localStorage.removeItem("cardid");
+                    localStorage.removeItem("cardNumber")
+                    localStorage.removeItem("mainCard")
+                    localStorage.removeItem("bankName")
+                    localStorage.removeItem("oldid")
                     localStorage.removeItem("user");
                     localStorage.removeItem("isLogin");
                     localStorage.removeItem("phoneNum");
