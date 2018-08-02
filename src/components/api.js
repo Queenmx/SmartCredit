@@ -386,7 +386,13 @@ module.exports.findProduct = function (item, cb1, cb2) {
     delete data.maxScope;
     delete data.creditReport;
 }
-
+//贷款类型
+module.exports.productTypeQuery = function (cb1, cb2) {
+    var data = globalData.requestData;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/loan/product/productTypeQuery`, { params: str }, cb1, cb2);
+}
 
 //精准贷
 //列表

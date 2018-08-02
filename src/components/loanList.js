@@ -22,7 +22,7 @@ var LoanList = React.createClass({
             jiantou:false,
             flag: false,
             selectData:[],
-            value:19,
+            value:4,
             checkData:[
                 {name:'类型',value:0},
                 {name:'金额',value:1},
@@ -31,6 +31,26 @@ var LoanList = React.createClass({
             ],
             checkedItem:10
         }
+    },
+    componentWillMount(){
+        var that=this;
+        api.productTypeQuery(function (res) {
+            if(res.code=="0000"){
+                var data = JSON.parse(strDec(res.data, key1, "", ""));
+                // console.log(data);
+               
+                data.map((item,index)=>{
+                    
+                    item.id=15+index;                    
+                })
+                var all={ id: 4, name: '全部' };
+                data[0]=all;
+                console.log(data)
+                that.setState({
+                    selectData:data
+                })
+            }
+        })
     },
     componentDidMount() {
         var that=this;
@@ -96,70 +116,71 @@ var LoanList = React.createClass({
             }
         })
     },
-    onChange (arr){        
-        // console.log(arr);
-        switch(arr){
-            case "0":
-                this.setState({
-                    selectData:[
-                        { value: 19, label: '全部' },
-                        { value: 15, label: '小额零用贷' },
-                        { value: 16, label: '大额低息贷' },
-                        { value: 17, label: '工薪贷' },
-                        { value: 18, label: '车辆贷' },
-                    ]
-                });
-                break;
-            case "1":
-                this.setState({
-                    selectData:[
-                        { value: 5, label: '全部' },
-                        { value: 6, label: '0.1~0.5万' },
-                        { value: 7, label: '0.5~1万' },
-                        { value: 8, label: '1万元以上' },
-                    ]
-                });
-                break;
-            case "2":
-                this.setState({
-                    selectData:[
-                        { value: 9, label: '全部' },
-                        { value: 10, label: '1个月以下' },
-                        { value: 11, label: '1~6个月' },
-                        { value: 12, label: '6~12个月' },
-                        { value: 13, label: '12个月' },
-                        { value: 14, label: '24个月' },
-                    ]
-                });
-                break;
-            case "3":
-                this.setState({
-                    selectData:[
-                        { value: 123, label: '全部' },                        
-                        { value: 1, label: '芝麻信用' },
-                        { value: 2, label: '电商账号' },
-                        { value: 3, label: '征信报告' },
-                    ]
-                });
-                break;
-            default:
-                break;    
-        }
+    // onChange (arr){        
+    //     // console.log(arr);
+    //     switch(arr){
+    //         case "0":
+    //             this.setState({
+    //                 selectData:[
+    //                     { value: 19, name: '全部' },
+    //                     { value: 15, name: '小额零用贷' },
+    //                     { value: 16, name: '大额低息贷' },
+    //                     { value: 17, name: '工薪贷' },
+    //                     { value: 18, name: '车辆贷' },
+    //                 ]
+    //             });
+    //             break;
+    //         case "1":
+    //             this.setState({
+    //                 selectData:[
+    //                     { value: 5, name: '全部' },
+    //                     { value: 6, name: '0.1~0.5万' },
+    //                     { value: 7, name: '0.5~1万' },
+    //                     { value: 8, name: '1万元以上' },
+    //                 ]
+    //             });
+    //             break;
+    //         case "2":
+    //             this.setState({
+    //                 selectData:[
+    //                     { value: 9, name: '全部' },
+    //                     { value: 10, name: '1个月以下' },
+    //                     { value: 11, name: '1~6个月' },
+    //                     { value: 12, name: '6~12个月' },
+    //                     { value: 13, name: '12个月' },
+    //                     { value: 14, name: '24个月' },
+    //                 ]
+    //             });
+    //             break;
+    //         case "3":
+    //             this.setState({
+    //                 selectData:[
+    //                     { value: 123, name: '全部' },                        
+    //                     { value: 1, name: '芝麻信用' },
+    //                     { value: 2, name: '电商账号' },
+    //                     { value: 3, name: '征信报告' },
+    //                 ]
+    //             });
+    //             break;
+    //         default:
+    //             break;    
+    //     }
         
-        if(arr==undefined){
-            this.setState({
-                show: false,
-            });
-        }else{
-            this.setState({
-                show: true,
-            });
-        }
+    //     if(arr==undefined){
+    //         this.setState({
+    //             show: false,
+    //         });
+    //     }else{
+    //         this.setState({
+    //             show: true,
+    //         });
+    //     }
         
-    },
+    // },
     onSelected (item) {
-        console.log(item)
+        console.log(name)
         var active=this.state.checkedItem;
+        
         var data={
             categoryName:'',
             loanTermStart:'',
@@ -168,7 +189,8 @@ var LoanList = React.createClass({
             maxScope:'',
             creditReport:''
         }
-        switch(item){
+        
+        switch(item.id){
             // case 123:
             //     data.creditReport="";
             //     break;
@@ -218,29 +240,30 @@ var LoanList = React.createClass({
                 data.loanTermStart=25;
                 data.loanTermEnd="";
                 break;
-            case 15:
-                data.categoryName="小额零用贷";
-                break;
-            case 16:
-                data.categoryName="大额低息贷";
-                break;
-            case 17:
-                data.categoryName="工薪贷";
-                break;
-            case 18:
-                data.categoryName="车辆贷";
-                break;
-            case 19:
-                data.categoryName="贷";
+            // case 15:
+            //     data.categoryName="小额零用贷";
+            //     break;
+            // case 16:
+            //     data.categoryName="大额低息贷";
+            //     break;
+            // case 17:
+            //     data.categoryName="工薪贷";
+            //     break;
+            // case 18:
+            //     data.categoryName="车辆贷";
+            //     break;
+            case 4:
+                data.categoryName="";
                 break;
             default:
+                data.categoryName=item.name;
                 break;
 
         }
         console.log(data)
         this.getInit(data);
         this.setState({
-            value:item,
+            value:item.id,
             show: false,
             checkedItem:22,
         });
@@ -250,45 +273,45 @@ var LoanList = React.createClass({
         if(!this.state.show){
             switch(temp){
                 case 0:
-                    this.setState({
-                        selectData:[
-                            { value: 19, label: '全部' },
-                            { value: 15, label: '小额零用贷' },
-                            { value: 16, label: '大额低息贷' },
-                            { value: 17, label: '工薪贷' },
-                            { value: 18, label: '车辆贷' },
-                        ]
-                    });
+                    // this.setState({
+                    //     selectData:[
+                    //         { id: 19, name: '全部' },
+                    //         { id: 15, name: '小额零用贷' },
+                    //         { id: 16, name: '大额低息贷' },
+                    //         { id: 17, name: '工薪贷' },
+                    //         { id: 18, name: '车辆贷' },
+                    //     ]
+                    // });
                     break;
                 case 1:
                     this.setState({
                         selectData:[
-                            { value: 5, label: '全部' },
-                            { value: 6, label: '0.1~0.5万' },
-                            { value: 7, label: '0.5~1万' },
-                            { value: 8, label: '1万元以上' },
+                            { id: 5, name: '全部' },
+                            { id: 6, name: '0.1~0.5万' },
+                            { id: 7, name: '0.5~1万' },
+                            { id: 8, name: '1万元以上' },
                         ]
                     });
                     break;
                 case 2:
                     this.setState({
                         selectData:[
-                            { value: 9, label: '全部' },
-                            { value: 10, label: '1个月以下' },
-                            { value: 11, label: '1~6个月' },
-                            { value: 12, label: '6~12个月' },
-                            { value: 13, label: '12个月' },
-                            { value: 14, label: '24个月' },
+                            { id: 9, name: '全部' },
+                            { id: 10, name: '1个月以下' },
+                            { id: 11, name: '1~6个月' },
+                            { id: 12, name: '6~12个月' },
+                            { id: 13, name: '12个月' },
+                            { id: 14, name: '24个月' },
                         ]
                     });
                     break;
                 case 3:
                     this.setState({
                         selectData:[
-                            { value: 123, label: '全部' },                        
-                            { value: 1, label: '芝麻信用' },
-                            { value: 2, label: '电商账号' },
-                            { value: 3, label: '征信报告' },
+                            { id: 123, name: '全部' },                        
+                            { id: 1, name: '芝麻信用' },
+                            { id: 2, name: '电商账号' },
+                            { id: 3, name: '征信报告' },
                         ]
                     });
                     break;
@@ -384,8 +407,8 @@ var LoanList = React.createClass({
         const menuEl = (
             <List className="my-list">
                   {data.map(i => (
-                    <RadioItem key={i.value} checked={this.state.value === i.value} onChange={() => this.onSelected(i.value)}>
-                        {i.label}
+                    <RadioItem key={i.id} checked={this.state.value === i.id} onChange={() => this.onSelected(i)}>
+                        {i.name}
                     </RadioItem>
                     ))}
             </List>
