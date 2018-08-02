@@ -253,13 +253,13 @@ var ListDetail = React.createClass({
                     <div className="flowBox">
                         {/* <h2>办理流程</h2> */}                        
                         <h2><span style={{backgroundImage:"url('src/img/icon/list-icon1.png')"}}></span>申请条件</h2>
-                        <div className="application" dangerouslySetInnerHTML={{ __html: loanDetail.condition }}>
+                        <div className="application" dangerouslySetInnerHTML={{ __html: loanDetail.conditions }}>
                         </div>
                         <h2><span style={{backgroundImage:"url('src/img/icon/list-icon2.png')"}}></span>需准备材料</h2>
                         <div className="application" dangerouslySetInnerHTML={{ __html: loanDetail.preparData }}>
                         </div>
                         <h2><span style={{backgroundImage:"url('src/img/icon/list-icon3.png')"}}></span>审核及还款说明</h2>
-                        <div className="application" dangerouslySetInnerHTML={{ __html: loanDetail.explain }}>
+                        <div className="application" dangerouslySetInnerHTML={{ __html: loanDetail.explainTion }}>
                         </div>
                         {/* <h2 onClick={this.toProblem}>常见问题<span>更多回复<img src="src/img/icon/right.png" /></span></h2>
                         <div>{that.state.problemList}</div> */}
