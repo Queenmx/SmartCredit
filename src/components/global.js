@@ -42,18 +42,10 @@ const globalData = {
     path: "http://xingrongjinfu.iask.in:8886",//测试地址
     pathone:"http://192.168.0.156:8886",
     // path: "http://wrhapi.istarcredit.com:8886",//正式地址
-    // path: "http://wuhanxingrong.vicp.io:28886/",
-    // path: "http://wrhapi.istarcredit.com:8102/",//正式地址
-    // path:"http://192.168.0.111:8886",
-    // path: "http://192.168.0.43:8886",
-    // path:"http://wuhanxingrong.vicp.io:8888",
-
-    //path:"http://wangjuan6.free.ngrok.cc",
-    // path:"http://wuhanxingrong.vicp.io:8886",
-    //path:"http://101.132.32.72:8102/",
-    // path:"http://192.168.1.17:8886",
     imgPath: "http://xrjf.oss-cn-shanghai.aliyuncs.com/",
     backPath:"http://h5.xinyzx.com:82/SmartCredit/index.html#/",//信息认证页的返回
+    // urlPath:"http://h5.xinyzx.com:82/",//测试分享地址
+    urlPath:"http://wrh.istarcredit.com:8104/",//正式分享地址
     user: localStorage.getItem("user") || "",
     // userObj:JSON.parse(this.user);
     //userId: this.userObj.userId || "",
