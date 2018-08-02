@@ -50,7 +50,12 @@ class choiceBankcard extends Component {
                 })
                 /*页面第一次加载默认选中第一条*/
                 if (!localStorage.getItem("cardid")) {
+                    console.log("222222")
                     /*没有储存过数据 */
+                    localStorage.setItem("cardid",data.list[0].id);
+                    localStorage.setItem("cardNumber",data.list[0].cardNumber);
+                    localStorage.setItem("mainCard",data.list[0].mainCard);
+                    localStorage.setItem("bankName",data.list[0].bankName);
                     that.setState({
                         oldid: data.list[0].id,
                         oldcardNumber: data.list[0].cardNumber,
@@ -63,6 +68,7 @@ class choiceBankcard extends Component {
                         bankName: data.list[0].bankName,
                         isLoading: false,
                         onSelected: true,
+                        
                     }, function () {
                         console.log(this.state.oldid)
                     })
@@ -106,7 +112,7 @@ class choiceBankcard extends Component {
     /*判断是否选中银行卡*/
     onSelected(item, cardNumber, mainCard, bankName) {
 
-        if (item == item) {
+        if (item) {
             this.setState({
                 oldid:localStorage.getItem("cardid"),
                 id: item,

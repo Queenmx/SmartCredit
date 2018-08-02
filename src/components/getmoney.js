@@ -268,6 +268,8 @@ class getmoney extends Component {
             // console.log(localStorageid)
             // console.log(localStoragebankCardName)
             // console.log(localStoragecardNumber)
+        }else{
+       
         }
 
         // if (cardid == "" || cardid == null) {

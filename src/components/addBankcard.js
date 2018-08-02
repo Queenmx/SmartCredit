@@ -511,28 +511,47 @@ class addBankcard extends Component {
     }
     /**获取验证码value**/
     code = (codevalue) => {
-        //判断最大长度输入6位验证码
-        var codeinput = document.getElementById('codeinput').value.length
-        var reg = /^[0-9]+$/ //只能输入数字
-        if (/^\s+$/gi.test(document.getElementById('codeinput').value)) {
-            // Toast.info("不能输入空格", );
+        if ((!codevalue.replace(/\s/g, '').length < 6 && codevalue.replace(/\s/g, '').length > 6 || codevalue.length == 0 || codevalue.length == '')) {
             this.setState({
                 codeError: true,
-                codevalue: '',
-            }, function () {
-                console.log(this.state.codevalue)
-            })
-        } else if (!reg.test(codevalue) && codeinput == '' && codeinput == 0) {
+            });
+        } else {
             this.setState({
                 codeError: false,
             })
-            // Toast.info('只能输入数字');
-        } else if (codeinput > 6) {
-            this.setState({
-                codeError: true,
-            })
-            // Toast.info('请输入6位数字验证码');
         }
+        //判断最大长度输入6位验证码
+        // var codeinput = document.getElementById('codeinput').value.length
+        // var reg = /^[0-9]+$/ //只能输入数字
+        // if (/^\s+$/gi.test(document.getElementById('codeinput').value)) {
+        //     // Toast.info("不能输入空格", );
+        //     this.setState({
+        //         codeError: true,
+        //         codevalue: '',
+        //     }, function () {
+        //         console.log(this.state.codevalue)
+        //     })
+        // } else if (!reg.test(codevalue) && codeinput == '' && codeinput == 0) {
+        //     this.setState({
+        //         codeError: false,
+        //     })
+        //     // Toast.info('只能输入数字');
+        // } else if (codeinput > 6) {
+        //     this.setState({
+        //         codeError: true,
+        //     })
+        //     // Toast.info('请输入6位数字验证码');
+        // } else if (codevalue !== codevalue) {
+        //     console.log('验证码输入错误')
+        //     this.setState({
+        //         codeError: true
+        //     })
+        // } else {
+        //     console.log('验证码输入正确')
+        //     this.setState({
+        //         codeError: false
+        //     })
+        // }
         this.setState({
             codevalue,
         });
@@ -617,9 +636,8 @@ class addBankcard extends Component {
                     let data = JSON.parse(Decdata);
                     console.log(data.data.matchResult);
                     if (data.data.matchResult == "MATCH") {
-                      
+
                         api.addBankcard(cardName, userName, idCard, cardNumber, bankName, cardPhone, verifyCode, function (res) {
-                            console.log(userName)
                             console.log(res)
                             if (res.code === "0000") {
                                 Toast.info("绑定成功")
@@ -630,10 +648,12 @@ class addBankcard extends Component {
                                     pathname: "/choiceBankcard",
                                 };
                                 hashHistory.push(path)
+                            }else{
+                                Toast.info(res.msg) 
                             }
-                            if (res.code === "1022") {
-                                Toast.info('该卡不能重复绑定')
-                            }
+                            // if (res.code === "1022") {
+                            //     Toast.info('该卡不能重复绑定')
+                            // }
                         })
                     }
                     if (data.data.matchResult == "MISMATCH") {
