@@ -253,7 +253,7 @@ var LoanList = React.createClass({
             //     data.categoryName="车辆贷";
             //     break;
             case 4:
-                data.categoryName="贷";
+                data.categoryName="";
                 break;
             default:
                 data.categoryName=item.name;
