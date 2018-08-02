@@ -38,7 +38,8 @@ var Mine = React.createClass({
        
         if (user) {//已登陆
             var userObj = JSON.parse(user);
-            console.log(userObj)
+            console.log(userObj);
+            
             that.setState({
                 user: userObj,
                 idCert: userObj.idCert,
@@ -97,7 +98,19 @@ var Mine = React.createClass({
     },
     goCredit(){
         if (this.state.isLogin) {
-            Toast.info("去往第3方了哦");
+            var user=this.state.user;
+            var data={
+                userId:user.userId,
+                phone:user.phone,
+                token:user.token
+            }
+            api.payBack(data,function(res){
+                if(res.code=="0000"){
+                    window.location.href=res.msg;
+                }else{
+                    Toast.info(res.msg,2);
+                }
+            })
         } else {
             var path = {
                 pathname: '/Login',
