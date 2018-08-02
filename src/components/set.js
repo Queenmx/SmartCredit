@@ -98,7 +98,7 @@ var Set = React.createClass({
     },
     clearCache: function () {
 
-        localStorage.removeItem("curCity");
+        localStorage.removeItem("curCity"); 
         sessionStorage.clear();
         this.timer = setTimeout(function () { Toast.info("清空缓存成功", 2) }, 500);
         this.setState({

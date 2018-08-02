@@ -250,43 +250,18 @@ class getmoney extends Component {
         }
     }
     componentDidMount() {
-        // var cardid = localStorage.getItem("cardid")
-        // console.log(localStorageid)
         if (localStorage.getItem("cardid")) {
             this.setState({
                 showMask: true,
                 id: localStorage.getItem("cardid"),
                 bankCardName: localStorage.getItem("bankName"),
                 cardNumber: localStorage.getItem("cardNumber")
-
-                // localStorageid:localStorage.getItem("cardid"),
-                // localStoragebankCardName:localStorage.getItem("cardNumber"),
-                // localStoragecardNumber:localStorage.getItem("bankName")
-            }, function () {
-
             })
-            // console.log(localStorageid)
-            // console.log(localStoragebankCardName)
-            // console.log(localStoragecardNumber)
-        }else{
-       
         }
-
-        // if (cardid == "" || cardid == null) {
-        //     this.setState({
-        //         showMask: false,
-        //     })
-        // } else {
-        //     this.setState({
-        //         showMask: true,
-        //         localStorageid: id,
-        //         localStoragebankCardName: bankCardName,
-        //         localStoragecardNumber: cardNumber,
-        //     })
-        // }
     }
     //判断提现金额
     putforward = (cash) => {
+        console.log(cash)
         var blance = localStorage.getItem("blance");
         var putforward = document.getElementById('putforward').value.length
         /*
@@ -341,43 +316,42 @@ class getmoney extends Component {
         hashHistory.push('/addBankcard')
     }
     submissionApply = () => {
-        //获取DOM节点，判断该DOM节点是在display是不是none
-        //如果display 不是等于none 证明在页面存在，既可调用接口
-        var hiddenPop = document.getElementById("hiddenPop")
-        var downloadPop = document.getElementById("downloadPop")
-        if (hiddenPop) {
-            if (hiddenPop.style.display !== "block") {
-                Toast.info("请先绑定银行卡 !", );
+        if (this.state.cash >= 100) {
+            //获取DOM节点，判断该DOM节点是在display是不是none
+            //如果display 不是等于none 证明在页面存在，既可调用接口
+            var hiddenPop = document.getElementById("hiddenPop")
+            var downloadPop = document.getElementById("downloadPop")
+            if (hiddenPop) {
+                if (hiddenPop.style.display !== "block") {
+                    Toast.info("请先绑定银行卡 !", );
+                }
             }
-        }
-        if (downloadPop) {
-            if (downloadPop.style.display !== "none") {
-                var bankCardName = this.state.bankCardName;
-                var cardNumber = this.state.cardNumber;
-                var cash = this.state.cash;
-                var serviceCharge = this.state.serviceCharge;
-                var userName = JSON.parse(localStorage.getItem("user")).userName
-                this.setState({
-                    cash: cash
-                })
-                console.log(bankCardName)
-                console.log(cardNumber)
-                console.log(serviceCharge)
-                console.log(cash)
-                console.log(userName)
-                api.replacecard(bankCardName, cardNumber, cash, serviceCharge, userName, function (res) {
-                    console.log(res)
-                    if (res.code === "0000") {
-                        let Decdata = strDec(res.data, key1, "", "");
-                        let data = JSON.parse(Decdata);
-                        Toast.info("申请已提交",2);
-                        var path = {
-                            pathname: '/myWallet',
+            if (downloadPop) {
+                if (downloadPop.style.display !== "none") {
+                    var bankCardName = this.state.bankCardName;
+                    var cardNumber = this.state.cardNumber;
+                    var cash = this.state.cash;
+                    var serviceCharge = this.state.serviceCharge;
+                    var userName = JSON.parse(localStorage.getItem("user")).userName
+                    this.setState({
+                        cash: cash
+                    })
+                    api.replacecard(bankCardName, cardNumber, cash, serviceCharge, userName, function (res) {
+                        console.log(res)
+                        if (res.code === "0000") {
+                            let Decdata = strDec(res.data, key1, "", "");
+                            let data = JSON.parse(Decdata);
+                            Toast.info("申请已提交", 2);
+                            var path = {
+                                pathname: '/myWallet',
+                            }
+                            hashHistory.push(path);
                         }
-                        hashHistory.push(path);
-                    }
-                })
+                    })
+                }
             }
+        }else{
+            Toast.info('提现金额不小于100元')
         }
 
     }

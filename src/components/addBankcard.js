@@ -648,8 +648,8 @@ class addBankcard extends Component {
                                     pathname: "/choiceBankcard",
                                 };
                                 hashHistory.push(path)
-                            }else{
-                                Toast.info(res.msg) 
+                            } else {
+                                Toast.info(res.msg)
                             }
                         })
                     }
