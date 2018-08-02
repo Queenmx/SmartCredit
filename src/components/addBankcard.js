@@ -626,10 +626,10 @@ class addBankcard extends Component {
                                 let Decdata = strDec(res.data, key1, "", "");
                                 let data = JSON.parse(Decdata);
                                 console.log(data)
-                                // var path = {
-                                //     pathname: "/choiceBankcard",
-                                // };
-                                // hashHistory.push(path)
+                                var path = {
+                                    pathname: "/choiceBankcard",
+                                };
+                                hashHistory.push(path)
                             }
                             if (res.code === "1022") {
                                 Toast.info('该卡不能重复绑定')
