@@ -5,7 +5,7 @@ import "../css/sharemoney.css";
 import Header from './header';
 import api from './api';
 import { globalData } from './global.js';
-
+const urlPath=globalData.urlPath;
 
 function closest(el, selector) {
     const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
@@ -154,12 +154,12 @@ class sharemoney extends Component {
         }
     }
     start() {
-        var phone = this.state.user.phone;
+        var phone = this.state.user.phone;       
         var data = {
             type: "4",
-            url: "http://h5.xinyzx.com:82/SmartCreditShare/index.html#/?share=" + phone,
+            url: urlPath+"SmartCreditShare/index.html#/?share=" + phone,
             title: "万融汇邀请注册",
-            pic: "http://h5.xinyzx.com:82/SmartCredit/src/img/logo.png",
+            pic: urlPath+"/src/img/logo.png",
             message: "有钱一起赚"
         };
         console.log(data)
