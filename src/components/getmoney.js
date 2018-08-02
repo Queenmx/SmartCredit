@@ -273,8 +273,6 @@ class getmoney extends Component {
                     }, function () {
                         var hiddenPop = document.getElementById("hiddenPop")
                         hiddenPop.style.display = "block"
-                        console.log(that.state.bankCardName)
-                        console.log(that.state.cardNumber)
                     })
 
                 }
@@ -405,7 +403,7 @@ class getmoney extends Component {
                         </List.Item>
                     </List>
                     <WhiteSpace size="sm" />
-                    <List className="addBank" id={`${this.state.showMask == true ? 'downloadPop' : 'hiddenPop'}`}>
+                    <List className="addBank" id={`${this.state.showMask == true ? 'downloadPop' : 'hiddenPop'}`} onClick={this.returnlist}>
                         <List.Item extra={this.state.bankCardName} style={{ fontSize: "18px" }}>
                             <img src={require('../img/img/web/bankcard.png')} />
                         </List.Item>
