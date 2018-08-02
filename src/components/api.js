@@ -1057,7 +1057,7 @@ module.exports.update = function (mainId, selectId, cb1, cb2) {
     delete data.cardName;
     delete data.selectId;
 }
-//提现
+//点击提现
 module.exports.replacecard = function (bankCardName, cardNumber, cash, serviceCharge,userName, cb1, cb2) {
     var data = globalData.requestData;
     data.userId = globalData.userId;
@@ -1074,6 +1074,17 @@ module.exports.replacecard = function (bankCardName, cardNumber, cash, serviceCh
     delete data.cardNumber;
     delete data.cash;
     delete data.serviceCharge;
+    delete data.userName;
+}
+//返回提现数据
+module.exports.returnuserName = function (userName, cb1, cb2) {
+    var data = globalData.requestData;
+    data.userId = globalData.userId;
+    data.userName = userName;
+    var param = JSON.stringify(data)
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/wallet/exchange`, { params: str }, cb1, cb2);
+    delete data.userId;
     delete data.userName;
 }
 //第三方验证

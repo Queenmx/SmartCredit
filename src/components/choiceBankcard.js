@@ -50,7 +50,6 @@ class choiceBankcard extends Component {
                 })
                 /*页面第一次加载默认选中第一条*/
                 if (!localStorage.getItem("cardid")) {
-                    console.log("222222")
                     /*没有储存过数据 */
                     localStorage.setItem("cardid",data.list[0].id);
                     localStorage.setItem("cardNumber",data.list[0].cardNumber);
