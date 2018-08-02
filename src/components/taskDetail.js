@@ -59,26 +59,25 @@ var ListDetail = React.createClass({
                 var time=result.effectiveTime.time-timestamp;
                 var taskNum=result.taskNumber-result.count*1;
                 
-                // var time=1;
-                console.log(result.effectiveTime.time,timestamp);
-                if(time<=0){
-                    time=1;
-                }
+                // var time=3000;
+                // console.log(result.effectiveTime.time,timestamp);
+                
                 if(taskNum<=0){
                     that.setState({
                         isGet:true
                     })
                 }
-                that.getCountDown(time); 
+                // that.getCountDown(time); 
                 that.timer=setInterval(function(){	
-                    time-=1000;
-                    that.getCountDown(time);   
                     if(time<=0){
                         clearInterval(that.timer);
+                        time=1000;
                         that.setState({
                             isGet:true
-                        })
-                    }                             	                                	
+                        });
+                    } 
+                    time-=1000;
+                    that.getCountDown(time);                                                   	                                	
                 }.bind(that),1000);  
                                              
                 var arr=[];

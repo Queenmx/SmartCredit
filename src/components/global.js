@@ -15,7 +15,7 @@ const request = {
 const platform = request.QueryString("platform");
 const deviceno = request.QueryString("deviceno");
 const user = localStorage.getItem("user");
-Toast.info("apple:"+platform+"==号码:"+deviceno,8);
+Toast.info("apple:"+platform+"==号码:"+deviceno,4);
 // Toast.info("返回的地址是"+window.location.href,8);
 if (user&&user!="null") {
     var userObj = JSON.parse(user);
