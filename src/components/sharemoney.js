@@ -159,7 +159,7 @@ class sharemoney extends Component {
             type: "4",
             url: urlPath+"SmartCreditShare/index.html#/?share=" + phone,
             title: "万融汇邀请注册",
-            pic: urlPath+"/src/img/logo.png",
+            pic: urlPath+"SmartCredit/src/img/logo.png",
             message: "有钱一起赚"
         };
         console.log(data)
