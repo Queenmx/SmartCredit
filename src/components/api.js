@@ -1128,3 +1128,20 @@ module.exports.shareDetail= function (userName,cb1, cb2) {
     delete data.userId;
     delete data.userName;
 }
+//个人中心-信用卡待还去第3方
+module.exports.payBack= function (item,cb1, cb2) {
+    var data = globalData.requestData;
+    data.userId=item.userId;
+    data.userName = item.phone;
+    data.token=item.token;
+    data.appFlag="C"
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    // console.log(param);
+    http(`${globalData.path}/zndai/user/credit/payBack`, {params: str}, cb1, cb2);
+    delete data.userId;
+    delete data.userName;
+    delete data.token;
+    delete data.appFlag;
+
+}

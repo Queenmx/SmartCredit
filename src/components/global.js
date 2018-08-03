@@ -15,7 +15,11 @@ const request = {
 const platform = request.QueryString("platform");
 const deviceno = request.QueryString("deviceno");
 const user = localStorage.getItem("user");
+<<<<<<< HEAD
 Toast.info("apple:" + platform + "==号码:" + deviceno, 4);
+=======
+// Toast.info("apple:"+platform+"==号码:"+deviceno,4);
+>>>>>>> 6efd6a93d32c890a8aa36d6f9bce4c32c4ce837e
 // Toast.info("返回的地址是"+window.location.href,8);
 if (user && user != "null") {
     var userObj = JSON.parse(user);
@@ -40,10 +44,15 @@ const globalData = {
     // key: [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8],
     // appBasePath: "http://www.91ymfq.com/XR/",
     // path: "http://xingrongjinfu.iask.in:8886",//测试地址
+<<<<<<< HEAD
     // pathone:"http://192.168.0.156:8886",  //测试环境
       path: "http://wrhapi.istarcredit.com:8886",//测试地址
     // pathone: "http://wrhapi.istarcredit.com:8886",  //测试环境
     // path: "http://wrhapi.istarcredit.com:8886",//正式地址
+=======
+    pathone:"http://192.168.0.156:8886",
+    path: "http://wrhapi.istarcredit.com:8886",//正式地址
+>>>>>>> 6efd6a93d32c890a8aa36d6f9bce4c32c4ce837e
     imgPath: "http://xrjf.oss-cn-shanghai.aliyuncs.com/",
     backPath: "http://h5.xinyzx.com:82/SmartCredit/index.html#/",//信息认证页的返回
     // urlPath:"http://h5.xinyzx.com:82/",//测试分享地址

@@ -148,6 +148,7 @@ var Home = React.createClass({
                 if (res.code = "0000") {
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
                     sessionStorage.setItem("banner", JSON.stringify(Decdata));
+                    // console.log(Decdata)
                     that.setState({
                         banner:Decdata
                     },function(){
@@ -256,7 +257,7 @@ var Home = React.createClass({
                 console.log(res)
                 if(res.code == "0000"){
                     var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    console.log(Decdata);
+                    // console.log(Decdata);
                     var creditCardList = Decdata.list;
                     // sessionStorage.setItem("creditCardList", JSON.stringify(creditCardList));
                     var creditCardArr = [];

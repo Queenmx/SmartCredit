@@ -44,8 +44,8 @@ var LoanList = React.createClass({
                     item.id=15+index;                    
                 })
                 var all={ id: 4, name: '全部' };
-                data[0]=all;
-                console.log(data)
+                data.unshift(all);
+                // console.log(data)
                 that.setState({
                     selectData:data
                 })

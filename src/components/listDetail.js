@@ -205,7 +205,7 @@ var ListDetail = React.createClass({
                         </li>
                         <li className="numdetail">
                             <div>
-                                <p><span>{loanDetail.timeLimit}</span>月</p>
+                                <p><span>{loanDetail.timeLimit}</span>{loanDetail.loanTermUnit}</p>
                                 <p>平均期限</p>
                             </div>
                             <div>
