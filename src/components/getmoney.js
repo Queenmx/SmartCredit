@@ -371,9 +371,9 @@ class getmoney extends Component {
                     })
                 }
             }
-        } else if(this.state.cash>blance && this.state.cash < 100 ){
+        } else if(this.state.cash>blance){
             Toast.info('提现金额大于余额，请确认后重新输入')
-        }else{
+        }else if(this.state.cash<100){
             Toast.info('提现金额不小于100元')
         }
     }
