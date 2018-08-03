@@ -117,67 +117,6 @@ var LoanList = React.createClass({
             }
         })
     },
-    // onChange (arr){        
-    //     // console.log(arr);
-    //     switch(arr){
-    //         case "0":
-    //             this.setState({
-    //                 selectData:[
-    //                     { value: 19, name: '全部' },
-    //                     { value: 15, name: '小额零用贷' },
-    //                     { value: 16, name: '大额低息贷' },
-    //                     { value: 17, name: '工薪贷' },
-    //                     { value: 18, name: '车辆贷' },
-    //                 ]
-    //             });
-    //             break;
-    //         case "1":
-    //             this.setState({
-    //                 selectData:[
-    //                     { value: 5, name: '全部' },
-    //                     { value: 6, name: '0.1~0.5万' },
-    //                     { value: 7, name: '0.5~1万' },
-    //                     { value: 8, name: '1万元以上' },
-    //                 ]
-    //             });
-    //             break;
-    //         case "2":
-    //             this.setState({
-    //                 selectData:[
-    //                     { value: 9, name: '全部' },
-    //                     { value: 10, name: '1个月以下' },
-    //                     { value: 11, name: '1~6个月' },
-    //                     { value: 12, name: '6~12个月' },
-    //                     { value: 13, name: '12个月' },
-    //                     { value: 14, name: '24个月' },
-    //                 ]
-    //             });
-    //             break;
-    //         case "3":
-    //             this.setState({
-    //                 selectData:[
-    //                     { value: 123, name: '全部' },                        
-    //                     { value: 1, name: '芝麻信用' },
-    //                     { value: 2, name: '电商账号' },
-    //                     { value: 3, name: '征信报告' },
-    //                 ]
-    //             });
-    //             break;
-    //         default:
-    //             break;    
-    //     }
-        
-    //     if(arr==undefined){
-    //         this.setState({
-    //             show: false,
-    //         });
-    //     }else{
-    //         this.setState({
-    //             show: true,
-    //         });
-    //     }
-        
-    // },
     onSelected (item) {
         console.log(name)
         var active=this.state.checkedItem;
@@ -205,7 +144,7 @@ var LoanList = React.createClass({
                 data.creditReport=3;
                 break;
             case 5:
-                data.miniScope=0;
+                data.miniScope="";
                 break;
             case 6:
                 data.miniScope=0.1;
