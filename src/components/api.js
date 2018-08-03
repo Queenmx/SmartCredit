@@ -1098,7 +1098,7 @@ module.exports.partyverification = function (bankCard, idCard, name,phone, cb1, 
     var param = JSON.stringify(data);
     console.log(param)
     var str = strEnc(param, key1);
-    http(`${globalData.pathone}/zndai/identityCard/identity`, { params: str }, cb1, cb2);
+    http(`${globalData.path}/zndai/identityCard/identity`, { params: str }, cb1, cb2);
     delete data.userId;
     delete data.bankCard;
     delete data.idCard;

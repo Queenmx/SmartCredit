@@ -629,7 +629,6 @@ class addBankcard extends Component {
                     let data = JSON.parse(Decdata);
                     console.log(data.data.matchResult);
                     if (data.data.matchResult == "MATCH") {
-
                         api.addBankcard(cardName, userName, idCard, cardNumber, bankName, cardPhone, verifyCode, function (res) {
                             console.log(res)
                             if (res.code === "0000") {
