@@ -41,6 +41,7 @@ import Getmoney from './getmoney';//提现
 import AddBankcard from './addBankcard';//添加银行卡
 import ChoiceBankcard from './choiceBankcard';//选择银行卡
 import Sharemoney from './sharemoney';//选择银行卡
+import CreditPay from './CreditPay';//信用卡待还
 
 
 //<Route path='/detail/:id' component={Detail} />
@@ -69,6 +70,7 @@ ReactDom.render((
         <Route path='/Authname' component={Authname} />
         <Route path='/loanList' component={loanList} />
         <Route path='/licai' component={licai} />
+        <Route path='/CreditPay' component={CreditPay} />
         <Route path='/task' component={task} />
         <Route path='/messages' component={messages} />
         <Route path='/msgDetail' component={msgDetail} />

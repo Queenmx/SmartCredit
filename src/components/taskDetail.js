@@ -84,7 +84,7 @@ var ListDetail = React.createClass({
                 arr.push(
                     <div key={result.id}>
                         <div className="stime">
-                        <p>任务时间：{result.releaseTime.year+1900}年{result.releaseTime.month+1}月{result.releaseTime.date}日起</p>
+                        <p>任务截止时间：{result.effectiveTime.year+1900}年{result.effectiveTime.month+1}月{result.effectiveTime.date}日</p>
                     </div> 
                         <ul className="detail" >
                             <li>

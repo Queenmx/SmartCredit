@@ -104,13 +104,17 @@ var Mine = React.createClass({
                 phone:user.phone,
                 token:user.token
             }
-            api.payBack(data,function(res){
-                if(res.code=="0000"){
-                    window.location.href=res.msg;
-                }else{
-                    Toast.info(res.msg,2);
-                }
-            })
+            // api.payBack(data,function(res){
+            //     if(res.code=="0000"){
+            //         window.location.href=res.msg;
+            //     }else{
+            //         Toast.info(res.msg,2);
+            //     }
+            // })
+            var path = {
+                pathname: '/CreditPay',
+            }      
+            hashHistory.push(path);
         } else {
             var path = {
                 pathname: '/Login',
