@@ -1085,6 +1085,8 @@
                     &:first-child{font-size: 0.3rem;}
                     &:last-child{font-size: 0.24rem;color:#999999;}
                 }
+                &>.red{color:#ff0000;}
+                &>.blue{color:#508aff;}
             }
             &>div:nth-child(2){
                 text-align: right;

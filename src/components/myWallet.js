@@ -49,11 +49,15 @@ var ListDetail = React.createClass({
                 localStorage.setItem("blance",data.balance);
                 if(data.detaileds.length){
                     for (var i in data.detaileds) {
+                        var money = data.detaileds[i].changeMoney;
+                        if(money>0){
+                            money = "+"+money
+                        }
                         walletArr.push(
                             <ul className="infolist" key={i}>
                             <li>
                                 <div>
-                                    <p>{data.detaileds[i].changeMoney}</p>
+                                    <p className={money>0?"blue":"red"}>{money}</p>
                                     <p>{data.detaileds[i].source}</p>
                                 </div>
                                 <div>

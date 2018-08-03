@@ -1061,6 +1061,10 @@
         .mywallet .infolist li div p:last-child {
           font-size: 0.24rem;
           color: #999999; }
+      .mywallet .infolist li div > .red {
+        color: #ff0000; }
+      .mywallet .infolist li div > .blue {
+        color: #508aff; }
     .mywallet .infolist li > div:nth-child(2) {
       text-align: right; }
       .mywallet .infolist li > div:nth-child(2) > p:first-child {
