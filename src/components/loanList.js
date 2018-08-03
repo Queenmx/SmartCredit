@@ -22,6 +22,7 @@ var LoanList = React.createClass({
             jiantou:false,
             flag: false,
             selectData:[],
+            defalut:[],
             value:4,
             checkData:[
                 {name:'类型',value:0},
@@ -47,7 +48,7 @@ var LoanList = React.createClass({
                 data.unshift(all);
                 // console.log(data)
                 that.setState({
-                    selectData:data
+                    defalut:data
                 })
             }
         })
@@ -191,9 +192,9 @@ var LoanList = React.createClass({
         }
         
         switch(item.id){
-            // case 123:
-            //     data.creditReport="";
-            //     break;
+            case 123:
+                data.creditReport="";
+                break;
             case 1:
                 data.creditReport=1;
                 break;
@@ -217,9 +218,9 @@ var LoanList = React.createClass({
             case 8:
                 data.miniScope=1.0;
                 break;
-            // case 9://期限9-14
-            //     data.loanTermStart=0;
-            //     break;
+            case 9://期限9-14
+                data.loanTermStart="";
+                break;
             case 10:
                 data.loanTermStart="";
                 data.loanTermEnd=1;
@@ -269,19 +270,15 @@ var LoanList = React.createClass({
         });
     },
     checked(temp){
-        // console.log(temp);           
+        // console.log(temp);  
+        var data=this.state.defalut;     
         if(!this.state.show){
             switch(temp){
                 case 0:
-                    // this.setState({
-                    //     selectData:[
-                    //         { id: 19, name: '全部' },
-                    //         { id: 15, name: '小额零用贷' },
-                    //         { id: 16, name: '大额低息贷' },
-                    //         { id: 17, name: '工薪贷' },
-                    //         { id: 18, name: '车辆贷' },
-                    //     ]
-                    // });
+
+                    this.setState({
+                        selectData:data
+                    });
                     break;
                 case 1:
                     this.setState({
