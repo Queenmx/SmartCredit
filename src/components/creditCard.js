@@ -58,7 +58,7 @@ var Ask = React.createClass({
                     for (var i in creditCardList) {
                        
                         creditCardArr.push(
-                            <a key={i} href={"http://"+creditCardList[i].creditCardLink} data-creditCardId ={creditCardList[i].identifier}>
+                            <a key={i} href={creditCardList[i].creditCardLink} data-creditCardId ={creditCardList[i].identifier}>
                                 <img src={imgPath + creditCardList[i].logo}  />
                                 <div className="loanTitle">
                                     <p>{creditCardList[i].name}</p>
