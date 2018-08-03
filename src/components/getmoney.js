@@ -421,7 +421,7 @@ class getmoney extends Component {
                             style={{
                                 fontSize: "0.3rem"
                             }}
-                            onChange={this.putforward}
+                            onBlur={this.putforward}
                             id='putforward'
                         >提现金额</InputItem>
                     </List>
