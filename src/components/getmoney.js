@@ -324,18 +324,19 @@ class getmoney extends Component {
                 console.log(this.state.serviceCharge)
             })
         }
-        if (Number(cash) > Number(blance)) {
-            Toast.info("请输入有效的金额", );
-            this.setState({
-                serviceCharge: ''
-            })
-        }
+        // if (Number(cash) > Number(blance)) {
+        //     Toast.info("请输入有效的金额", );
+        //     this.setState({
+        //         serviceCharge: ''
+        //     })
+        // }
     }
     //添加银行卡
     addCard() {
         hashHistory.push('/addBankcard')
     }
     submissionApply = () => {
+        var blance = localStorage.getItem("blance")
         if (this.state.cash >= 100) {
             //获取DOM节点，判断该DOM节点是在display是不是none
             //如果display 不是等于none 证明在页面存在，既可调用接口
@@ -370,7 +371,9 @@ class getmoney extends Component {
                     })
                 }
             }
-        } else {
+        } else if(this.state.cash>blance && this.state.cash < 100 ){
+            Toast.info('提现金额大于余额，请确认后重新输入')
+        }else{
             Toast.info('提现金额不小于100元')
         }
     }
@@ -421,7 +424,7 @@ class getmoney extends Component {
                             style={{
                                 fontSize: "0.3rem"
                             }}
-                            onBlur={this.putforward}
+                            onChange={this.putforward}
                             id='putforward'
                         >提现金额</InputItem>
                     </List>
