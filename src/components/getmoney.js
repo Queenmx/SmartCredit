@@ -337,7 +337,7 @@ class getmoney extends Component {
     }
     submissionApply = () => {
         var blance = localStorage.getItem("blance")
-        if (this.state.cash >= 100) {
+        if (this.state.cash >= 100 && this.state.cash<=blance) {
             //获取DOM节点，判断该DOM节点是在display是不是none
             //如果display 不是等于none 证明在页面存在，既可调用接口
             var hiddenPop = document.getElementById("hiddenPop")
