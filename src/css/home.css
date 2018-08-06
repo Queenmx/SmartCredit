@@ -1006,7 +1006,11 @@
         color: #020202; }
       .creditcard .loan ul a > div > p:nth-child(2) {
         font-size: 0.28rem;
-        color: #2b2b2b; }
+        color: #2b2b2b;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 4rem; }
       .creditcard .loan ul a > div > p:last-child {
         font-size: 0.24rem;
         color: #666666; }

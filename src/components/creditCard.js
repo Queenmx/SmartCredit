@@ -63,7 +63,7 @@ var Ask = React.createClass({
                                 <div className="loanTitle">
                                     <p>{creditCardList[i].name}</p>
                                     <p>{creditCardList[i].describeTion}</p>
-                                    <p><span>{creditCardList[i].totalNum}</span>本月申请</p>                                    
+                                    <p><span>{creditCardList[i].totalNum}人</span>本月申请</p>                                    
                                 </div>
                             </a>
 
@@ -74,7 +74,7 @@ var Ask = React.createClass({
                     that.setState({
                         creditCardArr: creditCardArr
                     })
-                    console.log(that.state.creditCardArr)
+                    // console.log(that.state.creditCardArr)
                 }
                
         })

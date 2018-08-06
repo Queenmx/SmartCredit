@@ -85,19 +85,19 @@ var SetPsd = React.createClass({
                 "questionnaire": [
                 {
                     "question": "请问您是否有子女？",
-                    "answers": (this.state.arr1)[index1]
+                    "answers": [(this.state.arr1)[index1]]
                 },
                 {
                     "question": "请问您和家人常以哪种方式出游？",
-                    "answers": (this.state.arr2)[index2]
+                    "answers": [(this.state.arr2)[index2]]
                 },
                 {
                     "question": "请问您更倾向于哪种商业保障？",
-                    "answers": (this.state.arr3)[index3]
+                    "answers": [(this.state.arr3)[index3]]
                 },
                 {
                     "question": "您期望的保障金额是多少？",
-                    "answers": (this.state.arr4)[index4]
+                    "answers": [(this.state.arr4)[index4]]
                 }
             ],
             tag: {
