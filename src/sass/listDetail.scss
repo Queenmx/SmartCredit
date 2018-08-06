@@ -350,6 +350,14 @@
                     }
                     &:last-child{color:#666666;}
                 }
+                &>.payWay{
+                    span{
+                        display: inline-block;
+                        overflow: hidden;
+                        width: 1.8rem;
+                        white-space: nowrap;
+                    }
+                }
             }
             .must{color:#666666;font-size: 0.24rem;height: 0.9rem;line-height: 0.9rem;text-align: center;
                 overflow: hidden;

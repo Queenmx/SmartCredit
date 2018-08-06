@@ -112,6 +112,11 @@
           .home .loan ul li > div > p:last-child {
             font-size: 0.24rem;
             color: #666666; }
+        .home .loan ul li > div > .adjust {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 4rem; }
       .home .loan ul li:last-child {
         margin-bottom: 0; }
       .home .loan ul li .loanTitle {
@@ -154,7 +159,11 @@
       color: #2b2b2b; }
     .home .credit ul a div > p:last-child {
       font-size: 0.24rem;
-      color: #666666; }
+      color: #666666;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 4.7rem; }
     .home .credit ul a div > img {
       width: 0.68rem;
       height: 0.56rem;

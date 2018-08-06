@@ -236,7 +236,7 @@ var ListDetail = React.createClass({
                                 <p>最快用时</p>
                             </div>
                             <div>
-                                <p><span>{loanDetail.repaymentMethod}</span></p>
+                                <p className="payWay"><span>{loanDetail.repaymentMethod}</span></p>
                                 <p>还款方式</p>
                             </div>                              
                         </li>

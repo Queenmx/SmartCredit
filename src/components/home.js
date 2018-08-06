@@ -182,8 +182,10 @@ var Home = React.createClass({
             Toast.info("连接错误", 2);
         })
         
-        //咨讯      
-        api.articleList("1", "10", function (res) {
+        //咨讯 
+        var page="1";
+        var num="10";     
+        api.articleList(page, num,true,function (res) {
             if (res.code = "0000") {
                 var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
                 that.setState({
@@ -215,7 +217,7 @@ var Home = React.createClass({
                         <img src={imgPath + Decdata[i].logo} />
                         <div className="loanTitle">
                             <p>{Decdata[i].name}</p>
-                            <p>适用人群：{Decdata[i].intendedFor}</p>
+                            <p className="adjust">适用人群：{Decdata[i].intendedFor}</p>
                         </div>
                         <div className="high">
                             <p>

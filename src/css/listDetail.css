@@ -357,6 +357,11 @@
               font-size: 0.28rem; }
           .listDetail .content .loan-list .numdetail > div > p:last-child {
             color: #666666; }
+        .listDetail .content .loan-list .numdetail > div > .payWay span {
+          display: inline-block;
+          overflow: hidden;
+          width: 1.8rem;
+          white-space: nowrap; }
       .listDetail .content .loan-list .numdetail .must {
         color: #666666;
         font-size: 0.24rem;

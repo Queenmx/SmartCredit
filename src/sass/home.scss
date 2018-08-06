@@ -96,8 +96,14 @@
                         }
                         &:last-child{
                             font-size: 0.24rem;
-                            color:#666666;
-                        }
+                            color:#666666;                            
+                        }                        
+                    }
+                    &>.adjust{
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        width: 4rem;
                     }
                 }
                 &:last-child{margin-bottom:0;}
@@ -151,6 +157,10 @@
                   div > p:last-child {
                     font-size: 0.24rem;
                     color: #666666;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    width: 4.7rem;
                   }
 
                 div{
