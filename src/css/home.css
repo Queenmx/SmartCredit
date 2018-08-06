@@ -287,6 +287,7 @@
   .newsBox .newsList {
     background: #FFFFFF;
     padding-left: .35rem;
+    padding-bottom: 0.3rem;
     color: #666666;
     border-bottom: 0.02rem solid #eeeeee; }
     .newsBox .newsList:after {
@@ -297,11 +298,12 @@
     .newsBox .newsList dd {
       float: left;
       width: 4.2rem;
-      margin-top: 0.2rem; }
+      margin-top: 0.32rem; }
       .newsBox .newsList dd h4 {
         line-height: 0.46rem;
         font-size: 0.28rem;
-        font-weight: 500; }
+        font-weight: 500;
+        margin-bottom: 0.5rem; }
       .newsBox .newsList dd p {
         height: 0.6rem;
         line-height: 0.6rem;
@@ -326,8 +328,8 @@
       float: right;
       width: 2.2rem; }
       .newsBox .newsList dt img {
-        max-width: 2.3rem;
-        max-height: 1.54rem; }
+        width: 2.3rem;
+        height: 1.54rem; }
   .newsBox .linkNews {
     height: 0.9rem;
     line-height: 0.9rem;

@@ -62,7 +62,7 @@ var Ask = React.createClass({
                                 <img src={imgPath + creditCardList[i].logo}  />
                                 <div className="loanTitle">
                                     <p>{creditCardList[i].name}</p>
-                                    <p>适用人群：上班族，企业主</p>
+                                    <p>{creditCardList[i].describeTion}</p>
                                     <p><span>{creditCardList[i].totalNum}</span>本月申请</p>                                    
                                 </div>
                             </a>

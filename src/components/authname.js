@@ -5,15 +5,21 @@ import api from './api';
 import { globalData } from './global.js';
 import Header from './header1';
 import Loading from './loading';
-import { hashHistory } from 'react-router';
+import { hashHistory,Link } from 'react-router';
 import {  Toast } from 'antd-mobile';
 var key1 = globalData.key;
 var appBasePath = globalData.appBasePath;
+var ip = returnCitySN["cip"];   
 var SetPsd = React.createClass({
     getInitialState: function () {
         return {
             isLoading: false,
             flag: false,
+            arr1:["0-5岁","6-13岁","13岁以上","无子女"],
+            arr2:["自驾车","火车或公交","飞机"],
+            arr3:["意外保障","重疾保障","医疗保障"],
+            arr4:["10万","20万","30万","50万"],
+            
         }
     },
     componentWillMount() {
@@ -42,31 +48,86 @@ var SetPsd = React.createClass({
                 idCard:idCard,
                 name:realName,
             }
-            console.log(data);
+            // console.log(data);
             api.authName(data,function(res){
-                if(res.code=="0000"){
-                    var path={
-                        pathname: '/', 
-                    }
+                if(res.code=="0000"){  
+                    that.getBaoxin(idCard,realName)                  
                     var user =JSON.parse(localStorage.getItem("user"));
                     Object.assign(user,{realName:realName,idCard:idCard,idCert:1});
                     localStorage.setItem("user",JSON.stringify(user));
                 }else{
                     Toast.info(res.msg, 2);    
-                }
-                hashHistory.push(path);
-            })
-            // var path={
-            //     pathname: '/myMap', 
-            // }
-            
-           
+                }              
+            })           
         } else {
             Toast.info("请输入正确的身份证号", 2);                
            
         }
     },
-
+    getBaoxin(idCard,realName){
+        var that=this;
+        var user=JSON.parse(localStorage.getItem("user"));
+        var index1=parseInt(3*Math.random());
+        var index2=parseInt(2*Math.random());
+        var index3=parseInt(2*Math.random());
+        var index4=parseInt(3*Math.random());
+        var data={
+            adCode:'d6dbecc6',                
+            activityConfigNum:0,
+            policyHolderName:realName,
+            mobile:user.phone,
+            policyHolderIdCard:idCard,
+            fromIp:ip,
+            userAgent:navigator.userAgent,
+            premiumInfo: {
+                "sumInsured": 10000000
+            },
+                "questionnaire": [
+                {
+                    "question": "请问您是否有子女？",
+                    "answers": (this.state.arr1)[index1]
+                },
+                {
+                    "question": "请问您和家人常以哪种方式出游？",
+                    "answers": (this.state.arr2)[index2]
+                },
+                {
+                    "question": "请问您更倾向于哪种商业保障？",
+                    "answers": (this.state.arr3)[index3]
+                },
+                {
+                    "question": "您期望的保障金额是多少？",
+                    "answers": (this.state.arr4)[index4]
+                }
+            ],
+            tag: {
+                "hasCar":"有",
+                "hasHouse":"没有",
+                "income":"9999",
+                "loanAmount":100000,
+                "paymentType":"ANNUAL",
+                "searchWord":"阳光保险",
+                "keyWord":"保险"
+            }
+        }
+        console.log(data)
+        api.getInsurance(data,function(res){
+            if (res.code == "0000") {
+                Toast.info("领取成功",2);
+            }else{                   
+                Toast.info(res.msg,2);
+            }
+            var path={
+                pathname: '/', 
+            }
+            that.timer=setTimeout(function(res){
+                hashHistory.push(path);
+            },1000)            
+        })
+    },
+    componentWillUnmount(){
+        clearTimeout(this.timer);
+    },
     render: function () {
         var that = this;
        
@@ -88,7 +149,31 @@ var SetPsd = React.createClass({
                         <input id="" type="password" name="surePsd" />
                     </div> */}
                     <div className="psdLogin" onClick={that.psdLogin}>提交</div>
+                    <div className={this.props.location.query.fromWhere=='forget'?'hide':"agree"}>
+                        <p>
+                            {/* <input type="radio" value="" name="info" defaultChecked/> */}
+                            <span className="checkicon" style={{backgroundImage:"url('src/img/icon/bao-icon6.png')"}}></span>本人已知
+                            <Link to={
+                        {
+                            pathname: "/txt",
+                            //hash:'#ahash',    
+                            state: { title: '投保规则', fromId: 5 }
+                            //state:{data:'hello'}     
+                        }
+                    } >《投保规则》</Link>及
+                    <Link to={
+                        {
+                            pathname: "/txt",
+                            //hash:'#ahash',    
+                            state: { title: '信息安全说明', fromId: 6    }
+                            //state:{data:'hello'}     
+                        }
+                    } >《信息安全说明》</Link>
+                    并同意领取免费保险
+                    </p>
                 </div>
+                </div>
+               
             </div>
         )
     }

@@ -40,7 +40,18 @@ module.exports.getHotCity = function (cb1, cb2) {
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/city/hot`, { params: str }, cb1, cb2);
 }
-
+//选择城市
+module.exports.select = function (item,cb1, cb2) {
+    var data = globalData.requestData;
+    // data.token=token;
+    data.userId=item.userId;
+    data.name=item.name;
+    var param = JSON.stringify(data);
+    var str = strEnc(param, key1);
+    http(`${globalData.path}/zndai/city/select`, { params: str }, cb1, cb2);
+    delete data.userId;
+    delete data.name;    
+}
 //登录
 module.exports.login = function (loginType, phone, pwd, verifyCode, cb1, cb2) {
     var data = globalData.requestData;

@@ -74,7 +74,7 @@ var HomeHeader = React.createClass({
             });
             //localStorage.setItem("curCity",dingwei);
         }
-
+        
         //}
 
     },

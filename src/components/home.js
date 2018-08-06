@@ -21,7 +21,7 @@ var Home = React.createClass({
             pageSize: 10,
             list: [],
             banner: [{"imgUrl":"uploadImg/3.jpg"},{"imgUrl":"uploadImg/timg.jpg"}],
-            imgHeight: 447,
+            imgHeight: "4.47rem",
             autoplay:false,
             newsList:[
                 {newsId:"1531485834",title:"66666"} ,
@@ -124,7 +124,7 @@ var Home = React.createClass({
         // console.log(this.state.user)
         if(this.state.user){
             var phone=this.state.user.phone;
-        //消息是否有新的
+            //消息是否有新的
             api.newsList(phone,function(res){
                 var key1 = globalData.key;
                 if(res.code=="0000"){
@@ -182,109 +182,94 @@ var Home = React.createClass({
             Toast.info("连接错误", 2);
         })
         
-        //咨讯
-      
-            api.articleList("1", "10", function (res) {
-                if (res.code = "0000") {
-                    var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    that.setState({
-                        newsList:Decdata.list
-                    },function(){
-                       
-                    })
-                    // console.log(Decdata.list)
-                    // var articleList = Decdata.list;
-                    // var articleArr = [];
-                    // for (var i in articleList) {
-                    //     articleArr.push(
-                    //                     <div className="v-item" key={i} onClick={that.toNewsDetail}  data-newsId={articleList[i].newsId} >{articleList[i].title}</div>
-                    //                    ) 
-                    // }
-                    // that.setState({
-                    //     articleArr: articleArr,
-                    // })
-                 
+        //咨讯      
+        api.articleList("1", "10", function (res) {
+            if (res.code = "0000") {
+                var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
+                that.setState({
+                    newsList:Decdata.list
+                },function(){
+                    
+                })               
 
-                } else {
-                    Toast.info(res.msg, 2);
-                }
-            }, function () {
-                Toast.info("连接错误", 2);
-            })
+            } else {
+                Toast.info(res.msg, 2);
+            }
+        }, function () {
+            Toast.info("连接错误", 2);
+        })
         
-        //热门借款产品
-      
-            api.hotLoanList("0", function (res) { 
-                if(res.code == "0000"){
-                    var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    // console.log(Decdata);
-                    // var hotLoanList = Decdata.list;
-                    sessionStorage.setItem("hotLoanList", JSON.stringify(Decdata));
-                    var hotLoanArr = [];
-                    for (var i in Decdata) {
-                       if(Decdata[i].hot == 0){
-                        //    console.log("abch")
-                           hotLoanArr.push(
-                            <li key={i} data-id={Decdata[i].id} onClick = {that.toListDetail}>
-                            <img src={imgPath + Decdata[i].logo} />
+        //热门借款产品     
+        api.hotLoanList("0", function (res) { 
+            if(res.code == "0000"){
+                var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
+                // console.log(Decdata);
+                // var hotLoanList = Decdata.list;
+                sessionStorage.setItem("hotLoanList", JSON.stringify(Decdata));
+                var hotLoanArr = [];
+                for (var i in Decdata) {
+                    if(Decdata[i].hot == 0){
+                    //    console.log("abch")
+                        hotLoanArr.push(
+                        <li key={i} data-id={Decdata[i].id} onClick = {that.toListDetail}>
+                        <img src={imgPath + Decdata[i].logo} />
+                        <div className="loanTitle">
+                            <p>{Decdata[i].name}</p>
+                            <p>适用人群：{Decdata[i].intendedFor}</p>
+                        </div>
+                        <div className="high">
+                            <p>
+                                <span>{Decdata[i].maximumAmount}</span>万    
+                            </p>
+                            <p>最高额度</p>
+                        </div>
+                    </li>    
+                                    
+                    )
+                    }
+                    
+                }
+                that.setState({
+                    hotLoanArr: hotLoanArr
+                })
+                
+            }
+        })
+
+        //热门信用卡      
+        api.hotCreditCardList(function (res) { 
+            if(res.code == "0000"){
+                var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
+                // console.log(Decdata);
+                var creditCardList = Decdata.list;
+                // sessionStorage.setItem("creditCardList", JSON.stringify(creditCardList));
+                var creditCardArr = [];
+                for (var i in creditCardList ) {
+                    if(creditCardList[i].hot == 0){
+                    creditCardArr.push(
+                        <a key={i} href={creditCardList[i].creditCardLink}>
+                            <img src={imgPath + creditCardList[i].logo}  />
                             <div className="loanTitle">
-                                <p>{Decdata[i].name}</p>
-                                <p>适用人群：{Decdata[i].intendedFor}</p>
+                                <p>{creditCardList[i].name}</p>
+                                <p>{creditCardList[i].describeTion}</p>
                             </div>
                             <div className="high">
-                                <p>
-                                    <span>{Decdata[i].maximumAmount}</span>万    
-                                </p>
-                                <p>最高额度</p>
+                                <img src={creditCardList[i].hotImg}/>
                             </div>
-                        </li>    
-                                      
-                        )
-                       }
-                        
+                        </a>
+                                    
+                    )
                     }
-                    that.setState({
-                        hotLoanArr: hotLoanArr
-                    })
-                  
+                    
                 }
-            })
+                that.setState({
+                    creditCardArr: creditCardArr
+                })
+                
+            }
+        })
+       
         
-
-        //热门信用卡
-      
-            api.hotCreditCardList(function (res) { 
-                console.log(res)
-                if(res.code == "0000"){
-                    var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
-                    // console.log(Decdata);
-                    var creditCardList = Decdata.list;
-                    // sessionStorage.setItem("creditCardList", JSON.stringify(creditCardList));
-                    var creditCardArr = [];
-                    for (var i in creditCardList ) {
-                       if(creditCardList[i].hot == 0){
-                        creditCardArr.push(
-                            <a key={i} href={creditCardList[i].creditCardLink}>
-                                <img src={imgPath + creditCardList[i].logo}  />
-                                <div className="loanTitle">
-                                    <p>{creditCardList[i].name}</p>
-                                    <p>卡种：{creditCardList[i].describeTion}</p>
-                                </div>
-                                <div className="high">
-                                    <img src={creditCardList[i].hotImg}/>
-                                </div>
-                            </a>
-                                      
-                        )
-                       }
-                        
-                    }
-                    that.setState({
-                        creditCardArr: creditCardArr
-                    })
-                  
-                }
-            })
     },
       
     componentWillUpdate(){
@@ -316,10 +301,10 @@ var Home = React.createClass({
                                         src={imgPath+item.imgUrl}
                                         // src="src/img/banner.png"
                                         alt=""
-                                        style={{ 'maxWidth': '100%', 'maxHeight': '100%', 'verticalAlign': 'top' }}
+                                        style={{ 'width': '100%', 'height': '4.47rem', 'verticalAlign': 'top' }}
                                         onLoad={() => {
                                             window.dispatchEvent(new Event('resize'));
-                                            that.setState({ imgHeight: 'auto' });
+                                            that.setState({ imgHeight:"auto" });
                                         }}
                                         />
                                     </a>
@@ -345,12 +330,6 @@ var Home = React.createClass({
                                         <div className="v-item" key={index} onClick={that.toNewsDetail}  data-newsId={item.newsId} >{item.title}</div>
                                     )
                                  })}
-                                     {/* {this.state.articleArr}     */}
-{/* 
-                                    <div className="v-item" onClick={that.toNewsDetail}></div>
-                                    <div className="v-item" onClick={that.toNewsDetail}></div>   
-                                    <div className="v-item" onClick={that.toNewsDetail}></div>   
-                                    <div className="v-item" onClick={that.toNewsDetail}></div>  */}
                                 </Carousel>
                             </li>
                             <li className="newsgo" onClick={this.newsAll}>

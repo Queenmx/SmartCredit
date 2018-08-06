@@ -48,97 +48,97 @@ class News extends Component {
         }
     }
 
-    handleRefresh(downOrUp, callback) {
-        //真实的世界中是从后端取页面和判断是否是最后一页
-        var that = this;
-        //console.log(this);
-        //console.log(that);
-        let { currentPage, lastPage, pageSize, totalPage } = that.state;
-        //console.log(that.state);
-        //console.log(totalPage);
-        if (downOrUp === 'up') { // 加载更多
-            if (currentPage == totalPage) {
-                //console.log("zuihou")
-                lastPage = true;
-                if (callback && typeof callback === 'function') {
-                    callback();
-                }
-            } else {
-                currentPage++;
-                //console.log(currentPage);
-                lastPage = false;
-                that.setState({
-                    currentPage,
-                    lastPage
-                }, () => {
-                    that.loadData(downOrUp, callback);
-                });
-            }
-        } else { // 刷新
-            lastPage = false;
-            currentPage = "1";
-            that.setState({
-                currentPage,
-                lastPage
-            }, () => {
-                that.loadData(downOrUp, callback);
-            });
-        }
+    // handleRefresh(downOrUp, callback) {
+    //     //真实的世界中是从后端取页面和判断是否是最后一页
+    //     var that = this;
+    //     //console.log(this);
+    //     //console.log(that);
+    //     let { currentPage, lastPage, pageSize, totalPage } = that.state;
+    //     //console.log(that.state);
+    //     //console.log(totalPage);
+    //     if (downOrUp === 'up') { // 加载更多
+    //         if (currentPage == totalPage) {
+    //             //console.log("zuihou")
+    //             lastPage = true;
+    //             if (callback && typeof callback === 'function') {
+    //                 callback();
+    //             }
+    //         } else {
+    //             currentPage++;
+    //             //console.log(currentPage);
+    //             lastPage = false;
+    //             that.setState({
+    //                 currentPage,
+    //                 lastPage
+    //             }, () => {
+    //                 that.loadData(downOrUp, callback);
+    //             });
+    //         }
+    //     } else { // 刷新
+    //         lastPage = false;
+    //         currentPage = "1";
+    //         that.setState({
+    //             currentPage,
+    //             lastPage
+    //         }, () => {
+    //             that.loadData(downOrUp, callback);
+    //         });
+    //     }
 
-    }
-    loadData(downOrUp, callback) {
-        var that = this;
-        var key1 = globalData.key;
-        //var toast=globalData.toast;
-        const { currentPage, pageSize, list } = that.state;
-        var arr = [];
-        api.articleList("1","10", function (res) {
-            console.log(res);
-            // console.log("11111")
-            if (res.code == "0000") {
-                var data = JSON.parse(strDec(res.data, key1, "", ""));
-                console.log(data);
-                var articleList = data.list;
-                var total = data.total;
-                var totalPage = Math.ceil(total / pageSize);
-                if (totalPage > 1) {
-                    that.setState({ scrollShow: true })
-                }
-                var articleArr = [];
-                if (articleList.length < 1) {
-                    articleArr.push(<div key={Math.random()} style={{ 'textAlign': 'center', 'lineHeight': '1rem' }}>暂无数据</div>)
-                } else {
-                    for (var i in articleList) {
-                        articleArr.push(<dl className="newsList" data-newsId={articleList[i].newsId} key={Math.random()} onClick={that.toNewsDetail}>
-                            <dd>
-                                <h4>{articleList[i].title}</h4>
-                                <p><span>{articleList[i].addTime}</span> <span><img src="src/img/icon/new-icon.png" alt="" />{articleList[i].readerNum}阅读</span></p>
-                            </dd>
-                            <dt>
-                                <img src={imgPath + articleList[i].imgUrl} onError={that.logoError} />
-                            </dt>
-                        </dl>)
-                    }
-                }
-                if (downOrUp == 'up') {
-                    var c = list.concat(articleArr);
-                } else {
-                    var c = articleArr;
-                }
-                that.setState({
-                    totalPage: totalPage,
-                    list: c
-                })
-                if (callback && typeof callback === 'function') {
-                    callback();
-                }
-            } else {
-                Toast.info(res.msg, 2);
-            }
-        }, function () {
-            Toast.info("连接错误", 2);
-        })
-    }
+    // }
+    // loadData(downOrUp, callback) {
+    //     var that = this;
+    //     var key1 = globalData.key;
+    //     //var toast=globalData.toast;
+    //     const { currentPage, pageSize, list } = that.state;
+    //     var arr = [];
+    //     api.articleList("1","10", function (res) {
+    //         console.log(res);
+    //         // console.log("11111")
+    //         if (res.code == "0000") {
+    //             var data = JSON.parse(strDec(res.data, key1, "", ""));
+    //             console.log(data);
+    //             var articleList = data.list;
+    //             var total = data.total;
+    //             var totalPage = Math.ceil(total / pageSize);
+    //             if (totalPage > 1) {
+    //                 that.setState({ scrollShow: true })
+    //             }
+    //             var articleArr = [];
+    //             if (articleList.length < 1) {
+    //                 articleArr.push(<div key={Math.random()} style={{ 'textAlign': 'center', 'lineHeight': '1rem' }}>暂无数据</div>)
+    //             } else {
+    //                 for (var i in articleList) {
+    //                     articleArr.push(<dl className="newsList" data-newsId={articleList[i].newsId} key={Math.random()} onClick={that.toNewsDetail}>
+    //                         <dd>
+    //                             <h4>{articleList[i].title}</h4>
+    //                             <p><span>{articleList[i].addTime}</span> <span><img src="src/img/icon/new-icon.png" alt="" />{articleList[i].readerNum}阅读</span></p>
+    //                         </dd>
+    //                         <dt>
+    //                             <img src={imgPath + articleList[i].imgUrl} onError={that.logoError} />
+    //                         </dt>
+    //                     </dl>)
+    //                 }
+    //             }
+    //             if (downOrUp == 'up') {
+    //                 var c = list.concat(articleArr);
+    //             } else {
+    //                 var c = articleArr;
+    //             }
+    //             that.setState({
+    //                 totalPage: totalPage,
+    //                 list: c
+    //             })
+    //             if (callback && typeof callback === 'function') {
+    //                 callback();
+    //             }
+    //         } else {
+    //             Toast.info(res.msg, 2);
+    //         }
+    //     }, function () {
+    //         Toast.info("连接错误", 2);
+    //     })
+    // }
 
     handleRefresh(downOrUp, callback) {
         //真实的世界中是从后端取页面和判断是否是最后一页
@@ -185,10 +185,9 @@ class News extends Component {
         const { currentPage, pageSize, list } = that.state;
         var arr = [];
         api.articleList(currentPage, pageSize, function (res) {
-            ////console.log(res);
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
-                //console.log(data);
+                console.log(data);
                 var articleList = data.list;
                 var total = data.total;
                 var totalPage = Math.ceil(total / pageSize);
