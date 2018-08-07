@@ -171,7 +171,7 @@ var Login = React.createClass({
                                     })
                                     var data = strDec(res.data, key1, "", "");
                                     var itemUser=JSON.parse(data);
-                                    console.log(itemUser.userId);
+                                    // console.log(itemUser.userId);
                                     //成功后
                                     localStorage.setItem("user", data);
                                     localStorage.setItem("isLogin", true);
@@ -184,19 +184,24 @@ var Login = React.createClass({
                                     // window.history.back();
                                     const backRouter = that.props.params.backRouter;
                                     //console.log(backRouter);
-                                    if (backRouter) {
-                                        hashHistory.push(backRouter);
-                                    } else {
-                                        //window.history.back()
-                                        history.go(-1);
-                                    }
-                                    that.start1("1",phoneNum);//别名设置
-                                    that.start("3",phoneNum,itemUser.userId);//登录设置
-                                    
-                                    // var path={
-                                    //     pathname:'/'//去往保险列表页
-                                    // }
-                                    // hashHistory.push(path);
+                                    console.log(user.idCert)
+                                    if(user.idCert==0||user.idCert==2){//未验证或不通过
+                                        var path={
+                                            pathname:'/Authname'
+                                        }
+                                        hashHistory.push(path);
+                                    }else{                                 
+                                        Toast.info("登录成功", 2);
+                                        const backRouter = that.props.params.backRouter;
+                                        if (backRouter) {
+                                            hashHistory.push(backRouter);
+                                        } else {
+                                            //window.history.back()
+                                            history.go(-1);
+                                        }
+                                         that.start1("1",phoneNum);//别名设置
+                                         that.start("3",phoneNum,itemUser.userId);//登录设置
+                                    } 
                                 } else {
                                     that.setState({
                                         flag: false

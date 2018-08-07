@@ -476,7 +476,7 @@ module.exports.myWallet = function (userName, userId, cb1, cb2) {
     data.userName = userName;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
-    console.log(param)
+    // console.log(param)
     var str = strEnc(param, key1);
 
     http(`${globalData.path}/zndai/wallet/my`, { params: str }, cb1, cb2);

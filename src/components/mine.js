@@ -38,7 +38,7 @@ var Mine = React.createClass({
        
         if (user) {//已登陆
             var userObj = JSON.parse(user);
-            console.log(userObj);
+            // console.log(userObj);
             
             that.setState({
                 user: userObj,

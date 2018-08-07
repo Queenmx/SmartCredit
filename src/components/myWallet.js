@@ -72,7 +72,7 @@ var ListDetail = React.createClass({
                                 <li>
                                     <div>
                                         <p className={money > 0 ? "blue" : "red"}>{money}</p>
-                                        <p>{data.detaileds[i].type}</p>
+                                        <p>{data.detaileds[i].source}</p>
                                         {/* <p>{data.detaileds[i].source}</p> */}
                                     </div>
                                     <div>
