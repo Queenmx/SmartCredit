@@ -288,18 +288,23 @@ module.exports.banner = function (cb1, cb2) {
 }
 
 //资讯列表
+<<<<<<< HEAD
 module.exports.articleList = function (pageNum, pageSize, top, cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     data.top = top;
+=======
+module.exports.articleList = function (top,cb1, cb2) {
+    var data = globalData.requestData;
+    //data.token=token;
+    data.top=top;
+>>>>>>> 0be5860214c7dcb86677efe08b4b680419ecceae
     var param = JSON.stringify(data);
-    // console.log(param)
+    // console.log(param)  
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/news/list`, { params: str }, cb1, cb2);
-    delete data.pageNum;
-    delete data.pageSize;
 }
 //热门借款产品
 module.exports.hotLoanList = function (hot, cb1, cb2) {
@@ -388,6 +393,7 @@ module.exports.findProduct = function (item, cb1, cb2) {
     data.miniScope = item.miniScope;
     data.maxScope = item.maxScope;
     data.creditReport = item.creditReport;
+    data.timeLimitUnit=item.timeLimitUnit;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/loan/product/findProduct`, { params: str }, cb1, cb2);

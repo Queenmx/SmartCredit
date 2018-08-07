@@ -89,8 +89,8 @@ class News extends Component {
         //var toast=globalData.toast;
         const { currentPage, pageSize, list } = that.state;
         var arr = [];
-        api.articleList(currentPage, pageSize,false, function (res) {
-        // api.articleList("", "",false, function (res) {
+        // api.articleList(currentPage, pageSize,false, function (res) {
+        api.articleList(false, function (res) {
             if (res.code == "0000") {
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
                 console.log(data);

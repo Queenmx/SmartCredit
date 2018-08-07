@@ -25,8 +25,8 @@
 
         }
         .pro-icon{
-            display: inline-block;
             @include icon(0.28rem,0.26rem);
+            vertical-align: inherit;
             margin-right: 0.1rem;
         }
         .loanTab{

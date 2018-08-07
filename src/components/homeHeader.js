@@ -97,12 +97,14 @@ var HomeHeader = React.createClass({
         return (
             <div className="homeHeader" style={{"paddingTop":this.state.topBarHeight+"px"}}>
                 <div className="dingwei">
-                    <img src="src/img/icon/map1.png" />
+                    {/* <img src="src/img/icon/map1.png" /> */}
+                    <img src={require(`../img/img/web/map1.png`)} />
                     <Link to="/myMap">{this.state.address}</Link>
                 </div>
                 <p className="title">万融汇</p>
                 <p className="headerLinkBtn" onClick={this.goMessage}>
-                    <img src="src/img/icon/message.png" alt=""/>
+                    {/* <img src="src/img/icon/message.png" alt=""/> */}
+                    <img src={require(`../img/img/web/message.png`)} alt=""/>
                     <span className={this.props.hasMsg?"":"hide"}></span>
                 </p>
             </div>

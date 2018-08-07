@@ -182,14 +182,13 @@ var Home = React.createClass({
             Toast.info("连接错误", 2);
         })
         
-        //咨讯 
-        var page="1";
-        var num="10";     
-        api.articleList(page, num,true,function (res) {
+        //咨讯      
+        api.articleList(true,function (res) {
             if (res.code = "0000") {
                 var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
+                // console.log(Decdata)
                 that.setState({
-                    newsList:Decdata.list
+                    newsList:Decdata.topList
                 },function(){
                     
                 })               
@@ -315,7 +314,8 @@ var Home = React.createClass({
                         </Carousel>
                         <ul className="news" onClick={this.newsAll}>
                             <li className="newvoice">
-                                <img src="src/img/icon/voice.png" />
+                                {/* <img src="src/img/icon/voice.png" /> */}
+                                <img src={require(`../img/img/web/voice.png`)} />
                             </li>
                             <li>贷款资讯：</li>
                             <li>
@@ -342,13 +342,15 @@ var Home = React.createClass({
                     <div className="product">
                         <p>
                             <span></span>
-                            <i className="pro-icon" style={{backgroundImage:"url('src/img/icon/pro-icon1.png')"}}></i>
+                            {/* <i className="pro-icon" style={{backgroundImage:"url('src/img/icon/pro-icon1.png')"}}></i> */}
+                            <i className="pro-icon" style={{backgroundImage:`url(${require(`../img/img/web/pro-icon1.png`)})`}}></i>                            
                             产品概要
                             <span></span>
                         </p>
                         <ul className="loanTab loanTan1">                           
                             <li onClick={that.toLoan}>
-                                <img src="src/img/icon/product1.png" />
+                                {/* <img src="src/img/icon/product1.png" /> */}
+                                <img src={require(`../img/img/web/product1.png`)}/>                                
                                 <div>
                                     <p>借款</p>
                                     <p>海量产品任你选</p>
@@ -356,7 +358,8 @@ var Home = React.createClass({
                                 
                             </li>
                             <li onClick={that.tolicai}>
-                                <img src="src/img/icon/product2.png" />
+                                {/* <img src="src/img/icon/product2.png" /> */}
+                                <img src={require(`../img/img/web/product2.png`)}/>                                                                
                                 <div>
                                     <p>理财</p>
                                     <p>优质的理财产品</p>
@@ -365,14 +368,16 @@ var Home = React.createClass({
                         </ul>
                         <ul className="loanTab loanTab2">                           
                             <li onClick={that.toCard}>
-                                <img src="src/img/icon/product3.png" />
+                                {/* <img src="src/img/icon/product3.png" /> */}
+                                <img src={require(`../img/img/web/product3.png`)}/>                                                                
                                 <div>
                                     <p>信用卡</p>
                                     <p>快卡通道</p>
                                 </div>                                
                             </li>
                             <li onClick={that.toTask}>
-                                <img src="src/img/icon/product4.png" />
+                                {/* <img src="src/img/icon/product4.png" /> */}
+                                <img src={require(`../img/img/web/product4.png`)}/>                                                                
                                 <div>
                                     <p>任务</p>
                                     <p>做任务&nbsp;拿现金</p>
@@ -383,7 +388,8 @@ var Home = React.createClass({
                     <div className="product loan">
                         <p>
                             <span></span>
-                            <i className="pro-icon" style={{backgroundImage:"url('src/img/icon/pro-icon2.png')"}}></i>
+                            {/* <i className="pro-icon" style={{backgroundImage:"url('src/img/icon/pro-icon2.png')"}}></i> */}
+                            <i className="pro-icon" style={{backgroundImage:`url(${require(`../img/img/web/pro-icon2.png`)})`}}></i>
                             热门借款产品
                             <span></span>
                         </p>
@@ -409,7 +415,8 @@ var Home = React.createClass({
                     <div className="product loan credit">
                         <p>
                             <span></span>
-                            <i className="pro-icon" style={{backgroundImage:"url('src/img/icon/pro-icon3.png')"}}></i>
+                            {/* <i className="pro-icon" style={{backgroundImage:"url('src/img/icon/pro-icon3.png')"}}></i> */}
+                            <i className="pro-icon" style={{backgroundImage:`url(${require(`../img/img/web/pro-icon3.png`)})`}}></i>                            
                             热门信用卡
                             <span></span>
                         </p>

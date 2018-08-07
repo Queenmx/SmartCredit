@@ -41,12 +41,12 @@
           margin-left: 0.24rem; }
     .home .product .pro-icon {
       display: inline-block;
-      display: inline-block;
       width: 0.28rem;
       height: 0.26rem;
       vertical-align: middle;
       background-size: 100%;
       background-repeat: no-repeat;
+      vertical-align: inherit;
       margin-right: 0.1rem; }
     .home .product .loanTab {
       border-bottom: 0.02rem solid #eeeeee;
