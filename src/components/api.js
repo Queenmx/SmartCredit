@@ -470,13 +470,11 @@ module.exports.applyLoan = function (limitDay, limitType, loanId, money, qualify
 
 //------------------------问题
 //我的钱包
-module.exports.myWallet = function (userName, userId, approvalState, cb1, cb2) {
-    console.log(approvalState)
+module.exports.myWallet = function (userName, userId, cb1, cb2) {
     var data = globalData.requestData;
     // data.token=token;
     data.userName = userName;
     data.userId = globalData.userId;
-    data.approvalState = approvalState;
     var param = JSON.stringify(data);
     console.log(param)
     var str = strEnc(param, key1);
@@ -484,7 +482,6 @@ module.exports.myWallet = function (userName, userId, approvalState, cb1, cb2) {
     http(`${globalData.path}/zndai/wallet/my`, { params: str }, cb1, cb2);
     delete data.userName;
     delete data.userId;
-    delete data.approvalState;
 }
 //提交反馈
 module.exports.feedBackAdd = function (content, userName, cb1, cb2) {

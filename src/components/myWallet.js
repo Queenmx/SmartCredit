@@ -38,28 +38,24 @@ var ListDetail = React.createClass({
                 isLogin: false,
             })
         }
-        api.myWallet(userName, userId, approvalState, function (res) {
-            console.log(approvalState)
-            console.log(res)
+        api.myWallet(userName, userId, function (res) {
             if (res.code == "0000") {
                 let Decdata = strDec(res.data, key1, "", "");
                 let data = JSON.parse(Decdata);
-                console.log(data);
+                console.log(data.detaileds)
                 var walletArr = [];
                 that.setState({
                     balance: data.balance
                 })
                 localStorage.setItem("blance", data.balance);
-                console.log(data.detaileds)
+                
                 if (data.detaileds.length) {
                     for (var i in data.detaileds) {
-                        console.log(data.detaileds[i].approvalState)
-
                         if (data.detaileds[i].approvalState == 0) {
                             data.detaileds[i].approvalState = '审核中'
                         }
                         if (data.detaileds[i].approvalState == 1) {
-                            data.detaileds[i].approvalState = '审核通过'
+                            data.detaileds[i].approvalState = '成功'
                         }
                         if (data.detaileds[i].approvalState == 2) {
                             data.detaileds[i].approvalState = '审核拒绝'
