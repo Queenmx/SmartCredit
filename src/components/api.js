@@ -288,19 +288,10 @@ module.exports.banner = function (cb1, cb2) {
 }
 
 //资讯列表
-<<<<<<< HEAD
-module.exports.articleList = function (pageNum, pageSize, top, cb1, cb2) {
-    var data = globalData.requestData;
-    //data.token=token;
-    data.pageNum = pageNum;
-    data.pageSize = pageSize;
-    data.top = top;
-=======
 module.exports.articleList = function (top,cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
     data.top=top;
->>>>>>> 0be5860214c7dcb86677efe08b4b680419ecceae
     var param = JSON.stringify(data);
     // console.log(param)  
     var str = strEnc(param, key1);

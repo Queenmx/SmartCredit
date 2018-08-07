@@ -56,13 +56,13 @@ var ListDetail = React.createClass({
                         console.log(data.detaileds[i].approvalState)
 
                         if (data.detaileds[i].approvalState == 0) {
-                            data.detaileds[i].type = '审核中'
+                            data.detaileds[i].approvalState = '审核中'
                         }
                         if (data.detaileds[i].approvalState == 1) {
-                            data.detaileds[i].type = '审核通过'
+                            data.detaileds[i].approvalState = '审核通过'
                         }
                         if (data.detaileds[i].approvalState == 2) {
-                            data.detaileds[i].type = '审核拒绝'
+                            data.detaileds[i].approvalState = '审核拒绝'
                         }
                         var money = data.detaileds[i].changeMoney;
                         if (money > 0) {
@@ -73,10 +73,11 @@ var ListDetail = React.createClass({
                                 <li>
                                     <div>
                                         <p className={money > 0 ? "blue" : "red"}>{money}</p>
-                                        <p>{data.detaileds[i].source}</p>
+                                        <p>{data.detaileds[i].type}</p>
+                                        {/* <p>{data.detaileds[i].source}</p> */}
                                     </div>
                                     <div>
-                                        <p>{data.detaileds[i].type}</p>
+                                        <p>{data.detaileds[i].approvalState}</p>
                                         <p>{data.detaileds[i].addTime}</p>
                                     </div>
                                 </li>
