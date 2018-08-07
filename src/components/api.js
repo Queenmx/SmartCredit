@@ -288,18 +288,14 @@ module.exports.banner = function (cb1, cb2) {
 }
 
 //资讯列表
-module.exports.articleList = function (pageNum, pageSize,top,cb1, cb2) {
+module.exports.articleList = function (top,cb1, cb2) {
     var data = globalData.requestData;
     //data.token=token;
-    data.pageNum = pageNum;
-    data.pageSize = pageSize;
     data.top=top;
     var param = JSON.stringify(data);
-    // console.log(param)
+    // console.log(param)  
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/news/list`, { params: str }, cb1, cb2);
-    delete data.pageNum;
-    delete data.pageSize;
 }
 //热门借款产品
 module.exports.hotLoanList = function (hot, cb1, cb2) {

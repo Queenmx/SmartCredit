@@ -182,14 +182,13 @@ var Home = React.createClass({
             Toast.info("连接错误", 2);
         })
         
-        //咨讯 
-        var page="1";
-        var num="10";     
-        api.articleList(page, num,true,function (res) {
+        //咨讯      
+        api.articleList(true,function (res) {
             if (res.code = "0000") {
                 var Decdata = JSON.parse(strDec(res.data, key1, "", ""));
+                // console.log(Decdata)
                 that.setState({
-                    newsList:Decdata.list
+                    newsList:Decdata.topList
                 },function(){
                     
                 })               
