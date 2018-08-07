@@ -75,7 +75,7 @@ var ListDetail = React.createClass({
                         that.setState({
                             isGet:true
                         });
-                    } 
+                    }
                     time-=1000;
                     that.getCountDown(time);                                                   	                                	
                 }.bind(that),1000);  
@@ -84,8 +84,8 @@ var ListDetail = React.createClass({
                 arr.push(
                     <div key={result.id}>
                         <div className="stime">
-                        <p>任务截止时间：{result.effectiveTime.year+1900}年{result.effectiveTime.month+1}月{result.effectiveTime.date}日</p>
-                    </div> 
+                            <p>任务截止时间：{result.effectiveTime.year+1900}年{result.effectiveTime.month+1}月{result.effectiveTime.date}日</p>
+                        </div> 
                         <ul className="detail" >
                             <li>
                                 <div className="info">
@@ -131,7 +131,7 @@ var ListDetail = React.createClass({
                                 </div>                            
                             </li>
                         </ul>
-                        </div>
+                    </div>
                 )
                 that.setState({
                     taskInfo:arr,
