@@ -127,7 +127,8 @@ var LoanList = React.createClass({
             loanTermEnd:'',
             miniScope:'',
             maxScope:'',
-            creditReport:''
+            creditReport:'',
+            timeLimitUnit:""
         }
         
         switch(item.id){
@@ -161,23 +162,28 @@ var LoanList = React.createClass({
                 data.loanTermStart="";
                 break;
             case 10:
-                data.loanTermStart="";
-                data.loanTermEnd=1;
+                data.loanTermStart=1;
+                data.loanTermEnd=30;
+                data.timeLimitUnit="日"
                 break;
             case 11:
                 data.loanTermStart=2;
+                data.timeLimitUnit="月";
                 data.loanTermEnd=6;
                 break;
             case 12:
                 data.loanTermStart=7;
                 data.loanTermEnd=12;
+                data.timeLimitUnit="月";                
                 break;
             case 13:
                 data.loanTermStart=13;
+                data.timeLimitUnit="月";
                 data.loanTermEnd=24;
                 break;
             case 14:
                 data.loanTermStart=25;
+                data.timeLimitUnit="月";
                 data.loanTermEnd="";
                 break;
             // case 15:

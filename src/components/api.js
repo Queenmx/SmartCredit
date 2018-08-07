@@ -384,6 +384,7 @@ module.exports.findProduct = function (item, cb1, cb2) {
     data.miniScope = item.miniScope;
     data.maxScope = item.maxScope;
     data.creditReport = item.creditReport;
+    data.timeLimitUnit=item.timeLimitUnit;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/loan/product/findProduct`, { params: str }, cb1, cb2);
