@@ -48,17 +48,20 @@ var ListDetail = React.createClass({
                     balance: data.balance
                 })
                 localStorage.setItem("blance", data.balance);
-                
+                var item="";
                 if (data.detaileds.length) {
                     for (var i in data.detaileds) {
                         if (data.detaileds[i].approvalState == 0) {
-                            data.detaileds[i].approvalState = '审核中'
+                            // data.detaileds[i].approvalState = '审核中'
+                            item="审核中"
                         }
                         if (data.detaileds[i].approvalState == 1) {
-                            data.detaileds[i].approvalState = '成功'
+                            // data.detaileds[i].approvalState = '成功'
+                            item="成功"
                         }
                         if (data.detaileds[i].approvalState == 2) {
-                            data.detaileds[i].approvalState = '审核拒绝'
+                            // data.detaileds[i].approvalState = '审核拒绝'
+                            item="审核拒绝"
                         }
                         var money = data.detaileds[i].changeMoney;
                         if (money > 0) {
@@ -73,7 +76,7 @@ var ListDetail = React.createClass({
                                         {/* <p>{data.detaileds[i].source}</p> */}
                                     </div>
                                     <div>
-                                        <p>{data.detaileds[i].approvalState}</p>
+                                        <p>{item}</p>
                                         <p>{data.detaileds[i].addTime}</p>
                                     </div>
                                 </li>
