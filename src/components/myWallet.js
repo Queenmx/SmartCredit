@@ -193,14 +193,19 @@ var ListDetail = React.createClass({
         const percent = this.state.percent;
         return (
             <div className="app_Box mywallet">
-                <Header title="我的钱包" />
-                <div className="listDetailCon content">
-                    <Loading flag={that.state.flag} />
+                <div>
+                    <Header title="我的钱包" />
                     <div className="time">
                         <p>{that.state.balance != "" ? that.state.balance : "0"}</p>
                         <p>账户余额<span></span>(元)</p>
                     </div>
                     <p className="account">账户明细</p>
+                </div>
+                
+                <div className="listDetailCon content">
+                    <Loading flag={that.state.flag} />
+                    
+                    
                     <div id="detail">
                         {that.state.walletArr}
                     </div>

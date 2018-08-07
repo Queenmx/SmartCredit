@@ -248,14 +248,16 @@ var Loan = React.createClass({
         
         return (
             <div className="app_Box task">
-                <header>任务中心</header>
-                <div className="content">
+                <header>任务中心
                     <div className="loankind">
                         <div className="loankindTab">
                             <p data-activeLoanId="0" className={activeLoanId == "0" ? "activeLoan" : ""} onClick={that.loankindHandle}>贷款任务</p>
                             <p data-activeLoanId="1" className={activeLoanId == "1" ? "activeLoan" : ""} onClick={that.loankindHandle}>理财任务</p>
                         </div>
                     </div>
+                </header>
+                <div className="content">
+                    
                     {/* <div className="empty"></div> */}
                     {/* <div style={{ "display": activeLoanId == "0" ? "none" : "block" }}>
                         <ul className="homeTab" >
