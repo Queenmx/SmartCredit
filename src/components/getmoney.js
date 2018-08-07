@@ -339,7 +339,7 @@ class getmoney extends Component {
         var blance = localStorage.getItem("blance");
         console.log(this.state.cash);
         console.log(blance)
-        if (this.state.cash*1<=blance*1 && this.state.cash*1 >= 100 ) {
+        if (this.state.cash * 1 <= blance * 1 && this.state.cash * 1 >= 100) {
             //获取DOM节点，判断该DOM节点是在display是不是none
             //如果display 不是等于none 证明在页面存在，既可调用接口
             var hiddenPop = document.getElementById("hiddenPop")
@@ -364,18 +364,20 @@ class getmoney extends Component {
                         if (res.code === "0000") {
                             let Decdata = strDec(res.data, key1, "", "");
                             let data = JSON.parse(Decdata);
-                            Toast.info("申请已提交", 2);
+                            Toast.info(res.msg)
                             var path = {
                                 pathname: '/myWallet',
                             }
                             hashHistory.push(path);
+                        } else {
+                            Toast.info(res.msg)
                         }
                     })
                 }
             }
-        } else if(this.state.cash*1>blance*1){
+        } else if (this.state.cash * 1 > blance * 1) {
             Toast.info('提现金额大于余额，请确认后重新输入')
-        }else if(this.state.cash*1<100){
+        } else if (this.state.cash * 1 < 100) {
             Toast.info('提现金额不小于100元')
         }
     }

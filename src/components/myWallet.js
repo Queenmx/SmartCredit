@@ -18,78 +18,95 @@ var ListDetail = React.createClass({
     getInitialState: function () {
         return {
             percent: 50,
+            approvalState: '',
         }
     },
 
     componentWillMount: function () {
-    var key1 = globalData.key;
-    var that = this;
-    var user = localStorage.getItem("user");
-    var userId = JSON.parse(localStorage.getItem("user")).userId;
-    var userName =JSON.parse(localStorage.getItem("user")).userName;
+        var key1 = globalData.key;
+        var that = this;
+        var user = localStorage.getItem("user");
+        var userId = JSON.parse(localStorage.getItem("user")).userId;
+        var userName = JSON.parse(localStorage.getItem("user")).userName;
+        var approvalState = this.state.approvalState
         if (user) {
-            this.setState({                
-                isLogin: true,                
+            this.setState({
+                isLogin: true,
             })
         } else {
-            this.setState({                
-                isLogin: false,               
+            this.setState({
+                isLogin: false,
             })
         }
-        api.myWallet(userName,userId,function (res) {
+        api.myWallet(userName, userId, approvalState, function (res) {
+            console.log(approvalState)
             console.log(res)
-            if(res.code == "0000"){
-                 let Decdata = strDec(res.data, key1, "", "");
+            if (res.code == "0000") {
+                let Decdata = strDec(res.data, key1, "", "");
                 let data = JSON.parse(Decdata);
                 console.log(data);
                 var walletArr = [];
                 that.setState({
-                    balance:data.balance
+                    balance: data.balance
                 })
-                localStorage.setItem("blance",data.balance);
-                if(data.detaileds.length){
+                localStorage.setItem("blance", data.balance);
+                console.log(data.detaileds)
+                if (data.detaileds.length) {
                     for (var i in data.detaileds) {
+                        console.log(data.detaileds[i].approvalState)
+
+                        if (data.detaileds[i].approvalState == 0) {
+                            data.detaileds[i].type = '审核中'
+                        }
+                        if (data.detaileds[i].approvalState == 1) {
+                            data.detaileds[i].type = '审核通过'
+                        }
+                        if (data.detaileds[i].approvalState == 2) {
+                            data.detaileds[i].type = '审核拒绝'
+                        }
                         var money = data.detaileds[i].changeMoney;
-                        if(money>0){
-                            money = "+"+money
+                        if (money > 0) {
+                            money = "+" + money
                         }
                         walletArr.push(
                             <ul className="infolist" key={i}>
-                            <li>
-                                <div>
-                                    <p className={money>0?"blue":"red"}>{money}</p>
-                                    <p>{data.detaileds[i].source}</p>
-                                </div>
-                                <div>
-                                    <p>{data.detaileds[i].type}</p>
-                                    <p>{data.detaileds[i].addTime}</p>
-                                </div>
-                            </li>
+                                <li>
+                                    <div>
+                                        <p className={money > 0 ? "blue" : "red"}>{money}</p>
+                                        <p>{data.detaileds[i].source}</p>
+                                    </div>
+                                    <div>
+                                        <p>{data.detaileds[i].type}</p>
+                                        <p>{data.detaileds[i].addTime}</p>
+                                    </div>
+                                </li>
                             </ul>
                         )
+
                     }
-                }else{
+
+                } else {
                     walletArr.push(
                         <p key="adf">暂无记录</p>
                     )
-                }                
+                }
                 that.setState({
                     walletArr: walletArr
                 })
             }
-            })
+        })
     },
-    getTask(){
-        if(localStorage.getItem("blance")<=0){
+    getTask() {
+        if (localStorage.getItem("blance") <= 0) {
             Toast.info("囊中羞涩，努力完成任务，争取做个有钱人再来！", 2);
-        }else{
-            var path={
-                pathname:"/Getmoney",
-                query:{balance:this.state.balance}
+        } else {
+            var path = {
+                pathname: "/Getmoney",
+                query: { balance: this.state.balance }
             };
             hashHistory.push(path);
         }
-        
+
     },
 
 
@@ -146,7 +163,7 @@ var ListDetail = React.createClass({
 
     },
 
-   
+
 
 
     logoError: function (event) {
@@ -154,7 +171,7 @@ var ListDetail = React.createClass({
         event.target.onerror = null; //控制不要一直跳动 
         //console.log(event.target.src);
     },
-    add(){
+    add() {
         let p = this.state.percent + 10;
         if (this.state.percent >= 100) {
             p = 0;
@@ -177,18 +194,18 @@ var ListDetail = React.createClass({
             <div className="app_Box mywallet">
                 <Header title="我的钱包" />
                 <div className="listDetailCon content">
-                    <Loading flag={that.state.flag} />                                     
+                    <Loading flag={that.state.flag} />
                     <div className="time">
-                        <p>{that.state.balance!=""?that.state.balance:"0"}</p>
+                        <p>{that.state.balance != "" ? that.state.balance : "0"}</p>
                         <p>账户余额<span></span>(元)</p>
                     </div>
                     <p className="account">账户明细</p>
                     <div id="detail">
-                        {that.state.walletArr }                  
-                    </div> 
-                     
-                        
-                    
+                        {that.state.walletArr}
+                    </div>
+
+
+
                 </div>
                 <div className="footer">
                     <div className="applyBtn" onClick={this.getTask}>申请提现</div>

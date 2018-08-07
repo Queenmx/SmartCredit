@@ -624,6 +624,7 @@ class addBankcard extends Component {
             Toast.info('请输入完整的信息')
         } else {
             api.partyverification(bankCard, idCard, name, phone, function (res) {
+                console.log(res)
                 if (res.code === "0000") {
                     let Decdata = strDec(res.data, key1, "", "");
                     let data = JSON.parse(Decdata);
