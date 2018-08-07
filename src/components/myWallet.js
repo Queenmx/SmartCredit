@@ -59,7 +59,7 @@ var ListDetail = React.createClass({
                             // data.detaileds[i].approvalState = '成功'
                             item="成功"
                         }
-                        if (data.detaileds[i].approvalState == 2) {
+                        if (data.detaileds[i].approvalState == -1) {
                             // data.detaileds[i].approvalState = '审核拒绝'
                             item="审核拒绝"
                         }

@@ -252,7 +252,7 @@ var Mine = React.createClass({
         var that = this;
         var imgPath = globalData.imgPath;
         var userObj = that.state.user;
-        console.log(userObj)
+        // console.log(userObj)
         return (
             <div className="app_Box mine">                
                 <div className="mineContent content">                    
