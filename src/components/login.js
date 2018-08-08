@@ -42,7 +42,7 @@ var Login = React.createClass({
     componentWillMount: function () {
         //localStorage.removeItem("user");
         //localStorage.removeItem("isLogin");
-        var phoneNum = localStorage.getItem("phoneNum") || "";
+        var phoneNum = localStorage.getItem("curPhone") || "";
         this.setState({ phoneNum: phoneNum })
     },
     componentDidUpdate(){
@@ -122,12 +122,13 @@ var Login = React.createClass({
                                     }
                                      that.start1("1",phoneNum);//别名设置
                                      that.start("3",phoneNum,itemUser.userId);//登录设置
+                                     that.getDingwei();
                                     // var path={
                                     //     pathname:'/'//去往保险列表页
                                     // }
                                     // hashHistory.push(path);
                                 }                                
-                            } else if(res.code=='1006'){
+                            } else if(res.code=='1006'){//用户不存在
                                 Toast.info(res.msg, 2);
                                 var path={
                                     pathname:'ForgotPsd',
@@ -201,6 +202,7 @@ var Login = React.createClass({
                                         }
                                          that.start1("1",phoneNum);//别名设置
                                          that.start("3",phoneNum,itemUser.userId);//登录设置
+                                         that.getDingwei();
                                     } 
                                 } else {
                                     that.setState({
@@ -239,7 +241,20 @@ var Login = React.createClass({
 
         }
     },
+    getDingwei(){
+        //定位城市
+        var user = localStorage.getItem("user");
+        var dingwei=localStorage.getItem("dingwei");
+        var datacity={
+            userId:JSON.parse(user).userId,
+            name:dingwei
+        }
+        api.select(datacity,function(res){
+            if(res.code=="0000"){
 
+            }
+        }) 
+    },
     eyesHandle: function () {
         var type = $("#psd")[0].type;
         var eyeImg = [];
@@ -338,6 +353,13 @@ var Login = React.createClass({
     },
     componentWillUnmount() {
         clearInterval(this.timer);
+        var phoneNum = this.state.phoneNum;
+        if ((/^1[345678]\d{9}$/.test(phoneNum))){
+            localStorage.setItem("curPhone",this.state.phoneNum);
+        }else{
+            localStorage.setItem("curPhone","");
+        }
+        
     },
     setupWebViewJavascriptBridge: function (callback) {
         // console.log("3333");

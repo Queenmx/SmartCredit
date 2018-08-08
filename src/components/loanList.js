@@ -370,7 +370,7 @@ var LoanList = React.createClass({
         return (
             <div className="app_Box loanlist">
                  <div className="hed">
-                    <p>贷款产品列表</p>                   
+                    <p>借款产品列表</p>                   
                         {/* <Accordion  accordion className="my-accordion" onChange={this.onChange} >
                             <Accordion.Panel header="类型" className={this.state.jiantou?"down":''}></Accordion.Panel>
                             <Accordion.Panel header="金额" className="pad"></Accordion.Panel>

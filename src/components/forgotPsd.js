@@ -22,7 +22,7 @@ var ForgotPsd = React.createClass({
         }
     },
     componentWillMount(){
-        var phoneNum = localStorage.getItem("phoneNum") || "";
+        var phoneNum = localStorage.getItem("curPhone") || "";
         var sharePhone=this.getUrlParms("share");
         console.log(sharePhone);
         localStorage.setItem("sharePhone",sharePhone);

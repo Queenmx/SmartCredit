@@ -57,10 +57,12 @@ var Loan = React.createClass({
             Toast.info("手机号码格式不对", 2);
         }else{
             var item={
-                id:this.state.id,
+                taskId:this.state.taskId,
                 userId:this.state.user.userId,
+                reviewId:this.state.reviewId,
                 phone:phoneNum,
                 pic:this.state.faceImg,
+                flowNumber	:this.state.flowNumber	
             }
             console.log(item)
             api.submitTask(item,function(res){
@@ -82,14 +84,17 @@ var Loan = React.createClass({
            
         }
     },
-    subTk(item){
+    subTk(reviewId,flowNumber,taskId){
+        // console.log(id,flowNumber )
         if(!this.state.allow){
             Toast.info("您已提交，请勿重复", 2);
             return false;
         }
         this.setState({
             show: true,
-            id:item,
+            taskId:taskId.toString(),
+            flowNumber:flowNumber,
+            reviewId:reviewId.toString(),
         });
     },
     changeInputTxt: function (e) {
@@ -192,7 +197,7 @@ var Loan = React.createClass({
                                     </div>
                                     <div className="high">
                                         <a href={item.taskUrl}>进入任务</a>
-                                        <p onClick={that.subTk.bind(that,item.reviewId)} style={that.state.bgcolor}> 提交任务</p>                               
+                                        <p onClick={that.subTk.bind(that,item.reviewId,item.flowNumber,item.id)} style={that.state.bgcolor}> 提交任务</p>                               
                                     </div>
                                 </li>
                             );

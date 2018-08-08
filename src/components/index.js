@@ -48,7 +48,7 @@ import CreditPay from './CreditPay';//信用卡待还
 
 
 ReactDom.render((
-    <Router history={hashHistory}>
+    <Router history={hashHistory}>    
         <Route path='/' component={Home}></Route>
         <Route path='/news' component={News}></Route>
         <Route path='/mine' component={Mine}></Route>

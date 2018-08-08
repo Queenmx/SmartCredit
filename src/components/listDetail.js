@@ -80,9 +80,14 @@ var ListDetail = React.createClass({
             Toast.info("连接错误", 2);
         })
     },
-    toApplyInfo: function (item) {
+    toApplyInfo: function (num,id) {
         var that = this;
         var key1 = globalData.key;
+        var item={
+            totalNum:num,
+            loanId:id
+        }
+        // console.log(item)
         if (that.state.isLogin) {
             api.setProductNum(item,function(res){
                 if(res.code=="0000"){
@@ -267,7 +272,7 @@ var ListDetail = React.createClass({
                 </div>
                 <div className="footer">
                     {/* <div className="applySaveBtn" onClick={that.saveThis} data-markId={loanDetail.markId}><img src={that.state.isMark == 1 ? "src/img/icon/sc2.png" : "src/img/icon/sc1.png"} /><p>{that.state.isMark == 1 ? "取消收藏" : "收藏"}</p></div> */}
-                    <div className="applyBtn" onClick={that.toApplyInfo.bind(that,loanDetail.totalNum)}>申请借款</div>
+                    <div className="applyBtn" onClick={that.toApplyInfo.bind(that,loanDetail.totalNum,loanDetail.id)}>申请借款</div>
                 </div>
             </div>
         )

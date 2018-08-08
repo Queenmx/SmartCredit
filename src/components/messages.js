@@ -24,18 +24,7 @@ var Login = React.createClass({
         if(user){
             this.setState({
                 user:JSON.parse(user)
-            })
-            //定位城市
-            var dingwei=localStorage.getItem("dingwei");
-            var datacity={
-                userId:JSON.parse(user).userId,
-                name:dingwei
-            }
-            api.select(datacity,function(res){
-                if(res.code=="0000"){
-
-                }
-            })            
+            })           
         }else{
             this.setState({
                 user:""

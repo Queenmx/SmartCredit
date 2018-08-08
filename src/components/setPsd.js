@@ -76,6 +76,20 @@ var SetPsd = React.createClass({
             [e.target.name]: e.target.value
         })
     },
+    getDingwei(){
+        //定位城市
+        var user = localStorage.getItem("user");
+        var dingwei=localStorage.getItem("dingwei");
+        var datacity={
+            userId:JSON.parse(user).userId,
+            name:dingwei
+        }
+        api.select(datacity,function(res){
+            if(res.code=="0000"){
+
+            }
+        }) 
+    },
     psdLogin: function () {
         var that = this;
         let psd = that.state.psd;
@@ -131,8 +145,8 @@ var SetPsd = React.createClass({
                                     pathname: '/Authname',
                                 }
                                 that.start(phoneNum,data.userId);
-                                hashHistory.push(path);
-                               
+                                that.getDingwei();
+                                hashHistory.push(path);                               
                             } else {
                                 that.setState({ isLoading: false })
                                 Toast.info(res.msg, 2);

@@ -48,7 +48,7 @@ module.exports = {
         filename: 'assets/js/[name].[chunkhash].js',
         path: paths.DIST_PATH,
         // path: path.resolve(__dirname, '../dist'),
-        // chunkFilename: '[name].[chunkhash:5].min.js'
+        // chunkFilename: '[name].[chunkhash:5].min.js',
 
         /* 对于按需加载(on-demand-load)或加载外部资源(external resources)（如图片、文件等）来说，output.publicPath 是很重要的选项 */
         /* 如果指定了一个错误的值，则在加载这些资源时会收到 404 错误。 */

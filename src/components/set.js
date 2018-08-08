@@ -76,6 +76,7 @@ var Set = React.createClass({
                     localStorage.removeItem("user");
                     localStorage.removeItem("isLogin");
                     localStorage.removeItem("phoneNum");
+                    localStorage.removeItem("curPhone");
                     localStorage.removeItem("curCity");
                     globalData.user = "",
                     globalData.requestData.token = "",

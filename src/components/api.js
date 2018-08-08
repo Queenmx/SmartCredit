@@ -369,11 +369,13 @@ module.exports.loanDetail = function (loanId, cb1, cb2) {
 //借款产品领取
 module.exports.setProductNum = function (item, cb1, cb2) {
     var data = globalData.requestData;
-    data.totalNum = item;
+    data.totalNum = item.totalNum;
+    data.loanId = item.loanId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/loan/product/setProductNum`, { params: str }, cb1, cb2);
     delete data.totalNum;
+    delete data.loanId;
 }
 //模糊查询
 module.exports.findProduct = function (item, cb1, cb2) {
@@ -954,9 +956,11 @@ module.exports.myTask = function (item, cb1, cb2) {
 module.exports.submitTask = function (item, cb1, cb2) {
     var data = globalData.requestData;
     // data.submitPic=item.pic;
-    data.reviewId = item.id,
-        data.userId = item.userId;
+    data.reviewId = item.reviewId,
+    data.userId = item.userId;
+    data.taskId=item.taskId;
     data.taskPhone = item.phone;
+    data.flowNumber	=item.flowNumber;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     console.log(param);
@@ -966,6 +970,8 @@ module.exports.submitTask = function (item, cb1, cb2) {
     delete data.reviewId;
     delete data.userId;
     delete data.taskPhone;
+    delete data.flowNumber;
+    delete data.taskId;
 }
 //当前版本
 module.exports.version = function (cb1, cb2) {
