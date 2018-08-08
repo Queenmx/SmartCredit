@@ -86,7 +86,6 @@ class sharemoney extends Component {
         var userName = JSON.parse(localStorage.getItem("user")).userName;
         api.shareDetail(userName, function (res) {
             if (res.code == "0000") {
-                console.log(res)
                 var data = JSON.parse(strDec(res.data, key1, "", ""));
                 console.log(data)
                 var shareArr = [];
@@ -94,28 +93,41 @@ class sharemoney extends Component {
                 that.setState({
                     money: data.money
                 })
-                console.log(that.state)
-                for (var i in data.listShare) {
+                // console.log(that.state)
+                if(data.listShare.length){
+                    for (var i in data.listShare) {
+                        shareArr.push(
+                            <ul className="listitem" key={i}>
+                                <li>{data.listShare[i].userName}</li>
+                                <li>{data.listShare[i].shareTime}</li>
+                                <li>{data.listShare[i].shareMoney}</li>
+                            </ul>
+                        )
+                    }
+                }else{
                     shareArr.push(
-                        <ul className="listitem" key={i}>
-                            <li>{data.listShare[i].userName}</li>
-                            <li>{data.listShare[i].shareTime}</li>
-                            <li>{data.listShare[i].shareMoney}</li>
-                        </ul>
+                        <div key="fdssdfsdf" style={{"textAlign":"center","height":"3rem","lineHeight":'3rem'}}>暂无记录</div>
                     )
-                }
+                }               
                 that.setState({
                     shareArr: shareArr
                 })
-                for (var i in data.listExtract) {
+                if(data.listExtract.length){
+                    for (var i in data.listExtract) {
+                        ExtractArr.push(
+                            <ul className="listitem" key={i + 1}>
+                                <li>{data.listExtract[i].userName}</li>
+                                <li>{data.listExtract[i].submissionTime}</li>
+                                <li>{data.listExtract[i].extract}</li>
+                            </ul>
+                        )
+                    }
+                }else{
                     ExtractArr.push(
-                        <ul className="listitem" key={i + 1}>
-                            <li>{data.listExtract[i].userName}</li>
-                            <li>{data.listExtract[i].submissionTime}</li>
-                            <li>{data.listExtract[i].extract}</li>
-                        </ul>
+                        <div key="fdssdfsdf" style={{"textAlign":"center","height":"3rem","lineHeight":'3rem'}}>暂无记录</div>
                     )
                 }
+                
                 that.setState({
                     ExtractArr: ExtractArr
                 })
@@ -162,7 +174,7 @@ class sharemoney extends Component {
             pic: urlPath+"SmartCredit/src/img/logo.png",
             message: "有钱一起赚"
         };
-        console.log(data)
+        // console.log(data)
         var native = function (data) {
             // console.log(111)
         }
@@ -339,8 +351,8 @@ class sharemoney extends Component {
                     <div className="extract">
                         <div className="extractnav">
                             <div>用户账号</div>
-                            <div>分享时间</div>
-                            <div>总提成(元)</div>
+                            <div>时间</div>
+                            <div>提成(元)</div>
                         </div>
                         {this.state.ExtractArr}
                     </div>
