@@ -45,10 +45,15 @@ import CreditPay from './CreditPay';//信用卡待还
 
 
 //<Route path='/detail/:id' component={Detail} />
-
+// const Home = (location, cb) => {
+//     require.ensure([], require => {
+//         cb(null, require('./home').default)
+//     },'Home')
+// }
 
 ReactDom.render((
     <Router history={hashHistory}>    
+        {/* <Route path='/' getComponent={Home}></Route> */}
         <Route path='/' component={Home}></Route>
         <Route path='/news' component={News}></Route>
         <Route path='/mine' component={Mine}></Route>

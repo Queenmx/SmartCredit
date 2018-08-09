@@ -40,7 +40,7 @@ const globalData = {
     // key: [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8],
     // appBasePath: "http://www.91ymfq.com/XR/",
     // path: "http://xingrongjinfu.iask.in:8886",//测试地址
-     path: "http://wrhapi.istarcredit.com:8886",//正式地址  
+    path: "http://wrhapi.istarcredit.com:8886",//正式地址  
     imgPath: "http://xrjf.oss-cn-shanghai.aliyuncs.com/",
     backPath: "http://h5.xinyzx.com:82/SmartCredit/index.html#/",//信息认证页的返回
     // urlPath:"http://h5.xinyzx.com:82/",//测试分享地址

@@ -20,13 +20,6 @@ var ListDetail = React.createClass({
     },
     componentWillUpdate(){
         var that=this;
-        // setInterval(function(){	  	
-        //     var t=that.state.time;                    
-        //     that.getCountDown(t);	
-        //     that.setState({
-        //         time:t-1000
-        //     })
-        // },1000);
     },
     componentWillMount: function () {
         var user = localStorage.getItem("user");  
@@ -155,7 +148,7 @@ var ListDetail = React.createClass({
                 phone:this.state.user.phone,
                 taskId:info.id*1
             }
-            console.log(item);
+            // console.log(item);
             if(this.state.isGet){//不能领取了
                 Toast.info("当前任务已领取完毕，请领取其他任务",2);
             }else{
