@@ -149,12 +149,15 @@ module.exports.getInsurance = function (item, cb1, cb2) {
 //实名认证
 module.exports.authName = function (item, cb1, cb2) {
     var data = globalData.requestData;
-    Object.assign(data, item);
+    data.userId=item.userId;
+    data.idCard=item.idCard;
+    data.name   =item.name;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/idCard`, { params: str }, cb1, cb2);
     delete data.userId;
-    globalData.userId = "";
+    delete data.idCard;
+    delete data.name;
 }
 //----------------个人中心
 
