@@ -122,12 +122,13 @@ var Login = React.createClass({
                                     }
                                      that.start1("1",phoneNum);//别名设置
                                      that.start("3",phoneNum,itemUser.userId);//登录设置
-                                     that.getDingwei();
+                                     
                                     // var path={
                                     //     pathname:'/'//去往保险列表页
                                     // }
                                     // hashHistory.push(path);
-                                }                                
+                                }  
+                                that.getDingwei();                            
                             } else if(res.code=='1006'){//用户不存在
                                 Toast.info(res.msg, 2);
                                 var path={
@@ -202,8 +203,8 @@ var Login = React.createClass({
                                         }
                                          that.start1("1",phoneNum);//别名设置
                                          that.start("3",phoneNum,itemUser.userId);//登录设置
-                                         that.getDingwei();
                                     } 
+                                    that.getDingwei();   
                                 } else {
                                     that.setState({
                                         flag: false

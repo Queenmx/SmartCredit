@@ -279,7 +279,14 @@ var Loan = React.createClass({
                 </p>
                 <p >上传图片不能超过5M</p>
                 <p onClick={this.subNum}>提交</p>
-                <p style={{backgroundImage:"url('src/img/icon/task-icon2.png')"}} onClick={this.onMaskClick}></p>
+                <p style={{backgroundImage:"url('src/img/icon/task-icon2.png')"}} className="close" onClick={this.onMaskClick}></p>
+                <div className="tips">
+                    <p>温馨提示：</p>
+                    <p>1、输入的手机号为完成任务的手机号，任务审批通过之后，相应的奖励会发送到该账户上；</p>
+                    <p>2、截图请上传完成任务的截图凭证，提高审批通过率；</p>
+                </div> 
+                
+                
             </div>
         )
         

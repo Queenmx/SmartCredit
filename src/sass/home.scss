@@ -985,17 +985,17 @@
             border:0.01rem solid #999999;
             padding: 0.12rem 0 0.12rem 0.2rem; 
         }
-        p{
+        &>p{
             height: 0.7rem;
             line-height: 0.7rem;
         }
-        p:last-child{
+        &>.close{
             @include icon(0.44rem,0.44rem);
             position: absolute;    
             top: -0.1rem;
             right: -0.1rem;
         }
-        p:nth-child(3),p:nth-child(5){
+        &>p:nth-child(3),p:nth-child(5){
             background:$blue;color:#fff;
             border-radius: 0.1rem;
             margin-top:0.26rem;
@@ -1006,12 +1006,15 @@
                 opacity: 0;
             }
         }
-        p:nth-child(4){
+        &>p:nth-child(4){
             color:#666666;
         }
-        p:nth-child(5){
+        &>p:nth-child(5){
             width: 1.2rem;
             margin:0.26rem auto;
+        }
+        .tips{
+            text-align: left;color:#666666;
         }
     }
 }
