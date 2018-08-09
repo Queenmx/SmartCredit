@@ -114,6 +114,11 @@ var Login = React.createClass({
                             </div>
                         )
                     })
+                    if(!(temp.viewsMyNews.length&&temp.systemNotices&&temp.myNews&&temp.viewsSystemNews)){
+                        that.setState({
+                            isShow:false
+                        })
+                    }
                     that.setState({
                         nwList:arrDom1.concat(arrDom2).concat(arrDom3).concat(arrDom4)
                     })
