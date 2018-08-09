@@ -114,7 +114,8 @@ var Login = React.createClass({
                             </div>
                         )
                     })
-                    if(!(temp.viewsMyNews.length&&temp.systemNotices&&temp.myNews&&temp.viewsSystemNews)){
+                    if(temp.viewsMyNews.length||temp.systemNotices.length||temp.myNews.length||temp.viewsSystemNews.length){
+                    }else{
                         that.setState({
                             isShow:false
                         })
