@@ -152,11 +152,11 @@ var LoanList = React.createClass({
                 data.maxScope=0.5;
                 break;
             case 7:
-                data.miniScope=0.5;
+                data.miniScope=0.6;
                 data.maxScope=1.0;
                 break;
             case 8:
-                data.miniScope=1.0;
+                data.miniScope=1.1;
                 break;
             case 9://期限9-14
                 data.loanTermStart="";
