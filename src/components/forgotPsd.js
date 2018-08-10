@@ -6,6 +6,7 @@ import { globalData } from './global.js';
 import Header from './header1';
 import { hashHistory,Link } from 'react-router';
 import { Toast } from 'antd-mobile';
+
 // var toast=globalData.toast;
 var key1 = globalData.key;
 var ForgotPsd = React.createClass({
@@ -24,7 +25,7 @@ var ForgotPsd = React.createClass({
     componentWillMount(){
         var phoneNum = localStorage.getItem("curPhone") || "";
         var sharePhone=this.getUrlParms("share");
-        console.log(sharePhone);
+        console.log("sharePhone"+sharePhone);
         localStorage.setItem("sharePhone",sharePhone);
        
         

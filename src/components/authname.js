@@ -7,6 +7,7 @@ import Header from './header1';
 import Loading from './loading';
 import { hashHistory,Link } from 'react-router';
 import {  Toast } from 'antd-mobile';
+import util from "./util";
 var key1 = globalData.key;
 var appBasePath = globalData.appBasePath;
 var ip = returnCitySN["cip"];   
@@ -60,9 +61,19 @@ var SetPsd = React.createClass({
                 }              
             })           
         } else {
-            Toast.info("请输入正确的身份证号", 2);                
-           
+            Toast.info("请输入正确的身份证号", 2);                           
         }
+        /**
+         * 实名认证埋点
+         */
+        // var data={
+        //     eventName:"实名认证",
+        //     eventId:"1",
+        //     message1:"",
+        //     message2:"",
+        //     message3:""
+        // }
+        // util.appBrige.start()
     },
     getBaoxin(idCard,realName){
         var that=this;

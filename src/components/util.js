@@ -21,3 +21,46 @@ export function formateTime(date, fmt) {
 function padLeftZero(str) {
     return ('00' + str).substr(str.length)
 }
+var appBrige={
+    setupWebViewJavascriptBridge(callback) {
+        // console.log("3333");
+        if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+        if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+        window.WVJBCallbacks = [callback];
+        var WVJBIframe = document.createElement('iframe');
+        WVJBIframe.style.display = 'none';
+        WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+        document.documentElement.appendChild(WVJBIframe);
+        setTimeout(function () { document.documentElement.removeChild(WVJBIframe) }, 0)
+    },
+    start(data) {
+        var native = function (data) {
+            
+        }
+        return this.nativeInteractive(native,data);
+    },
+    nativeInteractive(fn, obj) {
+        // console.log(123);
+        var self = this;
+        self.setupWebViewJavascriptBridge(function (bridge) {
+            if (obj) {
+                bridge.callHandler('webview_call_native', obj, function (response) { });
+            }
+            bridge.registerHandler('native_call_webview', function (data, response) {
+                fn(data);
+            })
+        });
+        if (window.start && obj) {
+            var str = JSON.stringify(obj);
+            window.start.webview_call_native(str);
+        }
+    
+        window.native_call_webview = function (data) {
+            var obj = eval('(' + data + ')');
+            fn(obj);
+        }
+    }
+}
+
+
+export default {"appBrige":appBrige};

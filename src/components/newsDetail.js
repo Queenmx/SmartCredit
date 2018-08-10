@@ -144,15 +144,15 @@ var NewsDetail = React.createClass({
                     <div className="newsArticleCon">
                         <h3>{articleDetail.title}</h3>
                         <p>
-                            <img src="src/img/icon/new-icon.png" alt=""/>
+                            <img src="src/img/icon/new-icon.png" alt="" className="eyes"/>
                             {articleDetail.readerNum}阅读
                             <span className="time">{addTime}</span>
                         </p>
                         <p dangerouslySetInnerHTML={{ __html: articleDetail.content }}></p>
-                        <div>
+                        {/* <div> */}
                             {/* <img src="src/img/icon/new-icon2.png" alt=""/> */}
-                            <img src={imgPath + articleDetail.logo}/>
-                        </div>
+                            {/* <img src={imgPath + articleDetail.logo}/> */}
+                        {/* </div> */}
                     </div>
                 </div>
                 {/* <div className="botBtn" data-markId={articleDetail.markId} onClick={that.saveHandle}>{that.state.isMark == 1 ? "取消收藏" : "收藏"}</div> */}
