@@ -275,7 +275,9 @@ var Home = React.createClass({
       
     componentWillUpdate(){
     },
-    
+    goBanner(url){
+        window.location.href=url;
+    },
 
 
     
@@ -297,7 +299,7 @@ var Home = React.createClass({
                             {/* {this.state.bannerArr} */}
                             {this.state.banner.map(function(item,i){
                                 return (
-                                    <a style={{ display: 'inline-block', width: '100%',height: that.state.imgHeight}} key={i}>
+                                    <a style={{ display: 'inline-block', width: '100%',height: that.state.imgHeight}} key={i} onClick={that.goBanner.bind(that,item.objUrl)}>
                                     <img
                                         src={imgPath+item.imgUrl}
                                         // src="src/img/banner.png"
