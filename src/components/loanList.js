@@ -229,8 +229,8 @@ var LoanList = React.createClass({
                         selectData:[
                             { id: 5, name: '全部' },   
                             { id: 30, name: '1000元以下' },                                                    
-                            { id: 6, name: '1000~5000' },
-                            { id: 7, name: '5000~10000' },
+                            { id: 6, name: '1000~5000元' },
+                            { id: 7, name: '5000~10000元' },
                             { id: 8, name: '1万元以上' },
                         ]
                     });
