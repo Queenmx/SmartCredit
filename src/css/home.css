@@ -368,14 +368,11 @@
   bottom: 1rem !important; }
 
 .bannernews {
-  position: relative;
   margin-bottom: 0.32rem; }
   .bannernews .news {
     height: 0.88rem;
     line-height: 0.88rem;
-    background: rgba(255, 255, 255, 0.3);
-    position: absolute;
-    bottom: 0;
+    background: #fff;
     width: 100%;
     padding: 0 0.36rem 0 0.32rem; }
     .bannernews .news li {
