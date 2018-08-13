@@ -202,8 +202,8 @@ var ListDetail = React.createClass({
                             </div>
                             <div className="high">
                                 <p>
-                                    {/* {loanDetail.maximumAmount>9999?<span>{loanDetail.maximumAmount/10000}万</span>:<span>{loanDetail.maximumAmount}元</span>} */}
-                                    <span>{loanDetail.maximumAmount}</span>万
+                                    {loanDetail.maximumAmount>9999?<span>{loanDetail.maximumAmount/10000}万</span>:<span>{loanDetail.maximumAmount}元</span>}
+                                    {/* <span>{loanDetail.maximumAmount}</span>万 */}
                                 </p>
                                 <p>最高额度</p>
                             </div>
@@ -214,8 +214,8 @@ var ListDetail = React.createClass({
                                 <p>平均期限</p>
                             </div>
                             <div>
-                                {/* <p> {loanDetail.averageAmount>9999?<span>{loanDetail.averageAmount/10000}万</span>:<span>{loanDetail.averageAmount}元</span>}</p> */}
-                                <p> <span>{loanDetail.averageAmount}</span>万</p>
+                                <p> {loanDetail.averageAmount>9999?<span>{loanDetail.averageAmount/10000}万</span>:<span>{loanDetail.averageAmount}元</span>}</p>
+                                {/* <p> <span>{loanDetail.averageAmount}</span>万</p> */}
                                 <p>平均额度</p>
                             </div>
                             <div>
@@ -233,7 +233,8 @@ var ListDetail = React.createClass({
                                 <p>货款期限</p>
                             </div>
                             <div>
-                                <p><span>{loanDetail.miniScope}-{loanDetail.maxScope}</span>万</p>
+                                <p><span>{loanDetail.miniScope>9999?loanDetail.miniScope/10000+"万":loanDetail.miniScope+"元"}-{loanDetail.maxScope>9999?loanDetail.maxScope/10000+"万":loanDetail.maxScope+"元"}</span></p>                                
+                                {/* <p><span>{loanDetail.miniScope}-{loanDetail.maxScope}</span>万</p> */}
                                 <p>额度范围</p>
                             </div>
                             <div>
@@ -245,11 +246,11 @@ var ListDetail = React.createClass({
                                 <p>还款方式</p>
                             </div>                              
                         </li>
-                        <li className="numdetail spe">
+                        {/* <li className="numdetail spe">
                             <p className="must">
                             申请金额必须1万以上,提交申请后,由信贷经理一对一为您服务!
                             </p>
-                        </li>
+                        </li> */}
                         <li className="numdetail spe">
                             <div className="flowPic" dangerouslySetInnerHTML={{ __html: loanDetail.loanFlow }}></div>  
                             <img src="src/img/icon/list-icon4.png" alt=""/>  

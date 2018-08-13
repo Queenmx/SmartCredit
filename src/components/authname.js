@@ -66,14 +66,14 @@ var SetPsd = React.createClass({
         /**
          * 实名认证埋点
          */
-        // var data={
-        //     eventName:"实名认证",
-        //     eventId:"1",
-        //     message1:"",
-        //     message2:"",
-        //     message3:""
-        // }
-        // util.appBrige.start()
+        var data={
+            eventName:"实名认证",
+            eventId:"1",
+            message1:"",
+            message2:"",
+            message3:""
+        }
+        util.appBrige.start(data)
     },
     getBaoxin(idCard,realName){
         var that=this;

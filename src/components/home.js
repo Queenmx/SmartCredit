@@ -8,6 +8,8 @@ import Footer from './footer';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import { Toast,Carousel } from 'antd-mobile';
+import util from "./util";
+
 import '../css/home.css';
 
 var imgPath = globalData.imgPath;
@@ -53,6 +55,17 @@ var Home = React.createClass({
                 query: data,
             }
         hashHistory.push(path);
+        /**
+         * 热门借款埋点
+         */
+        var data={
+            eventName:"热门借款产品",
+            eventId:"7",
+            message1:"",
+            message2:"",
+            message3:""
+        }
+        util.appBrige.start(data);
     },
 
     logoError: function (event) {
@@ -91,31 +104,91 @@ var Home = React.createClass({
             query: data,
         }
         hashHistory.push(path);
+        /**
+         * 单条资讯埋点
+         */
+        var data={
+            eventName:"贷款资讯",
+            eventId:"2",
+            message1:"",
+            message2:"",
+            message3:""
+        }
+        util.appBrige.start(data);
     },
-    
+    //借款
     toLoan: function () {
         var path = {
             pathname: '/loanList',
         }
         hashHistory.push(path);
+         /**
+         * 借款埋点
+         */
+        var data={
+            eventName:"产品概要(借款)",
+            eventId:"7",
+            message1:"",
+            message2:"",
+            message3:""
+        }
+        util.appBrige.start(data);
     },
+    //信用卡
     toCard(){
         var path = {
             pathname: '/creditCard',
         }
         hashHistory.push(path);
+         /**
+         * 信用卡埋点
+         */
+        var data={
+            eventName:"产品概要(信用卡)",
+            eventId:"5",
+            message1:"",
+            message2:"",
+            message3:""
+        }
+        util.appBrige.start(data);
     },
+    //任务
     toTask(){
         var path = {
             pathname: '/task',
         }
         hashHistory.push(path);
+         /**
+         * 任务埋点
+         */
+        var data={
+            eventName:"产品概要(任务)",
+            eventId:"4",
+            message1:"",
+            message2:"",
+            message3:""
+        }
+        util.appBrige.start(data);
     },
     newsAll(){
         var path = {
             pathname: '/news',
         }
         hashHistory.push(path);
+    },
+    //热门信用卡
+    goHotCre(){
+        /**
+         * 热门信用卡埋点
+         */
+        var data={
+            eventName:"热门信用卡",
+            eventId:"8",
+            message1:"",
+            message2:"",
+            message3:""
+        }
+        util.appBrige.start(data);
     },
     componentDidMount: function () {
         var key1 = globalData.key;
@@ -220,7 +293,8 @@ var Home = React.createClass({
                         </div>
                         <div className="high">
                             <p>
-                                <span>{Decdata[i].maximumAmount}</span>万    
+                                {Decdata[i].maximumAmount>9999?<span>{Decdata[i].maximumAmount/10000}万</span>:<span>{Decdata[i].maximumAmount}元</span>}
+                                {/* <span>{Decdata[i].maximumAmount}</span>万     */}
                             </p>
                             <p>最高额度</p>
                         </div>
@@ -248,7 +322,7 @@ var Home = React.createClass({
                 for (var i in creditCardList ) {
                     if(creditCardList[i].hot == 0){
                     creditCardArr.push(
-                        <a key={i} href={creditCardList[i].creditCardLink}>
+                        <a key={i} href={creditCardList[i].creditCardLink} onClick={that.goHotCre}>
                             <img src={imgPath + creditCardList[i].logo}  />
                             <div className="loanTitle">
                                 <p>{creditCardList[i].name}</p>
@@ -260,8 +334,7 @@ var Home = React.createClass({
                         </a>
                                     
                     )
-                    }
-                    
+                    }                    
                 }
                 that.setState({
                     creditCardArr: creditCardArr
@@ -277,6 +350,17 @@ var Home = React.createClass({
     },
     goBanner(url){
         window.location.href=url;
+        /**
+         * 轮播图埋点
+         */
+        var data={
+            eventName:"轮播图",
+            eventId:"6",
+            message1:"",
+            message2:"",
+            message3:""
+        }
+        util.appBrige.start(data);
     },
 
 
@@ -397,20 +481,6 @@ var Home = React.createClass({
                         </p>
                         <ul>
                             {that.state.hotLoanArr}  
-                            
-                            {/* <li>
-                                <img src="src/img/icon/product1.png" />
-                                <div className="loanTitle">
-                                    <p>点点贷-大额低息贷</p>
-                                    <p>适用人群：上班族，企业主</p>
-                                </div>
-                                <div className="high">
-                                    <p>
-                                        <span>5</span>万    
-                                    </p>
-                                    <p>最高额度</p>
-                                </div>
-                            </li> */}
                         </ul>
                         
                     </div>

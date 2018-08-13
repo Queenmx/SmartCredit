@@ -7,6 +7,8 @@ import Header from './header';
 import Loading from './loading';
 import Footer from './footer';
 import { hashHistory, Link } from 'react-router';
+import util from "./util";
+
 import '../css/home.css';
 import { Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 var imgPath = globalData.imgPath;
@@ -186,6 +188,17 @@ var Loan = React.createClass({
             query:{id:id,taskName:name,isGet}
         }
         hashHistory.push(path);
+         /**
+         * 查看任务埋点
+         */
+        var data={
+            eventName:"查看任务",
+            eventId:"11",
+            message1:"",
+            message2:"",
+            message3:""
+        }
+        util.appBrige.start(data);
     },
     //理财任务
     jzd: function () {

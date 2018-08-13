@@ -7,6 +7,8 @@ import Header from './header';
 import Loading from './loading';
 import { hashHistory, Link } from 'react-router';
 import { Toast,Progress, Button, WingBlank, WhiteSpace } from 'antd-mobile';
+import util from "./util";
+
 import '../css/home.css';
 
 
@@ -159,6 +161,17 @@ var ListDetail = React.createClass({
                             pathname: '/taskMy',                
                         }
                         hashHistory.push(path);
+                        /**
+                         * 领取任务埋点
+                         */
+                        var data={
+                            eventName:"领取任务",
+                            eventId:"12",
+                            message1:"",
+                            message2:"",
+                            message3:""
+                        }
+                        util.appBrige.start(data);
                     }else{
                         Toast.info(res.msg,2)
                     }

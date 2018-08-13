@@ -34,6 +34,7 @@ var appBrige={
         setTimeout(function () { document.documentElement.removeChild(WVJBIframe) }, 0)
     },
     start(data) {
+        // console.log("start")
         var native = function (data) {
             
         }

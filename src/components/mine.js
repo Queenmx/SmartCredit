@@ -7,6 +7,8 @@ import { hashHistory, Link } from 'react-router';
 import Footer from './footer';
 import Set from './set';
 import Login from './login';
+import util from "./util";
+
 import '../css/mine.css';
 import { Toast,List } from 'antd-mobile';
 var appBasePath = globalData.appBasePath;
@@ -129,6 +131,17 @@ var Mine = React.createClass({
             var path = {
                 pathname: '/taskMy',
             }
+            /**
+             * 我的任务埋点
+             */
+            var data={
+                eventName:"个人中心(我的任务)",
+                eventId:"13",
+                message1:"",
+                message2:"",
+                message3:""
+            }
+            util.appBrige.start(data);
         } else {
             var path = {
                 pathname: '/Login',
@@ -182,6 +195,17 @@ var Mine = React.createClass({
             var path = {
                 pathname: '/Sharemoney',
             }
+            /**
+             * 分享赚钱埋点
+             */
+            var data={
+                eventName:"个人中心(分享赚钱)",
+                eventId:"14",
+                message1:"",
+                message2:"",
+                message3:""
+            }
+            util.appBrige.start(data);
         } else {
             var path = {
                 pathname: '/Login',

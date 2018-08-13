@@ -3,11 +3,39 @@
 // import ReactDom from 'react-dom';
 import { Router, Route, Link } from 'react-router';
 import {Toast } from 'antd-mobile';
+import util from "./util";
+
 var Footer = React.createClass({
     getInitialState: function () {
         return {
             //activeIndex:0
         }
+    },
+    loan(){
+        /**
+         * 底部借款埋点
+         */
+        var data={
+            eventName:"底部(借款)",
+            eventId:"9",
+            message1:"",
+            message2:"",
+            message3:""
+        }
+        util.appBrige.start(data);
+    },
+    task(){
+        /**
+         * 底部任务中心埋点
+         */
+        var data={
+            eventName:"底部(任务中心)",
+            eventId:"10",
+            message1:"",
+            message2:"",
+            message3:""
+        }
+        util.appBrige.start(data);
     },
     render: function () {
         var activeIndex = this.props.activeIndex;
@@ -18,12 +46,12 @@ var Footer = React.createClass({
                     <div data-id="0"><img src={activeIndex == 0 ? require(`../img/img/web/foot-home.png`) :require(`../img/img/web/foot-home2.png`)} data-id="0" /></div>                    
                     <p className={activeIndex == 0 ? "activeNav" : ""}>首页</p>
                 </Link>
-                <Link to="/loanList">
+                <Link to="/loanList" onClick={this.loan}>
                     {/* <div data-id="1"><img src={activeIndex == 1 ? "src/img/icon/foot-loan.png" : "src/img/icon/foot-loan2.png"} data-id="1" /></div> */}
                     <div data-id="1"><img src={activeIndex == 1 ?  require(`../img/img/web/foot-loan.png`) : require(`../img/img/web/foot-loan2.png`)} data-id="1" /></div>
                     <p className={activeIndex == 1 ? "activeNav" : ""}>借款</p>
                 </Link>            
-                <Link to="/task" className="taskIcon">
+                <Link to="/task" className="taskIcon" onClick={this.task}>
                     {/* <div data-id="2"><img src={"src/img/icon/foot-task.png"} data-id="2" /></div> */}
                     <div data-id="2"><img src={require(`../img/img/web/foot-task.png`)} data-id="2" /></div>
                     <p className={activeIndex == 2 ? "activeNav" : ""}>任务中心</p>
