@@ -9,7 +9,6 @@ var ip = returnCitySN["cip"];
 module.exports.tag = function (type, cb1, cb2) {
     //getNewUser();
     var data = globalData.requestData;
-    //data.token=token;
     data.tagType = "LOAN";
     data.type = type;//BQ 标签 FL 分类
     var param = JSON.stringify(data);
@@ -25,7 +24,6 @@ module.exports.tag = function (type, cb1, cb2) {
 //获取城市列表
 module.exports.getCityList = function (cb1, cb2) {
     var data = globalData.requestData;
-    //data.token=token;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/city/list`, { params: str }, cb1, cb2);
@@ -35,7 +33,6 @@ module.exports.getCityList = function (cb1, cb2) {
 //热门城市
 module.exports.getHotCity = function (cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/city/hot`, { params: str }, cb1, cb2);
@@ -43,7 +40,6 @@ module.exports.getHotCity = function (cb1, cb2) {
 //选择城市
 module.exports.select = function (item, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     data.userId = item.userId;
     data.name = item.name;
     var param = JSON.stringify(data);
@@ -55,7 +51,6 @@ module.exports.select = function (item, cb1, cb2) {
 //登录
 module.exports.login = function (loginType, phone, pwd, verifyCode, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     data.loginType = loginType;
     data.phone = phone;
     data.pwd = pwd;//login_type为PWD时必填
@@ -74,8 +69,7 @@ module.exports.login = function (loginType, phone, pwd, verifyCode, cb1, cb2) {
 
 //注册
 module.exports.register = function (phone, pwd, verifyCode, sharePhone, cb1, cb2) {
-    var data = globalData.requestData;
-    // data.token=token;
+    var data = globalData.requestData;    
     data.phone = phone;
     data.pwd = pwd;
     data.type = "C";
@@ -97,7 +91,6 @@ module.exports.register = function (phone, pwd, verifyCode, sharePhone, cb1, cb2
 //忘记密码，重置密码
 module.exports.forgot = function (phone, pwd, verifyCode, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     data.phone = phone;
     data.pwd = pwd;
     data.verifyCode = verifyCode;
@@ -113,7 +106,6 @@ module.exports.forgot = function (phone, pwd, verifyCode, cb1, cb2) {
 //发送手机验证码
 module.exports.verifyCode = function (phone, type, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     data.phone = phone;
     data.type = type;//REG 注册 ，FPWD忘记密码
 
@@ -129,13 +121,14 @@ module.exports.verifyCode = function (phone, type, cb1, cb2) {
 //退出
 module.exports.exit = function (cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/user/exit`, { params: str }, cb1, cb2);
     delete data.userId;
     globalData.userId = "";
+
+    // http(`${globalData.path}/zndai/user/exit`, cb1, cb2);
 }
 //领取保险
 module.exports.getInsurance = function (item, cb1, cb2) {
@@ -164,7 +157,6 @@ module.exports.authName = function (item, cb1, cb2) {
 //个人信息修改
 module.exports.edit = function (idCard, located, realName, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     data.idCard = idCard;
     data.located = located;
     data.realName = realName;
@@ -182,7 +174,6 @@ module.exports.edit = function (idCard, located, realName, cb1, cb2) {
 //个人信息查询
 module.exports.userInfo = function (cb1, cb2) {
     var data = globalData.requestData;
-    //data.token=token;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
@@ -193,7 +184,6 @@ module.exports.userInfo = function (cb1, cb2) {
 //修改密码
 module.exports.updatePsd = function (newPwd, oldPwd, cb1, cb2) {
     var data = globalData.requestData;
-    //  data.token=token;
     data.newPwd = newPwd;
     data.oldPwd = oldPwd;
     data.userId = globalData.userId;;
@@ -220,7 +210,6 @@ module.exports.qualifyListSave = function (qualifySelect, cb1, cb2) {
 //用户个人资质查询
 module.exports.qualifyList = function (loanId, parentId, cb1, cb2) {
     let data = globalData.requestData;
-    // data.token=token;
     data.loanId = loanId;
     data.parentId = parentId;
     data.userId = globalData.userId;;
@@ -235,7 +224,6 @@ module.exports.qualifyList = function (loanId, parentId, cb1, cb2) {
 //字典查询
 module.exports.dictionary = function (objId, parentId, typeCode, cb1, cb2) {
     let data = globalData.requestData;
-    //data.token=token;
     data.parentId = parentId;
     data.objId = objId;
     data.typeCode = typeCode;
@@ -252,7 +240,6 @@ module.exports.dictionary = function (objId, parentId, typeCode, cb1, cb2) {
 //用户头像上传
 module.exports.userHead = function (headPic, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     //data.headPic = headPic;
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
@@ -265,7 +252,6 @@ module.exports.userHead = function (headPic, cb1, cb2) {
 //身份认证
 module.exports.identityUserCert = function (backPic, frontPic, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     //data.backPic = backPic;
     //data.frontPic = frontPic;
     data.userId = globalData.userId;
@@ -284,7 +270,6 @@ module.exports.identityUserCert = function (backPic, frontPic, cb1, cb2) {
 //banner
 module.exports.banner = function (cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/banner/list`, { params: str }, cb1, cb2);
@@ -293,7 +278,6 @@ module.exports.banner = function (cb1, cb2) {
 //资讯列表
 module.exports.articleList = function (top,cb1, cb2) {
     var data = globalData.requestData;
-    //data.token=token;
     data.top=top;
     var param = JSON.stringify(data);
     // console.log(param)  
@@ -303,7 +287,6 @@ module.exports.articleList = function (top,cb1, cb2) {
 //热门借款产品
 module.exports.hotLoanList = function (hot, cb1, cb2) {
     var data = globalData.requestData;
-    //data.token=token;
     var param = JSON.stringify(data);
     // console.log(param)
     var str = strEnc(param, key1);
@@ -314,19 +297,17 @@ module.exports.hotLoanList = function (hot, cb1, cb2) {
 //信用卡列表
 module.exports.creditCardList = function (pageNum, pageSize, cb1, cb2) {
     var data = globalData.requestData;
-    //data.token=token;
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/credit/list`, { params: str }, cb1, cb2);
-    // delete data.pageNum;
-    // delete data.pageSize;
+    delete data.pageNum;
+    delete data.pageSize;
 }
 //热门信用卡列表
 module.exports.hotCreditCardList = function (cb1, cb2) {
     var data = globalData.requestData;
-    //data.token=token;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/credit/hot`, { params: str }, cb1, cb2);
@@ -338,7 +319,6 @@ module.exports.hotCreditCardList = function (cb1, cb2) {
 //资讯详情
 module.exports.articleDetail = function (newsId, cb1, cb2) {
     var data = globalData.requestData;
-    //data.token=token;
     data.newsId = newsId;
     data.userId = globalData.userId;;
     var param = JSON.stringify(data);
@@ -353,8 +333,7 @@ module.exports.articleDetail = function (newsId, cb1, cb2) {
 //---------------------贷款产品
 //借款列表
 module.exports.productList = function (cb1, cb2) {
-    var data = globalData.requestData;
-    //data.token=token;    
+    var data = globalData.requestData; 
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/loan/product/viewProducts`, { params: str }, cb1, cb2);
@@ -412,7 +391,6 @@ module.exports.productTypeQuery = function (cb1, cb2) {
 //列表
 module.exports.loanList = function (pageNum, pageSize, tag, type, cb1, cb2) {
     var data = globalData.requestData;
-    //data.token=token;
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     data.tag = tag;
@@ -429,7 +407,6 @@ module.exports.loanList = function (pageNum, pageSize, tag, type, cb1, cb2) {
 //利息
 module.exports.lixi = function (limitDay, limitType, loanId, money, cb1, cb2) {
     var data = globalData.requestData;
-    //data.token=token;
     data.limitDay = limitDay;
     data.limitType = limitType;
     data.loanId = loanId;
@@ -450,7 +427,6 @@ module.exports.lixi = function (limitDay, limitType, loanId, money, cb1, cb2) {
 
 module.exports.applyLoan = function (limitDay, limitType, loanId, money, qualifyList, cb1, cb2) {
     var data = globalData.requestData;
-    //data.token=token;
     data.limitDay = limitDay;
     data.limitType = limitType;
     data.loanId = loanId;
@@ -477,7 +453,6 @@ module.exports.applyLoan = function (limitDay, limitType, loanId, money, qualify
 //我的钱包
 module.exports.myWallet = function (userName, userId, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     data.userName = userName;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
@@ -491,7 +466,6 @@ module.exports.myWallet = function (userName, userId, cb1, cb2) {
 //提交反馈
 module.exports.feedBackAdd = function (content, userName, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     data.content = content;
     data.userName = userName;;
     var param = JSON.stringify(data);
@@ -505,7 +479,6 @@ module.exports.feedBackAdd = function (content, userName, cb1, cb2) {
 //我要提问
 module.exports.questionAdd = function (content, objId, objType, userName, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     data.content = content;
     data.objId = objId;
     data.objType = objType;
@@ -522,21 +495,17 @@ module.exports.questionAdd = function (content, objId, objType, userName, cb1, c
 //问题列表
 module.exports.questionList = function (cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
-
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/sysQuestion/list`, { params: str }, cb1, cb2);
 
 }
 //我的问题列表
-
 module.exports.myQuestion = function (userName, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     data.userName = userName;
     var param = JSON.stringify(data);
-    console.log(param)
+    // console.log(param)
     var str = strEnc(param, key1);
     http(`${globalData.path}/zndai/backQuestion/show`, { params: str }, cb1, cb2);
     delete data.userName;
@@ -544,8 +513,6 @@ module.exports.myQuestion = function (userName, cb1, cb2) {
 //个人中心设置修改密码
 module.exports.resetPsd = function (userId, oldPwd, newPwd, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
-    // console.log(data.token)
     data.userId = globalData.userId;
     data.oldPwd = oldPwd;
     data.newPwd = newPwd
@@ -560,7 +527,6 @@ module.exports.resetPsd = function (userId, oldPwd, newPwd, cb1, cb2) {
 //添加收藏
 module.exports.save = function (objId, objType, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     data.objId = objId;
     data.objType = objType;//ARTICLE   LOAN 
     data.userId = globalData.userId;;
@@ -575,7 +541,6 @@ module.exports.save = function (objId, objType, cb1, cb2) {
 //取消收藏
 module.exports.delSave = function (markIds, objType, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     data.markIds = markIds;
     data.objType = objType;//ARTICLE   LOAN 
     data.userId = globalData.userId;;
@@ -591,7 +556,6 @@ module.exports.delSave = function (markIds, objType, cb1, cb2) {
 //收藏贷款列表
 module.exports.saveLoan = function (pageNum, pageSize, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     data.userId = globalData.userId;;
@@ -608,7 +572,6 @@ module.exports.saveLoan = function (pageNum, pageSize, cb1, cb2) {
 
 module.exports.saveArticle = function (pageNum, pageSize, cb1, cb2) {
     var data = globalData.requestData;
-    // data.token=token;
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     data.userId = globalData.userId;;
@@ -646,7 +609,6 @@ module.exports.saveArticle = function (pageNum, pageSize, cb1, cb2) {
  */
 module.exports.orderList = function (pageNum, pageSize, flag, cb1, cb2) {
     var data = globalData.requestData;
-    //data.token=token;
     data.pageNum = pageNum;
     data.pageSize = pageSize;
     data.flag = flag;
@@ -668,7 +630,6 @@ module.exports.orderList = function (pageNum, pageSize, flag, cb1, cb2) {
  */
 module.exports.cancleOrder = function (applyId, flag, cb1, cb2) {
     var data = globalData.requestData;
-    //data.token=token;
     data.applyId = applyId;
     data.flag = flag;
     data.userId = globalData.userId;
@@ -689,7 +650,6 @@ module.exports.cancleOrder = function (applyId, flag, cb1, cb2) {
  */
 module.exports.circle = function (cb1, cb2) {
     var data = globalData.requestData;
-    //data.token=token;
     data.userId = globalData.userId;
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
@@ -1152,15 +1112,10 @@ module.exports.payBack = function (item, cb1, cb2) {
     var data = globalData.requestData;
     data.userId = item.userId;
     data.userName = item.phone;
-    data.token = item.token;
-    data.appFlag = "C"
     var param = JSON.stringify(data);
     var str = strEnc(param, key1);
-    // console.log(param);
+    console.log(param);
     http(`${globalData.path}/zndai/user/credit/payBack`, { params: str }, cb1, cb2);
     delete data.userId;
     delete data.userName;
-    delete data.token;
-    delete data.appFlag;
-
 }

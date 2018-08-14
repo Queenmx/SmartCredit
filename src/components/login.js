@@ -96,7 +96,7 @@ var Login = React.createClass({
                                 //var data =JSON.stringify(res.data);
                                 var data = strDec(res.data, key1, "", "");
                                 var itemUser=JSON.parse(data);
-                                console.log(itemUser.userId);
+                                // console.log(itemUser.userId);
                                 //成功后
                                 localStorage.setItem("user", data);
                                 localStorage.setItem("isLogin", true);
@@ -105,7 +105,7 @@ var Login = React.createClass({
                                 globalData.user = data;
                                 globalData.userId = user.userId;
                                 globalData.requestData.token = user.token;
-                                console.log(user.idCert)
+                                // console.log(user.idCert)
                                 if(user.idCert==0||user.idCert==2){//未验证或不通过
                                     var path={
                                         pathname:'/Authname'

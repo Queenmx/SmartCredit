@@ -104,7 +104,6 @@ var Mine = React.createClass({
             var data={
                 userId:user.userId,
                 phone:user.phone,
-                token:user.token
             }
             // api.payBack(data,function(res){
             //     if(res.code=="0000"){
@@ -176,6 +175,17 @@ var Mine = React.createClass({
             }           
         }
         hashHistory.push(path);
+    },
+    goTalk(){
+        if (this.state.isLogin) {
+            window.location.href="https://tb.53kf.com/code/client/10179904/1"
+        } else {
+            var path = {
+                pathname: '/Login',
+            }        
+            hashHistory.push(path);   
+        }     
+       
     },
     toHelp: function () {
         if (this.state.isLogin) {
@@ -276,6 +286,7 @@ var Mine = React.createClass({
         var that = this;
         var imgPath = globalData.imgPath;
         var userObj = that.state.user;
+        var talkPath=globalData.talkPath
         // console.log(userObj)
         return (
             <div className="app_Box mine">                
@@ -323,7 +334,8 @@ var Mine = React.createClass({
                             <Item
                             thumb="src/img/icon/my-icon3.png"
                             arrow="horizontal"
-                            onClick={() => {window.location.href="https://tb.53kf.com/code/client/10179904/1"}}
+                            // onClick={this.goTalk}
+                            onClick={()=>{window.location.href=talkPath}}
                             >在线客服</Item>
                         </List>
                         <List>

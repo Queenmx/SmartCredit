@@ -41,10 +41,12 @@ const globalData = {
     // appBasePath: "http://www.91ymfq.com/XR/",
     path: "http://xingrongjinfu.iask.in:8886",//测试地址
     // path: "http://wrhapi.istarcredit.com:8886",//正式地址  
+    // path:"http://192.168.0.104:8886",//本地地址
     imgPath: "http://xrjf.oss-cn-shanghai.aliyuncs.com/",
     backPath: "http://h5.xinyzx.com:82/SmartCredit/index.html#/",//信息认证页的返回
     urlPath:"http://h5.xinyzx.com:82/",//测试分享地址
     // urlPath: "http://wrh.istarcredit.com:8104/",//正式分享地址
+    talkPath:"https://tb.53kf.com/code/client/10179904/1",//53客服
     user: localStorage.getItem("user") || "",
     // userObj:JSON.parse(this.user);
     //userId: this.userObj.userId || "",
