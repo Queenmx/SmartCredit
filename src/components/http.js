@@ -10,7 +10,7 @@ module.exports = (url, data, cb1, cb2) => {
         },
         xhrFields: {
 		      withCredentials: true
-		   },
+		},
         error: function (event, XMLHttpRequest, ajaxOptions, thrownError) {
             //console.log(event);
             cb2();
