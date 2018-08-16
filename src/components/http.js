@@ -5,6 +5,7 @@ module.exports = (url, data, cb1, cb2) => {
         data: data,
         type: "POST",
         dataType: "json",
+        // crossDomain: true,
         success: function (res) {
             cb1(res)
         },
