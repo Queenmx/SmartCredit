@@ -395,6 +395,8 @@
       width: 0.16rem;
       height: 0.28rem;
       vertical-align: middle; }
+    .bannernews .news .slider-frame {
+      height: 44px !important; }
 
 #app .loanlist .content .loan-list {
   background: #fff;
